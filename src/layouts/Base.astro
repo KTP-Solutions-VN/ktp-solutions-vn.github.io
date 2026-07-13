@@ -11,6 +11,55 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+
+const site = Astro.site ?? new URL('https://www.ktpsolutions.vn');
+const pageTitle = `${t('site.name')} — ${t('hero.tagline')}`;
+const description = t('site.description');
+const keywords = t('site.keywords');
+
+// Canonical + language alternates (one-page site: vi at /, en at /en/)
+const canonical = new URL(lang === 'vi' ? '/' : '/en/', site).href;
+const alternates = [
+  { hreflang: 'vi', href: new URL('/', site).href },
+  { hreflang: 'en', href: new URL('/en/', site).href },
+  { hreflang: 'x-default', href: new URL('/', site).href },
+];
+
+const ogImage = new URL('/og-image.png', site).href;
+const ogLocale = lang === 'vi' ? 'vi_VN' : 'en_US';
+const ogLocaleAlt = lang === 'vi' ? 'en_US' : 'vi_VN';
+
+// Organization structured data (JSON-LD)
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'KTP Solutions',
+  url: site.href,
+  logo: new URL('/favicon.svg', site).href,
+  image: ogImage,
+  email: 'info@ktpsolutions.vn',
+  description,
+  slogan: t('hero.tagline'),
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'VN',
+  },
+  areaServed: 'VN',
+  knowsAbout: [
+    'Software Development',
+    'Web Design',
+    'Web Development',
+    'Digital Marketing',
+    'Brand Design',
+    'Digital Transformation',
+  ],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    email: 'info@ktpsolutions.vn',
+    contactType: 'customer service',
+    availableLanguage: ['Vietnamese', 'English'],
+  },
+};
 ---
 
 <!doctype html>
@@ -18,15 +67,46 @@ const t = useTranslations(lang);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary -->
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content="KTP Solutions" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#0d9488" />
+
+    <!-- Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{t('site.name')} — {t('hero.tagline')}</title>
-    <meta name="description" content={t('site.description')} />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+
+    <!-- Canonical + language alternates -->
+    <link rel="canonical" href={canonical} />
+    {
+      alternates.map((a) => (
+        <link rel="alternate" hreflang={a.hreflang} href={a.href} />
+      ))
+    }
 
     <!-- Open Graph -->
-    <meta property="og:title" content={t('site.name')} />
-    <meta property="og:description" content={t('site.description')} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.ktpsolutions.vn/" />
+    <meta property="og:site_name" content="KTP Solutions" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="KTP Solutions" />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogLocaleAlt} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -34,6 +114,12 @@ const t = useTranslations(lang);
     <link
       href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
+    />
+
+    <!-- Structured data -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(jsonLd)}
     />
   </head>
   <body>

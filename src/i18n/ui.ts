@@ -11,7 +11,9 @@ export const ui = {
   vi: {
     'site.name': 'KTP Solutions',
     'site.description':
-      'KTP Solutions — đối tác chuyển đổi số toàn diện: phát triển phần mềm, thiết kế website, truyền thông số và thiết kế thương hiệu.',
+      'KTP Solutions — đối tác chuyển đổi số toàn diện: phát triển phần mềm, thiết kế website, truyền thông số và thiết kế thương hiệu cho doanh nghiệp Việt Nam.',
+    'site.keywords':
+      'KTP Solutions, công ty phần mềm, phát triển phần mềm, thiết kế website, thiết kế web chuyên nghiệp, giải pháp phần mềm, digital marketing, truyền thông số, thiết kế thương hiệu, nhận diện thương hiệu, chuyển đổi số, công ty công nghệ, giải pháp công nghệ, phát triển ứng dụng, thiết kế web Việt Nam',
 
     'nav.services': 'Dịch vụ',
     'nav.about': 'Về chúng tôi',
@@ -64,7 +66,9 @@ export const ui = {
   en: {
     'site.name': 'KTP Solutions',
     'site.description':
-      'KTP Solutions — your full-service digital transformation partner: software development, web design, digital media and brand design.',
+      'KTP Solutions — your full-service digital transformation partner: software development, web design, digital media and brand design for businesses in Vietnam.',
+    'site.keywords':
+      'KTP Solutions, software development company, custom software, web design, web development, professional website, software solutions, digital marketing, digital media, brand design, brand identity, digital transformation, technology company Vietnam, app development',
 
     'nav.services': 'Services',
     'nav.about': 'About',
