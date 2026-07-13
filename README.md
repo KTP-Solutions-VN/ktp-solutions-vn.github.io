@@ -31,18 +31,21 @@ Push to `main` → GitHub Actions builds and deploys automatically.
 **One-time setup on GitHub:**
 
 1. Repo → **Settings → Pages → Build and deployment → Source = GitHub Actions**
-2. Custom domain: `ktpsolutions.vn` (already set via `public/CNAME`)
+2. Custom domain: `www.ktpsolutions.vn` (already set via `public/CNAME`)
 
-### DNS records for `ktpsolutions.vn`
+### DNS records (Cloudflare)
 
-At your domain registrar, point the apex domain to GitHub Pages:
+Cloudflare flattens CNAME at the apex, so no A records are needed.
 
-| Type  | Host  | Value                    |
-| ----- | ----- | ------------------------ |
-| A     | @     | 185.199.108.153          |
-| A     | @     | 185.199.109.153          |
-| A     | @     | 185.199.110.153          |
-| A     | @     | 185.199.111.153          |
-| CNAME | www   | ktp-solutions-vn.github.io. |
+| Type  | Name | Target                        | Proxy status |
+| ----- | ---- | ----------------------------- | ------------ |
+| CNAME | `@`  | `ktp-solutions-vn.github.io`  | DNS only     |
+| CNAME | `www`| `ktp-solutions-vn.github.io`  | DNS only     |
+
+Notes:
+
+- **Proxy = DNS only (grey cloud)** until GitHub issues the TLS cert;
+  turning the orange proxy on too early blocks cert issuance.
+- **SSL/TLS mode = Full** (not Flexible) to avoid a redirect loop.
 
 Then enable **Enforce HTTPS** in Settings → Pages.

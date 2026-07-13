@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://ktpsolutions.vn',
+  site: 'https://www.ktpsolutions.vn',
   i18n: {
     defaultLocale: 'vi',
     locales: ['vi', 'en'],
