@@ -3,18 +3,41 @@
 @theme {
   --font-sans: 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif;
 
-  /* Brand teal palette */
-  --color-brand-50: #f0fdfa;
-  --color-brand-100: #ccfbf1;
-  --color-brand-200: #99f6e4;
-  --color-brand-300: #5eead4;
-  --color-brand-400: #2dd4bf;
-  --color-brand-500: #14b8a6;
-  --color-brand-600: #0d9488;
-  --color-brand-700: #0f766e;
-  --color-brand-800: #115e59;
-  --color-brand-900: #134e4a;
-  --color-brand-950: #042f2e;
+  /* Primary — emerald (from logo #019770) */
+  --color-brand-50: #e6f7f1;
+  --color-brand-100: #c1ecdd;
+  --color-brand-200: #8bd9c0;
+  --color-brand-300: #4ec3a1;
+  --color-brand-400: #16ab83;
+  --color-brand-500: #039873;
+  --color-brand-600: #017d5f;
+  --color-brand-700: #01634b;
+  --color-brand-800: #034f3d;
+  --color-brand-900: #053f31;
+  --color-brand-950: #002d21;
+
+  /* Neutral dark — navy (from logo #00084A) */
+  --color-navy-50: #eceef7;
+  --color-navy-100: #cfd3ea;
+  --color-navy-200: #a0a8d4;
+  --color-navy-300: #6b76b5;
+  --color-navy-400: #3d4a8a;
+  --color-navy-500: #1f2a63;
+  --color-navy-600: #131c4f;
+  --color-navy-700: #0a1140;
+  --color-navy-800: #030b38;
+  --color-navy-900: #010a30;
+  --color-navy-950: #00084a;
+
+  /* Accent — crimson (from logo #AA0124), use sparingly */
+  --color-accent-50: #fdeaed;
+  --color-accent-100: #f9ccd2;
+  --color-accent-200: #f09aa6;
+  --color-accent-300: #e35f73;
+  --color-accent-400: #cc2f48;
+  --color-accent-500: #aa0124;
+  --color-accent-600: #8f001e;
+  --color-accent-700: #730018;
 }
 
 html {
