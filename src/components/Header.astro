@@ -1,4 +1,5 @@
 ---
+import Logo from './Logo.astro';
 import { useTranslations, localizedPath } from '../i18n/utils';
 import type { Lang } from '../i18n/ui';
 
@@ -21,26 +22,24 @@ const home = localizedPath('/', lang);
 ---
 
 <header
-  class="sticky top-0 z-50 border-b border-slate-100 bg-white/80 backdrop-blur"
+  class="sticky top-0 z-50 border-b border-white/10 bg-brand-900/95 backdrop-blur"
 >
   <nav
     class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4"
     aria-label="Main"
   >
-    <a href={home} class="flex items-center gap-2 text-lg font-extrabold">
-      <span
-        class="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600 text-white"
-        >KTP</span
-      >
-      <span class="hidden sm:inline text-slate-900">Solutions</span>
+    <a href={home} class="flex items-center gap-3" aria-label="KTP Solutions">
+      <Logo class="h-7 w-auto text-white sm:h-8" />
     </a>
 
     <div class="flex items-center gap-6">
-      <ul class="hidden items-center gap-6 text-sm font-medium text-slate-600 md:flex">
+      <ul
+        class="hidden items-center gap-7 text-sm font-medium text-slate-200 md:flex"
+      >
         {
           nav.map((item) => (
             <li>
-              <a href={item.href} class="transition hover:text-brand-600">
+              <a href={item.href} class="transition hover:text-white">
                 {item.label}
               </a>
             </li>
@@ -50,7 +49,7 @@ const home = localizedPath('/', lang);
 
       <a
         href={otherLangPath}
-        class="rounded-md border border-slate-200 px-3 py-1.5 text-sm font-semibold text-slate-700 transition hover:border-brand-400 hover:text-brand-600"
+        class="rounded-md border border-white/20 px-3 py-1.5 text-sm font-semibold text-slate-100 transition hover:border-white/60 hover:text-white"
         hreflang={otherLang}
       >
         {otherLang.toUpperCase()}
@@ -58,7 +57,7 @@ const home = localizedPath('/', lang);
 
       <a
         href="#contact"
-        class="hidden rounded-md bg-brand-600 px-4 py-1.5 text-sm font-semibold text-white transition hover:bg-brand-700 sm:inline-block"
+        class="hidden rounded-md bg-white px-4 py-1.5 text-sm font-semibold text-brand-800 transition hover:bg-brand-50 sm:inline-block"
       >
         {t('nav.contact')}
       </a>

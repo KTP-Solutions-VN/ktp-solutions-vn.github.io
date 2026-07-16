@@ -60,7 +60,7 @@ export const ui = {
     'contact.form.message': 'Nội dung',
     'contact.form.send': 'Gửi liên hệ',
 
-    'footer.rights': 'Bảo lưu mọi quyền.',
+    'footer.rights': 'All rights reserved.',
     'footer.tagline': 'Giải pháp công nghệ, nâng tầm doanh nghiệp.',
   },
   en: {

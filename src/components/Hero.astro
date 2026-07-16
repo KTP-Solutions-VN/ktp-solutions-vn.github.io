@@ -19,6 +19,15 @@ const t = useTranslations(lang);
     class="pointer-events-none absolute -left-24 top-40 h-72 w-72 rounded-full bg-brand-300/30 blur-3xl"
   >
   </div>
+  <!-- angular accent bars echoing the logo's forward slashes -->
+  <div
+    class="pointer-events-none absolute -right-10 top-0 h-full w-40 -skew-x-12 bg-gradient-to-b from-brand-400/10 to-transparent"
+  >
+  </div>
+  <div
+    class="pointer-events-none absolute right-16 top-0 h-full w-4 -skew-x-12 bg-brand-400/20"
+  >
+  </div>
 
   <div class="relative mx-auto max-w-6xl px-6 py-24 text-center sm:py-32">
     <span
@@ -37,13 +46,13 @@ const t = useTranslations(lang);
     <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
       <a
         href="#contact"
-        class="w-full rounded-lg bg-brand-600 px-8 py-3 font-semibold text-white shadow-lg shadow-brand-600/20 transition hover:bg-brand-700 sm:w-auto"
+        class="w-full rounded-md bg-brand-600 px-8 py-3 font-semibold text-white shadow-lg shadow-brand-600/20 transition hover:bg-brand-700 sm:w-auto"
       >
         {t('hero.cta')}
       </a>
       <a
         href="#services"
-        class="w-full rounded-lg border border-slate-200 bg-white px-8 py-3 font-semibold text-slate-700 transition hover:border-brand-400 hover:text-brand-600 sm:w-auto"
+        class="w-full rounded-md border border-slate-200 bg-white px-8 py-3 font-semibold text-slate-700 transition hover:border-brand-400 hover:text-brand-600 sm:w-auto"
       >
         {t('hero.cta2')}
       </a>
