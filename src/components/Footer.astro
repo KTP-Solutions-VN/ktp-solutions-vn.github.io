@@ -1,5 +1,4 @@
 ---
-import Logo from './Logo.astro';
 import { useTranslations } from '../i18n/utils';
 import type { Lang } from '../i18n/ui';
 
@@ -12,27 +11,27 @@ const t = useTranslations(lang);
 const year = 2026;
 ---
 
-<footer class="bg-brand-900 text-slate-300">
+<footer class="border-t border-slate-100 bg-slate-50 text-slate-600">
   <div
     class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-6 py-12 sm:flex-row"
   >
     <div class="flex flex-col items-center gap-3 sm:items-start">
-      <Logo class="h-8 w-auto text-white" />
-      <p class="text-sm text-slate-400">{t('footer.tagline')}</p>
+      <img src="/color-logo.svg" alt="KTP Solutions" class="h-8 w-auto" />
+      <p class="text-sm text-slate-500">{t('footer.tagline')}</p>
     </div>
     <div
-      class="flex flex-col items-center gap-1 text-sm text-slate-400 sm:items-end"
+      class="flex flex-col items-center gap-1 text-sm text-slate-500 sm:items-end"
     >
       <a
         href="mailto:info@ktpsolutions.vn"
-        class="font-medium text-brand-300 transition hover:text-brand-200"
+        class="font-medium text-brand-700 transition hover:text-brand-600"
         >info@ktpsolutions.vn</a
       >
       <span>www.ktpsolutions.vn</span>
     </div>
   </div>
   <div
-    class="border-t border-white/10 py-4 text-center text-xs text-slate-400"
+    class="border-t border-slate-200 py-4 text-center text-xs text-slate-400"
   >
     © {year} KTP Solutions. {t('footer.rights')}
   </div>
