@@ -1,0 +1,53 @@
+/* Chi tiết dịch vụ — renderer dùng chung cho 4 trang dịch vụ, đọc dữ liệu từ DATA_DICH_VU
+   Mỗi trang set biến CURRENT_SERVICE_SLUG trước khi include file này. */
+(function () {
+  'use strict';
+  var ICONS = {
+    code: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
+    layout: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg>',
+    megaphone: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>',
+    palette: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".6"/><circle cx="17.5" cy="10.5" r=".6"/><circle cx="8.5" cy="7.5" r=".6"/><circle cx="6.5" cy="12.5" r=".6"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.5-.7 1.5-1.5 0-.4-.2-.8-.4-1.1-.2-.3-.4-.6-.4-1 0-.8.7-1.4 1.5-1.4H16c3.3 0 6-2.7 6-6 0-4.4-4-8-10-8z"/></svg>'
+  };
+  var ICON_BG = { code: 'rgba(76,95,255,0.16)', layout: 'rgba(1,151,112,0.16)', megaphone: 'rgba(245,165,36,0.16)', palette: 'rgba(170,1,36,0.16)' };
+  var ICON_COLOR = { code: 'var(--primary)', layout: 'var(--accent)', megaphone: 'var(--warning)', palette: '#E0335A' };
+  var CHECK = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+  var root = document.getElementById('service-detail');
+  if (!root || typeof DATA_DICH_VU === 'undefined' || typeof CURRENT_SERVICE_SLUG === 'undefined') return;
+  var dv = DATA_DICH_VU.find(function (d) { return d.slug === CURRENT_SERVICE_SLUG; });
+  if (!dv) return;
+
+  root.innerHTML =
+    '<section class="section" style="padding-top:24px;">' +
+      '<div class="container grid-2" style="align-items:center; gap:48px;">' +
+        '<div>' +
+          '<div class="service-card__icon" style="width:64px; height:64px; background:' + ICON_BG[dv.icon] + '; color:' + ICON_COLOR[dv.icon] + '; margin-bottom:20px;">' + ICONS[dv.icon] + '</div>' +
+          '<h1 style="font-size:36px; margin-bottom:16px;">' + dv.ten + '</h1>' +
+          '<p class="body-lg">' + dv.mo_ta_dai + '</p>' +
+        '</div>' +
+        '<div class="card signature-glow-bg" style="padding:0; overflow:hidden;">' +
+          '<div style="padding:32px;">' +
+            '<span class="caption">Lợi ích cụ thể</span>' +
+            '<div style="margin-top:16px; display:flex; flex-direction:column; gap:14px;">' +
+              dv.loi_ich.map(function (li) {
+                return '<div style="display:flex; gap:10px; align-items:flex-start;"><span style="color:var(--success); flex-shrink:0; margin-top:2px;">' + CHECK + '</span><span style="font-size:14.5px; color:var(--text-secondary);">' + li + '</span></div>';
+              }).join('') +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</section>' +
+    '<section class="section section-bg-surface reveal">' +
+      '<div class="container">' +
+        '<div class="section-header">' +
+          '<span class="caption">Quy trình triển khai</span>' +
+          '<h2>Từng bước KTP thực hiện dịch vụ này</h2>' +
+        '</div>' +
+        '<div class="process-steps">' +
+          dv.quy_trinh.map(function (step, i) {
+            return '<div class="process-step"><div class="process-step__num">0' + (i + 1) + '</div><p class="body-lg" style="font-size:14.5px;">' + step + '</p></div>';
+          }).join('') +
+        '</div>' +
+      '</div>' +
+    '</section>';
+})();

@@ -1,0 +1,7 @@
+/* Blog — page-specific tweaks */
+.article-body h2 { font-size: 21px; margin: 32px 0 12px; }
+.article-body p { color: var(--text-secondary); margin-bottom: 16px; line-height: 1.7; }
+.article-body blockquote {
+  border-left: 3px solid var(--accent); padding: 4px 0 4px 20px; margin: 24px 0;
+  font: 500 16px/1.6 var(--font-sans); color: var(--text-primary); font-style: italic;
+}

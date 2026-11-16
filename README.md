@@ -1,37 +1,52 @@
 # KTP Solutions — Website
 
-Public landing page for **KTP Solutions** (ktpsolutions.vn).
-Built with [Astro](https://astro.build) + [Tailwind CSS v4](https://tailwindcss.com), bilingual (VI/EN), deployed to GitHub Pages.
+Public website for **KTP Solutions** (www.ktpsolutions.vn).
+Plain static HTML/CSS/JS — no build step, no dependencies. Deployed to GitHub Pages.
 
-## Stack
+> The previous Astro landing page was replaced by this version. It is still in
+> the git history if you need to look back.
 
-- **Astro 5** — static site generation
-- **Tailwind CSS v4** — styling (`@tailwindcss/vite`)
-- **i18n** — Astro built-in routing. VI at `/`, EN at `/en/`
-- **Deploy** — GitHub Actions → GitHub Pages
+## Structure
 
-## Local development
-
-```bash
-npm install
-npm run dev      # http://localhost:4321
-npm run build    # output to ./dist
-npm run preview  # preview the production build
+```
+index.html                 Home page (+ script.js, style.css)
+assets/css/global.css      Shared design system / UI kit
+assets/js/global.js        Shared behavior: header, mobile nav, reveal, VI/EN toggle
+assets/data/*.js           Content data: services, projects, blog posts, testimonials
+assets/img/                Logos
+screens/<page>/            Other pages, each with its own index.html, script.js, style.css
+  ve-chung-toi/            About us
+  dich-vu/                 Services overview + 4 service detail pages
+  du-an/                   Projects list + chi-tiet/?slug=... (detail)
+  blog/                    Blog list + chi-tiet/?slug=... (post)
+  lien-he/                 Contact & booking form + cam-on/ (thank-you)
+en/                        Redirect for the old /en/ URL (sets language to EN)
 ```
 
 ## Editing content
 
-All text lives in [`src/i18n/ui.ts`](src/i18n/ui.ts) — edit `vi` and `en`
-dictionaries. Sections are components under [`src/components/`](src/components/).
+- Static text is in each page's HTML. English text sits next to it in a
+  `data-en="..."` attribute; the VI/EN toggle swaps them (choice saved in
+  `localStorage`).
+- Services, projects, blog posts and testimonials live in `assets/data/*.js`.
+- Adding a page? Also add it to `sitemap.xml`.
+
+## Local preview
+
+Any static server works, e.g.:
+
+```bash
+python3 -m http.server 8000   # http://localhost:8000
+```
 
 ## Deployment
 
-Push to `main` → GitHub Actions builds and deploys automatically.
+Push to `main` → GitHub Actions uploads the repo as-is and deploys to Pages.
 
 **One-time setup on GitHub:**
 
 1. Repo → **Settings → Pages → Build and deployment → Source = GitHub Actions**
-2. Custom domain: `www.ktpsolutions.vn` (already set via `public/CNAME`)
+2. Custom domain: `www.ktpsolutions.vn` (set via `CNAME`)
 
 ### DNS records (Cloudflare)
 
