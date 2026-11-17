@@ -1,0 +1,3 @@
+#bill-tbody input[type="date"],
+#bill-tbody input[type="number"] { width: 100%; min-width: 110px; }
+#bill-tbody td { vertical-align: middle; }

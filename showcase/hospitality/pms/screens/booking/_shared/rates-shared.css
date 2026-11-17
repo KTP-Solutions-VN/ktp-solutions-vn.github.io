@@ -1,0 +1,83 @@
+/* ==========================================================================
+   Shared CSS for the Rates & Seasons sub-module (BOOK-066..076).
+   Imported by each screen's own style.css via @import, after
+   booking-shared.css. Keep additions here generic (used by 2+ screens in
+   this group); screen-specific rules stay in that screen's own style.css.
+   ========================================================================== */
+
+/* Overview hub link-cards (BOOK-066) */
+.hub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.hub-card {
+  display: flex; flex-direction: column; gap: 10px; padding: 22px 20px;
+  background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1); transition: box-shadow var(--transition-fast), transform var(--transition-fast), border-color var(--transition-fast);
+}
+.hub-card:hover { box-shadow: var(--shadow-2); transform: translateY(-2px); border-color: var(--color-primary); }
+.hub-card__icon { width: 42px; height: 42px; border-radius: var(--radius-md); background: var(--color-primary-50); color: var(--color-primary-dark); display: flex; align-items: center; justify-content: center; }
+.hub-card__icon svg { width: 22px; height: 22px; }
+.hub-card__title { font-size: var(--font-size-lg); font-weight: 700; color: var(--color-primary-dark); }
+.hub-card__desc { font-size: var(--font-size-sm); color: var(--color-gray-600); line-height: 1.5; }
+.hub-card__cta { margin-top: auto; font-size: var(--font-size-xs); font-weight: 700; color: var(--color-primary-dark); display: flex; align-items: center; gap: 4px; }
+.hub-card.disabled { opacity: 0.55; cursor: not-allowed; }
+.hub-card.disabled:hover { transform: none; box-shadow: var(--shadow-1); border-color: var(--color-gray-200); }
+
+/* Legacy / rarely-used entry point affordance (kept reachable but visually de-emphasized) */
+.legacy-link-row { margin-top: 14px; font-size: var(--font-size-xs); color: var(--color-gray-500); display: flex; align-items: center; gap: 6px; }
+.legacy-link-row a, .legacy-link-row__btn { color: var(--color-gray-600); text-decoration: underline; text-underline-offset: 2px; }
+.legacy-link-row a:hover, .legacy-link-row__btn:hover { color: var(--color-primary-dark); }
+.legacy-link-row__btn { background: none; border: none; padding: 0; font: inherit; cursor: pointer; }
+
+/* Confirmation-only screens (BOOK-069 finish / BOOK-075 daily) */
+.confirm-panel { max-width: 560px; text-align: left; }
+.confirm-panel__icon { width: 46px; height: 46px; border-radius: 50%; background: var(--color-primary-50); color: var(--color-primary-dark); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+.confirm-panel__icon svg { width: 24px; height: 24px; }
+.confirm-panel p { font-size: var(--font-size-md); color: var(--color-gray-800); line-height: 1.6; }
+.confirm-panel__meta { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 22px; }
+
+/* Season visual timeline (BOOK-073) */
+.season-timeline { position: relative; height: 56px; border-radius: var(--radius-md); background: var(--color-gray-100); overflow: hidden; margin-bottom: 6px; }
+.season-timeline__block {
+  position: absolute; top: 0; bottom: 0; display: flex; align-items: center; justify-content: center;
+  color: var(--color-white); font-size: 11px; font-weight: 700; letter-spacing: 0.02em; overflow: hidden;
+  white-space: nowrap; text-overflow: ellipsis; padding: 0 6px; border-right: 2px solid rgba(255,255,255,0.5);
+}
+.season-timeline__months { display: flex; font-size: 10px; color: var(--color-gray-500); font-weight: 600; text-transform: uppercase; }
+.season-timeline__months span { flex: 1; text-align: center; }
+.season-legend { display: flex; gap: 14px; flex-wrap: wrap; margin: 14px 0; }
+.season-legend__item { display: flex; align-items: center; gap: 6px; font-size: var(--font-size-xs); color: var(--color-gray-600); }
+.season-legend__dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+.season-name-chip { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; }
+.season-name-chip__dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+
+/* Comparison / reconciliation table (BOOK-074 mismatch mode) */
+table.recon-table td.mismatch { color: var(--color-danger-text); font-weight: 700; }
+table.recon-table td.ok { color: var(--color-success-text); font-weight: 700; }
+table.recon-table th.season-col { text-align: center; }
+table.recon-table td.season-col { text-align: center; font-variant-numeric: tabular-nums; }
+.recon-source-badge { font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.03em; }
+.trend-up { color: var(--color-success-text); }
+.trend-down { color: var(--color-danger-text); }
+.trend-flat { color: var(--color-gray-400); }
+
+/* Season Revenue KPI blocks (BOOK-074 Mode 2) */
+.kpi-group-title { font-size: var(--font-size-sm); font-weight: 700; color: var(--color-primary-dark); margin: 20px 0 10px; text-transform: uppercase; letter-spacing: 0.03em; }
+.kpi-group-title:first-child { margin-top: 0; }
+.kpi-trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 6px; }
+.kpi-trio-card { background: var(--color-gray-50); border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: 12px 14px; }
+.kpi-trio-card__label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--color-gray-500); }
+.kpi-trio-card__value { font-size: var(--font-size-lg); font-weight: 700; color: var(--color-primary-dark); margin-top: 4px; font-variant-numeric: tabular-nums; }
+@media (max-width: 760px) { .kpi-trio { grid-template-columns: 1fr; } }
+
+.mini-chart-wrap { margin: 8px 0 4px; }
+.mini-chart-wrap svg { width: 100%; height: 90px; display: block; }
+.mini-chart-title { font-size: var(--font-size-xs); font-weight: 700; color: var(--color-gray-600); margin-bottom: 4px; }
+
+.season-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+.season-nav__title { font-size: var(--font-size-lg); font-weight: 700; color: var(--color-primary-dark); display: flex; align-items: center; gap: 8px; }
+.season-nav button.btn { padding: 8px 10px; }
+
+/* Smart season input block (BOOK-073) */
+.smart-input-hint { font-size: var(--font-size-xs); color: var(--color-gray-500); margin-top: 6px; }
+textarea.smart-input { font-family: 'SFMono-Regular', Consolas, Menlo, monospace; font-size: var(--font-size-sm); min-height: 100px; }
+
+.rate-value-cell { font-variant-numeric: tabular-nums; }

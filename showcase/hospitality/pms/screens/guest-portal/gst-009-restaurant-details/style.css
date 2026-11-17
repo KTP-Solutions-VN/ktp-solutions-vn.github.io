@@ -1,0 +1,16 @@
+/* GST-009 — Restaurant Details */
+
+.guest-content--narrow { max-width: 880px; }
+
+.rest-gallery__main { border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 10px; }
+.rest-gallery__main .photo-tile { min-height: 280px; border-radius: var(--radius-lg); }
+.rest-gallery__thumbs { display: flex; gap: 8px; }
+.rest-gallery__thumb {
+  flex: 1; height: 56px; border-radius: var(--radius-md); border: 2px solid transparent; cursor: pointer;
+  color: var(--color-white); font-size: 11px; font-weight: 700; display: flex; align-items: flex-end; padding: 6px 8px;
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+.rest-gallery__thumb.active { border-color: var(--color-primary-dark); }
+.rest-gallery__thumb:hover { transform: translateY(-1px); }
+
+#rest-rating { align-self: flex-start; padding-top: 6px; }

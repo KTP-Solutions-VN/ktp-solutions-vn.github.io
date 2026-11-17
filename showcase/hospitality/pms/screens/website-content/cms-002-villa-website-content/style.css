@@ -1,0 +1,26 @@
+/* CMS-002 — Main CMS Page per Villa */
+
+.cms-status-row { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; padding: 14px 20px; }
+.cms-status-row__label { font-size: var(--font-size-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--color-gray-500); }
+
+#villa-switcher { cursor: pointer; padding-right: 28px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B7688' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; background-size: 13px; }
+
+.cms-upload-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.cms-upload-tile {
+  width: 56px; height: 56px; border-radius: var(--radius-md); border: 1.5px dashed var(--color-gray-300);
+  background: var(--color-gray-50); color: var(--color-gray-400); display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.cms-upload-tile svg { width: 22px; height: 22px; }
+
+.cms-form-footer { display: flex; justify-content: flex-end; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--color-gray-100); }
+
+.cms-section-title { font-size: var(--font-size-lg); color: var(--color-primary-dark); margin: 22px 0 12px; }
+.cms-section-title:first-of-type { margin-top: 0; }
+
+.seo-page-group { border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: 16px; margin-bottom: 14px; }
+.seo-page-group__title { font-size: var(--font-size-sm); font-weight: 700; color: var(--color-primary-dark); margin-bottom: 10px; }
+
+.cms-checklist { display: flex; flex-direction: column; gap: 2px; }
+.cms-checklist label { display: flex; align-items: center; gap: 10px; padding: 10px 4px; border-bottom: 1px solid var(--color-gray-100); font-size: var(--font-size-sm); cursor: pointer; }
+.cms-checklist label:last-child { border-bottom: none; }
+.cms-checklist input { width: 16px; height: 16px; accent-color: var(--color-primary); }

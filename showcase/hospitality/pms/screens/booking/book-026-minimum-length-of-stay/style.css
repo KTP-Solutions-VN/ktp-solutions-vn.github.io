@@ -1,0 +1,16 @@
+@import url("../_shared/booking-shared.css");
+
+.toolbar-select {
+  border: 1px solid var(--color-gray-200); border-radius: var(--radius-pill);
+  padding: 7px 12px; font-size: var(--font-size-xs); font-weight: 600; color: var(--color-gray-700);
+  background: var(--color-white); outline: none; cursor: pointer;
+}
+tr.needs-fill { background: var(--color-warning-bg); }
+tr.needs-fill:hover { background: var(--color-warning-bg); }
+.min-stay-input {
+  width: 90px; border: 1px solid var(--color-gray-300); border-radius: var(--radius-md);
+  padding: 7px 10px; font-size: var(--font-size-sm); font-variant-numeric: tabular-nums;
+}
+.min-stay-input.to-fill { border-color: var(--color-warning); background: var(--color-white); }
+.min-stay-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px var(--color-primary-50); }
+.to-fill-tag { font-size: 11px; font-weight: 700; color: var(--color-warning-text); margin-left: 8px; text-transform: uppercase; letter-spacing: 0.03em; }

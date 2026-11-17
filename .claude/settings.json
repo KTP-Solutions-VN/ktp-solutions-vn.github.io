@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /Users/Apple/Documents/Projects/personal/ktp/ktp-solutions-vn.github.io/scripts/check_rules.py --hook",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
+  }
+}

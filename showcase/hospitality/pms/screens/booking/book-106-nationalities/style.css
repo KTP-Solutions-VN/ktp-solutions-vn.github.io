@@ -1,0 +1,51 @@
+/* BOOK-106 — Nationalities */
+.toolbar__select {
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-family: var(--font-family-base);
+  background: var(--color-white);
+  color: var(--color-gray-800);
+}
+.nat-layout {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .nat-layout { grid-template-columns: 1fr; }
+}
+.nat-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow-sm);
+}
+.nat-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+.nat-card__title { font-size: 14px; font-weight: 600; color: var(--color-primary-dark); margin: 0; }
+.nat-card__tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+.nat-tag {
+  display: inline-flex;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary-50);
+  color: var(--color-primary-dark);
+  font-size: 12px;
+  font-weight: 500;
+}
+.nat-card__behaviour { font-size: 12px; color: var(--color-gray-600); margin: 0; }
+.card-title-sm { font-size: 14px; font-weight: 600; margin: 0 0 14px; color: var(--color-primary-dark); }
+.form-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 12px; }
+.divider { border-top: 1px solid var(--color-gray-100); margin: 20px 0 14px; }
+#unassigned-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.nat-tag--muted { background: var(--color-gray-100); color: var(--color-gray-600); }

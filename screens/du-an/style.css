@@ -1,1 +1,21 @@
-/* Dự án — page-specific tweaks */
+/* Dự án — chip lọc lĩnh vực + khối nội dung theo lĩnh vực (markup render sẵn bởi showcase/_tools/build_playground.py) */
+.du-an-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--sp-2); margin: 0 0 var(--sp-8); }
+.du-an-chip { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: var(--radius-full); border: 1px solid var(--border-light); color: var(--text-secondary); font: 500 14px var(--font-sans); transition: color .15s, background .15s, border-color .15s; }
+.du-an-chip:hover { color: var(--text-primary); border-color: var(--primary); }
+.du-an-chip.is-active { background: var(--text-primary); border-color: var(--text-primary); color: var(--bg); }
+.du-an-chip .domain-icon, .du-an-domain h2 .domain-icon { width: 16px; height: 16px; flex: none; }
+
+.du-an-domains { display: grid; gap: var(--sp-6); }
+.du-an-domain { padding: var(--sp-8); }
+.du-an-domain h2 { font-size: clamp(20px, 2.4vw, 26px); line-height: 1.25; margin: 0 0 var(--sp-3); }
+.du-an-domain h2 a { display: inline-flex; align-items: center; gap: 10px; color: var(--text-primary); }
+.du-an-domain h2 a:hover { color: var(--primary); }
+.du-an-domain h2 .domain-icon { width: 22px; height: 22px; color: var(--accent); }
+.du-an-domain > .body-lg { margin: 0 0 var(--sp-6); max-width: 880px; }
+.du-an-domain__apps { list-style: none; margin: 0 0 var(--sp-6); padding: 0; display: grid; gap: var(--sp-3); }
+.du-an-domain__apps li { display: flex; flex-direction: column; gap: 2px; padding: var(--sp-3) var(--sp-4); background: var(--surface-2); border-radius: var(--radius-sm); }
+.du-an-domain__apps a { color: var(--text-primary); }
+.du-an-domain__apps a:hover b { color: var(--primary); }
+.du-an-domain__apps li > span { color: var(--text-muted); font-size: 13px; }
+.du-an-domain__kw { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 0; font-size: 12.5px; color: var(--text-muted); }
+.du-an-domain__kw em { font-style: normal; color: var(--text-secondary); border: 1px solid var(--border-light); border-radius: var(--radius-full); padding: 2px 10px; }

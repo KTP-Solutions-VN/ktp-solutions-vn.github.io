@@ -1,0 +1,80 @@
+/* ==========================================================================
+   Azura Stays CMS — Design Tokens
+   Brand colors: #4C5FFF (primary), #00084A (primary dark), #FFFFFF (white),
+   #F04438 (accent). Other tokens are neutral/semantic support colors.
+   ========================================================================== */
+
+:root {
+  /* Brand */
+  --color-primary: #4C5FFF;
+  --color-primary-dark: #00084A;
+  --color-white: #FFFFFF;
+  --color-accent: #D92D20;
+
+  /* Brand tints/shades derived for hover/active/background states */
+  --color-primary-50: #EEF0FF;
+  --color-primary-100: #DCE0FF;
+  --color-primary-600: #3141C0;
+  --color-navy-700: #000636;
+  --color-navy-600: #0A1466;
+  --color-navy-500: #1A2A8C;
+  --color-accent-50: #FEECEB;
+  --color-accent-600: #B42318;
+
+  /* Neutrals */
+  --color-gray-50: #F7F9FC;
+  --color-gray-100: #EEF1F6;
+  --color-gray-200: #E2E6ED;
+  --color-gray-300: #C9D0DC;
+  --color-gray-400: #667083;
+  --color-gray-500: #5F6B7E;
+  --color-gray-600: #4F5A6B;
+  --color-gray-700: #4B5566;
+  --color-gray-800: #2E3646;
+  --color-gray-900: #1B2430;
+
+  /* Màu chữ cho trạng thái (đủ tương phản trên nền trắng và nền nhạt cùng tông) */
+  --color-success-text: #17734A;
+  --color-warning-text: #8A5300;
+  --color-danger-text: #B42318;
+  --color-primary-text: #3141C0;
+
+  /* Semantic (status colors) — kept muted so brand colors stay dominant */
+  --color-success: #2FAE6C;
+  --color-success-bg: #E7F7EF;
+  --color-warning: #F2A93C;
+  --color-warning-bg: #FDF3E3;
+  --color-danger: var(--color-accent);
+  --color-danger-bg: var(--color-accent-50);
+  --color-info: var(--color-primary);
+  --color-info-bg: var(--color-primary-50);
+
+  /* Typography */
+  --font-family-base: 'Segoe UI', system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 26px;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 8, 74, 0.06);
+  --shadow-md: 0 4px 16px rgba(0, 8, 74, 0.08);
+  --shadow-lg: 0 16px 40px rgba(0, 8, 74, 0.16);
+
+  /* Layout */
+  --sidebar-width: 264px;
+  --sidebar-width-collapsed: 76px;
+  --topbar-height: 66px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 220ms ease;
+}

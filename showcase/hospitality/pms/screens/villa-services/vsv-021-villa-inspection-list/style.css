@@ -1,0 +1,13 @@
+.insp-expand-btn { border: none; background: none; cursor: pointer; color: var(--color-gray-500); display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; }
+.insp-expand-btn svg { width: 15px; height: 15px; transition: transform var(--transition-fast); }
+.insp-expand-btn.open svg { transform: rotate(90deg); }
+.insp-nested-row td { background: var(--color-gray-50); padding: 0 14px 14px 44px; }
+.insp-nested-row.hidden { display: none; }
+.insp-service-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--color-gray-200); font-size: var(--font-size-sm); }
+.insp-service-row:last-child { border-bottom: none; }
+.insp-comment { padding: 8px 0; border-bottom: 1px solid var(--color-gray-100); font-size: var(--font-size-sm); }
+.insp-comment:last-child { border-bottom: none; }
+.insp-comment .ic-meta { font-size: 11px; color: var(--color-gray-500); margin-top: 2px; }
+.insp-progress-item { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--color-gray-100); }
+.insp-progress-item:last-child { border-bottom: none; }
+.insp-progress-item select { min-width: 140px; }

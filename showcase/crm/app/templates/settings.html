@@ -1,0 +1,38 @@
+<!-- Trang cài đặt dùng chung. Dữ liệu: head, note, layout ("split" | "grid" | ""), blocks[]
+     block.type = "table" {title, cols[], rows[[html]]} | "chips" {title, groups[{label, items[]}]} | "text" {title, text}
+                | "tree" {title, nodes[{name, depth, peer}]} | "people" {title, items[{name, role, tenants}]}
+                | "matrix" {title, note, tabs[{label,on,onclick,users}], cols[], rows[{label, icon, cells[{checked,disabled,onclick}]}]} -->
+{{> page-head head}}
+{{#if note}}<p class="note">{{note}}</p>{{/if}}
+<div class="{{layout}}">
+  {{#each blocks}}
+  {{#if (eq type "table")}}
+  <div class="card np"{{fa feat}}>{{#if title}}<div class="card-h"><h3>{{title}}</h3></div>{{/if}}<div class="scroll"><table>
+    <thead><tr>{{#each cols}}<th>{{this}}</th>{{/each}}</tr></thead>
+    <tbody>{{#each rows}}<tr>{{#each this}}<td>{{{this}}}</td>{{/each}}</tr>{{/each}}</tbody>
+  </table></div></div>
+  {{else if (eq type "matrix")}}
+  <div class="card np"{{fa feat}}><div class="card-h"><h3>{{title}}</h3></div>
+    <div class="tabs">{{#each tabs}}<button class="{{#if on}}on{{/if}}" onclick="{{onclick}}">{{label}}<em>{{users}}</em></button>{{/each}}</div>
+    {{#if note}}<p class="note pm-note">{{note}}</p>{{/if}}
+    <div class="scroll"><table class="pm">
+      <thead><tr><th>Module</th>{{#each cols}}<th>{{this}}</th>{{/each}}</tr></thead>
+      <tbody>{{#each rows}}<tr><td>{{ic icon "sm"}} {{label}}</td>{{#each cells}}<td><input type="checkbox"{{#if checked}} checked{{/if}}{{#if disabled}} disabled{{/if}} onchange="{{onclick}}"></td>{{/each}}</tr>{{/each}}</tbody>
+    </table></div></div>
+  {{else if (eq type "chips")}}
+  <div class="card"{{fa feat}}>{{#if title}}<h3>{{title}}</h3>{{/if}}
+    {{#each groups}}<div style="margin-bottom:8px">{{#if label}}<b>{{label}}</b>{{/if}}<div>{{#each items}}<span class="chip">{{this}}</span>{{/each}}</div></div>{{/each}}
+  </div>
+  {{else if (eq type "tree")}}
+  <div class="card"{{fa feat}}><h3>{{title}}</h3><div class="tree">
+    {{#each nodes}}<div style="padding-left:{{indent}}px">{{#if depth}}{{ic "right" "sm"}}{{else}}{{ic "users" "sm"}}{{/if}}<b>{{name}}</b>{{#if peer}}<span class="peer">{{t "so.peer"}}</span>{{/if}}</div>{{/each}}
+  </div></div>
+  {{else if (eq type "people")}}
+  <div class="card"{{fa feat}}><h3>{{title}}</h3>
+    {{#each items}}<div class="fd" style="margin-bottom:6px">{{av name}}<div><b>{{name}}</b> · {{role}}<div class="t">{{tenants}}</div></div></div>{{/each}}
+  </div>
+  {{else}}
+  <div class="card"{{fa feat}}>{{#if title}}<h3>{{title}}</h3>{{/if}}<div class="muted">{{text}}</div></div>
+  {{/if}}
+  {{/each}}
+</div>

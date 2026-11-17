@@ -1,0 +1,7 @@
+@import url("../_shared/booking-shared.css");
+
+#criteria-form input[type="number"], #criteria-form input[type="text"] {
+  border: 1px solid var(--color-gray-300); border-radius: var(--radius-sm); padding: 7px 10px;
+  font-size: var(--font-size-sm); width: 100%; outline: none;
+}
+#criteria-form input:focus { border-color: var(--color-primary); }

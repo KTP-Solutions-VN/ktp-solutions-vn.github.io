@@ -1,0 +1,23 @@
+<!-- Bảng công việc: kanban kiểu Backlog (M27.08, M24.02). 4 cột task kéo thả để đổi trạng thái; việc duyệt ở menu Chờ duyệt riêng.
+     Dữ liệu: head, scope (mine|team), kind (""|manual|auto), isTeam, cols[{st,label,tone,n,cards[{id,subject,icon,auto,owner,src{href,label},prio,due,over,tenant,tcolor}]}], nOpen,
+     group (Group View: chỉ xem, không kéo thả, thêm lọc + nhãn pháp nhân), tenants[{c,on}] -->
+{{> page-head head}}
+<div class="wkbar">
+  <div class="seg3"><button class="{{#unless isTeam}}on{{/unless}}" onclick="wkSet('wkScope','mine')">{{t "wk.mine"}}</button><button class="{{#if isTeam}}on{{/if}}" onclick="wkSet('wkScope','team')">{{t "wk.team"}}</button></div>
+  <select class="inp" style="width:auto" onchange="wkSet('wkKind',this.value)"><option value=""{{#if (eq kind "")}} selected{{/if}}>{{t "wk.k.all"}}</option><option value="manual"{{#if (eq kind "manual")}} selected{{/if}}>{{t "wk.k.manual"}}</option><option value="auto"{{#if (eq kind "auto")}} selected{{/if}}>{{t "wk.k.auto"}}</option></select>
+  {{#if group}}<select class="inp" style="width:auto" onchange="wkSet('wkTenant',this.value)"><option value="">{{t "wk.allTenants"}}</option>{{#each tenants}}<option value="{{c}}"{{#if on}} selected{{/if}}>{{c}}</option>{{/each}}</select>{{/if}}
+</div>
+<div class="wk">
+  {{#each cols}}
+  <div class="kcol"{{#unless ../group}} ondragover="event.preventDefault();this.classList.add('over')" ondragleave="this.classList.remove('over')" ondrop="wkDrop(event,'{{st}}')"{{/unless}}>
+    <h4><i style="background:var(--{{tone}})"></i>{{label}}<em>{{n}}</em></h4>
+    {{#each cards}}
+    <div class="kc wkc"{{#unless ../../group}} draggable="true" ondragstart="wkDrag(event,'{{id}}')" ondragend="this.classList.remove('drag')"{{/unless}} onclick="wkPeek('{{id}}')">
+      <div class="kt">{{#if tenant}}<span class="tbadge" style="background:{{tcolor}}">{{tenant}}</span>{{/if}}<span class="wki">{{ic icon "sm"}}</span><b>{{subject}}</b></div>
+      {{#if src}}<div class="m">{{t "wk.related"}}: <a href="{{src.href}}" onclick="event.stopPropagation()">{{src.label}}</a></div>{{/if}}
+      <div class="f"><span class="sm {{#if over}}bad-t{{else}}faint{{/if}}">{{due}}{{#if over}} · {{over}}{{/if}}</span>{{#if prio}}<span class="pill p-acc">{{prio}}</span>{{/if}}<span class="sp"></span>{{#if owner}}{{av owner}}{{/if}}</div>
+    </div>
+    {{/each}}
+  </div>
+  {{/each}}
+</div>

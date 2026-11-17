@@ -1,0 +1,5 @@
+.vsv-status-cell { display: flex; flex-direction: column; gap: 2px; }
+.vsv-status-cell .status-date { font-size: var(--font-size-xs); color: var(--color-gray-500); }
+.vsv-meta-cell { display: flex; flex-direction: column; gap: 2px; }
+.vsv-meta-cell .meta-sub { font-size: var(--font-size-xs); color: var(--color-gray-500); }
+.vsv-action-stack { display: flex; gap: 6px; justify-content: flex-end; flex-wrap: wrap; }

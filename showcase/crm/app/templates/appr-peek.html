@@ -1,0 +1,23 @@
+<!-- Xem nhanh yêu cầu duyệt (panel phải). Dữ liệu: như 1 thẻ ở myjobs + cols[], lines[[html]], history[{level,by,ok,deleg,to,note,at}], pdf, group -->
+<div class="box drawer wide"{{fa "M22.02"}}>
+  <div class="card-h"><h3>{{title}}</h3><span class="sp"></span><button class="ibtn" onclick="closeModal()" title="{{t "act.cancel"}}">×</button></div>
+  <div class="card-b">
+    <div class="muted sm">{{type}} · {{party}}</div>
+    <div class="apw">{{what}}{{#if validity}} · <span class="{{#if validHi}}hi{{/if}}">{{validity}}</span>{{/if}}</div>
+    <div class="apf"><span>{{t "ap.why"}}: <b>{{why}}</b></span>{{#if debt}}<span class="hi">⚠ {{t "ap.debt" v=debt}}</span>{{/if}}</div>
+    <div class="apf"><span>{{t "mj.value"}} <b>{{value}}</b></span>{{#if disc}}<span class="{{#if discHi}}hi{{/if}}">{{t "ap.disc"}} <b>{{disc}}</b></span>{{/if}}<span>{{t "ap.by"}} <b>{{by}}</b></span></div>
+    {{#if reason}}<div class="apr">{{t "ap.reason"}}: “{{reason}}”</div>{{/if}}
+    <div><b class="sm">{{t "ap.lines"}}</b>
+      <div class="scroll"><table class="sm"><thead><tr>{{#each cols}}<th>{{this}}</th>{{/each}}</tr></thead><tbody>{{#each lines}}<tr>{{#each this}}<td>{{{this}}}</td>{{/each}}</tr>{{else}}<tr><td class="muted">{{t "list.empty"}}</td></tr>{{/each}}</tbody></table></div></div>
+    <div><b class="sm">{{t "ap.history"}}</b>
+      <div class="chain" style="margin:6px 0">{{#each chain}}<span class="cs {{cls}}{{#if me}} me{{/if}}">{{#if (eq cls "ok")}}✓{{else if (eq cls "cur")}}●{{else}}○{{/if}} {{lv}}<small>{{#if me}}{{t "ap.you"}}{{else}}{{who}}{{/if}}</small></span>{{#unless @last}}<i>→</i>{{/unless}}{{/each}}</div>
+      {{#each history}}<div class="fd" style="padding:4px 0">{{av by}}<div><b>{{by}}</b> · {{level}} · {{#if ok}}<span class="pill p-ok">{{t "ap.approved"}}</span>{{else if deleg}}<span class="pill p-info">{{t "ap.delegated" n=to}}</span>{{else}}<span class="pill p-bad">{{t "ap.rejectedP"}}</span>{{/if}}{{#if note}} — “{{note}}”{{/if}}<div class="t">{{at}}</div></div></div>{{/each}}
+    </div>
+  </div>
+  <div class="foot">
+    {{#if pdf}}<button class="btn" onclick="toast('PDF (prototype)')">{{ic "file" "sm"}}PDF</button>{{/if}}
+    <button class="btn" onclick="closeModal();go('/e/{{key}}/{{id}}')">{{t "ap.openRec"}}</button>
+    <span class="sp"></span>
+    {{#if mine}}{{#if group}}<button class="btn pri" onclick="closeModal();go('/e/{{key}}/{{id}}?tenant={{tenant}}')">{{t "ap.approveIn" t=tenant}}</button>{{else}}<button class="btn" onclick="apprDeleg('{{key}}','{{id}}')" title="{{t "ap.delegTip"}}">{{t "ap.delegBtn"}}</button><button class="btn" onclick="apprDo('{{key}}','{{id}}',false)">{{t "ap.rejectBtn"}}</button><button class="btn pri" onclick="apprDo('{{key}}','{{id}}',true)">{{t "mj.approve"}}</button>{{/if}}{{/if}}
+  </div>
+</div>

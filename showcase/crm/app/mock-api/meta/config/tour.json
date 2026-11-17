@@ -1,0 +1,260 @@
+{
+  "tour": [
+    {
+      "title": {
+        "vi": "Đăng nhập SSO & pháp nhân",
+        "en": "SSO sign-in & entities"
+      },
+      "steps": [
+        {
+          "route": "/login",
+          "text": {
+            "vi": "Đăng nhập bằng tài khoản Microsoft của công ty",
+            "en": "Sign in with the company Microsoft account"
+          }
+        },
+        {
+          "route": "/pick",
+          "text": {
+            "vi": "Chọn pháp nhân được cấp quyền; mỗi pháp nhân một màu",
+            "en": "Pick an entity you can access; each entity has its own colour"
+          }
+        },
+        {
+          "route": "/home",
+          "text": {
+            "vi": "Trang chủ tính từ dữ liệu của pháp nhân đang chọn",
+            "en": "Home page computed from the selected entity's data"
+          }
+        },
+        {
+          "route": "/p/s-tenant",
+          "text": {
+            "vi": "Quản trị pháp nhân, SSO, dữ liệu dùng chung",
+            "en": "Manage entities, SSO and shared data"
+          }
+        },
+        {
+          "route": "/p/s-org",
+          "text": {
+            "vi": "Org chart và người dùng; bấm avatar trên cùng để xem với vai trò khác",
+            "en": "Org chart and users; click the avatar at the top to view as another role"
+          }
+        },
+        {
+          "route": "/p/s-team",
+          "text": {
+            "vi": "Teamspace: module và thành viên của từng team",
+            "en": "Teamspaces: modules and members of each team"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "vi": "Bán thiết bị mới",
+        "en": "New equipment sales"
+      },
+      "steps": [
+        {
+          "route": "/e/leads/le1",
+          "text": {
+            "vi": "Lead → convert thành Khách hàng + Liên hệ + Deal",
+            "en": "Lead → convert into Customer + Contact + Deal"
+          }
+        },
+        {
+          "route": "/e/deals/kanban",
+          "text": {
+            "vi": "Pipeline Deal theo stage thật của Legacy CRM",
+            "en": "Deal pipeline using the real Legacy CRM stages"
+          }
+        },
+        {
+          "route": "/e/deals/de1",
+          "text": {
+            "vi": "Deal: nút theo luồng Deals Follow Up",
+            "en": "Deal: buttons follow the Deals Follow Up flow"
+          }
+        },
+        {
+          "route": "/e/quotes/new",
+          "text": {
+            "vi": "Tạo báo giá: chọn mẫu Crane / Hooklift / Tailgate / After Sales",
+            "en": "New quotation: pick the Crane / Hooklift / Tailgate / After Sales template"
+          }
+        },
+        {
+          "route": "/e/quotes/qu1",
+          "text": {
+            "vi": "Báo giá: field và section theo layout thật, dòng sản phẩm, duyệt DoA",
+            "en": "Quotation: real layout fields and sections, line items, DoA approval"
+          }
+        },
+        {
+          "route": "/p/myjobs",
+          "text": {
+            "vi": "Người duyệt xử lý trong My Jobs",
+            "en": "Approvers act in My Jobs"
+          }
+        },
+        {
+          "route": "/e/orders/or1",
+          "text": {
+            "vi": "Sales Order, đẩy sang kế toán",
+            "en": "Sales Order pushed to accounting"
+          }
+        },
+        {
+          "route": "/e/install/in1",
+          "text": {
+            "vi": "Dự án lắp đặt theo loại (Crane / Hook Lift / Tail Lift)",
+            "en": "Installation project by type (Crane / Hook Lift / Tail Lift)"
+          }
+        },
+        {
+          "route": "/e/vehicles/ve1",
+          "text": {
+            "vi": "Xe vào sổ, theo dõi hạn LM / NEA / bảo hành",
+            "en": "Vehicle registered; LM / NEA / warranty due dates tracked"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "vi": "Hậu mãi",
+        "en": "After-sales"
+      },
+      "steps": [
+        {
+          "route": "/e/vehicles",
+          "text": {
+            "vi": "Danh sách xe, hạn kiểm định",
+            "en": "Vehicle list and inspection due dates"
+          }
+        },
+        {
+          "route": "/e/jobs/new",
+          "text": {
+            "vi": "Tiếp nhận job: 4 loại job theo layout thật",
+            "en": "Job intake: 4 job types from the real layouts"
+          }
+        },
+        {
+          "route": "/e/jobs/kanban",
+          "text": {
+            "vi": "Bảng job theo trạng thái blueprint",
+            "en": "Job board by blueprint status"
+          }
+        },
+        {
+          "route": "/e/jobs/jo1",
+          "text": {
+            "vi": "Chi tiết job: chuyển bước theo blueprint (có ghi chú / field bắt buộc)",
+            "en": "Job details: blueprint steps with required notes / fields"
+          }
+        },
+        {
+          "route": "/e/si/si1",
+          "text": {
+            "vi": "Phiếu xuất phụ tùng (SI Chit Status)",
+            "en": "Shipping instruction (SI Chit Status)"
+          }
+        },
+        {
+          "route": "/e/pr/pr1",
+          "text": {
+            "vi": "Đề nghị mua: ý kiến theo vai trò, duyệt",
+            "en": "Purchase requisition: comments by role, approval"
+          }
+        },
+        {
+          "route": "/e/nea/ne1",
+          "text": {
+            "vi": "Kiểm tra NEA hooklift / container",
+            "en": "NEA hooklift / container inspection"
+          }
+        },
+        {
+          "route": "/e/tickets",
+          "text": {
+            "vi": "Ticket & bảo trì (module mới đề xuất)",
+            "en": "Tickets & maintenance (proposed new module)"
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "vi": "Quản trị & báo cáo",
+        "en": "Admin & reporting"
+      },
+      "steps": [
+        {
+          "route": "/p/s-perm",
+          "text": {
+            "vi": "Quyền mặc định theo module, sharing rule",
+            "en": "Default permissions per module, sharing rules"
+          }
+        },
+        {
+          "route": "/p/s-approval",
+          "text": {
+            "vi": "Luồng duyệt DoA",
+            "en": "DoA approval rules"
+          }
+        },
+        {
+          "route": "/p/s-auto",
+          "text": {
+            "vi": "Luồng trạng thái (blueprint)",
+            "en": "Status flows (blueprints)"
+          }
+        },
+        {
+          "route": "/p/s-sync",
+          "text": {
+            "vi": "Đồng bộ kế toán",
+            "en": "Accounting sync"
+          }
+        },
+        {
+          "route": "/p/s-import",
+          "text": {
+            "vi": "Migration từ Legacy CRM",
+            "en": "Migration from Legacy CRM"
+          }
+        },
+        {
+          "route": "/p/s-audit",
+          "text": {
+            "vi": "Audit log",
+            "en": "Audit log"
+          }
+        },
+        {
+          "route": "/p/reports",
+          "text": {
+            "vi": "Báo cáo tính từ dữ liệu",
+            "en": "Reports computed from data"
+          }
+        },
+        {
+          "route": "/home",
+          "text": {
+            "vi": "Trang chủ quản lý: KPI, pipeline, job theo trạng thái, báo cáo đã ghim",
+            "en": "Manager home: KPIs, pipeline, jobs by status, pinned reports"
+          }
+        },
+        {
+          "route": "/p/reports?i=r10",
+          "text": {
+            "vi": "Báo cáo dự báo theo tháng chốt",
+            "en": "Forecast by closing month report"
+          }
+        }
+      ]
+    }
+  ]
+}

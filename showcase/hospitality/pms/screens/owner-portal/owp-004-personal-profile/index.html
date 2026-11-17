@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile — Azura Manager Owner Portal</title>
+<link rel="icon" href="../../../assets/img/azura-logo.svg">
+<link rel="stylesheet" href="../../../assets/css/global.css">
+<link rel="stylesheet" href="../_shared/owp-shell.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="owp-body">
+
+<header class="owp-topnav">
+  <a class="owp-topnav__brand" href="../owp-002-dashboard/index.html">
+    <img src="../../../assets/img/azura-logo.svg" alt="Azura Stays logo">
+    <span>Azura Manager<small>Owner Portal</small></span>
+  </a>
+  <nav class="owp-topnav__links">
+    <a href="../owp-002-dashboard/index.html" data-nav="dashboard">Dashboard</a>
+    <a href="../owp-005-property-list/index.html" data-nav="properties">My Properties</a>
+    <a href="../owp-010-booking-list/index.html" data-nav="bookings">Bookings</a>
+    <a href="../owp-017-direct-booking-request-list/index.html" data-nav="requests">Direct Requests</a>
+    <a href="../owp-018-payment-details-list/index.html" data-nav="payments">Payments</a>
+    <a href="../owp-014-generate-financial-report-owner-statement/index.html" data-nav="reports">Reports</a>
+  </nav>
+  <div class="topbar__user-wrap">
+    <div class="topbar__user" data-user-menu>
+      <span class="avatar">RH</span>
+      <div class="topbar__user-meta"><div class="topbar__user-name">Richard Halstead</div><div class="topbar__user-role">Property Owner</div></div>
+    </div>
+    <div class="user-dropdown" data-user-dropdown>
+      <a href="../owp-004-personal-profile/index.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg> My Profile</a>
+      <hr class="divider">
+      <a href="../owp-001-login/index.html" class="danger"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Logout</a>
+    </div>
+  </div>
+</header>
+
+<div class="owp-content">
+  <div class="page-header"><div><h1>My Profile</h1><p class="subtitle">Your personal details and portal login.</p></div></div>
+  <div class="tabs" data-tabs="profile">
+    <div class="tab-item active" data-tab="details">Personal Details</div>
+    <div class="tab-item" data-tab="password">Change Password</div>
+  </div>
+  <div data-tab-panel="details" data-tabs-group="profile">
+    <div class="card" style="max-width:600px;"><div class="card__body">
+      <form id="profile-form" novalidate>
+        <div class="form-grid">
+          <div class="form-group"><label>Full Name<span class="req">*</span></label><input type="text" id="f-name" required value="Richard Halstead"></div>
+          <div class="form-group"><label>Email<span class="req">*</span></label><input type="email" id="f-email" required value="r.halstead@example.com"></div>
+          <div class="form-group"><label>Phone</label><input type="text" id="f-phone" data-validate="phone" value="+44 7700 900123"></div>
+          <div class="form-group"><label>Preferred Language</label><select id="f-lang"><option>English</option><option>French</option></select></div>
+        </div>
+        <div class="flex-gap-8" style="margin-top:16px;"><button type="submit" class="btn btn-primary" id="save-btn">Save Changes</button></div>
+      </form>
+    </div></div>
+  </div>
+  <div data-tab-panel="password" data-tabs-group="profile" style="display:none;">
+    <div class="card" style="max-width:480px;"><div class="card__body">
+      <form id="pwd-form" novalidate>
+        <div class="form-group"><label>Current Password<span class="req">*</span></label><input type="password" id="f-current" required><span class="form-error"></span></div>
+        <div class="form-group"><label>New Password<span class="req">*</span></label><input type="password" id="f-new" required minlength="8"><span class="form-error"></span></div>
+        <div class="flex-gap-8" style="margin-top:16px;"><button type="submit" class="btn btn-primary" id="save-pwd-btn">Update Password</button></div>
+      </form>
+    </div></div>
+  </div>
+</div>
+<script src="../../../assets/js/global.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

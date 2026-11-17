@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content Editor — CareJourney Admin</title>
+<!-- v3: converted to a Slide-over (Drawer, drawer-lg) opened from Content Page List (#31) — see
+     ui-kit-brief.md §16b (was previously a Dedicated Page). Kept for sitemap completeness and
+     direct linking; forwards into the parent list and auto-opens the drawer. -->
+<meta http-equiv="refresh" content="0; url=../danh-sach-trang-noi-dung/index.html">
+<script>
+  var id = new URLSearchParams(window.location.search).get('id');
+  var target = '../danh-sach-trang-noi-dung/index.html' + (id ? '?openId=' + encodeURIComponent(id) : '?openCreate=1');
+  window.location.replace(target);
+</script>
+</head>
+<body>
+<noscript>This screen now opens as a slide-over panel on the <a href="../danh-sach-trang-noi-dung/index.html">Content Page List</a> screen. <a href="../danh-sach-trang-noi-dung/index.html">Go to list →</a></noscript>
+</body>
+</html>

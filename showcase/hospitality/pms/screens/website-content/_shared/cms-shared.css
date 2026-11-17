@@ -1,0 +1,51 @@
+/* Shared layout helpers reused across CMS-0xx screens (hub cards, villa
+   picker bar, translation grid). Loaded after global.css, before each
+   screen's own style.css so screen-specific overrides still win. */
+
+.cms-villa-picker { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+.cms-villa-picker select { border: 1px solid var(--color-gray-300); border-radius: var(--radius-md); padding: 9px 12px; font-size: var(--font-size-sm); background: var(--color-white); }
+.cms-villa-picker .badge { margin-left: 2px; }
+
+.hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+@media (max-width: 1180px) { .hub-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 760px) { .hub-grid { grid-template-columns: 1fr; } }
+
+.hub-card {
+  background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1); padding: 20px; display: flex; flex-direction: column; gap: 10px;
+  transition: box-shadow var(--transition-fast), transform var(--transition-fast); cursor: pointer;
+}
+.hub-card:hover { box-shadow: var(--shadow-2); transform: translateY(-2px); }
+.hub-card__icon {
+  width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--color-primary-50);
+  color: var(--color-primary-dark); display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.hub-card__icon svg { width: 20px; height: 20px; }
+.hub-card h3 { font-size: var(--font-size-lg); margin: 0; }
+.hub-card p { margin: 0; font-size: var(--font-size-sm); color: var(--color-gray-600); flex: 1; }
+.hub-card__meta { font-size: var(--font-size-xs); color: var(--color-gray-500); font-weight: 600; }
+
+.lang-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--color-gray-200); margin-bottom: 16px; overflow-x: auto; }
+.lang-tab { padding: 9px 16px; font-size: var(--font-size-sm); font-weight: 600; color: var(--color-gray-500); cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; }
+.lang-tab.active { color: var(--color-primary-dark); border-bottom-color: var(--color-primary); }
+.lang-tab .missing-count { background: var(--color-accent-50); color: var(--color-accent-600); border-radius: var(--radius-pill); font-size: 10px; padding: 1px 6px; margin-left: 6px; }
+
+.tr-value-cell { min-width: 220px; }
+.tr-value-cell input { width: 100%; border: 1px solid transparent; border-radius: var(--radius-sm); padding: 6px 8px; font-size: var(--font-size-sm); background: transparent; }
+.tr-value-cell input:hover { border-color: var(--color-gray-300); }
+.tr-value-cell input:focus { border-color: var(--color-primary); background: var(--color-white); outline: none; box-shadow: 0 0 0 3px var(--color-primary-50); }
+.tr-value-cell input.tr-empty { background: var(--color-warning-bg); border-color: var(--color-warning); }
+
+.editor-toolbar { display: flex; gap: 4px; padding: 8px; border: 1px solid var(--color-gray-300); border-bottom: none; border-radius: var(--radius-md) var(--radius-md) 0 0; background: var(--color-gray-50); }
+.editor-toolbar button { width: 30px; height: 30px; border: 1px solid transparent; border-radius: var(--radius-sm); background: transparent; color: var(--color-gray-700); cursor: pointer; font-weight: 700; font-size: 13px; }
+.editor-toolbar button:hover { background: var(--color-white); border-color: var(--color-gray-300); }
+.editor-surface { border: 1px solid var(--color-gray-300); border-radius: 0 0 var(--radius-md) var(--radius-md); padding: 14px; min-height: 220px; font-size: var(--font-size-sm); line-height: 1.6; color: var(--color-gray-800); outline: none; background: var(--color-white); }
+.editor-surface:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px var(--color-primary-50); }
+
+.logo-tile { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); margin-bottom: 8px; background: var(--color-white); }
+.logo-tile__mark { width: 44px; height: 44px; border-radius: var(--radius-sm); background: var(--color-gray-100); color: var(--color-gray-400); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.logo-tile__mark svg { width: 20px; height: 20px; }
+.logo-tile__body { flex: 1; min-width: 0; }
+.logo-tile__name { font-weight: 700; color: var(--color-primary-dark); font-size: var(--font-size-sm); }
+.logo-tile__meta { font-size: var(--font-size-xs); color: var(--color-gray-500); }
+.logo-tile__drag { color: var(--color-gray-400); cursor: grab; flex-shrink: 0; }

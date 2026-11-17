@@ -1,0 +1,2 @@
+.owp-prop-card__thumb { border-radius: var(--radius-md); background: var(--color-primary-50); display: flex; align-items: center; justify-content: center; color: var(--color-primary-text); }
+.ro-value { font-size: var(--font-size-sm); color: var(--color-gray-800); padding: 6px 0; }

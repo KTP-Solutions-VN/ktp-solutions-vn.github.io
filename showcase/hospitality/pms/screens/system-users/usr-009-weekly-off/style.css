@@ -1,0 +1,6 @@
+/* USR-009 — Weekly Off */
+
+#weekly-off-table td.staff-name { font-weight: 600; color: var(--color-primary-dark); }
+#weekly-off-table td { text-align: center; }
+#weekly-off-table td.staff-name { text-align: left; }
+#weekly-off-table input[type="radio"] { width: 16px; height: 16px; accent-color: var(--color-primary-dark); cursor: pointer; }

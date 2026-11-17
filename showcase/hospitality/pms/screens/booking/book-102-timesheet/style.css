@@ -1,0 +1,8 @@
+/* BOOK-102 — Timesheet */
+tr.sick-leave-row td { background: var(--color-warning-bg); }
+.ts-manual { color: var(--color-info); font-weight: 700; }
+.ts-missing-link { color: var(--color-danger-text); font-weight: 700; background: none; border: none; cursor: pointer; padding: 0; text-decoration: underline; font-size: var(--font-size-sm); }
+.ts-inline-time { display: inline-flex; gap: 6px; align-items: center; }
+.ts-inline-time input { width: 100px; }
+.ts-loc-link { color: var(--color-primary-dark); font-size: var(--font-size-xs); text-decoration: underline; }
+.ts-dayoff { color: var(--color-gray-500); font-style: italic; font-size: var(--font-size-xs); }

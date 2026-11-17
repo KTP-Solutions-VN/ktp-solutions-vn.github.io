@@ -1,0 +1,10 @@
+.gt-team-card { margin-bottom: 16px; }
+.gt-team-card .card__header { gap: 10px; }
+.gt-team-card .card__header h3 { font-size: var(--font-size-md); }
+.gt-shift-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 16px 20px 0; }
+.gt-members { padding: 14px 20px 18px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.gt-member-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--color-primary-50); color: var(--color-primary-dark); font-size: var(--font-size-xs); font-weight: 600; padding: 5px 10px; border-radius: var(--radius-pill); }
+.gt-member-chip button { border: none; background: none; color: var(--color-primary-dark); cursor: pointer; font-size: 13px; line-height: 1; padding: 0; }
+.gt-add-member { border: 1px dashed var(--color-gray-300); background: transparent; color: var(--color-gray-600); font-size: var(--font-size-xs); font-weight: 600; padding: 5px 12px; border-radius: var(--radius-pill); cursor: pointer; }
+.gt-add-member:hover { border-color: var(--color-primary); color: var(--color-primary-dark); }
+.gt-remove-team { color: var(--color-danger-text); background: transparent; border: none; cursor: pointer; font-size: var(--font-size-xs); font-weight: 600; }

@@ -1,0 +1,2 @@
+/* BU-002 — Add Business Unit — screen-specific rules only */
+#bu-add-form .card { box-shadow: var(--shadow-1); }

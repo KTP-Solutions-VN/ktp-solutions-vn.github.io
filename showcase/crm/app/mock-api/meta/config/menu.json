@@ -1,0 +1,161 @@
+{
+  "name": "Apex Industrial CRM",
+  "common": [
+    {
+      "page": "home",
+      "icon": "home",
+      "feat": "M27.01"
+    },
+    {
+      "page": "myjobs",
+      "icon": "check",
+      "feat": "M22.02",
+      "badge": "approvals"
+    },
+    {
+      "page": "work",
+      "icon": "list",
+      "feat": "M27.08"
+    },
+    {
+      "page": "reports",
+      "icon": "bar",
+      "feat": "M27.02"
+    }
+  ],
+  "menu": [
+    {
+      "group": "sales",
+      "items": [
+        {
+          "entity": "leads"
+        },
+        {
+          "entity": "accounts"
+        },
+        {
+          "entity": "contacts"
+        },
+        {
+          "entity": "deals"
+        },
+        {
+          "entity": "quotes"
+        },
+        {
+          "entity": "orders"
+        },
+        {
+          "entity": "invoices"
+        },
+        {
+          "entity": "products"
+        }
+      ]
+    },
+    {
+      "group": "aftersales",
+      "items": [
+        {
+          "entity": "jobs"
+        },
+        {
+          "entity": "vehicles"
+        },
+        {
+          "entity": "install"
+        },
+        {
+          "entity": "si"
+        },
+        {
+          "entity": "partsreq"
+        },
+        {
+          "entity": "nea"
+        },
+        {
+          "entity": "tickets"
+        }
+      ]
+    },
+    {
+      "group": "purchasing",
+      "items": [
+        {
+          "entity": "pr"
+        },
+        {
+          "entity": "vendors"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "page": "s-tenant",
+      "icon": "bldg",
+      "feat": "M01.03"
+    },
+    {
+      "page": "s-org",
+      "icon": "users",
+      "feat": "M02.04"
+    },
+    {
+      "page": "s-team",
+      "icon": "layers",
+      "feat": "M02.05"
+    },
+    {
+      "page": "s-perm",
+      "icon": "check",
+      "feat": "M02.06"
+    },
+    {
+      "page": "s-config",
+      "icon": "set",
+      "feat": "M03.01"
+    },
+    {
+      "page": "s-approval",
+      "icon": "check",
+      "feat": "M22.01"
+    },
+    {
+      "page": "s-auto",
+      "icon": "play",
+      "feat": "M23.01"
+    },
+    {
+      "page": "s-msg",
+      "icon": "send",
+      "feat": "M26.01"
+    },
+    {
+      "page": "s-sync",
+      "icon": "layers",
+      "feat": "M28.01"
+    },
+    {
+      "page": "s-import",
+      "icon": "upload",
+      "feat": "M29.01"
+    },
+    {
+      "page": "s-api",
+      "icon": "globe",
+      "feat": "M30.01"
+    },
+    {
+      "page": "s-audit",
+      "icon": "clock",
+      "feat": "M04.01"
+    },
+    {
+      "page": "s-recycle",
+      "icon": "trash",
+      "feat": "M04.04"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+@import url("../_shared/booking-shared.css");
+
+/* BOOK-090 Link Chat to Another Booking — page-specific overrides only */
+.card-title-sm { font-size: 14px; font-weight: 600; margin: 0 0 14px; color: var(--color-primary-dark); }
+.detail-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 0; }
+.detail-list > div { display: flex; flex-direction: column; gap: 2px; }
+.detail-list dt { font-size: 12px; color: var(--color-gray-500); }
+.detail-list dd { margin: 0; font-size: 14px; font-weight: 600; color: var(--color-primary-dark); }
+.form-actions { display: flex; justify-content: flex-start; margin-top: 14px; }
+.link-result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  margin-bottom: 8px;
+}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guest Booking List — Azura Manager</title>
+<link rel="icon" href="../../../assets/img/azura-logo.svg">
+<link rel="stylesheet" href="../../../assets/css/global.css">
+<link rel="stylesheet" href="../_shared/guest-portal.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="guest-shell">
+  <header class="topbar guest-topbar">
+    <div class="guest-topbar__left">
+      <a class="guest-brand" data-home-link href="../gst-002-guest-booking-list/index.html">
+        <img src="../../../assets/img/azura-logo.svg" alt="Azura Stays logo">
+        <span class="guest-brand__text"><strong>Azura Manager</strong><em>Guest Portal</em></span>
+      </a>
+      <button class="guest-nav-toggle" data-guest-nav-toggle aria-label="Toggle menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <nav class="guest-nav">
+        <a class="guest-nav__link" data-home-link href="../gst-002-guest-booking-list/index.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M3 9l9-6 9 6v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"/></svg>
+          Home
+        </a>
+        <a class="guest-nav__link active" href="../gst-002-guest-booking-list/index.html">My Booking</a>
+        <div class="guest-nav__item" data-dropdown>
+          <button class="guest-nav__link">Your Stay <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="guest-nav__menu">
+            <a href="../gst-005-villa-information/index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Villa Information</a>
+            <a href="../gst-006-your-holidays/index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/></svg> Your Holidays</a>
+            <a href="../gst-007-rules/index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5z"/></svg> Rules</a>
+          </div>
+        </div>
+        <a class="guest-nav__link" href="../gst-004-amenities-access-portal/index.html">Amenities &amp; Access</a>
+        <div class="guest-nav__item" data-dropdown>
+          <button class="guest-nav__link">Explore Nearby <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="guest-nav__menu">
+            <a href="../gst-008-restaurant-list-near-the-villa/index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M3 2v7c0 1.1.9 2 2 2h0a2 2 0 0 0 2-2V2M7 2v20M17 2a5 5 0 0 0-5 5v6h5m0-11v20"/></svg> Restaurants</a>
+            <a href="../gst-010-featured-landmarks-near-the-villa/index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M8 3 4 8l4 5-4 5 4 3M16 3l4 5-4 5 4 5-4 3"/></svg> Landmarks</a>
+            <a href="../gst-011-activities-near-the-villa/index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Activities</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="topbar__actions">
+      <div class="topbar__user-wrap">
+        <div class="topbar__user" data-user-menu>
+          <span class="avatar">JW</span>
+          <div class="topbar__user-meta">
+            <div class="topbar__user-name">James Whitfield</div>
+            <div class="topbar__user-role">Guest</div>
+          </div>
+        </div>
+        <div class="user-dropdown" data-user-dropdown>
+          <a href="../gst-002-guest-booking-list/index.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> My Bookings</a>
+          <hr class="divider">
+          <a href="#" class="danger" data-guest-logout><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Logout</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-content guest-content">
+    <div class="breadcrumb"><a href="../gst-002-guest-booking-list/index.html">Guest Portal</a> / <span class="current">My Bookings</span></div>
+
+    <section class="guest-hero" id="welcome-hero">
+      <div class="guest-hero__blob guest-hero__blob--1"></div>
+      <div class="guest-hero__blob guest-hero__blob--2"></div>
+      <div class="guest-hero__content">
+        <div class="guest-hero__eyebrow">Azura Stays Guest Portal</div>
+        <h1 id="welcome-heading">Welcome back, James</h1>
+        <p id="welcome-sub">You have 3 bookings with us — here's everything at a glance.</p>
+      </div>
+    </section>
+
+    <div id="checkin-prompt" class="guest-tip" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 16 2 2 4-4"/></svg>
+      <div class="guest-tip__text">
+        <strong>Complete your online check-in</strong> to unlock the Amenities &amp; Access Portal for your upcoming stay.
+        <a href="../gst-003-my-booking-details/index.html" id="checkin-prompt-link">Confirm your arrival time now &rarr;</a>
+      </div>
+    </div>
+
+    <div class="page-header">
+      <div>
+        <h2 class="h2">Upcoming Bookings</h2>
+        <p class="subtitle">Stays you have coming up with Azura Stays.</p>
+      </div>
+    </div>
+    <div id="upcoming-list" class="stack-16"></div>
+
+    <div class="page-header" style="margin-top: 32px;">
+      <div>
+        <h2 class="h2">Past Bookings</h2>
+        <p class="subtitle">Your booking history with Azura Stays.</p>
+      </div>
+    </div>
+    <div id="past-list" class="stack-16"></div>
+
+    <div id="empty-bookings" class="empty-state" hidden>
+      <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      <h3>No bookings found</h3>
+      <p>We couldn't find any bookings linked to this access code. Please contact your concierge for help.</p>
+    </div>
+
+    <button class="reset-demo-btn reset-demo-btn--inline" data-reset-demo="mm_guest_portal_prearrival,mm_guest_portal_active_booking">Reset demo data</button>
+  </main>
+
+  <footer class="guest-footer">Azura Stays PMS &middot; Guest Portal &middot; Prototype v0.1</footer>
+</div>
+
+<script src="../../../assets/js/global.js"></script>
+<script src="../_shared/guest-portal.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

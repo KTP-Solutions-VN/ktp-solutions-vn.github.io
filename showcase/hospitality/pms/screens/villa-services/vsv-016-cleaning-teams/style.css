@@ -1,0 +1,2 @@
+.cleaner-chip-list { display: flex; flex-wrap: wrap; gap: 4px; max-width: 260px; }
+.cleaner-chip { display: inline-flex; align-items: center; gap: 4px; background: var(--color-primary-50); color: var(--color-primary-dark); font-size: var(--font-size-xs); font-weight: 600; padding: 3px 8px; border-radius: var(--radius-pill); }

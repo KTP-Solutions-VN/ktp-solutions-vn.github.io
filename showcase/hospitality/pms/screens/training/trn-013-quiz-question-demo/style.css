@@ -1,0 +1,7 @@
+.quiz-options { display: flex; flex-direction: column; gap: 10px; }
+.quiz-option { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: 1.5px solid var(--color-gray-200); border-radius: var(--radius-md); font-size: 13px; font-weight: 500; cursor: pointer; transition: border-color 120ms ease-out; }
+.quiz-option:hover { border-color: var(--color-primary); }
+.quiz-option input { accent-color: var(--color-primary); }
+#quiz-feedback { margin-top: 16px; padding: 12px 14px; border-radius: var(--radius-md); font-size: 13px; font-weight: 600; }
+#quiz-feedback.correct { background: var(--color-success-bg); color: var(--color-success-text); }
+#quiz-feedback.incorrect { background: var(--color-danger-bg); color: var(--color-danger-text); }

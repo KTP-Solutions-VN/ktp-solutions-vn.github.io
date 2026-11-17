@@ -1,0 +1,24 @@
+/* BOOK-087 Satisfaction Survey — coming-soon placeholder */
+.coming-soon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 80px 24px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.coming-soon__icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--color-primary-50);
+  color: var(--color-primary-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.coming-soon__icon svg { width: 34px; height: 34px; }
+.coming-soon h2 { margin: 0 0 10px; font-size: 18px; color: var(--color-primary-dark); }
+.coming-soon p { margin: 0; font-size: 14px; color: var(--color-gray-500); }

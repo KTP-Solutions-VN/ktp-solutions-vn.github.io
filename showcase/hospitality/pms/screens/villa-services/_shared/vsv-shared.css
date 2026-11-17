@@ -1,0 +1,59 @@
+/* ==========================================================================
+   Villa Services (VSV) — shared screen-level patterns
+   Loaded on every VSV screen after global.css, before the screen's own
+   style.css. Only patterns reused across 3+ VSV screens live here — anything
+   screen-specific stays in that screen's own style.css.
+   ========================================================================== */
+
+/* Read-only info panel shown inside meter-reading / detail popups */
+.vsv-readonly-panel {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px 18px;
+  background: var(--color-gray-50); border: 1px solid var(--color-gray-100);
+  border-radius: var(--radius-md); padding: 14px 16px; margin-bottom: 18px; font-size: var(--font-size-sm);
+}
+.vsv-readonly-panel .ro-item { display: flex; flex-direction: column; gap: 2px; }
+.vsv-readonly-panel .ro-label { font-size: 11px; text-transform: uppercase; letter-spacing: .03em; color: var(--color-gray-500); font-weight: 700; }
+.vsv-readonly-panel .ro-value { color: var(--color-gray-900); font-weight: 600; }
+@media (max-width: 720px) { .vsv-readonly-panel { grid-template-columns: 1fr 1fr; } }
+
+/* KPI-style overview cards used on the Control/Overview screens */
+.vsv-kpi-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 20px; }
+@media (max-width: 1200px) { .vsv-kpi-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 720px) { .vsv-kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+
+/* Photo thumbnail + zoom trigger, used in read-only detail views */
+.vsv-photo-thumb {
+  width: 100%; max-width: 220px; aspect-ratio: 4 / 3; object-fit: cover;
+  border-radius: var(--radius-md); border: 1px solid var(--color-gray-200); cursor: zoom-in;
+  display: block; background: var(--color-gray-100);
+}
+.vsv-photo-placeholder {
+  width: 100%; max-width: 220px; aspect-ratio: 4 / 3; border-radius: var(--radius-md);
+  border: 1px dashed var(--color-gray-300); background: var(--color-gray-50);
+  display: flex; align-items: center; justify-content: center; color: var(--color-gray-400); font-size: var(--font-size-xs);
+}
+
+/* Section heading inside a modal or long page, splitting groups of fields */
+.vsv-subhead { font-size: var(--font-size-sm); font-weight: 700; color: var(--color-primary-dark); margin: 20px 0 10px; text-transform: uppercase; letter-spacing: .03em; }
+.vsv-subhead:first-child { margin-top: 0; }
+
+/* Simple two-column detail rows (label left, value right), used in read-only popups */
+.vsv-detail-row { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--color-gray-100); font-size: var(--font-size-sm); }
+.vsv-detail-row:last-child { border-bottom: none; }
+.vsv-detail-row .dr-label { color: var(--color-gray-500); font-weight: 600; }
+.vsv-detail-row .dr-value { color: var(--color-gray-900); font-weight: 600; text-align: right; }
+
+/* Toggle-style villa cards used on daily planning screens */
+.vsv-plan-row { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--color-gray-100); }
+.vsv-plan-row:last-child { border-bottom: none; }
+.vsv-plan-row__main { flex: 1; min-width: 0; }
+.vsv-plan-row__title { font-weight: 700; color: var(--color-primary-dark); }
+.vsv-plan-row__sub { font-size: var(--font-size-xs); color: var(--color-gray-500); margin-top: 2px; }
+
+/* Image lightbox modal shared by read-only photo views */
+.vsv-lightbox-img { width: 100%; border-radius: var(--radius-md); display: block; }
+
+/* "Notify me" mini-form used on coming-soon placeholder screens (Item,
+   Transfer, Food Service, Cleaning Overview, Make-up Overview) */
+.vsv-notify-form { display: flex; gap: 10px; justify-content: center; align-items: flex-start; margin-top: 20px; flex-wrap: wrap; }
+.vsv-notify-form .form-group { margin-bottom: 0; min-width: 260px; text-align: left; }

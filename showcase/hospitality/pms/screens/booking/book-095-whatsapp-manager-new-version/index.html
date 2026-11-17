@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WhatsApp Manager — Azura Manager</title>
+<link rel="icon" href="../../../assets/img/azura-logo.svg">
+<link rel="stylesheet" href="../../../assets/css/global.css">
+<link rel="stylesheet" href="../_shared/booking-shared.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar__brand">
+      <img src="../../../assets/img/azura-logo.svg" alt="Azura Stays logo">
+      <span class="sidebar__brand-text">Azura Manager</span>
+    </div>
+
+    <nav class="sidebar__nav">
+      <a class="nav-item nav-top-item" href="../../dashboard/index.html">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Dashboard</span>
+        <span class="nav-tooltip">Dashboard</span>
+      </a>
+
+      <div class="nav-group">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="nav-group__label">Team &amp; Access</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../../system-users/usr-004-user-list/index.html"><span>Staff List</span></a>
+          <a class="nav-subitem" href="../../system-users/usr-012-agent-list/index.html"><span>Agent List</span></a>
+          <a class="nav-subitem" href="../../system-users/usr-016-provider-list/index.html"><span>Provider List</span></a>
+          <a class="nav-subitem" href="../../system-users/usr-020-payroll-rules/index.html"><span>Payroll Rules</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">Team &amp; Access</div>
+          <a class="nav-item" href="../../system-users/usr-004-user-list/index.html"><span>Staff List</span></a>
+          <a class="nav-item" href="../../system-users/usr-012-agent-list/index.html"><span>Agent List</span></a>
+          <a class="nav-item" href="../../system-users/usr-016-provider-list/index.html"><span>Provider List</span></a>
+          <a class="nav-item" href="../../system-users/usr-020-payroll-rules/index.html"><span>Payroll Rules</span></a>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
+          <span class="nav-group__label">Master Data</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../../properties/prop-033-property-list/index.html"><span>Property List</span></a>
+          <a class="nav-subitem" href="../../properties/prop-032-property-dashboard/index.html"><span>Property Dashboard</span></a>
+          <a class="nav-subitem" href="../../properties/prop-020-onboarding-list/index.html"><span>Onboarding List</span></a>
+          <a class="nav-subitem" href="../../company/comp-001-company-legal-entity-list/index.html"><span>Company List</span></a>
+          <a class="nav-subitem" href="../../business-unit/bu-001-business-unit-list/index.html"><span>Business Unit List</span></a>
+          <a class="nav-subitem" href="../../business-unit/bu-005-channel-list/index.html"><span>Channel List</span></a>
+          <a class="nav-subitem" href="../../villa-common-settings/vcs-001-amenities-list/index.html"><span>Villa Common Settings</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">Master Data</div>
+          <a class="nav-item" href="../../properties/prop-033-property-list/index.html"><span>Property List</span></a>
+          <a class="nav-item" href="../../properties/prop-020-onboarding-list/index.html"><span>Onboarding List</span></a>
+          <a class="nav-item" href="../../company/comp-001-company-legal-entity-list/index.html"><span>Company List</span></a>
+          <a class="nav-item" href="../../business-unit/bu-001-business-unit-list/index.html"><span>Business Unit List</span></a>
+          <a class="nav-item" href="../../villa-common-settings/vcs-001-amenities-list/index.html"><span>Villa Common Settings</span></a>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span class="nav-group__label">System Settings</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../../common-lookup-settings/cs-001-common-lookup-settings/index.html"><span>Common Lookup Settings</span></a>
+          <a class="nav-subitem" href="../../system-settings/set-001-system-settings/index.html"><span>System Settings</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">System Settings</div>
+          <a class="nav-item" href="../../common-lookup-settings/cs-001-common-lookup-settings/index.html"><span>Common Lookup Settings</span></a>
+          <a class="nav-item" href="../../system-settings/set-001-system-settings/index.html"><span>System Settings</span></a>
+        </div>
+      </div>
+
+      <div class="nav-group open">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 16 2 2 4-4"/></svg>
+          <span class="nav-group__label">Booking</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../book-002-booking-list/index.html"><span>Booking List</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">Booking</div>
+          <a class="nav-item" href="../book-002-booking-list/index.html"><span>Booking List</span></a>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M2 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2"/><circle cx="19" cy="8" r="2.2"/><path d="M17.2 12.5c1.6.4 2.8 1.8 2.8 3.5v2"/></svg>
+          <span class="nav-group__label">Owner Management</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../../owner-management/own-001-owner-agency-list/index.html"><span>Owner / Agency List</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">Owner Management</div>
+          <a class="nav-item" href="../../owner-management/own-001-owner-agency-list/index.html"><span>Owner / Agency List</span></a>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-6 9 6v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"/><path d="M9 22V12h6v10"/></svg>
+          <span class="nav-group__label">Owner Portal</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../../owner-portal/owp-002-dashboard/index.html"><span>Owner Portal Dashboard</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">Owner Portal</div>
+          <a class="nav-item" href="../../owner-portal/owp-002-dashboard/index.html"><span>Owner Portal Dashboard</span></a>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="nav-group__label">Guest Portal</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../../guest-portal/gst-002-guest-booking-list/index.html"><span>Guest Portal Home</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">Guest Portal</div>
+          <a class="nav-item" href="../../guest-portal/gst-002-guest-booking-list/index.html"><span>Guest Portal Home</span></a>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          <span class="nav-group__label">Field Operations</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../../garden-pool-operations/opr-001-garden-pool-task-list/index.html"><span>Garden/Pool Tasks</span></a>
+          <a class="nav-subitem" href="../../maintenance/mnt-001-maintenance-ticket-list/index.html"><span>Maintenance Tickets</span></a>
+          <a class="nav-subitem" href="../../renovation/ren-002-renovation-follow-up/index.html"><span>Renovation List</span></a>
+          <a class="nav-subitem" href="../../training/trn-001-training-list/index.html"><span>Training List</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">Field Operations</div>
+          <a class="nav-item" href="../../garden-pool-operations/opr-001-garden-pool-task-list/index.html"><span>Garden/Pool Tasks</span></a>
+          <a class="nav-item" href="../../maintenance/mnt-001-maintenance-ticket-list/index.html"><span>Maintenance Tickets</span></a>
+          <a class="nav-item" href="../../renovation/ren-002-renovation-follow-up/index.html"><span>Renovation List</span></a>
+          <a class="nav-item" href="../../training/trn-001-training-list/index.html"><span>Training List</span></a>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span class="nav-group__label">Finance</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../../investment-fund/fund-001-investor-list/index.html"><span>Investor List</span></a>
+          <a class="nav-subitem" href="../../investment-fund/fund-003-fund-project-list/index.html"><span>Fund Project List</span></a>
+          <a class="nav-subitem" href="../../inventory/inv-001-inventory-list/index.html"><span>Inventory List</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">Finance</div>
+          <a class="nav-item" href="../../investment-fund/fund-001-investor-list/index.html"><span>Investor List</span></a>
+          <a class="nav-item" href="../../investment-fund/fund-003-fund-project-list/index.html"><span>Fund Project List</span></a>
+          <a class="nav-item" href="../../inventory/inv-001-inventory-list/index.html"><span>Inventory List</span></a>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
+          <span class="nav-group__label">Villa Services</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../../villa-services/vsv-001-electricity-overview-page-hub/index.html"><span>Villa Services List</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">Villa Services</div>
+          <a class="nav-item" href="../../villa-services/vsv-001-electricity-overview-page-hub/index.html"><span>Villa Services List</span></a>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span class="nav-group__label">Website Content</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../../website-content/cms-001-content-list/index.html"><span>Content List</span></a>
+          <a class="nav-subitem" href="../../photos/pho-002-photo-sets/index.html"><span>Photo Sets</span></a>
+          <a class="nav-subitem" href="../../videos/vid-001-video-library/index.html"><span>Video Library</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">Website Content</div>
+          <a class="nav-item" href="../../website-content/cms-001-content-list/index.html"><span>Content List</span></a>
+          <a class="nav-item" href="../../photos/pho-002-photo-sets/index.html"><span>Photo Sets</span></a>
+          <a class="nav-item" href="../../videos/vid-001-video-library/index.html"><span>Video Library</span></a>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="15" x2="12" y2="15"/></svg>
+          <span class="nav-group__label">Accounting &amp; HR</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../../accounting-hr/acc-029-overview/index.html"><span>Overview</span></a>
+          <a class="nav-subitem" href="../../accounting-hr/acc-023-chart-of-accounts/index.html"><span>Chart of Accounts</span></a>
+          <a class="nav-subitem" href="../../accounting-hr/acc-033-timesheet/index.html"><span>Timesheet</span></a>
+          <a class="nav-subitem" href="../../accounting-hr/acc-034-payroll/index.html"><span>Payroll</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">Accounting &amp; HR</div>
+          <a class="nav-item" href="../../accounting-hr/acc-029-overview/index.html"><span>Overview</span></a>
+          <a class="nav-item" href="../../accounting-hr/acc-023-chart-of-accounts/index.html"><span>Chart of Accounts</span></a>
+          <a class="nav-item" href="../../accounting-hr/acc-033-timesheet/index.html"><span>Timesheet</span></a>
+          <a class="nav-item" href="../../accounting-hr/acc-034-payroll/index.html"><span>Payroll</span></a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="sidebar__footer">
+      <a class="nav-item" href="../../auth/log-001-login/index.html">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        <span>Logout</span>
+        <span class="nav-tooltip">Logout</span>
+      </a>
+      <div class="sidebar__disclaimer">Azura Stays PMS &middot; Prototype v0.1</div>
+    </div>
+  </aside>
+
+  <button class="sidebar-toggle" data-sidebar-toggle aria-label="Collapse menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    <span class="nav-tooltip">Collapse menu</span>
+  </button>
+
+  <div class="main-column">
+    <header class="topbar">
+      <div class="topbar__search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Search properties, bookings, owners...">
+      </div>
+      <div class="topbar__actions">
+        <div style="position:relative;">
+          <button class="icon-btn" data-popover-trigger="notif-popover" aria-label="Notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="dot"></span>
+          </button>
+          <div class="popover" id="notif-popover">
+            <div class="popover__header">Notifications <span class="badge badge-danger">3 new</span></div>
+            <div class="popover__list">
+              <div class="popover__item"><span class="popover__item-dot"></span><div><div class="popover__item-title">Villa Marble Cove missing photos</div><div class="popover__item-time">12 minutes ago</div></div></div>
+              <div class="popover__item"><span class="popover__item-dot"></span><div><div class="popover__item-title">Booking BK-10233 awaiting confirmation</div><div class="popover__item-time">1 hour ago</div></div></div>
+              <div class="popover__item"><span class="popover__item-dot"></span><div><div class="popover__item-title">Priya Nair's payout is overdue</div><div class="popover__item-time">Yesterday</div></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="topbar__user-wrap">
+          <div class="topbar__user" data-user-menu>
+            <span class="avatar">SA</span>
+            <div class="topbar__user-meta">
+              <div class="topbar__user-name">Somchai Anuwat</div>
+              <div class="topbar__user-role">Business Unit Manager</div>
+            </div>
+          </div>
+          <div class="user-dropdown" data-user-dropdown>
+            <a href="#"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg> My Profile</a>
+            <hr class="divider">
+            <a href="../../auth/log-001-login/index.html" class="danger"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+<main class="page-content">
+  <div class="breadcrumb"><a href="../../dashboard/index.html">Home</a> / <span>Booking</span> / <span class="current">WhatsApp Manager</span></div>
+  <div class="page-header"><div><h1>WhatsApp Manager</h1><p class="page-header__subtitle">Manage active WhatsApp chats and staff notification levels.</p></div><div class="page-header__actions"><a href="../book-096-whatsapp-help-system-status/index.html" class="btn btn-ghost">Help &amp; Status</a><button class="btn btn-outline" id="regen-token-btn">Regenerate Token</button></div></div>
+
+  <div class="tabs" data-tabs="wam">
+    <div class="tab-item active" data-tab="manager">WhatsApp Manager</div>
+    <div class="tab-item" data-tab="notifications">Notifications</div>
+  </div>
+
+  <div data-tab-panel="manager" data-tabs-group="wam">
+    <div class="toolbar">
+      <select id="f-bu" class="toolbar__select"></select>
+    </div>
+    <div class="card"><div class="card__body"><div class="table-wrap"><table class="data-table">
+      <thead><tr><th>Booking</th><th>Villa</th><th>Guest</th><th>Phone</th><th>WhatsApp Status</th><th>Access Code</th><th>Leader</th><th>Status</th><th style="text-align:right;">Actions</th></tr></thead>
+      <tbody id="whatsapp-tbody"></tbody>
+    </table></div></div></div>
+  </div>
+
+  <div data-tab-panel="notifications" data-tabs-group="wam" style="display:none;">
+    <div class="card"><div class="card__body"><div class="table-wrap"><table class="data-table">
+      <thead><tr><th>Staff</th><th>Group</th><th>Team</th><th>Notification Level</th></tr></thead>
+      <tbody id="notif-tbody"></tbody>
+    </table></div></div></div>
+  </div>
+</main>
+</div>
+</div>
+
+<div class="modal-overlay" id="finish-modal">
+  <div class="modal modal-sm">
+    <div class="modal__header"><div><h2>End Chat</h2></div><button class="modal__close" data-close-modal>&times;</button></div>
+    <div class="modal__body"><p>End this WhatsApp chat session?</p></div>
+    <div class="modal__footer"><button class="btn btn-ghost" data-close-modal>Cancel</button><button class="btn btn-accent" id="confirm-finish-btn">End Chat</button></div>
+  </div>
+</div>
+
+<script src="../../../assets/js/global.js"></script>
+<script src="../_shared/booking-data.js"></script>
+<script src="../_shared/booking-ops-data.js"></script>
+<script src="../_shared/booking-guest-data.js"></script>
+<script src="../_shared/booking-chat-data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

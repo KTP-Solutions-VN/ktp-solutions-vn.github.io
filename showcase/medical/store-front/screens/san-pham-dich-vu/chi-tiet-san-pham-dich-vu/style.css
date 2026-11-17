@@ -1,0 +1,8 @@
+/* Screen-specific overrides: Product Detail (#4) */
+@media (max-width: 900px) {
+  #pdp-root { grid-template-columns: 1fr !important; }
+}
+.pdp-media { aspect-ratio: 1/1; border-radius: var(--r-lg); background: linear-gradient(135deg, var(--primary-50), var(--accent-50)); display: flex; align-items: center; justify-content: center; color: var(--primary); border: 1px solid var(--border); }
+.combo-item { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-2) 0; border-bottom: 1px solid var(--border); }
+.combo-item:last-child { border-bottom: none; }
+.source-pill-row { display: flex; gap: var(--sp-2); flex-wrap: wrap; }

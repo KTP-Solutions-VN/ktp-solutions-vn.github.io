@@ -1,0 +1,143 @@
+/* ==========================================================================
+   Screen-specific: Home (#1) — rich landing page + shop
+   All new component CSS lives here (Home-only), global.css untouched.
+   ========================================================================== */
+
+.category-tile-link { text-decoration: none; color: inherit; }
+/* Fix: category tile icons only carried `.icon-lg` (sizing) without the base
+   `.icon` class that supplies fill:none/stroke — was rendering as solid black
+   shapes instead of outline glyphs. Scoped to Home only. */
+#category-grid svg.icon-lg { fill: none; stroke: currentColor; stroke-width: 1.75; }
+/* Fix: hero CTA button row (`.flex-gap-3`) has no flex-wrap in global.css,
+   so "Explore Packages" + "Book a Hospital Tour" clipped past the viewport
+   edge on narrow mobile widths instead of wrapping to a second line. */
+.hero .flex-gap-3 { flex-wrap: wrap; }
+.hero .flex-gap-3 .btn { flex-shrink: 0; }
+/* Real root cause of the above: the long event badge ("Baby Expo 2026 ·
+   18–20 Sep · City Convention Hall") inherits `white-space:nowrap` from the
+   shared `.badge` class (built for short 1-3 word labels). Its un-wrappable
+   intrinsic width was forcing the whole hero text column — and everything
+   else in it, including the CTA row above — wider than the viewport on
+   mobile. `min-width:0` lets the grid/flex column shrink to the viewport;
+   `white-space:normal` lets this specific long badge wrap onto 2 lines. */
+.hero__inner > div:first-child { min-width: 0; }
+.hero .badge { white-space: normal; text-align: left; }
+
+/* ---- Reveal-on-scroll (motivated motion, respects prefers-reduced-motion) ---- */
+[data-reveal] { opacity: 0; transform: translateY(16px); transition: opacity var(--dur-mid) var(--ease-out), transform var(--dur-mid) var(--ease-out); }
+[data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+}
+
+/* ---- Hero photo (replaces icon-only hero-art with a real verified photo) ---- */
+.hero-photo { border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-3); aspect-ratio: 4/3; border: 1px solid var(--border); }
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (max-width: 900px) { .hero-photo { display: none; } }
+
+/* ==========================================================================
+   Carousel — category best-seller rows
+   ========================================================================== */
+.carousel-viewall { font-weight: 700; font-size: .875rem; color: var(--primary); white-space: nowrap; }
+.carousel-viewall:hover { color: var(--primary-dark); }
+
+.carousel { position: relative; }
+.carousel__track {
+  display: flex; gap: var(--sp-4); overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: 2px 2px var(--sp-3); scroll-behavior: smooth; -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin; scrollbar-color: var(--gray-300) transparent;
+}
+.carousel__track::-webkit-scrollbar { height: 8px; }
+.carousel__track::-webkit-scrollbar-track { background: var(--gray-100); border-radius: var(--r-full); }
+.carousel__track::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: var(--r-full); }
+.carousel__track::-webkit-scrollbar-thumb:hover { background: var(--gray-400); }
+
+.carousel__card { scroll-snap-align: start; flex: 0 0 240px; display: flex; flex-direction: column; gap: var(--sp-2); }
+.carousel__card .product-card { height: 100%; }
+.carousel__card .product-card__media { position: relative; overflow: hidden; }
+.carousel__card .product-card__media img { width: 100%; height: 100%; object-fit: cover; }
+.carousel-add-btn {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  background: var(--surface); border: 1.5px solid var(--gray-300); color: var(--tertiary);
+  font-weight: 700; font-size: .8125rem; border-radius: var(--r-sm); padding: 9px 12px; min-height: 40px;
+  transition: all var(--dur-fast) var(--ease-out);
+}
+.carousel-add-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-50); }
+.carousel-add-btn:active { transform: translateY(1px); }
+.carousel-add-btn.is-added { border-color: var(--success); color: var(--success); background: var(--success-bg); }
+
+.carousel__arrow {
+  position: absolute; top: 38%; transform: translateY(-50%); z-index: 2;
+  width: 40px; height: 40px; border-radius: var(--r-full); border: 1px solid var(--border);
+  background: var(--surface); color: var(--tertiary); display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-2); transition: opacity var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), visibility var(--dur-fast);
+}
+.carousel__arrow:hover { background: var(--primary-lightest); color: var(--primary); border-color: var(--primary-light); }
+.carousel__arrow--prev { left: -6px; opacity: 0; visibility: hidden; }
+.carousel__arrow--prev.is-visible { opacity: 1; visibility: visible; }
+.carousel__arrow--next { right: -6px; }
+.carousel__arrow.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+@media (max-width: 640px) {
+  .carousel__arrow { width: 34px; height: 34px; }
+  .carousel__card { flex-basis: 72vw; max-width: 260px; }
+}
+
+/* ==========================================================================
+   Promo banners — connecting CTAs between sections
+   ========================================================================== */
+.promo-banner {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--sp-5); flex-wrap: wrap;
+  border-radius: var(--r-lg); padding: var(--sp-5) var(--sp-6); border: 1px solid var(--border);
+}
+.promo-banner--primary { background: linear-gradient(120deg, var(--primary-lightest), var(--surface) 70%); }
+.promo-banner--accent { background: linear-gradient(120deg, var(--secondary-lightest), var(--surface) 70%); }
+.promo-banner__text { flex: 1; min-width: 260px; }
+.promo-banner__text p { color: var(--gray-700); max-width: 560px; }
+
+/* ==========================================================================
+   Journey band — customer entry-point tabs
+   ========================================================================== */
+.journey-band .tabs { overflow-x: auto; }
+.journey-panel { display: flex; gap: var(--sp-5); align-items: flex-start; background: var(--surface-alt); border-radius: var(--r-lg); padding: var(--sp-5); border: 1px solid var(--border); }
+.journey-panel__icon {
+  width: 56px; height: 56px; border-radius: var(--r-md); background: var(--primary-lightest); color: var(--primary);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.journey-panel h3 { margin-bottom: var(--sp-1); }
+.journey-panel p { max-width: 640px; }
+@media (max-width: 640px) { .journey-panel { flex-direction: column; } }
+
+/* ==========================================================================
+   Stats / trust band
+   ========================================================================== */
+.stat-band { background: linear-gradient(135deg, var(--primary-lightest) 0%, var(--secondary-lightest) 100%); border-radius: var(--r-lg); padding: var(--sp-7) var(--sp-6); text-align: center; }
+.stat-band__title { margin-bottom: var(--sp-6); }
+.stat-band__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-5); }
+.stat-band__item { display: flex; flex-direction: column; align-items: center; }
+.stat-band__value { font-family: var(--font-heading); font-size: clamp(2rem, 1.6rem + 1.5vw, 2.75rem); font-weight: 800; color: var(--tertiary); line-height: 1; }
+.stat-band__suffix { font-family: var(--font-heading); font-size: clamp(2rem, 1.6rem + 1.5vw, 2.75rem); font-weight: 800; color: var(--tertiary); margin-left: 2px; }
+.stat-band__label { font-size: .875rem; color: var(--tertiary-light); font-weight: 600; margin-top: var(--sp-2); max-width: 220px; }
+@media (max-width: 640px) { .stat-band__grid { grid-template-columns: 1fr; gap: var(--sp-6); } }
+
+/* ==========================================================================
+   Pill gallery — specialty imagery
+   ========================================================================== */
+.pill-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-5); }
+.pill-card { text-align: center; }
+.pill-card__img { border-radius: 999px; overflow: hidden; aspect-ratio: 3/4; box-shadow: var(--shadow-2); border: 1px solid var(--border); margin-bottom: var(--sp-3); transition: transform var(--dur-mid) var(--ease-out), box-shadow var(--dur-mid) var(--ease-out); }
+.pill-card__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pill-card:hover .pill-card__img { transform: translateY(-4px); box-shadow: var(--shadow-3); }
+.pill-card h3 { font-size: 1rem; margin-bottom: 2px; }
+.pill-card a { font-size: .8125rem; font-weight: 700; }
+@media (max-width: 900px) { .pill-gallery { grid-template-columns: repeat(2, 1fr); } }
+
+/* ==========================================================================
+   Closing CTA band
+   ========================================================================== */
+.cta-band {
+  background: linear-gradient(135deg, var(--primary-lightest) 0%, var(--secondary-lightest) 100%);
+  margin-top: var(--sp-7); padding: var(--sp-8) var(--sp-5); text-align: center; position: relative; overflow: hidden;
+}
+.cta-band::before { content: ''; position: absolute; width: 300px; height: 300px; border-radius: 50%; top: -140px; left: -80px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); opacity: .12; }
+.cta-band__inner { max-width: 640px; margin: 0 auto; position: relative; z-index: 1; }
+.cta-band__inner p { color: var(--tertiary-light); font-size: 1.05rem; margin-bottom: var(--sp-5); }

@@ -1,0 +1,38 @@
+{
+  "tenants": [
+    {
+      "code": "APE",
+      "name": "Apex Engineering",
+      "color": "#4C5FFF"
+    },
+    {
+      "code": "APA",
+      "name": "Apex Automotive",
+      "color": "#019770"
+    },
+    {
+      "code": "APL",
+      "name": "Apex Leasing",
+      "color": "#7B4BD6"
+    },
+    {
+      "code": "FLE",
+      "name": "Forgeline Engineering",
+      "color": "#0E7490"
+    },
+    {
+      "code": "BH",
+      "name": "Blue Harbor",
+      "color": "#5B6478"
+    },
+    {
+      "code": "ALL",
+      "name": {
+        "vi": "Tổng hợp (chỉ đọc)",
+        "en": "Group view (read-only)"
+      },
+      "color": "#00084A"
+    }
+  ],
+  "_note": "Màu pháp nhân chọn từ bảng màu team design đề xuất (Google Slides, 28/10/2026); FLE dùng xanh rêu thay đỏ để không trùng màu báo lỗi; BH dùng xanh chàm #5B6478"
+}

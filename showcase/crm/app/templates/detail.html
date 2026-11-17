@@ -1,0 +1,61 @@
+<!-- Chi tiết bản ghi. Dữ liệu: key, id, crumb, title, statusPill, sub, layout, tenant, buttons[{label,primary,feat,onclick}],
+     more[{label,feat,onclick}], highlights[{label,value}], path[{state,cls,done}], offPath, tabs[{label,spec}], body(html),
+     approval{cond,levels[{name,cls,mark,status}]}, log[{by,text,at}], owner, created, feat{status,related}, tags[], sharedWith[] -->
+<div class="crumb"><a href="/e/{{key}}">{{crumb}}</a> › {{title}}</div>
+<div class="card np rec">
+  <div class="rec-top">
+    <div class="rec-ic">{{ic icon}}</div>
+    <div>
+      <h1>{{title}} {{{statusPill}}}</h1>
+      <div class="sub">{{sub}}{{#if layout}} · <span class="chip">{{layout}}</span>{{/if}} · <span class="chip">{{tenant}}</span></div>
+      <div class="tags"{{fa "M31.06"}}>{{#each tags}}<span class="chip tag">#{{this}}</span>{{/each}}{{#unless group}}<a class="sm" onclick="addTag('{{key}}','{{id}}')">+ Tag</a>{{/unless}}{{#if sharedWith.length}} · <span class="faint sm"{{fa "M31.08"}}>{{t "det.sharedWith"}}: {{#each sharedWith}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}</span>{{/if}}</div>
+    </div>
+    <div class="acts">
+      {{#if more.length}}
+      <div class="dd">
+        <button class="btn" onclick="this.parentNode.classList.toggle('open')">{{ic "more" "sm"}}{{t "act.more"}}{{ic "down" "sm"}}</button>
+        <div class="ddm">{{#each more}}<a{{fa feat}} onclick="{{onclick}}">{{label}}</a>{{/each}}</div>
+      </div>
+      {{/if}}
+      {{#each buttons}}<button class="btn{{#if primary}} pri{{/if}}"{{fa feat}} onclick="{{onclick}}">{{label}}</button>{{/each}}
+    </div>
+  </div>
+  <div class="hl" style="grid-template-columns:repeat({{highlights.length}},minmax(0,1fr))">
+    {{#each highlights}}<div><div class="k">{{label}}</div><div class="v">{{{value}}}</div></div>{{/each}}
+  </div>
+</div>
+
+{{#if path.length}}
+<div class="path"{{fa feat.status}}>{{#each path}}<div class="{{cls}}">{{#if done}}{{ic "ok" "sm"}}{{/if}}{{state}}</div>{{/each}}</div>
+{{#if offPath}}<p class="note">{{t "det.offPath" s=offPath}}</p>{{/if}}
+{{/if}}
+
+<div class="split">
+  <div class="card np">
+    <div class="tabs"{{fa feat.related}}>
+      <button class="on" onclick="tab(this,'{{key}}','{{id}}','')">{{t "det.details"}}</button>
+      {{#each tabs}}<button onclick="tab(this,'{{../key}}','{{../id}}','{{spec}}')">{{label}}</button>{{/each}}
+    </div>
+    <div id="tabBody">{{{body}}}</div>
+  </div>
+  <div class="rcol">
+    {{#if approval}}
+    <div class="card np"{{fa "M22.01"}}>
+      <div class="card-h"><h3>{{t "det.doa"}}</h3><span class="faint sm">{{approval.cond}} · {{t "det.levels" n=approval.levels.length}}</span></div>
+      <div class="card-b">
+        {{#each approval.levels}}<div class="st"><span class="b {{cls}}">{{mark}}</span><div><div class="t">{{name}}</div><div class="s">{{status}}</div></div></div>{{/each}}
+      </div>
+    </div>
+    {{/if}}
+    <div class="card np">
+      <div class="card-h"><h3>{{t "det.activity"}}</h3></div>
+      <div class="card-b">
+        {{#unless group}}<label class="composer"{{fa "M24.01"}}>{{ic "clip" "sm"}}<input placeholder="{{t "det.notePh"}}"></label>{{/unless}}
+        <div class="feed"{{fa "M04.03"}}>
+          {{#each log}}<div class="fd">{{av by}}<div><b>{{by}}</b> {{text}}<div class="t">{{at}}</div></div></div>{{/each}}
+          <div class="fd">{{av owner}}<div><b>{{owner}}</b> {{t "det.created"}}<div class="t">{{created}}</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

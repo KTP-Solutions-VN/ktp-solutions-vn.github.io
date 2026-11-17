@@ -1,0 +1,77 @@
+/* Settings screen — side nav tabs, toggle switches */
+
+.settings-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .settings-layout { grid-template-columns: 1fr; }
+}
+
+.settings-nav {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  position: sticky;
+  top: 90px;
+}
+
+.settings-nav__item {
+  padding: 11px 14px;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-gray-600);
+  cursor: pointer;
+}
+.settings-nav__item:hover { background: var(--color-gray-50); }
+.settings-nav__item.active { background: var(--color-primary-dark); color: var(--color-white); }
+
+.role-template-list { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.role-template-chip {
+  background: var(--color-primary-50);
+  color: var(--color-primary-dark);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+}
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-gray-100);
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-800);
+}
+.toggle-row:last-child { border-bottom: none; }
+
+/* Toggle switch */
+.switch { position: relative; display: inline-block; width: 42px; height: 24px; flex-shrink: 0; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider {
+  position: absolute; cursor: pointer; inset: 0;
+  background: var(--color-gray-300);
+  border-radius: 999px;
+  transition: background var(--transition-fast);
+}
+.slider::before {
+  content: "";
+  position: absolute;
+  height: 18px; width: 18px;
+  left: 3px; bottom: 3px;
+  background: var(--color-white);
+  border-radius: 50%;
+  transition: transform var(--transition-fast);
+}
+.switch input:checked + .slider { background: var(--color-primary-dark); }
+.switch input:checked + .slider::before { transform: translateX(18px); }

@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dự án tiêu biểu — KTP Solutions</title>
-<meta name="description" content="Các dự án tư vấn chuyển đổi số và outsourcing phần mềm KTP Solutions đã triển khai cho doanh nghiệp vừa và nhỏ trong nhiều ngành khác nhau, kèm số liệu kết quả cụ thể.">
+<title>Dự án phần mềm: quản lý khách sạn, CRM, y tế — KTP Solutions</title>
+<meta name="description" content="Dự án phần mềm KTP Solutions đã xây dựng: phần mềm quản lý khách sạn, resort, villa (PMS, Channel Manager), CRM doanh nghiệp B2B, website bán hàng y tế và POS nhà thuốc. Mỗi dự án có playground bản mẫu bấm thử được.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Dự án tiêu biểu — KTP Solutions">
-<meta property="og:description" content="Kết quả thật từ các dự án KTP đã triển khai cho khách hàng SME.">
+<meta property="og:title" content="Dự án phần mềm: quản lý khách sạn, CRM, y tế — KTP Solutions">
+<meta property="og:description" content="Phần mềm quản lý khách sạn, CRM B2B, phần mềm y tế: bấm thử playground bản mẫu của từng dự án.">
 <meta property="og:image" content="../../assets/img/ktp-logo.svg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../../assets/img/ktp-logo.svg" type="image/svg+xml">
@@ -20,15 +20,15 @@
   <div class="container site-header__inner">
     <a href="../../index.html" class="site-header__logo"><img src="../../assets/img/ktp-logo-white.svg" alt="KTP Solutions"></a>
     <nav class="site-header__nav">
-      <a href="../../index.html">Trang chủ</a>
-      <a href="../dich-vu/index.html">Dịch vụ</a>
-      <a href="../du-an/index.html" class="is-active">Dự án</a>
-      <a href="../blog/index.html">Blog</a>
-      <a href="../ve-chung-toi/index.html">Về chúng tôi</a>
+      <a href="../../index.html" data-en="Home">Trang chủ</a>
+      <a href="../dich-vu/index.html" data-en="Services">Dịch vụ</a>
+      <a href="../du-an/index.html" class="is-active" data-en="Projects">Dự án</a>
+      <a href="../blog/index.html" data-en="Blog">Blog</a>
+      <a href="../ve-chung-toi/index.html" data-en="About us">Về chúng tôi</a>
     </nav>
     <div class="site-header__actions">
       <div class="lang-toggle"><button type="button" data-lang="vi" class="is-active">VI</button><button type="button" data-lang="en">EN</button></div>
-      <a href="../lien-he/index.html" class="btn btn-primary">Đặt lịch tư vấn miễn phí</a>
+      <a href="../lien-he/index.html" class="btn btn-primary" data-en="Book a free consultation">Đặt lịch tư vấn miễn phí</a>
       <button class="site-header__burger" aria-label="Mở menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
     </div>
   </div>
@@ -36,34 +36,43 @@
 
 <div class="mobile-nav">
   <button class="mobile-nav__close" aria-label="Đóng menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-  <a href="../../index.html">Trang chủ</a>
-  <a href="../dich-vu/index.html">Dịch vụ</a>
-  <a href="../du-an/index.html">Dự án</a>
-  <a href="../blog/index.html">Blog</a>
-  <a href="../ve-chung-toi/index.html">Về chúng tôi</a>
+  <a href="../../index.html" data-en="Home">Trang chủ</a>
+  <a href="../dich-vu/index.html" data-en="Services">Dịch vụ</a>
+  <a href="../du-an/index.html" data-en="Projects">Dự án</a>
+  <a href="../blog/index.html" data-en="Blog">Blog</a>
+  <a href="../ve-chung-toi/index.html" data-en="About us">Về chúng tôi</a>
   <div class="mobile-nav__ctas">
-    <a href="../lien-he/index.html" class="btn btn-primary btn-block">Đặt lịch tư vấn miễn phí</a>
+    <a href="../lien-he/index.html" class="btn btn-primary btn-block" data-en="Book a free consultation">Đặt lịch tư vấn miễn phí</a>
   </div>
 </div>
 
 <main>
   <section class="section" style="padding-top: calc(var(--header-h) + 56px); padding-bottom: 56px;">
     <div class="container" style="max-width:720px; text-align:center;">
-      <span class="caption" style="color:var(--accent);">Dự án tiêu biểu</span>
-      <h1 style="margin-top:12px;">Kết quả thật, từ doanh nghiệp thật</h1>
-      <p class="body-lg" style="margin:16px auto 0; max-width:580px;">5 trong số 30+ dự án KTP đã triển khai — mỗi dự án đều có số liệu kết quả cụ thể, không phải lời hứa chung chung.</p>
+      <span class="caption" style="color:var(--accent);" data-en="Featured projects">Dự án tiêu biểu</span>
+      <h1 style="margin-top:12px;" data-en="Software projects you can try right now">Dự án phần mềm, bấm thử được ngay</h1>
+      <p class="body-lg" style="margin:16px auto 0; max-width:620px;" data-en="Hotel &amp; resort management, B2B CRM and healthcare software we have built. Every project comes with a sample playground you can click through; client names have been replaced for confidentiality.">Phần mềm quản lý khách sạn, resort, CRM doanh nghiệp B2B và phần mềm y tế KTP đã xây dựng. Mỗi dự án có playground bản mẫu bấm thử được; tên khách hàng đã được thay để bảo mật.</p>
     </div>
   </section>
 
-  <section class="section section-bg-surface" style="padding-top:0;">
-    <div class="container grid-3" id="du-an-grid"></div>
+  <section class="section section-bg-surface" style="padding-top:var(--sp-12);">
+    <div class="container">
+      <nav class="du-an-chips" id="du-an-chips" aria-label="Lĩnh vực"><!--pre:chips--><a class="du-an-chip is-active" href="./" data-linh-vuc=""><span data-en="All">Tất cả</span></a><a class="du-an-chip" href="?linh-vuc=hospitality" data-linh-vuc="hospitality"><svg class="domain-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20V6"/><path d="M2 13h20v7"/><path d="M22 13v-1a3 3 0 0 0-3-3h-8v4"/><circle cx="6.5" cy="10" r="2"/></svg><span data-en="Hospitality">Khách sạn &amp; Resort</span></a><a class="du-an-chip" href="?linh-vuc=industrial" data-linh-vuc="industrial"><svg class="domain-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l5 3v-3l5 3V5h4v15"/><path d="M8 17h1M12 17h1"/></svg><span data-en="Industrial / B2B">Công nghiệp / B2B</span></a><a class="du-an-chip" href="?linh-vuc=healthcare" data-linh-vuc="healthcare"><svg class="domain-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.4 4.6a5.4 5.4 0 0 0-7.6 0L12 5.4l-.8-.8a5.4 5.4 0 0 0-7.6 7.6L12 20.6l8.4-8.4a5.4 5.4 0 0 0 0-7.6z"/><path d="M3.5 12h4l1.5-2.5 3 5 1.5-2.5h7"/></svg><span data-en="Healthcare">Y tế</span></a><!--/pre:chips--></nav>
+      <div class="grid-3" id="du-an-grid"></div>
+    </div>
   </section>
+
+  <!-- Nội dung theo lĩnh vực (render sẵn bởi showcase/_tools/build_playground.py, song ngữ) -->
+  <section class="section section-bg-surface" style="padding-top:0;">
+    <div class="container du-an-domains" id="du-an-domains"><!--pre:domains--><section class="du-an-domain card" id="hospitality" data-linh-vuc="hospitality"><h2><a href="?linh-vuc=hospitality"><svg class="domain-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20V6"/><path d="M2 13h20v7"/><path d="M22 13v-1a3 3 0 0 0-3-3h-8v4"/><circle cx="6.5" cy="10" r="2"/></svg><span data-en="Hotel, resort &amp; villa management software">Phần mềm quản lý khách sạn, resort &amp; villa</span></a></h2><p class="body-lg" data-en="Property management system (PMS) and channel manager for hotel, resort and villa groups: reservations and room calendar, check-in/out, rates and availability, OTA sync (Booking.com, Agoda, Airbnb, Expedia), villa owners, guest services, housekeeping, maintenance, accounting and HR.">Hệ thống quản lý khách sạn (PMS) và Channel Manager cho chuỗi khách sạn, resort, villa: quản lý đặt phòng và lịch phòng, check-in/check-out, giá phòng và phòng trống, đồng bộ OTA (Booking.com, Agoda, Airbnb, Expedia), chủ sở hữu villa, dịch vụ khách, buồng phòng, bảo trì, kế toán và nhân sự.</p><ul class="du-an-domain__apps"><li><a href="playground/?app=pms"><b data-en="Hotel &amp; resort property management system (PMS)">Phần mềm quản lý khách sạn, resort, villa (PMS)</b></a><span><span data-en="Modules:">Phân hệ:</span> <span data-en="Team &amp; Access, Master Data, System Settings, Booking, Owner Management, Owner Portal, Guest Portal, Field Operations, Finance, Villa Services, Website Content, Accounting &amp; HR">Team &amp; Access, Master Data, System Settings, Booking, Owner Management, Owner Portal, Guest Portal, Field Operations, Finance, Villa Services, Website Content, Accounting &amp; HR</span></span></li><li><a href="playground/?app=cms"><b data-en="Hotel channel manager: OTA sync for Booking.com, Agoda, Airbnb">Channel Manager khách sạn: đồng bộ OTA Booking.com, Agoda, Airbnb</b></a><span><span data-en="Modules:">Phân hệ:</span> <span data-en="Channel Manager">Channel Manager</span></span></li></ul><p class="du-an-domain__kw"><span data-en="Related solutions:">Giải pháp liên quan:</span> <em>phần mềm quản lý khách sạn</em> <em>phần mềm quản lý resort</em> <em>phần mềm quản lý villa</em> <em>PMS khách sạn</em> <em>channel manager</em> <em>phần mềm đặt phòng</em> <em>đồng bộ OTA</em> <em>hotel management software</em> <em>property management system</em> <em>hotel channel manager</em></p></section><section class="du-an-domain card" id="industrial" data-linh-vuc="industrial"><h2><a href="?linh-vuc=industrial"><svg class="domain-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20"/><path d="M4 20V10l5 3v-3l5 3V5h4v15"/><path d="M8 17h1M12 17h1"/></svg><span data-en="B2B &amp; industrial CRM software">Phần mềm CRM doanh nghiệp B2B &amp; công nghiệp</span></a></h2><p class="body-lg" data-en="Multi-entity CRM for industrial equipment distributors: customers and contacts, sales pipeline, quotations, sales orders, invoices, service jobs and after-sales, installation projects, purchase requisitions, delegation-of-authority (DoA) approvals and accounting integration.">CRM đa pháp nhân cho doanh nghiệp phân phối thiết bị công nghiệp: quản lý khách hàng và liên hệ, cơ hội bán hàng (pipeline), báo giá, đơn hàng, hoá đơn, phiếu sửa chữa và dịch vụ hậu mãi, dự án lắp đặt, yêu cầu mua hàng, phê duyệt theo hạn mức (DoA), tích hợp phần mềm kế toán.</p><ul class="du-an-domain__apps"><li><a href="playground/?app=crm"><b data-en="B2B industrial CRM software">Phần mềm CRM doanh nghiệp B2B, công nghiệp</b></a><span><span data-en="Modules:">Phân hệ:</span> <span data-en="Leads, Customers, Contacts, Deals, Quotations, Sales Orders, Invoices, Products / parts, Service jobs, Vehicles / equipment, Installation projects, Shipping instructions, Parts requisitions, NEA inspections, Tickets &amp; maintenance, Purchase requisitions, Vendors">Lead, Khách hàng, Người liên hệ, Cơ hội (Deal), Báo giá, Sales Order, Hoá đơn, Sản phẩm / phụ tùng, Phiếu sửa chữa (Job card), Xe / thiết bị, Dự án lắp đặt, Phiếu xuất phụ tùng (SI), Yêu cầu phụ tùng, Kiểm tra NEA, Ticket &amp; bảo trì, Đề nghị mua, Nhà cung cấp</span></span></li></ul><p class="du-an-domain__kw"><span data-en="Related solutions:">Giải pháp liên quan:</span> <em>phần mềm CRM</em> <em>CRM doanh nghiệp</em> <em>CRM B2B</em> <em>phần mềm quản lý bán hàng</em> <em>phần mềm quản lý báo giá</em> <em>quản lý dịch vụ hậu mãi</em> <em>CRM công nghiệp</em> <em>B2B CRM</em> <em>industrial CRM</em> <em>sales CRM software</em></p></section><section class="du-an-domain card" id="healthcare" data-linh-vuc="healthcare"><h2><a href="?linh-vuc=healthcare"><svg class="domain-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.4 4.6a5.4 5.4 0 0 0-7.6 0L12 5.4l-.8-.8a5.4 5.4 0 0 0-7.6 7.6L12 20.6l8.4-8.4a5.4 5.4 0 0 0 0-7.6z"/><path d="M3.5 12h4l1.5-2.5 3 5 1.5-2.5h7"/></svg><span data-en="Healthcare software: e-commerce, back-office &amp; pharmacy POS">Phần mềm y tế: website bán hàng, quản trị &amp; POS nhà thuốc</span></a></h2><p class="body-lg" data-en="Healthcare e-commerce suite for hospitals, clinics and pharmacy chains: storefront for medical products and service packages, appointment booking, membership and loyalty points, back-office for orders, refunds, promotions, content and reports, and a pharmacy counter POS.">Bộ giải pháp thương mại điện tử y tế cho bệnh viện, phòng khám, chuỗi nhà thuốc: website bán sản phẩm và gói dịch vụ y tế, đặt lịch khám, hội viên và điểm thưởng, trang quản trị đơn hàng, hoàn tiền, khuyến mãi, nội dung và báo cáo, phần mềm POS bán hàng tại quầy thuốc.</p><ul class="du-an-domain__apps"><li><a href="playground/?app=admin"><b data-en="Healthcare e-commerce admin for hospitals &amp; clinics">Phần mềm quản trị bán hàng y tế cho bệnh viện, phòng khám</b></a><span><span data-en="Modules:">Phân hệ:</span> <span data-en="Order Management, Marketing &amp; Promotions, Product &amp; Service Data, Content (CMS), Customers &amp; Users, Reports &amp; Analytics, System Administration">Order Management, Marketing &amp; Promotions, Product &amp; Service Data, Content (CMS), Customers &amp; Users, Reports &amp; Analytics, System Administration</span></span></li><li><a href="playground/?app=store-front"><b data-en="Healthcare e-commerce website &amp; hospital service booking">Website bán hàng y tế, đặt lịch dịch vụ bệnh viện</b></a><span><span data-en="Modules:">Phân hệ:</span> <span data-en="Entry &amp; Content, Browse &amp; Book, Cart &amp; Checkout, Account &amp; Orders, Loyalty">Entry &amp; Content, Browse &amp; Book, Cart &amp; Checkout, Account &amp; Orders, Loyalty</span></span></li><li><a href="playground/?app=pos"><b data-en="Pharmacy POS software for hospital pharmacies">Phần mềm POS nhà thuốc, quầy thuốc bệnh viện</b></a><span><span data-en="Modules:">Phân hệ:</span> <span data-en="POS">POS</span></span></li></ul><p class="du-an-domain__kw"><span data-en="Related solutions:">Giải pháp liên quan:</span> <em>phần mềm quản lý bệnh viện</em> <em>phần mềm quản lý phòng khám</em> <em>phần mềm quản lý nhà thuốc</em> <em>phần mềm POS nhà thuốc</em> <em>website bán hàng y tế</em> <em>thương mại điện tử y tế</em> <em>healthcare e-commerce</em> <em>pharmacy POS software</em> <em>clinic booking system</em></p></section><!--/pre:domains--></div>
+  </section>
+
 
   <section class="section section-bg-solid">
     <div class="container cta-band">
-      <h2>Muốn trở thành case study tiếp theo?</h2>
-      <p class="body-lg">Đặt lịch tư vấn miễn phí để bắt đầu hành trình chuyển đổi số của chính doanh nghiệp bạn.</p>
-      <a href="../lien-he/index.html" class="btn btn-accent btn-lg">Đặt lịch tư vấn miễn phí</a>
+      <h2 data-en="Want to be our next case study?">Muốn trở thành case study tiếp theo?</h2>
+      <p class="body-lg" data-en="Book a free consultation to start your own digital transformation journey.">Đặt lịch tư vấn miễn phí để bắt đầu hành trình chuyển đổi số của chính doanh nghiệp bạn.</p>
+      <a href="../lien-he/index.html" class="btn btn-accent btn-lg" data-en="Book a free consultation">Đặt lịch tư vấn miễn phí</a>
     </div>
   </section>
 </main>
@@ -73,43 +82,43 @@
     <div class="site-footer__grid">
       <div class="site-footer__brand">
         <img src="../../assets/img/ktp-logo-white.svg" alt="KTP Solutions">
-        <p>Đối tác chuyển đổi số toàn diện — từ tư vấn chiến lược đến outsourcing phát triển phần mềm cho doanh nghiệp vừa và nhỏ.</p>
+        <p data-en="Your end-to-end digital transformation partner, from strategy consulting to software development outsourcing for SMEs.">Đối tác chuyển đổi số toàn diện — từ tư vấn chiến lược đến outsourcing phát triển phần mềm cho doanh nghiệp vừa và nhỏ.</p>
         <div class="site-footer__social">
           <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.5h4V23h-4V8.5zM8.5 8.5h3.8v1.98h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V23h-4v-6.7c0-1.6-.03-3.65-2.22-3.65-2.23 0-2.57 1.74-2.57 3.54V23h-4V8.5z"/></svg></a>
           <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
         </div>
       </div>
       <div>
-        <h4>Công ty</h4>
+        <h4 data-en="Company">Công ty</h4>
         <ul>
-          <li><a href="../ve-chung-toi/index.html">Về chúng tôi</a></li>
-          <li><a href="../du-an/index.html">Dự án</a></li>
-          <li><a href="../blog/index.html">Blog</a></li>
-          <li><a href="../lien-he/index.html">Liên hệ</a></li>
+          <li><a href="../ve-chung-toi/index.html" data-en="About us">Về chúng tôi</a></li>
+          <li><a href="../du-an/index.html" data-en="Projects">Dự án</a></li>
+          <li><a href="../blog/index.html" data-en="Blog">Blog</a></li>
+          <li><a href="../lien-he/index.html" data-en="Contact">Liên hệ</a></li>
         </ul>
       </div>
       <div>
-        <h4>Dịch vụ</h4>
+        <h4 data-en="Services">Dịch vụ</h4>
         <ul>
-          <li><a href="../dich-vu/phat-trien-phan-mem/index.html">Phát triển phần mềm</a></li>
-          <li><a href="../dich-vu/thiet-ke-phat-trien-web/index.html">Thiết kế &amp; phát triển Web</a></li>
-          <li><a href="../dich-vu/truyen-thong-so/index.html">Truyền thông số</a></li>
-          <li><a href="../dich-vu/thiet-ke-thuong-hieu/index.html">Thiết kế thương hiệu</a></li>
+          <li><a href="../dich-vu/phat-trien-phan-mem/index.html" data-en="Software development">Phát triển phần mềm</a></li>
+          <li><a href="../dich-vu/thiet-ke-phat-trien-web/index.html" data-en="Web design &amp; development">Thiết kế &amp; phát triển Web</a></li>
+          <li><a href="../dich-vu/truyen-thong-so/index.html" data-en="Digital marketing">Truyền thông số</a></li>
+          <li><a href="../dich-vu/thiet-ke-thuong-hieu/index.html" data-en="Brand design">Thiết kế thương hiệu</a></li>
         </ul>
       </div>
       <div>
-        <h4>Liên hệ</h4>
+        <h4 data-en="Contact">Liên hệ</h4>
         <ul>
           <li class="footer-contact-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg><span>info@ktpsolutions.vn</span></li>
           <li class="footer-contact-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+84 362 19 7272</span></li>
-          <li class="footer-contact-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><a href="https://maps.app.goo.gl/CE7TRci3reswAF777" target="_blank" rel="noopener">Số 17, LK 22, KĐT HUD Vân Canh, Sơn Đồng, Hà Nội</a></li>
-          <li class="footer-contact-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Thứ 2 – Thứ 6, 8:30 – 17:30</span></li>
+          <li class="footer-contact-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><a href="https://maps.app.goo.gl/CE7TRci3reswAF777" target="_blank" rel="noopener" data-en="No. 17, LK 22, HUD Van Canh Urban Area, Son Dong, Hanoi">Số 17, LK 22, KĐT HUD Vân Canh, Sơn Đồng, Hà Nội</a></li>
+          <li class="footer-contact-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span data-en="Mon – Fri, 8:30 – 17:30">Thứ 2 – Thứ 6, 8:30 – 17:30</span></li>
         </ul>
       </div>
     </div>
     <div class="site-footer__bottom">
       <span>© 2026 KTP Solutions. All rights reserved.</span>
-      <span>Ảnh minh họa: Unsplash License</span>
+      <span data-en="Illustrations: Unsplash License">Ảnh minh họa: Unsplash License</span>
     </div>
   </div>
 </footer>

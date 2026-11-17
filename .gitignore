@@ -5,3 +5,22 @@ __MACOSX/
 # editor
 .vscode/
 .idea/
+
+# showcase: client data, local only (never commit)
+# ảnh before/after/compare: chỉ dùng để review ở local (playground không còn chế độ Ảnh)
+showcase/shots/
+showcase/crm/_src/source/
+showcase/comparison.html
+showcase/REVIEW.md
+showcase/_review/
+# mã nguồn prototype dạng zip: không cho tải công khai, chỉ giữ ở local
+showcase/**/*.zip
+
+# z-harness: cho phép sửa thẳng main tree ở repo này (máy local)
+.z-harness-allow-main-tree
+
+# Claude Code: trạng thái cục bộ của hook (kế hoạch, log)
+.claude/state/
+
+# Python cache
+__pycache__/

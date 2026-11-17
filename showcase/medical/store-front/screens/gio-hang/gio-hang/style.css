@@ -1,0 +1,5 @@
+/* Screen-specific overrides: Cart (#6) — signature moment "Channel-Aware Cart" */
+@media (max-width: 900px) {
+  #cart-root { grid-template-columns: 1fr !important; }
+}
+.channel-icon { width: 34px; height: 34px; border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }

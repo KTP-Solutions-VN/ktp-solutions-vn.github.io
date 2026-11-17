@@ -1,0 +1,28 @@
+<!-- Form tạo mới. Dữ liệu: key, label, icon, layout, layouts[{name,on,href}], feat, sections[{name, inputs[{api,label,required,kind,options[],wide}]}] -->
+<div class="crumb"><a href="/e/{{key}}">{{label}}</a> › {{t "form.new"}}</div>
+<div class="ph2">
+  <div class="ttl"><span class="tic">{{ic icon}}</span><h1>{{t "form.new"}} <span class="muted" style="font-weight:400">· {{label}}</span></h1></div>
+  <div class="acts"><button class="btn" onclick="go('/e/{{key}}')">{{t "act.cancel"}}</button><button class="btn pri" onclick="saveForm('{{key}}','{{layout}}')">{{ic "ok" "sm"}}{{t "act.save"}}</button></div>
+</div>
+{{#if layouts.length}}
+<div class="card np"{{fa feat}}>
+  <div class="card-h"><h3>{{t "form.layout"}}</h3></div>
+  <div class="card-b"><div class="typesel">{{#each layouts}}<button class="{{#if on}}on{{/if}}" onclick="go('{{href}}')"><span>{{ic ../icon}}</span>{{name}}</button>{{/each}}</div></div>
+</div>
+{{/if}}
+{{#each sections}}
+<div class="card np">
+  <div class="card-h"><h3>{{name}}</h3></div>
+  <div class="form">
+    {{#each inputs}}
+    <label{{#if wide}} style="grid-column:1/-1"{{/if}}>{{label}}{{#if required}} <i>*</i>{{/if}}
+      {{#if (eq kind "select")}}<select class="inp" data-f2="{{api}}"><option></option>{{#each options}}<option>{{this}}</option>{{/each}}</select>
+      {{else if (eq kind "textarea")}}<textarea class="inp" data-f2="{{api}}"></textarea>
+      {{else if (eq kind "checkbox")}}<input type="checkbox" data-f2="{{api}}">
+      {{else if (eq kind "lines")}}<div class="muted sm">{{t "form.lines"}} <button class="btn xs" type="button">{{ic "plus" "sm"}}{{t "form.addLine"}}</button></div>
+      {{else}}<input class="inp" type="{{kind}}" data-f2="{{api}}">{{/if}}
+    </label>
+    {{/each}}
+  </div>
+</div>
+{{/each}}

@@ -1,0 +1,11 @@
+/* Entity: Discount/Promotion (Mã giảm giá/Khuyến mãi)
+   Schema: id, name, code, type (Percentage|Fixed Amount|Free Item|Buy X for $Y), value, status (Draft|Scheduled|Active|Expired),
+   startDate, endDate, targetSegment, minCartValue, usageLimit, usedCount, stackable, appliesTo (category/product/brand) */
+const DATA_MA_GIAM_GIA = [
+  { id: 'PROMO-01', name: 'Maternity Package Early Bird', code: 'EARLYBIRD10', type: 'Percentage', value: 10, status: 'Active', startDate: '2026-08-01', endDate: '2026-09-30', targetSegment: 'All Customers', minCartValue: 500, usageLimit: 500, usedCount: 128, stackable: false, appliesTo: 'Maternity Package' },
+  { id: 'PROMO-02', name: 'FBP Member Loyalty $50 Off', code: 'FBP50', type: 'Fixed Amount', value: 50, status: 'Active', startDate: '2026-07-15', endDate: '2026-12-31', targetSegment: 'FBP Member', minCartValue: 300, usageLimit: 1000, usedCount: 341, stackable: true, appliesTo: 'All categories' },
+  { id: 'PROMO-03', name: 'Confinement Meal Bundle Free Trial Meal', code: 'TRIALMEAL', type: 'Free Item', value: 1, status: 'Active', startDate: '2026-08-10', endDate: '2026-10-10', targetSegment: 'All Customers', minCartValue: 2500, usageLimit: 200, usedCount: 54, stackable: false, appliesTo: 'Confinement Meals' },
+  { id: 'PROMO-04', name: 'August Prenatal Class Special', code: 'AUGCLASS', type: 'Percentage', value: 15, status: 'Expired', startDate: '2026-08-01', endDate: '2026-08-15', targetSegment: 'All Customers', minCartValue: 0, usageLimit: 100, usedCount: 100, stackable: false, appliesTo: 'Parenting Class' },
+  { id: 'PROMO-05', name: 'Year-end Wellness Screening Promo', code: 'WELLNESS2026', type: 'Percentage', value: 20, status: 'Scheduled', startDate: '2026-11-01', endDate: '2026-12-31', targetSegment: 'Eligible for Free Item', minCartValue: 400, usageLimit: 300, usedCount: 0, stackable: false, appliesTo: 'Health Screening' },
+  { id: 'PROMO-06', name: 'Buy Fertility Consult, $88 Dental Check-up', code: 'FERTIDENTAL', type: 'Buy X for $Y', value: 88, status: 'Draft', startDate: '2026-09-01', endDate: '2026-10-31', targetSegment: 'All Customers', minCartValue: 0, usageLimit: 150, usedCount: 0, stackable: false, appliesTo: 'Fertility Consult + Dental' }
+];

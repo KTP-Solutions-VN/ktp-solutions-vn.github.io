@@ -1,0 +1,21 @@
+.data-table td.thumb-cell { display: flex; gap: 4px; }
+.data-table .img-count { font-size: var(--font-size-xs); color: var(--color-gray-500); }
+
+.image-row {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px; border: 1px solid var(--color-gray-200); border-radius: var(--radius-md);
+  margin-bottom: 10px; background: var(--color-gray-50);
+}
+.image-row__thumb {
+  width: 72px; height: 48px; border-radius: var(--radius-sm); flex-shrink: 0;
+  background: var(--color-gray-200); display: flex; align-items: center; justify-content: center;
+  color: var(--color-gray-500); cursor: pointer; border: 1px dashed var(--color-gray-300);
+}
+.image-row__thumb svg { width: 20px; height: 20px; }
+.image-row__fields { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.image-row__remove {
+  border: none; background: var(--color-danger-bg); color: var(--color-danger-text);
+  width: 28px; height: 28px; border-radius: 50%; cursor: pointer; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.image-row__remove:hover { background: var(--color-accent); color: var(--color-white); }

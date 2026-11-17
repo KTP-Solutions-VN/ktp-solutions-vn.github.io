@@ -1,0 +1,21 @@
+@import url("../_shared/photos-shared.css");
+
+.standard-table td:first-child { min-width: 220px; }
+.standard-table .area-icon { width: 26px; height: 26px; border-radius: var(--radius-sm); background: var(--color-primary-50); color: var(--color-primary-600); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.standard-table .area-icon svg { width: 15px; height: 15px; }
+.standard-table .area-row-main { display: flex; align-items: center; gap: 10px; }
+.standard-table .area-name-input,
+.standard-table .area-note-input { border: 1px solid var(--color-gray-300); border-radius: var(--radius-sm); padding: 5px 7px; font-size: var(--font-size-sm); width: 100%; }
+.standard-table .area-note-input { margin-top: 4px; font-size: var(--font-size-xs); color: var(--color-gray-600); }
+.standard-table .area-locked-name { font-weight: 600; color: var(--color-gray-800); }
+.standard-table .area-locked-note { font-size: var(--font-size-xs); color: var(--color-gray-500); margin-top: 2px; }
+.standard-table tbody tr.custom-row { background: var(--color-primary-50); }
+
+.icon-action {
+  width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--color-gray-200);
+  background: var(--color-white); display: inline-flex; align-items: center; justify-content: center;
+  color: var(--color-gray-500); cursor: pointer; transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+.icon-action svg { width: 15px; height: 15px; }
+.icon-action:hover { background: var(--color-gray-50); border-color: var(--color-primary); color: var(--color-primary-dark); }
+.icon-action.danger:hover { border-color: var(--color-accent); color: var(--color-danger-text); background: var(--color-danger-bg); }

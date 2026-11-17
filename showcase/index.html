@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dự án — KTP Solutions</title>
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://www.ktpsolutions.vn/screens/du-an/">
+<script>
+  /* Showcase đã gộp vào mục Dự án. Trang này chỉ chuyển link cũ sang URL mới:
+     /showcase/?app=<id>[&screen=…]  → /screens/du-an/playground/?app=<id>[&screen=…]
+     /showcase/?domain=<lĩnh vực>    → /screens/du-an/?linh-vuc=<lĩnh vực>
+     /showcase/#/<id>/<màn>          → /screens/du-an/playground/#/<id>/<màn> (playground tự đổi sang query)
+     còn lại                          → /screens/du-an/ */
+  (function () {
+    var q = new URLSearchParams(location.search), to = "../screens/du-an/";
+    if (q.get("app")) to += "playground/" + location.search;
+    else if (location.hash.indexOf("#/") === 0) to += "playground/" + location.hash;
+    else if (q.get("domain")) to += "?linh-vuc=" + encodeURIComponent(q.get("domain"));
+    location.replace(to);
+  })();
+</script>
+<noscript><meta http-equiv="refresh" content="0; url=../screens/du-an/"></noscript>
+</head>
+<body>
+<p><a href="../screens/du-an/">Dự án — KTP Solutions</a></p>
+</body>
+</html>

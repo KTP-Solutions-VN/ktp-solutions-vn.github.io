@@ -1,0 +1,4 @@
+.fp-card { padding: 20px; }
+.fp-card h3 { margin: 0 0 8px; font-size: var(--font-size-lg); color: var(--color-primary-dark); }
+.fp-progress { height: 8px; background: var(--color-gray-100); border-radius: var(--radius-pill); overflow: hidden; margin: 10px 0 6px; }
+.fp-progress__bar { height: 100%; background: var(--color-primary); border-radius: var(--radius-pill); }

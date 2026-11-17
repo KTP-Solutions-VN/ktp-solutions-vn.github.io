@@ -1,0 +1,9 @@
+/* BOOK-097 — FAQ Categories: uses shared table/toolbar/modal classes from
+   global.css and booking-shared.css. No screen-specific overrides needed
+   beyond the count-pill used in the table body. */
+.cat-count-pill {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 22px; height: 22px; padding: 0 6px; border-radius: var(--radius-pill);
+  background: var(--color-primary-50); color: var(--color-primary-dark);
+  font-size: 11px; font-weight: 700;
+}

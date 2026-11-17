@@ -1,0 +1,42 @@
+/* BOOK-104 — Add Occupancy-Based Action */
+td.occ-green { color: var(--color-success-text); font-weight: 700; }
+td.occ-red { color: var(--color-danger-text); font-weight: 700; }
+td.occ-amber { color: var(--color-warning-text); font-weight: 700; }
+#villa-tbody input[type="text"] { width: 100%; }
+
+.card-title-sm {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 14px;
+  color: var(--color-primary-dark);
+}
+.form-actions {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-top: 16px;
+}
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+.stat-mini {
+  background: var(--color-gray-50);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  text-align: center;
+}
+.stat-mini__value {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+.stat-mini__label {
+  font-size: 11px;
+  color: var(--color-gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-top: 2px;
+}

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CareJourney — Book Hospital Tours & Shop Maternity Packages</title>
+<meta name="description" content="One cart for hospital tours, maternity packages, confinement nutrition and wellness essentials — browse, book and check out once with CareJourney.">
+<link rel="stylesheet" href="../../../assets/css/global.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page-wrap">
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <button class="hamburger" data-hamburger aria-label="Open menu">
+      <svg class="icon" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <a href="../../../index.html" class="brand"><span class="brand__mark">CJ</span><span>CareJourney</span></a>
+    <nav class="main-nav">
+      <a href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html" class="is-active">Shop</a>
+      <a href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html?category=Hospital+Tours">Book a Hospital Tour</a>
+      <a href="../../../screens/khach-hang/dang-ky-thanh-vien-fbp-nbp/index.html">Membership</a>
+      <a href="../../../screens/noi-dung/trang-noi-dung/index.html">About</a>
+    </nav>
+    <div class="header-actions">
+      <form class="header-search" data-search-form data-search-target="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html">
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="search" placeholder="Search products & services" aria-label="Search">
+      </form>
+      <a class="icon-btn" href="../../../screens/gio-hang/gio-hang/index.html" aria-label="Cart">
+        <svg class="icon" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="cart-badge" data-cart-badge style="display:none">0</span>
+      </a>
+      <div data-when-logged-out style="display:none">
+        <a class="btn-login-header" href="../../../screens/khach-hang/dang-nhap-dang-ky/index.html">Log In</a>
+      </div>
+      <div class="account-menu" data-when-logged-in>
+        <button class="account-trigger" data-account-trigger aria-label="Account menu"><span class="avatar" data-account-initials>GL</span></button>
+        <div class="account-dropdown" data-account-dropdown>
+          <div class="account-dropdown__header"><strong data-account-name>Grace Lim Wei Ting</strong><span>CareJourney Member</span></div>
+          <a href="../../../screens/khach-hang/tai-khoan-cua-toi/index.html"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>My Account</a>
+          <a href="../../../screens/don-hang/lich-su-don-hang/index.html"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/></svg>Order History</a>
+          <a href="../../../screens/diem-thuong/so-du-lich-su-diem/index.html"><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Loyalty Points</a>
+          <button class="dropdown-item" data-logout><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Log Out</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="mobile-drawer-overlay" data-mobile-drawer-overlay></div>
+<nav class="mobile-drawer" data-mobile-drawer>
+  <button class="mobile-drawer__close" data-mobile-drawer-close aria-label="Close menu"><svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <a href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html">Shop</a>
+  <a href="../../../screens/khach-hang/dang-ky-thanh-vien-fbp-nbp/index.html">Membership</a>
+  <a href="../../../screens/noi-dung/trang-noi-dung/index.html">About</a>
+  <a href="../../../screens/khach-hang/tai-khoan-cua-toi/index.html">My Account</a>
+  <a href="../../../screens/don-hang/lich-su-don-hang/index.html">Order History</a>
+  <a href="../../../screens/diem-thuong/so-du-lich-su-diem/index.html">Loyalty Points</a>
+</nav>
+
+<main class="page-main">
+
+  <!-- 1. HERO -->
+  <section class="hero">
+    <div class="hero__inner">
+      <div>
+        <span class="badge badge-info" style="background:rgba(255,255,255,.55);color:var(--primary-dark);">Baby Expo 2026 · 18–20 Sep · City Convention Hall</span>
+        <h1 class="mt-3">Book your hospital tour, shop your maternity package — check out once.</h1>
+        <p class="lead">CareJourney brings hospital tours, maternity room packages, Meridian Nutri confinement meals and wellness essentials into a single cart, so you're not filling 5 forms and paying 5 times at the booth.</p>
+        <div class="flex-gap-3 mt-4">
+          <a href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html" class="btn btn-primary btn-lg">Explore Packages</a>
+          <a href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html?category=Hospital+Tours" class="btn btn-outline btn-lg">Book a Hospital Tour</a>
+        </div>
+        <div class="hero-badges">
+          <div class="hero-badge"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>One cart, one payment</div>
+          <div class="hero-badge"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>8 Meridian Health brands in one catalog</div>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img src="https://images.pexels.com/photos/10827916/pexels-photo-10827916.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Meridian Medical Centre entrance signage, welcoming patients and expectant families" loading="eager">
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- Quick category wayfinding -->
+    <section class="section" style="margin-top:var(--sp-7)" data-reveal>
+      <div class="section-head"><h2>Shop by category</h2></div>
+      <div id="category-grid" class="product-grid" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr))"></div>
+    </section>
+
+    <!-- 2. Carousel — Maternity Packages & Room Booking -->
+    <section class="section carousel-section" data-reveal>
+      <div class="section-head">
+        <div>
+          <h2>Maternity Packages &amp; Room Booking</h2>
+          <p class="text-muted text-sm">Best-selling room packages, scans and delivery suites</p>
+        </div>
+        <a class="carousel-viewall" href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html?category=Maternity+Packages">View All &rarr;</a>
+      </div>
+      <div class="carousel" data-carousel>
+        <button class="carousel__arrow carousel__arrow--prev" data-carousel-prev aria-label="Scroll left"><svg class="icon" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <div class="carousel__track" data-carousel-track data-category="Maternity Packages" id="carousel-maternity"></div>
+        <button class="carousel__arrow carousel__arrow--next" data-carousel-next aria-label="Scroll right"><svg class="icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </section>
+
+    <!-- Promo banner 1 — Membership, connecting to next section -->
+    <section class="section" data-reveal>
+      <div class="promo-banner promo-banner--primary">
+        <div class="promo-banner__text">
+          <span class="badge badge-sale">FBP / NBP Membership</span>
+          <h3 class="mt-2">Expecting your 2nd or 3rd child? You could unlock member pricing today.</h3>
+          <p class="mb-0">FBP/NBP members get discount classes applied automatically at checkout — no manual verification needed at the booth.</p>
+        </div>
+        <a href="../../../screens/khach-hang/dang-ky-thanh-vien-fbp-nbp/index.html" class="btn btn-primary">Check Membership Benefits</a>
+      </div>
+    </section>
+
+    <!-- 3. Carousel — Hospital Tours & Courses -->
+    <section class="section carousel-section" data-reveal>
+      <div class="section-head">
+        <div>
+          <h2>Hospital Tours &amp; Courses</h2>
+          <p class="text-muted text-sm">Guided facility tours and antenatal classes, most free to book</p>
+        </div>
+        <a class="carousel-viewall" href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html?category=Hospital+Tours">View All &rarr;</a>
+      </div>
+      <div class="carousel" data-carousel>
+        <button class="carousel__arrow carousel__arrow--prev" data-carousel-prev aria-label="Scroll left"><svg class="icon" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <div class="carousel__track" data-carousel-track data-category="Hospital Tours" id="carousel-tours"></div>
+        <button class="carousel__arrow carousel__arrow--next" data-carousel-next aria-label="Scroll right"><svg class="icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </section>
+
+    <!-- 4. Journey band — customer entry points -->
+    <section class="section journey-band" data-reveal>
+      <div class="section-head">
+        <div>
+          <h2>However you found us, your cart follows you</h2>
+          <p class="text-muted text-sm">Event attendee, hospital tour visitor, online shopper or retail shopper — pick how you're shopping today</p>
+        </div>
+      </div>
+      <div class="tabs" data-tab-group>
+        <button class="tab-item is-active" data-tab="event">Event Attendee</button>
+        <button class="tab-item" data-tab="tour">Hospital Tour Visitor</button>
+        <button class="tab-item" data-tab="online">Online Shopper</button>
+        <button class="tab-item" data-tab="retail">Retail Shopper</button>
+      </div>
+      <div class="tab-panel is-active" data-tab-panel="event">
+        <div class="journey-panel">
+          <div class="journey-panel__icon"><svg class="icon-lg" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/></svg></div>
+          <div>
+            <h3>At a Meridian event? Scan, pre-order, pay once.</h3>
+            <p>Scan the QR code at any Baby Expo 2026 booth to pre-order Meridian Nutri meals, membership sign-ups and bundles in your own time — then complete one guided checkout at the counter instead of queueing at 5 separate booths.</p>
+            <a class="btn btn-outline btn-sm" href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html?category=Bundles">See Event Bundles</a>
+          </div>
+        </div>
+      </div>
+      <div class="tab-panel" data-tab-panel="tour">
+        <div class="journey-panel">
+          <div class="journey-panel__icon"><svg class="icon-lg" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M9 7h6M9 11h6M9 15h2"/></svg></div>
+          <div>
+            <h3>Touring our wards today? Reserve your slot first.</h3>
+            <p>Book a free guided walkthrough of our delivery suites and nursery, then browse room upgrades and confinement meal plans while your slot is confirmed — all from the same account.</p>
+            <a class="btn btn-outline btn-sm" href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html?category=Hospital+Tours">Book a Hospital Tour</a>
+          </div>
+        </div>
+      </div>
+      <div class="tab-panel" data-tab-panel="online">
+        <div class="journey-panel">
+          <div class="journey-panel__icon"><svg class="icon-lg" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+          <div>
+            <h3>Shopping from home? Compare Special Price and bundle savings upfront.</h3>
+            <p>Every maternity package, confinement plan and wellness product shows list price against Special Price and Combo savings side-by-side, so you know exactly what you're saving before adding to cart.</p>
+            <a class="btn btn-outline btn-sm" href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html">Browse the Full Shop</a>
+          </div>
+        </div>
+      </div>
+      <div class="tab-panel" data-tab-panel="retail">
+        <div class="journey-panel">
+          <div class="journey-panel__icon"><svg class="icon-lg" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+          <div>
+            <h3>Visiting a Meridian pharmacy counter? Reserve ahead, skip the queue.</h3>
+            <p>Reserve vitamins, TCM wellness sessions and baby essentials online, then collect in-store or have them delivered — no need to check stock in person first.</p>
+            <a class="btn btn-outline btn-sm" href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html?category=Pharmacy+%26+Wellness">Shop Pharmacy &amp; Wellness</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Carousel — Meridian Nutri Confinement Food -->
+    <section class="section carousel-section" data-reveal>
+      <div class="section-head">
+        <div>
+          <h2>Meridian Nutri — Confinement Food</h2>
+          <p class="text-muted text-sm">TCM-informed confinement meals and herbal soups, delivered fresh</p>
+        </div>
+        <a class="carousel-viewall" href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html?category=Confinement+Nutrition">View All &rarr;</a>
+      </div>
+      <div class="carousel" data-carousel>
+        <button class="carousel__arrow carousel__arrow--prev" data-carousel-prev aria-label="Scroll left"><svg class="icon" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <div class="carousel__track" data-carousel-track data-category="Confinement Nutrition" id="carousel-nutri"></div>
+        <button class="carousel__arrow carousel__arrow--next" data-carousel-next aria-label="Scroll right"><svg class="icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </section>
+
+    <!-- 6. Stats / trust band -->
+    <section class="section" data-reveal>
+      <div class="stat-band">
+        <h2 class="stat-band__title">Empowering life journeys since 1995</h2>
+        <div class="stat-band__grid">
+          <div class="stat-band__item">
+            <span class="stat-band__value" data-count-to="30">0</span><span class="stat-band__suffix">+</span>
+            <span class="stat-band__label">years caring for Singapore families</span>
+          </div>
+          <div class="stat-band__item">
+            <span class="stat-band__value" data-count-to="33">0</span>
+            <span class="stat-band__label">packages &amp; services in one catalog</span>
+          </div>
+          <div class="stat-band__item">
+            <span class="stat-band__value" data-count-to="4">0</span>
+            <span class="stat-band__label">entry points, 1 unified cart &amp; checkout</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Carousel — Wellness & Retail -->
+    <section class="section carousel-section" data-reveal>
+      <div class="section-head">
+        <div>
+          <h2>Wellness &amp; Retail</h2>
+          <p class="text-muted text-sm">TCM wellness sessions, pharmacy essentials and baby care products</p>
+        </div>
+        <a class="carousel-viewall" href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html?category=Pharmacy+%26+Wellness">View All &rarr;</a>
+      </div>
+      <div class="carousel" data-carousel>
+        <button class="carousel__arrow carousel__arrow--prev" data-carousel-prev aria-label="Scroll left"><svg class="icon" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <div class="carousel__track" data-carousel-track data-category="Pharmacy & Wellness" id="carousel-wellness"></div>
+        <button class="carousel__arrow carousel__arrow--next" data-carousel-next aria-label="Scroll right"><svg class="icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </div>
+    </section>
+
+    <!-- Promo banner 2 — Loyalty Points, connecting to closing sections -->
+    <section class="section" data-reveal>
+      <div class="promo-banner promo-banner--accent">
+        <div class="promo-banner__text">
+          <span class="badge badge-success">CareJourney Points</span>
+          <h3 class="mt-2">Every purchase earns points — redeem them on your next booking.</h3>
+          <p class="mb-0">Points are credited automatically after checkout, across every channel: event, hospital tour, online or retail.</p>
+        </div>
+        <a href="../../../screens/diem-thuong/so-du-lich-su-diem/index.html" class="btn btn-accent">View My Points</a>
+      </div>
+    </section>
+
+    <!-- 8. Pill gallery — Explore our specialties (real Meridian Health imagery) -->
+    <section class="section" data-reveal>
+      <div class="section-head"><div><h2>Explore our specialties</h2><p class="text-muted text-sm">Meridian Health's specialist service lines behind every package in our shop</p></div></div>
+      <div class="pill-gallery">
+        <div class="pill-card">
+          <div class="pill-card__img"><img src="https://images.pexels.com/photos/4964372/pexels-photo-4964372.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Mother resting with her newborn baby, representing Meridian Health's maternity care" loading="lazy"></div>
+          <h3>Maternity</h3>
+          <a href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html?category=Maternity+Packages">Learn More &rarr;</a>
+        </div>
+        <div class="pill-card">
+          <div class="pill-card__img"><img src="https://images.pexels.com/photos/7108415/pexels-photo-7108415.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Fertility centre lab technician examining a sample under a microscope" loading="lazy"></div>
+          <h3>Fertility</h3>
+          <a href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html?category=Specialist+Consultations">Learn More &rarr;</a>
+        </div>
+        <div class="pill-card">
+          <div class="pill-card__img"><img src="https://images.pexels.com/photos/33812023/pexels-photo-33812023.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Patient undergoing an MRI scan with a Meridian Health clinician" loading="lazy"></div>
+          <h3>Diagnostics &amp; MRI</h3>
+          <a href="../../../screens/noi-dung/trang-noi-dung/index.html">Learn More &rarr;</a>
+        </div>
+        <div class="pill-card">
+          <div class="pill-card__img"><img src="https://images.pexels.com/photos/34185199/pexels-photo-34185199.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Surgical team in an operating theatre at Meridian Health" loading="lazy"></div>
+          <h3>Orthopaedics</h3>
+          <a href="../../../screens/noi-dung/trang-noi-dung/index.html">Learn More &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- 9. Closing CTA band -->
+  <section class="cta-band" data-reveal>
+    <div class="cta-band__inner">
+      <h2>We're here to help you get started</h2>
+      <p>Whichever step you're on — planning, touring or ready to book — your cart carries everything across channels.</p>
+      <div class="flex-gap-3" style="justify-content:center;flex-wrap:wrap;">
+        <a href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html" class="btn btn-primary btn-lg">Browse Packages</a>
+        <a href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html?category=Hospital+Tours" class="btn btn-outline btn-lg">Find a Hospital Tour</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div>
+      <div class="brand" style="color:#fff;margin-bottom:12px;"><span class="brand__mark">CJ</span><span>CareJourney</span></div>
+      <p style="color:var(--gray-400);font-size:.85rem;max-width:280px;">Empowering life journeys — the unified commerce experience of Meridian Health Singapore.</p>
+    </div>
+    <div><h4>Shop</h4><ul>
+      <li><a href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html?category=Maternity+Packages">Maternity Packages</a></li>
+      <li><a href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html?category=Confinement+Nutrition">Confinement Nutrition</a></li>
+      <li><a href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html?category=Pharmacy+%26+Wellness">Pharmacy &amp; Wellness</a></li>
+      <li><a href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html?category=Bundles">Bundles</a></li>
+    </ul></div>
+    <div><h4>Our Brands</h4><ul>
+      <li><a href="#">Meridian Specialists</a></li>
+      <li><a href="#">Meridian Fertility Centre</a></li>
+      <li><a href="#">Meridian Chinese Medicine</a></li>
+      <li><a href="#">Meridian Women's Clinic</a></li>
+      <li><a href="#">Meridian Nutri</a></li>
+      <li><a href="#">Meridian Baby</a></li>
+    </ul></div>
+    <div><h4>Support</h4><ul>
+      <li><a href="../../../screens/khach-hang/tai-khoan-cua-toi/index.html">My Account</a></li>
+      <li><a href="../../../screens/don-hang/theo-doi-trang-thai-don-hang/index.html">Order Tracking</a></li>
+      <li><a href="#">Contact Us</a></li>
+    </ul></div>
+  </div>
+  <div class="site-footer__bottom">&copy; 2026 Meridian Health Pte Ltd. All rights reserved. · CareJourney is a digital service of Meridian Health.</div>
+</footer>
+</div>
+<div id="toast-region"></div>
+<script src="../../../assets/data/san-pham-dich-vu.js"></script>
+<script src="../../../assets/js/global.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

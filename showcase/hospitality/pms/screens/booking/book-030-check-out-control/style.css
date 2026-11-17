@@ -1,0 +1,3 @@
+@import url("../_shared/booking-shared.css");
+
+.stars { color: var(--color-warning-text); font-weight: 700; }

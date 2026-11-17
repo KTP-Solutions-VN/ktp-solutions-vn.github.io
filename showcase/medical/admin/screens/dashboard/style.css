@@ -1,0 +1,14 @@
+/* screen-specific overrides, if any */
+
+/* Dashboard KPI grid: signature card alone on row 1, the 4 remaining KPI cards on row 2.
+   Scoped to #kpiGrid only — does not affect the shared .kpi-grid/.kpi-card classes
+   reused by report screens elsewhere in the app. */
+#kpiGrid { grid-template-columns: repeat(4, 1fr); }
+#kpiGrid #signatureCard { grid-column: 1 / -1; justify-self: start; width: 100%; max-width: 450px; }
+
+@media (max-width: 1100px) {
+  #kpiGrid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  #kpiGrid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,2 @@
+/* BOOK-099 — Add / Edit FAQ Question */
+#f-bu-list label { display: flex; align-items: center; gap: 8px; font-size: var(--font-size-sm); color: var(--color-gray-700); }

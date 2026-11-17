@@ -1,0 +1,4 @@
+/* USR-010 — Granted Leaves */
+
+.leave-range { font-variant-numeric: tabular-nums; }
+.leave-none { color: var(--color-gray-400); font-style: italic; }

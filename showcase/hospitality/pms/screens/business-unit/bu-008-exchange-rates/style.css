@@ -1,0 +1,6 @@
+/* BU-008 — Exchange Rates — screen-specific rules only */
+.rate-cell { cursor: pointer; font-variant-numeric: tabular-nums; }
+.rate-cell:hover { color: var(--color-primary-dark); text-decoration: underline; }
+.rate-cell.empty { color: var(--color-gray-400); font-style: italic; }
+.rate-cell.locked { color: var(--color-gray-500); cursor: default; text-decoration: none; }
+tr.forecast-row td { background: var(--color-primary-50); }

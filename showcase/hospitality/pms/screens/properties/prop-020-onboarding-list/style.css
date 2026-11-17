@@ -1,0 +1,4 @@
+.stat-card.info::before { background: var(--color-primary); }
+
+.action-btns { display: flex; gap: 6px; justify-content: flex-end; }
+.action-btns .btn-sm svg { width: 14px; height: 14px; }

@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add/Edit Property — Azura Manager</title>
+<link rel="icon" href="../../../assets/img/azura-logo.svg">
+<link rel="stylesheet" href="../../../assets/css/global.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar__brand">
+      <img src="../../../assets/img/azura-logo.svg" alt="Azura Stays logo">
+      <span class="sidebar__brand-text">Azura Manager</span>
+    </div>
+
+    <nav class="sidebar__nav">
+      <a class="nav-item nav-top-item" href="../../dashboard/index.html">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Dashboard</span>
+        <span class="nav-tooltip">Dashboard</span>
+      </a>
+
+      <div class="nav-group">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="nav-group__label">Team &amp; Access</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../../system-users/usr-004-user-list/index.html"><span>Staff List</span></a>
+          <a class="nav-subitem" href="../../system-users/usr-012-agent-list/index.html"><span>Agent List</span></a>
+          <a class="nav-subitem" href="../../system-users/usr-016-provider-list/index.html"><span>Provider List</span></a>
+          <a class="nav-subitem" href="../../system-users/usr-020-payroll-rules/index.html"><span>Payroll Rules</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">Team &amp; Access</div>
+          <a class="nav-item" href="../../system-users/usr-004-user-list/index.html"><span>Staff List</span></a>
+          <a class="nav-item" href="../../system-users/usr-012-agent-list/index.html"><span>Agent List</span></a>
+          <a class="nav-item" href="../../system-users/usr-016-provider-list/index.html"><span>Provider List</span></a>
+          <a class="nav-item" href="../../system-users/usr-020-payroll-rules/index.html"><span>Payroll Rules</span></a>
+        </div>
+      </div>
+
+      <div class="nav-group open">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
+          <span class="nav-group__label">Master Data</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../prop-033-property-list/index.html"><span>Property List</span></a>
+          <a class="nav-subitem" href="../prop-032-property-dashboard/index.html"><span>Property Dashboard</span></a>
+          <a class="nav-subitem" href="../prop-020-onboarding-list/index.html"><span>Onboarding List</span></a>
+          <a class="nav-subitem" href="../../company/comp-001-company-legal-entity-list/index.html"><span>Company List</span></a>
+          <a class="nav-subitem" href="../../business-unit/bu-001-business-unit-list/index.html"><span>Business Unit List</span></a>
+          <a class="nav-subitem" href="../../business-unit/bu-005-channel-list/index.html"><span>Channel List</span></a>
+          <a class="nav-subitem" href="../../villa-common-settings/vcs-001-amenities-list/index.html"><span>Villa Common Settings</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">Master Data</div>
+          <a class="nav-item" href="../prop-033-property-list/index.html"><span>Property List</span></a>
+          <a class="nav-item" href="../prop-020-onboarding-list/index.html"><span>Onboarding List</span></a>
+          <a class="nav-item" href="../../company/comp-001-company-legal-entity-list/index.html"><span>Company List</span></a>
+          <a class="nav-item" href="../../business-unit/bu-001-business-unit-list/index.html"><span>Business Unit List</span></a>
+          <a class="nav-item" href="../../villa-common-settings/vcs-001-amenities-list/index.html"><span>Villa Common Settings</span></a>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span class="nav-group__label">System Settings</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../../common-lookup-settings/cs-001-common-lookup-settings/index.html"><span>Common Lookup Settings</span></a>
+          <a class="nav-subitem" href="../../system-settings/set-001-system-settings/index.html"><span>System Settings</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">System Settings</div>
+          <a class="nav-item" href="../../common-lookup-settings/cs-001-common-lookup-settings/index.html"><span>Common Lookup Settings</span></a>
+          <a class="nav-item" href="../../system-settings/set-001-system-settings/index.html"><span>System Settings</span></a>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 16 2 2 4-4"/></svg>
+          <span class="nav-group__label">Booking</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../../booking/book-002-booking-list/index.html"><span>Booking List</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">Booking</div>
+          <a class="nav-item" href="../../booking/book-002-booking-list/index.html"><span>Booking List</span></a>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M2 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2"/><circle cx="19" cy="8" r="2.2"/><path d="M17.2 12.5c1.6.4 2.8 1.8 2.8 3.5v2"/></svg>
+          <span class="nav-group__label">Owner Management</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../../owner-management/own-001-owner-agency-list/index.html"><span>Owner / Agency List</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">Owner Management</div>
+          <a class="nav-item" href="../../owner-management/own-001-owner-agency-list/index.html"><span>Owner / Agency List</span></a>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-6 9 6v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"/><path d="M9 22V12h6v10"/></svg>
+          <span class="nav-group__label">Owner Portal</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../../owner-portal/owp-002-dashboard/index.html"><span>Owner Portal Dashboard</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">Owner Portal</div>
+          <a class="nav-item" href="../../owner-portal/owp-002-dashboard/index.html"><span>Owner Portal Dashboard</span></a>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="nav-group__label">Guest Portal</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../../guest-portal/gst-002-guest-booking-list/index.html"><span>Guest Portal Home</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">Guest Portal</div>
+          <a class="nav-item" href="../../guest-portal/gst-002-guest-booking-list/index.html"><span>Guest Portal Home</span></a>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          <span class="nav-group__label">Field Operations</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../../garden-pool-operations/opr-001-garden-pool-task-list/index.html"><span>Garden/Pool Tasks</span></a>
+          <a class="nav-subitem" href="../../maintenance/mnt-001-maintenance-ticket-list/index.html"><span>Maintenance Tickets</span></a>
+          <a class="nav-subitem" href="../../renovation/ren-002-renovation-follow-up/index.html"><span>Renovation List</span></a>
+          <a class="nav-subitem" href="../../training/trn-001-training-list/index.html"><span>Training List</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">Field Operations</div>
+          <a class="nav-item" href="../../garden-pool-operations/opr-001-garden-pool-task-list/index.html"><span>Garden/Pool Tasks</span></a>
+          <a class="nav-item" href="../../maintenance/mnt-001-maintenance-ticket-list/index.html"><span>Maintenance Tickets</span></a>
+          <a class="nav-item" href="../../renovation/ren-002-renovation-follow-up/index.html"><span>Renovation List</span></a>
+          <a class="nav-item" href="../../training/trn-001-training-list/index.html"><span>Training List</span></a>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span class="nav-group__label">Finance</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../../investment-fund/fund-001-investor-list/index.html"><span>Investor List</span></a>
+          <a class="nav-subitem" href="../../investment-fund/fund-003-fund-project-list/index.html"><span>Fund Project List</span></a>
+          <a class="nav-subitem" href="../../inventory/inv-001-inventory-list/index.html"><span>Inventory List</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">Finance</div>
+          <a class="nav-item" href="../../investment-fund/fund-001-investor-list/index.html"><span>Investor List</span></a>
+          <a class="nav-item" href="../../investment-fund/fund-003-fund-project-list/index.html"><span>Fund Project List</span></a>
+          <a class="nav-item" href="../../inventory/inv-001-inventory-list/index.html"><span>Inventory List</span></a>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
+          <span class="nav-group__label">Villa Services</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../../villa-services/vsv-001-electricity-overview-page-hub/index.html"><span>Villa Services List</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">Villa Services</div>
+          <a class="nav-item" href="../../villa-services/vsv-001-electricity-overview-page-hub/index.html"><span>Villa Services List</span></a>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span class="nav-group__label">Website Content</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../../website-content/cms-001-content-list/index.html"><span>Content List</span></a>
+          <a class="nav-subitem" href="../../photos/pho-002-photo-sets/index.html"><span>Photo Sets</span></a>
+          <a class="nav-subitem" href="../../videos/vid-001-video-library/index.html"><span>Video Library</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">Website Content</div>
+          <a class="nav-item" href="../../website-content/cms-001-content-list/index.html"><span>Content List</span></a>
+          <a class="nav-item" href="../../photos/pho-002-photo-sets/index.html"><span>Photo Sets</span></a>
+          <a class="nav-item" href="../../videos/vid-001-video-library/index.html"><span>Video Library</span></a>
+        </div>
+      </div>
+
+      <div class="nav-group">
+        <button class="nav-group__header">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="15" x2="12" y2="15"/></svg>
+          <span class="nav-group__label">Accounting &amp; HR</span>
+          <svg class="nav-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-group__list"><div>
+          <a class="nav-subitem" href="../../accounting-hr/acc-029-overview/index.html"><span>Overview</span></a>
+          <a class="nav-subitem" href="../../accounting-hr/acc-023-chart-of-accounts/index.html"><span>Chart of Accounts</span></a>
+          <a class="nav-subitem" href="../../accounting-hr/acc-033-timesheet/index.html"><span>Timesheet</span></a>
+          <a class="nav-subitem" href="../../accounting-hr/acc-034-payroll/index.html"><span>Payroll</span></a>
+        </div></div>
+        <div class="nav-flyout">
+          <div class="nav-flyout__title">Accounting &amp; HR</div>
+          <a class="nav-item" href="../../accounting-hr/acc-029-overview/index.html"><span>Overview</span></a>
+          <a class="nav-item" href="../../accounting-hr/acc-023-chart-of-accounts/index.html"><span>Chart of Accounts</span></a>
+          <a class="nav-item" href="../../accounting-hr/acc-033-timesheet/index.html"><span>Timesheet</span></a>
+          <a class="nav-item" href="../../accounting-hr/acc-034-payroll/index.html"><span>Payroll</span></a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="sidebar__footer">
+      <a class="nav-item" href="../../auth/log-001-login/index.html">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        <span>Logout</span>
+        <span class="nav-tooltip">Logout</span>
+      </a>
+      <div class="sidebar__disclaimer">Azura Stays PMS &middot; Prototype v0.1</div>
+    </div>
+  </aside>
+
+  <button class="sidebar-toggle" data-sidebar-toggle aria-label="Collapse menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    <span class="nav-tooltip">Collapse menu</span>
+  </button>
+
+  <div class="main-column">
+    <header class="topbar">
+      <div class="topbar__search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Search properties, bookings, owners...">
+      </div>
+      <div class="topbar__actions">
+        <div style="position:relative;">
+          <button class="icon-btn" data-popover-trigger="notif-popover" aria-label="Notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="dot"></span>
+          </button>
+          <div class="popover" id="notif-popover">
+            <div class="popover__header">Notifications <span class="badge badge-danger">3 new</span></div>
+            <div class="popover__list">
+              <div class="popover__item"><span class="popover__item-dot"></span><div><div class="popover__item-title">Villa Marble Cove missing photos</div><div class="popover__item-time">12 minutes ago</div></div></div>
+              <div class="popover__item"><span class="popover__item-dot"></span><div><div class="popover__item-title">Booking BK-10233 awaiting confirmation</div><div class="popover__item-time">1 hour ago</div></div></div>
+              <div class="popover__item"><span class="popover__item-dot"></span><div><div class="popover__item-title">Priya Nair's payout is overdue</div><div class="popover__item-time">Yesterday</div></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="topbar__user-wrap">
+          <div class="topbar__user" data-user-menu>
+            <span class="avatar">SA</span>
+            <div class="topbar__user-meta">
+              <div class="topbar__user-name">Somchai Anuwat</div>
+              <div class="topbar__user-role">Business Unit Manager</div>
+            </div>
+          </div>
+          <div class="user-dropdown" data-user-dropdown>
+            <a href="#"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg> My Profile</a>
+            <hr class="divider">
+            <a href="../../auth/log-001-login/index.html" class="danger"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <div class="breadcrumb"><a href="../../dashboard/index.html">Home</a> / <a href="../prop-033-property-list/index.html">Property List</a> / <span class="current" id="bc-current">Add Property</span></div>
+      <div class="page-header">
+        <div>
+          <h1 id="pv-title">Add Property</h1>
+          <p class="subtitle" id="pv-subtitle">Create a new villa record. Save the Identification tab first to unlock the rest.</p>
+        </div>
+        <div class="page-header__actions">
+          <a href="../prop-033-property-list/index.html" class="btn btn-outline">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Cancel
+          </a>
+          <button class="btn btn-accent" id="delete-villa-btn" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            Delete Property
+          </button>
+        </div>
+      </div>
+
+      <div class="settings-layout" data-settings-nav>
+        <nav class="settings-nav">
+          <div class="settings-nav__item active" data-settings-nav-item="identification">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg>
+            Identification
+          </div>
+          <div class="settings-nav__item" data-settings-nav-item="situation" data-locked="1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            Business Situation
+          </div>
+          <div class="settings-nav__item" data-settings-nav-item="location" data-locked="1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Location
+          </div>
+          <div class="settings-nav__item" data-settings-nav-item="type" data-locked="1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
+            Property Type
+          </div>
+          <div class="settings-nav__item" data-settings-nav-item="ota" data-locked="1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            OTA Management
+          </div>
+          <div class="settings-nav__item" data-settings-nav-item="service" data-locked="1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            Service &amp; Utilities
+          </div>
+          <div class="settings-nav__item" data-settings-nav-item="document" data-locked="1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Document
+          </div>
+          <div class="settings-nav__item" data-settings-nav-item="language" data-locked="1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            Language Management
+          </div>
+          <div class="settings-nav__item" data-settings-nav-item="control" data-locked="1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            Control
+          </div>
+          <div class="settings-nav__item" data-settings-nav-item="finance" data-locked="1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Finance
+          </div>
+          <div class="settings-nav__item" data-settings-nav-item="portal" data-locked="1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M3 9l9-6 9 6v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"/><path d="M9 22V12h6v10"/></svg>
+            Portal Contract
+          </div>
+        </nav>
+
+        <div class="settings-panel-wrap">
+
+          <div class="settings-panel" data-settings-panel="identification">
+            <div class="card">
+              <div class="card__header"><div><h3>Identification</h3><div class="card__header-sub">Core identity, ownership &amp; distribution IDs</div></div></div>
+              <div class="card__body">
+                <form id="form-identification" novalidate>
+                  <div class="form-grid">
+                    <div class="form-group"><label for="id-name">Property Name<span class="req">*</span></label><input type="text" id="id-name" required placeholder="e.g. Villa Sapphire Cliff"><span class="form-error"></span></div>
+                    <div class="form-group"><label for="id-short">Short Name</label><input type="text" id="id-short" placeholder="e.g. VSC"><span class="form-error"></span></div>
+                    <div class="form-group"><label for="id-bu">Business Unit<span class="req">*</span></label>
+                      <select id="id-bu" required><option value="">Select business unit</option><option>Phuket Collection</option><option>Bali Retreats</option><option>Koh Samui Estates</option></select><span class="form-error"></span></div>
+                    <div class="form-group"><label for="id-company">Company Subsidiary</label>
+                      <select id="id-company"><option value="">Not specified</option><option>Azura Stays Phuket Co., Ltd.</option><option>Azura Stays Bali PT</option><option>Azura Stays Samui Co., Ltd.</option></select></div>
+                    <div class="form-group"><label for="id-owner">Owner<span class="req">*</span></label><select id="id-owner" required><option value="">Select owner</option></select><span class="form-error"></span></div>
+                    <div class="form-group"><label for="id-owner-staff">Owner Staff</label><input type="text" id="id-owner-staff" placeholder="Owner's authorized contact"></div>
+                    <div class="form-group"><label for="id-manager">Manager</label>
+                      <select id="id-manager"><option value="">Select manager</option><option>Somchai Anuwat</option><option>Wayan Kertha</option><option>Nok Pattaya</option></select></div>
+                    <div class="form-group"><label for="id-agency">Agency</label><select id="id-agency"><option value="">None</option><option>Andaman Villa Agents</option><option>Bali Prestige Agency</option></select></div>
+                    <div class="form-group"><label for="id-type">Property Type<span class="req">*</span></label>
+                      <select id="id-type" required><option value="">Select type</option><option>Pool Villa</option><option>Beachfront Villa</option><option>Hillside Villa</option><option>Garden Villa</option></select><span class="form-error"></span></div>
+                    <div class="form-group"><label for="id-price-cat">Price Category</label><select id="id-price-cat"><option value="">Standard</option><option>Premium</option><option>Ultra Luxury</option></select></div>
+                    <div class="form-group"><label for="id-price1">Price 1 (per night)</label><input type="number" id="id-price1" min="0" placeholder="0.00"></div>
+                    <div class="form-group"><label for="id-price2">Price 2 (per night)</label><input type="number" id="id-price2" min="0" placeholder="0.00"></div>
+                    <div class="form-group"><label for="id-currency">Reference Currency</label><select id="id-currency"><option>USD</option><option>THB</option><option>IDR</option><option>EUR</option></select></div>
+                    <div class="form-group"><label for="id-beds24">Beds24 Villa ID</label><input type="text" id="id-beds24" placeholder="e.g. 88213"></div>
+                    <div class="form-group"><label for="id-hostex">Hostex Villa ID</label><input type="text" id="id-hostex" placeholder="e.g. HX-4471"></div>
+                    <div class="form-group"><label for="id-cm">Channel Manager</label><select id="id-cm"><option>Beds24</option><option>Hostex</option><option>None</option></select></div>
+                    <div class="form-group full"><label>Room ID 1–4</label>
+                      <div class="room-id-row">
+                        <input type="text" id="id-room1" placeholder="Room ID 1">
+                        <input type="text" id="id-room2" placeholder="Room ID 2">
+                        <input type="text" id="id-room3" placeholder="Room ID 3">
+                        <input type="text" id="id-room4" placeholder="Room ID 4">
+                      </div>
+                    </div>
+                    <div class="form-group full"><label for="id-ota-data">OTA Listing Data</label><textarea id="id-ota-data" placeholder="Free-form notes about existing OTA listings..."></textarea></div>
+                    <div class="form-group"><label>Villa Front Image</label><div class="upload-dropzone" data-upload="front"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>Click to upload front image</span></div></div>
+                    <div class="form-group"><label>Villa Back Image</label><div class="upload-dropzone" data-upload="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>Click to upload gate image</span></div></div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal__footer" style="border-top:1px solid var(--color-gray-100);">
+                <span class="text-xs text-muted" id="id-hint">Duplicate names/Beds24 IDs are checked automatically.</span>
+                <button class="btn btn-primary" id="save-identification-btn">Save &amp; Continue</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-panel" data-settings-panel="situation" hidden>
+            <div class="card">
+              <div class="card__header"><div><h3>Business Situation</h3><div class="card__header-sub">Status &amp; ownership arrangement</div></div></div>
+              <div class="card__body">
+                <div class="form-grid">
+                  <div class="form-group"><label for="bs-status">Status<span class="req">*</span></label><select id="bs-status" required><option value="active">Open / Active</option><option value="onboarding">Onboarding</option><option value="paused">Paused</option><option value="closed">Closed</option></select></div>
+                  <div class="form-group"><label for="bs-ownership">Ownership Type<span class="req">*</span></label>
+                    <select id="bs-ownership" required><option value="management">Management</option><option value="partnership">Partnership</option><option value="sublease">Sub-lease</option><option value="ownership">Ownership</option></select></div>
+                  <div class="form-group"><label for="bs-doc-title">Document Title</label><input type="text" id="bs-doc-title" placeholder="e.g. Management Agreement 2026"></div>
+                  <div class="form-group"><label>Document File</label><div class="upload-dropzone" data-upload="bs-doc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Click to attach contract document</span></div></div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="situation-sub" data-situation="management">
+                  <h3 class="situation-sub__title">Management terms</h3>
+                  <div class="form-grid">
+                    <div class="form-group"><label for="bs-mgmt-signing">Signing Date</label><input type="date" id="bs-mgmt-signing"></div>
+                    <div class="form-group"><label for="bs-mgmt-renewal">Renewal Date</label><input type="date" id="bs-mgmt-renewal"></div>
+                    <div class="form-group"><label for="bs-mgmt-freq">Payment Frequency</label><select id="bs-mgmt-freq"><option>Monthly</option><option>Quarterly</option><option>Yearly</option></select></div>
+                    <div class="form-group"><label for="bs-mgmt-date">Payment Date</label><input type="text" id="bs-mgmt-date" placeholder="e.g. 5th of each month"></div>
+                  </div>
+                  <div class="checkbox-grid">
+                    <label><input type="checkbox" checked> Electricity handled by Agency</label>
+                    <label><input type="checkbox"> Internet handled by Owner</label>
+                    <label><input type="checkbox" checked> Pool cleaning handled by Agency</label>
+                    <label><input type="checkbox"> Garden handled by Owner</label>
+                  </div>
+                </div>
+
+                <div class="situation-sub" data-situation="partnership" hidden>
+                  <h3 class="situation-sub__title">Partnership terms</h3>
+                  <div class="form-grid">
+                    <div class="form-group"><label for="bs-part-signing">Signing Date</label><input type="date" id="bs-part-signing"></div>
+                    <div class="form-group"><label for="bs-part-renewal">Renewal Date</label><input type="date" id="bs-part-renewal"></div>
+                    <div class="form-group"><label for="bs-part-freq">Payment Frequency</label><select id="bs-part-freq"><option>Monthly</option><option>Quarterly</option></select></div>
+                  </div>
+                </div>
+
+                <div class="situation-sub" data-situation="sublease" hidden>
+                  <h3 class="situation-sub__title">Sub-lease terms</h3>
+                  <div class="form-grid">
+                    <div class="form-group"><label for="bs-sub-first">First Day of Rental</label><input type="date" id="bs-sub-first"></div>
+                    <div class="form-group"><label for="bs-sub-renewal">Next Renewal</label><input type="date" id="bs-sub-renewal"></div>
+                    <div class="form-group"><label for="bs-sub-rent">Rental Amount</label><input type="number" id="bs-sub-rent" min="0" placeholder="0.00"></div>
+                    <div class="form-group"><label for="bs-sub-deposit">Deposit Amount</label><input type="number" id="bs-sub-deposit" min="0" placeholder="0.00"></div>
+                    <div class="form-group"><label for="bs-sub-freq">Payment Frequency</label><select id="bs-sub-freq"><option>Monthly</option><option>Yearly</option></select></div>
+                  </div>
+                </div>
+
+                <div class="situation-sub" data-situation="ownership" hidden>
+                  <h3 class="situation-sub__title">Ownership terms</h3>
+                  <div class="checkbox-grid">
+                    <label><input type="checkbox" checked> Owner covers utilities directly</label>
+                    <label><input type="checkbox"> Owner covers pool/garden services</label>
+                  </div>
+                </div>
+              </div>
+              <div class="modal__footer" style="border-top:1px solid var(--color-gray-100);">
+                <button class="btn btn-primary" data-tab-save="situation">Save Business Situation</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-panel" data-settings-panel="location" hidden>
+            <div class="card">
+              <div class="card__header"><div><h3>Location</h3><div class="card__header-sub">Country, address &amp; map coordinates</div></div></div>
+              <div class="card__body">
+                <div class="form-grid">
+                  <div class="form-group"><label for="loc-country">Country<span class="req">*</span></label><select id="loc-country" required><option value="">Select country</option><option>Thailand</option><option>Indonesia</option></select><span class="form-error"></span></div>
+                  <div class="form-group"><label for="loc-region">Region<span class="req">*</span></label><input type="text" id="loc-region" required placeholder="e.g. Phuket"><span class="form-error"></span></div>
+                  <div class="form-group"><label for="loc-district">District</label><input type="text" id="loc-district" placeholder="e.g. Kathu"></div>
+                  <div class="form-group"><label for="loc-area">Area<span class="req">*</span></label><input type="text" id="loc-area" required placeholder="e.g. Kamala"><span class="form-error"></span></div>
+                  <div class="form-group"><label for="loc-residence">Residence</label><select id="loc-residence"><option>Independent</option></select></div>
+                  <div class="form-group"><label for="loc-unit">Unit</label><input type="text" id="loc-unit" placeholder="Optional"></div>
+                  <div class="form-group"><label for="loc-type">Villa Location Type</label><select id="loc-type"><option>Hillside</option><option>Beachfront</option><option>Riverside</option><option>Clifftop</option></select></div>
+                  <div class="form-group full"><label for="loc-address">Address<span class="req">*</span></label><textarea id="loc-address" required placeholder="Full street address"></textarea><span class="form-error"></span></div>
+                  <div class="form-group"><label for="loc-lat">Latitude</label><input type="text" id="loc-lat" placeholder="e.g. 7.9519"></div>
+                  <div class="form-group"><label for="loc-lng">Longitude</label><input type="text" id="loc-lng" placeholder="e.g. 98.2842"></div>
+                  <div class="form-group full"><label for="loc-map-url">Google Map URL</label><input type="text" id="loc-map-url" placeholder="https://maps.google.com/..."></div>
+                </div>
+              </div>
+              <div class="modal__footer" style="border-top:1px solid var(--color-gray-100);">
+                <button class="btn btn-primary" data-tab-save="location">Save Location</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-panel" data-settings-panel="type" hidden>
+            <div class="card">
+              <div class="card__header"><div><h3>Property Type</h3><div class="card__header-sub">Layout, capacity &amp; pool</div></div></div>
+              <div class="card__body">
+                <div class="form-grid">
+                  <div class="form-group"><label for="pt-guests">Number of Guests<span class="req">*</span></label><input type="number" id="pt-guests" required min="1" placeholder="e.g. 10"><span class="form-error"></span></div>
+                  <div class="form-group"><label for="pt-beds">Number of Beds<span class="req">*</span></label><input type="number" id="pt-beds" required min="1" placeholder="e.g. 5"><span class="form-error"></span></div>
+                  <div class="form-group"><label for="pt-baths">Number of Bathrooms<span class="req">*</span></label><input type="number" id="pt-baths" required min="1" placeholder="e.g. 5"><span class="form-error"></span></div>
+                  <div class="form-group"><label for="pt-luxury">Luxury Level</label><select id="pt-luxury"><option>Standard</option><option>Luxury</option><option>Ultra Luxury</option></select></div>
+                  <div class="form-group"><label for="pt-accessible">Villa Accessible</label><select id="pt-accessible"><option value="no">No</option><option value="yes">Yes — wheelchair accessible</option></select></div>
+                </div>
+                <div class="switch-row" style="margin-top:8px;">
+                  <div><div class="switch-row__label">Has Pool</div><div class="switch-row__hint">Toggle on to show pool dimensions</div></div>
+                  <label class="switch"><input type="checkbox" id="pt-is-pool" checked><span class="switch-slider"></span></label>
+                </div>
+                <div class="form-grid" id="pt-pool-fields" style="margin-top:12px;">
+                  <div class="form-group"><label for="pt-pool-l">Pool Length (m)</label><input type="number" id="pt-pool-l" min="0" placeholder="e.g. 12"></div>
+                  <div class="form-group"><label for="pt-pool-w">Pool Width (m)</label><input type="number" id="pt-pool-w" min="0" placeholder="e.g. 5"></div>
+                  <div class="form-group"><label for="pt-pool-d">Pool Depth (m)</label><input type="number" id="pt-pool-d" min="0" placeholder="e.g. 1.5"></div>
+                  <div class="form-group"><label for="pt-pool-id">Villa Pool ID</label><select id="pt-pool-id"><option>Chlorine</option><option>Saltwater</option></select></div>
+                </div>
+              </div>
+              <div class="modal__footer" style="border-top:1px solid var(--color-gray-100);">
+                <button class="btn btn-primary" data-tab-save="type">Save Property Type</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-panel" data-settings-panel="ota" hidden>
+            <div class="card">
+              <div class="card__header">
+                <div><h3>OTA Management</h3><div class="card__header-sub">Distribution channel links for this property</div></div>
+                <button class="btn btn-primary btn-sm" id="add-ota-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  Add Link
+                </button>
+              </div>
+              <div class="table-wrap">
+                <table class="data-table">
+                  <thead><tr><th>Account Email</th><th>Listing ID</th><th>Link</th><th>OTA ID</th><th>VAT</th><th style="text-align:right;">Actions</th></tr></thead>
+                  <tbody id="ota-tbody"></tbody>
+                </table>
+              </div>
+              <div id="ota-empty" class="empty-state" hidden>
+                <h3>No OTA links yet</h3>
+                <p>Add the first distribution channel link for this property.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-panel" data-settings-panel="service" hidden>
+            <div class="card">
+              <div class="card__header"><div><h3>Service &amp; Utilities</h3><div class="card__header-sub">Concierge, utilities and recurring service providers</div></div></div>
+              <div class="card__body">
+                <p class="text-sm text-muted" style="margin-top:0;">This panel summarizes the 10 service categories configured for this villa. Manage full provider/schedule detail on the dedicated Service &amp; Utility Settings page.</p>
+                <div class="service-summary-grid" id="service-summary"></div>
+              </div>
+              <div class="modal__footer" style="border-top:1px solid var(--color-gray-100);">
+                <a class="btn btn-primary" id="service-settings-link" href="#">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><line x1="19" y1="12" x2="5" y2="12" transform="rotate(180 12 12)"/><polyline points="12 5 19 12 12 19"/></svg>
+                  Manage in Service &amp; Utility Settings
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-panel" data-settings-panel="document" hidden>
+            <div class="card">
+              <div class="card__header"><div><h3>Documents</h3><div class="card__header-sub">Contracts, titles and supporting files</div></div></div>
+              <div class="card__body">
+                <form id="form-document" novalidate class="form-grid">
+                  <div class="form-group"><label for="doc-title">Title<span class="req">*</span></label><input type="text" id="doc-title" required placeholder="e.g. Land Title Deed"><span class="form-error"></span></div>
+                  <div class="form-group"><label for="doc-type">Type<span class="req">*</span></label><select id="doc-type" required><option value="">Select type</option><option>Contract</option><option>Land Title</option><option>Property Title</option><option>Other</option></select><span class="form-error"></span></div>
+                  <div class="form-group full"><label>File<span class="req">*</span></label><div class="upload-dropzone" data-upload="doc-file"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span>Click to upload document</span></div></div>
+                </form>
+                <button class="btn btn-outline btn-sm" id="add-doc-btn" style="margin-top:6px;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  Add Document
+                </button>
+                <div class="divider"></div>
+                <div class="table-wrap">
+                  <table class="data-table">
+                    <thead><tr><th>Title</th><th>Type</th><th>Uploaded</th><th style="text-align:right;">Actions</th></tr></thead>
+                    <tbody id="doc-tbody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-panel" data-settings-panel="language" hidden>
+            <div class="card">
+              <div class="card__header"><div><h3>Language Management</h3><div class="card__header-sub">Languages this listing is published in</div></div></div>
+              <div class="card__body">
+                <div class="checkbox-grid" id="lang-checkboxes">
+                  <label><input type="checkbox" value="English" checked> English</label>
+                  <label><input type="checkbox" value="Thai" checked> Thai</label>
+                  <label><input type="checkbox" value="French"> French</label>
+                  <label><input type="checkbox" value="German"> German</label>
+                  <label><input type="checkbox" value="Russian"> Russian</label>
+                  <label><input type="checkbox" value="Chinese"> Chinese</label>
+                </div>
+              </div>
+              <div class="modal__footer" style="border-top:1px solid var(--color-gray-100);">
+                <button class="btn btn-primary" data-tab-save="language">Save Languages</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-panel" data-settings-panel="control" hidden>
+            <div class="card">
+              <div class="card__header"><div><h3>Control</h3><div class="card__header-sub">Check-out control points &amp; reminders</div></div></div>
+              <div class="card__body">
+                <div class="form-grid" style="align-items:flex-end;">
+                  <div class="form-group"><label for="ctrl-copy-from">Copy control points from another property</label><select id="ctrl-copy-from"><option value="">Select property</option></select></div>
+                  <div class="form-group"><button class="btn btn-outline" id="ctrl-copy-btn" type="button">Copy points</button></div>
+                </div>
+                <div class="divider"></div>
+                <h3 style="margin-bottom:10px;">Check-out control points</h3>
+                <div id="control-points"></div>
+                <button class="btn btn-outline btn-sm" id="add-control-point-btn" type="button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  Add control point
+                </button>
+                <div class="divider"></div>
+                <h3 style="margin-bottom:10px;">Check-out reminders</h3>
+                <div class="checkbox-grid">
+                  <label><input type="checkbox" checked> Turn off air conditioning</label>
+                  <label><input type="checkbox" checked> Lock all doors and windows</label>
+                  <label><input type="checkbox"> Return villa keys to key box</label>
+                  <label><input type="checkbox"> Take out the trash</label>
+                </div>
+                <div id="custom-reminders" style="margin-top:10px;"></div>
+                <button class="btn btn-outline btn-sm" id="add-reminder-btn" type="button">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  Add custom reminder
+                </button>
+              </div>
+              <div class="modal__footer" style="border-top:1px solid var(--color-gray-100);">
+                <button class="btn btn-primary" data-tab-save="control">Save Control Settings</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-panel" data-settings-panel="finance" hidden>
+            <div class="card">
+              <div class="card__header"><div><h3>Finance</h3><div class="card__header-sub">Valuation &amp; investment terms</div></div></div>
+              <div class="card__body">
+                <div class="form-grid">
+                  <div class="form-group"><label for="fin-value">Estimated Value (USD)</label><input type="number" id="fin-value" min="0" placeholder="0.00"></div>
+                  <div class="form-group"><label for="fin-return">Expected Return (%)</label><input type="number" id="fin-return" min="0" max="100" placeholder="e.g. 8.5"><span class="form-error"></span></div>
+                  <div class="form-group"><label for="fin-start-rental">Starting Rental Date</label><input type="date" id="fin-start-rental"></div>
+                </div>
+                <div class="switch-row">
+                  <div><div class="switch-row__label">Listed For Sale</div><div class="switch-row__hint">Enable to set an asking price</div></div>
+                  <label class="switch"><input type="checkbox" id="fin-for-sale"><span class="switch-slider"></span></label>
+                </div>
+                <div class="form-grid" id="fin-sale-fields" style="margin-top:12px; display:none;">
+                  <div class="form-group"><label for="fin-sale-price">Selling Price (USD)<span class="req">*</span></label><input type="number" id="fin-sale-price" min="0" placeholder="0.00"><span class="form-error"></span></div>
+                </div>
+              </div>
+              <div class="modal__footer" style="border-top:1px solid var(--color-gray-100);">
+                <button class="btn btn-primary" data-tab-save="finance">Save Finance</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-panel" data-settings-panel="portal" hidden>
+            <div class="card">
+              <div class="card__header"><div><h3>Portal Contract</h3><div class="card__header-sub">Guest portal contract assignment</div></div></div>
+              <div class="card__body">
+                <div class="form-grid">
+                  <div class="form-group"><label for="portal-version">Guest Contract General Version<span class="req">*</span></label>
+                    <select id="portal-version" required><option value="">Select version</option><option>General v3 (2026)</option><option>General v2 (2025)</option><option>General v1 (2023)</option></select><span class="form-error"></span></div>
+                  <div class="form-group"><label for="portal-elec-mode">Contract Electricity Mode</label><select id="portal-elec-mode"><option value="included">Included in rate</option><option value="metered">Metered — billed after stay</option><option value="flat">Flat daily fee</option></select></div>
+                </div>
+                <div class="checkbox-grid" id="portal-lang-checkboxes">
+                  <label><input type="checkbox" value="English" checked> English</label>
+                  <label><input type="checkbox" value="French"> French</label>
+                  <label><input type="checkbox" value="Thai"> Thai</label>
+                </div>
+                <p class="text-sm text-muted">Related: <a href="../prop-051-guest-contract-assignment-recap/index.html">Guest Contract Recap</a> &middot; <a href="../prop-052-guest-contract-pdf-export/index.html">Guest Contract PDF Export</a></p>
+              </div>
+              <div class="modal__footer" style="border-top:1px solid var(--color-gray-100);">
+                <button class="btn btn-primary" data-tab-save="portal">Save Portal Contract</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Add/Edit OTA Link -->
+<div class="modal-overlay drawer-overlay" id="ota-modal">
+  <div class="modal drawer">
+    <div class="modal__header">
+      <div><h2 id="ota-modal-title">Add OTA link</h2></div>
+      <button class="modal__close" data-close-modal>&times;</button>
+    </div>
+    <div class="modal__body">
+      <form id="ota-form" novalidate>
+        <div class="form-grid single">
+          <div class="form-group"><label for="ota-email">Account Email<span class="req">*</span></label><select id="ota-email" required>
+            <option value="">Select OTA account</option><option>listings@airbnb.azurastays.example</option><option>listings@booking.azurastays.example</option><option>listings@agoda.azurastays.example</option>
+          </select><span class="form-error"></span></div>
+          <div class="form-group"><label for="ota-listing-id">Listing ID<span class="req">*</span></label><input type="text" id="ota-listing-id" required placeholder="e.g. 48213092"><span class="form-error"></span></div>
+          <div class="form-group"><label for="ota-link">Link<span class="req">*</span></label><input type="text" id="ota-link" required placeholder="https://..."><span class="form-error"></span></div>
+          <div class="form-group"><label for="ota-id">OTA ID</label><input type="text" id="ota-id" placeholder="Optional"></div>
+          <div class="form-group"><label for="ota-vat">VAT</label><input type="text" id="ota-vat" placeholder="Optional"></div>
+        </div>
+      </form>
+    </div>
+    <div class="modal__footer">
+      <button class="btn btn-ghost" data-close-modal>Cancel</button>
+      <button class="btn btn-primary" id="ota-save-btn">Save link</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Property -->
+<div class="modal-overlay" id="delete-villa-modal">
+  <div class="modal modal-sm">
+    <div class="modal__header">
+      <div><h2>Delete property</h2><p class="modal__subtitle">This cannot be undone.</p></div>
+      <button class="modal__close" data-close-modal>&times;</button>
+    </div>
+    <div class="modal__body"><p>Delete <strong id="del-villa-name"></strong> permanently from the portfolio?</p></div>
+    <div class="modal__footer">
+      <button class="btn btn-ghost" data-close-modal>Cancel</button>
+      <button class="btn btn-accent" id="confirm-delete-villa-btn">Delete property</button>
+    </div>
+  </div>
+</div>
+
+<script src="../../../assets/js/global.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

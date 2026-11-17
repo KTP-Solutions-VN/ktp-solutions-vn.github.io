@@ -1,0 +1,6 @@
+@import url("../_shared/booking-shared.css");
+@import url("../_shared/rates-shared.css");
+
+.price-cell-actions { display: inline-flex; gap: 4px; margin-left: 6px; }
+.price-cell-actions button { background: none; border: none; cursor: pointer; color: var(--color-gray-500); padding: 2px; }
+.price-cell-actions button:hover { color: var(--color-primary-dark); }

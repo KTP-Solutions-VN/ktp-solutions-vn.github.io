@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Patient Demographic & Clinical Info — CareJourney POS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/global.css">
+<link rel="stylesheet" href="../popup-flow.css">
+</head>
+<body>
+<div class="pos-mat">
+  <div class="pos-device">
+
+    <header class="device-bar">
+      <div class="device-bar__left">
+        <div class="device-brand"><span class="device-brand__mark">CJ</span> CareJourney POS</div>
+        <span class="device-bar__meta" data-device-outlet>Meridian Health — Central Pharmacy</span>
+      </div>
+      <div class="device-bar__right">
+        <span class="session-pill" data-session-pill><span class="session-pill__dot"></span><span data-session-label>Session Open</span></span>
+        <span class="device-clock" data-device-clock></span>
+        <div class="device-controls">
+          <button class="dc-btn" id="cancelFlowBtn" title="Cancel and return to Sales Screen">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            Cancel
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="device-body">
+      <div class="flow-backdrop">
+        <div class="flow-step-tracker">
+          <div class="flow-step is-active"><span class="flow-step__num">1</span>Patient Info</div>
+          <div class="flow-step__line"></div>
+          <div class="flow-step"><span class="flow-step__num">2</span>Dispense</div>
+          <div class="flow-step__line"></div>
+          <div class="flow-step"><span class="flow-step__num">3</span>Counseling</div>
+        </div>
+        <div class="flow-backdrop__card">
+          <span class="text-caption text-muted">In progress</span>
+          <h3>New Prescription Sale</h3>
+          <p class="text-muted text-caption mt-2" id="cartSummaryText">Loading current sale…</p>
+        </div>
+      </div>
+
+      <div class="popup-scrim">
+        <div class="popup-card popup-card--wide" role="dialog" aria-modal="true">
+          <div class="popup-card__header">
+            <div>
+              <div class="popup-card__eyebrow">Step 1 of 3 · Required before dispensing a prescription item</div>
+              <h3>Patient Demographic & Clinical Info</h3>
+            </div>
+          </div>
+          <div class="popup-card__body">
+            <div class="alert-banner alert-banner--info" id="nehrNotice">
+              <svg class="alert-banner__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg>
+              <div>
+                <div class="alert-banner__title">Data captured here is submitted to NEHR</div>
+                <div class="alert-banner__body">Follow Singapore National Electronic Health Record formatting — full legal name and NRIC/FIN as per patient's identification.</div>
+              </div>
+            </div>
+
+            <div class="alert-banner alert-banner--clinical" id="allergyBanner" style="display:none;">
+              <svg class="alert-banner__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
+              <div>
+                <div class="alert-banner__title">Known allergy on file</div>
+                <div class="alert-banner__body" id="allergyBannerText">Verify against the prescribed medication before dispensing.</div>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field" id="f_name">
+                <label for="patientName">Full name (as per NRIC/FIN)</label>
+                <input type="text" class="input" id="patientName" placeholder="e.g. Sarah Lim Wei Ting">
+                <span class="error-text">Full name is required</span>
+              </div>
+              <div class="field" id="f_nric">
+                <label for="patientNric">NRIC / FIN</label>
+                <input type="text" class="input" id="patientNric" placeholder="e.g. S1234567A" maxlength="9">
+                <span class="error-text">Enter a valid NRIC/FIN</span>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field" id="f_dob">
+                <label for="patientDob">Date of birth</label>
+                <input type="date" class="input" id="patientDob">
+                <span class="error-text">Date of birth is required</span>
+              </div>
+              <div class="field" id="f_gender">
+                <label for="patientGender">Gender</label>
+                <select class="input" id="patientGender">
+                  <option value="">Select…</option>
+                  <option>Female</option>
+                  <option>Male</option>
+                  <option>Other</option>
+                </select>
+                <span class="error-text">Please select gender</span>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field" id="f_contact">
+                <label for="patientContact">Contact number</label>
+                <input type="tel" class="input" id="patientContact" placeholder="+65 9123 4567">
+                <span class="error-text">Enter a valid SG contact number</span>
+              </div>
+              <div class="field" id="f_doctor">
+                <label for="prescribingDoctor">Prescribing doctor</label>
+                <input type="text" class="input" id="prescribingDoctor" placeholder="e.g. Dr. Clara Yeo">
+                <span class="error-text">Prescribing doctor is required</span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Known allergies</label>
+              <div class="chip-select" id="allergyChips">
+                <button class="chip is-selected" data-allergy="None known">None known</button>
+                <button class="chip" data-allergy="Penicillin">Penicillin</button>
+                <button class="chip" data-allergy="Sulfa drugs">Sulfa drugs</button>
+                <button class="chip" data-allergy="NSAIDs">NSAIDs</button>
+                <button class="chip" data-allergy="Latex">Latex</button>
+                <button class="chip" data-allergy="Other">Other</button>
+              </div>
+              <input type="text" class="input mt-2" id="allergyOther" placeholder="Describe other allergy…" style="display:none;">
+            </div>
+
+            <div class="field">
+              <label for="clinicalNotes">Relevant clinical notes</label>
+              <textarea class="input" id="clinicalNotes" placeholder="e.g. gestational week, existing conditions, referral reason…"></textarea>
+            </div>
+          </div>
+          <div class="popup-card__footer">
+            <button class="btn btn-ghost" id="backToSaleBtn">Cancel</button>
+            <button class="btn btn-primary" id="saveNextBtn">
+              Save & Continue
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="reset-demo-btn">Reset demo data</button>
+  </div>
+</div>
+
+<script src="../../../assets/data/product.js"></script>
+<script src="../../../assets/data/prescription.js"></script>
+<script src="../../../assets/data/transaction.js"></script>
+<script src="../../../assets/js/global.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

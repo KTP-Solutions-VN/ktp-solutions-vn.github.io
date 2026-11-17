@@ -99,7 +99,7 @@
 
     if (footerList) {
       footerList.innerHTML = DATA_DICH_VU.map(function (dv) {
-        return '<li><a href="screens/dich-vu/' + dv.slug + '/index.html">' + dv.ten + '</a></li>';
+        return '<li><a href="screens/dich-vu/' + dv.slug + '/index.html"' + (dv.ten_en ? ' data-en="' + dv.ten_en.replace(/&/g, '&amp;') + '"' : '') + '>' + dv.ten + '</a></li>';
       }).join('');
     }
   }
@@ -109,16 +109,19 @@
     if (!grid || typeof DATA_DU_AN === 'undefined') return;
     var featured = DATA_DU_AN.filter(function (d) { return d.noi_bat; }).slice(0, 2);
     grid.innerHTML = featured.map(function (da) {
-      var metric = da.ket_qua[0];
-      return '<a class="card portfolio-card is-hoverable" href="screens/du-an/chi-tiet/index.html?slug=' + da.slug + '" style="display:block;">' +
-        '<div class="portfolio-card__img"><img src="' + da.anh + '" alt="' + da.anh_alt + '" loading="lazy"></div>' +
+      var metric = da.ket_qua[0], detail = 'screens/du-an/chi-tiet/index.html?slug=' + da.slug;
+      return '<article class="card portfolio-card has-acts is-hoverable">' +
+        '<a class="portfolio-card__img" href="' + detail + '"><img src="' + da.anh + '" alt="' + da.anh_alt + '" loading="lazy"></a>' +
         '<div class="portfolio-card__body">' +
-        '<span class="badge badge-accent case-card__tag">' + da.nganh + '</span>' +
-        '<h3 class="h3" style="margin-bottom:8px;">' + da.ten_du_an + '</h3>' +
-        '<p class="body-lg" style="font-size:14.5px;">' + da.tom_tat + '</p>' +
-        '<div class="case-card__metric"><strong>' + metric.chi_so + '</strong><span>' + metric.mo_ta + '</span></div>' +
-        '<span class="service-card__link" style="margin-top:16px;">Xem chi tiết dự án ' + ARROW + '</span>' +
-        '</div></a>';
+        KTP.domainBadge(da, 'align-self:flex-start;') +
+        '<h3 class="h3 portfolio-card__title" style="margin-bottom:8px;"><a href="' + detail + '"' + KTP.en(da.ten_du_an_en) + '>' + da.ten_du_an + '</a></h3>' +
+        '<p class="body-lg" style="font-size:14.5px;"' + KTP.en(da.tom_tat_en) + '>' + da.tom_tat + '</p>' +
+        '<div class="case-card__metric"><strong' + KTP.en(metric.chi_so_en) + '>' + metric.chi_so + '</strong><span' + KTP.en(metric.mo_ta_en) + '>' + metric.mo_ta + '</span></div>' +
+        '<div class="case-card__acts">' +
+          '<a class="btn btn-outline" href="' + detail + '" data-en="Project details">Xem chi tiết dự án</a>' +
+          (da.playground ? '<a class="btn btn-primary" href="' + da.playground + '" data-en="Try the playground">Playground bản mẫu</a>' : '') +
+        '</div>' +
+        '</div></article>';
     }).join('');
   }
 

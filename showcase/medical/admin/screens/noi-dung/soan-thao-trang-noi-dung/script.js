@@ -1,0 +1,1 @@
+document.getElementById('saveBtn').addEventListener('click', function () { window.location.href = '../../../screens/noi-dung/danh-sach-trang-noi-dung/index.html'; });

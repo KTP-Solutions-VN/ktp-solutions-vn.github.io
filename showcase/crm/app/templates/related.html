@@ -1,0 +1,8 @@
+<!-- Tab bản ghi liên quan. Dữ liệu: key, cols[], rows[{id,title,cells[html]}] -->
+<div class="scroll"><table>
+  <thead><tr><th>{{t "det.record"}}</th>{{#each cols}}<th>{{this}}</th>{{/each}}</tr></thead>
+  <tbody>
+    {{#each rows}}<tr class="click" onclick="go('/e/{{../key}}/{{id}}')"><td><a><b>{{title}}</b></a></td>{{#each cells}}<td>{{{this}}}</td>{{/each}}</tr>
+    {{else}}<tr><td colspan="9" class="muted">{{t "list.empty"}}</td></tr>{{/each}}
+  </tbody>
+</table></div>

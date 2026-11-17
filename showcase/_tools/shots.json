@@ -1,0 +1,3852 @@
+[
+ {
+  "id": "crm-001",
+  "product": "crm",
+  "url": "/login",
+  "label": "Login",
+  "shot": "shots/after/crm-001.jpg"
+ },
+ {
+  "id": "crm-002",
+  "product": "crm",
+  "url": "/pick",
+  "label": "Pick entity",
+  "shot": "shots/after/crm-002.jpg"
+ },
+ {
+  "id": "crm-003",
+  "product": "crm",
+  "url": "/home",
+  "label": "Home",
+  "shot": "shots/after/crm-003.jpg"
+ },
+ {
+  "id": "crm-004",
+  "product": "crm",
+  "url": "/approvals",
+  "label": "Approvals",
+  "shot": "shots/after/crm-004.jpg"
+ },
+ {
+  "id": "crm-005",
+  "product": "crm",
+  "url": "/leads/list",
+  "label": "leads · list",
+  "shot": "shots/after/crm-005.jpg"
+ },
+ {
+  "id": "crm-006",
+  "product": "crm",
+  "url": "/leads/le1",
+  "label": "leads · detail",
+  "shot": "shots/after/crm-006.jpg"
+ },
+ {
+  "id": "crm-007",
+  "product": "crm",
+  "url": "/leads/new",
+  "label": "leads · new",
+  "shot": "shots/after/crm-007.jpg"
+ },
+ {
+  "id": "crm-008",
+  "product": "crm",
+  "url": "/leads/kanban",
+  "label": "leads · kanban",
+  "shot": "shots/after/crm-008.jpg"
+ },
+ {
+  "id": "crm-009",
+  "product": "crm",
+  "url": "/accounts/list",
+  "label": "accounts · list",
+  "shot": "shots/after/crm-009.jpg"
+ },
+ {
+  "id": "crm-010",
+  "product": "crm",
+  "url": "/accounts/ac1",
+  "label": "accounts · detail",
+  "shot": "shots/after/crm-010.jpg"
+ },
+ {
+  "id": "crm-011",
+  "product": "crm",
+  "url": "/accounts/new",
+  "label": "accounts · new",
+  "shot": "shots/after/crm-011.jpg"
+ },
+ {
+  "id": "crm-012",
+  "product": "crm",
+  "url": "/contacts/list",
+  "label": "contacts · list",
+  "shot": "shots/after/crm-012.jpg"
+ },
+ {
+  "id": "crm-013",
+  "product": "crm",
+  "url": "/contacts/co1",
+  "label": "contacts · detail",
+  "shot": "shots/after/crm-013.jpg"
+ },
+ {
+  "id": "crm-014",
+  "product": "crm",
+  "url": "/contacts/new",
+  "label": "contacts · new",
+  "shot": "shots/after/crm-014.jpg"
+ },
+ {
+  "id": "crm-015",
+  "product": "crm",
+  "url": "/deals/list",
+  "label": "deals · list",
+  "shot": "shots/after/crm-015.jpg"
+ },
+ {
+  "id": "crm-016",
+  "product": "crm",
+  "url": "/deals/de1",
+  "label": "deals · detail",
+  "shot": "shots/after/crm-016.jpg"
+ },
+ {
+  "id": "crm-017",
+  "product": "crm",
+  "url": "/deals/new",
+  "label": "deals · new",
+  "shot": "shots/after/crm-017.jpg"
+ },
+ {
+  "id": "crm-018",
+  "product": "crm",
+  "url": "/deals/kanban",
+  "label": "deals · kanban",
+  "shot": "shots/after/crm-018.jpg"
+ },
+ {
+  "id": "crm-019",
+  "product": "crm",
+  "url": "/quotes/list",
+  "label": "quotes · list",
+  "shot": "shots/after/crm-019.jpg"
+ },
+ {
+  "id": "crm-020",
+  "product": "crm",
+  "url": "/quotes/qu1",
+  "label": "quotes · detail",
+  "shot": "shots/after/crm-020.jpg"
+ },
+ {
+  "id": "crm-021",
+  "product": "crm",
+  "url": "/quotes/new",
+  "label": "quotes · new",
+  "shot": "shots/after/crm-021.jpg"
+ },
+ {
+  "id": "crm-022",
+  "product": "crm",
+  "url": "/quotes/kanban",
+  "label": "quotes · kanban",
+  "shot": "shots/after/crm-022.jpg"
+ },
+ {
+  "id": "crm-023",
+  "product": "crm",
+  "url": "/orders/list",
+  "label": "orders · list",
+  "shot": "shots/after/crm-023.jpg"
+ },
+ {
+  "id": "crm-024",
+  "product": "crm",
+  "url": "/orders/or1",
+  "label": "orders · detail",
+  "shot": "shots/after/crm-024.jpg"
+ },
+ {
+  "id": "crm-025",
+  "product": "crm",
+  "url": "/orders/new",
+  "label": "orders · new",
+  "shot": "shots/after/crm-025.jpg"
+ },
+ {
+  "id": "crm-026",
+  "product": "crm",
+  "url": "/orders/kanban",
+  "label": "orders · kanban",
+  "shot": "shots/after/crm-026.jpg"
+ },
+ {
+  "id": "crm-027",
+  "product": "crm",
+  "url": "/invoices/list",
+  "label": "invoices · list",
+  "shot": "shots/after/crm-027.jpg"
+ },
+ {
+  "id": "crm-028",
+  "product": "crm",
+  "url": "/invoices/in1",
+  "label": "invoices · detail",
+  "shot": "shots/after/crm-028.jpg"
+ },
+ {
+  "id": "crm-029",
+  "product": "crm",
+  "url": "/invoices/new",
+  "label": "invoices · new",
+  "shot": "shots/after/crm-029.jpg"
+ },
+ {
+  "id": "crm-030",
+  "product": "crm",
+  "url": "/invoices/kanban",
+  "label": "invoices · kanban",
+  "shot": "shots/after/crm-030.jpg"
+ },
+ {
+  "id": "crm-031",
+  "product": "crm",
+  "url": "/products/list",
+  "label": "products · list",
+  "shot": "shots/after/crm-031.jpg"
+ },
+ {
+  "id": "crm-032",
+  "product": "crm",
+  "url": "/products/pr1",
+  "label": "products · detail",
+  "shot": "shots/after/crm-032.jpg"
+ },
+ {
+  "id": "crm-033",
+  "product": "crm",
+  "url": "/products/new",
+  "label": "products · new",
+  "shot": "shots/after/crm-033.jpg"
+ },
+ {
+  "id": "crm-034",
+  "product": "crm",
+  "url": "/jobs/list",
+  "label": "jobs · list",
+  "shot": "shots/after/crm-034.jpg"
+ },
+ {
+  "id": "crm-035",
+  "product": "crm",
+  "url": "/jobs/jo1",
+  "label": "jobs · detail",
+  "shot": "shots/after/crm-035.jpg"
+ },
+ {
+  "id": "crm-036",
+  "product": "crm",
+  "url": "/jobs/new",
+  "label": "jobs · new",
+  "shot": "shots/after/crm-036.jpg"
+ },
+ {
+  "id": "crm-037",
+  "product": "crm",
+  "url": "/jobs/kanban",
+  "label": "jobs · kanban",
+  "shot": "shots/after/crm-037.jpg"
+ },
+ {
+  "id": "crm-038",
+  "product": "crm",
+  "url": "/vehicles/list",
+  "label": "vehicles · list",
+  "shot": "shots/after/crm-038.jpg"
+ },
+ {
+  "id": "crm-039",
+  "product": "crm",
+  "url": "/vehicles/ve1",
+  "label": "vehicles · detail",
+  "shot": "shots/after/crm-039.jpg"
+ },
+ {
+  "id": "crm-040",
+  "product": "crm",
+  "url": "/vehicles/new",
+  "label": "vehicles · new",
+  "shot": "shots/after/crm-040.jpg"
+ },
+ {
+  "id": "crm-041",
+  "product": "crm",
+  "url": "/install/list",
+  "label": "install · list",
+  "shot": "shots/after/crm-041.jpg"
+ },
+ {
+  "id": "crm-042",
+  "product": "crm",
+  "url": "/install/in1",
+  "label": "install · detail",
+  "shot": "shots/after/crm-042.jpg"
+ },
+ {
+  "id": "crm-043",
+  "product": "crm",
+  "url": "/install/new",
+  "label": "install · new",
+  "shot": "shots/after/crm-043.jpg"
+ },
+ {
+  "id": "crm-044",
+  "product": "crm",
+  "url": "/install/kanban",
+  "label": "install · kanban",
+  "shot": "shots/after/crm-044.jpg"
+ },
+ {
+  "id": "crm-045",
+  "product": "crm",
+  "url": "/si/list",
+  "label": "si · list",
+  "shot": "shots/after/crm-045.jpg"
+ },
+ {
+  "id": "crm-046",
+  "product": "crm",
+  "url": "/si/si1",
+  "label": "si · detail",
+  "shot": "shots/after/crm-046.jpg"
+ },
+ {
+  "id": "crm-047",
+  "product": "crm",
+  "url": "/si/new",
+  "label": "si · new",
+  "shot": "shots/after/crm-047.jpg"
+ },
+ {
+  "id": "crm-048",
+  "product": "crm",
+  "url": "/si/kanban",
+  "label": "si · kanban",
+  "shot": "shots/after/crm-048.jpg"
+ },
+ {
+  "id": "crm-049",
+  "product": "crm",
+  "url": "/partsreq/list",
+  "label": "partsreq · list",
+  "shot": "shots/after/crm-049.jpg"
+ },
+ {
+  "id": "crm-050",
+  "product": "crm",
+  "url": "/partsreq/pa1",
+  "label": "partsreq · detail",
+  "shot": "shots/after/crm-050.jpg"
+ },
+ {
+  "id": "crm-051",
+  "product": "crm",
+  "url": "/partsreq/new",
+  "label": "partsreq · new",
+  "shot": "shots/after/crm-051.jpg"
+ },
+ {
+  "id": "crm-052",
+  "product": "crm",
+  "url": "/nea/list",
+  "label": "nea · list",
+  "shot": "shots/after/crm-052.jpg"
+ },
+ {
+  "id": "crm-053",
+  "product": "crm",
+  "url": "/nea/ne1",
+  "label": "nea · detail",
+  "shot": "shots/after/crm-053.jpg"
+ },
+ {
+  "id": "crm-054",
+  "product": "crm",
+  "url": "/nea/new",
+  "label": "nea · new",
+  "shot": "shots/after/crm-054.jpg"
+ },
+ {
+  "id": "crm-055",
+  "product": "crm",
+  "url": "/tickets/list",
+  "label": "tickets · list",
+  "shot": "shots/after/crm-055.jpg"
+ },
+ {
+  "id": "crm-056",
+  "product": "crm",
+  "url": "/tickets/ti1",
+  "label": "tickets · detail",
+  "shot": "shots/after/crm-056.jpg"
+ },
+ {
+  "id": "crm-057",
+  "product": "crm",
+  "url": "/tickets/new",
+  "label": "tickets · new",
+  "shot": "shots/after/crm-057.jpg"
+ },
+ {
+  "id": "crm-058",
+  "product": "crm",
+  "url": "/tickets/kanban",
+  "label": "tickets · kanban",
+  "shot": "shots/after/crm-058.jpg"
+ },
+ {
+  "id": "crm-059",
+  "product": "crm",
+  "url": "/pr/list",
+  "label": "pr · list",
+  "shot": "shots/after/crm-059.jpg"
+ },
+ {
+  "id": "crm-060",
+  "product": "crm",
+  "url": "/pr/pr1",
+  "label": "pr · detail",
+  "shot": "shots/after/crm-060.jpg"
+ },
+ {
+  "id": "crm-061",
+  "product": "crm",
+  "url": "/pr/new",
+  "label": "pr · new",
+  "shot": "shots/after/crm-061.jpg"
+ },
+ {
+  "id": "crm-062",
+  "product": "crm",
+  "url": "/pr/kanban",
+  "label": "pr · kanban",
+  "shot": "shots/after/crm-062.jpg"
+ },
+ {
+  "id": "crm-063",
+  "product": "crm",
+  "url": "/vendors/list",
+  "label": "vendors · list",
+  "shot": "shots/after/crm-063.jpg"
+ },
+ {
+  "id": "crm-064",
+  "product": "crm",
+  "url": "/vendors/ve1",
+  "label": "vendors · detail",
+  "shot": "shots/after/crm-064.jpg"
+ },
+ {
+  "id": "crm-065",
+  "product": "crm",
+  "url": "/vendors/new",
+  "label": "vendors · new",
+  "shot": "shots/after/crm-065.jpg"
+ },
+ {
+  "id": "crm-066",
+  "product": "crm",
+  "url": "/board",
+  "label": "Board",
+  "shot": "shots/after/crm-066.jpg"
+ },
+ {
+  "id": "crm-067",
+  "product": "crm",
+  "url": "/reports",
+  "label": "Reports",
+  "shot": "shots/after/crm-067.jpg"
+ },
+ {
+  "id": "crm-068",
+  "product": "crm",
+  "url": "/reports/r10",
+  "label": "Report · forecast",
+  "shot": "shots/after/crm-068.jpg"
+ },
+ {
+  "id": "crm-069",
+  "product": "crm",
+  "url": "/settings/tenant",
+  "label": "Settings · tenant",
+  "shot": "shots/after/crm-069.jpg"
+ },
+ {
+  "id": "crm-070",
+  "product": "crm",
+  "url": "/settings/org",
+  "label": "Settings · org",
+  "shot": "shots/after/crm-070.jpg"
+ },
+ {
+  "id": "crm-071",
+  "product": "crm",
+  "url": "/settings/team",
+  "label": "Settings · team",
+  "shot": "shots/after/crm-071.jpg"
+ },
+ {
+  "id": "crm-072",
+  "product": "crm",
+  "url": "/settings/perm",
+  "label": "Settings · perm",
+  "shot": "shots/after/crm-072.jpg"
+ },
+ {
+  "id": "crm-073",
+  "product": "crm",
+  "url": "/settings/config",
+  "label": "Settings · config",
+  "shot": "shots/after/crm-073.jpg"
+ },
+ {
+  "id": "crm-074",
+  "product": "crm",
+  "url": "/settings/approval",
+  "label": "Settings · approval",
+  "shot": "shots/after/crm-074.jpg"
+ },
+ {
+  "id": "crm-075",
+  "product": "crm",
+  "url": "/settings/auto",
+  "label": "Settings · auto",
+  "shot": "shots/after/crm-075.jpg"
+ },
+ {
+  "id": "crm-076",
+  "product": "crm",
+  "url": "/settings/msg",
+  "label": "Settings · msg",
+  "shot": "shots/after/crm-076.jpg"
+ },
+ {
+  "id": "crm-077",
+  "product": "crm",
+  "url": "/settings/sync",
+  "label": "Settings · sync",
+  "shot": "shots/after/crm-077.jpg"
+ },
+ {
+  "id": "crm-078",
+  "product": "crm",
+  "url": "/settings/import",
+  "label": "Settings · import",
+  "shot": "shots/after/crm-078.jpg"
+ },
+ {
+  "id": "crm-079",
+  "product": "crm",
+  "url": "/settings/api",
+  "label": "Settings · api",
+  "shot": "shots/after/crm-079.jpg"
+ },
+ {
+  "id": "crm-080",
+  "product": "crm",
+  "url": "/settings/audit",
+  "label": "Settings · audit",
+  "shot": "shots/after/crm-080.jpg"
+ },
+ {
+  "id": "crm-081",
+  "product": "crm",
+  "url": "/settings/recycle",
+  "label": "Settings · recycle",
+  "shot": "shots/after/crm-081.jpg"
+ },
+ {
+  "id": "admin-001",
+  "product": "admin",
+  "url": "index.html",
+  "label": "Overview",
+  "shot": "shots/after/admin-001.jpg"
+ },
+ {
+  "id": "admin-002",
+  "product": "admin",
+  "url": "screens/auth/dang-nhap/index.html",
+  "label": "auth / dang-nhap",
+  "shot": "shots/after/admin-002.jpg"
+ },
+ {
+  "id": "admin-003",
+  "product": "admin",
+  "url": "screens/bao-cao/bao-cao-dat-lich-tham-du/index.html",
+  "label": "bao-cao / bao-cao-dat-lich-tham-du",
+  "shot": "shots/after/admin-003.jpg"
+ },
+ {
+  "id": "admin-004",
+  "product": "admin",
+  "url": "screens/bao-cao/bao-cao-doanh-so/index.html",
+  "label": "bao-cao / bao-cao-doanh-so",
+  "shot": "shots/after/admin-004.jpg"
+ },
+ {
+  "id": "admin-005",
+  "product": "admin",
+  "url": "screens/bao-cao/bao-cao-gioi-thieu/index.html",
+  "label": "bao-cao / bao-cao-gioi-thieu",
+  "shot": "shots/after/admin-005.jpg"
+ },
+ {
+  "id": "admin-006",
+  "product": "admin",
+  "url": "screens/bao-cao/bao-cao-hanh-trinh-khach-hang-chuyen-doi/index.html",
+  "label": "bao-cao / bao-cao-hanh-trinh-khach-hang-chuyen-doi",
+  "shot": "shots/after/admin-006.jpg"
+ },
+ {
+  "id": "admin-007",
+  "product": "admin",
+  "url": "screens/bao-cao/bao-cao-hoan-tien/index.html",
+  "label": "bao-cao / bao-cao-hoan-tien",
+  "shot": "shots/after/admin-007.jpg"
+ },
+ {
+  "id": "admin-008",
+  "product": "admin",
+  "url": "screens/bao-cao/bao-cao-khach-hang/index.html",
+  "label": "bao-cao / bao-cao-khach-hang",
+  "shot": "shots/after/admin-008.jpg"
+ },
+ {
+  "id": "admin-009",
+  "product": "admin",
+  "url": "screens/bao-cao/bao-cao-marketing-khuyen-mai/index.html",
+  "label": "bao-cao / bao-cao-marketing-khuyen-mai",
+  "shot": "shots/after/admin-009.jpg"
+ },
+ {
+  "id": "admin-010",
+  "product": "admin",
+  "url": "screens/bao-cao/bao-cao-nguon-kenh/index.html",
+  "label": "bao-cao / bao-cao-nguon-kenh",
+  "shot": "shots/after/admin-010.jpg"
+ },
+ {
+  "id": "admin-011",
+  "product": "admin",
+  "url": "screens/bao-cao/bao-cao-qua-tang-doi-qua/index.html",
+  "label": "bao-cao / bao-cao-qua-tang-doi-qua",
+  "shot": "shots/after/admin-011.jpg"
+ },
+ {
+  "id": "admin-012",
+  "product": "admin",
+  "url": "screens/bao-cao/lich-su-giao-dich-diem-admin/index.html",
+  "label": "bao-cao / lich-su-giao-dich-diem-admin",
+  "shot": "shots/after/admin-012.jpg"
+ },
+ {
+  "id": "admin-013",
+  "product": "admin",
+  "url": "screens/dashboard/index.html",
+  "label": "dashboard",
+  "shot": "shots/after/admin-013.jpg"
+ },
+ {
+  "id": "admin-014",
+  "product": "admin",
+  "url": "screens/don-hang/cau-hinh-email-hoa-don/index.html",
+  "label": "don-hang / cau-hinh-email-hoa-don",
+  "shot": "shots/after/admin-014.jpg"
+ },
+ {
+  "id": "admin-015",
+  "product": "admin",
+  "url": "screens/don-hang/chi-tiet-don-hang/index.html",
+  "label": "don-hang / chi-tiet-don-hang",
+  "shot": "shots/after/admin-015.jpg"
+ },
+ {
+  "id": "admin-016",
+  "product": "admin",
+  "url": "screens/don-hang/danh-sach-don-hang/index.html",
+  "label": "don-hang / danh-sach-don-hang",
+  "shot": "shots/after/admin-016.jpg"
+ },
+ {
+  "id": "admin-017",
+  "product": "admin",
+  "url": "screens/don-hang/duyet-yeu-cau-hoan-tien/index.html",
+  "label": "don-hang / duyet-yeu-cau-hoan-tien",
+  "shot": "shots/after/admin-017.jpg"
+ },
+ {
+  "id": "admin-018",
+  "product": "admin",
+  "url": "screens/don-hang/quan-ly-van-don-logistics/index.html",
+  "label": "don-hang / quan-ly-van-don-logistics",
+  "shot": "shots/after/admin-018.jpg"
+ },
+ {
+  "id": "admin-019",
+  "product": "admin",
+  "url": "screens/don-hang/tao-chinh-sua-don-hang-thu-cong/index.html",
+  "label": "don-hang / tao-chinh-sua-don-hang-thu-cong",
+  "shot": "shots/after/admin-019.jpg"
+ },
+ {
+  "id": "admin-020",
+  "product": "admin",
+  "url": "screens/he-thong/cau-hinh-he-thong-chung/index.html",
+  "label": "he-thong / cau-hinh-he-thong-chung",
+  "shot": "shots/after/admin-020.jpg"
+ },
+ {
+  "id": "admin-021",
+  "product": "admin",
+  "url": "screens/he-thong/cau-hinh-thue-gst/index.html",
+  "label": "he-thong / cau-hinh-thue-gst",
+  "shot": "shots/after/admin-021.jpg"
+ },
+ {
+  "id": "admin-022",
+  "product": "admin",
+  "url": "screens/he-thong/tra-cuu-nhat-ky-he-thong/index.html",
+  "label": "he-thong / tra-cuu-nhat-ky-he-thong",
+  "shot": "shots/after/admin-022.jpg"
+ },
+ {
+  "id": "admin-023",
+  "product": "admin",
+  "url": "screens/khach-hang/chi-tiet-khach-hang/index.html",
+  "label": "khach-hang / chi-tiet-khach-hang",
+  "shot": "shots/after/admin-023.jpg"
+ },
+ {
+  "id": "admin-024",
+  "product": "admin",
+  "url": "screens/khach-hang/danh-sach-khach-hang/index.html",
+  "label": "khach-hang / danh-sach-khach-hang",
+  "shot": "shots/after/admin-024.jpg"
+ },
+ {
+  "id": "admin-025",
+  "product": "admin",
+  "url": "screens/khach-hang/quan-ly-nguoi-dung-quan-tri-vai-tro/index.html",
+  "label": "khach-hang / quan-ly-nguoi-dung-quan-tri-vai-tro",
+  "shot": "shots/after/admin-025.jpg"
+ },
+ {
+  "id": "admin-026",
+  "product": "admin",
+  "url": "screens/khach-hang/quan-ly-nhom-phan-khuc-khach-hang/index.html",
+  "label": "khach-hang / quan-ly-nhom-phan-khuc-khach-hang",
+  "shot": "shots/after/admin-026.jpg"
+ },
+ {
+  "id": "admin-027",
+  "product": "admin",
+  "url": "screens/khach-hang/tao-chinh-sua-vai-tro-quyen-han/index.html",
+  "label": "khach-hang / tao-chinh-sua-vai-tro-quyen-han",
+  "shot": "shots/after/admin-027.jpg"
+ },
+ {
+  "id": "admin-028",
+  "product": "admin",
+  "url": "screens/marketing-khuyen-mai/cau-hinh-mua-kem-uu-dai/index.html",
+  "label": "marketing-khuyen-mai / cau-hinh-mua-kem-uu-dai",
+  "shot": "shots/after/admin-028.jpg"
+ },
+ {
+  "id": "admin-029",
+  "product": "admin",
+  "url": "screens/marketing-khuyen-mai/cau-hinh-qua-tang-kem/index.html",
+  "label": "marketing-khuyen-mai / cau-hinh-qua-tang-kem",
+  "shot": "shots/after/admin-029.jpg"
+ },
+ {
+  "id": "admin-030",
+  "product": "admin",
+  "url": "screens/marketing-khuyen-mai/cau-hinh-quy-tac-tich-doi-diem/index.html",
+  "label": "marketing-khuyen-mai / cau-hinh-quy-tac-tich-doi-diem",
+  "shot": "shots/after/admin-030.jpg"
+ },
+ {
+  "id": "admin-031",
+  "product": "admin",
+  "url": "screens/marketing-khuyen-mai/danh-sach-ma-giam-gia/index.html",
+  "label": "marketing-khuyen-mai / danh-sach-ma-giam-gia",
+  "shot": "shots/after/admin-031.jpg"
+ },
+ {
+  "id": "admin-032",
+  "product": "admin",
+  "url": "screens/marketing-khuyen-mai/quan-ly-quy-tac-ca-nhan-hoa/index.html",
+  "label": "marketing-khuyen-mai / quan-ly-quy-tac-ca-nhan-hoa",
+  "shot": "shots/after/admin-032.jpg"
+ },
+ {
+  "id": "admin-033",
+  "product": "admin",
+  "url": "screens/marketing-khuyen-mai/tao-chinh-sua-ma-giam-gia/index.html",
+  "label": "marketing-khuyen-mai / tao-chinh-sua-ma-giam-gia",
+  "shot": "shots/after/admin-033.jpg"
+ },
+ {
+  "id": "admin-034",
+  "product": "admin",
+  "url": "screens/noi-dung/danh-sach-trang-noi-dung/index.html",
+  "label": "noi-dung / danh-sach-trang-noi-dung",
+  "shot": "shots/after/admin-034.jpg"
+ },
+ {
+  "id": "admin-035",
+  "product": "admin",
+  "url": "screens/noi-dung/quan-ly-banner/index.html",
+  "label": "noi-dung / quan-ly-banner",
+  "shot": "shots/after/admin-035.jpg"
+ },
+ {
+  "id": "admin-036",
+  "product": "admin",
+  "url": "screens/noi-dung/soan-thao-trang-noi-dung/index.html",
+  "label": "noi-dung / soan-thao-trang-noi-dung",
+  "shot": "shots/after/admin-036.jpg"
+ },
+ {
+  "id": "admin-037",
+  "product": "admin",
+  "url": "screens/san-pham-dich-vu/cau-hinh-lich-slot-phan-cong-nhan-su/index.html",
+  "label": "san-pham-dich-vu / cau-hinh-lich-slot-phan-cong-nhan-su",
+  "shot": "shots/after/admin-037.jpg"
+ },
+ {
+  "id": "admin-038",
+  "product": "admin",
+  "url": "screens/san-pham-dich-vu/danh-sach-nguoi-tham-gia-diem-danh/index.html",
+  "label": "san-pham-dich-vu / danh-sach-nguoi-tham-gia-diem-danh",
+  "shot": "shots/after/admin-038.jpg"
+ },
+ {
+  "id": "admin-039",
+  "product": "admin",
+  "url": "screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html",
+  "label": "san-pham-dich-vu / danh-sach-san-pham-dich-vu",
+  "shot": "shots/after/admin-039.jpg"
+ },
+ {
+  "id": "admin-040",
+  "product": "admin",
+  "url": "screens/san-pham-dich-vu/doi-lich-huy-buoi/index.html",
+  "label": "san-pham-dich-vu / doi-lich-huy-buoi",
+  "shot": "shots/after/admin-040.jpg"
+ },
+ {
+  "id": "admin-041",
+  "product": "admin",
+  "url": "screens/san-pham-dich-vu/quan-ly-combo-bundle/index.html",
+  "label": "san-pham-dich-vu / quan-ly-combo-bundle",
+  "shot": "shots/after/admin-041.jpg"
+ },
+ {
+  "id": "admin-042",
+  "product": "admin",
+  "url": "screens/san-pham-dich-vu/quan-ly-ton-kho-theo-bien-the/index.html",
+  "label": "san-pham-dich-vu / quan-ly-ton-kho-theo-bien-the",
+  "shot": "shots/after/admin-042.jpg"
+ },
+ {
+  "id": "admin-043",
+  "product": "admin",
+  "url": "screens/san-pham-dich-vu/tao-chinh-sua-combo/index.html",
+  "label": "san-pham-dich-vu / tao-chinh-sua-combo",
+  "shot": "shots/after/admin-043.jpg"
+ },
+ {
+  "id": "admin-044",
+  "product": "admin",
+  "url": "screens/san-pham-dich-vu/tao-chinh-sua-san-pham-dich-vu/index.html",
+  "label": "san-pham-dich-vu / tao-chinh-sua-san-pham-dich-vu",
+  "shot": "shots/after/admin-044.jpg"
+ },
+ {
+  "id": "store-front-001",
+  "product": "store-front",
+  "url": "index.html",
+  "label": "Overview",
+  "shot": "shots/after/store-front-001.jpg"
+ },
+ {
+  "id": "store-front-002",
+  "product": "store-front",
+  "url": "screens/diem-thuong/so-du-lich-su-diem/index.html",
+  "label": "diem-thuong / so-du-lich-su-diem",
+  "shot": "shots/after/store-front-002.jpg"
+ },
+ {
+  "id": "store-front-003",
+  "product": "store-front",
+  "url": "screens/don-hang/lich-su-don-hang/index.html",
+  "label": "don-hang / lich-su-don-hang",
+  "shot": "shots/after/store-front-003.jpg"
+ },
+ {
+  "id": "store-front-004",
+  "product": "store-front",
+  "url": "screens/don-hang/theo-doi-trang-thai-don-hang/index.html",
+  "label": "don-hang / theo-doi-trang-thai-don-hang",
+  "shot": "shots/after/store-front-004.jpg"
+ },
+ {
+  "id": "store-front-005",
+  "product": "store-front",
+  "url": "screens/don-hang/xac-nhan-don-hang/index.html",
+  "label": "don-hang / xac-nhan-don-hang",
+  "shot": "shots/after/store-front-005.jpg"
+ },
+ {
+  "id": "store-front-006",
+  "product": "store-front",
+  "url": "screens/frontend/trang-chu/index.html",
+  "label": "frontend / trang-chu",
+  "shot": "shots/after/store-front-006.jpg"
+ },
+ {
+  "id": "store-front-007",
+  "product": "store-front",
+  "url": "screens/gio-hang/gio-hang/index.html",
+  "label": "gio-hang / gio-hang",
+  "shot": "shots/after/store-front-007.jpg"
+ },
+ {
+  "id": "store-front-008",
+  "product": "store-front",
+  "url": "screens/gio-hang/thanh-toan/index.html",
+  "label": "gio-hang / thanh-toan",
+  "shot": "shots/after/store-front-008.jpg"
+ },
+ {
+  "id": "store-front-009",
+  "product": "store-front",
+  "url": "screens/khach-hang/chinh-sua-thong-tin-ca-nhan/index.html",
+  "label": "khach-hang / chinh-sua-thong-tin-ca-nhan",
+  "shot": "shots/after/store-front-009.jpg"
+ },
+ {
+  "id": "store-front-010",
+  "product": "store-front",
+  "url": "screens/khach-hang/dang-ky-thanh-vien-fbp-nbp/index.html",
+  "label": "khach-hang / dang-ky-thanh-vien-fbp-nbp",
+  "shot": "shots/after/store-front-010.jpg"
+ },
+ {
+  "id": "store-front-011",
+  "product": "store-front",
+  "url": "screens/khach-hang/dang-nhap-dang-ky/index.html",
+  "label": "khach-hang / dang-nhap-dang-ky",
+  "shot": "shots/after/store-front-011.jpg"
+ },
+ {
+  "id": "store-front-012",
+  "product": "store-front",
+  "url": "screens/khach-hang/quan-ly-tuy-chon-lien-lac/index.html",
+  "label": "khach-hang / quan-ly-tuy-chon-lien-lac",
+  "shot": "shots/after/store-front-012.jpg"
+ },
+ {
+  "id": "store-front-013",
+  "product": "store-front",
+  "url": "screens/khach-hang/tai-khoan-cua-toi/index.html",
+  "label": "khach-hang / tai-khoan-cua-toi",
+  "shot": "shots/after/store-front-013.jpg"
+ },
+ {
+  "id": "store-front-014",
+  "product": "store-front",
+  "url": "screens/khach-hang/yeu-cau-xoa-tai-khoan-du-lieu/index.html",
+  "label": "khach-hang / yeu-cau-xoa-tai-khoan-du-lieu",
+  "shot": "shots/after/store-front-014.jpg"
+ },
+ {
+  "id": "store-front-015",
+  "product": "store-front",
+  "url": "screens/noi-dung/trang-noi-dung/index.html",
+  "label": "noi-dung / trang-noi-dung",
+  "shot": "shots/after/store-front-015.jpg"
+ },
+ {
+  "id": "store-front-016",
+  "product": "store-front",
+  "url": "screens/san-pham-dich-vu/chi-tiet-san-pham-dich-vu/index.html",
+  "label": "san-pham-dich-vu / chi-tiet-san-pham-dich-vu",
+  "shot": "shots/after/store-front-016.jpg"
+ },
+ {
+  "id": "store-front-017",
+  "product": "store-front",
+  "url": "screens/san-pham-dich-vu/chon-lich-slot-dich-vu/index.html",
+  "label": "san-pham-dich-vu / chon-lich-slot-dich-vu",
+  "shot": "shots/after/store-front-017.jpg"
+ },
+ {
+  "id": "store-front-018",
+  "product": "store-front",
+  "url": "screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html",
+  "label": "san-pham-dich-vu / danh-sach-san-pham-dich-vu",
+  "shot": "shots/after/store-front-018.jpg"
+ },
+ {
+  "id": "pos-001",
+  "product": "pos",
+  "url": "index.html",
+  "label": "Overview",
+  "shot": "shots/after/pos-001.jpg"
+ },
+ {
+  "id": "pos-002",
+  "product": "pos",
+  "url": "screens/pos-operations/bao-cao-van-hanh-pos/index.html",
+  "label": "pos-operations / bao-cao-van-hanh-pos",
+  "shot": "shots/after/pos-002.jpg"
+ },
+ {
+  "id": "pos-003",
+  "product": "pos",
+  "url": "screens/pos-operations/dong-ca-thu-ngan/index.html",
+  "label": "pos-operations / dong-ca-thu-ngan",
+  "shot": "shots/after/pos-003.jpg"
+ },
+ {
+  "id": "pos-004",
+  "product": "pos",
+  "url": "screens/pos-operations/ghi-nhan-don-thuoc/index.html",
+  "label": "pos-operations / ghi-nhan-don-thuoc",
+  "shot": "shots/after/pos-004.jpg"
+ },
+ {
+  "id": "pos-005",
+  "product": "pos",
+  "url": "screens/pos-operations/ghi-nhan-quy-trinh-can-thiep/index.html",
+  "label": "pos-operations / ghi-nhan-quy-trinh-can-thiep",
+  "shot": "shots/after/pos-005.jpg"
+ },
+ {
+  "id": "pos-006",
+  "product": "pos",
+  "url": "screens/pos-operations/ghi-nhan-tu-van-duoc/index.html",
+  "label": "pos-operations / ghi-nhan-tu-van-duoc",
+  "shot": "shots/after/pos-006.jpg"
+ },
+ {
+  "id": "pos-007",
+  "product": "pos",
+  "url": "screens/pos-operations/man-hinh-ban-hang-pos/index.html",
+  "label": "pos-operations / man-hinh-ban-hang-pos",
+  "shot": "shots/after/pos-007.jpg"
+ },
+ {
+  "id": "pos-008",
+  "product": "pos",
+  "url": "screens/pos-operations/nhap-thong-tin-nhan-khau-hoc-lam-sang-benh-nhan/index.html",
+  "label": "pos-operations / nhap-thong-tin-nhan-khau-hoc-lam-sang-benh-nhan",
+  "shot": "shots/after/pos-008.jpg"
+ },
+ {
+  "id": "pms-001",
+  "product": "pms",
+  "url": "index.html",
+  "label": "Azura Manager",
+  "shot": "shots/after/pms-001.jpg"
+ },
+ {
+  "id": "pms-002",
+  "product": "pms",
+  "url": "screens/auth/log-001-login/index.html",
+  "label": "Login",
+  "shot": "shots/after/pms-002.jpg"
+ },
+ {
+  "id": "pms-003",
+  "product": "pms",
+  "url": "screens/dashboard/index.html",
+  "label": "Dashboard",
+  "shot": "shots/after/pms-003.jpg"
+ },
+ {
+  "id": "pms-004",
+  "product": "pms",
+  "url": "screens/system-users/usr-002-business-indicators/index.html",
+  "label": "Business Indicators",
+  "shot": "shots/after/pms-004.jpg"
+ },
+ {
+  "id": "pms-005",
+  "product": "pms",
+  "url": "screens/system-users/usr-003-system-settings/index.html",
+  "label": "System Settings",
+  "shot": "shots/after/pms-005.jpg"
+ },
+ {
+  "id": "pms-006",
+  "product": "pms",
+  "url": "screens/system-users/usr-004-user-list/index.html",
+  "label": "Staff List",
+  "shot": "shots/after/pms-006.jpg"
+ },
+ {
+  "id": "pms-007",
+  "product": "pms",
+  "url": "screens/system-users/usr-005-add-user/index.html",
+  "label": "Add New Staff",
+  "shot": "shots/after/pms-007.jpg"
+ },
+ {
+  "id": "pms-008",
+  "product": "pms",
+  "url": "screens/system-users/usr-006-edit-user/index.html",
+  "label": "Edit Staff",
+  "shot": "shots/after/pms-008.jpg"
+ },
+ {
+  "id": "pms-009",
+  "product": "pms",
+  "url": "screens/system-users/usr-007-view-user-details/index.html",
+  "label": "View Staff Details",
+  "shot": "shots/after/pms-009.jpg"
+ },
+ {
+  "id": "pms-010",
+  "product": "pms",
+  "url": "screens/system-users/usr-008-my-profile/index.html",
+  "label": "My Profile",
+  "shot": "shots/after/pms-010.jpg"
+ },
+ {
+  "id": "pms-011",
+  "product": "pms",
+  "url": "screens/system-users/usr-009-weekly-off/index.html",
+  "label": "Weekly Off",
+  "shot": "shots/after/pms-011.jpg"
+ },
+ {
+  "id": "pms-012",
+  "product": "pms",
+  "url": "screens/system-users/usr-010-granted-leaves/index.html",
+  "label": "Granted Leaves",
+  "shot": "shots/after/pms-012.jpg"
+ },
+ {
+  "id": "pms-013",
+  "product": "pms",
+  "url": "screens/system-users/usr-011-assign-leaves/index.html",
+  "label": "Assign Leave",
+  "shot": "shots/after/pms-013.jpg"
+ },
+ {
+  "id": "pms-014",
+  "product": "pms",
+  "url": "screens/system-users/usr-012-agent-list/index.html",
+  "label": "Agent List",
+  "shot": "shots/after/pms-014.jpg"
+ },
+ {
+  "id": "pms-015",
+  "product": "pms",
+  "url": "screens/system-users/usr-015-booking-statistics/index.html",
+  "label": "Booking Statistics",
+  "shot": "shots/after/pms-015.jpg"
+ },
+ {
+  "id": "pms-016",
+  "product": "pms",
+  "url": "screens/system-users/usr-016-provider-list/index.html",
+  "label": "Provider List",
+  "shot": "shots/after/pms-016.jpg"
+ },
+ {
+  "id": "pms-017",
+  "product": "pms",
+  "url": "screens/system-users/usr-019-view-provider-details/index.html",
+  "label": "View Provider Details",
+  "shot": "shots/after/pms-017.jpg"
+ },
+ {
+  "id": "pms-018",
+  "product": "pms",
+  "url": "screens/system-users/usr-020-payroll-rules/index.html",
+  "label": "Payroll Rules",
+  "shot": "shots/after/pms-018.jpg"
+ },
+ {
+  "id": "pms-019",
+  "product": "pms",
+  "url": "screens/system-users/usr-022-clock-in-clock-out/index.html",
+  "label": "Clock In / Clock Out",
+  "shot": "shots/after/pms-019.jpg"
+ },
+ {
+  "id": "pms-020",
+  "product": "pms",
+  "url": "screens/system-users/usr-023-virtual-users/index.html",
+  "label": "Virtual Users Management",
+  "shot": "shots/after/pms-020.jpg"
+ },
+ {
+  "id": "pms-021",
+  "product": "pms",
+  "url": "screens/properties/prop-002-beds24-pricing-coefficient/index.html",
+  "label": "Beds24 Pricing Coefficient",
+  "shot": "shots/after/pms-021.jpg"
+ },
+ {
+  "id": "pms-022",
+  "product": "pms",
+  "url": "screens/properties/prop-017-properties-missing-room-id/index.html",
+  "label": "Properties Missing Room ID",
+  "shot": "shots/after/pms-022.jpg"
+ },
+ {
+  "id": "pms-023",
+  "product": "pms",
+  "url": "screens/properties/prop-018-monthly-newsletter-for-property-owners/index.html",
+  "label": "Monthly Newsletter for Property Owners",
+  "shot": "shots/after/pms-023.jpg"
+ },
+ {
+  "id": "pms-024",
+  "product": "pms",
+  "url": "screens/properties/prop-020-onboarding-list/index.html",
+  "label": "Onboarding List",
+  "shot": "shots/after/pms-024.jpg"
+ },
+ {
+  "id": "pms-025",
+  "product": "pms",
+  "url": "screens/properties/prop-021-properties-pending-onboarding-action-list/index.html",
+  "label": "Properties Pending Onboarding Action",
+  "shot": "shots/after/pms-025.jpg"
+ },
+ {
+  "id": "pms-026",
+  "product": "pms",
+  "url": "screens/properties/prop-024-monthly-payment-report-for-property-owners/index.html",
+  "label": "Monthly Payment Report for Property Owners",
+  "shot": "shots/after/pms-026.jpg"
+ },
+ {
+  "id": "pms-027",
+  "product": "pms",
+  "url": "screens/properties/prop-025-photographer-evaluation/index.html",
+  "label": "Photographer Evaluation",
+  "shot": "shots/after/pms-027.jpg"
+ },
+ {
+  "id": "pms-028",
+  "product": "pms",
+  "url": "screens/properties/prop-026-photography-planning/index.html",
+  "label": "Photography Planning",
+  "shot": "shots/after/pms-028.jpg"
+ },
+ {
+  "id": "pms-029",
+  "product": "pms",
+  "url": "screens/properties/prop-027-properties-missing-photos/index.html",
+  "label": "Properties Missing Photos",
+  "shot": "shots/after/pms-029.jpg"
+ },
+ {
+  "id": "pms-030",
+  "product": "pms",
+  "url": "screens/properties/prop-028-photography-scores/index.html",
+  "label": "Photography Scores",
+  "shot": "shots/after/pms-030.jpg"
+ },
+ {
+  "id": "pms-031",
+  "product": "pms",
+  "url": "screens/properties/prop-029-property-reports/index.html",
+  "label": "Property Reports",
+  "shot": "shots/after/pms-031.jpg"
+ },
+ {
+  "id": "pms-032",
+  "product": "pms",
+  "url": "screens/properties/prop-031-request-ota-listing-redo/index.html",
+  "label": "Request OTA Listing Redo",
+  "shot": "shots/after/pms-032.jpg"
+ },
+ {
+  "id": "pms-033",
+  "product": "pms",
+  "url": "screens/properties/prop-032-property-dashboard/index.html",
+  "label": "Property Dashboard",
+  "shot": "shots/after/pms-033.jpg"
+ },
+ {
+  "id": "pms-034",
+  "product": "pms",
+  "url": "screens/properties/prop-033-property-list/index.html",
+  "label": "Property List",
+  "shot": "shots/after/pms-034.jpg"
+ },
+ {
+  "id": "pms-035",
+  "product": "pms",
+  "url": "screens/properties/prop-035-view-property-details/index.html",
+  "label": "View Property Details",
+  "shot": "shots/after/pms-035.jpg"
+ },
+ {
+  "id": "pms-036",
+  "product": "pms",
+  "url": "screens/properties/prop-036-property-confirmation-information/index.html",
+  "label": "Property Confirmation Information",
+  "shot": "shots/after/pms-036.jpg"
+ },
+ {
+  "id": "pms-037",
+  "product": "pms",
+  "url": "screens/properties/prop-037-property-communication-information/index.html",
+  "label": "Property Communication Information",
+  "shot": "shots/after/pms-037.jpg"
+ },
+ {
+  "id": "pms-038",
+  "product": "pms",
+  "url": "screens/properties/prop-039-property-additional-guest-services/index.html",
+  "label": "Property Additional Guest Services",
+  "shot": "shots/after/pms-038.jpg"
+ },
+ {
+  "id": "pms-039",
+  "product": "pms",
+  "url": "screens/properties/prop-040-property-quality/index.html",
+  "label": "Property Quality",
+  "shot": "shots/after/pms-039.jpg"
+ },
+ {
+  "id": "pms-040",
+  "product": "pms",
+  "url": "screens/properties/prop-041-property-service-fee-payment-list/index.html",
+  "label": "Property Service Fee Payment List",
+  "shot": "shots/after/pms-040.jpg"
+ },
+ {
+  "id": "pms-041",
+  "product": "pms",
+  "url": "screens/properties/prop-042-property-booking-restriction/index.html",
+  "label": "Property Booking Restriction",
+  "shot": "shots/after/pms-041.jpg"
+ },
+ {
+  "id": "pms-042",
+  "product": "pms",
+  "url": "screens/properties/prop-043-concierge-territories/index.html",
+  "label": "Concierge Territories",
+  "shot": "shots/after/pms-042.jpg"
+ },
+ {
+  "id": "pms-043",
+  "product": "pms",
+  "url": "screens/properties/prop-044-property-inventory-management/index.html",
+  "label": "Property Inventory Management",
+  "shot": "shots/after/pms-043.jpg"
+ },
+ {
+  "id": "pms-044",
+  "product": "pms",
+  "url": "screens/properties/prop-045-property-inventory-request/index.html",
+  "label": "Property Inventory Request",
+  "shot": "shots/after/pms-044.jpg"
+ },
+ {
+  "id": "pms-045",
+  "product": "pms",
+  "url": "screens/properties/prop-046-residence-project-list/index.html",
+  "label": "Residence/Project List",
+  "shot": "shots/after/pms-045.jpg"
+ },
+ {
+  "id": "pms-046",
+  "product": "pms",
+  "url": "screens/properties/prop-047-view-residence-project-details/index.html",
+  "label": "View Residence Details",
+  "shot": "shots/after/pms-046.jpg"
+ },
+ {
+  "id": "pms-047",
+  "product": "pms",
+  "url": "screens/properties/prop-048-bulk-service-management-by-business-unit/index.html",
+  "label": "Bulk Service Management",
+  "shot": "shots/after/pms-047.jpg"
+ },
+ {
+  "id": "pms-048",
+  "product": "pms",
+  "url": "screens/properties/prop-049-property-service-utility-settings/index.html",
+  "label": "Property Service & Utility Settings",
+  "shot": "shots/after/pms-048.jpg"
+ },
+ {
+  "id": "pms-049",
+  "product": "pms",
+  "url": "screens/properties/prop-050-add-edit-property-details/index.html",
+  "label": "Add/Edit Property",
+  "shot": "shots/after/pms-049.jpg"
+ },
+ {
+  "id": "pms-050",
+  "product": "pms",
+  "url": "screens/properties/prop-051-guest-contract-assignment-recap/index.html",
+  "label": "Guest Contract Assignment Recap",
+  "shot": "shots/after/pms-050.jpg"
+ },
+ {
+  "id": "pms-051",
+  "product": "pms",
+  "url": "screens/properties/prop-052-guest-contract-pdf-export/index.html",
+  "label": "Guest Contract PDF Export",
+  "shot": "shots/after/pms-051.jpg"
+ },
+ {
+  "id": "pms-052",
+  "product": "pms",
+  "url": "screens/properties/prop-053-monthly-report-by-business-unit/index.html",
+  "label": "Monthly Report by Business Unit",
+  "shot": "shots/after/pms-052.jpg"
+ },
+ {
+  "id": "pms-053",
+  "product": "pms",
+  "url": "screens/properties/prop-054-monthly-report-status/index.html",
+  "label": "Monthly Report Status",
+  "shot": "shots/after/pms-053.jpg"
+ },
+ {
+  "id": "pms-054",
+  "product": "pms",
+  "url": "screens/properties/prop-055-property-report-ready-list/index.html",
+  "label": "Property Report Ready List",
+  "shot": "shots/after/pms-054.jpg"
+ },
+ {
+  "id": "pms-055",
+  "product": "pms",
+  "url": "screens/properties/prop-056-photography-activity-logs/index.html",
+  "label": "Photography Activity Logs",
+  "shot": "shots/after/pms-055.jpg"
+ },
+ {
+  "id": "pms-056",
+  "product": "pms",
+  "url": "screens/properties/prop-058-listing-to-be-redone-list/index.html",
+  "label": "Listing To Be Redone List",
+  "shot": "shots/after/pms-056.jpg"
+ },
+ {
+  "id": "pms-057",
+  "product": "pms",
+  "url": "screens/properties/prop-059-photography-schedule-list/index.html",
+  "label": "Photography Schedule List",
+  "shot": "shots/after/pms-057.jpg"
+ },
+ {
+  "id": "pms-058",
+  "product": "pms",
+  "url": "screens/properties/prop-061-upload-property-report/index.html",
+  "label": "Upload Property Report",
+  "shot": "shots/after/pms-058.jpg"
+ },
+ {
+  "id": "pms-059",
+  "product": "pms",
+  "url": "screens/properties/prop-062-property-onboarding-revalidation-request/index.html",
+  "label": "Property Onboarding Revalidation Request",
+  "shot": "shots/after/pms-059.jpg"
+ },
+ {
+  "id": "pms-060",
+  "product": "pms",
+  "url": "screens/properties/prop-063-view-property-onboarding-details/index.html",
+  "label": "View Property Onboarding Details",
+  "shot": "shots/after/pms-060.jpg"
+ },
+ {
+  "id": "pms-061",
+  "product": "pms",
+  "url": "screens/company/comp-001-company-legal-entity-list/index.html",
+  "label": "Company List",
+  "shot": "shots/after/pms-061.jpg"
+ },
+ {
+  "id": "pms-062",
+  "product": "pms",
+  "url": "screens/business-unit/bu-001-business-unit-list/index.html",
+  "label": "Business Unit List",
+  "shot": "shots/after/pms-062.jpg"
+ },
+ {
+  "id": "pms-063",
+  "product": "pms",
+  "url": "screens/business-unit/bu-002-add-business-unit/index.html",
+  "label": "Add Business Unit",
+  "shot": "shots/after/pms-063.jpg"
+ },
+ {
+  "id": "pms-064",
+  "product": "pms",
+  "url": "screens/business-unit/bu-003-edit-business-unit/index.html",
+  "label": "Edit Business Unit",
+  "shot": "shots/after/pms-064.jpg"
+ },
+ {
+  "id": "pms-065",
+  "product": "pms",
+  "url": "screens/business-unit/bu-004-view-business-unit-details/index.html",
+  "label": "View Business Unit Details",
+  "shot": "shots/after/pms-065.jpg"
+ },
+ {
+  "id": "pms-066",
+  "product": "pms",
+  "url": "screens/business-unit/bu-005-channel-list/index.html",
+  "label": "Channel List",
+  "shot": "shots/after/pms-066.jpg"
+ },
+ {
+  "id": "pms-067",
+  "product": "pms",
+  "url": "screens/business-unit/bu-006-villa-links-by-channel/index.html",
+  "label": "Villa Links by Channel",
+  "shot": "shots/after/pms-067.jpg"
+ },
+ {
+  "id": "pms-068",
+  "product": "pms",
+  "url": "screens/business-unit/bu-007-currency-list/index.html",
+  "label": "Currency List",
+  "shot": "shots/after/pms-068.jpg"
+ },
+ {
+  "id": "pms-069",
+  "product": "pms",
+  "url": "screens/business-unit/bu-008-exchange-rates/index.html",
+  "label": "Exchange Rates",
+  "shot": "shots/after/pms-069.jpg"
+ },
+ {
+  "id": "pms-070",
+  "product": "pms",
+  "url": "screens/business-unit/bu-009-chat-platforms/index.html",
+  "label": "Chat Platforms",
+  "shot": "shots/after/pms-070.jpg"
+ },
+ {
+  "id": "pms-071",
+  "product": "pms",
+  "url": "screens/business-unit/bu-010-payment-accounts/index.html",
+  "label": "Payment & Accounts",
+  "shot": "shots/after/pms-071.jpg"
+ },
+ {
+  "id": "pms-072",
+  "product": "pms",
+  "url": "screens/business-unit/bu-011-payment-methods-by-business-unit/index.html",
+  "label": "Payment Methods by Business Unit",
+  "shot": "shots/after/pms-072.jpg"
+ },
+ {
+  "id": "pms-073",
+  "product": "pms",
+  "url": "screens/business-unit/bu-012-business-zone/index.html",
+  "label": "Business Zone",
+  "shot": "shots/after/pms-073.jpg"
+ },
+ {
+  "id": "pms-074",
+  "product": "pms",
+  "url": "screens/business-unit/bu-015-office-list/index.html",
+  "label": "Office List",
+  "shot": "shots/after/pms-074.jpg"
+ },
+ {
+  "id": "pms-075",
+  "product": "pms",
+  "url": "screens/business-unit/bu-018-view-office-details/index.html",
+  "label": "View Office Details",
+  "shot": "shots/after/pms-075.jpg"
+ },
+ {
+  "id": "pms-076",
+  "product": "pms",
+  "url": "screens/business-unit/bu-019-bank-list/index.html",
+  "label": "Bank List",
+  "shot": "shots/after/pms-076.jpg"
+ },
+ {
+  "id": "pms-077",
+  "product": "pms",
+  "url": "screens/business-unit/bu-022-channels/index.html",
+  "label": "Channels",
+  "shot": "shots/after/pms-077.jpg"
+ },
+ {
+  "id": "pms-078",
+  "product": "pms",
+  "url": "screens/villa-common-settings/vcs-001-amenities-list/index.html",
+  "label": "Amenities",
+  "shot": "shots/after/pms-078.jpg"
+ },
+ {
+  "id": "pms-079",
+  "product": "pms",
+  "url": "screens/villa-common-settings/vcs-002-price-categories/index.html",
+  "label": "Price Categories",
+  "shot": "shots/after/pms-079.jpg"
+ },
+ {
+  "id": "pms-080",
+  "product": "pms",
+  "url": "screens/villa-common-settings/vcs-003-property-types/index.html",
+  "label": "Property Types",
+  "shot": "shots/after/pms-080.jpg"
+ },
+ {
+  "id": "pms-081",
+  "product": "pms",
+  "url": "screens/villa-common-settings/vcs-004-services/index.html",
+  "label": "Services",
+  "shot": "shots/after/pms-081.jpg"
+ },
+ {
+  "id": "pms-082",
+  "product": "pms",
+  "url": "screens/villa-common-settings/vcs-005-contract-service-types/index.html",
+  "label": "Contract Service Types",
+  "shot": "shots/after/pms-082.jpg"
+ },
+ {
+  "id": "pms-083",
+  "product": "pms",
+  "url": "screens/villa-common-settings/vcs-006-service-providers/index.html",
+  "label": "Service Providers",
+  "shot": "shots/after/pms-083.jpg"
+ },
+ {
+  "id": "pms-084",
+  "product": "pms",
+  "url": "screens/villa-common-settings/vcs-007-property-usage/index.html",
+  "label": "Property Usage",
+  "shot": "shots/after/pms-084.jpg"
+ },
+ {
+  "id": "pms-085",
+  "product": "pms",
+  "url": "screens/villa-common-settings/vcs-008-villa-activities/index.html",
+  "label": "Villa Activities",
+  "shot": "shots/after/pms-085.jpg"
+ },
+ {
+  "id": "pms-086",
+  "product": "pms",
+  "url": "screens/villa-common-settings/vcs-009-accessibility/index.html",
+  "label": "Accessibility",
+  "shot": "shots/after/pms-086.jpg"
+ },
+ {
+  "id": "pms-087",
+  "product": "pms",
+  "url": "screens/villa-common-settings/vcs-010-transport/index.html",
+  "label": "Transport",
+  "shot": "shots/after/pms-087.jpg"
+ },
+ {
+  "id": "pms-088",
+  "product": "pms",
+  "url": "screens/villa-common-settings/vcs-011-reminders/index.html",
+  "label": "Reminders",
+  "shot": "shots/after/pms-088.jpg"
+ },
+ {
+  "id": "pms-089",
+  "product": "pms",
+  "url": "screens/common-lookup-settings/cs-001-common-lookup-settings/index.html",
+  "label": "Countries",
+  "shot": "shots/after/pms-089.jpg"
+ },
+ {
+  "id": "pms-090",
+  "product": "pms",
+  "url": "screens/common-lookup-settings/cs-002-languages/index.html",
+  "label": "Languages",
+  "shot": "shots/after/pms-090.jpg"
+ },
+ {
+  "id": "pms-091",
+  "product": "pms",
+  "url": "screens/common-lookup-settings/cs-003-regions/index.html",
+  "label": "Regions",
+  "shot": "shots/after/pms-091.jpg"
+ },
+ {
+  "id": "pms-092",
+  "product": "pms",
+  "url": "screens/common-lookup-settings/cs-004-areas/index.html",
+  "label": "Areas",
+  "shot": "shots/after/pms-092.jpg"
+ },
+ {
+  "id": "pms-093",
+  "product": "pms",
+  "url": "screens/common-lookup-settings/cs-005-districts/index.html",
+  "label": "Districts",
+  "shot": "shots/after/pms-093.jpg"
+ },
+ {
+  "id": "pms-094",
+  "product": "pms",
+  "url": "screens/common-lookup-settings/cs-006-residence/index.html",
+  "label": "Residence",
+  "shot": "shots/after/pms-094.jpg"
+ },
+ {
+  "id": "pms-095",
+  "product": "pms",
+  "url": "screens/common-lookup-settings/cs-007-location-types/index.html",
+  "label": "Location Types",
+  "shot": "shots/after/pms-095.jpg"
+ },
+ {
+  "id": "pms-096",
+  "product": "pms",
+  "url": "screens/common-lookup-settings/cs-008-units/index.html",
+  "label": "Units",
+  "shot": "shots/after/pms-096.jpg"
+ },
+ {
+  "id": "pms-097",
+  "product": "pms",
+  "url": "screens/system-settings/set-001-system-settings/index.html",
+  "label": "System Settings",
+  "shot": "shots/after/pms-097.jpg"
+ },
+ {
+  "id": "pms-098",
+  "product": "pms",
+  "url": "screens/system-settings/set-002-general-settings/index.html",
+  "label": "General Settings",
+  "shot": "shots/after/pms-098.jpg"
+ },
+ {
+  "id": "pms-099",
+  "product": "pms",
+  "url": "screens/system-settings/set-003-smtp-settings/index.html",
+  "label": "SMTP Settings",
+  "shot": "shots/after/pms-099.jpg"
+ },
+ {
+  "id": "pms-100",
+  "product": "pms",
+  "url": "screens/system-settings/set-004-hostex-set-up/index.html",
+  "label": "Hostex Set-up",
+  "shot": "shots/after/pms-100.jpg"
+ },
+ {
+  "id": "pms-101",
+  "product": "pms",
+  "url": "screens/booking/book-001-check-in-check-out-calendar/index.html",
+  "label": "Check-in / Check-out Calendar",
+  "shot": "shots/after/pms-101.jpg"
+ },
+ {
+  "id": "pms-102",
+  "product": "pms",
+  "url": "screens/booking/book-002-booking-list/index.html",
+  "label": "Booking List",
+  "shot": "shots/after/pms-102.jpg"
+ },
+ {
+  "id": "pms-103",
+  "product": "pms",
+  "url": "screens/booking/book-002-p1-booking-quick-view/index.html",
+  "label": "Booking Quick View",
+  "shot": "shots/after/pms-103.jpg"
+ },
+ {
+  "id": "pms-104",
+  "product": "pms",
+  "url": "screens/booking/book-003-customer-list/index.html",
+  "label": "Customer List",
+  "shot": "shots/after/pms-104.jpg"
+ },
+ {
+  "id": "pms-105",
+  "product": "pms",
+  "url": "screens/booking/book-026-minimum-length-of-stay/index.html",
+  "label": "Minimum Length of Stay",
+  "shot": "shots/after/pms-105.jpg"
+ },
+ {
+  "id": "pms-106",
+  "product": "pms",
+  "url": "screens/booking/book-027-villas-missing-rates/index.html",
+  "label": "Villas Missing Rates",
+  "shot": "shots/after/pms-106.jpg"
+ },
+ {
+  "id": "pms-107",
+  "product": "pms",
+  "url": "screens/booking/book-028-booking-details-full/index.html",
+  "label": "Booking Details",
+  "shot": "shots/after/pms-107.jpg"
+ },
+ {
+  "id": "pms-108",
+  "product": "pms",
+  "url": "screens/booking/book-029-check-in-control/index.html",
+  "label": "Check-in Control",
+  "shot": "shots/after/pms-108.jpg"
+ },
+ {
+  "id": "pms-109",
+  "product": "pms",
+  "url": "screens/booking/book-030-check-out-control/index.html",
+  "label": "Check-out Control",
+  "shot": "shots/after/pms-109.jpg"
+ },
+ {
+  "id": "pms-110",
+  "product": "pms",
+  "url": "screens/booking/book-031-villa-control-points/index.html",
+  "label": "Villa Control Points",
+  "shot": "shots/after/pms-110.jpg"
+ },
+ {
+  "id": "pms-111",
+  "product": "pms",
+  "url": "screens/booking/book-032-check-in/index.html",
+  "label": "Check-in",
+  "shot": "shots/after/pms-111.jpg"
+ },
+ {
+  "id": "pms-112",
+  "product": "pms",
+  "url": "screens/booking/book-033-check-in-progress/index.html",
+  "label": "Check-in Progress",
+  "shot": "shots/after/pms-112.jpg"
+ },
+ {
+  "id": "pms-113",
+  "product": "pms",
+  "url": "screens/booking/book-034-check-in-quality-control/index.html",
+  "label": "Check-in Quality Control",
+  "shot": "shots/after/pms-113.jpg"
+ },
+ {
+  "id": "pms-114",
+  "product": "pms",
+  "url": "screens/booking/book-035-check-out-step-1-select-villa/index.html",
+  "label": "Check-out",
+  "shot": "shots/after/pms-114.jpg"
+ },
+ {
+  "id": "pms-115",
+  "product": "pms",
+  "url": "screens/booking/book-036-add-new-booking/index.html",
+  "label": "Add New Booking",
+  "shot": "shots/after/pms-115.jpg"
+ },
+ {
+  "id": "pms-116",
+  "product": "pms",
+  "url": "screens/booking/book-036-p1-manual-booking-list/index.html",
+  "label": "Manual Booking List",
+  "shot": "shots/after/pms-116.jpg"
+ },
+ {
+  "id": "pms-117",
+  "product": "pms",
+  "url": "screens/booking/book-037-edit-booking/index.html",
+  "label": "Edit Booking",
+  "shot": "shots/after/pms-117.jpg"
+ },
+ {
+  "id": "pms-118",
+  "product": "pms",
+  "url": "screens/booking/book-038-retrieve-booking/index.html",
+  "label": "Retrieve Booking",
+  "shot": "shots/after/pms-118.jpg"
+ },
+ {
+  "id": "pms-119",
+  "product": "pms",
+  "url": "screens/booking/book-039-planning-list/index.html",
+  "label": "Planning List",
+  "shot": "shots/after/pms-119.jpg"
+ },
+ {
+  "id": "pms-120",
+  "product": "pms",
+  "url": "screens/booking/book-040-villa-planning-calendar/index.html",
+  "label": "Villa Planning Calendar",
+  "shot": "shots/after/pms-120.jpg"
+ },
+ {
+  "id": "pms-121",
+  "product": "pms",
+  "url": "screens/booking/book-041-team-team-work-schedule/index.html",
+  "label": "Team Work Schedule",
+  "shot": "shots/after/pms-121.jpg"
+ },
+ {
+  "id": "pms-122",
+  "product": "pms",
+  "url": "screens/booking/book-042-direct-booking-list/index.html",
+  "label": "Direct Booking List",
+  "shot": "shots/after/pms-122.jpg"
+ },
+ {
+  "id": "pms-123",
+  "product": "pms",
+  "url": "screens/booking/book-046-cancelled-direct-booking-list/index.html",
+  "label": "Cancelled Direct Booking List",
+  "shot": "shots/after/pms-123.jpg"
+ },
+ {
+  "id": "pms-124",
+  "product": "pms",
+  "url": "screens/booking/book-047-villa-availability-calendar/index.html",
+  "label": "Villa Availability Calendar",
+  "shot": "shots/after/pms-124.jpg"
+ },
+ {
+  "id": "pms-125",
+  "product": "pms",
+  "url": "screens/booking/book-048-villa-occupancy-rate/index.html",
+  "label": "Villa Occupancy Rate",
+  "shot": "shots/after/pms-125.jpg"
+ },
+ {
+  "id": "pms-126",
+  "product": "pms",
+  "url": "screens/booking/book-049-due-now-payments/index.html",
+  "label": "Due Now Payments",
+  "shot": "shots/after/pms-126.jpg"
+ },
+ {
+  "id": "pms-127",
+  "product": "pms",
+  "url": "screens/booking/book-050-due-later-payments/index.html",
+  "label": "Due Later Payments",
+  "shot": "shots/after/pms-127.jpg"
+ },
+ {
+  "id": "pms-128",
+  "product": "pms",
+  "url": "screens/booking/book-051-paid-payments/index.html",
+  "label": "Paid Payments",
+  "shot": "shots/after/pms-128.jpg"
+ },
+ {
+  "id": "pms-129",
+  "product": "pms",
+  "url": "screens/booking/book-052-partner-payments/index.html",
+  "label": "Partner Payments",
+  "shot": "shots/after/pms-129.jpg"
+ },
+ {
+  "id": "pms-130",
+  "product": "pms",
+  "url": "screens/booking/book-053-partner-bookings/index.html",
+  "label": "Partner Bookings",
+  "shot": "shots/after/pms-130.jpg"
+ },
+ {
+  "id": "pms-131",
+  "product": "pms",
+  "url": "screens/booking/book-054-ota-overview/index.html",
+  "label": "OTA Channel Overview",
+  "shot": "shots/after/pms-131.jpg"
+ },
+ {
+  "id": "pms-132",
+  "product": "pms",
+  "url": "screens/booking/book-055-ota-listing/index.html",
+  "label": "OTA Listing",
+  "shot": "shots/after/pms-132.jpg"
+ },
+ {
+  "id": "pms-133",
+  "product": "pms",
+  "url": "screens/booking/book-056-ota-revenue-share-reconciliation/index.html",
+  "label": "OTA Revenue Share Reconciliation",
+  "shot": "shots/after/pms-133.jpg"
+ },
+ {
+  "id": "pms-134",
+  "product": "pms",
+  "url": "screens/booking/book-057-confirmation-template-list/index.html",
+  "label": "Booking Confirmation Templates",
+  "shot": "shots/after/pms-134.jpg"
+ },
+ {
+  "id": "pms-135",
+  "product": "pms",
+  "url": "screens/booking/book-061-booking-confirmation-template-translations/index.html",
+  "label": "Confirmation Template Translations",
+  "shot": "shots/after/pms-135.jpg"
+ },
+ {
+  "id": "pms-136",
+  "product": "pms",
+  "url": "screens/booking/book-062-booking-exclusions/index.html",
+  "label": "Booking Exclusions",
+  "shot": "shots/after/pms-136.jpg"
+ },
+ {
+  "id": "pms-137",
+  "product": "pms",
+  "url": "screens/booking/book-063-unlinked-bookings/index.html",
+  "label": "Unlinked Bookings",
+  "shot": "shots/after/pms-137.jpg"
+ },
+ {
+  "id": "pms-138",
+  "product": "pms",
+  "url": "screens/booking/book-065-latest-bookings/index.html",
+  "label": "Latest Bookings",
+  "shot": "shots/after/pms-138.jpg"
+ },
+ {
+  "id": "pms-139",
+  "product": "pms",
+  "url": "screens/booking/book-066-villa-rate-management-overview-page/index.html",
+  "label": "Villa Rate Management",
+  "shot": "shots/after/pms-139.jpg"
+ },
+ {
+  "id": "pms-140",
+  "product": "pms",
+  "url": "screens/booking/book-067-villa-rate-update-status/index.html",
+  "label": "Villa Rate Update Status",
+  "shot": "shots/after/pms-140.jpg"
+ },
+ {
+  "id": "pms-141",
+  "product": "pms",
+  "url": "screens/booking/book-069-process-villa-rate-status-payment-finish/index.html",
+  "label": "Process Villa Rate Status",
+  "shot": "shots/after/pms-141.jpg"
+ },
+ {
+  "id": "pms-142",
+  "product": "pms",
+  "url": "screens/booking/book-070-rate-change-log/index.html",
+  "label": "Rate Change Log",
+  "shot": "shots/after/pms-142.jpg"
+ },
+ {
+  "id": "pms-143",
+  "product": "pms",
+  "url": "screens/booking/book-071-add-rate-log-standalone-page/index.html",
+  "label": "Add Rate Log",
+  "shot": "shots/after/pms-143.jpg"
+ },
+ {
+  "id": "pms-144",
+  "product": "pms",
+  "url": "screens/booking/book-072-edit-rate-log-standalone-page/index.html",
+  "label": "Edit Rate Log",
+  "shot": "shots/after/pms-144.jpg"
+ },
+ {
+  "id": "pms-145",
+  "product": "pms",
+  "url": "screens/booking/book-073-season-management/index.html",
+  "label": "Season Management",
+  "shot": "shots/after/pms-145.jpg"
+ },
+ {
+  "id": "pms-146",
+  "product": "pms",
+  "url": "screens/booking/book-074-seasonal-rate-log/index.html",
+  "label": "Seasonal Rate Log",
+  "shot": "shots/after/pms-146.jpg"
+ },
+ {
+  "id": "pms-147",
+  "product": "pms",
+  "url": "screens/booking/book-075-change-villa-rate-type-monthly-daily/index.html",
+  "label": "Change Villa Rate Type",
+  "shot": "shots/after/pms-147.jpg"
+ },
+ {
+  "id": "pms-148",
+  "product": "pms",
+  "url": "screens/booking/book-076-view-monthly-rate/index.html",
+  "label": "View Monthly Rate",
+  "shot": "shots/after/pms-148.jpg"
+ },
+ {
+  "id": "pms-149",
+  "product": "pms",
+  "url": "screens/booking/book-077-guest-arrival-management/index.html",
+  "label": "Guest Arrival Management",
+  "shot": "shots/after/pms-149.jpg"
+ },
+ {
+  "id": "pms-150",
+  "product": "pms",
+  "url": "screens/booking/book-078-vip-guest-list-vip-guests/index.html",
+  "label": "VIP Guest List",
+  "shot": "shots/after/pms-150.jpg"
+ },
+ {
+  "id": "pms-151",
+  "product": "pms",
+  "url": "screens/booking/book-079-guest-arrival-preparation-work/index.html",
+  "label": "Guest Arrival Preparation Work",
+  "shot": "shots/after/pms-151.jpg"
+ },
+ {
+  "id": "pms-152",
+  "product": "pms",
+  "url": "screens/booking/book-080-villa-recommendation-criteria/index.html",
+  "label": "Villa Recommendation Criteria",
+  "shot": "shots/after/pms-152.jpg"
+ },
+ {
+  "id": "pms-153",
+  "product": "pms",
+  "url": "screens/booking/book-083-villa-recommendations-menu/index.html",
+  "label": "Villa Recommendations",
+  "shot": "shots/after/pms-153.jpg"
+ },
+ {
+  "id": "pms-154",
+  "product": "pms",
+  "url": "screens/booking/book-084-recommendation-check/index.html",
+  "label": "Recommendation Check",
+  "shot": "shots/after/pms-154.jpg"
+ },
+ {
+  "id": "pms-155",
+  "product": "pms",
+  "url": "screens/booking/book-085-booking-enquiry-form/index.html",
+  "label": "Booking Enquiry",
+  "shot": "shots/after/pms-155.jpg"
+ },
+ {
+  "id": "pms-156",
+  "product": "pms",
+  "url": "screens/booking/book-086-booking-request-success-confirmation/index.html",
+  "label": "Request Sent",
+  "shot": "shots/after/pms-156.jpg"
+ },
+ {
+  "id": "pms-157",
+  "product": "pms",
+  "url": "screens/booking/book-087-satisfaction-survey/index.html",
+  "label": "Satisfaction Survey",
+  "shot": "shots/after/pms-157.jpg"
+ },
+ {
+  "id": "pms-158",
+  "product": "pms",
+  "url": "screens/booking/book-088-watch-list/index.html",
+  "label": "Watch List",
+  "shot": "shots/after/pms-158.jpg"
+ },
+ {
+  "id": "pms-159",
+  "product": "pms",
+  "url": "screens/booking/book-089-p1-activate-edit-guest-chat/index.html",
+  "label": "Activate / Edit Guest Chat",
+  "shot": "shots/after/pms-159.jpg"
+ },
+ {
+  "id": "pms-160",
+  "product": "pms",
+  "url": "screens/booking/book-089-villa-chat-list-villa-chat/index.html",
+  "label": "Villa Chat List",
+  "shot": "shots/after/pms-160.jpg"
+ },
+ {
+  "id": "pms-161",
+  "product": "pms",
+  "url": "screens/booking/book-090-link-chat-to-another-booking/index.html",
+  "label": "Link Chat to Another Booking",
+  "shot": "shots/after/pms-161.jpg"
+ },
+ {
+  "id": "pms-162",
+  "product": "pms",
+  "url": "screens/booking/book-091-view-linked-chat/index.html",
+  "label": "View Linked Chat",
+  "shot": "shots/after/pms-162.jpg"
+ },
+ {
+  "id": "pms-163",
+  "product": "pms",
+  "url": "screens/booking/book-092-welcome-message-settings/index.html",
+  "label": "Welcome Message Settings",
+  "shot": "shots/after/pms-163.jpg"
+ },
+ {
+  "id": "pms-164",
+  "product": "pms",
+  "url": "screens/booking/book-093-guest-chat-window-legacy/index.html",
+  "label": "Guest Chat Window (Legacy)",
+  "shot": "shots/after/pms-164.jpg"
+ },
+ {
+  "id": "pms-165",
+  "product": "pms",
+  "url": "screens/booking/book-094-p1-whatsapp-chat/index.html",
+  "label": "WhatsApp Chat",
+  "shot": "shots/after/pms-165.jpg"
+ },
+ {
+  "id": "pms-166",
+  "product": "pms",
+  "url": "screens/booking/book-094-whatsapp-manager-legacy/index.html",
+  "label": "WhatsApp Manager (Legacy)",
+  "shot": "shots/after/pms-166.jpg"
+ },
+ {
+  "id": "pms-167",
+  "product": "pms",
+  "url": "screens/booking/book-095-p1-whatsapp-chat-new-version/index.html",
+  "label": "WhatsApp Chat",
+  "shot": "shots/after/pms-167.jpg"
+ },
+ {
+  "id": "pms-168",
+  "product": "pms",
+  "url": "screens/booking/book-095-whatsapp-manager-new-version/index.html",
+  "label": "WhatsApp Manager",
+  "shot": "shots/after/pms-168.jpg"
+ },
+ {
+  "id": "pms-169",
+  "product": "pms",
+  "url": "screens/booking/book-096-whatsapp-help-system-status/index.html",
+  "label": "WhatsApp Help / System Status",
+  "shot": "shots/after/pms-169.jpg"
+ },
+ {
+  "id": "pms-170",
+  "product": "pms",
+  "url": "screens/booking/book-097-faq-categories/index.html",
+  "label": "FAQ Categories",
+  "shot": "shots/after/pms-170.jpg"
+ },
+ {
+  "id": "pms-171",
+  "product": "pms",
+  "url": "screens/booking/book-098-faq-question-list/index.html",
+  "label": "FAQ Question List",
+  "shot": "shots/after/pms-171.jpg"
+ },
+ {
+  "id": "pms-172",
+  "product": "pms",
+  "url": "screens/booking/book-099-add-edit-faq-question/index.html",
+  "label": "Add FAQ Question",
+  "shot": "shots/after/pms-172.jpg"
+ },
+ {
+  "id": "pms-173",
+  "product": "pms",
+  "url": "screens/booking/book-100-view-faq-question-details/index.html",
+  "label": "View FAQ Question Details",
+  "shot": "shots/after/pms-173.jpg"
+ },
+ {
+  "id": "pms-174",
+  "product": "pms",
+  "url": "screens/booking/book-101-property-status/index.html",
+  "label": "Property Status",
+  "shot": "shots/after/pms-174.jpg"
+ },
+ {
+  "id": "pms-175",
+  "product": "pms",
+  "url": "screens/booking/book-102-timesheet/index.html",
+  "label": "Timesheet",
+  "shot": "shots/after/pms-175.jpg"
+ },
+ {
+  "id": "pms-176",
+  "product": "pms",
+  "url": "screens/booking/book-103-occupancy-based-action-list/index.html",
+  "label": "Occupancy-Based Action List",
+  "shot": "shots/after/pms-176.jpg"
+ },
+ {
+  "id": "pms-177",
+  "product": "pms",
+  "url": "screens/booking/book-104-add-occupancy-based-action/index.html",
+  "label": "Add Occupancy-Based Action",
+  "shot": "shots/after/pms-177.jpg"
+ },
+ {
+  "id": "pms-178",
+  "product": "pms",
+  "url": "screens/booking/book-105-follow-up-action/index.html",
+  "label": "Follow Up Action",
+  "shot": "shots/after/pms-178.jpg"
+ },
+ {
+  "id": "pms-179",
+  "product": "pms",
+  "url": "screens/booking/book-106-nationalities/index.html",
+  "label": "Nationalities",
+  "shot": "shots/after/pms-179.jpg"
+ },
+ {
+  "id": "pms-180",
+  "product": "pms",
+  "url": "screens/booking/book-107-standard-check-in-check-out-time/index.html",
+  "label": "Standard Check-in/Check-out Time",
+  "shot": "shots/after/pms-180.jpg"
+ },
+ {
+  "id": "pms-181",
+  "product": "pms",
+  "url": "screens/booking/book-108-online-check-in-deadline-settings/index.html",
+  "label": "Online Check-in Deadline Settings",
+  "shot": "shots/after/pms-181.jpg"
+ },
+ {
+  "id": "pms-182",
+  "product": "pms",
+  "url": "screens/booking/book-109-revenue-report/index.html",
+  "label": "Revenue Report",
+  "shot": "shots/after/pms-182.jpg"
+ },
+ {
+  "id": "pms-183",
+  "product": "pms",
+  "url": "screens/booking/book-110-sha-plus-detail/index.html",
+  "label": "SHA Plus Detail",
+  "shot": "shots/after/pms-183.jpg"
+ },
+ {
+  "id": "pms-184",
+  "product": "pms",
+  "url": "screens/owner-management/own-001-owner-agency-list/index.html",
+  "label": "Owner List",
+  "shot": "shots/after/pms-184.jpg"
+ },
+ {
+  "id": "pms-185",
+  "product": "pms",
+  "url": "screens/owner-management/own-003-edit-owner/index.html",
+  "label": "Edit Owner",
+  "shot": "shots/after/pms-185.jpg"
+ },
+ {
+  "id": "pms-186",
+  "product": "pms",
+  "url": "screens/owner-management/own-004-villa-status-by-owner/index.html",
+  "label": "Villa Status by Owner",
+  "shot": "shots/after/pms-186.jpg"
+ },
+ {
+  "id": "pms-187",
+  "product": "pms",
+  "url": "screens/owner-management/own-005-owner-booking-calendar/index.html",
+  "label": "Owner Booking Calendar",
+  "shot": "shots/after/pms-187.jpg"
+ },
+ {
+  "id": "pms-188",
+  "product": "pms",
+  "url": "screens/owner-management/own-006-owner-villa-performance/index.html",
+  "label": "Owner Villa Performance",
+  "shot": "shots/after/pms-188.jpg"
+ },
+ {
+  "id": "pms-189",
+  "product": "pms",
+  "url": "screens/owner-management/own-007-generate-owner-report/index.html",
+  "label": "Generate Owner Report",
+  "shot": "shots/after/pms-189.jpg"
+ },
+ {
+  "id": "pms-190",
+  "product": "pms",
+  "url": "screens/owner-management/own-008-owner-payment-detail-list/index.html",
+  "label": "Owner Payment Detail List",
+  "shot": "shots/after/pms-190.jpg"
+ },
+ {
+  "id": "pms-191",
+  "product": "pms",
+  "url": "screens/owner-management/own-009-agency-list/index.html",
+  "label": "Agency List",
+  "shot": "shots/after/pms-191.jpg"
+ },
+ {
+  "id": "pms-192",
+  "product": "pms",
+  "url": "screens/owner-management/own-013-agency-staff-list/index.html",
+  "label": "Agency Staff List",
+  "shot": "shots/after/pms-192.jpg"
+ },
+ {
+  "id": "pms-193",
+  "product": "pms",
+  "url": "screens/owner-management/own-016-owner-login-log/index.html",
+  "label": "Owner Login Log",
+  "shot": "shots/after/pms-193.jpg"
+ },
+ {
+  "id": "pms-194",
+  "product": "pms",
+  "url": "screens/owner-management/own-017-owner-notification-email-templates/index.html",
+  "label": "Owner Notification Email Templates",
+  "shot": "shots/after/pms-194.jpg"
+ },
+ {
+  "id": "pms-195",
+  "product": "pms",
+  "url": "screens/owner-portal/owp-001-login/index.html",
+  "label": "Owner Login",
+  "shot": "shots/after/pms-195.jpg"
+ },
+ {
+  "id": "pms-196",
+  "product": "pms",
+  "url": "screens/owner-portal/owp-002-dashboard/index.html",
+  "label": "Dashboard",
+  "shot": "shots/after/pms-196.jpg"
+ },
+ {
+  "id": "pms-197",
+  "product": "pms",
+  "url": "screens/owner-portal/owp-003-reset-password/index.html",
+  "label": "Reset Password",
+  "shot": "shots/after/pms-197.jpg"
+ },
+ {
+  "id": "pms-198",
+  "product": "pms",
+  "url": "screens/owner-portal/owp-004-personal-profile/index.html",
+  "label": "My Profile",
+  "shot": "shots/after/pms-198.jpg"
+ },
+ {
+  "id": "pms-199",
+  "product": "pms",
+  "url": "screens/owner-portal/owp-005-property-list/index.html",
+  "label": "My Properties",
+  "shot": "shots/after/pms-199.jpg"
+ },
+ {
+  "id": "pms-200",
+  "product": "pms",
+  "url": "screens/owner-portal/owp-006-property-detail-property-id-card/index.html",
+  "label": "Property Details",
+  "shot": "shots/after/pms-200.jpg"
+ },
+ {
+  "id": "pms-201",
+  "product": "pms",
+  "url": "screens/owner-portal/owp-007-property-activity-status/index.html",
+  "label": "Property Activity Status",
+  "shot": "shots/after/pms-201.jpg"
+ },
+ {
+  "id": "pms-202",
+  "product": "pms",
+  "url": "screens/owner-portal/owp-008-property-booking-calendar/index.html",
+  "label": "Booking Calendar",
+  "shot": "shots/after/pms-202.jpg"
+ },
+ {
+  "id": "pms-203",
+  "product": "pms",
+  "url": "screens/owner-portal/owp-009-maintenance-log/index.html",
+  "label": "Maintenance Log",
+  "shot": "shots/after/pms-203.jpg"
+ },
+ {
+  "id": "pms-204",
+  "product": "pms",
+  "url": "screens/owner-portal/owp-010-booking-list/index.html",
+  "label": "Booking List",
+  "shot": "shots/after/pms-204.jpg"
+ },
+ {
+  "id": "pms-205",
+  "product": "pms",
+  "url": "screens/owner-portal/owp-011-add-booking/index.html",
+  "label": "Add Booking",
+  "shot": "shots/after/pms-205.jpg"
+ },
+ {
+  "id": "pms-206",
+  "product": "pms",
+  "url": "screens/owner-portal/owp-012-check-in-list/index.html",
+  "label": "Check-in List",
+  "shot": "shots/after/pms-206.jpg"
+ },
+ {
+  "id": "pms-207",
+  "product": "pms",
+  "url": "screens/owner-portal/owp-013-check-out-list/index.html",
+  "label": "Check-out List",
+  "shot": "shots/after/pms-207.jpg"
+ },
+ {
+  "id": "pms-208",
+  "product": "pms",
+  "url": "screens/owner-portal/owp-014-generate-financial-report-owner-statement/index.html",
+  "label": "Owner Statement",
+  "shot": "shots/after/pms-208.jpg"
+ },
+ {
+  "id": "pms-209",
+  "product": "pms",
+  "url": "screens/owner-portal/owp-015-property-business-performance/index.html",
+  "label": "Property Business Performance",
+  "shot": "shots/after/pms-209.jpg"
+ },
+ {
+  "id": "pms-210",
+  "product": "pms",
+  "url": "screens/owner-portal/owp-016-monthly-owner-payment-report/index.html",
+  "label": "Monthly Payment Report",
+  "shot": "shots/after/pms-210.jpg"
+ },
+ {
+  "id": "pms-211",
+  "product": "pms",
+  "url": "screens/owner-portal/owp-017-direct-booking-request-list/index.html",
+  "label": "Direct Booking Requests",
+  "shot": "shots/after/pms-211.jpg"
+ },
+ {
+  "id": "pms-212",
+  "product": "pms",
+  "url": "screens/owner-portal/owp-018-payment-details-list/index.html",
+  "label": "Payment Details",
+  "shot": "shots/after/pms-212.jpg"
+ },
+ {
+  "id": "pms-213",
+  "product": "pms",
+  "url": "screens/owner-portal/owp-019-cancel-direct-booking-list/index.html",
+  "label": "Cancel Direct Booking List",
+  "shot": "shots/after/pms-213.jpg"
+ },
+ {
+  "id": "pms-214",
+  "product": "pms",
+  "url": "screens/owner-portal/owp-020-report-history/index.html",
+  "label": "Report History",
+  "shot": "shots/after/pms-214.jpg"
+ },
+ {
+  "id": "pms-215",
+  "product": "pms",
+  "url": "screens/owner-portal/owp-021-monthly-newsletter/index.html",
+  "label": "Monthly Newsletter",
+  "shot": "shots/after/pms-215.jpg"
+ },
+ {
+  "id": "pms-216",
+  "product": "pms",
+  "url": "screens/guest-portal/gst-001-guest-portal-login/index.html",
+  "label": "Guest Portal Login",
+  "shot": "shots/after/pms-216.jpg"
+ },
+ {
+  "id": "pms-217",
+  "product": "pms",
+  "url": "screens/guest-portal/gst-002-guest-booking-list/index.html",
+  "label": "Guest Booking List",
+  "shot": "shots/after/pms-217.jpg"
+ },
+ {
+  "id": "pms-218",
+  "product": "pms",
+  "url": "screens/guest-portal/gst-003-my-booking-details/index.html",
+  "label": "My Booking Details",
+  "shot": "shots/after/pms-218.jpg"
+ },
+ {
+  "id": "pms-219",
+  "product": "pms",
+  "url": "screens/guest-portal/gst-004-amenities-access-portal/index.html",
+  "label": "Amenities & Access Portal",
+  "shot": "shots/after/pms-219.jpg"
+ },
+ {
+  "id": "pms-220",
+  "product": "pms",
+  "url": "screens/guest-portal/gst-005-villa-information/index.html",
+  "label": "Villa Information",
+  "shot": "shots/after/pms-220.jpg"
+ },
+ {
+  "id": "pms-221",
+  "product": "pms",
+  "url": "screens/guest-portal/gst-006-your-holidays/index.html",
+  "label": "Your Holidays",
+  "shot": "shots/after/pms-221.jpg"
+ },
+ {
+  "id": "pms-222",
+  "product": "pms",
+  "url": "screens/guest-portal/gst-007-rules/index.html",
+  "label": "Rules",
+  "shot": "shots/after/pms-222.jpg"
+ },
+ {
+  "id": "pms-223",
+  "product": "pms",
+  "url": "screens/guest-portal/gst-008-restaurant-list-near-the-villa/index.html",
+  "label": "Restaurants Near the Villa",
+  "shot": "shots/after/pms-223.jpg"
+ },
+ {
+  "id": "pms-224",
+  "product": "pms",
+  "url": "screens/guest-portal/gst-009-restaurant-details/index.html",
+  "label": "Restaurant Details",
+  "shot": "shots/after/pms-224.jpg"
+ },
+ {
+  "id": "pms-225",
+  "product": "pms",
+  "url": "screens/guest-portal/gst-010-featured-landmarks-near-the-villa/index.html",
+  "label": "Featured Landmarks Near the Villa",
+  "shot": "shots/after/pms-225.jpg"
+ },
+ {
+  "id": "pms-226",
+  "product": "pms",
+  "url": "screens/guest-portal/gst-011-activities-near-the-villa/index.html",
+  "label": "Activities Near the Villa",
+  "shot": "shots/after/pms-226.jpg"
+ },
+ {
+  "id": "pms-227",
+  "product": "pms",
+  "url": "screens/garden-pool-operations/opr-001-garden-pool-task-list/index.html",
+  "label": "Garden / Pool Tasks",
+  "shot": "shots/after/pms-227.jpg"
+ },
+ {
+  "id": "pms-228",
+  "product": "pms",
+  "url": "screens/garden-pool-operations/opr-002-garden-job-list/index.html",
+  "label": "Garden Job List",
+  "shot": "shots/after/pms-228.jpg"
+ },
+ {
+  "id": "pms-229",
+  "product": "pms",
+  "url": "screens/garden-pool-operations/opr-003-pool-job-list/index.html",
+  "label": "Pool Job List",
+  "shot": "shots/after/pms-229.jpg"
+ },
+ {
+  "id": "pms-230",
+  "product": "pms",
+  "url": "screens/garden-pool-operations/opr-004-view-pool-job-details/index.html",
+  "label": "Pool Job Details",
+  "shot": "shots/after/pms-230.jpg"
+ },
+ {
+  "id": "pms-231",
+  "product": "pms",
+  "url": "screens/garden-pool-operations/opr-005-update-pool-job-completion/index.html",
+  "label": "Update Pool Job Completion",
+  "shot": "shots/after/pms-231.jpg"
+ },
+ {
+  "id": "pms-232",
+  "product": "pms",
+  "url": "screens/garden-pool-operations/opr-006-report-pool-incident/index.html",
+  "label": "Report Pool Incident",
+  "shot": "shots/after/pms-232.jpg"
+ },
+ {
+  "id": "pms-233",
+  "product": "pms",
+  "url": "screens/garden-pool-operations/opr-007-cleaning-list/index.html",
+  "label": "Cleaning List",
+  "shot": "shots/after/pms-233.jpg"
+ },
+ {
+  "id": "pms-234",
+  "product": "pms",
+  "url": "screens/garden-pool-operations/opr-008-perform-cleaning-by-inspection-point/index.html",
+  "label": "Perform Cleaning",
+  "shot": "shots/after/pms-234.jpg"
+ },
+ {
+  "id": "pms-235",
+  "product": "pms",
+  "url": "screens/garden-pool-operations/opr-009-cleaning-operator-dashboard/index.html",
+  "label": "Cleaning Operator Dashboard",
+  "shot": "shots/after/pms-235.jpg"
+ },
+ {
+  "id": "pms-236",
+  "product": "pms",
+  "url": "screens/garden-pool-operations/opr-010-villa-inspection-list/index.html",
+  "label": "Villa Inspection List",
+  "shot": "shots/after/pms-236.jpg"
+ },
+ {
+  "id": "pms-237",
+  "product": "pms",
+  "url": "screens/garden-pool-operations/opr-011-perform-villa-inspection-by-point/index.html",
+  "label": "Perform Villa Inspection",
+  "shot": "shots/after/pms-237.jpg"
+ },
+ {
+  "id": "pms-238",
+  "product": "pms",
+  "url": "screens/garden-pool-operations/opr-012-view-completed-inspection-results/index.html",
+  "label": "Completed Inspection Results",
+  "shot": "shots/after/pms-238.jpg"
+ },
+ {
+  "id": "pms-239",
+  "product": "pms",
+  "url": "screens/garden-pool-operations/opr-013-manage-in-progress-inspection/index.html",
+  "label": "Manage In-Progress Inspection",
+  "shot": "shots/after/pms-239.jpg"
+ },
+ {
+  "id": "pms-240",
+  "product": "pms",
+  "url": "screens/garden-pool-operations/opr-014-make-up-list/index.html",
+  "label": "Make Up List",
+  "shot": "shots/after/pms-240.jpg"
+ },
+ {
+  "id": "pms-241",
+  "product": "pms",
+  "url": "screens/garden-pool-operations/opr-015-perform-make-up-by-point/index.html",
+  "label": "Perform Make Up",
+  "shot": "shots/after/pms-241.jpg"
+ },
+ {
+  "id": "pms-242",
+  "product": "pms",
+  "url": "screens/garden-pool-operations/opr-016-view-garden-job-details/index.html",
+  "label": "Garden Job Details",
+  "shot": "shots/after/pms-242.jpg"
+ },
+ {
+  "id": "pms-243",
+  "product": "pms",
+  "url": "screens/garden-pool-operations/opr-017-garden-job-planning/index.html",
+  "label": "Garden Job Planning",
+  "shot": "shots/after/pms-243.jpg"
+ },
+ {
+  "id": "pms-244",
+  "product": "pms",
+  "url": "screens/garden-pool-operations/opr-018-garden-team-configuration/index.html",
+  "label": "Garden Team Configuration",
+  "shot": "shots/after/pms-244.jpg"
+ },
+ {
+  "id": "pms-245",
+  "product": "pms",
+  "url": "screens/garden-pool-operations/opr-019-personal-assignment-roster/index.html",
+  "label": "My Roster",
+  "shot": "shots/after/pms-245.jpg"
+ },
+ {
+  "id": "pms-246",
+  "product": "pms",
+  "url": "screens/garden-pool-operations/opr-020-maintenance-ticket-list/index.html",
+  "label": "Maintenance Ticket List",
+  "shot": "shots/after/pms-246.jpg"
+ },
+ {
+  "id": "pms-247",
+  "product": "pms",
+  "url": "screens/garden-pool-operations/opr-021-create-maintenance-ticket/index.html",
+  "label": "Create New Maintenance Ticket",
+  "shot": "shots/after/pms-247.jpg"
+ },
+ {
+  "id": "pms-248",
+  "product": "pms",
+  "url": "screens/garden-pool-operations/opr-022-edit-maintenance-ticket/index.html",
+  "label": "Edit / Manage Maintenance Ticket",
+  "shot": "shots/after/pms-248.jpg"
+ },
+ {
+  "id": "pms-249",
+  "product": "pms",
+  "url": "screens/maintenance/mnt-001-maintenance-ticket-list/index.html",
+  "label": "Maintenance Tickets",
+  "shot": "shots/after/pms-249.jpg"
+ },
+ {
+  "id": "pms-250",
+  "product": "pms",
+  "url": "screens/maintenance/mnt-002-add-new-maintenance-log/index.html",
+  "label": "Add New Maintenance Log",
+  "shot": "shots/after/pms-250.jpg"
+ },
+ {
+  "id": "pms-251",
+  "product": "pms",
+  "url": "screens/maintenance/mnt-003-accept-reject-maintenance-task/index.html",
+  "label": "Accept / Reject Maintenance Task",
+  "shot": "shots/after/pms-251.jpg"
+ },
+ {
+  "id": "pms-252",
+  "product": "pms",
+  "url": "screens/maintenance/mnt-004-update-maintenance-log-processing/index.html",
+  "label": "Update Maintenance Log Processing",
+  "shot": "shots/after/pms-252.jpg"
+ },
+ {
+  "id": "pms-253",
+  "product": "pms",
+  "url": "screens/maintenance/mnt-005-view-maintenance-log-details/index.html",
+  "label": "View Maintenance Log Details",
+  "shot": "shots/after/pms-253.jpg"
+ },
+ {
+  "id": "pms-254",
+  "product": "pms",
+  "url": "screens/maintenance/mnt-006-maintenance-cost/index.html",
+  "label": "Maintenance Cost",
+  "shot": "shots/after/pms-254.jpg"
+ },
+ {
+  "id": "pms-255",
+  "product": "pms",
+  "url": "screens/maintenance/mnt-007-maintenance-categories/index.html",
+  "label": "Maintenance Categories",
+  "shot": "shots/after/pms-255.jpg"
+ },
+ {
+  "id": "pms-256",
+  "product": "pms",
+  "url": "screens/maintenance/mnt-008-maintenance-priorities/index.html",
+  "label": "Maintenance Priorities",
+  "shot": "shots/after/pms-256.jpg"
+ },
+ {
+  "id": "pms-257",
+  "product": "pms",
+  "url": "screens/maintenance/mnt-009-garden-services/index.html",
+  "label": "Garden Services",
+  "shot": "shots/after/pms-257.jpg"
+ },
+ {
+  "id": "pms-258",
+  "product": "pms",
+  "url": "screens/maintenance/mnt-010-pool-services/index.html",
+  "label": "Pool Services",
+  "shot": "shots/after/pms-258.jpg"
+ },
+ {
+  "id": "pms-259",
+  "product": "pms",
+  "url": "screens/maintenance/mnt-011-pool-repair/index.html",
+  "label": "Pool Repair",
+  "shot": "shots/after/pms-259.jpg"
+ },
+ {
+  "id": "pms-260",
+  "product": "pms",
+  "url": "screens/maintenance/mnt-012-maintenance-service-matrix/index.html",
+  "label": "Maintenance Service Matrix",
+  "shot": "shots/after/pms-260.jpg"
+ },
+ {
+  "id": "pms-261",
+  "product": "pms",
+  "url": "screens/maintenance/mnt-013-renovation-services/index.html",
+  "label": "Renovation Services",
+  "shot": "shots/after/pms-261.jpg"
+ },
+ {
+  "id": "pms-262",
+  "product": "pms",
+  "url": "screens/maintenance/mnt-014-cleaning-services/index.html",
+  "label": "Cleaning Services",
+  "shot": "shots/after/pms-262.jpg"
+ },
+ {
+  "id": "pms-263",
+  "product": "pms",
+  "url": "screens/maintenance/mnt-015-back-office-services/index.html",
+  "label": "Back Office Services",
+  "shot": "shots/after/pms-263.jpg"
+ },
+ {
+  "id": "pms-264",
+  "product": "pms",
+  "url": "screens/maintenance/mnt-016-inspection-time-rules/index.html",
+  "label": "Inspection Time Rules",
+  "shot": "shots/after/pms-264.jpg"
+ },
+ {
+  "id": "pms-265",
+  "product": "pms",
+  "url": "screens/renovation/ren-002-renovation-follow-up/index.html",
+  "label": "Renovation Follow-up",
+  "shot": "shots/after/pms-265.jpg"
+ },
+ {
+  "id": "pms-266",
+  "product": "pms",
+  "url": "screens/renovation/ren-003-renovation-project-follow-up/index.html",
+  "label": "Renovation Project Follow-up",
+  "shot": "shots/after/pms-266.jpg"
+ },
+ {
+  "id": "pms-267",
+  "product": "pms",
+  "url": "screens/renovation/ren-005-renovation-project-payment-ledger/index.html",
+  "label": "Renovation Project Payment Ledger",
+  "shot": "shots/after/pms-267.jpg"
+ },
+ {
+  "id": "pms-268",
+  "product": "pms",
+  "url": "screens/renovation/ren-011-project-progress-cost-report/index.html",
+  "label": "Project Progress & Cost Report",
+  "shot": "shots/after/pms-268.jpg"
+ },
+ {
+  "id": "pms-269",
+  "product": "pms",
+  "url": "screens/training/trn-001-training-list/index.html",
+  "label": "Training",
+  "shot": "shots/after/pms-269.jpg"
+ },
+ {
+  "id": "pms-270",
+  "product": "pms",
+  "url": "screens/training/trn-002-tutorial-list-admin/index.html",
+  "label": "Manage Tutorials",
+  "shot": "shots/after/pms-270.jpg"
+ },
+ {
+  "id": "pms-271",
+  "product": "pms",
+  "url": "screens/training/trn-003-add-tutorial-and-slide/index.html",
+  "label": "Add New Tutorial and Slide",
+  "shot": "shots/after/pms-271.jpg"
+ },
+ {
+  "id": "pms-272",
+  "product": "pms",
+  "url": "screens/training/trn-004-view-tutorial-details/index.html",
+  "label": "View Tutorial Details",
+  "shot": "shots/after/pms-272.jpg"
+ },
+ {
+  "id": "pms-273",
+  "product": "pms",
+  "url": "screens/training/trn-005-edit-tutorial/index.html",
+  "label": "Edit Tutorial",
+  "shot": "shots/after/pms-273.jpg"
+ },
+ {
+  "id": "pms-274",
+  "product": "pms",
+  "url": "screens/training/trn-006-edit-tutorial-slide/index.html",
+  "label": "Edit Tutorial Slide",
+  "shot": "shots/after/pms-274.jpg"
+ },
+ {
+  "id": "pms-275",
+  "product": "pms",
+  "url": "screens/training/trn-007-tutorial-library/index.html",
+  "label": "Tutorial Library",
+  "shot": "shots/after/pms-275.jpg"
+ },
+ {
+  "id": "pms-276",
+  "product": "pms",
+  "url": "screens/training/trn-008-my-training-record/index.html",
+  "label": "My Training Record",
+  "shot": "shots/after/pms-276.jpg"
+ },
+ {
+  "id": "pms-277",
+  "product": "pms",
+  "url": "screens/training/trn-009-read-tutorial/index.html",
+  "label": "Read Tutorial",
+  "shot": "shots/after/pms-277.jpg"
+ },
+ {
+  "id": "pms-278",
+  "product": "pms",
+  "url": "screens/training/trn-010-team-training-record/index.html",
+  "label": "Team Training Record",
+  "shot": "shots/after/pms-278.jpg"
+ },
+ {
+  "id": "pms-279",
+  "product": "pms",
+  "url": "screens/training/trn-011-training-settings/index.html",
+  "label": "Training Settings",
+  "shot": "shots/after/pms-279.jpg"
+ },
+ {
+  "id": "pms-280",
+  "product": "pms",
+  "url": "screens/training/trn-012-villa-management-intro-page-demo/index.html",
+  "label": "Villa Management Introduction",
+  "shot": "shots/after/pms-280.jpg"
+ },
+ {
+  "id": "pms-281",
+  "product": "pms",
+  "url": "screens/training/trn-013-quiz-question-demo/index.html",
+  "label": "Quiz Question Demo",
+  "shot": "shots/after/pms-281.jpg"
+ },
+ {
+  "id": "pms-282",
+  "product": "pms",
+  "url": "screens/training/trn-014-missing-room-ids-slide-demo/index.html",
+  "label": "\"Missing Room IDs\" Slide Demo",
+  "shot": "shots/after/pms-282.jpg"
+ },
+ {
+  "id": "pms-283",
+  "product": "pms",
+  "url": "screens/investment-fund/fund-001-investor-list/index.html",
+  "label": "Investor List",
+  "shot": "shots/after/pms-283.jpg"
+ },
+ {
+  "id": "pms-284",
+  "product": "pms",
+  "url": "screens/investment-fund/fund-002-investor-transaction-statement/index.html",
+  "label": "Investor Transaction Statement",
+  "shot": "shots/after/pms-284.jpg"
+ },
+ {
+  "id": "pms-285",
+  "product": "pms",
+  "url": "screens/investment-fund/fund-003-fund-project-list/index.html",
+  "label": "Fund Project List",
+  "shot": "shots/after/pms-285.jpg"
+ },
+ {
+  "id": "pms-286",
+  "product": "pms",
+  "url": "screens/investment-fund/fund-005-update-fund-project/index.html",
+  "label": "Update Fund Project",
+  "shot": "shots/after/pms-286.jpg"
+ },
+ {
+  "id": "pms-287",
+  "product": "pms",
+  "url": "screens/investment-fund/fund-006-fund-project-detail/index.html",
+  "label": "Fund Project Detail",
+  "shot": "shots/after/pms-287.jpg"
+ },
+ {
+  "id": "pms-288",
+  "product": "pms",
+  "url": "screens/investment-fund/fund-007-investor-interest-rate/index.html",
+  "label": "Investor Interest Rate Configuration",
+  "shot": "shots/after/pms-288.jpg"
+ },
+ {
+  "id": "pms-289",
+  "product": "pms",
+  "url": "screens/inventory/inv-001-inventory-list/index.html",
+  "label": "Inventory List",
+  "shot": "shots/after/pms-289.jpg"
+ },
+ {
+  "id": "pms-290",
+  "product": "pms",
+  "url": "screens/inventory/inv-003-update-inventory/index.html",
+  "label": "Update Inventory",
+  "shot": "shots/after/pms-290.jpg"
+ },
+ {
+  "id": "pms-291",
+  "product": "pms",
+  "url": "screens/inventory/inv-004-item-receipt-requests/index.html",
+  "label": "Item Receipt Requests",
+  "shot": "shots/after/pms-291.jpg"
+ },
+ {
+  "id": "pms-292",
+  "product": "pms",
+  "url": "screens/inventory/inv-005-item-discard-requests/index.html",
+  "label": "Item Discard Requests",
+  "shot": "shots/after/pms-292.jpg"
+ },
+ {
+  "id": "pms-293",
+  "product": "pms",
+  "url": "screens/inventory/inv-006-inventory-log/index.html",
+  "label": "Inventory Log",
+  "shot": "shots/after/pms-293.jpg"
+ },
+ {
+  "id": "pms-294",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-001-electricity-overview-page-hub/index.html",
+  "label": "Villa Services",
+  "shot": "shots/after/pms-294.jpg"
+ },
+ {
+  "id": "pms-295",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-002-villa-electricity-set-up/index.html",
+  "label": "Villa Electricity Set-up",
+  "shot": "shots/after/pms-295.jpg"
+ },
+ {
+  "id": "pms-296",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-003-electricity-check-in/index.html",
+  "label": "Electricity Check-in",
+  "shot": "shots/after/pms-296.jpg"
+ },
+ {
+  "id": "pms-297",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-004-electricity-check-out/index.html",
+  "label": "Electricity Check-out",
+  "shot": "shots/after/pms-297.jpg"
+ },
+ {
+  "id": "pms-298",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-005-long-stay-electricity-meter/index.html",
+  "label": "Long Stay Electricity Meter",
+  "shot": "shots/after/pms-298.jpg"
+ },
+ {
+  "id": "pms-299",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-006-electricity-reconciliation/index.html",
+  "label": "Electricity Reconciliation",
+  "shot": "shots/after/pms-299.jpg"
+ },
+ {
+  "id": "pms-300",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-007-monthly-electricity-bill/index.html",
+  "label": "Monthly Electricity Bill",
+  "shot": "shots/after/pms-300.jpg"
+ },
+ {
+  "id": "pms-301",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-008-electricity-income-expense-balance/index.html",
+  "label": "Electricity Income / Expense Balance",
+  "shot": "shots/after/pms-301.jpg"
+ },
+ {
+  "id": "pms-302",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-009-item/index.html",
+  "label": "Item",
+  "shot": "shots/after/pms-302.jpg"
+ },
+ {
+  "id": "pms-303",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-010-transfer/index.html",
+  "label": "Transfer",
+  "shot": "shots/after/pms-303.jpg"
+ },
+ {
+  "id": "pms-304",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-011-electricity-check-in-control/index.html",
+  "label": "Electricity Check-in Control",
+  "shot": "shots/after/pms-304.jpg"
+ },
+ {
+  "id": "pms-305",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-012-electricity-check-out-control/index.html",
+  "label": "Electricity Check-out Control",
+  "shot": "shots/after/pms-305.jpg"
+ },
+ {
+  "id": "pms-306",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-013-food-service/index.html",
+  "label": "Food Service",
+  "shot": "shots/after/pms-306.jpg"
+ },
+ {
+  "id": "pms-307",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-014-cleaning/index.html",
+  "label": "Cleaning",
+  "shot": "shots/after/pms-307.jpg"
+ },
+ {
+  "id": "pms-308",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-015-guest-electricity-bill-lookup/index.html",
+  "label": "Guest Electricity Bill Lookup",
+  "shot": "shots/after/pms-308.jpg"
+ },
+ {
+  "id": "pms-309",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-016-cleaning-teams/index.html",
+  "label": "Cleaning Teams",
+  "shot": "shots/after/pms-309.jpg"
+ },
+ {
+  "id": "pms-310",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-017-garden-overview/index.html",
+  "label": "Garden Overview",
+  "shot": "shots/after/pms-310.jpg"
+ },
+ {
+  "id": "pms-311",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-018-garden-teams/index.html",
+  "label": "Garden Teams",
+  "shot": "shots/after/pms-311.jpg"
+ },
+ {
+  "id": "pms-312",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-019-garden-planning/index.html",
+  "label": "Garden Planning",
+  "shot": "shots/after/pms-312.jpg"
+ },
+ {
+  "id": "pms-313",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-020-operations-job-list/index.html",
+  "label": "Operations Job List",
+  "shot": "shots/after/pms-313.jpg"
+ },
+ {
+  "id": "pms-314",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-021-villa-inspection-list/index.html",
+  "label": "Villa Inspection List",
+  "shot": "shots/after/pms-314.jpg"
+ },
+ {
+  "id": "pms-315",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-022-inspection-edit/index.html",
+  "label": "Inspection Edit",
+  "shot": "shots/after/pms-315.jpg"
+ },
+ {
+  "id": "pms-316",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-022-p1-inspection-edit-details/index.html",
+  "label": "Process Inspection Items",
+  "shot": "shots/after/pms-316.jpg"
+ },
+ {
+  "id": "pms-317",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-023-pool/index.html",
+  "label": "Pool",
+  "shot": "shots/after/pms-317.jpg"
+ },
+ {
+  "id": "pms-318",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-024-make-up/index.html",
+  "label": "Make-up",
+  "shot": "shots/after/pms-318.jpg"
+ },
+ {
+  "id": "pms-319",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-025-daily-makeup-schedule/index.html",
+  "label": "Daily Makeup Schedule",
+  "shot": "shots/after/pms-319.jpg"
+ },
+ {
+  "id": "pms-320",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-026-daily-cleaning-planning-teams/index.html",
+  "label": "Daily Cleaning Assignment Schedule",
+  "shot": "shots/after/pms-320.jpg"
+ },
+ {
+  "id": "pms-321",
+  "product": "pms",
+  "url": "screens/villa-services/vsv-027-electricity-check-in-check-out-control-legacy/index.html",
+  "label": "Electricity Control (Legacy)",
+  "shot": "shots/after/pms-321.jpg"
+ },
+ {
+  "id": "pms-322",
+  "product": "pms",
+  "url": "screens/website-content/cms-001-content-list/index.html",
+  "label": "Property List",
+  "shot": "shots/after/pms-322.jpg"
+ },
+ {
+  "id": "pms-323",
+  "product": "pms",
+  "url": "screens/website-content/cms-002-villa-website-content/index.html",
+  "label": "Villa Website Content",
+  "shot": "shots/after/pms-323.jpg"
+ },
+ {
+  "id": "pms-324",
+  "product": "pms",
+  "url": "screens/website-content/cms-003-services-list/index.html",
+  "label": "Villa Services",
+  "shot": "shots/after/pms-324.jpg"
+ },
+ {
+  "id": "pms-325",
+  "product": "pms",
+  "url": "screens/website-content/cms-005-common-text/index.html",
+  "label": "Common Text",
+  "shot": "shots/after/pms-325.jpg"
+ },
+ {
+  "id": "pms-326",
+  "product": "pms",
+  "url": "screens/website-content/cms-006-why-us-list/index.html",
+  "label": "Why Us",
+  "shot": "shots/after/pms-326.jpg"
+ },
+ {
+  "id": "pms-327",
+  "product": "pms",
+  "url": "screens/website-content/cms-009-partner-logo-list/index.html",
+  "label": "Partner Logos",
+  "shot": "shots/after/pms-327.jpg"
+ },
+ {
+  "id": "pms-328",
+  "product": "pms",
+  "url": "screens/website-content/cms-010-add-partner-logo/index.html",
+  "label": "Add Partner Logo",
+  "shot": "shots/after/pms-328.jpg"
+ },
+ {
+  "id": "pms-329",
+  "product": "pms",
+  "url": "screens/website-content/cms-011-edit-partner-logo/index.html",
+  "label": "Edit Partner Logo",
+  "shot": "shots/after/pms-329.jpg"
+ },
+ {
+  "id": "pms-330",
+  "product": "pms",
+  "url": "screens/website-content/cms-012-destination-list/index.html",
+  "label": "Destination List",
+  "shot": "shots/after/pms-330.jpg"
+ },
+ {
+  "id": "pms-331",
+  "product": "pms",
+  "url": "screens/website-content/cms-014-destination-global-list/index.html",
+  "label": "Destination Global List",
+  "shot": "shots/after/pms-331.jpg"
+ },
+ {
+  "id": "pms-332",
+  "product": "pms",
+  "url": "screens/website-content/cms-016-contact-form-list/index.html",
+  "label": "Contact Form List",
+  "shot": "shots/after/pms-332.jpg"
+ },
+ {
+  "id": "pms-333",
+  "product": "pms",
+  "url": "screens/website-content/cms-018-concierge-list/index.html",
+  "label": "Concierge List",
+  "shot": "shots/after/pms-333.jpg"
+ },
+ {
+  "id": "pms-334",
+  "product": "pms",
+  "url": "screens/website-content/cms-020-multilingual-translation-management-cms-translation/index.html",
+  "label": "Multilingual Translation Management",
+  "shot": "shots/after/pms-334.jpg"
+ },
+ {
+  "id": "pms-335",
+  "product": "pms",
+  "url": "screens/website-content/cms-021-collection-website-list/index.html",
+  "label": "Collection Website List",
+  "shot": "shots/after/pms-335.jpg"
+ },
+ {
+  "id": "pms-336",
+  "product": "pms",
+  "url": "screens/website-content/cms-023-collection-website-content-management-5-sub-tabs/index.html",
+  "label": "Collection Website Content Management",
+  "shot": "shots/after/pms-336.jpg"
+ },
+ {
+  "id": "pms-337",
+  "product": "pms",
+  "url": "screens/website-content/cms-024-collection-website-common-text-list/index.html",
+  "label": "Common Text List",
+  "shot": "shots/after/pms-337.jpg"
+ },
+ {
+  "id": "pms-338",
+  "product": "pms",
+  "url": "screens/website-content/cms-026-insights-article-list/index.html",
+  "label": "Insights Article List",
+  "shot": "shots/after/pms-338.jpg"
+ },
+ {
+  "id": "pms-339",
+  "product": "pms",
+  "url": "screens/website-content/cms-028-i-wish-list/index.html",
+  "label": "I Wish List",
+  "shot": "shots/after/pms-339.jpg"
+ },
+ {
+  "id": "pms-340",
+  "product": "pms",
+  "url": "screens/website-content/cms-030-arrival-content-list/index.html",
+  "label": "Arrival Content List",
+  "shot": "shots/after/pms-340.jpg"
+ },
+ {
+  "id": "pms-341",
+  "product": "pms",
+  "url": "screens/website-content/cms-032-restaurant-list-guest-portal/index.html",
+  "label": "Restaurant List (Guest Portal)",
+  "shot": "shots/after/pms-341.jpg"
+ },
+ {
+  "id": "pms-342",
+  "product": "pms",
+  "url": "screens/website-content/cms-034-guest-contract-editor/index.html",
+  "label": "Guest Contract Editor",
+  "shot": "shots/after/pms-342.jpg"
+ },
+ {
+  "id": "pms-343",
+  "product": "pms",
+  "url": "screens/email-templates/emt-001-email-template-list/index.html",
+  "label": "Email Template List",
+  "shot": "shots/after/pms-343.jpg"
+ },
+ {
+  "id": "pms-344",
+  "product": "pms",
+  "url": "screens/notices/not-001-send-notice-task/index.html",
+  "label": "Send Notice/Task",
+  "shot": "shots/after/pms-344.jpg"
+ },
+ {
+  "id": "pms-345",
+  "product": "pms",
+  "url": "screens/notices/not-002-notice-task-list/index.html",
+  "label": "Notice/Task List",
+  "shot": "shots/after/pms-345.jpg"
+ },
+ {
+  "id": "pms-346",
+  "product": "pms",
+  "url": "screens/notices/not-003-notice-detail/index.html",
+  "label": "Notice Detail",
+  "shot": "shots/after/pms-346.jpg"
+ },
+ {
+  "id": "pms-347",
+  "product": "pms",
+  "url": "screens/notices/not-004-help-other-user/index.html",
+  "label": "Help Other User",
+  "shot": "shots/after/pms-347.jpg"
+ },
+ {
+  "id": "pms-348",
+  "product": "pms",
+  "url": "screens/notices/not-005-company-news/index.html",
+  "label": "Company News",
+  "shot": "shots/after/pms-348.jpg"
+ },
+ {
+  "id": "pms-349",
+  "product": "pms",
+  "url": "screens/texts/txt-001-text-library/index.html",
+  "label": "Text Library",
+  "shot": "shots/after/pms-349.jpg"
+ },
+ {
+  "id": "pms-350",
+  "product": "pms",
+  "url": "screens/photos/pho-001-photo-shoot-planning/index.html",
+  "label": "Photo Shoot Planning",
+  "shot": "shots/after/pms-350.jpg"
+ },
+ {
+  "id": "pms-351",
+  "product": "pms",
+  "url": "screens/photos/pho-002-photo-sets/index.html",
+  "label": "Photo Sets",
+  "shot": "shots/after/pms-351.jpg"
+ },
+ {
+  "id": "pms-352",
+  "product": "pms",
+  "url": "screens/photos/pho-003-common-areas/index.html",
+  "label": "Common Areas",
+  "shot": "shots/after/pms-352.jpg"
+ },
+ {
+  "id": "pms-353",
+  "product": "pms",
+  "url": "screens/photos/pho-004-residence-common-area-photos/index.html",
+  "label": "Residence Common Area Photos",
+  "shot": "shots/after/pms-353.jpg"
+ },
+ {
+  "id": "pms-354",
+  "product": "pms",
+  "url": "screens/photos/pho-005-common-area-photo-set-detail/index.html",
+  "label": "Common Area Photo Set Detail",
+  "shot": "shots/after/pms-354.jpg"
+ },
+ {
+  "id": "pms-355",
+  "product": "pms",
+  "url": "screens/photos/pho-006-property-photo-page/index.html",
+  "label": "Property Photo Page",
+  "shot": "shots/after/pms-355.jpg"
+ },
+ {
+  "id": "pms-356",
+  "product": "pms",
+  "url": "screens/photos/pho-007-property-photo-set-detail/index.html",
+  "label": "Property Photo Set Detail",
+  "shot": "shots/after/pms-356.jpg"
+ },
+ {
+  "id": "pms-357",
+  "product": "pms",
+  "url": "screens/photos/pho-008-photo-standard-settings/index.html",
+  "label": "Photo Standard Settings",
+  "shot": "shots/after/pms-357.jpg"
+ },
+ {
+  "id": "pms-358",
+  "product": "pms",
+  "url": "screens/videos/vid-001-video-library/index.html",
+  "label": "Video Library",
+  "shot": "shots/after/pms-358.jpg"
+ },
+ {
+  "id": "pms-359",
+  "product": "pms",
+  "url": "screens/ota-content/ota-001-ota-channel-listing-content/index.html",
+  "label": "OTA Channel Listing Content",
+  "shot": "shots/after/pms-359.jpg"
+ },
+ {
+  "id": "pms-360",
+  "product": "pms",
+  "url": "screens/static-pages/page-001-default-welcome-page/index.html",
+  "label": "System Diagnostics",
+  "shot": "shots/after/pms-360.jpg"
+ },
+ {
+  "id": "pms-361",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-007-account-statements/index.html",
+  "label": "Account Statements",
+  "shot": "shots/after/pms-361.jpg"
+ },
+ {
+  "id": "pms-362",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-008-accounting-categories/index.html",
+  "label": "Accounting Categories",
+  "shot": "shots/after/pms-362.jpg"
+ },
+ {
+  "id": "pms-363",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-009-statement-reconcile/index.html",
+  "label": "Statement Reconcile",
+  "shot": "shots/after/pms-363.jpg"
+ },
+ {
+  "id": "pms-364",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-023-chart-of-accounts/index.html",
+  "label": "Chart of Accounts",
+  "shot": "shots/after/pms-364.jpg"
+ },
+ {
+  "id": "pms-365",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-028-account-reconcile-legacy/index.html",
+  "label": "Account Reconcile (Legacy)",
+  "shot": "shots/after/pms-365.jpg"
+ },
+ {
+  "id": "pms-366",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-029-overview/index.html",
+  "label": "Accounting & HR Overview",
+  "shot": "shots/after/pms-366.jpg"
+ },
+ {
+  "id": "pms-367",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-030-ota-reconciliation/index.html",
+  "label": "OTA Reconciliation",
+  "shot": "shots/after/pms-367.jpg"
+ },
+ {
+  "id": "pms-368",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-031-settings/index.html",
+  "label": "Accounting Settings",
+  "shot": "shots/after/pms-368.jpg"
+ },
+ {
+  "id": "pms-369",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-032-vehicle-management/index.html",
+  "label": "Vehicle Management",
+  "shot": "shots/after/pms-369.jpg"
+ },
+ {
+  "id": "pms-370",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-033-timesheet/index.html",
+  "label": "Timesheet",
+  "shot": "shots/after/pms-370.jpg"
+ },
+ {
+  "id": "pms-371",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-034-payroll/index.html",
+  "label": "Payroll",
+  "shot": "shots/after/pms-371.jpg"
+ },
+ {
+  "id": "pms-372",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-038-phone-management/index.html",
+  "label": "Phone Management",
+  "shot": "shots/after/pms-372.jpg"
+ },
+ {
+  "id": "pms-373",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-039-computer-management/index.html",
+  "label": "Computer Management",
+  "shot": "shots/after/pms-373.jpg"
+ },
+ {
+  "id": "pms-374",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-040-sim-card-management/index.html",
+  "label": "SIM Card Management",
+  "shot": "shots/after/pms-374.jpg"
+ },
+ {
+  "id": "pms-375",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-041-wage-periods/index.html",
+  "label": "Wage Periods",
+  "shot": "shots/after/pms-375.jpg"
+ },
+ {
+  "id": "pms-376",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-042-daily-wages/index.html",
+  "label": "Daily Wages",
+  "shot": "shots/after/pms-376.jpg"
+ },
+ {
+  "id": "pms-377",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-053-public-holidays/index.html",
+  "label": "Public Holidays",
+  "shot": "shots/after/pms-377.jpg"
+ },
+ {
+  "id": "pms-378",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-054-recurring-expenses/index.html",
+  "label": "Recurring Expenses",
+  "shot": "shots/after/pms-378.jpg"
+ },
+ {
+  "id": "pms-379",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-055-expense-type/index.html",
+  "label": "Expense Type",
+  "shot": "shots/after/pms-379.jpg"
+ },
+ {
+  "id": "pms-380",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-056-rebill/index.html",
+  "label": "Rebill",
+  "shot": "shots/after/pms-380.jpg"
+ },
+ {
+  "id": "pms-381",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-057-product-suppliers/index.html",
+  "label": "Product Suppliers",
+  "shot": "shots/after/pms-381.jpg"
+ },
+ {
+  "id": "pms-382",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-058-products/index.html",
+  "label": "Products",
+  "shot": "shots/after/pms-382.jpg"
+ },
+ {
+  "id": "pms-383",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-059-services-suppliers/index.html",
+  "label": "Services Suppliers",
+  "shot": "shots/after/pms-383.jpg"
+ },
+ {
+  "id": "pms-384",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-060-services/index.html",
+  "label": "Services",
+  "shot": "shots/after/pms-384.jpg"
+ },
+ {
+  "id": "pms-385",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-061-approval-matrix/index.html",
+  "label": "Approval Matrix",
+  "shot": "shots/after/pms-385.jpg"
+ },
+ {
+  "id": "pms-386",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-062-petty-cash/index.html",
+  "label": "Petty Cash",
+  "shot": "shots/after/pms-386.jpg"
+ },
+ {
+  "id": "pms-387",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-063-expense-payments/index.html",
+  "label": "Expense Payments",
+  "shot": "shots/after/pms-387.jpg"
+ },
+ {
+  "id": "pms-388",
+  "product": "pms",
+  "url": "screens/accounting-hr/acc-064-payment-request-list/index.html",
+  "label": "Payment Request List",
+  "shot": "shots/after/pms-388.jpg"
+ },
+ {
+  "id": "cms-001",
+  "product": "cms",
+  "url": "index.html",
+  "label": "Sign In",
+  "shot": "shots/after/cms-001.jpg"
+ },
+ {
+  "id": "cms-002",
+  "product": "cms",
+  "url": "bookings/bookings.html",
+  "label": "Bookings",
+  "shot": "shots/after/cms-002.jpg"
+ },
+ {
+  "id": "cms-003",
+  "product": "cms",
+  "url": "channel-manager/channel-manager.html",
+  "label": "Channel Manager",
+  "shot": "shots/after/cms-003.jpg"
+ },
+ {
+  "id": "cms-004",
+  "product": "cms",
+  "url": "dashboard/dashboard.html",
+  "label": "Dashboard",
+  "shot": "shots/after/cms-004.jpg"
+ },
+ {
+  "id": "cms-005",
+  "product": "cms",
+  "url": "inbox/inbox.html",
+  "label": "Inbox",
+  "shot": "shots/after/cms-005.jpg"
+ },
+ {
+  "id": "cms-006",
+  "product": "cms",
+  "url": "properties/properties.html",
+  "label": "Properties",
+  "shot": "shots/after/cms-006.jpg"
+ },
+ {
+  "id": "cms-007",
+  "product": "cms",
+  "url": "rates/rates.html",
+  "label": "Rates & Revenue",
+  "shot": "shots/after/cms-007.jpg"
+ },
+ {
+  "id": "cms-008",
+  "product": "cms",
+  "url": "reports/reports.html",
+  "label": "Reports & Analytics",
+  "shot": "shots/after/cms-008.jpg"
+ },
+ {
+  "id": "cms-009",
+  "product": "cms",
+  "url": "reservations/reservations.html",
+  "label": "Reservations",
+  "shot": "shots/after/cms-009.jpg"
+ },
+ {
+  "id": "cms-010",
+  "product": "cms",
+  "url": "settings/settings.html",
+  "label": "Settings",
+  "shot": "shots/after/cms-010.jpg"
+ },
+ {
+  "id": "cms-011",
+  "product": "cms",
+  "url": "vendors/vendors.html",
+  "label": "Vendors",
+  "shot": "shots/after/cms-011.jpg"
+ }
+]

@@ -284,6 +284,8 @@ h3, .h3 { font: var(--h3); }
 .badge-warning { background: var(--warning-bg); color: var(--warning); }
 .badge-error { background: var(--error-bg); color: var(--error); }
 .badge-info { background: var(--primary-100); color: var(--primary-dark); }
+.badge-domain { display: inline-flex; align-items: center; gap: 6px; }
+.badge-domain .domain-icon { width: 14px; height: 14px; flex: none; }
 .badge-accent { background: rgba(1,151,112,0.16); color: var(--accent); }
 
 /* Forms */
@@ -794,6 +796,15 @@ h3, .h3 { font: var(--h3); }
 .case-card__tag { margin-bottom: var(--sp-3); }
 .case-card__metric { display: flex; align-items: baseline; gap: 6px; margin-top: var(--sp-4); }
 .case-card__metric strong { font: 800 24px var(--font-sans); color: var(--accent); }
+/* Thẻ dự án có nút (Xem chi tiết / Playground bản mẫu): nút dồn xuống đáy thẻ */
+.portfolio-card.has-acts { display: flex; flex-direction: column; }
+.portfolio-card.has-acts .portfolio-card__body { flex: 1; display: flex; flex-direction: column; }
+.portfolio-card.has-acts .portfolio-card__img img { object-position: top left; }
+.portfolio-card__title a:hover { color: var(--primary); }
+.case-card__acts { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: auto; padding-top: var(--sp-6); }
+.portfolio-card.has-acts .case-card__metric { flex-direction: column; align-items: flex-start; gap: 2px; }
+.portfolio-card.has-acts .case-card__metric strong { font-size: 20px; line-height: 1.25; }
+.case-card__acts .btn { flex: 1 1 auto; padding: 10px 14px; font-size: 13.5px; }
 .case-card__metric span { color: var(--text-muted); font-size: 13px; }
 
 /* Blog card */

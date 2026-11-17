@@ -1,0 +1,250 @@
+/* Reservations — Google Calendar-style multi-property booking calendar */
+
+.mini-select {
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  padding: 9px 12px;
+  font-size: var(--font-size-sm);
+  background: var(--color-white);
+  color: var(--color-gray-700);
+}
+
+/* ---------------------------------------------------------- */
+/* Toolbar                                                       */
+/* ---------------------------------------------------------- */
+
+.calendar-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.calendar-toolbar__nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.calendar-toolbar__title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin-left: 6px;
+  min-width: 160px;
+}
+
+.calendar-toolbar__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.view-toggle {
+  display: inline-flex;
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.view-toggle__btn {
+  border: none;
+  background: var(--color-white);
+  color: var(--color-gray-600);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  padding: 9px 16px;
+  cursor: pointer;
+}
+
+.view-toggle__btn + .view-toggle__btn { border-left: 1px solid var(--color-gray-300); }
+
+.view-toggle__btn.active {
+  background: var(--color-primary-dark);
+  color: var(--color-white);
+}
+
+/* ---------------------------------------------------------- */
+/* Legend                                                        */
+/* ---------------------------------------------------------- */
+
+.calendar-legend {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-600);
+  font-weight: 600;
+}
+
+.calendar-legend span { display: flex; align-items: center; gap: 6px; }
+.calendar-legend .dot { width: 9px; height: 9px; border-radius: 3px; display: inline-block; }
+.calendar-legend .dot-cancelled {
+  background: var(--color-gray-200);
+  border: 1.5px solid var(--color-accent);
+}
+
+/* ---------------------------------------------------------- */
+/* Calendar shell                                                */
+/* ---------------------------------------------------------- */
+
+.calendar-card { padding: 4px 14px 14px; overflow: hidden; }
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: 14px 2px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-gray-500);
+  text-align: left;
+}
+
+.calendar-body { display: flex; flex-direction: column; }
+
+/* One week row */
+.calendar-week {
+  position: relative;
+  border-top: 1px solid var(--color-gray-100);
+}
+.calendar-week:first-child { border-top: none; }
+
+.calendar-week__days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  height: 100%;
+}
+
+.calendar-day {
+  border-right: 1px solid var(--color-gray-100);
+  padding: 8px 6px 6px;
+  cursor: pointer;
+  min-height: 128px;
+  transition: background var(--transition-fast);
+}
+.calendar-day:last-child { border-right: none; }
+.calendar-day:hover { background: var(--color-primary-50); }
+
+.calendar-day.is-outside { background: var(--color-gray-50); }
+.calendar-day.is-outside:hover { background: var(--color-gray-100); }
+.calendar-day.is-outside .calendar-day__num { color: var(--color-gray-400); }
+
+.calendar-day__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-gray-700);
+  min-width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.calendar-day.is-today .calendar-day__num {
+  background: var(--color-accent);
+  color: var(--color-white);
+}
+
+/* Week view gets taller cells */
+.calendar-body.week-mode .calendar-day { min-height: 460px; }
+.calendar-body.week-mode .calendar-toolbar__title { min-width: 220px; }
+
+/* Bars overlay (absolutely positioned on top of the days grid) */
+.calendar-week__bars {
+  position: absolute;
+  top: 34px;
+  left: 0;
+  right: 0;
+  bottom: 4px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-auto-rows: 21px;
+  gap: 4px 0;
+  padding: 0 2px;
+  pointer-events: none;
+}
+
+.cal-bar {
+  pointer-events: auto;
+  border-radius: 5px;
+  padding: 2px 8px;
+  font-size: 11px;
+  line-height: 1.25;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  color: var(--color-white);
+}
+
+.cal-bar-title { font-weight: 700; overflow: hidden; text-overflow: ellipsis; }
+.cal-bar-desc { font-weight: 400; opacity: 0.9; overflow: hidden; text-overflow: ellipsis; }
+
+.cal-bar.status-confirmed { background: var(--color-primary-dark); }
+.cal-bar.status-pending { background: var(--color-warning); color: var(--color-navy-700); }
+.cal-bar.status-checked-in { background: var(--color-success-text); } /* chữ trắng cần nền xanh đậm (≥ 4.5:1) */
+.cal-bar.status-completed { background: var(--color-primary); color: var(--color-white); }
+.cal-bar.status-cancelled {
+  background: var(--color-gray-200);
+  color: var(--color-gray-600);
+  border: 1px dashed var(--color-accent);
+  box-shadow: none;
+}
+.cal-bar.status-cancelled .cal-bar-title,
+.cal-bar.status-cancelled .cal-bar-desc { text-decoration: line-through; }
+
+.cal-more {
+  pointer-events: auto;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  cursor: pointer;
+  padding: 2px 8px;
+}
+.cal-more:hover { text-decoration: underline; }
+
+/* Week view: taller bars/rows so more can be shown before "+more" kicks in */
+.calendar-body.week-mode .calendar-week__bars { grid-auto-rows: 26px; gap: 5px 0; }
+.calendar-body.week-mode .cal-bar { font-size: 12px; padding: 4px 10px; }
+
+/* ---------------------------------------------------------- */
+/* Day agenda modal list                                         */
+/* ---------------------------------------------------------- */
+
+.agenda-list { display: flex; flex-direction: column; gap: 10px; }
+
+.agenda-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+.agenda-item:hover { border-color: var(--color-primary); background: var(--color-primary-50); }
+
+.agenda-item__dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+.agenda-item__title { font-weight: 700; color: var(--color-primary-dark); font-size: var(--font-size-sm); }
+.agenda-item__sub { font-size: var(--font-size-xs); color: var(--color-gray-500); margin-top: 2px; }
+
+/* Reservation meta line inside the form modal (booking id, created date) */
+.res-meta {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--color-gray-200);
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-500);
+}
+
+@media print {
+  .sidebar, .topbar, .page-header__actions, .calendar-toolbar__right, #btn-print { display: none !important; }
+}

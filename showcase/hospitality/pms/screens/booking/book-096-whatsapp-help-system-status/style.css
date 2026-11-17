@@ -1,0 +1,22 @@
+@import url("../_shared/booking-shared.css");
+
+/* BOOK-096 WhatsApp Help / System Status — page-specific overrides only */
+.diag-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+.diag-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-left: 4px solid var(--color-success);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+.diag-card.diag-card--error { border-left-color: var(--color-danger); }
+.diag-card__label { font-size: 12px; color: var(--color-gray-500); text-transform: uppercase; letter-spacing: 0.03em; }
+.diag-card__value { font-size: 16px; font-weight: 700; color: var(--color-primary-dark); margin-top: 4px; }
+.diag-card__message { font-size: 12px; color: var(--color-gray-500); margin-top: 6px; }
+.card-title-sm { font-size: 14px; font-weight: 600; margin: 0 0 14px; color: var(--color-primary-dark); }
+.form-actions { display: flex; justify-content: flex-start; margin: 14px 0; }

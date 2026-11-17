@@ -1,0 +1,45 @@
+<!-- Chờ duyệt theo DoA (M22.01, M22.02). Dữ liệu: head, tabs[{id,n,label,on}], types[{v,l,on}], tab, isDone, isSent, group,
+     cards[{key,id,title,type,party,value,what,validity,validNear,validHi,why,debt,by,wait,late,reason,step,nStep,next,holder,dto,mine,tenant,tcolor}] (chuỗi duyệt đầy đủ ở Xem nhanh),
+     done[{key,id,title,type,lv,ok,deleg,to,note,at,pill,value}] -->
+{{> page-head head}}
+<div class="card np">
+  <div class="toolbar">
+    <div class="vtabs">{{#each tabs}}<span class="{{#if on}}on{{/if}}" onclick="apprTab('{{id}}')">{{label}}<em>{{n}}</em></span>{{/each}}</div>
+    <span class="sp"></span>
+    <select class="inp" style="width:auto" onchange="apprType(this.value)">{{#each types}}<option value="{{v}}"{{#if on}} selected{{/if}}>{{l}}</option>{{/each}}</select>
+  </div>
+
+  {{#if isDone}}
+  <div class="scroll"><table><thead><tr><th>{{t "det.record"}}</th><th>{{t "ap.myStep"}}</th><th>{{t "ap.result"}}</th><th>{{t "ap.note"}}</th><th class="num">{{t "mj.value"}}</th><th>{{t "ap.nowStatus"}}</th></tr></thead><tbody>
+    {{#each done}}<tr class="click" onclick="go('/e/{{key}}/{{id}}')"><td><b><a>{{title}}</a></b><div class="faint sm">{{type}} · {{at}}</div></td><td>{{lv}}</td>
+      <td>{{#if ok}}<span class="pill p-ok">{{t "ap.approved"}}</span>{{else if deleg}}<span class="pill p-info">{{t "ap.delegated" n=to}}</span>{{else}}<span class="pill p-bad">{{t "ap.rejectedP"}}</span>{{/if}}</td><td class="muted">{{note}}</td><td class="num">{{value}}</td><td>{{{pill}}}</td></tr>
+    {{else}}<tr><td colspan="6" class="muted">{{t "ap.doneNone"}}</td></tr>{{/each}}
+  </tbody></table></div>
+  {{else}}
+  <div class="apl">
+    {{#each cards}}
+    <div class="apc{{#if late}} late{{/if}}">
+      {{#if ../group}}<span class="tbadge" style="background:{{tcolor}}" title="{{t "gh.c.entity"}}">{{tenant}}</span>{{/if}}
+      <div class="apm">
+        <div class="aph"><a href="/e/{{key}}/{{id}}"><b>{{title}}</b></a><span class="faint sm">{{type}}</span><span class="muted">· {{party}}</span><span class="sp"></span><b class="apv" title="{{#if gst}}{{t "ap.gst"}}{{/if}}">{{value}}</b></div>
+        <div class="apw">{{what}}{{#if validNear}} · <span class="{{#if validHi}}hi{{else}}warn-t{{/if}}">⏱ {{validity}}</span>{{/if}}</div>
+        <div class="apf">
+          <span>{{t "ap.why"}}: <b>{{why}}</b></span>
+          {{#if debt}}<span class="hi">⚠ {{t "ap.debt" v=debt}}</span>{{/if}}
+        </div>
+        <div class="apf">
+          <span>{{t "ap.sentBy" n=by}} · <span class="{{#if late}}hi{{/if}}">{{t "ap.wait" n=wait}}</span></span>
+          <span class="chn"{{fa "M22.01"}}>{{t "ap.stepOf" i=step n=nStep}} · {{#if next}}{{t "ap.next" n=next}}{{else}}{{t "ap.lastStep"}}{{/if}}</span>
+        </div>
+        {{#if reason}}<div class="apr">“{{reason}}”</div>{{/if}}
+      </div>
+      <div class="apa">
+        <button class="btn xs" onclick="apprPeek('{{key}}','{{id}}')">{{ic "eye" "sm"}}{{t "ap.peek"}}</button>
+        {{#if mine}}{{#if ../group}}<button class="btn xs pri" onclick="go('/e/{{key}}/{{id}}?tenant={{tenant}}')">{{t "ap.approveIn" t=tenant}}</button>{{else}}<button class="btn xs" onclick="apprDeleg('{{key}}','{{id}}')" title="{{t "ap.delegTip"}}">{{t "ap.delegBtn"}}</button><button class="btn xs" onclick="apprDo('{{key}}','{{id}}',false)">{{t "ap.rejectBtn"}}</button><button class="btn xs pri" onclick="apprDo('{{key}}','{{id}}',true)">{{t "mj.approve"}}</button>{{/if}}
+        {{else}}<span class="faint sm">{{t "ap.holder" n=holder}}{{#if dto}} ({{t "ap.delegShort"}}){{/if}}</span>{{/if}}
+      </div>
+    </div>
+    {{else}}<p class="muted" style="padding:18px">{{#if isSent}}{{t "ap.sentNone"}}{{else}}{{t "ap.mineNone"}}{{/if}}</p>{{/each}}
+  </div>
+  {{/if}}
+</div>

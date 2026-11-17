@@ -1,0 +1,34 @@
+@import url("../_shared/booking-shared.css");
+
+.control-point-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 12px 14px; border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); margin-bottom: 10px;
+}
+.control-point-row__name { font-weight: 600; color: var(--color-primary-dark); font-size: var(--font-size-sm); }
+.control-point-row__toggle { display: flex; gap: 6px; }
+.cp-btn {
+  border: 1px solid var(--color-gray-200); background: var(--color-white); border-radius: var(--radius-pill);
+  padding: 5px 12px; font-size: var(--font-size-xs); font-weight: 700; cursor: pointer; color: var(--color-gray-600);
+}
+.cp-btn.pass.active { background: var(--color-success-bg); border-color: var(--color-success); color: var(--color-success-text); }
+.cp-btn.damaged.active { background: var(--color-danger-bg); border-color: var(--color-danger); color: var(--color-danger-text); }
+.control-point-detail { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--color-gray-200); display: none; }
+.control-point-detail.open { display: block; }
+.control-point-detail .form-grid { grid-template-columns: 1fr 1fr; }
+
+.star-rating { display: flex; gap: 4px; justify-content: center; }
+.star-rating .star { font-size: 30px; line-height: 1; background: none; border: none; cursor: pointer; color: var(--color-gray-300); padding: 2px; }
+.star-rating .star.on { color: var(--color-warning-text); }
+
+.gps-box {
+  display: flex; align-items: center; gap: 8px; font-size: var(--font-size-xs); color: var(--color-gray-600);
+  background: var(--color-gray-50); border-radius: var(--radius-md); padding: 10px 12px; margin-top: 16px;
+}
+.gps-box svg { color: var(--color-success-text); flex-shrink: 0; }
+
+.photo-add-btn {
+  aspect-ratio: 4/3; border-radius: var(--radius-md); border: 1.5px dashed var(--color-gray-300);
+  background: var(--color-gray-50); display: flex; align-items: center; justify-content: center;
+  color: var(--color-gray-500); cursor: pointer; font-size: var(--font-size-xs); flex-direction: column; gap: 4px;
+}
+.photo-add-btn:hover { border-color: var(--color-primary); color: var(--color-primary-dark); }

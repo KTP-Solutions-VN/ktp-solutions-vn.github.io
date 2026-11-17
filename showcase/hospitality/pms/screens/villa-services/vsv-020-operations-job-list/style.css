@@ -1,0 +1,5 @@
+.ops-job-card { display: flex; flex-direction: column; }
+.ops-job-card .card__body { display: flex; flex-direction: column; gap: 10px; }
+.ops-job-thumb { width: 100%; aspect-ratio: 16/9; border-radius: var(--radius-md); background: var(--color-primary-50); color: var(--color-primary-dark); display: flex; align-items: center; justify-content: center; }
+.ops-job-thumb svg { width: 30px; height: 30px; }
+.ops-job-meta { font-size: var(--font-size-xs); color: var(--color-gray-500); }

@@ -1,0 +1,17 @@
+/* Screen-specific overrides: Login/Register (#2) — split-panel, per screen-generation-guide.md */
+.auth-split { min-height: calc(100vh - 68px); display: grid; grid-template-columns: 1fr 1fr; }
+.auth-split__promo {
+  background: linear-gradient(150deg, var(--primary-dark) 0%, var(--primary) 100%);
+  color: #fff; padding: var(--sp-8) var(--sp-7); display: flex; flex-direction: column; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.auth-split__promo::before { content: ''; position: absolute; width: 280px; height: 280px; border-radius: 50%; background: rgba(255,255,255,.08); top: -100px; right: -80px; }
+.auth-split__promo::after { content: ''; position: absolute; width: 180px; height: 180px; border-radius: 50%; background: rgba(1,151,112,.25); bottom: -60px; left: -40px; }
+.auth-perks { position: relative; z-index: 1; margin-top: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-3); }
+.auth-perks li { display: flex; align-items: center; gap: var(--sp-2); color: rgba(255,255,255,.9); font-size: .9rem; font-weight: 600; }
+.auth-split__form { background: var(--surface); padding: var(--sp-8) var(--sp-7); display: flex; flex-direction: column; justify-content: center; max-width: 460px; margin: 0 auto; width: 100%; }
+@media (max-width: 900px) {
+  .auth-split { grid-template-columns: 1fr; }
+  .auth-split__promo { padding: var(--sp-6) var(--sp-5); min-height: 240px; }
+  .auth-split__form { padding: var(--sp-6) var(--sp-5); max-width: none; }
+}

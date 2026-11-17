@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inbox — Azura Stays Channel Manager</title>
+<link rel="icon" href="../azura-logo.svg">
+<link rel="stylesheet" href="../assets/css/variables.css">
+<link rel="stylesheet" href="../assets/css/layout.css">
+<link rel="stylesheet" href="inbox.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- ============================== SIDEBAR ============================== -->
+  <aside class="sidebar">
+    <div class="sidebar__brand">
+      <img src="../azura-logo.svg" alt="Azura Stays logo">
+      <div class="sidebar__brand-text">Channel Manager</div>
+    </div>
+
+    <div class="sidebar__vendor-switch">
+      <label>Viewing vendor</label>
+      <select>
+        <option>All Vendors (Super Admin)</option>
+        <option>Andaman Villas Group</option>
+        <option>Aegean Retreats</option>
+        <option>Sunshine Coast Rentals</option>
+        <option>Caribbean Palms Collection</option>
+      </select>
+    </div>
+
+    <nav class="sidebar__nav">
+      <div class="nav-section">
+        <div class="nav-section__title">Operations</div>
+        <a class="nav-item" href="../dashboard/dashboard.html">
+          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+          Dashboard
+        </a>
+        <a class="nav-item" href="../reservations/reservations.html">
+          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg></span>
+          Reservations
+        </a>
+        <a class="nav-item" href="../bookings/bookings.html">
+          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1"/><line x1="9" y1="11" x2="15" y2="11"/><line x1="9" y1="15" x2="15" y2="15"/></svg></span>
+          Bookings
+        </a>
+        <a class="nav-item active" href="../inbox/inbox.html">
+          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5c-1.44 0-2.8-.35-4-.97L3 20l1-4.5A8.5 8.5 0 1 1 21 11.5Z"/></svg></span>
+          Inbox
+          <span class="nav-badge">12</span>
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section__title">Distribution</div>
+        <a class="nav-item" href="../properties/properties.html">
+          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 21V9l8-6 8 6v12"/><path d="M9 21v-6h6v6"/></svg></span>
+          Properties
+        </a>
+        <a class="nav-item" href="../channel-manager/channel-manager.html">
+          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1"/></svg></span>
+          Channel Manager
+        </a>
+        <a class="nav-item" href="../rates/rates.html">
+          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M15 9.5a2.5 2.5 0 0 0-2.5-1.5h-1a2.25 2.25 0 0 0 0 4.5h1a2.25 2.25 0 0 1 0 4.5h-1A2.5 2.5 0 0 1 9 15"/><line x1="12" y1="6" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="18"/></svg></span>
+          Rates &amp; Revenue
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section__title">Insights</div>
+        <a class="nav-item" href="../reports/reports.html">
+          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></span>
+          Reports &amp; Analytics
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section__title">Platform Admin</div>
+        <a class="nav-item" href="../vendors/vendors.html">
+          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
+          Vendors
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section__title">Account</div>
+        <a class="nav-item" href="../settings/settings.html">
+          <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg></span>
+          Settings
+        </a>
+      </div>
+    </nav>
+
+    <div class="sidebar__footer">Azura Stays CMS &middot; Prototype v0.1</div>
+  </aside>
+
+  <!-- ============================== MAIN ============================== -->
+  <div class="main-column">
+
+    <!-- ============================== TOPBAR ============================== -->
+    <header class="topbar">
+      <div class="topbar__search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Search bookings, guests, properties...">
+      </div>
+      <div class="topbar__actions">
+        <button class="icon-btn" data-popover-trigger="notif-popover" style="position:relative;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="dot"></span>
+          <div class="popover" id="notif-popover">
+            <div class="popover__header">Notifications <span class="text-muted" style="font-weight:400;">3 new</span></div>
+            <div class="popover__list">
+              <div class="popover__item"><span class="popover__item-dot"></span><div><div class="popover__item-title">New booking from Booking.com</div><div class="popover__item-time">Villa Andaman Breeze &middot; 2 min ago</div></div></div>
+              <div class="popover__item"><span class="popover__item-dot" style="background:var(--color-accent);"></span><div><div class="popover__item-title">Sync failed for Agoda channel</div><div class="popover__item-time">Aegean Sunset Villa &middot; 18 min ago</div></div></div>
+              <div class="popover__item"><span class="popover__item-dot" style="background:var(--color-warning);"></span><div><div class="popover__item-title">Vendor onboarding pending review</div><div class="popover__item-time">Caribbean Palms Collection &middot; 1 hr ago</div></div></div>
+            </div>
+          </div>
+        </button>
+        <button class="icon-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 2-3 4"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </button>
+        <div class="topbar__user-wrap">
+          <div class="topbar__user" data-user-menu>
+            <div class="avatar">AT</div>
+            <div class="topbar__user-meta">
+              <div class="topbar__user-name">Alex Tran</div>
+              <div class="topbar__user-role">Platform Admin</div>
+            </div>
+          </div>
+          <div class="user-dropdown" data-user-dropdown>
+            <a href="../settings/settings.html">My Profile</a>
+            <a href="../settings/settings.html">Account Settings</a>
+            <div class="divider"></div>
+            <a href="../index.html" class="danger">Log Out</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============================== PAGE CONTENT ============================== -->
+    <main class="page-content inbox-page">
+
+      <div class="page-header">
+        <div>
+          <h1>Inbox</h1>
+          <p class="subtitle">Every guest conversation from every channel, in one place.</p>
+        </div>
+      </div>
+
+      <div class="inbox-shell card">
+        <!-- Conversation list -->
+        <div class="inbox-list">
+          <div class="tabs inbox-tabs" data-tabs="inbox-tabs">
+            <div class="tab-item active" data-tab="all">All</div>
+            <div class="tab-item" data-tab="unread">Unread</div>
+            <div class="tab-item" data-tab="pending">Pending</div>
+          </div>
+          <div id="inbox-list-items"><!-- rendered by inbox.js --></div>
+        </div>
+
+        <!-- Thread view -->
+        <div class="inbox-thread">
+          <div class="inbox-thread__header">
+            <div>
+              <div class="inbox-thread__title" id="thread-guest">Sophie Martin</div>
+              <div class="inbox-thread__sub" id="thread-property">Villa Andaman Breeze — Room 2 &middot; Booking.com</div>
+            </div>
+            <button class="btn btn-outline btn-sm">View Reservation</button>
+          </div>
+          <div class="inbox-thread__messages" id="thread-messages"><!-- rendered by inbox.js --></div>
+          <div class="inbox-thread__compose">
+            <select class="mini-select" id="template-select">
+              <option value="">Insert canned message…</option>
+              <option value="Thank you for your booking! We look forward to hosting you.">Booking confirmation</option>
+              <option value="Check-in starts at 3:00 PM. We'll send your door code the day before arrival.">Check-in instructions</option>
+              <option value="Thank you for staying with us — we hope you enjoyed your trip! A review would mean a lot to us.">Review request</option>
+            </select>
+            <button class="btn btn-outline btn-sm" id="ai-suggest-btn">✨ AI Suggested Reply</button>
+            <textarea id="compose-input" placeholder="Type a reply…"></textarea>
+            <button class="btn btn-primary btn-block" id="send-btn">Send Message</button>
+          </div>
+        </div>
+
+        <!-- Booking context panel -->
+        <div class="inbox-context">
+          <div class="inbox-context__title">Reservation Summary</div>
+          <div class="context-row"><span>Booking ID</span><strong id="ctx-id">RSV-1000</strong></div>
+          <div class="context-row"><span>Check-in</span><strong id="ctx-checkin">Jul 20, 2026</strong></div>
+          <div class="context-row"><span>Check-out</span><strong id="ctx-checkout">Jul 23, 2026</strong></div>
+          <div class="context-row"><span>Status</span><strong><span class="badge badge-success">Confirmed</span></strong></div>
+          <div class="context-row"><span>Total</span><strong id="ctx-total">$960</strong></div>
+          <div class="divider"></div>
+          <div class="inbox-context__title">Guest</div>
+          <div class="context-row"><span>Adults</span><strong>2</strong></div>
+          <div class="context-row"><span>Children</span><strong>0</strong></div>
+          <div class="context-row"><span>Language</span><strong>English</strong></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script src="../assets/js/layout.js"></script>
+<script src="inbox.js"></script>
+</body>
+</html>

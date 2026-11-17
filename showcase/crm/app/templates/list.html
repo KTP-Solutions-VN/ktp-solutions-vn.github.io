@@ -1,0 +1,44 @@
+<!-- Danh sách bản ghi. Dữ liệu: key, head, scope, titleLabel, cols[{l,c,dir}], tSort (mặc định mới tạo lên đầu; bấm tiêu đề cột: tăng → giảm → về mặc định), rows[{id,title,cells[html],sel}], nAll, q,
+     views[{id,label,tip,count,on,legacy}] (legacy: view lấy từ custom view khách đang dùng trên Legacy CRM), filters[{i,label}], filterFields[{api,label}], showFilter, nSel, canEdit, canDel -->
+{{> page-head head}}
+{{#if scope}}<p class="note"{{fa "M02.03"}}>{{ic "eye" "sm"}} {{scope}}</p>{{/if}}
+<div class="card np">
+  <div class="toolbar">
+    <div class="vtabs"{{fa "M31.02"}}>
+      {{#each views}}<span class="{{#if on}}on{{/if}}"{{#if legacy}} title="{{t "lv.zTip"}}"{{/if}} onclick="lvView('{{../key}}','{{id}}')">{{label}}{{#if tip}} <i class="tip ti" data-tip="{{tip}}">ⓘ</i>{{/if}}<em>{{count}}</em></span>{{/each}}
+    </div>
+    <label class="lsearch">{{ic "search" "sm"}}<input placeholder="{{t "list.search"}}" value="{{q}}" onkeydown="if(event.key==='Enter')go('/e/{{key}}?q='+encodeURIComponent(this.value))"></label>
+    <button class="btn{{#if showFilter}} on{{/if}}"{{fa "M31.02"}} onclick="lvToggleFilter('{{key}}')">{{ic "filter" "sm"}}{{t "list.filter"}}{{#if filters.length}} ({{filters.length}}){{/if}}</button>
+    <button class="btn"{{fa "M29.02"}} onclick="lvExport('{{key}}')">{{ic "download" "sm"}}Export</button>
+  </div>
+  {{#if showFilter}}
+  <div class="fbar"{{fa "M31.02"}}>
+    <select class="inp" id="lf-field" onchange="lvFieldChange('{{key}}')">{{#each filterFields}}<option value="{{api}}">{{label}}</option>{{/each}}</select>
+    <select class="inp" id="lf-val"></select>
+    <button class="btn" onclick="lvAddFilter('{{key}}')">{{t "lv.apply"}}</button>
+    {{#each filters}}<span class="chip fchip">{{label}}<button onclick="lvDelFilter('{{../key}}',{{i}})">×</button></span>{{/each}}
+  </div>
+  {{/if}}
+  {{#if nSel}}
+  <div class="selbar"{{fa "M31.05"}}>
+    <b>{{t "lv.selected" n=nSel}}</b>
+    {{#if canEdit}}<button class="btn xs" onclick="massUpdate('{{key}}')">{{t "lv.massUpdate"}}</button>
+    <button class="btn xs" onclick="massOwner('{{key}}')">{{t "lv.massOwner"}}</button>{{/if}}
+    <button class="btn xs"{{fa "M25.03"}} onclick="massEmail('{{key}}')">{{t "lv.massEmail"}}</button>
+    <button class="btn xs"{{fa "M29.02"}} onclick="lvExport('{{key}}',true)">Export</button>
+    {{#if canDel}}<button class="btn xs danger"{{fa "M04.04"}} onclick="massDelete('{{key}}')">{{t "lv.delete"}}</button>{{/if}}
+    <span class="sp"></span><a class="sm" onclick="lvClearSel('{{key}}')">{{t "lv.clearSel"}}</a>
+  </div>
+  {{/if}}
+  <div class="scroll"><table>
+    <thead><tr>{{#unless group}}<th style="width:34px"{{fa "M31.05"}}><input type="checkbox" onchange="lvSelAll('{{key}}',this.checked)"></th>{{/unless}}<th class="srt" onclick="lvSort('{{key}}','_title')">{{titleLabel}}{{#if tSort}}<i>{{#if (eq tSort "asc")}}▲{{else}}▼{{/if}}</i>{{/if}}</th>{{#each cols}}<th class="srt" onclick="lvSort('{{../key}}','{{c}}')">{{l}}{{#if dir}}<i>{{#if (eq dir "asc")}}▲{{else}}▼{{/if}}</i>{{/if}}</th>{{/each}}</tr></thead>
+    <tbody>
+      {{#each rows}}
+      <tr class="click" onclick="go('/e/{{../key}}/{{id}}')">{{#unless ../group}}<td onclick="event.stopPropagation()"><input type="checkbox"{{#if sel}} checked{{/if}} onchange="lvSel('{{../key}}','{{id}}',this.checked)"></td>{{/unless}}<td><a><b>{{title}}</b></a>{{#if optOut}} <span class="pill p-bad tip" data-tip="{{t "pdpa.tip"}}" onclick="event.stopPropagation()">{{t "pdpa.tag"}} ⓘ</span>{{/if}}</td>{{#each cells}}<td>{{{this}}}</td>{{/each}}</tr>
+      {{else}}
+      <tr><td colspan="99" class="muted">{{t "list.empty"}}</td></tr>
+      {{/each}}
+    </tbody>
+  </table></div>
+  <div class="pager"><span>1–{{rows.length}} / {{rows.length}}</span><span class="sp"></span><span class="pg">‹</span><span class="pg on">1</span><span class="pg">›</span></div>
+</div>

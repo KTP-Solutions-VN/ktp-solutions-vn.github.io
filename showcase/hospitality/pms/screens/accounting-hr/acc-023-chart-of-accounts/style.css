@@ -1,0 +1,9 @@
+/* ACC-023 — Chart of Accounts */
+.check-grid { display: flex; flex-direction: column; gap: 8px; padding: 10px 12px; border: 1px solid var(--color-gray-300); border-radius: var(--radius-md); }
+.check-item { display: flex; align-items: center; gap: 8px; font-size: var(--font-size-sm); font-weight: 500; color: var(--color-gray-800); text-transform: none; letter-spacing: 0; }
+.check-item input[type="checkbox"] { width: 16px; height: 16px; }
+.check-item.is-disabled { opacity: 0.5; }
+#coa-edit-table input, #coa-edit-table select, #coa-edit-table textarea {
+  border: 1px solid var(--color-gray-300); border-radius: var(--radius-sm); padding: 6px 8px; font-size: var(--font-size-sm); width: 100%;
+}
+#coa-edit-table td { vertical-align: top; }

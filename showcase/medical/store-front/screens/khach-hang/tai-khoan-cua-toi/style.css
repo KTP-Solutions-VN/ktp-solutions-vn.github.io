@@ -1,0 +1,6 @@
+/* Screen-specific overrides: My Account (#11) */
+@media (max-width: 900px) {
+  .section[style*="grid-template-columns:2fr 1fr"] { grid-template-columns: 1fr !important; }
+}
+.order-row { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); padding: var(--sp-3) 0; border-bottom: 1px solid var(--border); }
+.order-row:last-child { border-bottom: none; }

@@ -1,0 +1,22 @@
+@import url("../_shared/booking-shared.css");
+
+.toolbar-select {
+  border: 1px solid var(--color-gray-300); border-radius: var(--radius-md);
+  padding: 8px 12px; font-size: var(--font-size-sm); color: var(--color-gray-800);
+  background: var(--color-white); outline: none;
+}
+.toolbar-select:focus { border-color: var(--color-primary); }
+
+.arrival-cell__villa { font-weight: 700; color: var(--color-primary-dark); }
+.arrival-cell__guest { font-size: var(--font-size-xs); color: var(--color-gray-600); margin-top: 2px; }
+.arrival-cell__sub { font-size: var(--font-size-xs); color: var(--color-gray-500); margin-top: 4px; display: flex; gap: 6px; flex-wrap: wrap; }
+
+.doc-pill {
+  display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600;
+  padding: 2px 8px; border-radius: var(--radius-pill); background: var(--color-gray-100); color: var(--color-gray-600);
+}
+.doc-pill.ok { background: var(--color-success-bg); color: var(--color-success-text); }
+
+.alert-reason { font-size: var(--font-size-xs); color: var(--color-danger-text); font-weight: 600; margin-top: 4px; }
+
+.row-actions .btn-ghost svg { width: 15px; height: 15px; }

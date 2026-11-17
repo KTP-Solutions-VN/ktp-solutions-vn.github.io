@@ -1,0 +1,97 @@
+/* Channel Manager screen — provider health cards, connection table, config modal */
+
+.new-tag {
+  display: inline-block;
+  background: var(--color-accent-50);
+  color: var(--color-accent-600);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.provider-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.provider-card__top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.provider-card__logo {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--color-white);
+  flex-shrink: 0;
+}
+.provider-card__logo.channex { background: var(--color-primary-dark); }
+.provider-card__logo.beds24 { background: var(--color-primary); color: var(--color-white); }
+
+.provider-card__name { font-weight: 700; color: var(--color-primary-dark); font-size: var(--font-size-lg); }
+.provider-card__desc { font-size: var(--font-size-xs); color: var(--color-gray-500); }
+
+.provider-card__stats {
+  display: flex;
+  gap: 28px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-gray-100);
+}
+
+.provider-card__stats > div { display: flex; flex-direction: column; gap: 2px; }
+.stat-num { font-size: 20px; font-weight: 700; color: var(--color-primary-dark); }
+.stat-label { font-size: 11px; color: var(--color-gray-500); }
+
+/* Provider chip inside the connections table */
+.provider-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+}
+.provider-pill.channex { background: var(--color-primary-50); color: var(--color-primary-dark); }
+.provider-pill.beds24 { background: var(--color-primary-100); color: var(--color-navy-600); }
+
+/* Provider radio group in the config modal */
+.provider-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.provider-radio {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+}
+
+.provider-radio:has(input:checked) {
+  border-color: var(--color-primary);
+  background: var(--color-primary-50);
+}
+
+.provider-radio em { color: var(--color-gray-500); font-style: normal; font-size: var(--font-size-xs); }

@@ -1,0 +1,23 @@
+<!-- Menu trái kiểu Legacy CRM: phần dùng chung cố định ở trên, chọn teamspace, bên dưới là module riêng của teamspace.
+     Dữ liệu: appName, tenantName, inSettings, admin, settings[], common[], teamName, teams[{id,label,n,on}], teamProp, groups[{title, items[]}] -->
+<div class="brand"><span class="mark"><svg><use href="#beam"/></svg></span><div><b>{{appName}}</b><small>{{tenantName}}</small></div></div>
+<nav class="nav">
+  {{#if inSettings}}
+  <a href="/p/home">{{ic "left"}}{{t "nav.back"}}</a>
+  <div class="nav-g">{{t "nav.settings"}}</div>
+  {{#each settings}}<a href="/p/{{page}}" class="{{#if on}}on{{/if}}"{{fa feat}}>{{ic icon}}{{label}}</a>{{/each}}
+  {{else}}
+  {{#each common}}<a href="{{href}}" class="{{#if on}}on{{/if}}"{{fa feat}}>{{ic icon}}{{label}}{{#if badge}}<span class="cnt" id="badge-{{badge}}"></span>{{/if}}</a>{{/each}}
+{{#unless group}}  <div class="ts"{{fa "M02.05"}}><small>{{t "nav.team"}}{{#if teamProp}}<span class="prop" title="{{t "nav.propTeam"}}">{{t "nav.propTag"}}</span>{{/if}}</small>
+    <!-- chọn teamspace: dropdown tự vẽ, mở ngay trong menu trái (không bị cắt khi menu cuộn) -->
+    <button class="tsb" onclick="this.parentNode.classList.toggle('open')" title="{{t "nav.team"}}">{{ic "users" "sm"}}<span>{{teamName}}</span>{{ic "down" "sm"}}</button>
+    <div class="ts-pop">{{#each teams}}<button class="{{#if on}}on{{/if}}" onclick="switchTeam('{{id}}')">{{ic "users" "sm"}}<div><b>{{label}}</b><small>{{t "nav.teamN" n=n}}</small></div>{{#if on}}{{ic "ok" "sm"}}{{/if}}</button>{{/each}}</div>
+  </div>{{/unless}}
+  {{#each groups}}
+    {{#if title}}<div class="nav-g">{{title}}</div>{{/if}}
+    {{#each items}}<a href="{{href}}" class="{{#if on}}on{{/if}}"{{fa feat}}>{{ic icon}}{{label}}{{#if prop}}<span class="prop" title="{{t "nav.prop"}}">{{t "nav.propTag"}}</span>{{/if}}{{#if badge}}<span class="cnt" id="badge-{{badge}}"></span>{{/if}}</a>{{/each}}
+  {{/each}}
+  {{#if admin}}<div class="nav-g">{{t "nav.admin"}}</div>
+  <a href="/p/s-tenant">{{ic "set"}}{{t "nav.settings"}}</a>{{/if}}
+  {{/if}}
+</nav>

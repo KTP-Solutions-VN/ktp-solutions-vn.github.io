@@ -1,0 +1,7 @@
+/* ACC-009 — Statement Reconcile */
+.rc-summary { padding: 16px 20px; border-top: 1px solid var(--color-gray-100); }
+.rc-summary__row { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; font-size: var(--font-size-sm); color: var(--color-gray-700); }
+.rc-summary__row--total { font-weight: 700; font-size: var(--font-size-lg); color: var(--color-primary-dark); border-top: 1px solid var(--color-gray-200); margin-top: 6px; padding-top: 12px; }
+.rc-summary__row--total.is-balanced span:last-child { color: var(--color-success-text); }
+.rc-summary__row--total.is-off span:last-child { color: var(--color-danger-text); }
+.rc-qedit-input { width: 100px; border: 1px solid var(--color-primary); border-radius: var(--radius-sm); padding: 5px 8px; font-size: var(--font-size-sm); font-variant-numeric: tabular-nums; }

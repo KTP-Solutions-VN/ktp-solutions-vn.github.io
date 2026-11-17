@@ -1,0 +1,9 @@
+/* ACC-028 — Account Reconcile (legacy) */
+.deprecated-banner {
+  display: flex; gap: 12px; align-items: flex-start; background: var(--color-warning-bg);
+  border-radius: var(--radius-lg); padding: 16px 18px; margin-bottom: 20px; color: #7a4f0f;
+}
+.deprecated-banner svg { width: 22px; height: 22px; flex-shrink: 0; margin-top: 1px; }
+.deprecated-banner strong { color: #7a4f0f; }
+.deprecated-banner p { margin: 4px 0 0; font-size: var(--font-size-sm); }
+.deprecated-banner a { text-decoration: underline; font-weight: 600; }

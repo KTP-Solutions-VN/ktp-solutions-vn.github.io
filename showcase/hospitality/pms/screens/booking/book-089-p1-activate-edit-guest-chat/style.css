@@ -1,0 +1,5 @@
+@import url("../_shared/booking-shared.css");
+
+/* BOOK-089-P1 Activate/Edit Guest Chat — page-specific overrides only */
+
+#f-owner-row select { width: 100%; }

@@ -1,0 +1,20 @@
+<!-- Tab "Chi tiết": section theo layout. Dữ liệu: sections[{name, feat, fields[{label,required,value,feat}], subs[{label, cols[], rows[[html]]}]}] -->
+{{#each sections}}
+<div class="sec"{{fa feat}}>
+  <h4>{{name}}</h4>
+  {{#if fields.length}}
+  <div class="fields">{{#each fields}}<div{{fa feat}}><div class="k">{{label}}{{#if required}} *{{/if}}</div><div class="v">{{{value}}}</div></div>{{/each}}</div>
+  {{/if}}
+  {{#each subs}}
+  <div class="sub"{{fa feat}}>
+    <div class="faint sm" style="margin:6px 0">{{label}}</div>
+    {{#if rows.length}}
+    <div class="scroll"><table>
+      <thead><tr><th>#</th>{{#each cols}}<th>{{this}}</th>{{/each}}</tr></thead>
+      <tbody>{{#each rows}}<tr><td>{{inc @index}}</td>{{#each this}}<td>{{{this}}}</td>{{/each}}</tr>{{/each}}</tbody>
+    </table></div>
+    {{else}}<span class="empty">—</span>{{/if}}
+  </div>
+  {{/each}}
+</div>
+{{/each}}

@@ -1,0 +1,10 @@
+.iwish-toggle { border: none; background: var(--color-gray-100); color: var(--color-gray-500); width: 44px; height: 24px; border-radius: var(--radius-pill); position: relative; cursor: pointer; flex-shrink: 0; }
+.iwish-toggle::before { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: var(--color-white); transition: transform var(--transition-fast); box-shadow: var(--shadow-1); }
+.iwish-toggle.on { background: var(--color-success); }
+.iwish-toggle.on::before { transform: translateX(20px); }
+.region-group { border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); margin-bottom: 12px; }
+.region-group__header { display: flex; align-items: center; gap: 10px; padding: 12px 14px; font-weight: 700; color: var(--color-primary-dark); cursor: pointer; }
+.region-group__villas { padding: 0 14px 14px 34px; display: flex; flex-wrap: wrap; gap: 14px; }
+.region-group__villas label { display: flex; align-items: center; gap: 6px; font-size: var(--font-size-sm); color: var(--color-gray-700); }
+.footer-link-row { display: flex; gap: 10px; align-items: flex-end; margin-bottom: 10px; }
+.footer-link-row .form-group { flex: 1; }

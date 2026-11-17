@@ -1,0 +1,23 @@
+<!-- Thanh trên. Dữ liệu: curTenant, tenants[{code,name,color,all,on}], user, isVi, annot, viewingAs, users[{id,name,role,profile,on,mine}] (menu Xem với vai trò) -->
+<button class="ibtn menu-btn" onclick="$('#side').classList.toggle('open')">{{ic "list"}}</button>
+<div class="tsw"{{fa "M01.05"}}><!-- chọn pháp nhân: dropdown tự vẽ (mỗi pháp nhân 1 màu riêng, Group View (tổng hợp) ở đầu, tách bằng đường kẻ) -->
+  <button class="tenant" onclick="this.parentNode.classList.toggle('open')" title="{{t "top.tenant"}}"><span class="dot"></span><span class="tl">{{curTenant}}</span>{{ic "down" "sm"}}</button>
+  <div class="tsw-pop"><div class="h">{{t "top.tenant"}}</div>
+    {{#each tenants}}<button class="{{#if on}}on{{/if}}" onclick="switchTenant('{{code}}')"><span class="tcode" style="background:{{color}}">{{#if all}}{{ic "eye" "sm"}}{{else}}{{code}}{{/if}}</span><div><b>{{name}}</b>{{#if all}}<small>{{t "top.allSub"}}</small>{{/if}}</div>{{#if on}}{{ic "ok" "sm"}}{{/if}}</button>{{#if all}}<div class="sep"></div>{{/if}}{{/each}}
+  </div>
+</div>
+{{#unless group}}<button class="ibtn qc"{{fa "M31.07"}} onclick="quickCreate()" title="{{t "top.quick"}}">{{ic "plus"}}</button>{{/unless}}
+<span class="sp"></span>
+{{#if isVi}}<button class="btn ghost" id="tourBtn" onclick="toggleTour()">{{ic "play" "sm"}}<span>{{t "top.tour"}}</span></button>{{/if}}{{!-- kịch bản demo chỉ hiện ở bản tiếng Việt --}}
+{{#if isVi}}<button class="btn ghost" id="annotBtn" onclick="toggleAnnot()">{{ic "tag" "sm"}}<span>{{#if annot}}{{t "top.annotOff"}}{{else}}{{t "top.annotOn"}}{{/if}}</span></button>{{/if}}
+<button class="lang" onclick="switchLang()">{{#if isVi}}EN{{else}}VI{{/if}}</button>
+<button class="ibtn"{{fa "M22.02"}} onclick="go('/p/myjobs')" title="{{t "page.myjobs"}}">{{ic "check"}}<span class="cntb" id="badge-top"></span></button>
+<button class="ibtn"{{fa "M22.03"}} onclick="toast(t('top.notif'))">{{ic "bell"}}<span class="dotn"></span></button>
+{{#if viewingAs}}<button class="btn viewas" onclick="viewAsMe()" title="{{t "top.viewAsBack"}}">{{ic "eye" "sm"}}<span>{{t "top.viewingAs"}}</span></button>{{/if}}
+<div class="me-wrap"{{fa "M02.01"}}>
+  <button class="me" onclick="this.parentNode.classList.toggle('open')" title="{{t "so.viewAs"}}">{{av user.name true}}<div><b>{{user.name}}</b><small>{{user.role}}</small></div>{{ic "down" "sm"}}</button>
+  <div class="me-pop"><div class="h">{{t "so.viewAs"}}</div>
+    {{#each users}}<button class="{{#if on}}on{{/if}}" onclick="viewAs('{{id}}')">{{av name}}<div><b>{{name}}{{#if mine}} · {{t "top.you"}}{{/if}}</b><small>{{role}} · {{profile}}</small></div>{{#if on}}{{ic "ok" "sm"}}{{/if}}</button>{{#if all}}<div class="sep"></div>{{/if}}{{/each}}
+  </div>
+</div>
+<button class="ibtn"{{fa "M01.06"}} onclick="go('/login')" title="{{t "top.logout"}}">{{ic "out"}}</button>

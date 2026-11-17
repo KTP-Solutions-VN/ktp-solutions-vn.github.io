@@ -1,0 +1,17 @@
+<!-- Hộp thoại dùng chung (cập nhật hàng loạt, chia sẻ, gửi email, lưu view, tạo báo cáo, tạo nhanh…).
+     Dữ liệu: title, feat, intro, fields[{id, label, kind: "select"|"text"|"textarea"|"info", options[{value,label,on}], value}], ok -->
+<div class="box"{{fa feat}}>
+  <div class="card-h"><h3>{{title}}</h3></div>
+  <div class="card-b">
+    {{#if intro}}<div class="muted sm">{{intro}}</div>{{/if}}
+    {{#each fields}}
+    <label class="fl">{{label}}
+      {{#if (eq kind "select")}}<select class="inp" id="dlg-{{id}}">{{#each options}}<option value="{{value}}"{{#if on}} selected{{/if}}>{{label}}</option>{{/each}}</select>
+      {{else if (eq kind "textarea")}}<textarea class="inp" id="dlg-{{id}}">{{value}}</textarea>
+      {{else if (eq kind "info")}}<span class="chip">{{value}}</span>
+      {{else}}<input class="inp" id="dlg-{{id}}" value="{{value}}">{{/if}}
+    </label>
+    {{/each}}
+  </div>
+  <div class="foot"><button class="btn" onclick="closeModal()">{{t "act.cancel"}}</button><button class="btn pri" id="mok">{{ok}}</button></div>
+</div>

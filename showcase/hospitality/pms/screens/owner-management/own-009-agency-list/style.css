@@ -1,0 +1,10 @@
+/* OWN-009 Agency List — page-specific overrides only */
+.detail-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+.detail-list > div { display: flex; flex-direction: column; gap: 2px; }
+.detail-list dt { font-size: 12px; color: var(--color-gray-500); }
+.detail-list dd { margin: 0; font-size: 14px; font-weight: 600; color: var(--color-primary-dark); }

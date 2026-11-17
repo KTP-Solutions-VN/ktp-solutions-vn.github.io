@@ -1,0 +1,244 @@
+/* ==========================================================================
+   Guest Portal — shared shell (GST-001..GST-011)
+   Public/Commercial tone per ui-kit-brief.md §6: warmer copy, more breathing
+   room, a lighter top-nav instead of the internal 12-group sidebar (guests
+   have zero training with the system and only need ~9 destinations). Reuses
+   the exact same tokens/components as the rest of the prototype — .topbar,
+   .avatar, .user-dropdown, .icon-btn, .popover, .card, .badge, .btn-* and
+   .page-content all come straight from assets/css/global.css unmodified.
+   ========================================================================== */
+
+.guest-shell { min-height: 100vh; display: flex; flex-direction: column; background: var(--color-gray-50); }
+
+/* -------------------------------------------------------------------- */
+/* Top nav (reuses .topbar/.topbar__actions/.icon-btn/.avatar/.user-dropdown) */
+/* -------------------------------------------------------------------- */
+
+.guest-topbar { gap: 20px; }
+.guest-topbar__left { display: flex; align-items: center; gap: 28px; min-width: 0; }
+
+.guest-brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.guest-brand img { height: 32px; width: 32px; object-fit: contain; background: var(--color-white); border-radius: var(--radius-sm); padding: 3px; border: 1px solid var(--color-gray-200); flex-shrink: 0; }
+.guest-brand__text { display: flex; flex-direction: column; line-height: 1.2; }
+.guest-brand__text strong { font-size: var(--font-size-md); font-weight: 700; color: var(--color-primary-dark); }
+.guest-brand__text em { font-style: normal; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-gray-500); }
+
+.guest-nav { display: flex; align-items: center; gap: 2px; }
+.guest-nav__item { position: relative; }
+.guest-nav__link {
+  display: flex; align-items: center; gap: 6px; padding: 9px 12px; border: none; background: transparent;
+  border-radius: var(--radius-md); font-size: var(--font-size-sm); font-weight: 600; color: var(--color-gray-600);
+  cursor: pointer; white-space: nowrap; font-family: inherit;
+}
+.guest-nav__link:hover { background: var(--color-gray-100); color: var(--color-primary-dark); }
+.guest-nav__link.active { background: var(--color-primary-50); color: var(--color-primary-dark); }
+.guest-nav__link .chev { width: 14px; height: 14px; transition: transform var(--transition-fast); }
+.guest-nav__item:hover .chev, .guest-nav__item.open .chev { transform: rotate(180deg); }
+
+.guest-nav__menu {
+  position: absolute; top: calc(100% + 6px); left: 0; background: var(--color-white);
+  border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); box-shadow: var(--shadow-2);
+  min-width: 230px; padding: 6px; opacity: 0; visibility: hidden; transform: translateY(-6px);
+  transition: opacity var(--transition-fast), transform var(--transition-fast), visibility var(--transition-fast);
+  z-index: 40;
+}
+@media (hover: hover) {
+  .guest-nav__item:hover .guest-nav__menu { opacity: 1; visibility: visible; transform: translateY(0); }
+}
+.guest-nav__item.open .guest-nav__menu { opacity: 1; visibility: visible; transform: translateY(0); }
+
+.guest-nav__menu a { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: var(--radius-sm); font-size: var(--font-size-sm); font-weight: 600; color: var(--color-gray-700); }
+.guest-nav__menu a svg { width: 15px; height: 15px; color: var(--color-gray-400); flex-shrink: 0; }
+.guest-nav__menu a:hover { background: var(--color-gray-100); color: var(--color-primary-dark); }
+.guest-nav__menu a:hover svg { color: var(--color-primary-dark); }
+.guest-nav__menu a.active { background: var(--color-primary-50); color: var(--color-primary-dark); }
+
+.guest-nav-toggle { display: none; }
+
+@media (max-width: 980px) {
+  .guest-topbar__left { gap: 14px; }
+  .guest-nav-toggle {
+    display: flex; align-items: center; justify-content: center; width: 38px; height: 38px;
+    border-radius: var(--radius-md); border: 1px solid var(--color-gray-200); background: var(--color-white); cursor: pointer; color: var(--color-gray-700);
+  }
+  .guest-nav {
+    position: fixed; top: var(--topbar-height); left: 0; right: 0; background: var(--color-white);
+    border-bottom: 1px solid var(--color-gray-200); box-shadow: var(--shadow-2);
+    flex-direction: column; align-items: stretch; padding: 8px; gap: 2px;
+    display: none; z-index: 50; max-height: calc(100vh - var(--topbar-height)); overflow-y: auto;
+  }
+  .guest-nav.open { display: flex; }
+  .guest-nav__link { width: 100%; justify-content: space-between; }
+  .guest-nav__menu { position: static; box-shadow: none; border: none; opacity: 1; visibility: visible; transform: none; display: none; padding-left: 10px; }
+  .guest-nav__item.open .guest-nav__menu { display: block; }
+}
+
+/* -------------------------------------------------------------------- */
+/* Guest content wrapper                                                */
+/* -------------------------------------------------------------------- */
+
+.guest-content { max-width: 1180px; margin: 0 auto; width: 100%; }
+
+.reset-demo-btn--inline { position: static; margin-top: var(--sp-8); }
+
+.stack-16 { display: flex; flex-direction: column; gap: 16px; }
+
+.guest-footer {
+  text-align: center; padding: 20px 24px 32px; font-size: var(--font-size-xs); color: var(--color-gray-400);
+}
+
+/* -------------------------------------------------------------------- */
+/* Warm hero banner (reserved for Guest Portal + Login per ui-kit-brief §7) */
+/* -------------------------------------------------------------------- */
+
+.guest-hero {
+  position: relative; overflow: hidden; border-radius: var(--radius-lg); color: var(--color-white);
+  padding: var(--sp-8) var(--sp-8); margin-bottom: var(--sp-6);
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-navy-600) 55%, var(--color-primary-600) 130%);
+}
+.guest-hero__blob { position: absolute; border-radius: 50%; filter: blur(2px); opacity: 0.45; pointer-events: none; }
+.guest-hero__blob--1 { width: 260px; height: 260px; background: radial-gradient(circle, rgba(76, 95, 255, 0.4), transparent 70%); top: -90px; right: -60px; }
+.guest-hero__blob--2 { width: 200px; height: 200px; background: radial-gradient(circle, rgba(240, 68, 56, 0.28), transparent 70%); bottom: -70px; left: 10%; }
+.guest-hero__content { position: relative; z-index: 1; }
+.guest-hero__eyebrow { font-size: var(--font-size-xs); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255, 255, 255, 0.72); margin-bottom: 6px; }
+.guest-hero h1 { color: var(--color-white); font-size: 28px; line-height: 1.3; margin: 0 0 8px; max-width: 640px; }
+.guest-hero p { color: rgba(255, 255, 255, 0.86); font-size: var(--font-size-md); max-width: 620px; margin: 0; line-height: 1.6; }
+.guest-hero__actions { display: flex; gap: 10px; margin-top: var(--sp-6); flex-wrap: wrap; }
+.guest-hero .btn-outline { background: rgba(255, 255, 255, 0.1); color: var(--color-white); border-color: rgba(255, 255, 255, 0.4); }
+.guest-hero .btn-outline:hover { background: rgba(255, 255, 255, 0.18); border-color: var(--color-white); }
+
+/* -------------------------------------------------------------------- */
+/* Photo tiles — CSS-drawn "villa/place" imagery, not stock photography  */
+/* -------------------------------------------------------------------- */
+
+.photo-tile {
+  position: relative; border-radius: var(--radius-lg); overflow: hidden; color: var(--color-white);
+  display: flex; align-items: flex-end; padding: var(--sp-4); min-height: 150px;
+}
+.photo-tile__icon { position: absolute; top: 14px; right: 14px; width: 30px; height: 30px; opacity: 0.5; }
+.photo-tile__label { position: relative; z-index: 1; font-weight: 700; font-size: var(--font-size-md); text-shadow: 0 1px 6px rgba(0, 0, 0, 0.25); }
+.photo-tile__sub { position: relative; z-index: 1; font-size: var(--font-size-xs); color: rgba(255, 255, 255, 0.85); margin-top: 2px; }
+.photo-tile--a { background: linear-gradient(150deg, var(--color-primary) 0%, var(--color-primary-dark) 100%); }
+.photo-tile--b { background: linear-gradient(150deg, var(--color-navy-500) 0%, var(--color-primary-dark) 100%); }
+.photo-tile--c { background: linear-gradient(150deg, #f0b25a 0%, var(--color-accent) 100%); }
+.photo-tile--d { background: linear-gradient(150deg, var(--color-primary-600) 0%, var(--color-navy-700) 100%); }
+
+/* -------------------------------------------------------------------- */
+/* Booking / stay cards                                                  */
+/* -------------------------------------------------------------------- */
+
+.stay-card { display: flex; gap: 0; overflow: hidden; }
+.stay-card__photo { width: 200px; flex-shrink: 0; }
+.stay-card__photo .photo-tile { border-radius: 0; height: 100%; min-height: 160px; }
+.stay-card__body { padding: var(--sp-4) var(--sp-6); flex: 1; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.stay-card__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.stay-card__dates { display: flex; align-items: center; gap: 10px; font-size: var(--font-size-sm); color: var(--color-gray-700); font-weight: 600; }
+.stay-card__dates svg { width: 16px; height: 16px; color: var(--color-gray-400); }
+.stay-card__footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 6px; }
+@media (max-width: 720px) { .stay-card { flex-direction: column; } .stay-card__photo { width: 100%; } }
+
+/* -------------------------------------------------------------------- */
+/* Amenities hub icon grid (GST-004)                                     */
+/* -------------------------------------------------------------------- */
+
+.amenity-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+@media (max-width: 900px) { .amenity-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.amenity-tile {
+  display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px;
+  padding: var(--sp-6) var(--sp-4); border-radius: var(--radius-lg); background: var(--color-white);
+  border: 1px solid var(--color-gray-200); box-shadow: var(--shadow-1); cursor: pointer;
+  transition: box-shadow var(--transition-fast), transform var(--transition-fast), border-color var(--transition-fast);
+}
+.amenity-tile:hover { box-shadow: var(--shadow-2); transform: translateY(-2px); border-color: var(--color-primary); }
+.amenity-tile__icon {
+  width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  background: var(--color-primary-50); color: var(--color-primary-dark); flex-shrink: 0;
+}
+.amenity-tile__icon svg { width: 24px; height: 24px; }
+.amenity-tile__label { font-weight: 700; color: var(--color-primary-dark); font-size: var(--font-size-md); }
+.amenity-tile__sub { font-size: var(--font-size-xs); color: var(--color-gray-500); }
+
+/* -------------------------------------------------------------------- */
+/* Info list rows (amenities / rules / contact)                          */
+/* -------------------------------------------------------------------- */
+
+.info-row { display: flex; align-items: flex-start; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--color-gray-100); }
+.info-row:last-child { border-bottom: none; }
+.info-row svg { width: 18px; height: 18px; color: var(--color-primary); flex-shrink: 0; margin-top: 1px; }
+.info-row__text { font-size: var(--font-size-sm); color: var(--color-gray-800); line-height: 1.5; }
+
+.wifi-card { display: flex; align-items: center; gap: 14px; background: var(--color-primary-50); border: 1px solid var(--color-primary-100); border-radius: var(--radius-md); padding: 14px 16px; }
+.wifi-card svg { width: 26px; height: 26px; color: var(--color-primary-dark); flex-shrink: 0; }
+.wifi-card__row { font-size: var(--font-size-sm); color: var(--color-gray-800); }
+.wifi-card__row strong { color: var(--color-primary-dark); }
+.wifi-card code { background: var(--color-white); border: 1px solid var(--color-primary-100); border-radius: var(--radius-sm); padding: 1px 7px; font-size: var(--font-size-sm); font-weight: 700; color: var(--color-primary-dark); }
+
+/* -------------------------------------------------------------------- */
+/* Rating stars                                                          */
+/* -------------------------------------------------------------------- */
+
+.stars { display: inline-flex; align-items: center; gap: 2px; color: var(--color-warning-text); }
+.stars svg { width: 15px; height: 15px; }
+.stars__value { margin-left: 4px; font-size: var(--font-size-xs); font-weight: 700; color: var(--color-gray-700); }
+
+/* -------------------------------------------------------------------- */
+/* Restaurant cards                                                      */
+/* -------------------------------------------------------------------- */
+
+.restaurant-card { display: flex; flex-direction: column; overflow: hidden; cursor: pointer; }
+.restaurant-card .photo-tile { min-height: 130px; }
+.restaurant-card__body { padding: var(--sp-4); display: flex; flex-direction: column; gap: 6px; }
+.restaurant-card__meta { font-size: var(--font-size-xs); color: var(--color-gray-500); }
+
+/* -------------------------------------------------------------------- */
+/* Landmark cards                                                        */
+/* -------------------------------------------------------------------- */
+
+.landmark-card .photo-tile { min-height: 150px; }
+.landmark-card__body { padding: var(--sp-4); }
+.landmark-card__body p { margin: 6px 0 0; font-size: var(--font-size-sm); color: var(--color-gray-600); line-height: 1.5; }
+
+/* -------------------------------------------------------------------- */
+/* Activity category cards (GST-011)                                     */
+/* -------------------------------------------------------------------- */
+
+.activity-cat-card { display: flex; flex-direction: column; padding: var(--sp-6); gap: 10px; text-align: left; cursor: pointer; }
+.activity-cat-card__icon { width: 44px; height: 44px; border-radius: 50%; background: var(--color-accent-50); color: var(--color-danger-text); display: flex; align-items: center; justify-content: center; }
+.activity-cat-card__icon svg { width: 22px; height: 22px; }
+.activity-cat-card h3 { display: flex; align-items: center; gap: 8px; }
+.activity-cat-card h3 svg.ext { width: 14px; height: 14px; color: var(--color-gray-400); }
+
+/* -------------------------------------------------------------------- */
+/* Progress steps (pre-arrival confirm, GST-003)                         */
+/* -------------------------------------------------------------------- */
+
+.confirm-row { display: flex; align-items: flex-start; gap: 16px; padding: var(--sp-4) 0; border-bottom: 1px solid var(--color-gray-100); }
+.confirm-row:last-child { border-bottom: none; }
+.confirm-row__icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: var(--color-gray-100); color: var(--color-gray-500); }
+.confirm-row__icon.done { background: var(--color-success-bg); color: var(--color-success-text); }
+.confirm-row__icon.pending { background: var(--color-warning-bg); color: var(--color-warning-text); }
+.confirm-row__icon svg { width: 20px; height: 20px; }
+.confirm-row__body { flex: 1; min-width: 0; }
+.confirm-row__title { font-weight: 700; color: var(--color-primary-dark); font-size: var(--font-size-md); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.confirm-row__message { font-size: var(--font-size-sm); color: var(--color-gray-600); margin-top: 2px; }
+.confirm-row__actions { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+
+.confirm-edit { margin-top: 12px; padding: 14px; background: var(--color-gray-50); border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); }
+.confirm-edit .form-grid { margin-bottom: 6px; }
+
+.radio-row { display: flex; gap: 18px; margin-top: 4px; flex-wrap: wrap; }
+.radio-option { display: flex; align-items: center; gap: 8px; font-size: var(--font-size-sm); color: var(--color-gray-700); cursor: pointer; }
+.radio-option input { width: 16px; height: 16px; accent-color: var(--color-primary-dark); }
+
+/* -------------------------------------------------------------------- */
+/* Guidance / help banner (zero-training inline copy)                    */
+/* -------------------------------------------------------------------- */
+
+.guest-tip {
+  display: flex; gap: 12px; align-items: flex-start; background: var(--color-primary-50);
+  border: 1px solid var(--color-primary-100); border-radius: var(--radius-md); padding: 14px 16px; margin-bottom: var(--sp-6);
+}
+.guest-tip svg { width: 20px; height: 20px; color: var(--color-primary-dark); flex-shrink: 0; margin-top: 1px; }
+.guest-tip__text { font-size: var(--font-size-sm); color: var(--color-gray-800); line-height: 1.5; }
+.guest-tip__text strong { color: var(--color-primary-dark); }

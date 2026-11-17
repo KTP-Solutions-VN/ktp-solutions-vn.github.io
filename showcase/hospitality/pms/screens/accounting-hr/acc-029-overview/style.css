@@ -1,0 +1,27 @@
+/* ACC-029 — Accounting & HR Overview */
+.ov-shortcut-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+@media (max-width: 1180px) { .ov-shortcut-grid { grid-template-columns: repeat(2, 1fr); } }
+.ov-shortcut {
+  display: flex; flex-direction: column; gap: 4px; padding: 14px 16px;
+  border: 1px solid var(--color-gray-200); border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.ov-shortcut:hover { border-color: var(--color-primary); box-shadow: var(--shadow-2); transform: translateY(-2px); }
+.ov-shortcut__icon { width: 32px; height: 32px; border-radius: var(--radius-sm); background: var(--color-primary-50); color: var(--color-primary-dark); display: flex; align-items: center; justify-content: center; margin-bottom: 4px; }
+.ov-shortcut__icon svg { width: 17px; height: 17px; }
+.ov-shortcut__label { font-weight: 700; color: var(--color-primary-dark); font-size: var(--font-size-sm); }
+.ov-shortcut__hint { font-size: var(--font-size-xs); color: var(--color-gray-500); }
+
+.dash-grid-acc { display: grid; grid-template-columns: 1.4fr 1fr; gap: 18px; }
+@media (max-width: 1180px) { .dash-grid-acc { grid-template-columns: 1fr; } }
+
+.ov-attn-list { list-style: none; margin: 0; padding: 8px 0; }
+.ov-attn-list li a { display: flex; align-items: center; gap: 10px; padding: 12px 20px; font-size: var(--font-size-sm); color: var(--color-gray-800); border-bottom: 1px solid var(--color-gray-100); }
+.ov-attn-list li:last-child a { border-bottom: none; }
+.ov-attn-list li a:hover { background: var(--color-gray-50); }
+.ov-attn-icon { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.ov-attn-icon svg { width: 15px; height: 15px; }
+.ov-attn-icon.warning { background: var(--color-warning-bg); color: var(--color-warning-text); }
+.ov-attn-icon.danger { background: var(--color-danger-bg); color: var(--color-danger-text); }
+.ov-attn-icon.info { background: var(--color-info-bg); color: var(--color-primary-dark); }
+.ov-attn-list li a span:nth-child(2) { flex: 1; }

@@ -1,0 +1,102 @@
+{
+  "_note": "entities: module của teamspace, theo đúng thứ tự Legacy CRM (BA, sandbox APE). proposed: module/teamspace do HBLAB đề xuất thêm, chưa có trên Legacy CRM ('*' = cả teamspace). members: thành viên teamspace theo users / roles / profiles / groups (dữ liệu giả); user chỉ thấy teamspace mình là thành viên.",
+  "teams": [
+    {
+      "id": "crm",
+      "name": {
+        "vi": "CRM Teamspace",
+        "en": "CRM Teamspace"
+      },
+      "entities": "*",
+      "members": {
+        "groups": [
+          "All Users"
+        ]
+      }
+    },
+    {
+      "id": "sales",
+      "name": {
+        "vi": "Sales Team",
+        "en": "Sales Team"
+      },
+      "entities": [
+        "leads",
+        "contacts",
+        "accounts",
+        "deals",
+        "quotes",
+        "orders",
+        "products",
+        "tasks"
+      ],
+      "proposed": [
+        "products",
+        "tasks"
+      ],
+      "members": {
+        "groups": [
+          "Sales Team"
+        ],
+        "roles": [
+          "Sales Director"
+        ]
+      }
+    },
+    {
+      "id": "aftersales",
+      "name": {
+        "vi": "After Sales",
+        "en": "After Sales"
+      },
+      "entities": [
+        "accounts",
+        "deals",
+        "products",
+        "quotes",
+        "orders",
+        "jobs",
+        "vehicles",
+        "nea",
+        "si",
+        "partsreq",
+        "tickets",
+        "tasks"
+      ],
+      "proposed": [
+        "si",
+        "partsreq",
+        "tickets",
+        "tasks"
+      ],
+      "members": {
+        "groups": [
+          "After Sales Team"
+        ]
+      }
+    },
+    {
+      "id": "admin",
+      "name": {
+        "vi": "Admin & mua hàng",
+        "en": "Admin & purchasing"
+      },
+      "entities": [
+        "accounts",
+        "orders",
+        "invoices",
+        "pr",
+        "vendors",
+        "products",
+        "si",
+        "tasks"
+      ],
+      "proposed": "*",
+      "members": {
+        "groups": [
+          "Admin Team"
+        ]
+      }
+    }
+  ]
+}

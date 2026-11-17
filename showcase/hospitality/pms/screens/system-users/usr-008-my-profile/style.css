@@ -1,0 +1,9 @@
+/* USR-008 — My Profile */
+
+.auth-alert {
+  display: flex; align-items: flex-start; gap: 10px;
+  background: var(--color-danger-bg); color: var(--color-accent-600);
+  border: 1px solid rgba(240, 68, 56, 0.25); border-radius: var(--radius-md);
+  padding: 12px 14px; font-size: var(--font-size-sm);
+}
+.auth-alert svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; }

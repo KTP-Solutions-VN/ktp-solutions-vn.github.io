@@ -1,0 +1,24 @@
+<!-- Kanban theo trạng thái. Dữ liệu: key, head, feat, drag (kéo thả đổi trạng thái theo Blueprint), group, scope (mine|team|all), quick{label,cur,opts[]}, tenants[{c,on}],
+     columns[{state, tone, n, more{n,href} (cột đã đóng: thẻ cũ hơn 30 ngày), cards[{id,title,sub,icon,tag,rel{label,href},date,over,overTxt,prio,value,owner,tenant,tcolor}] (cùng kiểu thẻ Bảng công việc)}] -->
+{{> page-head head}}
+<div class="wkbar"{{fa "M31.02"}}>
+  <div class="seg3"><button class="{{#if (eq scope "mine")}}on{{/if}}" onclick="kbSet('{{key}}','scope','mine')">{{t "wk.mine"}}</button><button class="{{#if (eq scope "team")}}on{{/if}}" onclick="kbSet('{{key}}','scope','team')">{{t "wk.team"}}</button><button class="{{#if (eq scope "all")}}on{{/if}}" onclick="kbSet('{{key}}','scope','all')">{{t "list.all"}}</button></div>
+  {{#if quick}}<select class="inp" style="width:auto" onchange="kbSet('{{key}}','quick',this.value)"><option value="">{{quick.label}}: {{t "kb.any"}}</option>{{#each quick.opts}}<option value="{{this}}"{{#if (eq this ../quick.cur)}} selected{{/if}}>{{this}}</option>{{/each}}</select>{{/if}}
+  {{#if group}}<select class="inp" style="width:auto" onchange="kbSet('{{key}}','tenant',this.value)"><option value="">{{t "wk.allTenants"}}</option>{{#each tenants}}<option value="{{c}}"{{#if on}} selected{{/if}}>{{c}}</option>{{/each}}</select>{{/if}}
+</div>
+<div class="kanban{{#if drag}} kdrag{{/if}}"{{fa feat}}>
+  {{#each columns}}
+  <div class="kcol" data-st="{{state}}"{{#if ../drag}} ondragover="event.preventDefault();this.classList.add('over')" ondragleave="this.classList.remove('over')" ondrop="kbDrop(event,this.dataset.st)"{{/if}}>
+    <h4><i style="background:var(--{{tone}})"></i>{{state}}<em>{{n}}</em></h4>
+    {{#each cards}}
+    <div class="kc wkc"{{#if ../../drag}} draggable="true" ondragstart="kbDrag(event,'{{id}}')" ondragend="kbEnd(event)"{{/if}} onclick="go('/e/{{../../key}}/{{id}}')">
+      <div class="kt">{{#if tenant}}<span class="tbadge" style="background:{{tcolor}}">{{tenant}}</span>{{/if}}<span class="wki">{{ic icon "sm"}}</span><b>{{title}}</b></div>
+      {{#if sub}}<div class="m">{{sub}}{{#if tag}} · {{tag}}{{/if}}</div>{{else if tag}}<div class="m">{{tag}}</div>{{/if}}
+      {{#if rel}}<div class="m">{{t "wk.related"}}: {{#if rel.href}}<a href="{{rel.href}}" onclick="event.stopPropagation()">{{rel.label}}</a>{{else}}{{rel.label}}{{/if}}</div>{{/if}}
+      <div class="f">{{#if date}}<span class="sm {{#if over}}bad-t{{else}}faint{{/if}}">{{date}}{{#if overTxt}} · {{overTxt}}{{/if}}</span>{{/if}}{{#if prio}}<span class="pill p-acc">{{prio}}</span>{{/if}}{{#if value}}<b class="sm">{{value}}</b>{{/if}}<span class="sp"></span>{{#if owner}}{{av owner}}{{/if}}</div>
+    </div>
+    {{/each}}
+    {{#if more}}<a class="kmore sm" href="{{more.href}}">{{t "kb.more" n=more.n d=30}}</a>{{/if}}
+  </div>
+  {{/each}}
+</div>

@@ -1,0 +1,37 @@
+<!-- Cài đặt → Teamspace (kiểu Legacy CRM Setup → Teamspaces). Mỗi teamspace: module theo thứ tự hiển thị + thành viên.
+     Dữ liệu: head, note, me, teams[{id, name, all, prop, users[], modules[{key,label,icon,first,last,prop}], addModules[{key,label}],
+              members[{type,typeLabel,value,label}], addMembers[{label, items[{type,value,label}]}]}] -->
+{{> page-head head}}
+{{#if note}}<p class="note">{{note}}</p>{{/if}}
+<div class="grid tsp">
+  {{#each teams}}
+  <div class="card"{{fa "M02.05"}}>
+    <div class="card-h"><h3>{{name}}{{#if prop}} <span class="prop" title="{{t "nav.propTeam"}}">{{t "nav.propTag"}}</span>{{/if}}</h3>
+      <span class="muted sm">{{t "tsp.nUsers" n=users.length}}</span></div>
+    <div class="tsp-b">
+      <h4{{fa "M02.08"}}>{{t "tsp.modules"}}</h4>
+      {{#if all}}
+      <div class="muted sm">{{ic "layers" "sm"}} {{t "tsp.all"}}</div>
+      {{else}}
+      <ol class="tsp-mods">
+        {{#each modules}}
+        <li>{{ic icon "sm"}}<span>{{label}}</span>{{#if prop}}<span class="prop" title="{{t "nav.prop"}}">{{t "nav.propTag"}}</span>{{/if}}
+          <button class="ib up" title="{{t "tsp.up"}}" onclick="teamModule('{{../id}}','{{key}}','up')"{{#if first}} disabled{{/if}}>{{ic "down" "sm"}}</button>
+          <button class="ib" title="{{t "tsp.down"}}" onclick="teamModule('{{../id}}','{{key}}','down')"{{#if last}} disabled{{/if}}>{{ic "down" "sm"}}</button>
+          <button class="ib x" title="{{t "tsp.remove"}}" onclick="teamModule('{{../id}}','{{key}}','del')">×</button>
+        </li>
+        {{/each}}
+      </ol>
+      <select class="tsp-add" onchange="teamModule('{{id}}',this.value,'add')"><option value="">+ {{t "tsp.addModule"}}</option>{{#each addModules}}<option value="{{key}}">{{label}}</option>{{/each}}</select>
+      {{/if}}
+
+      <h4{{fa "M02.05"}}>{{t "tsp.members"}}</h4>
+      <div>{{#each members}}<span class="chip mem"><em>{{typeLabel}}</em>{{label}}<button title="{{t "tsp.remove"}}" onclick="teamMember('{{../id}}','{{type}}','{{value}}',true)">×</button></span>{{else}}<span class="muted sm">{{t "tsp.noMember"}}</span>{{/each}}</div>
+      <select class="tsp-add" onchange="const [a,b]=this.value.split('|');teamMember('{{id}}',a,b)"><option value="">+ {{t "tsp.addMember"}}</option>
+        {{#each addMembers}}<optgroup label="{{label}}">{{#each items}}<option value="{{type}}|{{value}}">{{label}}</option>{{/each}}</optgroup>{{/each}}
+      </select>
+      <div class="tsp-users">{{#each users}}{{av this}}{{/each}}</div>
+    </div>
+  </div>
+  {{/each}}
+</div>

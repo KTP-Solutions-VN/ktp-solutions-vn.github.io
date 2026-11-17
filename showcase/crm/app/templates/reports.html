@@ -1,0 +1,38 @@
+<!-- Báo cáo (M27.02 bảng, M27.04 biểu đồ, M27.05 lập lịch, M27.07 tự tạo). Dữ liệu: head, dirs[{label, items[{id,icon,name,entity,on}]}],
+     cur{id,name,desc,pinned,hasDate,dateLbl,dateTip,cmpOn,canCmp,dims[{d,label,on}],periods[{p,label,on}],custom,from,to,range,prange,bars[],cols[{l,num}],rows[[{h,num}]],foot[{h,num}],scheds[{i,freq,to,on}]} -->
+{{> page-head head}}
+<div class="rsplit">
+  <div class="card np rdirs"{{fa "M27.02"}}>
+    {{#each dirs}}<div class="rdir">{{label}}</div>
+      {{#each items}}<a class="ritem{{#if on}} on{{/if}}" onclick="go('/p/reports?i={{id}}')"><span class="tic">{{ic icon "sm"}}</span><span><b>{{name}}</b><span class="faint sm">{{entity}}</span></span></a>{{/each}}
+    {{/each}}
+  </div>
+  <div class="rmain">
+  {{#if cur}}
+    <div class="card np">
+      <div class="card-h"><div><h3>{{cur.name}}</h3>{{#if cur.desc}}<div class="faint sm">{{cur.desc}}</div>{{/if}}</div><span class="sp"></span>
+        <button class="btn xs{{#unless cur.pinned}} pri{{/unless}}"{{fa "M27.04"}} onclick="pinReport('{{cur.id}}')">{{#if cur.pinned}}{{t "rep.unpin"}}{{else}}{{ic "plus" "sm"}}{{t "rep.pin"}}{{/if}}</button>
+        <button class="btn xs"{{fa "M27.05"}} onclick="scheduleReport('{{cur.id}}')">{{ic "cal" "sm"}}{{t "rep.schedule"}}</button>
+        <button class="btn xs"{{fa "M29.02"}} onclick="repExport()">{{ic "download" "sm"}}Excel</button></div>
+      {{#if cur.hasDate}}<div class="wkbar rper">
+        <label class="rpsel" title="{{cur.dateTip}}">{{t "rep.period"}}: <select class="inp" onchange="repSetP(this.value)">{{#each cur.periods}}<option value="{{p}}"{{#if on}} selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+        {{#if cur.custom}}<span class="rpdate"><input id="rp-from" class="inp rpd" value="{{cur.from}}" placeholder="dd/mm/yyyy"><button class="ibtn" title="{{t "rep.pick"}}" onclick="repPick(event,'from')">{{ic "cal" "sm"}}</button></span> –
+        <span class="rpdate"><input id="rp-to" class="inp rpd" value="{{cur.to}}" placeholder="dd/mm/yyyy"><button class="ibtn" title="{{t "rep.pick"}}" onclick="repPick(event,'to')">{{ic "cal" "sm"}}</button></span>
+        <button class="btn xs" onclick="repApplyRange()">{{t "rep.apply"}}</button>
+        {{else}}{{#if cur.range}}<span class="sm">{{cur.range}}</span>{{/if}}{{/if}}
+        {{#if cur.dims}}<select class="inp" onchange="repSetDim(this.value)">{{#each cur.dims}}<option value="{{d}}"{{#if on}} selected{{/if}}>{{t "rep.groupBy"}}: {{label}}</option>{{/each}}</select>{{/if}}
+        <span class="sp"></span>
+        {{#if cur.canCmp}}<label class="rpcmp sm"><input type="checkbox"{{#if cur.cmpOn}} checked{{/if}} onchange="repCmp(this.checked)"> {{t "rep.cmp"}}{{#if cur.prange}} <span class="faint">({{cur.prange}})</span>{{/if}}</label>{{/if}}
+      </div>{{else}}<div class="wkbar rper"><span class="faint sm">{{t "rep.noDate"}}</span></div>{{/if}}
+      <div class="card-b">{{#if cur.bars.length}}{{> bars items=cur.bars}}{{else}}<p class="muted">{{t "rep.empty"}}</p>{{/if}}</div>
+      <div class="scroll"{{fa "M27.02"}}><table class="rtab"><thead><tr>{{#each cur.cols}}<th{{#if num}} class="num"{{/if}}>{{l}}</th>{{/each}}</tr></thead><tbody>
+        {{#each cur.rows}}<tr>{{#each this}}<td{{#if num}} class="num"{{/if}}>{{{h}}}</td>{{/each}}</tr>
+        {{else}}<tr><td colspan="{{cur.cols.length}}" class="muted">{{t "rep.empty"}}</td></tr>{{/each}}
+      </tbody>{{#if cur.foot}}<tfoot><tr>{{#each cur.foot}}<th{{#if num}} class="num"{{/if}}>{{{h}}}</th>{{/each}}</tr></tfoot>{{/if}}</table></div>
+    </div>
+    {{#if cur.scheds.length}}<div class="card np"{{fa "M27.05"}}><div class="card-h"><h3>{{t "rep.schedList"}}</h3></div>
+      <table><tbody>{{#each cur.scheds}}<tr><td>{{ic "send" "sm"}} {{freq}} → <b>{{to}}</b></td><td>{{#if on}}<span class="pill p-ok">{{t "rep.on"}}</span>{{else}}<span class="pill">{{t "rep.off"}}</span>{{/if}}</td>
+        <td class="num nowrap"><button class="btn xs" onclick="repSchedToggle({{i}})">{{#if on}}{{t "rep.turnOff"}}{{else}}{{t "rep.turnOn"}}{{/if}}</button> <button class="btn xs" onclick="repSchedDel({{i}})">{{t "rep.del"}}</button></td></tr>{{/each}}</tbody></table></div>{{/if}}
+  {{else}}<div class="card"><p class="muted">{{t "list.empty"}}</p></div>{{/if}}
+  </div>
+</div>

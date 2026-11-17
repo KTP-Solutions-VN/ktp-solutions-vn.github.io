@@ -1,0 +1,18 @@
+/* BOOK-105 — Follow Up Action */
+.card-title-sm {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 14px;
+  color: var(--color-primary-dark);
+}
+.detail-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+.detail-list > div { display: flex; flex-direction: column; gap: 2px; }
+.detail-list dt { font-size: 12px; color: var(--color-gray-500); }
+.detail-list dd { margin: 0; font-size: 14px; font-weight: 600; color: var(--color-primary-dark); }
+td.trend-up { color: var(--color-success-text); font-weight: 700; }
+td.trend-down { color: var(--color-danger-text); font-weight: 700; }

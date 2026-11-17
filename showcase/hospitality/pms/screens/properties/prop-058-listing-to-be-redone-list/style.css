@@ -1,0 +1,4 @@
+/* PROP-058 — Listing To Be Redone List: screen-specific rules only. */
+
+.section-title { margin: 4px 0 10px; font-size: var(--font-size-md); color: var(--color-primary-dark); }
+.row-actions { display: flex; gap: 6px; align-items: center; justify-content: flex-end; flex-wrap: wrap; }

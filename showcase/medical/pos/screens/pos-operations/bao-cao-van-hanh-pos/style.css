@@ -1,0 +1,20 @@
+.device-body { background: var(--gray-100); }
+.report-main { padding: var(--sp-5); }
+.report-header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--sp-4); margin-bottom: var(--sp-4); }
+.filter-row { display: flex; gap: var(--sp-3); flex-wrap: wrap; align-items: flex-end; margin-bottom: var(--sp-2); }
+
+.tab-panel { margin-top: var(--sp-4); }
+
+.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-3); margin-bottom: var(--sp-4); }
+
+.payment-bars { display: flex; flex-direction: column; gap: var(--sp-3); }
+.payment-bar__label { display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: var(--gray-700); margin-bottom: 4px; }
+.payment-bar__track { height: 10px; border-radius: 999px; background: var(--gray-100); overflow: hidden; }
+.payment-bar__fill { height: 100%; border-radius: 999px; background: var(--primary); }
+
+.med-trend-row { display: flex; align-items: center; gap: var(--sp-3); padding: 8px 0; border-bottom: 1px solid var(--gray-100); }
+.med-trend-row:last-child { border-bottom: none; }
+.med-trend-row__name { flex: 1; font-size: 13px; font-weight: 600; color: var(--gray-700); }
+.med-trend-row__count { font-size: 13px; color: var(--gray-500); }
+
+.nehr-filter-chips { display: flex; gap: var(--sp-2); margin-bottom: var(--sp-3); }

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loyalty Transaction History — CareJourney Admin</title>
+<link rel="stylesheet" href="../../../assets/css/global.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-shell">
+  
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark">CJ</div>
+      <div class="brand-name">CareJourney</div>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="nav-top-item" href="../../../screens/dashboard/index.html" data-nav-item>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg><span class="nav-label">Overview</span>
+        <div class="nav-tooltip">Overview / Dashboard</div>
+      </a>
+      
+      <div class="nav-group" data-nav-item>
+        <button type="button" class="nav-group-title">
+          <span class="title-left"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span class="nav-label">Order Management</span></span>
+          <svg width="14" height="14" viewBox="0 0 24 24" class="chevron" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-tooltip">Order Management</div>
+        <div class="nav-flyout"><div class="nav-flyout-title">Order Management</div><a href="../../../screens/don-hang/danh-sach-don-hang/index.html">Order List & Search</a><a href="../../../screens/don-hang/chi-tiet-don-hang/index.html">Order Detail</a><a href="../../../screens/don-hang/tao-chinh-sua-don-hang-thu-cong/index.html">Create/Edit Manual Order</a><a href="../../../screens/don-hang/duyet-yeu-cau-hoan-tien/index.html">Refund Approval</a><a href="../../../screens/don-hang/quan-ly-van-don-logistics/index.html">Shipment & Logistics</a><a href="../../../screens/don-hang/cau-hinh-email-hoa-don/index.html">Email & Invoice Config</a></div>
+        <div class="nav-children"><a class="nav-child" href="../../../screens/don-hang/danh-sach-don-hang/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Order List & Search</span></a><a class="nav-child" href="../../../screens/don-hang/chi-tiet-don-hang/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Order Detail</span></a><a class="nav-child" href="../../../screens/don-hang/tao-chinh-sua-don-hang-thu-cong/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Create/Edit Manual Order</span></a><a class="nav-child" href="../../../screens/don-hang/duyet-yeu-cau-hoan-tien/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Refund Approval</span></a><a class="nav-child" href="../../../screens/don-hang/quan-ly-van-don-logistics/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Shipment & Logistics</span></a><a class="nav-child" href="../../../screens/don-hang/cau-hinh-email-hoa-don/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Email & Invoice Config</span></a></div>
+      </div>
+      <div class="nav-group" data-nav-item>
+        <button type="button" class="nav-group-title">
+          <span class="title-left"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg><span class="nav-label">Marketing & Promotions</span></span>
+          <svg width="14" height="14" viewBox="0 0 24 24" class="chevron" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-tooltip">Marketing & Promotions</div>
+        <div class="nav-flyout"><div class="nav-flyout-title">Marketing & Promotions</div><a href="../../../screens/marketing-khuyen-mai/danh-sach-ma-giam-gia/index.html">Discount/Promotion List</a><a href="../../../screens/marketing-khuyen-mai/tao-chinh-sua-ma-giam-gia/index.html">Create/Edit Discount</a><a href="../../../screens/marketing-khuyen-mai/quan-ly-quy-tac-ca-nhan-hoa/index.html">Personalization Rules</a><a href="../../../screens/marketing-khuyen-mai/cau-hinh-qua-tang-kem/index.html">Gift with Purchase Config</a><a href="../../../screens/marketing-khuyen-mai/cau-hinh-mua-kem-uu-dai/index.html">Purchase with Purchase Config</a><a href="../../../screens/marketing-khuyen-mai/cau-hinh-quy-tac-tich-doi-diem/index.html">Loyalty Earn/Redeem Rules</a></div>
+        <div class="nav-children"><a class="nav-child" href="../../../screens/marketing-khuyen-mai/danh-sach-ma-giam-gia/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Discount/Promotion List</span></a><a class="nav-child" href="../../../screens/marketing-khuyen-mai/tao-chinh-sua-ma-giam-gia/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Create/Edit Discount</span></a><a class="nav-child" href="../../../screens/marketing-khuyen-mai/quan-ly-quy-tac-ca-nhan-hoa/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Personalization Rules</span></a><a class="nav-child" href="../../../screens/marketing-khuyen-mai/cau-hinh-qua-tang-kem/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Gift with Purchase Config</span></a><a class="nav-child" href="../../../screens/marketing-khuyen-mai/cau-hinh-mua-kem-uu-dai/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Purchase with Purchase Config</span></a><a class="nav-child" href="../../../screens/marketing-khuyen-mai/cau-hinh-quy-tac-tich-doi-diem/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Loyalty Earn/Redeem Rules</span></a></div>
+      </div>
+      <div class="nav-group" data-nav-item>
+        <button type="button" class="nav-group-title">
+          <span class="title-left"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg><span class="nav-label">Product & Service Data</span></span>
+          <svg width="14" height="14" viewBox="0 0 24 24" class="chevron" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-tooltip">Product & Service Data</div>
+        <div class="nav-flyout"><div class="nav-flyout-title">Product & Service Data</div><a href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html">Product/Service List</a><a href="../../../screens/san-pham-dich-vu/tao-chinh-sua-san-pham-dich-vu/index.html">Create/Edit Product/Service</a><a href="../../../screens/san-pham-dich-vu/quan-ly-ton-kho-theo-bien-the/index.html">Inventory by Variant</a><a href="../../../screens/san-pham-dich-vu/cau-hinh-lich-slot-phan-cong-nhan-su/index.html">Schedule/Slot & Staffing</a><a href="../../../screens/san-pham-dich-vu/danh-sach-nguoi-tham-gia-diem-danh/index.html">Attendees & Attendance</a><a href="../../../screens/san-pham-dich-vu/doi-lich-huy-buoi/index.html">Reschedule/Cancel Session</a><a href="../../../screens/san-pham-dich-vu/quan-ly-combo-bundle/index.html">Combo/Bundle List</a><a href="../../../screens/san-pham-dich-vu/tao-chinh-sua-combo/index.html">Create/Edit Combo</a></div>
+        <div class="nav-children"><a class="nav-child" href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Product/Service List</span></a><a class="nav-child" href="../../../screens/san-pham-dich-vu/tao-chinh-sua-san-pham-dich-vu/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Create/Edit Product/Service</span></a><a class="nav-child" href="../../../screens/san-pham-dich-vu/quan-ly-ton-kho-theo-bien-the/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Inventory by Variant</span></a><a class="nav-child" href="../../../screens/san-pham-dich-vu/cau-hinh-lich-slot-phan-cong-nhan-su/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Schedule/Slot & Staffing</span></a><a class="nav-child" href="../../../screens/san-pham-dich-vu/danh-sach-nguoi-tham-gia-diem-danh/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Attendees & Attendance</span></a><a class="nav-child" href="../../../screens/san-pham-dich-vu/doi-lich-huy-buoi/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Reschedule/Cancel Session</span></a><a class="nav-child" href="../../../screens/san-pham-dich-vu/quan-ly-combo-bundle/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Combo/Bundle List</span></a><a class="nav-child" href="../../../screens/san-pham-dich-vu/tao-chinh-sua-combo/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Create/Edit Combo</span></a></div>
+      </div>
+      <div class="nav-group" data-nav-item>
+        <button type="button" class="nav-group-title">
+          <span class="title-left"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"></path><path d="M14 2v6h6"></path><line x1="8" y1="13" x2="16" y2="13"></line><line x1="8" y1="17" x2="16" y2="17"></line></svg><span class="nav-label">Content (CMS)</span></span>
+          <svg width="14" height="14" viewBox="0 0 24 24" class="chevron" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-tooltip">Content (CMS)</div>
+        <div class="nav-flyout"><div class="nav-flyout-title">Content (CMS)</div><a href="../../../screens/noi-dung/danh-sach-trang-noi-dung/index.html">Content Page List</a><a href="../../../screens/noi-dung/soan-thao-trang-noi-dung/index.html">Content Editor</a><a href="../../../screens/noi-dung/quan-ly-banner/index.html">Banner Management</a></div>
+        <div class="nav-children"><a class="nav-child" href="../../../screens/noi-dung/danh-sach-trang-noi-dung/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Content Page List</span></a><a class="nav-child" href="../../../screens/noi-dung/soan-thao-trang-noi-dung/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Content Editor</span></a><a class="nav-child" href="../../../screens/noi-dung/quan-ly-banner/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Banner Management</span></a></div>
+      </div>
+      <div class="nav-group" data-nav-item>
+        <button type="button" class="nav-group-title">
+          <span class="title-left"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span class="nav-label">Customers & Users</span></span>
+          <svg width="14" height="14" viewBox="0 0 24 24" class="chevron" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-tooltip">Customers & Users</div>
+        <div class="nav-flyout"><div class="nav-flyout-title">Customers & Users</div><a href="../../../screens/khach-hang/danh-sach-khach-hang/index.html">Customer List</a><a href="../../../screens/khach-hang/chi-tiet-khach-hang/index.html">Customer Detail</a><a href="../../../screens/khach-hang/quan-ly-nhom-phan-khuc-khach-hang/index.html">Customer Segments</a><a href="../../../screens/khach-hang/quan-ly-nguoi-dung-quan-tri-vai-tro/index.html">Admin Users & Roles</a><a href="../../../screens/khach-hang/tao-chinh-sua-vai-tro-quyen-han/index.html">Create/Edit Role & Permissions</a></div>
+        <div class="nav-children"><a class="nav-child" href="../../../screens/khach-hang/danh-sach-khach-hang/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Customer List</span></a><a class="nav-child" href="../../../screens/khach-hang/chi-tiet-khach-hang/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Customer Detail</span></a><a class="nav-child" href="../../../screens/khach-hang/quan-ly-nhom-phan-khuc-khach-hang/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Customer Segments</span></a><a class="nav-child" href="../../../screens/khach-hang/quan-ly-nguoi-dung-quan-tri-vai-tro/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Admin Users & Roles</span></a><a class="nav-child" href="../../../screens/khach-hang/tao-chinh-sua-vai-tro-quyen-han/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Create/Edit Role & Permissions</span></a></div>
+      </div>
+      <div class="nav-group open" data-nav-item>
+        <button type="button" class="nav-group-title">
+          <span class="title-left"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg><span class="nav-label">Reports & Analytics</span></span>
+          <svg width="14" height="14" viewBox="0 0 24 24" class="chevron" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-tooltip">Reports & Analytics</div>
+        <div class="nav-flyout"><div class="nav-flyout-title">Reports & Analytics</div><a href="../../../screens/bao-cao/bao-cao-doanh-so/index.html">Sales Report</a><a href="../../../screens/bao-cao/bao-cao-khach-hang/index.html">Customer Report</a><a href="../../../screens/bao-cao/bao-cao-marketing-khuyen-mai/index.html">Marketing/Promotion Report</a><a href="../../../screens/bao-cao/bao-cao-gioi-thieu/index.html">Referral Report</a><a href="../../../screens/bao-cao/bao-cao-hoan-tien/index.html">Refund Report</a><a href="../../../screens/bao-cao/bao-cao-qua-tang-doi-qua/index.html">Gift/Redemption Report</a><a href="../../../screens/bao-cao/bao-cao-hanh-trinh-khach-hang-chuyen-doi/index.html">Customer Journey & Conversion</a><a href="../../../screens/bao-cao/bao-cao-dat-lich-tham-du/index.html">Booking & Attendance Report</a><a href="../../../screens/bao-cao/bao-cao-nguon-kenh/index.html">Source/Channel Report</a><a href="../../../screens/bao-cao/lich-su-giao-dich-diem-admin/index.html">Loyalty Transaction History</a></div>
+        <div class="nav-children"><a class="nav-child" href="../../../screens/bao-cao/bao-cao-doanh-so/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Sales Report</span></a><a class="nav-child" href="../../../screens/bao-cao/bao-cao-khach-hang/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Customer Report</span></a><a class="nav-child" href="../../../screens/bao-cao/bao-cao-marketing-khuyen-mai/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Marketing/Promotion Report</span></a><a class="nav-child" href="../../../screens/bao-cao/bao-cao-gioi-thieu/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Referral Report</span></a><a class="nav-child" href="../../../screens/bao-cao/bao-cao-hoan-tien/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Refund Report</span></a><a class="nav-child" href="../../../screens/bao-cao/bao-cao-qua-tang-doi-qua/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Gift/Redemption Report</span></a><a class="nav-child" href="../../../screens/bao-cao/bao-cao-hanh-trinh-khach-hang-chuyen-doi/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Customer Journey & Conversion</span></a><a class="nav-child" href="../../../screens/bao-cao/bao-cao-dat-lich-tham-du/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Booking & Attendance Report</span></a><a class="nav-child" href="../../../screens/bao-cao/bao-cao-nguon-kenh/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Source/Channel Report</span></a><a class="nav-child active" href="../../../screens/bao-cao/lich-su-giao-dich-diem-admin/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Loyalty Transaction History</span></a></div>
+      </div>
+      <div class="nav-group" data-nav-item>
+        <button type="button" class="nav-group-title">
+          <span class="title-left"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"></path></svg><span class="nav-label">System Administration</span></span>
+          <svg width="14" height="14" viewBox="0 0 24 24" class="chevron" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="nav-tooltip">System Administration</div>
+        <div class="nav-flyout"><div class="nav-flyout-title">System Administration</div><a href="../../../screens/he-thong/cau-hinh-he-thong-chung/index.html">General System Config</a><a href="../../../screens/he-thong/tra-cuu-nhat-ky-he-thong/index.html">Audit Log</a><a href="../../../screens/he-thong/cau-hinh-thue-gst/index.html">GST Tax Config</a></div>
+        <div class="nav-children"><a class="nav-child" href="../../../screens/he-thong/cau-hinh-he-thong-chung/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">General System Config</span></a><a class="nav-child" href="../../../screens/he-thong/tra-cuu-nhat-ky-he-thong/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">Audit Log</span></a><a class="nav-child" href="../../../screens/he-thong/cau-hinh-thue-gst/index.html"><svg width="6" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><span class="nav-label">GST Tax Config</span></a></div>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <a class="sidebar-footer-item" href="../../../screens/auth/dang-nhap/index.html" data-nav-item>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg><span class="nav-label">Log Out</span>
+        <div class="nav-tooltip">Log Out</div>
+      </a>
+    </div>
+  </aside>
+  <button type="button" class="sidebar-toggle" aria-label="Toggle sidebar">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    <span class="nav-tooltip tooltip-text">Collapse menu</span>
+  </button>
+  <div class="content-area">
+    
+  <div class="topbar">
+    <button type="button" class="topbar-icon-btn" aria-label="Notifications">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg><span class="notif-dot"></span>
+    </button>
+    <div class="topbar-user">
+      <div class="avatar">SA</div>
+      <div>
+        <div class="topbar-user-name">Ryan Tay</div>
+        <div class="topbar-user-role">Super Admin</div>
+      </div>
+    </div>
+  </div>
+    <div class="breadcrumb"><a href="../../../index.html">Home</a><span class="sep">/</span><span>Reports & Analytics</span><span class="sep">/</span><span class="current">Loyalty Transaction History</span></div>
+    <main class="page-main">
+      
+      <div class="page-header">
+        <div class="page-header-text">
+          <h1>Loyalty Transaction History</h1>
+          <p>Every point earn, redemption, expiry and manual adjustment across all customers.</p>
+        </div>
+        <div class="page-header-actions"></div>
+      </div>
+      
+    <div class="table-toolbar" style="background:#fff;border:1px solid var(--gray-100);border-radius:var(--r-lg);margin-bottom:var(--sp-6);">
+      <select class="chip"><option>This Month</option><option>This Quarter</option><option>This Year</option><option>Custom Range</option></select>
+      <select class="chip"><option>All Business Units</option><option>Meridian Specialists</option><option>Meridian Nutri</option><option>Meridian Fertility Centre</option></select>
+      <div class="tb-spacer"></div>
+      <button class="btn btn-outline btn-sm" id="exportBtn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Export</button>
+    </div>
+    <div class="kpi-grid">
+    <div class="kpi-card accent-success">
+      <div class="kpi-top"><div class="kpi-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg></div></div>
+      <div class="kpi-value tabular-nums">647</div>
+      <div class="kpi-label">Points Earned (period)</div>
+    </div>
+    <div class="kpi-card accent-primary">
+      <div class="kpi-top"><div class="kpi-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div></div>
+      <div class="kpi-value tabular-nums">500</div>
+      <div class="kpi-label">Points Redeemed (period)</div>
+    </div>
+    <div class="kpi-card accent-warning">
+      <div class="kpi-top"><div class="kpi-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path></svg></div></div>
+      <div class="kpi-value tabular-nums">1</div>
+      <div class="kpi-label">Manual Adjustments</div>
+    </div></div>
+    
+    <div class="table-card">
+      <div style="overflow-x:auto;">
+        <table class="data-table"><thead><tr><th>Customer</th><th>Type</th><th>Points</th><th>Order</th><th>Balance After</th><th>Date</th></tr></thead><tbody id="listTbody"></tbody></table>
+      </div>
+      
+    <div class="pagination">
+      <span>Report data — demo period</span>
+      <div class="pagination-btns">
+        <button class="page-btn" disabled><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <button class="page-btn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+      </div>
+    </div>
+    </div>
+    <p style="font-size:12px;color:var(--gray-500);margin-top:var(--sp-3);">Manual adjustments require a reason and are written to the Audit Log to prevent unexplained balance changes.</p>
+  
+    </main>
+  </div>
+</div>
+<div class="toast-wrap"></div>
+  <script src="../../../assets/data/so-giao-dich-diem.js"></script>
+<script src="../../../assets/js/global.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

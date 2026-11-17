@@ -1,0 +1,10 @@
+@import url("../_shared/booking-shared.css");
+
+.hub-card { padding: 22px; display: flex; flex-direction: column; gap: 6px; }
+.hub-card__icon { width: 42px; height: 42px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
+.hub-card__icon svg { width: 22px; height: 22px; }
+.hub-card__icon.warning { background: var(--color-warning-bg); color: var(--color-warning-text); }
+.hub-card__icon.info { background: var(--color-info-bg); color: var(--color-primary-dark); }
+.hub-card__icon.success { background: var(--color-success-bg); color: var(--color-success-text); }
+.hub-card h3 { margin: 0; }
+.hub-card__count { font-size: 26px; font-weight: 700; color: var(--color-primary-dark); margin-top: 6px; font-variant-numeric: tabular-nums; }

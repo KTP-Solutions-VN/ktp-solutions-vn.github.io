@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log In — CareJourney Admin</title>
+<link rel="stylesheet" href="../../../assets/css/global.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="login-shell">
+  <div class="login-panel-brand">
+    <div class="login-brand-mark">CJ</div>
+    <h1>CareJourney Admin Portal</h1>
+    <p class="login-tagline">Empowering life journeys — one unified platform for orders, catalog, marketing, and reporting across every Meridian Health touchpoint.</p>
+    <div class="login-bullets">
+      <div class="login-bullet">
+        <div class="lb-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div>
+        <div><strong>Orders, refunds &amp; fulfillment</strong><span>One queue for every purchase source — event, hospital tour, online, retail.</span></div>
+      </div>
+      <div class="login-bullet">
+        <div class="lb-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg></div>
+        <div><strong>Catalog &amp; booking control</strong><span>Manage products, services, combos, slots and staffing from one place.</span></div>
+      </div>
+      <div class="login-bullet">
+        <div class="lb-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path></svg></div>
+        <div><strong>Role-based &amp; audited</strong><span>Every sensitive change is logged — built for healthcare compliance.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="login-panel-form">
+    <h2>Log in to your account</h2>
+    <p>Internal staff access only — Super Admin, Admin, Tech Support, Finance, Operations, Vendor Partner.</p>
+    <div class="login-role-hint" id="roleHint"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg><span id="roleHintText"></span></div>
+    <form id="loginForm" class="stack" novalidate>
+      <div class="field">
+        <label for="email">Work email</label>
+        <input type="email" id="email" name="email" placeholder="e.g. ryan.tay@meridian-health.example" autocomplete="username" value="ryan.tay@meridian-health.example">
+        <span class="error-text">Please enter a valid work email.</span>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" value="••••••••">
+        <span class="error-text">Password is required.</span>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:11px;" id="loginBtn">Log In</button>
+    </form>
+    <p class="login-footer-note">Demo prototype — any email/password combination will log you in as a Super Admin for this walkthrough.</p>
+  </div>
+</div>
+<div class="toast-wrap"></div>
+<script src="../../../assets/data/nguoi-dung-quan-tri.js"></script>
+<script src="../../../assets/js/global.js"></script>
+<script>
+  var DASH_HREF = "../../../screens/dashboard/index.html";
+  document.getElementById('loginForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var btn = document.getElementById('loginBtn');
+    btn.disabled = true;
+    btn.textContent = 'Logging in...';
+    setTimeout(function () {
+      window.location.href = DASH_HREF;
+    }, 500);
+  });
+  document.getElementById('email').addEventListener('input', function () {
+    var val = this.value.toLowerCase();
+    var found = (typeof DATA_NGUOI_DUNG_QUAN_TRI !== 'undefined') ? DATA_NGUOI_DUNG_QUAN_TRI.find(function (u) { return u.email.toLowerCase() === val; }) : null;
+    var hint = document.getElementById('roleHint');
+    var text = document.getElementById('roleHintText');
+    if (found) {
+      text.textContent = 'Recognized as ' + found.role + ' — ' + found.department;
+      hint.classList.add('show');
+    } else {
+      hint.classList.remove('show');
+    }
+  });
+  document.getElementById('email').dispatchEvent(new Event('input'));
+</script>
+</body>
+</html>

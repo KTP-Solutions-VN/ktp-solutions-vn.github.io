@@ -1,0 +1,57 @@
+/* PROP-035 — View Property Details: screen-specific rules only. */
+
+.pd-images { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 22px; }
+.pd-image-card {
+  background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1); overflow: hidden;
+}
+.pd-image-label {
+  padding: 12px 16px; font-size: var(--font-size-xs); font-weight: 700; color: var(--color-gray-600);
+  text-transform: uppercase; letter-spacing: 0.03em; border-bottom: 1px solid var(--color-gray-100);
+}
+.pd-image-placeholder {
+  height: 200px; display: flex; align-items: center; justify-content: center;
+  background: var(--color-gray-50); color: var(--color-gray-300);
+}
+.pd-image-placeholder svg { width: 48px; height: 48px; }
+
+.pd-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; align-items: start; }
+.pd-main, .pd-side { display: flex; flex-direction: column; gap: 20px; }
+@media (max-width: 1080px) { .pd-grid { grid-template-columns: 1fr; } }
+
+.ro-field { display: flex; flex-direction: column; gap: 4px; }
+.ro-field label { font-size: var(--font-size-xs); font-weight: 700; color: var(--color-gray-500); text-transform: uppercase; letter-spacing: 0.03em; }
+.ro-field .ro-value { font-size: var(--font-size-md); color: var(--color-gray-900); font-weight: 500; }
+.ro-field .ro-value.muted { color: var(--color-gray-400); font-style: italic; font-weight: 400; }
+
+.pd-map {
+  margin-top: 6px; height: 220px; border-radius: var(--radius-md); border: 1px solid var(--color-gray-200);
+  background:
+    linear-gradient(rgba(0, 8, 74,0.06), rgba(0, 8, 74,0.06)),
+    repeating-linear-gradient(0deg, var(--color-gray-100) 0 1px, transparent 1px 32px),
+    repeating-linear-gradient(90deg, var(--color-gray-100) 0 1px, transparent 1px 32px),
+    var(--color-primary-50);
+  position: relative; overflow: hidden;
+}
+.pd-map::after {
+  content: ""; position: absolute; top: 50%; left: 50%; width: 16px; height: 16px;
+  background: var(--color-accent); border: 3px solid var(--color-white); border-radius: 50% 50% 50% 0;
+  transform: translate(-50%, -100%) rotate(-45deg); box-shadow: var(--shadow-2);
+}
+.pd-map-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; font-size: var(--font-size-sm); font-weight: 600; color: var(--color-primary-dark); }
+.pd-map-link:hover { text-decoration: underline; }
+.pd-map-link svg { width: 15px; height: 15px; }
+
+.pd-concierge { display: flex; align-items: center; gap: 14px; }
+.pd-concierge .avatar { width: 44px; height: 44px; font-size: var(--font-size-md); }
+.pd-concierge-name { font-weight: 700; color: var(--color-primary-dark); }
+.pd-concierge-role { font-size: var(--font-size-xs); color: var(--color-gray-500); }
+
+.pd-copy-btn {
+  width: 30px; height: 30px; border-radius: var(--radius-sm); border: 1px solid var(--color-gray-200);
+  background: var(--color-white); color: var(--color-gray-600); display: inline-flex; align-items: center;
+  justify-content: center; cursor: pointer;
+}
+.pd-copy-btn:hover { background: var(--color-primary-50); border-color: var(--color-primary); color: var(--color-primary-dark); }
+.pd-copy-btn svg { width: 14px; height: 14px; }
+.pd-copy-btn.copied { background: var(--color-success-bg); border-color: var(--color-success); color: var(--color-success-text); }

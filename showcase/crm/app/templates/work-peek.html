@@ -1,0 +1,18 @@
+<!-- Panel chi tiết 1 việc trên Bảng công việc. Dữ liệu: id, subject, desc, due, owner, prio, auto, states[{st,label,on}], src{k,id,title,type,sub,pill}, email, tpl, log[], group, tenant (Group View: chỉ xem, nút mở trong pháp nhân) -->
+<div class="box drawer"{{fa "M24.02"}}>
+  <div class="card-h"><h3>{{subject}}</h3><span class="sp"></span><button class="ibtn" onclick="closeModal()" title="{{t "act.cancel"}}">×</button></div>
+  <div class="card-b">
+    <div class="apf"><span>{{t "wk.due"}} <b>{{due}}</b></span><span>{{t "lv.owner"}} <b>{{owner}}</b></span><span>{{t "wk.prio"}} <b>{{prio}}</b></span></div>
+    {{#if desc}}<div class="muted sm">{{desc}}</div>{{/if}}
+    <div><b class="sm">{{t "wk.status"}}</b>{{#if group}}<div style="margin-top:6px">{{#each states}}{{#if on}}<span class="pill">{{label}}</span>{{/if}}{{/each}}</div>{{else}}<div class="seg3" style="margin-top:6px">{{#each states}}<button class="{{#if on}}on{{/if}}" onclick="wkMove('{{../id}}','{{st}}')">{{label}}</button>{{/each}}</div>{{/if}}</div>
+    {{#if src}}<div class="card" style="margin:0"><div class="card-b" style="gap:4px"><span class="faint sm">{{t "wk.related"}} · {{src.type}}</span><div><a href="/e/{{src.k}}/{{src.id}}" onclick="closeModal()"><b>{{src.title}}</b></a> {{{src.pill}}}</div><div class="muted sm">{{src.sub}}</div></div></div>{{/if}}
+    {{#if log.length}}<div><b class="sm">{{t "det.activity"}}</b>{{#each log}}<div class="fd" style="padding:4px 0">{{av by}}<div>{{text}}<div class="t">{{at}}</div></div></div>{{/each}}</div>{{/if}}
+  </div>
+  <div class="foot">
+    {{#if src}}<button class="btn" onclick="closeModal();go('/e/{{src.k}}/{{src.id}}')">{{t "wk.openSrc"}}</button>{{/if}}
+    {{#if group}}<span class="sp"></span><button class="btn pri" onclick="closeModal();go('/p/work?tenant={{tenant}}')">{{t "gh.openIn" t=tenant}}</button>
+    {{else}}{{#if email}}<button class="btn" onclick="sendEmail('{{src.k}}','{{src.id}}','{{tpl}}')">{{ic "send" "sm"}}{{t "home.remind"}}</button>{{/if}}
+    <span class="sp"></span>
+    <button class="btn pri" onclick="wkMove('{{id}}','Completed')">{{ic "ok" "sm"}}{{t "wk.done"}}</button>{{/if}}
+  </div>
+</div>

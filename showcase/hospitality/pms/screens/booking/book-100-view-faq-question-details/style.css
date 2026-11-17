@@ -1,0 +1,9 @@
+/* BOOK-100 — View FAQ Question Details */
+#v-question:disabled, #v-answer:disabled {
+  background: var(--color-gray-50); color: var(--color-gray-800); opacity: 1; cursor: default;
+}
+.tag-chip {
+  display: inline-flex; align-items: center; padding: 3px 10px; border-radius: var(--radius-pill);
+  background: var(--color-primary-50); color: var(--color-primary-dark); font-size: var(--font-size-xs);
+  font-weight: 600; margin: 0 6px 6px 0;
+}

@@ -1,0 +1,2 @@
+.tabs .tab-item { cursor: pointer; }
+#checkin-result-card .card__body .vsv-detail-row:nth-child(odd) { background: var(--color-gray-50); margin: 0 -20px; padding-left: 20px; padding-right: 20px; }

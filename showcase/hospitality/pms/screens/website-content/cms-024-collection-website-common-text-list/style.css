@@ -1,0 +1,2 @@
+/* CMS-024 — Collection Website Common Text List */
+.cct-content-cell { max-width: 360px; color: var(--color-gray-600); font-size: var(--font-size-sm); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

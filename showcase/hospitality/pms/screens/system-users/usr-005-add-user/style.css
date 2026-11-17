@@ -1,0 +1,6 @@
+/* USR-005 — Add User (Internal Staff) */
+
+.section-title { font-size: var(--font-size-lg); color: var(--color-primary-dark); margin: 0 0 16px; }
+
+.tab-item.is-locked { color: var(--color-gray-400); cursor: not-allowed; display: inline-flex; align-items: center; gap: 6px; }
+.tab-item.is-locked:hover { color: var(--color-gray-400); }

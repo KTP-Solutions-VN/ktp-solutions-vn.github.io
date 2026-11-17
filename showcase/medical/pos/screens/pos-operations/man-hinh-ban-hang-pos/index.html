@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>POS Sales Screen — CareJourney POS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/global.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="pos-mat">
+  <div class="pos-device">
+
+    <header class="device-bar">
+      <div class="device-bar__left">
+        <div class="device-brand"><span class="device-brand__mark">CJ</span> CareJourney POS</div>
+        <span class="device-bar__meta" data-device-outlet>Meridian Health — Central Pharmacy</span>
+      </div>
+      <div class="device-bar__right">
+        <span class="session-pill" data-session-pill><span class="session-pill__dot"></span><span data-session-label>Session Open</span></span>
+        <span class="device-clock" data-device-clock></span>
+        <div class="avatar" title="Cashier"><span data-device-cashier-initial>MT</span></div>
+        <div class="device-controls">
+          <a class="dc-btn" href="../bao-cao-van-hanh-pos/index.html" title="Operational Reports">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-6 4 3 5-8"/></svg>
+            Reports
+          </a>
+          <a class="dc-btn" href="../dong-ca-thu-ngan/index.html" title="Close Cashier Session">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg>
+            End Shift
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <div class="device-body">
+      <main class="device-main sales-main">
+
+        <div class="sales-toolbar">
+          <div class="scan-field">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10M7 8v8M11 8v8M15 8v8"/></svg>
+            <input type="text" id="barcodeInput" class="input" placeholder="Scan barcode or type SKU, then press Enter…" autocomplete="off">
+          </div>
+          <div class="category-chips" id="categoryChips">
+            <button class="chip is-selected" data-cat="All">All Items</button>
+            <button class="chip" data-cat="Prescription">Prescription</button>
+            <button class="chip" data-cat="OTC">OTC</button>
+            <button class="chip" data-cat="Retail">Retail</button>
+          </div>
+        </div>
+
+        <div class="scroll-area">
+          <div class="product-grid" id="productGrid"></div>
+        </div>
+      </main>
+
+      <aside class="cart-panel">
+        <div class="cart-panel__header">
+          <h3>Current Sale</h3>
+          <span class="badge badge-neutral" id="cartCount">0 items</span>
+        </div>
+
+        <div class="rewards-panel" id="rewardsPanel"></div>
+
+        <div class="cart-list scroll-area" id="cartList"></div>
+
+        <div class="cart-panel__summary">
+          <div class="summary-row"><span>Subtotal</span><span id="sumSubtotal" class="tabular">S$0.00</span></div>
+          <div class="summary-row" id="sumPromoRow" style="display:none;"><span id="sumPromoLabel">Promo</span><span id="sumPromo" class="tabular summary-row--discount">– S$0.00</span></div>
+          <div class="summary-row" id="sumLoyaltyRow" style="display:none;"><span id="sumLoyaltyLabel">Loyalty points redeemed</span><span id="sumLoyalty" class="tabular summary-row--discount">– S$0.00</span></div>
+          <div class="summary-row"><span>GST (8%)</span><span id="sumTax" class="tabular">S$0.00</span></div>
+          <div class="summary-row summary-row--total"><span>Total</span><span id="sumTotal" class="tabular">S$0.00</span></div>
+
+          <div class="pay-methods" id="payMethods">
+            <button class="pay-btn is-selected" data-pay="Cash">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg>
+              Cash
+            </button>
+            <button class="pay-btn" data-pay="Card">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+              Card
+            </button>
+            <button class="pay-btn" data-pay="NETS">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H7"/></svg>
+              NETS
+            </button>
+          </div>
+
+          <button class="btn btn-primary btn-lg btn-block" id="chargeBtn" disabled>Charge S$0.00</button>
+          <div class="cart-secondary-actions">
+            <button class="btn btn-ghost" id="newRxBtn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M12 9v6"/><rect x="3" y="4" width="18" height="17" rx="2"/></svg>
+              New Prescription
+            </button>
+            <button class="btn btn-ghost" id="voidCartBtn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg>
+              Void Sale
+            </button>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <button class="reset-demo-btn">Reset demo data</button>
+  </div>
+</div>
+
+<!-- Supervisor Override modal (signature moment: audit-logged price override) -->
+<div class="popup-scrim" id="overrideScrim" style="display:none;">
+  <div class="popup-card" role="dialog" aria-modal="true">
+    <div class="popup-card__header">
+      <div>
+        <div class="popup-card__eyebrow">Supervisor authorization required</div>
+        <h3>Price Override</h3>
+      </div>
+      <button class="popup-close" id="overrideCloseBtn" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="popup-card__body">
+      <div class="alert-banner alert-banner--info">
+        <svg class="alert-banner__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+        <div>
+          <div class="alert-banner__title">Every override is written to the audit log</div>
+          <div class="alert-banner__body">Price changes on POS transactions require supervisor PIN authorization and are logged with item, original/new price, reason, and authorizer — reviewable on Cashier Session Closing.</div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Item</label>
+        <div class="input" id="overrideItemName" style="display:flex;align-items:center;background:var(--gray-50);color:var(--gray-600);">—</div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Original price</label>
+          <div class="input" id="overrideOriginalPrice" style="display:flex;align-items:center;background:var(--gray-50);color:var(--gray-600);">—</div>
+        </div>
+        <div class="field">
+          <label for="overrideNewPrice">New price (S$)</label>
+          <input type="number" step="0.01" min="0" class="input" id="overrideNewPrice" placeholder="0.00">
+        </div>
+      </div>
+      <div class="field">
+        <label for="overrideReason">Reason for override</label>
+        <textarea class="input" id="overrideReason" placeholder="e.g. price-match, damaged packaging, goodwill waiver…"></textarea>
+        <span class="error-text" id="overrideReasonError" style="display:none;">Reason is required for audit log</span>
+      </div>
+      <div class="field">
+        <label for="overridePin">Supervisor PIN</label>
+        <input type="password" inputmode="numeric" maxlength="4" class="input" id="overridePin" placeholder="••••">
+        <span class="hint">Demo PIN: 1234</span>
+        <span class="error-text" id="overridePinError" style="display:none;">Incorrect PIN</span>
+      </div>
+    </div>
+    <div class="popup-card__footer">
+      <button class="btn btn-ghost" id="overrideCancelBtn">Cancel</button>
+      <button class="btn btn-primary" id="overrideConfirmBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+        Authorize Override
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Customer & Rewards lookup modal (Customer & Rewards panel — phone/membership ID lookup) -->
+<div class="popup-scrim" id="customerScrim" style="display:none;">
+  <div class="popup-card" role="dialog" aria-modal="true">
+    <div class="popup-card__header">
+      <div>
+        <div class="popup-card__eyebrow">Customer & Rewards</div>
+        <h3>Look up Customer</h3>
+      </div>
+      <button class="popup-close" id="customerCloseBtn" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="popup-card__body">
+      <div class="field" id="customerLookupField">
+        <label for="customerLookupInput">Phone number or Membership ID</label>
+        <input type="text" inputmode="tel" class="input" id="customerLookupInput" placeholder="e.g. 9123 4567 or OTP-88291034" autocomplete="off">
+        <span class="error-text" id="customerLookupError">No customer found for this number/ID. Check the details or continue as walk-in.</span>
+      </div>
+
+      <div class="keypad" id="customerKeypad">
+        <button type="button" class="keypad-btn" data-key="1">1</button>
+        <button type="button" class="keypad-btn" data-key="2">2</button>
+        <button type="button" class="keypad-btn" data-key="3">3</button>
+        <button type="button" class="keypad-btn" data-key="4">4</button>
+        <button type="button" class="keypad-btn" data-key="5">5</button>
+        <button type="button" class="keypad-btn" data-key="6">6</button>
+        <button type="button" class="keypad-btn" data-key="7">7</button>
+        <button type="button" class="keypad-btn" data-key="8">8</button>
+        <button type="button" class="keypad-btn" data-key="9">9</button>
+        <button type="button" class="keypad-btn keypad-btn--action" data-key="clear">Clear</button>
+        <button type="button" class="keypad-btn" data-key="0">0</button>
+        <button type="button" class="keypad-btn keypad-btn--action" data-key="back">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"/><path d="m14 9-4 6M10 9l4 6"/></svg>
+        </button>
+      </div>
+
+      <div class="field" style="margin-top:var(--sp-2);">
+        <label>Demo shortcuts</label>
+        <div class="chip-select" id="customerQuickPicks"></div>
+        <span class="hint">Sample loyalty members for this demo — tap to fill &amp; search instantly.</span>
+      </div>
+    </div>
+    <div class="popup-card__footer">
+      <button class="btn btn-ghost" id="customerWalkInBtn">Continue as Walk-in</button>
+      <button class="btn btn-primary" id="customerSearchBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Search
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="../../../assets/data/product.js"></script>
+<script src="../../../assets/data/prescription.js"></script>
+<script src="../../../assets/data/transaction.js"></script>
+<script src="../../../assets/data/customer.js"></script>
+<script src="../../../assets/data/promotion.js"></script>
+<script src="../../../assets/js/global.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

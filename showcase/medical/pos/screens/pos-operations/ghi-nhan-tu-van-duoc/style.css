@@ -1,0 +1,18 @@
+.issue-toggle-row {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3);
+  margin-top: var(--sp-4); padding: var(--sp-3) var(--sp-4);
+  background: var(--gray-50); border-radius: var(--radius-input); border: 1px solid var(--gray-200);
+}
+.intervention-note {
+  background: var(--warning-bg); color: #6B4600; border: 1px solid rgba(180,117,10,0.3);
+  border-radius: var(--radius-input); padding: var(--sp-3) var(--sp-4); font-size: 13px; margin-bottom: var(--sp-4);
+}
+.success-icon {
+  width: 64px; height: 64px; border-radius: 50%; background: var(--success-bg); color: var(--success);
+  display: flex; align-items: center; justify-content: center; margin: 0 auto;
+}
+.nehr-audit-line {
+  background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius-input);
+  padding: var(--sp-3) var(--sp-4); text-align: left; font-size: 13px; color: var(--gray-600);
+}
+.nehr-audit-line b { color: var(--tertiary); }

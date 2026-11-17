@@ -1,0 +1,9 @@
+<!-- Trang dạng bảng (dự báo, tìm kiếm). Dữ liệu: head, feat, cols[], rows[{href, cells[html]}] -->
+{{> page-head head}}
+<div class="card np"{{fa feat}}><div class="scroll"><table>
+  {{#if cols.length}}<thead><tr>{{#each cols}}<th>{{this}}</th>{{/each}}</tr></thead>{{/if}}
+  <tbody>
+    {{#each rows}}<tr{{#if href}} class="click" onclick="go('{{href}}')"{{/if}}>{{#each cells}}<td>{{{this}}}</td>{{/each}}</tr>
+    {{else}}<tr><td class="muted">{{t "list.empty"}}</td></tr>{{/each}}
+  </tbody>
+</table></div></div>

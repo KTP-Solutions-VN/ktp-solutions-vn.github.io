@@ -1,0 +1,23 @@
+@import url("../_shared/booking-shared.css");
+
+.toolbar-select {
+  border: 1px solid var(--color-gray-300); border-radius: var(--radius-md);
+  padding: 9px 12px; font-size: var(--font-size-sm); color: var(--color-gray-800);
+  background: var(--color-white); outline: none;
+}
+.toolbar-select:focus { border-color: var(--color-primary); }
+
+#criteria-form input[type="number"], #criteria-form select {
+  border: 1px solid var(--color-gray-300); border-radius: var(--radius-sm); padding: 7px 10px;
+  font-size: var(--font-size-sm); width: 130px; outline: none;
+}
+#criteria-form input:focus, #criteria-form select:focus { border-color: var(--color-primary); }
+
+.ready-icon {
+  width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer; border: none; color: var(--color-white);
+}
+.ready-icon.red { background: var(--color-danger); }
+.ready-icon.blue { background: var(--color-primary); }
+.ready-icon.green { background: var(--color-success); }
+.ready-icon svg { width: 15px; height: 15px; }

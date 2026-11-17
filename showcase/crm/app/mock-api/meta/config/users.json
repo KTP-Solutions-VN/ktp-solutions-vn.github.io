@@ -1,0 +1,172 @@
+{
+  "_note": "Người dùng giả. team = teamspace mặc định khi đăng nhập; profile quyết định quyền trên module (profiles.json); groups dùng cho thành viên teamspace và sharing rule. seed=false: user thêm sau chỉ để demo bậc duyệt DoA, không làm người phụ trách trong dữ liệu mẫu (giữ dữ liệu sinh ra không đổi).",
+  "me": "u1",
+  "users": [
+    {
+      "id": "u1",
+      "name": "Minh N.",
+      "role": "Sales Manager",
+      "team": "crm",
+      "tenants": [
+        "APE",
+        "APA",
+        "APL",
+        "FLE",
+        "BH",
+        "ALL"
+      ],
+      "profile": "Administrator",
+      "groups": [
+        "All Users",
+        "Sales Team"
+      ]
+    },
+    {
+      "id": "u2",
+      "name": "Sarah L.",
+      "role": "Sales Engineer",
+      "team": "sales",
+      "tenants": [
+        "APE"
+      ],
+      "profile": "Sales Engineer",
+      "groups": [
+        "All Users",
+        "Sales Team"
+      ]
+    },
+    {
+      "id": "u3",
+      "name": "Daniel K.",
+      "role": "Sales Engineer",
+      "team": "sales",
+      "tenants": [
+        "APE",
+        "FLE"
+      ],
+      "profile": "Sales Engineer",
+      "groups": [
+        "All Users",
+        "Sales Team"
+      ]
+    },
+    {
+      "id": "u4",
+      "name": "Aisha R.",
+      "role": "AS Service Manager",
+      "team": "aftersales",
+      "tenants": [
+        "APE"
+      ],
+      "profile": "After Sales Team",
+      "groups": [
+        "All Users",
+        "After Sales Team"
+      ]
+    },
+    {
+      "id": "u5",
+      "name": "Ken T.",
+      "role": "Engineer",
+      "team": "aftersales",
+      "tenants": [
+        "APE",
+        "FLE"
+      ],
+      "profile": "Engineers",
+      "groups": [
+        "All Users",
+        "After Sales Team"
+      ]
+    },
+    {
+      "id": "u6",
+      "name": "Priya S.",
+      "role": "Procurement Executive",
+      "team": "admin",
+      "tenants": [
+        "APE",
+        "APA",
+        "APL"
+      ],
+      "profile": "Procurement",
+      "groups": [
+        "All Users",
+        "Admin Team"
+      ]
+    },
+    {
+      "id": "u7",
+      "name": "Wei J.",
+      "role": "Finance",
+      "team": "admin",
+      "tenants": [
+        "APE",
+        "APA",
+        "APL",
+        "FLE",
+        "BH"
+      ],
+      "profile": "Finance",
+      "groups": [
+        "All Users",
+        "Admin Team"
+      ]
+    },
+    {
+      "id": "u8",
+      "name": "Hana M.",
+      "role": "General Manager",
+      "team": "mgmt",
+      "tenants": [
+        "APE",
+        "APA",
+        "APL",
+        "FLE",
+        "BH",
+        "ALL"
+      ],
+      "profile": "Administrator",
+      "groups": [
+        "All Users"
+      ]
+    },
+    {
+      "id": "u9",
+      "name": "Ravi S.",
+      "role": "Sales Director",
+      "team": "mgmt",
+      "tenants": [
+        "APE",
+        "APA",
+        "APL",
+        "FLE",
+        "BH",
+        "ALL"
+      ],
+      "profile": "Directors",
+      "groups": [
+        "All Users",
+        "Sales Team"
+      ],
+      "seed": false
+    },
+    {
+      "id": "u10",
+      "name": "Lim T.",
+      "role": "Operation Manager",
+      "team": "admin",
+      "tenants": [
+        "APE",
+        "APA",
+        "APL"
+      ],
+      "profile": "Operations",
+      "groups": [
+        "All Users",
+        "Admin Team"
+      ],
+      "seed": false
+    }
+  ]
+}

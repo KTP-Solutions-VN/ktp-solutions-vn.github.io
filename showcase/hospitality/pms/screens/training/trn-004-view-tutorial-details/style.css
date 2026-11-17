@@ -1,0 +1,7 @@
+.slide-detail { border: 1px solid var(--color-gray-200); border-radius: var(--radius-md); padding: 16px 18px; margin-bottom: 14px; }
+.slide-detail:last-child { margin-bottom: 0; }
+.slide-detail__title { font-weight: 700; color: var(--color-primary-dark); font-size: 14px; margin: 0 0 6px; }
+.slide-detail__text { color: var(--color-gray-700); font-size: 13px; line-height: 1.6; margin: 0 0 10px; }
+.slide-quiz { background: var(--color-primary-50); border-radius: var(--radius-sm); padding: 12px 14px; margin-top: 10px; font-size: 13px; }
+.slide-quiz__q { font-weight: 600; color: var(--color-primary-dark); margin: 0 0 6px; }
+.slide-quiz ul { margin: 0; padding-left: 18px; color: var(--color-gray-700); }

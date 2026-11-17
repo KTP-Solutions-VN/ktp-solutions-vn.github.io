@@ -1,0 +1,115 @@
+/* Shared CSS helpers for Booking module screens — imported by each
+   screen's own style.css via @import. Keep additions here generic
+   (used by 3+ screens); screen-specific rules stay in that screen's
+   own style.css. */
+
+.flag-chip {
+  display: inline-block; font-size: var(--font-size-xs); color: var(--color-gray-600);
+  background: var(--color-gray-100); border-radius: var(--radius-sm); padding: 1px 7px;
+}
+
+.sort-arrow { font-weight: 700; }
+
+.group-header-row td {
+  background: var(--color-gray-50); font-weight: 700; color: var(--color-primary-dark);
+  font-size: var(--font-size-xs); text-transform: uppercase; letter-spacing: 0.03em;
+  padding: 8px 14px !important; border-bottom: 1px solid var(--color-gray-200);
+}
+
+.kpi-total-row td {
+  font-weight: 700; color: var(--color-primary-dark); border-top: 2px solid var(--color-gray-200);
+  background: var(--color-primary-50);
+}
+
+/* Wizard step indicator (BOOK-035 check-out flow) */
+.step-indicator { display: flex; align-items: center; gap: 0; margin-bottom: 24px; }
+.step-indicator__step { display: flex; align-items: center; gap: 10px; flex: 1; }
+.step-indicator__circle {
+  width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--font-size-sm); font-weight: 700; color: var(--color-gray-500);
+  background: var(--color-gray-100); border: 2px solid var(--color-gray-200);
+}
+.step-indicator__step.done .step-indicator__circle { background: var(--color-success); border-color: var(--color-success); color: var(--color-white); }
+.step-indicator__step.active .step-indicator__circle { background: var(--color-primary-dark); border-color: var(--color-primary-dark); color: var(--color-white); }
+.step-indicator__label { font-size: var(--font-size-xs); font-weight: 600; color: var(--color-gray-500); white-space: nowrap; }
+.step-indicator__step.active .step-indicator__label, .step-indicator__step.done .step-indicator__label { color: var(--color-primary-dark); }
+.step-indicator__line { flex: 1; height: 2px; background: var(--color-gray-200); margin: 0 4px; }
+.step-indicator__step.done + .step-indicator__line { background: var(--color-success); }
+
+.wizard-panel[hidden] { display: none; }
+
+/* Calendar grid (BOOK-001 / 040 / 047) */
+.cal-legend { display: flex; gap: 16px; align-items: center; margin-bottom: 14px; flex-wrap: wrap; }
+.cal-legend__item { display: flex; align-items: center; gap: 6px; font-size: var(--font-size-xs); color: var(--color-gray-600); }
+.cal-legend__dot { width: 9px; height: 9px; border-radius: 50%; }
+
+.avail-grid-wrap { overflow-x: auto; }
+table.avail-grid { border-collapse: collapse; font-size: var(--font-size-xs); white-space: nowrap; }
+table.avail-grid th, table.avail-grid td { padding: 6px 8px; border: 1px solid var(--color-gray-100); text-align: center; }
+table.avail-grid th.villa-col, table.avail-grid td.villa-col { text-align: left; position: sticky; left: 0; background: var(--color-white); z-index: 2; font-weight: 600; color: var(--color-primary-dark); min-width: 160px; }
+table.avail-grid thead th { position: sticky; top: 0; background: var(--color-white); z-index: 3; color: var(--color-gray-500); font-weight: 700; }
+table.avail-grid td.avail { background: var(--color-success-bg); color: var(--color-success-text); font-weight: 700; }
+table.avail-grid td.booked { background: var(--color-danger-bg); color: var(--color-danger-text); }
+table.avail-grid td.today-col { outline: 2px solid var(--color-primary-100); outline-offset: -2px; }
+
+/* Detail view blocks (BOOK-002-P1 / 028) */
+.detail-block { margin-bottom: 22px; }
+.detail-block h3 { margin-bottom: 12px; }
+.detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px 20px; }
+@media (max-width: 960px) { .detail-grid { grid-template-columns: 1fr 1fr; } }
+.detail-field__label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--color-gray-500); margin-bottom: 3px; }
+.detail-field__value { font-size: var(--font-size-md); color: var(--color-gray-900); font-weight: 600; }
+.detail-field__value.money { font-variant-numeric: tabular-nums; color: var(--color-primary-dark); }
+
+.image-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+.image-grid__item { aspect-ratio: 4/3; border-radius: var(--radius-md); background: linear-gradient(135deg, var(--color-primary-100), var(--color-gray-100)); display: flex; align-items: center; justify-content: center; color: var(--color-primary-dark); }
+
+/* Booking-summary/computed totals card (BOOK-036) */
+.summary-card { background: var(--color-primary-50); border: 1px solid var(--color-primary-100); border-radius: var(--radius-lg); padding: 18px 20px; }
+.summary-row { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; font-size: var(--font-size-sm); color: var(--color-gray-700); }
+.summary-row.total { border-top: 1px solid var(--color-primary-100); margin-top: 6px; padding-top: 12px; font-size: var(--font-size-lg); font-weight: 700; color: var(--color-primary-dark); }
+.summary-row .val { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--color-primary-dark); }
+
+/* ------------------------------------------------------------------ */
+/* Guest-communication / WhatsApp cluster (BOOK-089..BOOK-096) — chat   */
+/* window, quick-activate row, member picker, misc row helpers used     */
+/* across 3+ screens.                                                    */
+/* ------------------------------------------------------------------ */
+
+.chat-window { display: flex; flex-direction: column; height: 560px; border: 1px solid var(--color-gray-200); border-radius: var(--radius-lg); overflow: hidden; background: var(--color-white); }
+.chat-window__header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid var(--color-gray-100); background: var(--color-gray-50); gap: 12px; flex-wrap: wrap; }
+.chat-window__title { font-weight: 700; color: var(--color-primary-dark); font-size: var(--font-size-md); }
+.chat-window__sub { font-size: var(--font-size-xs); color: var(--color-gray-500); margin-top: 2px; }
+.chat-window__meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.chat-messages { flex: 1; overflow-y: auto; padding: 18px; display: flex; flex-direction: column; gap: 10px; background: var(--color-gray-50); }
+.msg-bubble { max-width: 72%; padding: 10px 14px; border-radius: var(--radius-lg); font-size: var(--font-size-sm); line-height: 1.45; box-shadow: var(--shadow-1); }
+.msg-bubble.staff { align-self: flex-start; background: var(--color-white); color: var(--color-gray-800); border-bottom-left-radius: 4px; }
+.msg-bubble.guest { align-self: flex-end; background: var(--color-primary); color: var(--color-white); border-bottom-right-radius: 4px; }
+.msg-bubble.system { align-self: center; background: var(--color-gray-100); color: var(--color-gray-600); font-size: var(--font-size-xs); font-style: italic; box-shadow: none; }
+.msg-meta { font-size: 10px; color: var(--color-gray-400); margin-top: 4px; }
+.msg-bubble.guest .msg-meta { color: rgba(0, 8, 74, 0.55); }
+.chat-window__composer { display: flex; gap: 10px; padding: 14px 16px; border-top: 1px solid var(--color-gray-100); align-items: flex-end; flex-wrap: wrap; }
+.chat-window__composer textarea { flex: 1; min-width: 200px; border: 1px solid var(--color-gray-300); border-radius: var(--radius-md); padding: 10px 12px; font-family: inherit; font-size: var(--font-size-sm); resize: none; min-height: 44px; max-height: 120px; outline: none; }
+.chat-window__composer textarea:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px var(--color-primary-50); }
+.chat-window__composer select { border: 1px solid var(--color-gray-300); border-radius: var(--radius-md); padding: 10px 12px; font-size: var(--font-size-sm); background: var(--color-white); }
+
+.member-chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.member-chip { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: var(--radius-pill); border: 1px solid var(--color-gray-200); background: var(--color-white); font-size: var(--font-size-xs); font-weight: 600; color: var(--color-gray-700); cursor: pointer; }
+.member-chip.highlight { border-color: var(--color-primary); background: var(--color-primary-50); color: var(--color-primary-dark); }
+.member-chip input { margin: 0; }
+
+.row-twisty { width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--color-gray-200); background: var(--color-white); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; color: var(--color-gray-600); transition: transform var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast); }
+.chat-row.expanded .row-twisty { transform: rotate(90deg); border-color: var(--color-primary); color: var(--color-primary-dark); }
+.quick-activate { padding: 16px 18px; background: var(--color-primary-50); border-radius: var(--radius-md); margin: 6px 0; }
+.quick-activate__footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px; }
+.warn-flag { display: inline-flex; color: var(--color-warning-text); margin-left: 6px; vertical-align: middle; }
+.tdac-cell { display: flex; gap: 4px; }
+
+.status-dot-row { display: flex; align-items: center; gap: 10px; padding: 14px 0; border-bottom: 1px solid var(--color-gray-100); }
+.status-dot-row:last-child { border-bottom: none; }
+.status-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.status-dot.ok { background: var(--color-success); }
+.status-dot.error { background: var(--color-danger); }
+.status-dot-row__label { font-weight: 700; color: var(--color-gray-800); font-size: var(--font-size-sm); }
+.status-dot-row__msg { font-size: var(--font-size-xs); color: var(--color-gray-500); margin-top: 2px; }

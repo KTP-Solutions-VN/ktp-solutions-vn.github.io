@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In — Azura Stays Channel Manager</title>
+<link rel="icon" href="azura-logo.svg">
+<link rel="stylesheet" href="assets/css/variables.css">
+<link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<div class="auth-shell">
+
+  <div class="auth-brand">
+    <div class="auth-brand__content">
+      <img src="azura-logo.svg" alt="Azura Stays logo" class="auth-brand__logo">
+      <h1>Channel Management Platform</h1>
+      <p>One platform to manage rates, availability and bookings across every OTA — built for Azura Stays vendors.</p>
+
+      <ul class="auth-brand__points">
+        <li><span class="point-dot"></span>Unified connectivity via Channex &amp; Beds24</li>
+        <li><span class="point-dot"></span>Multi-property calendar &amp; unified inbox</li>
+        <li><span class="point-dot"></span>White-label ready for every vendor</li>
+      </ul>
+    </div>
+
+    <div class="auth-brand__shape shape-1"></div>
+    <div class="auth-brand__shape shape-2"></div>
+  </div>
+
+  <div class="auth-form-panel">
+    <div class="auth-form-panel__inner">
+
+      <div class="auth-form-header">
+        <img src="azura-logo.svg" alt="Azura Stays logo" class="auth-form-header__logo">
+        <span class="auth-form-header__tag">Prototype Demo</span>
+      </div>
+
+      <h2>Welcome back</h2>
+      <p class="auth-subtitle">Sign in to manage your properties, bookings and channel connections.</p>
+
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" placeholder="you@azurastays.example" value="admin@azurastays.example" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" value="••••••••" required>
+        </div>
+
+        <div class="auth-form-row">
+          <label class="checkbox-inline">
+            <input type="checkbox" checked> Remember me
+          </label>
+          <a href="#" class="auth-link">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block auth-submit">Sign In</button>
+
+        <div id="login-error" class="auth-error" hidden>Please enter both an email and a password.</div>
+      </form>
+
+      <div class="auth-demo-note">
+        <strong>Demo prototype</strong> — any email/password combination will sign you in. This build is for
+        presentation purposes only and does not connect to a live backend, Channex, or Beds24 account.
+      </div>
+
+      <div class="auth-footer">
+        © 2026 Azura Stays. Channel Management Platform — Internal Prototype v0.1
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="index.js"></script>
+</body>
+</html>

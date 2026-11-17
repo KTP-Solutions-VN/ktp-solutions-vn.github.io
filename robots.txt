@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
+# Showcase: chỉ index các trang playground (/showcase/, ?domain=…, ?app=…); bản build prototype bên trong là màn demo
+# rời rạc, mang tên brand giả, không có giá trị tìm kiếm. Ảnh bìa / ảnh chụp ở /showcase/assets/, /showcase/shots/ vẫn cho phép.
+Disallow: /showcase/hospitality/
+Disallow: /showcase/medical/
+Disallow: /showcase/crm/
+Disallow: /showcase/_tools/
 
 Sitemap: https://www.ktpsolutions.vn/sitemap.xml

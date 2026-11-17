@@ -1,0 +1,13 @@
+.star-rating { display: inline-flex; gap: 2px; }
+.star-rating button {
+  border: none; background: none; padding: 2px; cursor: pointer; color: var(--color-gray-300);
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+.star-rating button svg { width: 16px; height: 16px; }
+.star-rating button:hover { transform: scale(1.15); }
+.star-rating button.filled { color: var(--color-warning-text); }
+
+.avg-score { font-weight: 700; font-variant-numeric: tabular-nums; }
+.avg-score.low { color: var(--color-danger-text); }
+.avg-score.mid { color: var(--color-warning-text); }
+.avg-score.high { color: var(--color-success-text); }

@@ -1,0 +1,6 @@
+/* GST-002 — Guest Booking List. Page-specific tweaks only; shell/card/tile
+   styles come from ../_shared/guest-portal.css + assets/css/global.css. */
+
+#welcome-hero { margin-bottom: var(--sp-6); }
+.page-header { margin-bottom: 14px; }
+.page-header .subtitle { margin-top: 2px; }

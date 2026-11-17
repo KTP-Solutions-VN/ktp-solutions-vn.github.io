@@ -1,0 +1,31 @@
+@import url("../_shared/photos-shared.css");
+
+.photo-item { cursor: pointer; }
+.photo-item__thumb { cursor: pointer; }
+
+.icon-action {
+  width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--color-gray-200);
+  background: var(--color-white); display: inline-flex; align-items: center; justify-content: center;
+  color: var(--color-gray-500); cursor: pointer; transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+.icon-action svg { width: 15px; height: 15px; }
+.icon-action:hover { background: var(--color-gray-50); border-color: var(--color-primary); color: var(--color-primary-dark); }
+.icon-action.danger:hover { border-color: var(--color-accent); color: var(--color-danger-text); background: var(--color-danger-bg); }
+
+/* Photo view / lightbox modal */
+.photo-view-stage { display: flex; align-items: center; gap: 12px; }
+.photo-view-nav {
+  flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--color-gray-200);
+  background: var(--color-white); color: var(--color-gray-600); display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+.photo-view-nav:hover { border-color: var(--color-primary); color: var(--color-primary-dark); }
+.photo-view-nav svg { width: 18px; height: 18px; }
+.photo-view-frame {
+  flex: 1; height: 320px; border-radius: var(--radius-lg); background: linear-gradient(135deg, var(--color-gray-100), var(--color-gray-50));
+  display: flex; align-items: center; justify-content: center; color: var(--color-gray-400); position: relative;
+}
+.photo-view-frame svg { width: 56px; height: 56px; }
+.photo-view-tags { position: absolute; bottom: 12px; left: 12px; right: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
+.photo-view-tags .photo-item__tag { position: static; font-size: 11px; padding: 3px 8px; }
+
+.completeness-tbody-cell { display: flex; align-items: center; gap: 10px; }

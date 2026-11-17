@@ -1,0 +1,4 @@
+.added-slide { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--color-gray-100); }
+.added-slide:last-child { border-bottom: none; }
+.added-slide__num { width: 26px; height: 26px; border-radius: 50%; background: var(--color-primary-50); color: var(--color-primary-dark); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.added-slide__title { flex: 1; font-weight: 600; font-size: 13px; color: var(--color-gray-800); }

@@ -1,0 +1,6 @@
+.channel-card { margin-bottom: 20px; }
+.channel-card__inline-form { background: var(--color-gray-50); border-radius: var(--radius-md); padding: 16px; margin-top: 12px; display: none; }
+.channel-card__inline-form.open { display: block; }
+.props-link { color: var(--color-primary-dark); font-weight: 600; cursor: pointer; text-decoration: underline; }
+.props-expand { display: none; background: var(--color-gray-50); border-radius: var(--radius-sm); padding: 10px 14px; margin: 6px 0 10px; font-size: var(--font-size-xs); }
+.props-expand.open { display: block; }

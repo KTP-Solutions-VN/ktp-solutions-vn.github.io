@@ -1,0 +1,2 @@
+.vsv-history-row { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; border-bottom: 1px dashed var(--color-gray-100); font-size: var(--font-size-xs); color: var(--color-gray-600); }
+.vsv-history-row:last-child { border-bottom: none; margin-bottom: 16px; }

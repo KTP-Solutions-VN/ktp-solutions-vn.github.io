@@ -1,0 +1,8 @@
+/* BOOK-109 — Revenue Report */
+.chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.form-actions { display: flex; justify-content: flex-start; margin-top: 14px; }
+tr.report-row--company { cursor: pointer; font-weight: 600; }
+tr.report-row--company:hover { background: var(--color-gray-50); }
+tr.report-row--villa td:first-child { padding-left: 28px; color: var(--color-gray-600); }
+.report-chevron { display: inline-block; transition: transform 0.15s ease; margin-right: 6px; }
+tr.report-row--company.expanded .report-chevron { transform: rotate(90deg); }

@@ -1,0 +1,47 @@
+/* OTA-001 OTA Channel Listing Content — page-specific overrides only */
+.scope-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.scope-block__title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.drag-handle {
+  cursor: grab;
+  color: var(--color-gray-400);
+  display: inline-flex;
+  margin-right: 8px;
+}
+.listing-row {
+  cursor: default;
+}
+.listing-row.dragging { opacity: 0.5; }
+.select-checklist {
+  display: grid;
+  gap: 10px;
+  max-height: 360px;
+  overflow-y: auto;
+}
+.select-checklist__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+}
+.select-checklist__item label {
+  flex: 1;
+  font-size: 13px;
+  margin: 0;
+}
+.select-checklist__meta {
+  font-size: 12px;
+  color: var(--color-gray-500);
+}

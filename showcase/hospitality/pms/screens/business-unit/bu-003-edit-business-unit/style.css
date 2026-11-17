@@ -1,0 +1,2 @@
+/* BU-003 — Edit Business Unit — screen-specific rules only */
+#bu-edit-form .card { box-shadow: var(--shadow-1); }

@@ -1,0 +1,16 @@
+/* ACC-007 — Account Statements */
+.stmt-account-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.stmt-account-tab {
+  padding: 9px 16px; border-radius: var(--radius-pill); border: 1px solid var(--color-gray-200);
+  background: var(--color-white); font-size: var(--font-size-sm); font-weight: 600; color: var(--color-gray-700);
+  cursor: pointer; transition: all var(--transition-fast);
+}
+.stmt-account-tab:hover { border-color: var(--color-primary); color: var(--color-primary-dark); }
+.stmt-account-tab.active { background: var(--color-primary-dark); border-color: var(--color-primary-dark); color: var(--color-white); }
+.banner-locked {
+  background: var(--color-warning-bg); color: #8a5a12; border-radius: var(--radius-md);
+  padding: 10px 14px; font-size: var(--font-size-sm); font-weight: 600; margin-bottom: 16px;
+}
+.amount-in { color: var(--color-success-text); font-weight: 700; }
+.amount-out { color: var(--color-danger-text); font-weight: 700; }
+.balance-cell { font-weight: 700; color: var(--color-primary-dark); }

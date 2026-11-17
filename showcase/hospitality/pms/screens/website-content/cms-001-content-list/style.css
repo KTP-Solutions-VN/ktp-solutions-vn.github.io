@@ -1,0 +1,18 @@
+/* CMS-001 — Property List (Website Content) */
+
+#bu-filter { cursor: pointer; padding-right: 28px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B7688' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; background-size: 13px; }
+#bu-filter:focus { outline: none; border-color: var(--color-primary); }
+
+.villa-name-cell { display: flex; align-items: center; gap: 10px; }
+.villa-thumb {
+  width: 36px; height: 36px; border-radius: var(--radius-sm); flex-shrink: 0;
+  background: linear-gradient(135deg, var(--color-primary-100), var(--color-primary-50));
+  color: var(--color-primary-dark); display: flex; align-items: center; justify-content: center;
+}
+.villa-thumb svg { width: 17px; height: 17px; }
+
+.content-meter { display: flex; align-items: center; gap: 8px; }
+.content-meter__bar { width: 64px; height: 6px; border-radius: var(--radius-pill); background: var(--color-gray-100); overflow: hidden; }
+.content-meter__fill { height: 100%; border-radius: var(--radius-pill); background: var(--color-success); }
+.content-meter__fill.warn { background: var(--color-warning); }
+.content-meter__fill.low { background: var(--color-gray-300); }

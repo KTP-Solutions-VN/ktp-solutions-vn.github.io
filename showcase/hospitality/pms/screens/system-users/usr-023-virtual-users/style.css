@@ -1,0 +1,2 @@
+.vu-card { padding: 16px; display: flex; align-items: center; gap: 12px; }
+.vu-card__avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--color-primary-50); color: var(--color-primary-dark); display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }

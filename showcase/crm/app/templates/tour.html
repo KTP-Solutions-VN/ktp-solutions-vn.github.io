@@ -1,0 +1,5 @@
+<!-- Bảng kịch bản demo. Dữ liệu: scenarios[{n, title, steps[{a,b,text,on}]}] -->
+<header>{{ic "play"}}<b>{{t "top.tour"}}</b><button class="ibtn" onclick="toggleTour()">✕</button></header>
+{{#each scenarios}}
+<div class="sc"><h4>{{n}}. {{title}}</h4><ol>{{#each steps}}<li class="{{#if on}}on{{/if}}" onclick="tourGo({{a}},{{b}})">{{text}}</li>{{/each}}</ol></div>
+{{/each}}

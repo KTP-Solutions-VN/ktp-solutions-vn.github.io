@@ -1,0 +1,5 @@
+<!-- Partial trang chủ: hoạt động liên quan tới tôi (bản ghi tôi phụ trách / xử lý). Dữ liệu: feed[{key,id,owner,title,pill,at,type}] -->
+<div class="card np"{{fa "M23.03"}}><div class="card-h"><h3>{{t "home.feed"}}</h3></div>
+  <div class="card-b feed">{{#each feed}}<div class="fd">{{av owner}}<div><b>{{owner}}</b> · {{type}} <a href="/e/{{key}}/{{id}}">{{title}}</a> {{{pill}}}<div class="t">{{at}}</div></div></div>
+  {{else}}<p class="muted">{{t "list.empty"}}</p>{{/each}}</div>
+</div>

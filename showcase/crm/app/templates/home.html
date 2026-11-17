@@ -1,0 +1,65 @@
+<!-- Trang chủ theo role (M27.06): sales / after / mgr. Dữ liệu chung: tenantName, firstName, homes[], role, monthLbl, empty, tasks[], taskHead, feed[]
+     sales: nums[], myQuotes[bars] (việc cần làm = homeTasks, chung nguồn với Bảng công việc) · after: board[], nActive, attention[], expiring[] · mgr: kpi[], approvals[], nAppr, pipeline[bars], jobStates[bars]. Mọi role: pins[] (báo cáo đã ghim, homePins). Group View (ALL) dùng home-group.html -->
+<div class="hello">
+  <div><div class="muted sm">{{t "home.date"}} · {{tenantName}}</div><h1>{{t "home.hello" n=firstName}}</h1></div>
+  <span class="sp"></span><label class="tsel"{{fa "M27.06"}} title="{{t "home.layout"}}">{{ic "home" "sm"}}<select onchange="setHome(this.value)">{{#each homes}}<option value="{{id}}"{{#if on}} selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+</div>
+
+{{#if empty}}
+<div class="card hempty"{{fa "M27.01"}}>{{ic "alert"}}<div><b>{{t "home.emptyT" t=tenantName}}</b><div class="muted">{{t "home.emptyD"}}</div>
+  <div class="acts">{{#if canLead}}<button class="btn pri" onclick="go('/e/leads/new')">{{ic "plus" "sm"}}{{t "home.qa.lead"}}</button>{{/if}}{{#if canJob}}<button class="btn" onclick="go('/e/jobs/new')">{{ic "plus" "sm"}}{{t "home.qa.job"}}</button>{{/if}}<button class="btn" onclick="go('/p/s-import')">{{ic "upload" "sm"}}{{t "home.qa.import"}}</button></div></div></div>
+{{else}}
+
+<!-- thanh hành động: tìm nhanh + thao tác hay dùng nhất của role -->
+<div class="hbar"{{fa "M27.03"}}>
+  {{#if after}}<label class="hsearch">{{ic "truck" "sm"}}<input placeholder="{{t "home.plateQ"}}" onkeydown="if(event.key==='Enter')findPlate(this.value)"></label>
+  {{else}}<label class="hsearch">{{ic "search" "sm"}}<input placeholder="{{t "home.searchQ"}}" onkeydown="if(event.key==='Enter'&&this.value.trim())go('/p/search?q='+encodeURIComponent(this.value.trim()))"></label>{{/if}}
+  {{#if sales}}<button class="btn" onclick="go('/e/leads/new')">{{ic "plus" "sm"}}{{t "home.qa.lead"}}</button><button class="btn pri" onclick="go('/e/quotes/new')">{{ic "plus" "sm"}}{{t "home.qa.quote"}}</button>{{/if}}
+  {{#if after}}<button class="btn pri" onclick="go('/e/jobs/new')">{{ic "plus" "sm"}}{{t "home.qa.job"}}</button>{{/if}}
+  {{#if mgr}}<button class="btn pri" onclick="quickCreate()">{{ic "plus" "sm"}}{{t "list.new"}}</button>{{/if}}
+</div>
+
+{{#if sales}}
+<div class="row r-21">
+  {{> homeTasks}}
+  <div class="card np"><div class="card-h"><h3>{{t "home.myNums"}}</h3><span class="faint sm">{{monthLbl}}</span></div>
+    <div class="card-b nums">{{#each nums}}<a class="nm" href="{{href}}"><span class="muted sm">{{lbl}}</span><b>{{v}}</b>{{#if delta}}<span class="delta {{delta.cls}}">{{delta.txt}}</span>{{else}}<span class="faint sm">{{sub}}</span>{{/if}}</a>{{/each}}</div></div>
+</div>
+<div class="row r-21">
+  <div class="card np"{{fa "M10.01"}}><div class="card-h"><h3>{{t "home.myQuotes"}}</h3><a class="sm" href="/e/quotes?view=mine"><b>{{t "home.viewAll"}}</b></a></div><div class="card-b">{{#if myQuotes.length}}{{> bars items=myQuotes}}{{else}}<p class="muted">{{t "list.empty"}}</p>{{/if}}</div></div>
+  {{> homeFeed}}
+</div>
+{{/if}}
+
+{{#if after}}
+<div class="card np"{{fa jobFeat}}><div class="card-h"><h3>{{t "home.board"}}</h3><span class="faint sm">{{t "home.boardSub" n=nActive}}</span><span class="sp"></span><a class="sm" href="/e/jobs/kanban"><b>Kanban</b></a></div>
+  <div class="card-b board">{{#each board}}<a class="bc b-{{tone}}" href="{{href}}"><b>{{n}}</b><span>{{s}}</span></a>{{else}}<p class="muted">{{t "list.empty"}}</p>{{/each}}</div></div>
+<div class="row r-111">
+  <div class="card np"{{fa "M14.12"}}><div class="card-h"><h3>{{t "home.attention"}}</h3></div>
+    <table><tbody>{{#each attention}}<tr class="click" onclick="go('/e/jobs/{{id}}')"><td><b>{{doc}}</b> · {{plate}}<div class="faint sm">{{acc}}</div></td><td>{{{pill}}}<div class="faint sm">{{why}}</div></td></tr>
+      {{else}}<tr><td class="muted">{{t "home.attNone"}}</td></tr>{{/each}}</tbody></table></div>
+  <div class="card np"{{fa "M15.05"}}><div class="card-h"><h3>{{t "home.expiry"}}</h3><a class="sm" href="/e/vehicles?view=exp30"><b>{{t "home.viewAll"}}</b></a></div>
+    <table><tbody>{{#each expiring}}<tr><td><a href="/e/vehicles/{{id}}"><b>{{plate}}</b></a><div class="faint sm">{{account}} · {{kind}}</div></td><td class="num"><span class="pill p-{{tone}}">{{t "home.days" n=days}}</span></td>
+      <td class="num"><button class="btn xs" onclick="sendEmail('vehicles','{{id}}','LM certificate expiry reminder')">{{t "home.remind"}}</button></td></tr>
+      {{else}}<tr><td class="muted">{{t "list.empty"}}</td></tr>{{/each}}</tbody></table></div>
+  {{> homeTasks}}
+</div>
+{{/if}}
+
+{{#if mgr}}
+<div class="kpis"{{fa "M27.01"}}>{{#each kpi}}<a class="card kpi" href="{{href}}"><div class="lbl"><span class="ic{{#if o}} o{{/if}}">{{ic icon}}</span>{{lbl}}</div><div class="v">{{v}}</div>{{#if delta}}<span class="delta {{delta.cls}}">{{delta.txt}}</span> {{/if}}<span class="faint sm">{{sub}}</span></a>{{/each}}</div>
+<div class="card np"{{fa "M22.02"}}><div class="card-h"><h3>{{t "home.apprT" n=nAppr}}</h3><span class="sp"></span><a class="sm" href="/p/myjobs"><b>{{t "home.viewAll"}}</b></a></div>
+  <div class="scroll"><table><thead><tr><th>{{t "det.record"}}</th><th>{{t "mj.party"}}</th><th>{{t "ap.by"}}</th><th class="num">{{t "mj.value"}}</th><th class="num">{{t "ap.disc"}}</th><th>{{t "ap.stepCol"}}</th><th></th></tr></thead><tbody>
+    {{#each approvals}}<tr><td><a href="/e/{{key}}/{{id}}"><b>{{title}}</b></a><div class="faint sm{{#if late}} bad-t{{/if}}">{{type}} · {{t "home.waitDays" n=wait}}</div></td><td>{{party}}</td><td>{{by}}</td><td class="num">{{value}}</td><td class="num">{{disc}}</td><td class="sm">{{#each chain}}{{#if (eq cls "cur")}}<b>{{lv}}</b> ({{inc @index}}/{{../chain.length}}){{/if}}{{/each}}</td>
+      <td class="num nowrap"><button class="btn xs" onclick="apprPeek('{{key}}','{{id}}')">{{t "ap.peek"}}</button> <button class="btn xs" onclick="apprDo('{{key}}','{{id}}',false)">{{t "mj.reject"}}</button> <button class="btn xs pri" onclick="apprDo('{{key}}','{{id}}',true)">{{t "mj.approve"}}</button></td></tr>
+    {{else}}<tr><td colspan="7" class="muted">{{t "home.apprNone"}}</td></tr>{{/each}}</tbody></table></div></div>
+<div class="row r-111">
+  <div class="card np"{{fa "M08.03"}}><div class="card-h"><h3>{{t "home.pipeline"}}</h3><a class="sm" href="/e/deals/kanban"><b>Kanban</b></a></div><div class="card-b">{{> bars items=pipeline}}</div></div>
+  <div class="card np"{{fa "M27.04"}}><div class="card-h"><h3>{{t "home.jobStates"}}</h3><a class="sm" href="/e/jobs/kanban"><b>Kanban</b></a></div><div class="card-b">{{#if jobStates.length}}{{> bars items=jobStates}}{{else}}<p class="muted">{{t "list.empty"}}</p>{{/if}}</div></div>
+  {{> homeTasks}}
+</div>
+{{/if}}
+
+{{> homePins}}
+{{#unless sales}}<div class="row r-21">{{> homeFeed}}<div></div></div>{{/unless}}
+{{/if}}

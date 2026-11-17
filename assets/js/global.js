@@ -3,6 +3,27 @@
    Loaded on every page BEFORE each screen's own script.js
    ========================================================================== */
 
+/* ---- Helper dùng chung cho script của từng trang (khai báo ngoài IIFE để gọi được ngay khi nạp) ----
+   KTP.en(text)        → thuộc tính data-en="…" (chữ tiếng Anh cho nút VI/EN), rỗng nếu không có bản dịch
+   KTP.domainIcon(slug) → icon SVG theo lĩnh vực dự án (hospitality / industrial / healthcare)
+   KTP.domainBadge(da)  → badge lĩnh vực có icon, chữ song ngữ (da: 1 phần tử DATA_DU_AN) */
+var KTP = (function () {
+  var esc = function (s) { return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); };
+  var ICONS = {
+    hospitality: '<path d="M2 20V6"/><path d="M2 13h20v7"/><path d="M22 13v-1a3 3 0 0 0-3-3h-8v4"/><circle cx="6.5" cy="10" r="2"/>',
+    industrial: '<path d="M2 20h20"/><path d="M4 20V10l5 3v-3l5 3V5h4v15"/><path d="M8 17h1M12 17h1"/>',
+    healthcare: '<path d="M20.4 4.6a5.4 5.4 0 0 0-7.6 0L12 5.4l-.8-.8a5.4 5.4 0 0 0-7.6 7.6L12 20.6l8.4-8.4a5.4 5.4 0 0 0 0-7.6z"/><path d="M3.5 12h4l1.5-2.5 3 5 1.5-2.5h7"/>'
+  };
+  function en(text) { return text ? ' data-en="' + esc(text) + '"' : ''; }
+  function domainIcon(slug) {
+    return ICONS[slug] ? '<svg class="domain-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICONS[slug] + '</svg>' : '';
+  }
+  function domainBadge(da, extraStyle) {
+    return '<span class="badge badge-accent badge-domain"' + (extraStyle ? ' style="' + extraStyle + '"' : '') + '>' + domainIcon(da.linh_vuc) + '<span' + en(da.nganh_en) + '>' + da.nganh + '</span></span>';
+  }
+  return { en: en, domainIcon: domainIcon, domainBadge: domainBadge };
+})();
+
 (function () {
   'use strict';
 

@@ -1,0 +1,150 @@
+/* Dashboard screen — charts, widgets, notes */
+
+.mini-select {
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  padding: 7px 10px;
+  font-size: var(--font-size-xs);
+  background: var(--color-white);
+  color: var(--color-gray-700);
+}
+
+/* ---------------------------------------------------------- */
+/* Bar chart (pure CSS, no external chart library)              */
+/* ---------------------------------------------------------- */
+
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  height: 180px;
+  padding-top: 10px;
+}
+
+.bar-chart__col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.bar-chart__bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+}
+
+.bar-chart__bar {
+  width: 14px;
+  border-radius: 4px 4px 0 0;
+  transition: transform 0.15s ease;
+}
+.bar-chart__bar:hover { transform: scaleY(1.03); }
+.bar-chart__bar.occ { background: var(--color-primary); }
+.bar-chart__bar.adr { background: var(--color-primary-dark); }
+
+.bar-chart__col-label {
+  font-size: 11px;
+  color: var(--color-gray-500);
+  font-weight: 600;
+}
+
+.bar-chart__legend {
+  display: flex;
+  gap: 20px;
+  margin-top: 14px;
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-600);
+}
+
+.bar-chart__legend span { display: flex; align-items: center; gap: 6px; }
+.bar-chart__legend i { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
+
+/* ---------------------------------------------------------- */
+/* Donut chart (conic-gradient)                                 */
+/* ---------------------------------------------------------- */
+
+.donut-wrap {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.donut {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: conic-gradient(
+    #4C5FFF 0% 38%,
+    #00084A 38% 65%,
+    #F04438 65% 84%,
+    #F2A93C 84% 95%,
+    #C9D0DC 95% 100%
+  );
+  position: relative;
+}
+
+.donut::after {
+  content: "";
+  position: absolute;
+  inset: 22px;
+  background: var(--color-white);
+  border-radius: 50%;
+}
+
+.donut-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-700);
+}
+
+.donut-legend span { display: flex; align-items: center; gap: 8px; }
+.donut-legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; flex-shrink: 0; }
+
+/* ---------------------------------------------------------- */
+/* List widgets (arrivals / departures / current guests)        */
+/* ---------------------------------------------------------- */
+
+.list-widget { display: flex; flex-direction: column; gap: 4px; }
+
+.list-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-gray-100);
+  gap: 10px;
+}
+.list-row:last-child { border-bottom: none; }
+
+/* ---------------------------------------------------------- */
+/* Notes panel                                                   */
+/* ---------------------------------------------------------- */
+
+.note-item {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-gray-100);
+}
+.note-item__meta { font-size: 11px; color: var(--color-gray-500); margin-bottom: 3px; }
+.note-item__text { font-size: var(--font-size-sm); color: var(--color-gray-800); line-height: 1.5; }
+
+.note-input {
+  width: 100%;
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  font-size: var(--font-size-sm);
+  font-family: inherit;
+  margin-top: 12px;
+  min-height: 60px;
+  resize: vertical;
+}

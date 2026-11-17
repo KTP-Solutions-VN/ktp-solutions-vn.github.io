@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CareJourney POS — Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/global.css">
+<style>
+  .device-body { background: var(--gray-100); }
+  .landing-main { padding: var(--sp-6); overflow-y: auto; }
+  .landing-hero { text-align: center; max-width: 640px; margin: 0 auto var(--sp-6); }
+  .landing-hero .badge { margin-bottom: var(--sp-3); }
+  .landing-hero p { color: var(--gray-600); margin-top: var(--sp-3); }
+  .screen-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-3); max-width: 980px; margin: 0 auto; }
+  .screen-card {
+    background: #fff; border-radius: var(--radius-card); box-shadow: var(--shadow-1); border: 1px solid var(--gray-100);
+    padding: var(--sp-4); display: flex; flex-direction: column; gap: var(--sp-2); text-align: left;
+    transition: box-shadow 150ms ease-out, transform 150ms ease-out;
+  }
+  .screen-card:hover { box-shadow: var(--shadow-2); transform: translateY(-2px); }
+  .screen-card__num { font-family: var(--font-heading); font-weight: 700; color: var(--primary); font-size: 13px; }
+  .screen-card__title { font-weight: 700; color: var(--gray-800); font-size: 15px; }
+  .screen-card__desc { font-size: 12px; color: var(--gray-500); line-height: 1.4; }
+  .screen-card--main { grid-column: span 3; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: #fff; border: none; }
+  .screen-card--main .screen-card__num, .screen-card--main .screen-card__title { color: #fff; }
+  .screen-card--main .screen-card__desc { color: rgba(255,255,255,0.82); }
+</style>
+</head>
+<body>
+<div class="pos-mat">
+  <div class="pos-device">
+    <header class="device-bar">
+      <div class="device-bar__left">
+        <div class="device-brand"><span class="device-brand__mark">CJ</span> CareJourney POS</div>
+        <span class="device-bar__meta">Prototype index — Pharmacy / Retail terminal</span>
+      </div>
+    </header>
+    <div class="device-body">
+      <main class="device-main landing-main">
+        <div class="landing-hero">
+          <span class="badge badge-info">POS App · Phase 2 · 7 screens</span>
+          <h1 style="font-size:26px;">CareJourney POS Prototype</h1>
+          <p>A dedicated touchscreen terminal for cashiers/pharmacists at Meridian Health retail & pharmacy outlets — no login, no dashboard, no sidebar. Start the linear sales → prescription → counseling → session-closing flow below.</p>
+        </div>
+        <div class="screen-grid">
+          <a class="screen-card screen-card--main" href="screens/pos-operations/man-hinh-ban-hang-pos/index.html">
+            <span class="screen-card__num">#54 · Start here</span>
+            <span class="screen-card__title">POS Sales Screen</span>
+            <span class="screen-card__desc">Touch-optimized sale screen — barcode scan, cart, payment methods, supervisor price-override authorization.</span>
+          </a>
+          <a class="screen-card" href="screens/pos-operations/nhap-thong-tin-nhan-khau-hoc-lam-sang-benh-nhan/index.html">
+            <span class="screen-card__num">#55</span>
+            <span class="screen-card__title">Patient Demographic & Clinical Info</span>
+            <span class="screen-card__desc">Pop-up form collecting NEHR-ready patient data and known allergies before a prescription item is dispensed.</span>
+          </a>
+          <a class="screen-card" href="screens/pos-operations/ghi-nhan-don-thuoc/index.html">
+            <span class="screen-card__num">#56</span>
+            <span class="screen-card__title">Prescription Recording</span>
+            <span class="screen-card__desc">Records prescribed / dispensed / remaining quantity and derives Partial vs Full dispensing status.</span>
+          </a>
+          <a class="screen-card" href="screens/pos-operations/ghi-nhan-tu-van-duoc/index.html">
+            <span class="screen-card__num">#57</span>
+            <span class="screen-card__title">Counseling Documentation</span>
+            <span class="screen-card__desc">Counseling checklist + notes; completes with a live NEHR submission and audit-trail confirmation.</span>
+          </a>
+          <a class="screen-card" href="screens/pos-operations/ghi-nhan-quy-trinh-can-thiep/index.html">
+            <span class="screen-card__num">#58</span>
+            <span class="screen-card__title">Intervention Recording</span>
+            <span class="screen-card__desc">Logs an issue found during counseling and the action taken; loops back to Counseling when saved.</span>
+          </a>
+          <a class="screen-card" href="screens/pos-operations/dong-ca-thu-ngan/index.html">
+            <span class="screen-card__num">#59</span>
+            <span class="screen-card__title">Cashier Session Closing</span>
+            <span class="screen-card__desc">Session KPIs, cash reconciliation, and the full Supervisor Overrides audit-trail panel for the shift.</span>
+          </a>
+          <a class="screen-card" href="screens/pos-operations/bao-cao-van-hanh-pos/index.html">
+            <span class="screen-card__num">#60</span>
+            <span class="screen-card__title">POS Operational Reports</span>
+            <span class="screen-card__desc">Daily sales summary, session reports, detailed transactions, medication trends, NEHR submission log.</span>
+          </a>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,6 @@
+.standard-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--color-gray-100); }
+.standard-row:last-child { border-bottom: none; }
+.standard-row__icon { width: 32px; height: 32px; border-radius: var(--radius-sm); background: var(--color-primary-50); color: var(--color-primary-dark); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.standard-row input[type="text"] { flex: 1; border: 1px solid var(--color-gray-200); border-radius: var(--radius-sm); padding: 7px 9px; font-size: 13px; font-family: inherit; }
+.standards-chip-list { display: flex; flex-wrap: wrap; gap: 6px; max-width: 260px; }
+.standards-chip { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: var(--radius-pill); background: var(--color-gray-100); color: var(--color-gray-600); }

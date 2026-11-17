@@ -1,0 +1,7 @@
+/* Screen-specific overrides: Guided Checkout (#7) */
+@media (max-width: 900px) {
+  #checkout-root { grid-template-columns: 1fr !important; }
+}
+.co-group-row { display: flex; justify-content: space-between; align-items: center; padding: var(--sp-2) 0; font-size: .85rem; }
+.co-group-row .badge { margin-right: 6px; }
+input[type="radio"] { accent-color: var(--primary); width: 18px; height: 18px; }

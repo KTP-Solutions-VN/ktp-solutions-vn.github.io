@@ -1,0 +1,14 @@
+/* GST-001 — Guest Portal Login. Reuses the .auth-shell/.auth-hero/.auth-form-panel
+   pattern from screens/auth/log-001-login (same split-panel auth layout, same
+   tokens) — only the copy/branding is guest-specific. */
+
+.guest-auth-hero { background: linear-gradient(160deg, var(--color-primary-dark) 0%, var(--color-navy-600) 55%, var(--color-primary-600) 140%); }
+
+.guest-demo-hint {
+  display: flex; align-items: center; gap: 8px; margin-top: var(--sp-4);
+  background: var(--color-primary-50); border: 1px solid var(--color-primary-100);
+  border-radius: var(--radius-md); padding: 10px 14px; font-size: var(--font-size-xs); color: var(--color-gray-700);
+}
+.guest-demo-hint svg { width: 16px; height: 16px; color: var(--color-primary-dark); flex-shrink: 0; }
+.guest-demo-hint button { border: none; background: none; padding: 0; cursor: pointer; }
+.guest-demo-hint code { font-weight: 700; color: var(--color-primary-dark); text-decoration: underline; text-underline-offset: 2px; }

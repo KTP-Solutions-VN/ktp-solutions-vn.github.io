@@ -1,0 +1,3 @@
+<!-- Partial: biểu đồ thanh ngang. Dữ liệu: items[{label, width, value, color, href}] — mỗi dòng là 1 nền kéo hết chiều rộng; thanh màu theo tỷ lệ
+     so với nhóm lớn nhất (tối đa 70% nền), giá trị luôn ghi ngay sau thanh để mọi dòng cùng 1 kiểu. Có href thì bấm vào mở danh sách đã lọc -->
+<div class="funnel bars">{{#each items}}{{#if href}}<a class="fr" href="{{href}}" title="{{t "chart.open"}}">{{else}}<div class="fr">{{/if}}<span>{{label}}</span><div class="btrack"><div class="bar" style="width:{{width}}%;{{#if color}}background:{{color}}{{/if}}"></div><span class="bv"><b>{{value}}</b></span></div>{{#if href}}</a>{{else}}</div>{{/if}}{{/each}}</div>

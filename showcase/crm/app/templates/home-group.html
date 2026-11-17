@@ -1,0 +1,28 @@
+<!-- Trang chủ Group View (tenant ALL, chỉ đọc, M01.08). Dữ liệu: firstName, monthLbl, kpi[], rows[so sánh pháp nhân], rev[], jobMix[], legend[], hot[], pins[] -->
+<div class="hello"{{fa "M01.08"}}>
+  <div><div class="muted sm">{{t "home.date"}} · {{t "gh.title"}}</div><h1>{{t "home.hello" n=firstName}}</h1></div>
+</div>
+
+<div class="kpis"{{fa "M27.01"}}>{{#each kpi}}<a class="card kpi" href="{{href}}"><div class="lbl"><span class="ic{{#if o}} o{{/if}}">{{ic icon}}</span>{{lbl}}</div><div class="v">{{v}}</div>{{#if delta}}<span class="delta {{delta.cls}}">{{delta.txt}}</span> {{/if}}<span class="faint sm">{{sub}}</span></a>{{/each}}</div>
+
+<div class="card np"{{fa "M27.04"}}><div class="card-h"><h3>{{t "gh.cmp"}}</h3><span class="faint sm">{{t "gh.cmpSub2"}}</span><span class="sp"></span><span class="faint sm">{{monthLbl}}</span></div>
+  <div class="scroll"><table class="gcmp"><thead><tr><th>{{t "gh.c.entity"}}</th><th class="num">{{t "gh.c.rev"}}</th><th class="num">{{t "gh.c.pipe"}}</th><th class="num">{{t "gh.c.q"}}</th><th class="num">{{t "gh.c.win"}}</th>
+    <th class="num">{{t "gh.c.jobs"}}</th><th class="num">{{t "gh.c.stuck"}}</th><th class="num">{{t "gh.c.appr"}}</th><th class="num">{{t "gh.c.exp"}}</th></tr></thead><tbody>
+    {{#each rows}}<tr><td><a class="gent" href="{{go}}" title="{{t "gh.goEntity" t=c}}"><span class="tdot" style="background:{{color}}"></span><b>{{c}}</b> <span class="muted sm">{{name}}</span> <span class="garr">→</span></a>{{#if empty}} <span class="pill">{{t "gh.noData"}}</span>{{/if}}</td>
+      <td class="num"><a class="gc" href="{{h.rev}}"><b>{{nowM}}</b>{{#if delta}}<div class="delta {{delta.cls}}">{{delta.txt}}</div>{{/if}}</a></td><td class="num"><a class="gc" href="{{h.pipe}}">{{pipeM}}</a></td><td class="num"><a class="gc" href="{{h.q}}">{{nQ}}</a></td><td class="num"><a class="gc" href="{{h.q}}">{{win}}</a></td>
+      <td class="num"><a class="gc" href="{{h.jobs}}">{{jobs}}</a></td><td class="num"><a class="gc" href="{{h.stuck}}">{{#if hiStuck}}<span class="pill p-warn">{{stuck}}</span>{{else}}{{stuck}}{{/if}}</a></td>
+      <td class="num"><a class="gc" href="{{h.appr}}">{{#if hiAppr}}<span class="pill p-bad">{{appr}}</span>{{else}}{{appr}}{{/if}}</a></td><td class="num"><a class="gc" href="{{h.exp}}">{{#if hiExp}}<span class="pill p-warn">{{exp}}</span>{{else}}{{exp}}{{/if}}</a></td></tr>{{/each}}
+  </tbody></table></div></div>
+
+<div class="row r-111">
+  <div class="card np"><div class="card-h"><h3>{{t "gh.rev"}}</h3><span class="faint sm">{{t "gh.revSub"}}</span></div>
+    <div class="card-b grev">{{#each rev}}<a class="gr" href="/e/orders?f=_tenant&v={{c}}"><b>{{c}}</b><div class="gb"><i style="width:{{wPrev}}%" title="{{t "gh.m9"}} {{prev}}"></i><i class="n" style="width:{{wNow}}%;background:{{color}}" title="{{t "gh.m10"}} {{now}}"></i></div><span class="num">{{now}}</span></a>{{/each}}
+      <div class="leg2"><span><i></i>{{t "gh.m9"}}</span><span>{{#each rev}}<i style="background:{{color}};margin-right:-4px"></i>{{/each}}&nbsp;{{t "gh.m10"}}</span></div></div></div>
+  <div class="card np"><div class="card-h"><h3>{{t "gh.jobs"}}</h3></div>
+    <div class="card-b">{{#each jobMix}}<a class="gr" href="/e/jobs?f=_tenant&v={{c}}"><b>{{c}}</b><div class="stack" style="margin:0;flex:1">{{#each parts}}<i style="width:{{w}}%;background:var(--{{color}})" title="{{n}}"></i>{{/each}}</div><span class="num">{{n}}</span></a>{{/each}}
+      <div class="leg2">{{#each legend}}<span><i style="background:var(--{{color}})"></i>{{label}}</span>{{/each}}</div></div></div>
+  <div class="card np"><div class="card-h"><h3>{{t "gh.hot"}}</h3></div>
+    <div class="card-b todo"><div class="faint sm">{{t "gh.hotSub"}}</div>{{#each hot}}<div class="td"><span class="tbadge" style="background:{{color}}">{{c}}</span><div class="tx"><a href="/e/{{key}}/{{id}}"><b>{{title}}</b></a> · {{txt}}</div></div>
+      {{else}}<p class="muted">{{t "gh.hotNone"}}</p>{{/each}}</div></div>
+</div>
+{{> homePins}}

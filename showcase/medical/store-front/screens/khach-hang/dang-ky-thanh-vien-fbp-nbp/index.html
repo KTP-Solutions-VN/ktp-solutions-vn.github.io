@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Join FBP/NBP Membership — CareJourney</title>
+<link rel="stylesheet" href="../../../assets/css/global.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page-wrap">
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <button class="hamburger" data-hamburger aria-label="Open menu"><svg class="icon" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    <a href="../../../index.html" class="brand"><span class="brand__mark">CJ</span><span>CareJourney</span></a>
+    <nav class="main-nav">
+      <a href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html">Shop</a>
+      <a href="../../../screens/san-pham-dich-vu/danh-sach-san-pham-dich-vu/index.html?category=Hospital+Tours">Book a Hospital Tour</a>
+      <a href="../../../screens/khach-hang/dang-ky-thanh-vien-fbp-nbp/index.html" class="is-active">Membership</a>
+      <a href="../../../screens/noi-dung/trang-noi-dung/index.html">About</a>
+    </nav>
+    <div class="header-actions">
+      <a class="icon-btn" href="../../../screens/gio-hang/gio-hang/index.html" aria-label="Cart">
+        <svg class="icon" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="cart-badge" data-cart-badge style="display:none">0</span>
+      </a>
+      <div class="account-menu" data-when-logged-in>
+        <button class="account-trigger" data-account-trigger aria-label="Account menu"><span class="avatar" data-account-initials>GL</span></button>
+        <div class="account-dropdown" data-account-dropdown>
+          <div class="account-dropdown__header"><strong data-account-name>Grace Lim Wei Ting</strong><span>CareJourney Member</span></div>
+          <a href="../../../screens/khach-hang/tai-khoan-cua-toi/index.html">My Account</a>
+          <button class="dropdown-item" data-logout>Log Out</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="page-main">
+  <div class="container" style="max-width:680px;">
+    <div class="breadcrumb"><a href="../../../index.html">Home</a><span class="sep">/</span><span class="current">Membership</span></div>
+    <span class="badge badge-sale">Free to Join</span>
+    <h1 class="mt-2">Join the FBP/NBP Membership Program</h1>
+    <p class="text-muted mb-5">First Born Incentive (FBP) and Next Baby Programme (NBP) unlock exclusive pricing on maternity packages and confinement nutrition, based on your birth order.</p>
+
+    <form class="card" id="membership-form">
+      <h3 style="margin-top:0;">Your Details</h3>
+      <div class="form-row">
+        <div class="form-group"><label>Full Name *</label><input class="input" id="mem-name" value="Grace Lim Wei Ting" required></div>
+        <div class="form-group"><label>NRIC/FIN (last 4 digits) *</label><input class="input" placeholder="e.g. 1234A" required></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Expected Delivery Date</label><input class="input" type="date"></div>
+        <div class="form-group"><label>Membership Type *</label>
+          <select class="input" id="mem-type" required>
+            <option value="FBP">First Born Incentive (FBP)</option>
+            <option value="NBP">Next Baby Programme (NBP)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label>Hospital / Clinic of Care</label>
+        <select class="input"><option>Meridian Women's Clinic</option><option>Meridian Specialists</option></select>
+      </div>
+      <hr class="divider">
+      <label class="flex-gap-2" style="align-items:flex-start;"><input type="checkbox" style="margin-top:4px;accent-color:var(--primary);" required><span class="text-sm">I agree to the FBP/NBP Membership Program terms and consent to my pregnancy information being used to verify eligibility.</span></label>
+      <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">Submit Application</button>
+    </form>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="site-footer__bottom">&copy; 2026 Meridian Health Pte Ltd. All rights reserved.</div></footer>
+</div>
+<div id="toast-region"></div>
+<script src="../../../assets/js/global.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

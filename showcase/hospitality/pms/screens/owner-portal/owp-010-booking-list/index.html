@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking List — Azura Manager Owner Portal</title>
+<link rel="icon" href="../../../assets/img/azura-logo.svg">
+<link rel="stylesheet" href="../../../assets/css/global.css">
+<link rel="stylesheet" href="../_shared/owp-shell.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="owp-body">
+
+<header class="owp-topnav">
+  <a class="owp-topnav__brand" href="../owp-002-dashboard/index.html">
+    <img src="../../../assets/img/azura-logo.svg" alt="Azura Stays logo">
+    <span>Azura Manager<small>Owner Portal</small></span>
+  </a>
+  <nav class="owp-topnav__links">
+    <a href="../owp-002-dashboard/index.html" data-nav="dashboard">Dashboard</a>
+    <a href="../owp-005-property-list/index.html" data-nav="properties">My Properties</a>
+    <a href="../owp-010-booking-list/index.html" data-nav="bookings" class="active">Bookings</a>
+    <a href="../owp-017-direct-booking-request-list/index.html" data-nav="requests">Direct Requests</a>
+    <a href="../owp-018-payment-details-list/index.html" data-nav="payments">Payments</a>
+    <a href="../owp-014-generate-financial-report-owner-statement/index.html" data-nav="reports">Reports</a>
+  </nav>
+  <div class="topbar__user-wrap">
+    <div class="topbar__user" data-user-menu>
+      <span class="avatar">RH</span>
+      <div class="topbar__user-meta"><div class="topbar__user-name">Richard Halstead</div><div class="topbar__user-role">Property Owner</div></div>
+    </div>
+    <div class="user-dropdown" data-user-dropdown>
+      <a href="../owp-004-personal-profile/index.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg> My Profile</a>
+      <hr class="divider">
+      <a href="../owp-001-login/index.html" class="danger"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Logout</a>
+    </div>
+  </div>
+</header>
+
+<div class="owp-content">
+  <div class="page-header"><div><h1>Bookings</h1><p class="subtitle">All bookings across your properties.</p></div></div>
+  <div class="card"><div class="card__body">
+    <div class="toolbar"><div class="search-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" id="search-input" placeholder="Search bookings..."></div><div class="spacer"></div><span class="text-xs text-muted" id="result-count"></span></div>
+    <div class="table-wrap"><table class="data-table"><thead><tr><th>Booking</th><th>Property</th><th>Guest</th><th>Dates</th><th>Status</th><th>Total</th></tr></thead><tbody id="list-tbody"></tbody></table></div>
+  </div></div>
+</div>
+<div class="modal-overlay" id="detail-modal">
+  <div class="modal modal-sm">
+    <div class="modal__header"><div><h2 id="detail-id">Booking</h2></div><button class="modal__close" data-close-modal>&times;</button></div>
+    <div class="modal__body">
+      <div class="form-grid single">
+        <div class="form-group"><label>Property</label><div class="ro-value" id="detail-property"></div></div>
+        <div class="form-group"><label>Guest</label><div class="ro-value" id="detail-guest"></div></div>
+        <div class="form-group"><label>Dates</label><div class="ro-value" id="detail-dates"></div></div>
+        <div class="form-group"><label>Total</label><div class="ro-value" id="detail-total"></div></div>
+      </div>
+    </div>
+    <div class="modal__footer"><button class="btn btn-ghost" data-close-modal>Close</button></div>
+  </div>
+</div>
+<script src="../../../assets/js/global.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

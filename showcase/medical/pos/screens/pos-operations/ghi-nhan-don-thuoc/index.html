@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prescription Recording — CareJourney POS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/css/global.css">
+<link rel="stylesheet" href="../popup-flow.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="pos-mat">
+  <div class="pos-device">
+
+    <header class="device-bar">
+      <div class="device-bar__left">
+        <div class="device-brand"><span class="device-brand__mark">CJ</span> CareJourney POS</div>
+        <span class="device-bar__meta" data-device-outlet>Meridian Health — Central Pharmacy</span>
+      </div>
+      <div class="device-bar__right">
+        <span class="session-pill" data-session-pill><span class="session-pill__dot"></span><span data-session-label>Session Open</span></span>
+        <span class="device-clock" data-device-clock></span>
+        <div class="device-controls">
+          <button class="dc-btn" id="cancelFlowBtn" title="Cancel and return to Sales Screen">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            Cancel
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="device-body">
+      <div class="flow-backdrop">
+        <div class="flow-step-tracker">
+          <div class="flow-step is-done"><span class="flow-step__num">✓</span>Patient Info</div>
+          <div class="flow-step__line"></div>
+          <div class="flow-step is-active"><span class="flow-step__num">2</span>Dispense</div>
+          <div class="flow-step__line"></div>
+          <div class="flow-step"><span class="flow-step__num">3</span>Counseling</div>
+        </div>
+        <div class="flow-backdrop__card">
+          <span class="text-caption text-muted">Patient</span>
+          <h3 id="patientNameOut">—</h3>
+          <p class="text-muted text-caption mt-2" id="patientMetaOut">—</p>
+        </div>
+      </div>
+
+      <div class="popup-scrim">
+        <div class="popup-card" role="dialog" aria-modal="true">
+          <div class="popup-card__header">
+            <div>
+              <div class="popup-card__eyebrow">Step 2 of 3 · Prescribed → Dispensed → Remaining</div>
+              <h3>Prescription Recording</h3>
+            </div>
+          </div>
+          <div class="popup-card__body">
+            <div class="alert-banner alert-banner--clinical" id="allergyBanner" style="display:none;">
+              <svg class="alert-banner__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
+              <div>
+                <div class="alert-banner__title">Known allergy on file</div>
+                <div class="alert-banner__body" id="allergyBannerText"></div>
+              </div>
+            </div>
+
+            <div class="field" id="f_medication">
+              <label for="medicationSelect">Medication</label>
+              <select class="input" id="medicationSelect"></select>
+            </div>
+
+            <div class="field-row">
+              <div class="field" id="f_qtyPrescribed">
+                <label for="qtyPrescribed">Quantity prescribed</label>
+                <input type="number" min="1" class="input" id="qtyPrescribed">
+              </div>
+              <div class="field" id="f_qtyDispensed">
+                <label for="qtyDispensed">Quantity dispensed now</label>
+                <input type="number" min="0" class="input" id="qtyDispensed">
+                <span class="error-text">Cannot exceed quantity prescribed</span>
+              </div>
+            </div>
+
+            <div class="dispense-summary card mt-2">
+              <div class="dispense-summary__row">
+                <span>Quantity remaining</span>
+                <span class="cell-strong tabular" id="qtyRemainingOut">0</span>
+              </div>
+              <div class="dispense-summary__row">
+                <span>Dispensing status</span>
+                <span id="dispenseStatusBadge" class="badge badge-warning">Partially Dispensed</span>
+              </div>
+            </div>
+          </div>
+          <div class="popup-card__footer">
+            <button class="btn btn-ghost" id="backBtn">Cancel</button>
+            <button class="btn btn-primary" id="confirmDispenseBtn">
+              Confirm Dispense & Continue
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="reset-demo-btn">Reset demo data</button>
+  </div>
+</div>
+
+<script src="../../../assets/data/product.js"></script>
+<script src="../../../assets/data/prescription.js"></script>
+<script src="../../../assets/data/transaction.js"></script>
+<script src="../../../assets/js/global.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

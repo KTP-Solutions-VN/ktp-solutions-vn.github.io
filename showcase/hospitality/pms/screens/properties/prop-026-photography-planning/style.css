@@ -1,0 +1,15 @@
+.row-actions-inline { display: flex; gap: 6px; justify-content: flex-end; flex-wrap: wrap; }
+
+.guideline-list { display: flex; flex-direction: column; gap: 2px; }
+.guideline-list li {
+  display: flex; align-items: center; gap: 12px; padding: 10px 4px; border-bottom: 1px solid var(--color-gray-100);
+}
+.guideline-list li:last-child { border-bottom: none; }
+.guideline-list__icon {
+  width: 36px; height: 36px; border-radius: var(--radius-md); background: var(--color-primary-50); color: var(--color-primary-dark);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.guideline-list__icon svg { width: 18px; height: 18px; }
+.guideline-list__meta { flex: 1; }
+.guideline-list__meta strong { display: block; color: var(--color-primary-dark); font-size: var(--font-size-sm); }
+.guideline-list__meta small { color: var(--color-gray-500); font-size: var(--font-size-xs); }

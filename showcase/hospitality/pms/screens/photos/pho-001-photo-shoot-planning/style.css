@@ -1,0 +1,6 @@
+/* PHO-001 Photo Shoot Planning — page-specific overrides only */
+.chip[data-result].active {
+  background: var(--color-primary-50);
+  border-color: var(--color-primary);
+  color: var(--color-primary-dark);
+}

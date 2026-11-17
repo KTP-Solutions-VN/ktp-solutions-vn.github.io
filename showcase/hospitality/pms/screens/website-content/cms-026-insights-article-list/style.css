@@ -1,0 +1,2 @@
+/* CMS-026 — Insights Article List */
+.dest-tag { display: inline-block; background: var(--color-gray-100); color: var(--color-gray-600); border-radius: var(--radius-pill); font-size: 11px; font-weight: 600; padding: 2px 8px; margin: 1px 3px 1px 0; }

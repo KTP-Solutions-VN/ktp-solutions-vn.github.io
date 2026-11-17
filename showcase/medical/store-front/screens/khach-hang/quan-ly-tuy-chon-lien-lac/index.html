@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Contact Preferences — CareJourney</title>
+<link rel="stylesheet" href="../../../assets/css/global.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="modal-backdrop-screen">
+  <div class="modal-card">
+    <div class="modal-card__header">
+      <h3 style="margin:0;">Manage Contact Preferences</h3>
+      <a class="modal-close" href="../../../screens/khach-hang/tai-khoan-cua-toi/index.html" aria-label="Close"><svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></a>
+    </div>
+    <div class="modal-card__body">
+      <p class="text-muted mb-4">Choose how CareJourney can reach you about orders, appointments and promotions.</p>
+      <div class="toggle-row">
+        <div class="toggle-row__label"><strong>Email</strong><span>Order updates, receipts, promotions</span></div>
+        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+      </div>
+      <div class="toggle-row">
+        <div class="toggle-row__label"><strong>SMS</strong><span>Appointment reminders, urgent order updates</span></div>
+        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+      </div>
+      <div class="toggle-row">
+        <div class="toggle-row__label"><strong>Phone Call</strong><span>Follow-up calls from care team</span></div>
+        <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+      </div>
+      <div class="toggle-row">
+        <div class="toggle-row__label"><strong>Push Notification</strong><span>Real-time order & booking status</span></div>
+        <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+      </div>
+    </div>
+    <div class="modal-card__footer">
+      <a href="../../../screens/khach-hang/tai-khoan-cua-toi/index.html" class="btn btn-ghost">Cancel</a>
+      <button class="btn btn-primary" id="btn-save-prefs">Save Preferences</button>
+    </div>
+  </div>
+</div>
+<div id="toast-region"></div>
+<script src="../../../assets/js/global.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

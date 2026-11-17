@@ -1,0 +1,37 @@
+<!-- Màn đăng nhập (2 bước: signin → pick). Dữ liệu: appName, step, tenants[] -->
+<div class="lg-l">
+  <div class="brand" style="padding:0"><span class="mark"><svg><use href="#beam"/></svg></span><div><b>{{appName}}</b></div></div>
+  <h1>{{t "login.hero"}}</h1>
+  <p>{{t "login.sub"}}</p>
+  <ul>
+    <li><span>{{ic "target"}}</span>{{t "login.b1"}}</li>
+    <li><span>{{ic "wrench"}}</span>{{t "login.b2"}}</li>
+    <li><span>{{ic "check"}}</span>{{t "login.b3"}}</li>
+  </ul>
+  <div class="foot">{{t "proto.note"}}</div>
+</div>
+<div class="lg-r"><div class="login-card">
+  {{#if pick}}
+  <h2>{{t "login.pick"}}</h2>
+  <div class="muted">{{t "login.pickSub"}}</div>
+  <div class="tenants"{{fa "M01.05"}}>
+    {{#each tenants}}
+    <button class="tcard" onclick="enter('{{code}}')">
+      <span class="tav" style="background:{{color}}">{{badge}}</span>
+      <div><b>{{name}}</b><small>{{role}}</small></div>{{ic "right"}}
+    </button>
+    {{/each}}
+  </div>
+  {{else}}
+  <h2>{{t "login.title"}}</h2>
+  <div class="muted">{{t "login.useCompany"}}</div>
+  <button class="btn sso"{{fa "M01.01"}} onclick="go('/pick')">
+    <svg width="18" height="18" viewBox="0 0 21 21"><rect x="1" y="1" width="9" height="9" fill="#F25022"/><rect x="11" y="1" width="9" height="9" fill="#7FBA00"/><rect x="1" y="11" width="9" height="9" fill="#00A4EF"/><rect x="11" y="11" width="9" height="9" fill="#FFB900"/></svg>
+    {{t "login.ms"}}
+  </button>
+  <div class="or">{{t "login.or"}}</div>
+  <label class="fl">Email<input class="inp" value="{{email}}"></label>
+  <label class="fl">{{t "login.mfa"}}<input class="inp" placeholder="{{t "login.mfaPh"}}"></label>
+  <button class="btn wide"{{fa "M01.02"}} onclick="go('/pick')">{{t "login.local"}}</button>
+  {{/if}}
+</div></div>

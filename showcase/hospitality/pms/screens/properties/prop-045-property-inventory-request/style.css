@@ -1,0 +1,9 @@
+/* PROP-045 — Property Inventory Request: screen-specific rules only. */
+
+.card__header { flex-wrap: wrap; gap: 14px; }
+.card__header .form-group label { margin-bottom: 0; }
+#property-select {
+  border: 1px solid var(--color-gray-300); border-radius: var(--radius-md); padding: 9px 12px;
+  font-size: var(--font-size-sm); color: var(--color-gray-900); background: var(--color-white); width: 100%;
+}
+.row-actions { display: flex; gap: 6px; align-items: center; justify-content: flex-end; }

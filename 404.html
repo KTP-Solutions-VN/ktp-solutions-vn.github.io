@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Không tìm thấy trang — KTP Solutions</title>
+<meta name="robots" content="noindex">
+<script>
+  /* GitHub Pages trả trang này cho mọi đường dẫn không có file.
+     CRM trong showcase là single-page app dùng URL gọn (/showcase/crm/app/jobs/jo3): chuyển về app kèm ?__p=<đường dẫn> để app mở đúng màn. */
+  (function () {
+    var p = location.pathname, base = "/showcase/crm/app";
+    if (p.indexOf(base + "/") === 0 && p.length > base.length + 1) {
+      location.replace(base + "/?__p=" + encodeURIComponent(p.slice(base.length) + location.search) + location.hash);
+    }
+  })();
+</script>
+<link rel="icon" href="/assets/img/ktp-logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/global.css">
+<style>
+  .nf { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: var(--sp-6); padding: var(--sp-8) var(--sp-4); }
+  .nf__code { font: 800 clamp(72px, 14vw, 140px)/1 var(--font-sans); background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .nf h1 { font: var(--h2); margin: 0; }
+  .nf p { color: var(--text-secondary); max-width: 480px; margin: 0; }
+  .nf__acts { display: flex; flex-wrap: wrap; gap: var(--sp-3); justify-content: center; }
+</style>
+</head>
+<body>
+<main class="nf">
+  <a href="/"><img src="/assets/img/ktp-logo-white.svg" alt="KTP Solutions" height="32"></a>
+  <div class="nf__code">404</div>
+  <h1 data-en="Page not found">Không tìm thấy trang</h1>
+  <p data-en="The link may be outdated or mistyped. Head back to the home page or explore the projects we have built.">Đường dẫn có thể đã cũ hoặc gõ nhầm. Quay về trang chủ hoặc xem các dự án chúng tôi đã xây dựng.</p>
+  <div class="nf__acts">
+    <a class="btn btn-primary" href="/" data-en="Back to home">Về trang chủ</a>
+    <a class="btn btn-outline" href="/screens/du-an/" data-en="See our projects">Xem dự án</a>
+  </div>
+</main>
+<script>
+  try { if (localStorage.getItem("ktp_lang") === "en") { document.documentElement.lang = "en"; document.querySelectorAll("[data-en]").forEach(function (el) { el.textContent = el.getAttribute("data-en"); }); } } catch (e) {}
+</script>
+</body>
+</html>

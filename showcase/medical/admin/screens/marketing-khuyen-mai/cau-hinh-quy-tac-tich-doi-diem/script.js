@@ -1,0 +1,1 @@
+document.getElementById('saveBtn').addEventListener('click', function(){ CJToast('Loyalty rules saved.'); });

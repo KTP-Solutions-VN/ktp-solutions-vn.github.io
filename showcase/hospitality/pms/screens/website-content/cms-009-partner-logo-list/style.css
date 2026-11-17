@@ -1,0 +1,7 @@
+/* CMS-006 — "Why Us" List */
+.thumb-cell {
+  width: 40px; height: 40px; border-radius: var(--radius-sm); flex-shrink: 0;
+  background: linear-gradient(135deg, var(--color-primary-100), var(--color-primary-50));
+  color: var(--color-primary-dark); display: flex; align-items: center; justify-content: center;
+}
+.thumb-cell svg { width: 18px; height: 18px; }

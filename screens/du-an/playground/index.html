@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- title / description / canonical / Open Graph / JSON-LD được playground.js cập nhật theo ?app= -->
+<title>Playground dự án phần mềm — KTP Solutions</title>
+<meta name="description" content="Bấm thử trực tiếp prototype phần mềm KTP Solutions đã xây dựng: quản lý khách sạn, resort, villa (PMS, Channel Manager), CRM doanh nghiệp B2B, phần mềm y tế.">
+<meta name="keywords" content="phần mềm quản lý khách sạn, PMS khách sạn, channel manager, phần mềm CRM, CRM B2B, phần mềm y tế, POS nhà thuốc">
+<link rel="canonical" href="https://www.ktpsolutions.vn/screens/du-an/playground/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="KTP Solutions">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:title" content="Playground dự án phần mềm — KTP Solutions">
+<meta property="og:description" content="Bấm thử trực tiếp prototype phần mềm KTP Solutions đã xây dựng.">
+<meta property="og:url" content="https://www.ktpsolutions.vn/screens/du-an/playground/">
+<meta property="og:image" content="https://www.ktpsolutions.vn/showcase/assets/covers/pms.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0A0D1A">
+<script type="application/ld+json" id="ld">{}</script>
+<link rel="icon" href="../../../assets/img/ktp-logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../../assets/css/global.css">
+<link rel="stylesheet" href="../../../showcase/assets/playground.css">
+</head>
+<body class="is-player">
+
+<!-- Header, menu: markup chuẩn của website (giống các trang khác), mục "Dự án" active -->
+<header class="site-header" data-solid="true">
+  <div class="container site-header__inner">
+    <a href="../../../index.html" class="site-header__logo"><img src="../../../assets/img/ktp-logo-white.svg" alt="KTP Solutions"></a>
+    <nav class="site-header__nav">
+      <a href="../../../index.html" data-en="Home">Trang chủ</a>
+      <a href="../../dich-vu/index.html" data-en="Services">Dịch vụ</a>
+      <a href="../../du-an/index.html" class="is-active" data-en="Projects">Dự án</a>
+      <a href="../../blog/index.html" data-en="Blog">Blog</a>
+      <a href="../../ve-chung-toi/index.html" data-en="About us">Về chúng tôi</a>
+    </nav>
+    <div class="site-header__actions">
+      <div class="lang-toggle"><button type="button" data-lang="vi" class="is-active">VI</button><button type="button" data-lang="en">EN</button></div>
+      <a href="../../lien-he/index.html" class="btn btn-primary" data-en="Book a free consultation">Đặt lịch tư vấn miễn phí</a>
+      <button class="site-header__burger" aria-label="Mở menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav">
+  <button class="mobile-nav__close" aria-label="Đóng menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <a href="../../../index.html" data-en="Home">Trang chủ</a>
+  <a href="../../dich-vu/index.html" data-en="Services">Dịch vụ</a>
+  <a href="../../du-an/index.html" data-en="Projects">Dự án</a>
+  <a href="../../blog/index.html" data-en="Blog">Blog</a>
+  <a href="../../ve-chung-toi/index.html" data-en="About us">Về chúng tôi</a>
+  <div class="mobile-nav__ctas">
+    <a href="../../lien-he/index.html" class="btn btn-primary btn-block" data-en="Book a free consultation">Đặt lịch tư vấn miễn phí</a>
+  </div>
+</div>
+
+<div id="player" class="pg-player">
+  <aside class="pg-side" id="side">
+    <div class="pg-side__top">
+      <div class="pg-side__head">
+        <a class="pg-back" href="./" data-nav><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg><span data-i18n="back">Tất cả prototype</span></a>
+        <button class="pg-icon pg-collapse" id="sideCollapse" type="button" data-i18n-title="collapse" title="Thu gọn danh sách màn"><svg viewBox="0 0 24 24"><path d="M11 17l-5-5 5-5M18 17l-5-5 5-5"/></svg></button>
+      </div>
+      <div class="pg-prod" id="prod"></div>
+      <label class="pg-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="search" type="search" autocomplete="off" data-i18n-ph="search" placeholder="Tìm màn hình…  ( / )"></label>
+      <div class="pg-side__meta" id="sideMeta"></div>
+    </div>
+    <nav class="pg-list" id="list" aria-label="Screens"></nav>
+  </aside>
+  <div class="pg-scrim" id="scrim"></div>
+
+  <section class="pg-stage">
+    <div class="pg-toolbar">
+      <button class="pg-icon" id="sideToggle" type="button" data-i18n-title="screens" title="Ẩn / hiện danh sách màn"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M12.5 9h5M12.5 13h5"/></svg></button>
+      <div class="pg-crumb"><span id="crumbProduct"></span><b id="crumbScreen"></b></div>
+      <div class="pg-seg" id="devices" role="group" aria-label="Device">
+        <button type="button" data-w="1440" data-i18n-title="desktop" title="Desktop 1440px"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg></button>
+        <button type="button" data-w="1024" data-i18n-title="tablet" title="Tablet 1024px"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M11 18h2"/></svg></button>
+        <button type="button" data-w="390" data-i18n-title="mobile" title="Mobile 390px"><svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/></svg></button>
+      </div>
+      <div class="pg-toolbar__group">
+        <button class="pg-icon" id="reload" type="button" data-i18n-title="reload" title="Tải lại"><svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg></button>
+        <button class="pg-icon" id="copy" type="button" data-i18n-title="copy" title="Sao chép link màn này"><svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></button>
+        <a class="pg-icon" id="openNew" target="_blank" rel="noopener" data-i18n-title="full" title="Xem toàn màn hình (tab mới)"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></a>
+      </div>
+    </div>
+    <div class="pg-viewport" id="viewport">
+      <div class="pg-device" id="device"><iframe id="frame" title="Prototype"></iframe></div>
+      <div class="pg-loading" id="loading"><span></span></div>
+      <nav class="pg-pager" aria-label="Chuyển màn">
+        <button class="pg-pager__btn" id="prev" type="button" data-i18n-title="prev" title="Màn trước (←)"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <span class="pg-pager__pos" id="pos"></span>
+        <button class="pg-pager__btn pg-pager__btn--next" id="next" type="button" data-i18n-title="next" title="Màn sau (→)"><span data-i18n="nextLabel">Màn sau</span><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+      </nav>
+    </div>
+  </section>
+</div>
+
+<div class="pg-toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>window.PG_BASE = "../../../showcase/"; /* thư mục chứa bản build prototype + ảnh bìa */ window.PG_PROJECTS = "../";</script>
+<script src="../../../showcase/playground-data.js"></script>
+<script src="../../../assets/js/global.js"></script>
+<script src="../../../showcase/assets/playground.js"></script>
+</body>
+</html>

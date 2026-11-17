@@ -1,0 +1,7 @@
+@import url('../_shared/booking-shared.css');
+
+#pie-chart circle { transition: stroke-dasharray 250ms ease-out; }
+.pie-legend__item { display: flex; align-items: center; gap: 8px; font-size: var(--font-size-sm); color: var(--color-gray-700); }
+.pie-legend__swatch { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+.variation-up { color: var(--color-success-text); font-weight: 700; }
+.variation-down { color: var(--color-danger-text); font-weight: 700; }
