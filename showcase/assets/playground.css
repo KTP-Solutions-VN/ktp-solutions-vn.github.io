@@ -133,3 +133,7 @@ body.is-player .site-footer { display: none; } /* playground chiếm trọn màn
 .pg-pager__btn--next:hover { background: #3141C0; }
 .pg-pager__btn:disabled { opacity: .35; pointer-events: none; }
 .pg-pager__pos { min-width: 84px; text-align: center; font-weight: 700; font-size: 14px; color: var(--text); font-variant-numeric: tabular-nums; }
+
+/* Light theme của website (<html data-theme="light">): token nền / viền lấy từ global.css, ở đây chỉ map token chữ riêng của playground */
+:root[data-theme="light"] { --text: #12142A; --text-2: #434765; --text-3: #5C6180; }
+:root[data-theme="light"] .pg-viewport { background: radial-gradient(circle at 50% 0, #E3E6F1, var(--bg) 70%); }

@@ -36,7 +36,7 @@
         '</div>' +
         KTP.domainBadge(da, 'margin-bottom:16px;') +
         '<h1 style="font-size:32px; max-width:780px;"' + KTP.en(da.ten_du_an_en) + '>' + da.ten_du_an + '</h1>' +
-        '<p class="body-lg" style="max-width:680px; margin:12px 0 20px;"><span data-en="Client:">Khách hàng:</span> <strong style="color:#fff;"' + KTP.en(da.khach_hang_en) + '>' + da.khach_hang + '</strong></p>' +
+        '<p class="body-lg" style="max-width:680px; margin:12px 0 20px;"><span data-en="Client:">Khách hàng:</span> <strong style="color:var(--text-strong);"' + KTP.en(da.khach_hang_en) + '>' + da.khach_hang + '</strong></p>' +
         '<p class="body-lg" style="max-width:780px; margin:0 0 24px;"' + KTP.en(da.tom_tat_en) + '>' + da.tom_tat + '</p>' +
         (da.playground ? '<div style="margin-bottom:32px;">' + playBtn('btn-primary btn-lg') + '</div>' : '<div style="margin-bottom:32px;"></div>') +
       '</div>' +

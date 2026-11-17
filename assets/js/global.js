@@ -158,7 +158,45 @@ var KTP = (function () {
     apply(stored);
   }
 
+  /* ---- Light / dark theme (mặc định dark). Thuộc tính data-theme đã được script nhỏ trong <head> đặt sẵn
+     trước khi vẽ trang; ở đây chỉ chèn nút đổi theme và đổi logo header (logo trắng chỉ hợp nền tối) ---- */
+  function initThemeToggle() {
+    var root = document.documentElement;
+    var logo = document.querySelector('.site-header__logo img');
+    var actions = document.querySelector('.site-header__actions');
+    function apply(theme) {
+      if (theme === 'light') root.setAttribute('data-theme', 'light'); else root.removeAttribute('data-theme');
+      if (logo) logo.src = logo.src.replace(theme === 'light' ? 'ktp-logo-white.svg' : /ktp-logo\.svg$/, theme === 'light' ? 'ktp-logo.svg' : 'ktp-logo-white.svg');
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.content = theme === 'light' ? '#FFFFFF' : '#0A0D1A';
+    }
+    apply(root.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
+    if (!actions) return;
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'theme-toggle';
+    btn.innerHTML =
+      '<svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>' +
+      '<svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+    function label() {
+      var en = root.getAttribute('data-lang') === 'en', light = root.getAttribute('data-theme') === 'light';
+      var t = light ? (en ? 'Switch to dark theme' : 'Chuyển sang giao diện tối') : (en ? 'Switch to light theme' : 'Chuyển sang giao diện sáng');
+      btn.setAttribute('aria-label', t);
+      btn.title = t;
+    }
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      try { localStorage.setItem('ktp_theme', next); } catch (e) {}
+      apply(next);
+      label();
+    });
+    actions.insertBefore(btn, actions.firstChild);
+    label();
+    new MutationObserver(label).observe(root, { attributes: true, attributeFilter: ['data-lang'] });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
+    initThemeToggle();
     initHeaderScroll();
     initMobileNav();
     initScrollReveal();

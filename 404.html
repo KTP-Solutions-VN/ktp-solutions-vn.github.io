@@ -1,7 +1,8 @@
 <!doctype html>
-<html lang="vi">
+<html lang="vi" data-lang="vi">
 <head>
 <meta charset="UTF-8">
+<script>try{if(localStorage.getItem("ktp_theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Không tìm thấy trang — KTP Solutions</title>
 <meta name="robots" content="noindex">
@@ -15,29 +16,122 @@
     }
   })();
 </script>
+<!-- Trang 404: GitHub Pages trả trang này cho mọi đường dẫn không có file, nên mọi đường dẫn đều tuyệt đối (/assets/...) -->
 <link rel="icon" href="/assets/img/ktp-logo.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/css/global.css">
 <style>
-  .nf { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: var(--sp-6); padding: var(--sp-8) var(--sp-4); }
-  .nf__code { font: 800 clamp(72px, 14vw, 140px)/1 var(--font-sans); background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .nf h1 { font: var(--h2); margin: 0; }
-  .nf p { color: var(--text-secondary); max-width: 480px; margin: 0; }
-  .nf__acts { display: flex; flex-wrap: wrap; gap: var(--sp-3); justify-content: center; }
+  .nf { position: relative; overflow: hidden; min-height: 100vh; display: flex; align-items: center; padding: calc(var(--header-h) + var(--sp-16)) 0 var(--sp-20);
+    background: radial-gradient(900px 500px at 15% 10%, rgba(76,95,255,0.22), transparent 60%), radial-gradient(700px 420px at 85% 90%, rgba(1,151,112,0.18), transparent 55%), var(--bg); }
+  .nf__inner { text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--sp-4); }
+  .nf__code { font: 800 clamp(96px, 20vw, 200px)/1 var(--font-sans); letter-spacing: -0.04em;
+    background: linear-gradient(120deg, var(--primary) 0%, var(--accent) 60%, var(--signature-red) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .nf__eyebrow { color: var(--accent); }
+  .nf .body-lg { max-width: 520px; }
+  .nf__acts { display: flex; flex-wrap: wrap; gap: var(--sp-3); justify-content: center; margin-top: var(--sp-4); }
+  .nf__links { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--sp-2) var(--sp-6); margin-top: var(--sp-8); padding-top: var(--sp-6); border-top: 1px solid var(--border); }
+  .nf__links a { color: var(--text-secondary); font-weight: 500; }
+  .nf__links a:hover { color: var(--accent); }
 </style>
 </head>
 <body>
+
+<header class="site-header" data-solid="true">
+  <div class="container site-header__inner">
+    <a href="/" class="site-header__logo"><img src="/assets/img/ktp-logo-white.svg" alt="KTP Solutions"></a>
+    <nav class="site-header__nav">
+      <a href="/" data-en="Home">Trang chủ</a>
+      <a href="/screens/dich-vu/" data-en="Services">Dịch vụ</a>
+      <a href="/screens/du-an/" data-en="Projects">Dự án</a>
+      <a href="/screens/blog/" data-en="Blog">Blog</a>
+      <a href="/screens/ve-chung-toi/" data-en="About us">Về chúng tôi</a>
+    </nav>
+    <div class="site-header__actions">
+      <div class="lang-toggle"><button type="button" data-lang="vi" class="is-active">VI</button><button type="button" data-lang="en">EN</button></div>
+      <a href="/screens/lien-he/" class="btn btn-primary" data-en="Book a free consultation">Đặt lịch tư vấn miễn phí</a>
+      <button class="site-header__burger" aria-label="Mở menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav">
+  <button class="mobile-nav__close" aria-label="Đóng menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <a href="/" data-en="Home">Trang chủ</a>
+  <a href="/screens/dich-vu/" data-en="Services">Dịch vụ</a>
+  <a href="/screens/du-an/" data-en="Projects">Dự án</a>
+  <a href="/screens/blog/" data-en="Blog">Blog</a>
+  <a href="/screens/ve-chung-toi/" data-en="About us">Về chúng tôi</a>
+  <div class="mobile-nav__ctas">
+    <a href="/screens/lien-he/" class="btn btn-primary btn-block" data-en="Book a free consultation">Đặt lịch tư vấn miễn phí</a>
+  </div>
+</div>
+
 <main class="nf">
-  <a href="/"><img src="/assets/img/ktp-logo-white.svg" alt="KTP Solutions" height="32"></a>
-  <div class="nf__code">404</div>
-  <h1 data-en="Page not found">Không tìm thấy trang</h1>
-  <p data-en="The link may be outdated or mistyped. Head back to the home page or explore the projects we have built.">Đường dẫn có thể đã cũ hoặc gõ nhầm. Quay về trang chủ hoặc xem các dự án chúng tôi đã xây dựng.</p>
-  <div class="nf__acts">
-    <a class="btn btn-primary" href="/" data-en="Back to home">Về trang chủ</a>
-    <a class="btn btn-outline" href="/screens/du-an/" data-en="See our projects">Xem dự án</a>
+  <div class="container nf__inner">
+    <div class="nf__code" aria-hidden="true">404</div>
+    <span class="caption nf__eyebrow" data-en="Error 404">Lỗi 404</span>
+    <h1 data-en="Page not found">Không tìm thấy trang</h1>
+    <p class="body-lg" data-en="The link may be outdated or mistyped. Head back to the home page or explore the projects we have built.">Đường dẫn có thể đã cũ hoặc gõ nhầm. Quay về trang chủ hoặc xem các dự án chúng tôi đã xây dựng.</p>
+    <div class="nf__acts">
+      <a class="btn btn-primary btn-lg" href="/" data-en="Back to home">Về trang chủ</a>
+      <a class="btn btn-outline btn-lg" href="/screens/du-an/" data-en="See our projects">Xem dự án</a>
+    </div>
+    <ul class="nf__links">
+      <li><a href="/screens/dich-vu/"><span data-en="Services">Dịch vụ</span></a></li>
+      <li><a href="/screens/du-an/playground/?app=pms"><span data-en="Prototype playground">Playground bản mẫu</span></a></li>
+      <li><a href="/screens/blog/"><span data-en="Blog">Blog</span></a></li>
+      <li><a href="/screens/lien-he/"><span data-en="Contact">Liên hệ</span></a></li>
+    </ul>
   </div>
 </main>
-<script>
-  try { if (localStorage.getItem("ktp_lang") === "en") { document.documentElement.lang = "en"; document.querySelectorAll("[data-en]").forEach(function (el) { el.textContent = el.getAttribute("data-en"); }); } } catch (e) {}
-</script>
+
+
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        <img src="/assets/img/ktp-logo-white.svg" alt="KTP Solutions">
+        <p data-en="Your end-to-end digital transformation partner, from strategy consulting to software development outsourcing for SMEs.">Đối tác chuyển đổi số toàn diện — từ tư vấn chiến lược đến outsourcing phát triển phần mềm cho doanh nghiệp vừa và nhỏ.</p>
+        <div class="site-footer__social">
+          <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.5h4V23h-4V8.5zM8.5 8.5h3.8v1.98h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V23h-4v-6.7c0-1.6-.03-3.65-2.22-3.65-2.23 0-2.57 1.74-2.57 3.54V23h-4V8.5z"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4 data-en="Company">Công ty</h4>
+        <ul>
+          <li><a href="/screens/ve-chung-toi/" data-en="About us">Về chúng tôi</a></li>
+          <li><a href="/screens/du-an/" data-en="Projects">Dự án</a></li>
+          <li><a href="/screens/blog/" data-en="Blog">Blog</a></li>
+          <li><a href="/screens/lien-he/" data-en="Contact">Liên hệ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-en="Services">Dịch vụ</h4>
+        <ul>
+          <li><a href="/screens/dich-vu/phat-trien-phan-mem/" data-en="Software development">Phát triển phần mềm</a></li>
+          <li><a href="/screens/dich-vu/thiet-ke-phat-trien-web/" data-en="Web design &amp; development">Thiết kế &amp; phát triển Web</a></li>
+          <li><a href="/screens/dich-vu/truyen-thong-so/" data-en="Digital marketing">Truyền thông số</a></li>
+          <li><a href="/screens/dich-vu/thiet-ke-thuong-hieu/" data-en="Brand design">Thiết kế thương hiệu</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-en="Contact">Liên hệ</h4>
+        <ul>
+          <li class="footer-contact-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/></svg><span>info@ktpsolutions.vn</span></li>
+          <li class="footer-contact-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>+84 362 19 7272</span></li>
+          <li class="footer-contact-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><a href="https://maps.app.goo.gl/CE7TRci3reswAF777" target="_blank" rel="noopener" data-en="No. 17, LK 22, HUD Van Canh Urban Area, Son Dong, Hanoi">Số 17, LK 22, KĐT HUD Vân Canh, Sơn Đồng, Hà Nội</a></li>
+          <li class="footer-contact-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span data-en="Mon – Fri, 8:30 – 17:30">Thứ 2 – Thứ 6, 8:30 – 17:30</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <span>© 2026 KTP Solutions. All rights reserved.</span>
+      <span data-en="Illustrations: Unsplash License">Ảnh minh họa: Unsplash License</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/js/global.js"></script>
 </body>
 </html>
