@@ -1,1 +1,55 @@
 /* Về chúng tôi — page-specific tweaks */
+
+/* Đội ngũ — lưới bàn cờ: mỗi người = ô ảnh + ô nội dung, hàng sau đảo trái / phải */
+.team-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border);
+}
+.team-member { display: grid; grid-template-columns: 1fr 1fr; min-height: 320px; }
+.team-member:nth-child(4n+3) .team-member__photo,
+.team-member:nth-child(4n+4) .team-member__photo { order: 2; }
+.team-member__photo {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  overflow: hidden;
+}
+.team-member:nth-child(even) .team-member__photo { background: linear-gradient(135deg, var(--accent) 0%, var(--primary-dark) 100%); }
+.team-member__photo span { font: 700 72px/1 var(--font-sans); color: rgba(255,255,255,0.9); letter-spacing: -0.02em; }
+.team-member__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.team-member__body {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  padding: var(--sp-8) var(--sp-6); background: var(--bg);
+}
+.team-member__name { font: 700 18px/1.3 var(--font-sans); color: var(--text-strong); text-transform: uppercase; letter-spacing: 0.02em; }
+.team-member__role { font: 600 13.5px/1.4 var(--font-sans); color: var(--accent); margin-top: 6px; }
+.team-member__bio { font-size: 14.5px; line-height: 1.6; color: var(--text-secondary); margin-top: var(--sp-4); max-width: 280px; }
+.team-member__social { display: flex; gap: var(--sp-3); margin-top: var(--sp-4); }
+.team-member__social a { color: var(--text-muted); transition: color 160ms; display: inline-flex; }
+.team-member__social a:hover { color: var(--accent); }
+
+@media (max-width: 960px) {
+  .team-grid { grid-template-columns: 1fr; }
+  .team-member:nth-child(n) .team-member__photo { order: 0; }
+  .team-member:nth-child(even) .team-member__photo { order: 2; }
+}
+@media (max-width: 600px) {
+  .team-member { grid-template-columns: 1fr; min-height: 0; }
+  .team-member:nth-child(n) .team-member__photo { order: 0; aspect-ratio: 4 / 3; }
+}
+
+/* Công nghệ — marquee logo (dùng .marquee-row / .marquee-track của global.css) */
+.tech-marquee { gap: 20px; }
+.tech-track { gap: var(--sp-4); padding-right: var(--sp-4); animation-duration: 48s; }
+.marquee-row--reverse .tech-track { animation-duration: 56s; }
+.tech-track__dup { display: contents; }
+.tech-chip {
+  display: inline-flex; align-items: center; gap: 10px; flex-shrink: 0;
+  padding: 10px 18px 10px 12px; border-radius: var(--radius-full);
+  background: #fff; border: 1px solid var(--border);
+  font: 600 14px var(--font-sans); color: #12142A; white-space: nowrap;
+}
+.tech-chip img { width: 28px; height: 28px; object-fit: contain; }
+@media (prefers-reduced-motion: reduce) {
+  .tech-track { justify-content: center; width: auto; }
+  .tech-track__dup { display: none; }
+}

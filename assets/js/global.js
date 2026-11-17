@@ -64,6 +64,12 @@ var KTP = (function () {
       els.forEach(function (el) { el.classList.add('is-visible'); });
       return;
     }
+    // Khối đã trong màn hình lúc mở trang: hiện ngay, không ẩn rồi fade lại (tránh nháy nội dung khi chuyển trang)
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    els = Array.prototype.filter.call(els, function (el) {
+      if (el.getBoundingClientRect().top < vh * 0.9) { el.classList.add('is-instant', 'is-visible'); return false; }
+      return true;
+    });
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {

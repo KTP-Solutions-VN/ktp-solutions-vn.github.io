@@ -189,6 +189,19 @@ h3, .h3 { font: var(--h3); }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; }
 }
+/* Khối đã nằm trong màn hình lúc mở trang thì hiện ngay, không fade lại (global.js gắn .is-instant) */
+.reveal.is-instant { transition: none; }
+
+/* Chuyển trang mượt (cross-document View Transitions, Chrome / Edge / Safari 18.2+): giữ trang cũ cho tới khi
+   trang mới vẽ xong rồi crossfade nhanh, không nháy trắng. Header đứng yên vì có view-transition-name riêng. */
+@view-transition { navigation: auto; }
+.site-header { view-transition-name: site-header; }
+::view-transition-group(*) { animation-duration: 140ms; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 140ms; animation-timing-function: ease-out; }
+::view-transition-old(site-header), ::view-transition-new(site-header) { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}
 
 /* ==========================================================================
    Header (sticky, transparent -> solid on scroll) — Landing page nav surface
