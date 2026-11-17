@@ -178,6 +178,8 @@ h3, .h3 { font: var(--h3); }
 .section-bg-light .case-card__metric span { color: var(--gray-500); }
 .section-header { max-width: 640px; margin: 0 auto var(--sp-12); text-align: center; }
 .section-header .caption { color: var(--accent); margin-bottom: var(--sp-3); display: block; }
+.section-header h2 { text-wrap: balance; }
+.section-header h2 + .body-lg { margin-top: var(--sp-4); }  /* cùng khoảng cách tiêu đề → mô tả như đầu các trang con */
 
 /* Scroll-reveal (motivated motion: guides reading order, not decoration) */
 @media (prefers-reduced-motion: no-preference) {
