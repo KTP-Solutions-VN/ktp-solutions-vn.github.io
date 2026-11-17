@@ -669,6 +669,7 @@ h3, .h3 { font: var(--h3); }
 @media (max-width: 860px) { .process-steps { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .process-steps { grid-template-columns: 1fr; } }
 .process-step { position: relative; padding-top: var(--sp-8); }
+.process-step h3 { margin-bottom: var(--sp-2); }  /* tiêu đề bước → mô tả: không dính sát */
 .process-step__num {
   position: relative; z-index: 1;
   font: 800 15px var(--font-sans); color: var(--accent); background: var(--surface-2); border: 1px solid var(--border-light);
