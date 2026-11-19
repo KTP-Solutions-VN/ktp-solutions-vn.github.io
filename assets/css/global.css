@@ -660,6 +660,20 @@ h3, .h3 { font: var(--h3); }
   .service-tab-content__media-hint { display: none; }
 }
 
+/* Màn hẹp / cảm ứng: không có hover, ảnh 16:9 quá thấp để phủ chữ lên → danh sách lợi ích nằm dưới ảnh */
+@media (max-width: 860px), (hover: none) {
+  .service-tabs__panel { padding: var(--sp-6) var(--sp-4); }
+  .service-tab-content__media { aspect-ratio: auto; overflow: visible; background: none; border-radius: 0; }
+  .service-tab-content__media img { aspect-ratio: 16/9; height: auto; border-radius: var(--radius-md); }
+  .service-tab-content__media-icon { display: none; }  /* icon đã có ở danh sách tab phía trên, không đè lên ảnh */
+  .service-tab-content__media-hint { display: none; }
+  :root .service-tab-content__overlay {
+    position: static; opacity: 1; padding: 0; margin-top: var(--sp-4); background: none;
+    color: var(--text-primary); --text-secondary: inherit;
+  }
+  .service-tab-content__benefits { padding: 0; gap: 10px; }
+  .service-tab-content .service-tab-content__benefit { opacity: 1; transform: none; color: var(--text-secondary); font-size: 14px; line-height: 1.5; }
+}
 @media (prefers-reduced-motion: no-preference) {
   .service-tab-content.is-active { animation: tabFadeIn 320ms ease-out; }
 }
@@ -680,7 +694,18 @@ h3, .h3 { font: var(--h3); }
   .process-steps { grid-template-columns: repeat(4, 1fr) 30px; }
 }
 @media (max-width: 860px) { .process-steps { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 560px) { .process-steps { grid-template-columns: 1fr; } }
+@media (max-width: 560px) {
+  /* Mobile: timeline dọc gọn — số bên trái, nội dung bên phải, đường nối giữa các số */
+  .process-steps { grid-template-columns: 1fr; gap: 0; }
+  .process-step { display: grid; grid-template-columns: 36px 1fr; column-gap: var(--sp-4); padding: 0 0 var(--sp-6); }
+  .process-step:nth-child(4) { padding-bottom: 0; }
+  .process-step__num { grid-row: 1 / span 2; margin-bottom: 0; }
+  .process-step h3 { align-self: center; margin: 0 0 var(--sp-1); line-height: 36px; }
+  .process-step p { grid-column: 2; }
+  .process-step:nth-child(-n+3)::before {
+    content: ''; position: absolute; left: 17.5px; top: 40px; bottom: 4px; width: 1px; background: var(--border-light);
+  }
+}
 .process-step { position: relative; padding-top: var(--sp-8); }
 .process-step h3 { margin-bottom: var(--sp-2); }  /* tiêu đề bước → mô tả: không dính sát */
 .process-step__num {

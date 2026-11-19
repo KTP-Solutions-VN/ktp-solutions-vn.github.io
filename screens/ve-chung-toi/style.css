@@ -32,9 +32,27 @@
   .team-member:nth-child(n) .team-member__photo { order: 0; }
   .team-member:nth-child(even) .team-member__photo { order: 2; }
 }
+/* Mobile: carousel vuốt ngang (scroll-snap), mỗi lần một người, thấy mép thẻ kế tiếp; desktop giữ lưới */
+.team-dots { display: none; }
 @media (max-width: 600px) {
-  .team-member { grid-template-columns: 1fr; min-height: 0; }
+  .team-grid {
+    display: flex; gap: var(--sp-3); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+    border: 0; border-radius: 0; margin: 0 calc(-1 * var(--sp-4)); padding: 0 var(--sp-4); scroll-padding: 0 var(--sp-4);
+    -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain;
+  }
+  .team-grid::-webkit-scrollbar { display: none; }
+  .team-member {
+    flex: 0 0 86%; scroll-snap-align: start; grid-template-columns: 1fr; grid-template-rows: auto 1fr; min-height: 0;
+    border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden;
+  }
   .team-member:nth-child(n) .team-member__photo { order: 0; aspect-ratio: 4 / 3; }
+  .team-member__body { padding: var(--sp-6) var(--sp-4); }
+  .team-dots { display: flex; justify-content: center; gap: var(--sp-2); margin-top: var(--sp-4); }
+  .team-dots button {
+    width: 8px; height: 8px; padding: 0; border: 0; border-radius: var(--radius-full); background: var(--border-light);
+    cursor: pointer; transition: width 200ms, background 200ms;
+  }
+  .team-dots button.is-active { width: 22px; background: var(--accent); }
 }
 
 /* Công nghệ — marquee logo (dùng .marquee-row / .marquee-track của global.css) */
