@@ -12,7 +12,7 @@
       storageKey: 'mm_mnt_back_office_services',
       baseData: MNT.BACK_OFFICE_SERVICES,
       entityLabel: 'service',
-      entityTitle: 'Back Office Service',
+      entityTitle: 'Admin Service Type',
       tbodyId: 'list-tbody',
       allBu: true
     });

@@ -1,10 +1,10 @@
-# BU-001 — Danh sách đơn vị kinh doanh
+# BU-001 — Đơn vị vận hành (Operating Units)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `BusinessUnitController::list()` — mặc định `/business-unit/list`
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Danh sách toàn bộ đơn vị kinh doanh (Business Unit) trong hệ thống, sắp xếp theo tên quốc gia rồi theo tên đơn vị. Cho phép lọc theo trạng thái Đang hoạt động/Tạm dừng, xem chi tiết, sửa, xóa và bật/tắt trạng thái hoạt động ngay trên danh sách.
@@ -27,7 +27,7 @@ Danh sách (DataTable `#zero_config`):
 Bộ lọc: nút "Show Active" / "Show Paused" (toggle qua field ẩn `paused_stop_show`, lưu tuỳ chọn hiển thị theo user đang đăng nhập).
 
 ## Chức năng/nút thao tác
-- **Add new:** điều hướng sang BU-002 (Thêm đơn vị kinh doanh).
+- **Add new:** điều hướng sang BU-002 (Thêm đơn vị vận hành).
 - **Xem (icon mắt):** điều hướng sang BU-004 (Xem chi tiết) — `action=viewDetails`.
 - **Sửa (icon bút):** điều hướng sang BU-003 (Sửa) — `action=edit`, id được `base64_encode`.
 - **Xóa (icon thùng rác):** mở popup BU-001-P1 xác nhận xóa; xác nhận sẽ điều hướng tới `delete/{id}` (id mã hoá base64 bằng JS `btoa`).
@@ -35,5 +35,5 @@ Bộ lọc: nút "Show Active" / "Show Paused" (toggle qua field ẩn `paused_st
 - **Show Active/Show Paused:** đổi điều kiện lọc danh sách theo `BusinessUnit.status`.
 
 ## Điều hướng
-- Vào từ: menu chính > Đơn vị kinh doanh.
+- Vào từ: menu chính > Đơn vị vận hành.
 - Điều hướng đến: BU-002 (Thêm mới), BU-003 (Sửa), BU-004 (Xem chi tiết), BU-001-P1 (popup xác nhận xóa).

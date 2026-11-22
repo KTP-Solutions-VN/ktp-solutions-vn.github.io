@@ -16,7 +16,7 @@
     if (!MM.validateForm(form)) return;
     MM.simulateSave(this, 'Submitting...', function () {
       var stored = JSON.parse(localStorage.getItem('mm_acc_petty_cash') || '[]');
-      stored.push({ id: MM.uid('pc'), type: document.getElementById('f-type').value, requestedBy: 'Somchai Anuwat', amount: parseFloat(document.getElementById('f-amount').value) || 0, status: 'Pending' });
+      stored.push({ id: MM.uid('pc'), type: document.getElementById('f-type').value, requestedBy: 'Daniel Tan', amount: parseFloat(document.getElementById('f-amount').value) || 0, status: 'Pending' });
       localStorage.setItem('mm_acc_petty_cash', JSON.stringify(stored));
       MM.closeModal('item-modal');
       MM.showToast('Request submitted');

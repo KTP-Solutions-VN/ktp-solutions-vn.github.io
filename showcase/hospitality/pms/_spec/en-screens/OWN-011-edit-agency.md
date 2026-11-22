@@ -1,10 +1,10 @@
-# OWN-011 — Edit Agency
+# OWN-011 — Edit Partner Agency
 
 **Type:** Full page
 
 **Route:** `/Owner/editAgency/{tab}/{id}/{show_page}/{payment_detail_id}` (controller `Owner`, action `editAgency($tab, $id, $show_page, $payment_detail_id)`)
 
-**Module:** Owner Management (Admin)
+**Module:** Owner Relations (Admin)
 
 ## Overview
 
@@ -43,7 +43,7 @@ A form for editing an existing Agency, consisting of 2 tabs: "Agency Details" (a
 - **+ Payment Details**: opens the add-payment-detail form (within the same tab, no separate URL/action).
 - **Edit** (pencil icon, per payment row): opens the corresponding edit-payment-detail form.
 - **Delete** (trash icon, per payment row): deletes the payment detail (action `deleteAgencyPaymentDetail`, no dedicated UI).
-- **Cancel**: returns to OWN-009 (Agency List).
+- **Cancel**: returns to OWN-009 (Partner Agencies).
 
 ## Navigation
 

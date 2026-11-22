@@ -1,10 +1,10 @@
-# FUND-001-P1 — Gán dự án cho nhà đầu tư
+# FUND-001-P1 — Gắn nhà đầu tư vào dự án (Link Investor to Project)
 
 **Loại:** Popup (mở từ FUND-001)
 
 **Route:** Submit POST tới `FundController::investors()` (`/fund/investors`, field ẩn `action = project`). Dữ liệu danh sách dự án nạp qua AJAX `fund/check-project` (POST).
 
-**Module:** FUND = Quỹ đầu tư
+**Module:** FUND = Vốn nhà đầu tư
 
 ## Mô tả ngắn gọn
 Modal cho phép gán một hoặc nhiều dự án (đang mở, `ProjectFund.status = open`) vào một nhà đầu tư, được mở từ icon "Project" trên danh sách nhà đầu tư (FUND-001).

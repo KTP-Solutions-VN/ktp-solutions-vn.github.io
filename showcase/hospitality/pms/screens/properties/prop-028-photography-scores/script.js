@@ -4,12 +4,12 @@
   var STORAGE_KEY = 'mm_prop_photo_scores';
 
   var MOCK_SCORES = [
-    { id: 'PS-01', property: 'Villa Sapphire Cliff', bu: 'Phuket Collection', photographer: 'Phuket Frame Photography', angles: 3, colours: 3, composition: 2, assessedAt: '2026-06-02', assessedBy: 'Somchai Anuwat' },
-    { id: 'PS-02', property: 'Villa Coral Horizon', bu: 'Phuket Collection', photographer: 'Phuket Frame Photography', angles: 2, colours: 2, composition: 2, assessedAt: '2026-06-04', assessedBy: 'Somchai Anuwat' },
-    { id: 'PS-03', property: 'Villa Emerald Bay', bu: 'Bali Retreats', photographer: 'Bali Bloom Gardens', angles: 1, colours: 2, composition: 1, assessedAt: '2026-05-20', assessedBy: 'David Chen' },
-    { id: 'PS-04', property: 'Villa Lotus Terrace', bu: 'Koh Samui Estates', photographer: 'Andaman Pool Services', angles: 2, colours: 1, composition: 2, assessedAt: '2026-05-18', assessedBy: 'Nok Pattaya' },
-    { id: 'PS-05', property: 'Villa Silver Tide', bu: 'Bali Retreats', photographer: 'Bali Bloom Gardens', angles: 3, colours: 3, composition: 3, assessedAt: '2026-06-10', assessedBy: 'David Chen' },
-    { id: 'PS-06', property: 'Villa Turquoise Reef', bu: 'Phuket Collection', photographer: 'Phuket Frame Photography', angles: 2, colours: 3, composition: 2, assessedAt: '2026-08-16', assessedBy: 'Somchai Anuwat' }
+    { id: 'PS-01', property: 'Villa Sapphire Cliff', bu: 'Sentosa Collection', photographer: 'Sentosa Frame Photography', angles: 3, colours: 3, composition: 2, assessedAt: '2026-06-02', assessedBy: 'Daniel Tan' },
+    { id: 'PS-02', property: 'Villa Coral Horizon', bu: 'Sentosa Collection', photographer: 'Sentosa Frame Photography', angles: 2, colours: 2, composition: 2, assessedAt: '2026-06-04', assessedBy: 'Daniel Tan' },
+    { id: 'PS-03', property: 'Villa Emerald Bay', bu: 'Byron Bay Retreats', photographer: 'Byron Bloom Gardens', angles: 1, colours: 2, composition: 1, assessedAt: '2026-05-20', assessedBy: 'David Chen' },
+    { id: 'PS-04', property: 'Villa Lotus Terrace', bu: 'Noosa Estates', photographer: 'Coral Pool Services', angles: 2, colours: 1, composition: 2, assessedAt: '2026-05-18', assessedBy: 'Nicole Parker' },
+    { id: 'PS-05', property: 'Villa Silver Tide', bu: 'Byron Bay Retreats', photographer: 'Byron Bloom Gardens', angles: 3, colours: 3, composition: 3, assessedAt: '2026-06-10', assessedBy: 'David Chen' },
+    { id: 'PS-06', property: 'Villa Turquoise Reef', bu: 'Sentosa Collection', photographer: 'Sentosa Frame Photography', angles: 2, colours: 3, composition: 2, assessedAt: '2026-08-16', assessedBy: 'Daniel Tan' }
   ];
 
   function loadAll() {

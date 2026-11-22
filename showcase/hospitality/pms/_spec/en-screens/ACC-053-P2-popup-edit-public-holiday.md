@@ -1,10 +1,10 @@
-# ACC-053-P2 — Popup: Edit Public Holiday
+# ACC-053-P2 — Edit Holiday
 
 **Type:** Popup (opened from ACC-053)
 
 **Route:** `AccountController::editPublicHoliday($id)` — default `/account/edit-public-holiday/<id>` (`id` passed as base64 in the URL)
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 Form for editing an existing public holiday, pre-loaded from `PublicHoliday` by `id`; uses the same fields and validation rules as ACC-053-P1.
@@ -13,7 +13,7 @@ Form for editing an existing public holiday, pre-loaded from `PublicHoliday` by 
 
 | # | Field Label | Field Code | Data Type / Input | Required | Notes |
 |---|---|---|---|---|---|
-| 1 | Country | `country_id` | Select2 (Thailand/France/Greece) | Yes (`required`) | Pre-loaded with the current value |
+| 1 | Country | `country_id` | Select2 (Singapore/France/Greece) | Yes (`required`) | Pre-loaded with the current value |
 | — | (hidden id) | `id` | Hidden | — | `id` of the record being edited (used to exclude itself from the duplicate-date check) |
 | 2 | Date | `date` | Text + datepicker (`dd MM, yyyy`), `startDate` = today | Yes (`required`) | Validated via remote AJAX `checkUniqueDate` (excludes the record being edited) |
 | 3 | Description | `description` | Textarea | Yes (class `required`) | |
@@ -31,5 +31,5 @@ Form for editing an existing public holiday, pre-loaded from `PublicHoliday` by 
 - **checkUniqueDate (background AJAX):** POST `/account/checkUniqueDate` runs when Country or Date is changed, including `id` so it does not flag a duplicate against the record being edited itself.
 
 ## Navigation
-- Entered from: ACC-053 (Public Holidays) — Edit icon on each row.
+- Entered from: ACC-053 (Holiday Calendar) — Edit icon on each row.
 - Navigates to: returns to the previous page (usually ACC-053) after saving; Cancel returns to ACC-053.

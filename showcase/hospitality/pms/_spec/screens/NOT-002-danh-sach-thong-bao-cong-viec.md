@@ -1,10 +1,10 @@
-# NOT-002 — Danh sách thông báo/công việc (Notice List)
+# NOT-002 — Thông báo & công việc (Announcements & Tasks)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `NoticeController::noticeList($tab, $sub_tab)` — mặc định `/notice/notice-list/:tab/:sub_tab`
 
-**Module:** NOT = Thông báo
+**Module:** NOT = Thông báo nội bộ
 
 ## Mô tả ngắn gọn
 Màn hình trung tâm quản lý công việc/thông báo dạng tab: Việc của tôi (my-task), Việc đã giao (assigned-task), Việc của team (my-team-task), Nhắc nhở (reminders). Mỗi tab hiển thị 3 nhóm: đang xử lý (active), chờ xác nhận hoàn thành (review/is_clap), đã hoàn thành (completed).
@@ -27,14 +27,14 @@ Danh sách (mỗi nhóm trong tab là 1 bảng dữ liệu — DataTable):
 Filter/điều hướng: tab chính (`tab`: my-task, assigned-task, my-team-task, reminders), field ẩn `sub_tab` dùng cho sub-tab bên trong từng tab (active/review/completed) — được render qua các element `notice_board/my_task`, `notice_board/assigned_task`, `notice_board/my_team_task`, `notice_board/reminders`.
 
 ## Chức năng/nút thao tác
-- **Assign Task (icon):** mở NOT-001 (Notice Board) để tạo công việc mới.
-- **Xem chi tiết:** mở NOT-003 (View Detail) cho từng dòng.
+- **Assign Task (icon):** mở NOT-001 (Tạo thông báo) để tạo công việc mới.
+- **Xem chi tiết:** mở NOT-003 (Xem thông báo) cho từng dòng.
 - **Reminder:** gọi action `remindernotice($id)` — nhắc lại thông báo (không có view riêng, redirect về lại trang hiện tại).
 - **Đánh dấu hoàn thành / Clap:** gọi action `statusUser($id)` (chuyển trạng thái sang `is_clap`) hoặc `clapUpdate($id)` (chuyển sang `done`) — không có view riêng, chỉ redirect.
-- **Nhờ hỗ trợ:** mở NOT-004 (Help Other User).
+- **Nhờ hỗ trợ:** mở NOT-004 (Cover for Colleague).
 - **Xóa thông báo:** mở popup xác nhận NOT-002-P1, khi đồng ý gọi `notice/delete/:id`.
 - **Thêm/sửa Quote:** form ẩn submit trực tiếp trong trang (lưu bảng `Quote`), không có view riêng.
 
 ## Điều hướng
-- Vào từ: menu chính "Notice Board".
-- Điều hướng đến: NOT-001 (tạo mới), NOT-003 (xem chi tiết), NOT-004 (nhờ hỗ trợ), NOT-005 (Tin tức công ty, thông qua khối company news / link riêng).
+- Vào từ: menu chính "Announcements".
+- Điều hướng đến: NOT-001 (tạo mới), NOT-003 (xem chi tiết), NOT-004 (nhờ hỗ trợ), NOT-005 (Bản tin nội bộ, thông qua khối company news / link riêng).

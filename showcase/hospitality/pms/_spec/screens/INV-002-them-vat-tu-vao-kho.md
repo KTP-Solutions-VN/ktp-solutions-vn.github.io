@@ -1,10 +1,10 @@
-# INV-002 — Thêm vật tư vào kho
+# INV-002 — Thêm mặt hàng (New Stock Item)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `InventoryController::add()` — `/inventory/add` (POST)
 
-**Module:** INV = Kho vật tư
+**Module:** INV = Kiểm soát kho
 
 ## Mô tả ngắn gọn
 Form khởi tạo một dòng tồn kho mới (`InventoryStock`) cho một cặp (Đơn vị kinh doanh, Vật tư) chưa tồn tại trong kho.

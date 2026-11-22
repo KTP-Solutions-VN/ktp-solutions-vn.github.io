@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   function addComment(text) {
     var list = getComments();
-    list.unshift({ date: new Date().toISOString().slice(0, 10), text: text, by: 'Somchai Anuwat' });
+    list.unshift({ date: new Date().toISOString().slice(0, 10), text: text, by: 'Daniel Tan' });
     localStorage.setItem(commentLogKey(), JSON.stringify(list));
   }
 

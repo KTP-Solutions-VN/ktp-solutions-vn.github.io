@@ -1,4 +1,4 @@
-# BOOK-096 — WhatsApp Help / System Status
+# BOOK-096 — Chat Service Health
 
 **Type:** Full page
 
@@ -6,7 +6,7 @@
 
 **Pretty route:** No dedicated route found in config/Routes.php (uses the default route)
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 
@@ -27,5 +27,5 @@ A diagnostic/status-check page for the connection status of backend services sup
 
 ## Navigation
 
-- Accessed from: WhatsApp menu / help link on BOOK-095 (WhatsApp Manager, new version).
+- Accessed from: Chat Inbox menu / help link on BOOK-095 (Chat Inbox).
 - No further navigation (standalone lookup/diagnostic page).

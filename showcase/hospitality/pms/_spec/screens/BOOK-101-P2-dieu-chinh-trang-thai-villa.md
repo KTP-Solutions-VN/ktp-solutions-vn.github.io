@@ -1,4 +1,4 @@
-# BOOK-101-P2 — Điều chỉnh trạng thái villa (Adjust Detail)
+# BOOK-101-P2 — Điều chỉnh trạng thái (Adjust Live Status)
 
 **Loại:** Popup/trang phụ (mở từ BOOK-101)
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 

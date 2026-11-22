@@ -1,9 +1,9 @@
-# BOOK-075 — Đổi giá thuê villa (Monthly/Daily)
+# BOOK-075 — Đổi cách tính giá (Switch Rate Basis)
 
 **Loại:** Trang đầy đủ (trang con, điều hướng từ BOOK-067 — không phải popup/modal)
 **Route:** Booking/changeVillaRates/:business_unit_id/:villa_id/:action (action = `monthly` hoặc `daily`)
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định, ví dụ `/booking/change-villa-rates/1/2/monthly`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Form chuyển đổi nhanh hình thức tính giá thuê của villa giữa giá thuê ngày (Daily) và giá thuê tháng (Monthly), khởi tạo bản ghi trạng thái giá (`VillaRateStatus`) mới tương ứng.

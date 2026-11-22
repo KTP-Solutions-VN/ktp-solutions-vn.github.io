@@ -1,10 +1,10 @@
-# BU-011-P1 — Toggle Payment Methods by Business Unit Popup
+# BU-011-P1 — Payment Methods per Unit Toggle
 
 **Type:** Popup (opened from BU-011)
 
 **Route:** Static Bootstrap modal (`#exampleModal`) in `business_unit_payment_method.ctp`; toggling is done via AJAX to `getBusinessPaymentMethod` (loads status) and `setBusinessPaymentMethod` (saves on click).
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A popup listing all existing payment methods, each row having an on/off toggle switch to assign/unassign that method for the currently selected business unit — saved immediately on click, with no separate Save button.

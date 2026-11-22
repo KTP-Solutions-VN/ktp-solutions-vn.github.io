@@ -1,10 +1,10 @@
-# CMS-008 — Edit "Why Us"
+# CMS-008 — Edit Book-Direct Benefit
 
 **Type:** Full page
 
 **Route:** `CmsController::whyUsEdit($id)` — default `/cms/why-us-edit/:id`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 Form for editing an existing "Why Us" item, allowing updates to the title, image, and adding/editing the short description translation per language. Requires a valid `id` (if `id` is empty, the action does not process the form / does not set any data).

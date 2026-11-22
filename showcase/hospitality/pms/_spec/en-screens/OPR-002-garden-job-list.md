@@ -1,8 +1,8 @@
-# OPR-002 — Garden Job List
+# OPR-002 — Garden Rounds
 
 **Type:** Full page
 **Route:** operator/gardenJobList/:tab? + dashed-style pretty route: operator/garden-job-list
-**Module:** OPR = Garden/Pool Operations
+**Module:** OPR = Upkeep Jobs
 
 ## Overview
 Screen listing garden jobs that have been performed or are in progress, viewable via 2 tabs: "By Date" (by date, with a business unit filter) and "By Property" (by villa, with business unit + villa filters). Allows viewing details, downloading the PDF report, opening/locking owner access, and deleting records.
@@ -31,7 +31,7 @@ Screen listing garden jobs that have been performed or are in progress, viewable
 
 ## Functions / Actions
 - **By Date / By Property tabs**: switches views (client-side, on the same page; data is pre-rendered in both the `garden_list_bydate` and `garden_list_byproperty` tables).
-- **View (eye icon)**: opens OPR-016 — View Garden Job Details (`gardenView`).
+- **View (eye icon)**: opens OPR-016 — Garden Round Record (`gardenView`).
 - **Download PDF (download icon)**: opens the garden job report PDF (`files/garden-cleaning-pdf/...`) if a `document` exists.
 - **Delete (trash icon)**: opens a delete confirmation modal (inline on the page, not a separate action); submits a hidden `is_delete=yes` + `garden_job_id`, deleting the related `GardenJobs` and `GardenCleaning` records.
 - **View comment (comment icon)**: only shown when a `comment` exists; opens a tooltip/alert displaying the comment content (client-side).
@@ -39,5 +39,5 @@ Screen listing garden jobs that have been performed or are in progress, viewable
 - **GPS badge**: clicking it opens a modal showing a Time / Distance to Villa table (start & end).
 
 ## Navigation
-- Entered from: the "Garden" (garden operations) menu in the sidebar; or navigated back from OPR-001 after Finishing/Stopping a garden job.
-- Leads to: OPR-016 — View Garden Job Details.
+- Entered from: the "Garden Rounds" (upkeep jobs) menu in the sidebar; or navigated back from OPR-001 after Finishing/Stopping a garden job.
+- Leads to: OPR-016 — Garden Round Record.

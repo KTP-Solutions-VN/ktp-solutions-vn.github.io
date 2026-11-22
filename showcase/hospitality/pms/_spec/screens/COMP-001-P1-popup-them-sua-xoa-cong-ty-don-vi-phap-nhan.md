@@ -1,8 +1,8 @@
-# COMP-001-P1 — Popup Thêm/Sửa/Xóa Công ty hoặc Đơn vị pháp nhân
+# COMP-001-P1 — Form công ty / pháp nhân chi nhánh (Company / Branch Entity Form)
 
 **Loại:** Popup/Modal (mở từ COMP-001)
 **Route:** Không có route riêng — dùng chung form POST về `company/list` (action ẩn `add`/`edit`/`delete`); kiểm tra trùng tên qua AJAX `company/checkCompany` và `company/checkSubsidiaryName`
-**Module:** COMP = Công ty
+**Module:** COMP = Pháp nhân
 
 ## Mô tả ngắn gọn
 Modal Bootstrap dùng chung (`#exampleModal`) cho 4 kịch bản: Thêm công ty, Sửa công ty, Thêm đơn vị pháp nhân (subsidiary), Sửa đơn vị pháp nhân, và 1 kịch bản xác nhận xóa (dùng chung cho cả 2 loại). Nội dung form được ẩn/hiện linh động bằng JS tùy theo `data-button_name` của nút bấm kích hoạt (`company` hoặc `company_subsidiary`).

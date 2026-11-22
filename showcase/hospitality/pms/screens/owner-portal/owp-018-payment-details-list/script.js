@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var BASE_DATA = [{ id: 'pd1', bank: 'Bangkok Bank', account: 'Richard Halstead' }];
+  var BASE_DATA = [{ id: 'pd1', bank: 'DBS Bank', account: 'Richard Halstead' }];
   function render() {
     var stored = JSON.parse(localStorage.getItem('mm_owp_payment_details') || '[]');
     var data = BASE_DATA.concat(stored);

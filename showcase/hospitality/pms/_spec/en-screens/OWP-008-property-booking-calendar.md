@@ -1,10 +1,10 @@
-# OWP-008 — Property Booking Calendar
+# OWP-008 — Occupancy Calendar
 
 **Type:** Full page
 
 **Route:** `ExternalUserController::calendar($villa_id)` — no dedicated friendly route, opened from OWP-005 (calendar icon), of the form `.../calendar/{villa_id_base64}`
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 

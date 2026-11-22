@@ -1,10 +1,10 @@
-# CMS-018 — Danh sách Concierge
+# CMS-018 — Trưng bày concierge (Concierge Showcase)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::concierges($action, $id)` — mặc định `/cms/concierges/:action/:id`
 
-**Module:** CMS = Nội dung trang chủ villa
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Danh sách các dịch vụ concierge hiển thị trên website. Không phân trang server-side (lấy toàn bộ `CmsConcierge->find('all')`).
@@ -27,5 +27,5 @@ Không có filter/tìm kiếm server-side, không phân trang server-side.
 - **Delete:** gọi lại action này dạng `/cms/concierges/delete/:id` — xoá bản ghi `CmsConcierge` **và** xoá toàn bộ ảnh gallery liên quan trong `CmsImage` (điều kiện `villa_id = id`, `tag = 'Concierge'`), hiển thị flash message rồi redirect lại danh sách (dùng `['controller'=>'Cms','action'=>'concierges']`).
 
 ## Điều hướng
-- Vào từ: CMS-005 (Common Text, nút "Concierge").
+- Vào từ: CMS-005 (Khối nội dung dùng chung, nút "Concierge Showcase").
 - Điều hướng đến: CMS-019 (thêm/sửa concierge — ngoài phạm vi tài liệu này).

@@ -40,7 +40,7 @@
       if (r.dayOff) {
         clockInCell = '<span class="ts-dayoff">Day Off</span>';
       } else if (r.clockIn) {
-        clockInCell = (r.clockInManual ? '<span class="ts-manual">' + r.clockIn + ' (Updated by Somchai Anuwat)</span>' : r.clockIn);
+        clockInCell = (r.clockInManual ? '<span class="ts-manual">' + r.clockIn + ' (Updated by Daniel Tan)</span>' : r.clockIn);
       } else {
         clockInCell = '<button type="button" class="ts-missing-link" data-add-clockin="' + r.staffId + '">No — add manually</button>';
       }
@@ -112,7 +112,7 @@
     }
     if (validateBtn) {
       BOOK.saveTimesheetOverride(dateInput.value || todayStr(), validateBtn.dataset.validate, {
-        validated: true, validatedBy: 'Somchai Anuwat', validatedOn: new Date().toISOString()
+        validated: true, validatedBy: 'Daniel Tan', validatedOn: new Date().toISOString()
       });
       MM.showToast('Timesheet validated');
       render();

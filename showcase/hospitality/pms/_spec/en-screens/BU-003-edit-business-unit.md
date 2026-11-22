@@ -1,10 +1,10 @@
-# BU-003 — Edit Business Unit
+# BU-003 — Edit Operating Unit
 
 **Type:** Full page
 
 **Route:** `BusinessUnitController::edit($id)` — default `/business-unit/edit/{id_base64}`
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A form for editing an existing business unit's information — the same set of fields as BU-002 (Add), pre-populated with data from the existing record.

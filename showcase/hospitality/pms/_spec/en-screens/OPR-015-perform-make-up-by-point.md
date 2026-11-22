@@ -1,11 +1,11 @@
-# OPR-015 — Perform Make Up by Point
+# OPR-015 — Final Prep Checklist
 
 **Type:** Full page
 **Route:** operator/makeupDetails?id=&last_id= + dashed-style pretty route: operator/makeup-details
-**Module:** OPR = Garden/Pool Operations
+**Module:** OPR = Upkeep Jobs
 
 ## Overview
-Step-by-step (point-by-point) wizard screen for staff to perform make-up items: each point requires an evidence photo, with the ability to Next/Back/Reset/Update each point, and Finish to complete the entire make-up round. Structure/behavior are similar to OPR-008 (Cleaning Details).
+Step-by-step (point-by-point) wizard screen for staff to perform make-up items: each point requires an evidence photo, with the ability to Next/Back/Reset/Update each point, and Finish to complete the entire make-up round. Structure/behavior are similar to OPR-008 (Housekeeping Checklist).
 
 ## Detailed Description
 
@@ -26,4 +26,4 @@ Step-by-step (point-by-point) wizard screen for staff to perform make-up items: 
 
 ## Navigation
 - Entered from: OPR-014 (clicking Start) or continuing an in-progress make-up round.
-- Leads to: after Finish, returns to OPR-014 — Make Up List.
+- Leads to: after Finish, returns to OPR-014 — Final Prep Rounds.

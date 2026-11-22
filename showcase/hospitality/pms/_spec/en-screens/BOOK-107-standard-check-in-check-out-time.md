@@ -1,4 +1,4 @@
-# BOOK-107 — Standard Check-in/Check-out Time (Standard Time)
+# BOOK-107 — Default Stay Times
 
 **Type:** Full page
 
@@ -6,7 +6,7 @@
 
 **Friendly route:** no dedicated route found in config/Routes.php
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 

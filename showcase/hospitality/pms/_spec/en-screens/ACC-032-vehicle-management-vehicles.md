@@ -1,4 +1,4 @@
-# ACC-032 — Vehicle Management (Vehicles)
+# ACC-032 — Company Fleet
 
 **Type:** Full page (list + add/edit/delete modal on the same page, no dedicated popup view)
 
@@ -8,7 +8,7 @@
 - AJAX to check for duplicate vehicle name: `AccountController::getUniqueName()` — default `/account/get-unique-name` (POST, returns JSON) — called via jQuery Validate `remote` when entering the "Name" field
 - (Out of scope, noted for reference only): duplicate license-plate validation uses the `checkSerialNumber` action (not covered by this document)
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 Manages the vehicle list (company assets of type `vehicle`) by Business Unit: view active/sold vehicles, add, edit, and delete vehicles via an on-page modal; when assigning "Used by" (the employee using the vehicle), the system simultaneously creates/updates a `UserCompanyAsset` record (type `car`) to track the asset assigned to the employee.
@@ -40,7 +40,7 @@ Data retrieval conditions: `Vehicle.assets_type = 'vehicle'`, filtered by `busin
 | # | Field Label | Field Code | Data Type / Input | Required | Notes |
 |---|---|---|---|---|---|
 | 1 | Business Unit | `business_unit` | Select2 (BUs per user permissions) | Yes | |
-| 2 | Vehicle type | `vtype` | Select2: Car / Lorry / Pick-up / Samlo / Motorcycle | Yes | |
+| 2 | Vehicle type | `vtype` | Select2: Car / Lorry / Pick-up / Van / Motorcycle | Yes | |
 | 3 | Name | `name` | Text | Yes | Remote duplicate-name validation via `getUniqueName` (excludes itself when editing) |
 | 4 | Brand | `brand` | Text | Yes | |
 | 5 | Color | `color` | Text | Yes | |
@@ -63,5 +63,5 @@ Data retrieval conditions: `Vehicle.assets_type = 'vehicle'`, filtered by `busin
 - **Changing Business Unit:** reloads the page with query `?id=<business_unit>`.
 
 ## Navigation
-- Entered from: Sidebar > Account & HR > Settings (submenu) > **Assets > Vehicles**.
+- Entered from: Sidebar > Finance & Admin > Finance Preferences (submenu) > **Assets > Company Fleet**.
 - Navigates to: no separate URL-based sub-page — all add/edit/delete actions are handled via a JS modal (`#addVehicle`) on this same page, not via separate `.ctp` popup views (no `add_vehicle.ctp`/`edit_vehicle.ctp` exists). After saving/deleting, the page redirects back to itself (`referer()`).

@@ -4,12 +4,12 @@
   'use strict';
 
   var PROPERTIES = [
-    { name: 'Villa Andaman Breeze', type: 'Villa', location: 'Phuket, Thailand', rooms: 4, status: 'active', tags: ['Beachfront', 'Pool Villa'], channels: ['bdc', 'abnb', 'agoda'] },
+    { name: 'Villa Ocean Breeze', type: 'Villa', location: 'Sentosa, Singapore', rooms: 4, status: 'active', tags: ['Beachfront', 'Pool Villa'], channels: ['bdc', 'abnb', 'agoda'] },
     { name: 'Aegean Sunset Villa', type: 'Villa', location: 'Santorini, Greece', rooms: 1, status: 'active', tags: ['Sea View', 'Romantic'], channels: ['bdc', 'abnb'] },
     { name: 'Sunset Cove Bungalow', type: 'Bungalow', location: 'Key West, Florida', rooms: 2, status: 'active', tags: ['Family Friendly'], channels: ['bdc', 'expedia'] },
     { name: 'Palm Grove Residence', type: 'Residence', location: 'Nassau, Bahamas', rooms: 3, status: 'active', tags: ['Beachfront', 'Long Stay'], channels: ['abnb', 'agoda'] },
     { name: 'Caribbean Blue Villa', type: 'Villa', location: 'Punta Cana, Dominican Republic', rooms: 5, status: 'inactive', tags: ['Pool Villa'], channels: ['bdc'] },
-    { name: 'Sunshine Coast Bungalow', type: 'Bungalow', location: 'Phuket, Thailand', rooms: 2, status: 'active', tags: ['Beachfront'], channels: ['bdc', 'abnb', 'expedia'] }
+    { name: 'Sunshine Coast Bungalow', type: 'Bungalow', location: 'Noosa, Australia', rooms: 2, status: 'active', tags: ['Beachfront'], channels: ['bdc', 'abnb', 'expedia'] }
   ];
 
   var CHANNEL_LABEL = { bdc: 'B', abnb: 'A', agoda: 'Ag', expedia: 'Ex' };

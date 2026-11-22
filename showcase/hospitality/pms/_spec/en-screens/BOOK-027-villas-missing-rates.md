@@ -1,7 +1,7 @@
-# BOOK-027 — Villas Missing Rates
+# BOOK-027 — Unpriced Properties
 **Type:** Full page
 **Route:** booking/missingRates (query `?id=<business_unit_id>`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Lists villas that have not had a daily rate (villa daily price) configured from the current date up to the "threshold date" configured in BOOK-027-P1, so that managers know which villas need rates added before they can be booked/displayed on OTA channels.
@@ -21,6 +21,6 @@ The page title also displays the "threshold date" currently applied for comparis
 - View the list of villas with missing rates (no direct edit action on this screen — the corresponding villa rate/season management screen must be used to add the missing rates).
 
 ## Navigation
-- Opened from: Settings menu → Villas Missing Rates.
-- Navigates to: villa rate configuration screens (BOOK-023 Villa Rates, BOOK-028 Season Management, BOOK-030 Update Room Rates from OTA Channels) to add the missing rates.
+- Opened from: Settings menu → Unpriced Properties.
+- Navigates to: villa rate configuration screens (BOOK-023 Pricing Hub, BOOK-028 Season Calendar, BOOK-030 Update Room Rates from OTA Channels) to add the missing rates.
 - Sub-popups: BOOK-027-P1 (Missing Rate Alert Configuration).

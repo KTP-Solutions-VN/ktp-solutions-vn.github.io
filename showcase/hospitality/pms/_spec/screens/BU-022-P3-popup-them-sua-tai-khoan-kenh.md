@@ -1,10 +1,10 @@
-# BU-022-P3 — Popup Thêm/Sửa tài khoản kênh
+# BU-022-P3 — Form tài khoản kênh (Channel Account Form)
 
 **Loại:** Popup (mở từ BU-022, tab Tài khoản kênh)
 
 **Route:** Modal Bootstrap (`#chanelModal`) tĩnh trong `channels.ctp`; submit POST tới `BusinessUnitController::channels('accounts')`.
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Popup dùng chung cho Thêm mới và Sửa một tài khoản kênh (`Chanel`) thuộc một Nền tảng đặt phòng cụ thể, cấu hình ownership, quản lý, đơn vị kinh doanh áp dụng và cách nhận/trả tiền.

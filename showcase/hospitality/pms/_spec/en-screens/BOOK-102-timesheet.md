@@ -1,4 +1,4 @@
-# BOOK-102 — Timesheet
+# BOOK-102 — Field Attendance
 
 **Type:** Full page
 
@@ -6,7 +6,7 @@
 
 **Friendly route:** no dedicated route found in config/Routes.php
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 
@@ -49,5 +49,5 @@ Rows with `is_sick_leave = yes` are highlighted with an orange background.
 
 ## Navigation
 
-- Accessed from the main menu (Timesheet icon, "Booking-timesheet" item), shown based on `filterSidebar` permissions.
-- Does not navigate to other pages within the Booking module; all operations are handled via AJAX directly on this page.
+- Accessed from the main menu (Field Attendance icon, "Booking-timesheet" item), shown based on `filterSidebar` permissions.
+- Does not navigate to other pages within the Reservations module; all operations are handled via AJAX directly on this page.

@@ -1,10 +1,10 @@
-# SET-004-P1 — Form thêm/sửa tài khoản Hostex
+# SET-004-P1 — Form ánh xạ tài khoản kênh (Channel Account Mapping Form)
 
 **Loại:** Popup (thực chất là form inline mở/đóng dưới mỗi bảng kênh trong SET-004, không phải modal Bootstrap)
 
 **Route:** Render động trong `SettingController::hostexSetup()` (`hostex_setup.ctp`); submit AJAX POST tới `saveHostexAccount()` — `/setting/save-hostex-account`; kiểm tra trùng email trong cùng kênh qua AJAX `checkHostexEmail()` — `/setting/check-hostex-email` (jQuery Validate `remote`).
 
-**Module:** SET = Cài đặt hệ thống
+**Module:** SET = Cài đặt nền tảng
 
 ## Mô tả ngắn gọn
 Form thêm mới hoặc sửa một tài khoản Hostex (OTA account) thuộc một kênh phân phối cụ thể, gồm email/tên tài khoản, OTA Account liên kết, và chủ sở hữu tài khoản (Azura Stays hoặc Agency).

@@ -1,11 +1,11 @@
-# OPR-016 — View Garden Job Details
+# OPR-016 — Garden Round Record
 
 **Type:** Full page
 **Route:** operator/gardenView/:id + dashed-style pretty route: operator/garden-view/:id
-**Module:** OPR = Garden/Pool Operations
+**Module:** OPR = Upkeep Jobs
 
 ## Overview
-Read-only screen showing the details of a completed garden job: villa information, garden service, personnel (gardener), timing, and plan status. Similar to OPR-004 (View Pool Job Details) but applied to garden jobs.
+Read-only screen showing the details of a completed garden job: villa information, garden service, personnel (gardener), timing, and plan status. Similar to OPR-004 (Pool Round Record) but applied to garden jobs.
 
 ## Detailed Description
 
@@ -22,5 +22,5 @@ Read-only screen showing the details of a completed garden job: villa informatio
 - View only; no editing actions on this screen.
 
 ## Navigation
-- Entered from: the "View" (eye) icon on OPR-002 — Garden Job List.
+- Entered from: the "View" (eye) icon on OPR-002 — Garden Rounds.
 - Leads to: no further navigation; return to OPR-002 using the browser back button.

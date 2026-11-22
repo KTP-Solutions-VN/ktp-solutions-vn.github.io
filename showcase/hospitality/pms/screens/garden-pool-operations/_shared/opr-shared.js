@@ -11,20 +11,20 @@
   window.MM = window.MM || {};
   var OPR = window.MM.OPR = window.MM.OPR || {};
 
-  var GARDEN_STAFF = ['Somchai Anuwat', 'Wayan Kertha', 'Nok Pattaya', 'Budi Santoso'];
-  var POOL_STAFF = ['Somchai Anuwat', 'Wayan Kertha', 'Budi Santoso'];
+  var GARDEN_STAFF = ['Daniel Tan', 'Warren Kelly', 'Nicole Parker', 'Ben Sullivan'];
+  var POOL_STAFF = ['Daniel Tan', 'Warren Kelly', 'Ben Sullivan'];
 
   /* Unified Garden + Pool task list — the OPR-001 sidebar landing screen
      merges former OPR-002 (Garden Job List) + OPR-003 (Pool Job List). */
   OPR.TASKS = [
-    { id: 'GJ-3001', type: 'Garden', property: 'Villa Sapphire Cliff', service: 'Weekly Garden Maintenance', operator: 'Somchai Anuwat', date: '2026-08-27', start: '08:00', end: '09:15', status: 'Cleaned', gps: 'OK', planned: true },
-    { id: 'PJ-2101', type: 'Pool', property: 'Villa Coral Horizon', service: 'Pool Chemical Balance', operator: 'Wayan Kertha', date: '2026-08-27', start: '09:00', end: '09:40', status: 'Cleaned', gps: 'OK', planned: true },
-    { id: 'GJ-3002', type: 'Garden', property: 'Villa Emerald Bay', service: 'Hedge Trimming', operator: 'Nok Pattaya', date: '2026-08-27', start: '10:00', end: null, status: 'In Progress', gps: '—', planned: true },
-    { id: 'PJ-2102', type: 'Pool', property: 'Villa Azure Ridge', service: 'Pool Filter Cleaning', operator: 'Budi Santoso', date: '2026-08-27', start: '11:00', end: '11:35', status: 'Problem', gps: 'OK', planned: false },
-    { id: 'GJ-3003', type: 'Garden', property: 'Villa Marble Cove', service: 'Lawn Mowing', operator: 'Somchai Anuwat', date: '2026-08-26', start: '08:30', end: '09:10', status: 'Stopped', gps: 'NOK', planned: true },
-    { id: 'PJ-2103', type: 'Pool', property: 'Villa Lotus Terrace', service: 'Pool Chemical Balance', operator: 'Wayan Kertha', date: '2026-08-26', start: '13:00', end: '13:30', status: 'Cleaned', gps: 'OK', planned: true },
+    { id: 'GJ-3001', type: 'Garden', property: 'Villa Sapphire Cliff', service: 'Weekly Garden Maintenance', operator: 'Daniel Tan', date: '2026-08-27', start: '08:00', end: '09:15', status: 'Cleaned', gps: 'OK', planned: true },
+    { id: 'PJ-2101', type: 'Pool', property: 'Villa Coral Horizon', service: 'Pool Chemical Balance', operator: 'Warren Kelly', date: '2026-08-27', start: '09:00', end: '09:40', status: 'Cleaned', gps: 'OK', planned: true },
+    { id: 'GJ-3002', type: 'Garden', property: 'Villa Emerald Bay', service: 'Hedge Trimming', operator: 'Nicole Parker', date: '2026-08-27', start: '10:00', end: null, status: 'In Progress', gps: '—', planned: true },
+    { id: 'PJ-2102', type: 'Pool', property: 'Villa Azure Ridge', service: 'Pool Filter Cleaning', operator: 'Ben Sullivan', date: '2026-08-27', start: '11:00', end: '11:35', status: 'Problem', gps: 'OK', planned: false },
+    { id: 'GJ-3003', type: 'Garden', property: 'Villa Marble Cove', service: 'Lawn Mowing', operator: 'Daniel Tan', date: '2026-08-26', start: '08:30', end: '09:10', status: 'Stopped', gps: 'NOK', planned: true },
+    { id: 'PJ-2103', type: 'Pool', property: 'Villa Lotus Terrace', service: 'Pool Chemical Balance', operator: 'Warren Kelly', date: '2026-08-26', start: '13:00', end: '13:30', status: 'Cleaned', gps: 'OK', planned: true },
     { id: 'GJ-3004', type: 'Garden', property: 'Villa Golden Palm', service: 'Pest Control Spray', operator: null, date: '2026-08-28', start: '08:00', end: null, status: 'Not Started', gps: '—', planned: true },
-    { id: 'PJ-2104', type: 'Pool', property: 'Villa Silver Tide', service: 'Pool Deep Clean', operator: 'Budi Santoso', date: '2026-08-28', start: '09:00', end: null, status: 'Not Started', gps: '—', planned: true }
+    { id: 'PJ-2104', type: 'Pool', property: 'Villa Silver Tide', service: 'Pool Deep Clean', operator: 'Ben Sullivan', date: '2026-08-28', start: '09:00', end: null, status: 'Not Started', gps: '—', planned: true }
   ];
 
   OPR.POOL_JOB_PHOTOS = [
@@ -66,8 +66,8 @@
 
   /* Garden teams — OPR-018, feeds OPR-017 planning board */
   OPR.GARDEN_TEAMS = [
-    { id: 'team-1', name: 'Team 1', start: '07:00', end: '15:00', members: ['Somchai Anuwat', 'Kanya Srisawat'] },
-    { id: 'team-2', name: 'Team 2', start: '08:00', end: '16:00', members: ['Wayan Kertha'] }
+    { id: 'team-1', name: 'Team 1', start: '07:00', end: '15:00', members: ['Daniel Tan', 'Karen Seah'] },
+    { id: 'team-2', name: 'Team 2', start: '08:00', end: '16:00', members: ['Warren Kelly'] }
   ];
 
   OPR.PLANNING_QUEUE = [
@@ -78,11 +78,11 @@
   /* OPR-020/021/022 Maintenance Ticket List (field-reported, separate from
      the back-office MNT module's Maintenance Log). */
   OPR.MAINTENANCE_TICKETS = [
-    { id: 'M000101', bu: 'Phuket Collection', property: 'Villa Sapphire Cliff', issue: 'AC not cooling — Master Bedroom', priority: 'High', status: 'Open', updated: '2026-08-27' },
-    { id: 'M000102', bu: 'Bali Retreats', property: 'Villa Emerald Bay', issue: 'Leaking tap — Guest Bathroom', priority: 'Medium', status: 'In Progress', updated: '2026-08-26' },
-    { id: 'M000103', bu: 'Koh Samui Estates', property: 'Villa Lotus Terrace', issue: 'Pool pump making noise', priority: 'Urgent', status: 'Open', updated: '2026-08-27' },
-    { id: 'M000104', bu: 'Phuket Collection', property: 'Villa Marble Cove', issue: 'WiFi router offline', priority: 'Low', status: 'Resolved', updated: '2026-08-24' },
-    { id: 'M000105', bu: 'Bali Retreats', property: 'Villa Azure Ridge', issue: 'Broken sun lounger', priority: 'Low', status: 'Open', updated: '2026-08-25' }
+    { id: 'M000101', bu: 'Sentosa Collection', property: 'Villa Sapphire Cliff', issue: 'AC not cooling — Master Bedroom', priority: 'High', status: 'Open', updated: '2026-08-27' },
+    { id: 'M000102', bu: 'Byron Bay Retreats', property: 'Villa Emerald Bay', issue: 'Leaking tap — Guest Bathroom', priority: 'Medium', status: 'In Progress', updated: '2026-08-26' },
+    { id: 'M000103', bu: 'Noosa Estates', property: 'Villa Lotus Terrace', issue: 'Pool pump making noise', priority: 'Urgent', status: 'Open', updated: '2026-08-27' },
+    { id: 'M000104', bu: 'Sentosa Collection', property: 'Villa Marble Cove', issue: 'WiFi router offline', priority: 'Low', status: 'Resolved', updated: '2026-08-24' },
+    { id: 'M000105', bu: 'Byron Bay Retreats', property: 'Villa Azure Ridge', issue: 'Broken sun lounger', priority: 'Low', status: 'Open', updated: '2026-08-25' }
   ];
 
   /* Category > Subcategory > Problem tree for the Maintenance Ticket form

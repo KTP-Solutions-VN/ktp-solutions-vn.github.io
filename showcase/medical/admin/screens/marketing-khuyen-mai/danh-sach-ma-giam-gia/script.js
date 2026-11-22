@@ -17,7 +17,7 @@
   }
   searchEl.addEventListener('input', render);
 
-  /* ---------------- #24 Create/Edit Discount drawer ----------------------- */
+  /* ---------------- Voucher Editor drawer ----------------------- */
   var editingId = null;
   CJDrawer.bind('discountOverlay');
 
@@ -37,7 +37,7 @@
   function openDiscountDrawer(id) {
     var o = id ? getData().find(function (x) { return x.id === id; }) : null;
     editingId = o ? o.id : null;
-    document.getElementById('dDrawerTitle').textContent = o ? 'Edit Discount' : 'Create Discount';
+    document.getElementById('dDrawerTitle').textContent = o ? 'Edit Voucher' : 'New Voucher';
     document.getElementById('dName').value = o ? o.name : '';
     document.getElementById('dCode').value = o ? o.code : '';
     document.getElementById('dType').value = o ? o.type : 'Percentage';

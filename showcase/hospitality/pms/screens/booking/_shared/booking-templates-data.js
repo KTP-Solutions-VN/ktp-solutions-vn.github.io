@@ -23,17 +23,17 @@
   /* ---------------------------------------------------------------- */
   /* Shared lookups                                                     */
   /* ---------------------------------------------------------------- */
-  BOOK.LANGUAGES = ['English', 'Thai', 'Bahasa Indonesia', 'French', 'German'];
-  BOOK.CURRENCIES = ['USD', 'THB', 'IDR', 'EUR'];
-  BOOK.FX_RATES = { USD: 1, THB: 36.2, IDR: 15850, EUR: 0.92 };
-  BOOK.CURRENCY_SYMBOL = { USD: '$', THB: '฿', IDR: 'Rp', EUR: '€' };
-  BOOK.BUSINESS_UNITS = ['Phuket Collection', 'Bali Retreats', 'Koh Samui Estates'];
+  BOOK.LANGUAGES = ['English', 'Malay', 'Chinese', 'French', 'German'];
+  BOOK.CURRENCIES = ['USD', 'SGD', 'AUD', 'EUR'];
+  BOOK.FX_RATES = { USD: 1, SGD: 1.34, AUD: 1.52, EUR: 0.92 };
+  BOOK.CURRENCY_SYMBOL = { USD: '$', SGD: 'S$', AUD: 'A$', EUR: '€' };
+  BOOK.BUSINESS_UNITS = ['Sentosa Collection', 'Byron Bay Retreats', 'Noosa Estates'];
 
   BOOK.fmtCurrency = function (n, code) {
     code = code || 'USD';
     if (n === null || n === undefined || isNaN(n)) return '—';
     var sym = BOOK.CURRENCY_SYMBOL[code] || code + ' ';
-    var decimals = code === 'IDR' ? 0 : 0;
+    var decimals = code === 'AUD' ? 0 : 0;
     return sym + Number(n).toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
   };
 
@@ -79,47 +79,47 @@
   BOOK.CONFIRMATION_TEMPLATES = [
     {
       id: 'CT-01', language: 'English', templateName: 'Standard Owner Confirmation (EN)',
-      businessUnits: ['Phuket Collection', 'Bali Retreats', 'Koh Samui Estates'],
-      createdBy: 'Somchai Anuwat', on: '2026-03-02',
-      companyName: 'Azura Stays Villas', address1: '88 Beach Road', address2: 'Kathu District', address3: 'Phuket 83150, Thailand',
-      phone: '+66 76 123 456', email: 'reservations@azurastays.example', website: 'www.azurastays.example',
-      taxId: '0105558012345', companyShortName: 'Azura Stays', signatoryName: 'Somchai Anuwat',
+      businessUnits: ['Sentosa Collection', 'Byron Bay Retreats', 'Noosa Estates'],
+      createdBy: 'Daniel Tan', on: '2026-03-02',
+      companyName: 'Azura Stays Villas', address1: '88 Ocean Drive', address2: 'Sentosa Cove', address3: 'Singapore 098297',
+      phone: '+65 6612 3456', email: 'reservations@azurastays.example', website: 'www.azurastays.example',
+      taxId: '201912345K', companyShortName: 'Azura Stays', signatoryName: 'Daniel Tan',
       currency: 'USD', replyEmail: 'no-reply@azurastays.example', logo: null
     },
     {
-      id: 'CT-02', language: 'Thai', templateName: 'Standard Owner Confirmation (TH)',
-      businessUnits: ['Phuket Collection'],
-      createdBy: 'Wayan Kertha', on: '2026-03-10',
-      companyName: 'Azura Stays Villas', address1: '88 ถนนหาดใหญ่', address2: 'อำเภอกะทู้', address3: 'ภูเก็ต 83150',
-      phone: '+66 76 123 456', email: 'reservations@azurastays.example', website: 'www.azurastays.example',
-      taxId: '0105558012345', companyShortName: 'คลับ มิรากูล', signatoryName: 'Somchai Anuwat',
-      currency: 'THB', replyEmail: 'no-reply@azurastays.example', logo: null
+      id: 'CT-02', language: 'Malay', templateName: 'Standard Owner Confirmation (MS)',
+      businessUnits: ['Sentosa Collection'],
+      createdBy: 'Warren Kelly', on: '2026-03-10',
+      companyName: 'Azura Stays Villas', address1: '88 Ocean Drive', address2: 'Sentosa Cove', address3: 'Singapura 098297',
+      phone: '+65 6612 3456', email: 'reservations@azurastays.example', website: 'www.azurastays.example',
+      taxId: '201912345K', companyShortName: 'Azura Stays', signatoryName: 'Daniel Tan',
+      currency: 'SGD', replyEmail: 'no-reply@azurastays.example', logo: null
     },
     {
-      id: 'CT-03', language: 'Bahasa Indonesia', templateName: 'Standard Owner Confirmation (ID)',
-      businessUnits: ['Bali Retreats'],
-      createdBy: 'Nok Pattaya', on: '2026-04-01',
-      companyName: 'Azura Stays Villas', address1: 'Jl. Pantai Berawa No. 21', address2: 'Canggu', address3: 'Bali 80361, Indonesia',
-      phone: '+62 361 555 0199', email: 'reservations.bali@azurastays.example', website: 'www.azurastays.example',
-      taxId: '01.234.567.8-901.000', companyShortName: 'Azura Stays Bali', signatoryName: 'Nok Pattaya',
-      currency: 'IDR', replyEmail: 'no-reply@azurastays.example', logo: null
+      id: 'CT-03', language: 'Chinese', templateName: 'Standard Owner Confirmation (ZH)',
+      businessUnits: ['Byron Bay Retreats'],
+      createdBy: 'Nicole Parker', on: '2026-04-01',
+      companyName: 'Azura Stays Villas', address1: '21 Lawson Street', address2: 'Byron Bay', address3: 'NSW 2481, Australia',
+      phone: '+61 2 6685 0199', email: 'reservations.byronbay@azurastays.example', website: 'www.azurastays.example',
+      taxId: '51 824 753 556', companyShortName: 'Azura Stays Byron Bay', signatoryName: 'Nicole Parker',
+      currency: 'AUD', replyEmail: 'no-reply@azurastays.example', logo: null
     },
     {
       id: 'CT-04', language: 'French', templateName: 'Confirmation Propriétaire Standard (FR)',
-      businessUnits: ['Bali Retreats', 'Koh Samui Estates'],
-      createdBy: 'Somchai Anuwat', on: '2026-05-14',
-      companyName: 'Azura Stays Villas', address1: '88 Beach Road', address2: 'Kathu District', address3: 'Phuket 83150, Thaïlande',
-      phone: '+66 76 123 456', email: 'reservations@azurastays.example', website: 'www.azurastays.example',
-      taxId: '0105558012345', companyShortName: 'Azura Stays', signatoryName: 'Somchai Anuwat',
+      businessUnits: ['Byron Bay Retreats', 'Noosa Estates'],
+      createdBy: 'Daniel Tan', on: '2026-05-14',
+      companyName: 'Azura Stays Villas', address1: '88 Ocean Drive', address2: 'Sentosa Cove', address3: 'Singapour 098297',
+      phone: '+65 6612 3456', email: 'reservations@azurastays.example', website: 'www.azurastays.example',
+      taxId: '201912345K', companyShortName: 'Azura Stays', signatoryName: 'Daniel Tan',
       currency: 'EUR', replyEmail: 'no-reply@azurastays.example', logo: null
     },
     {
       id: 'CT-05', language: 'German', templateName: 'Standard-Eigentümerbestätigung (DE)',
-      businessUnits: ['Koh Samui Estates'],
-      createdBy: 'Wayan Kertha', on: '2026-06-02',
-      companyName: 'Azura Stays Villas', address1: '88 Beach Road', address2: 'Kathu District', address3: 'Phuket 83150, Thailand',
-      phone: '+66 76 123 456', email: 'reservations@azurastays.example', website: 'www.azurastays.example',
-      taxId: '0105558012345', companyShortName: 'Azura Stays', signatoryName: 'Wayan Kertha',
+      businessUnits: ['Noosa Estates'],
+      createdBy: 'Warren Kelly', on: '2026-06-02',
+      companyName: 'Azura Stays Villas', address1: '88 Ocean Drive', address2: 'Sentosa Cove', address3: 'Singapore 098297',
+      phone: '+65 6612 3456', email: 'reservations@azurastays.example', website: 'www.azurastays.example',
+      taxId: '201912345K', companyShortName: 'Azura Stays', signatoryName: 'Warren Kelly',
       currency: 'EUR', replyEmail: 'no-reply@azurastays.example', logo: null
     }
   ];
@@ -143,7 +143,7 @@
   BOOK.addTemplate = function (fields) {
     var extra = safeParse(CT_EXTRA_KEY, []);
     var id = MM.uid('CT');
-    var row = Object.assign({ id: id, createdBy: 'Somchai Anuwat', on: new Date().toISOString().slice(0, 10) }, fields);
+    var row = Object.assign({ id: id, createdBy: 'Daniel Tan', on: new Date().toISOString().slice(0, 10) }, fields);
     extra.unshift(row);
     safeSet(CT_EXTRA_KEY, extra);
     return row;
@@ -176,11 +176,11 @@
   ];
 
   BOOK.CONFIRMATION_TRANSLATIONS_SEED = {
-    'TXT-01': { Thai: 'การยืนยันการจอง', French: 'Confirmation de réservation' },
-    'TXT-02': { Thai: 'เรียน เจ้าของวิลลา', French: 'Cher propriétaire,' },
-    'TXT-03': { Thai: 'ชื่อแขก', French: 'Nom du client' },
-    'TXT-04': { Thai: 'วันเช็กอิน', French: 'Date d’arrivée' },
-    'TXT-05': { Thai: 'วันเช็คเกาส์', French: 'Date de départ' },
+    'TXT-01': { Malay: 'Pengesahan Tempahan', French: 'Confirmation de réservation' },
+    'TXT-02': { Malay: 'Pemilik Vila yang dihormati,', French: 'Cher propriétaire,' },
+    'TXT-03': { Malay: 'Nama Tetamu', French: 'Nom du client' },
+    'TXT-04': { Malay: 'Tarikh Daftar Masuk', French: 'Date d’arrivée' },
+    'TXT-05': { Malay: 'Tarikh Daftar Keluar', French: 'Date de départ' },
     'TXT-06': { French: 'Nombre de nuits' },
     'TXT-07': { French: 'Valeur totale de la réservation' }
   };
@@ -239,20 +239,20 @@
 
   BOOK.EXCLUSION_KEYWORDS = {
     complete: [
-      { id: 'EX-C01', keyword: 'Halstead Family (Owner)', addedBy: 'Somchai Anuwat', on: '2026-01-12' },
-      { id: 'EX-C02', keyword: 'Test Booking - Ignore', addedBy: 'Wayan Kertha', on: '2026-02-03' },
-      { id: 'EX-C03', keyword: 'Chen Owner Stay', addedBy: 'Somchai Anuwat', on: '2026-03-18' }
+      { id: 'EX-C01', keyword: 'Halstead Family (Owner)', addedBy: 'Daniel Tan', on: '2026-01-12' },
+      { id: 'EX-C02', keyword: 'Test Booking - Ignore', addedBy: 'Warren Kelly', on: '2026-02-03' },
+      { id: 'EX-C03', keyword: 'Chen Owner Stay', addedBy: 'Daniel Tan', on: '2026-03-18' }
     ],
     nill_value: [
-      { id: 'EX-N01', keyword: 'Staff Comp Night', addedBy: 'Nok Pattaya', on: '2026-02-20' },
-      { id: 'EX-N02', keyword: 'Moreau Friends & Family', addedBy: 'Wayan Kertha', on: '2026-04-05' }
+      { id: 'EX-N01', keyword: 'Staff Comp Night', addedBy: 'Nicole Parker', on: '2026-02-20' },
+      { id: 'EX-N02', keyword: 'Moreau Friends & Family', addedBy: 'Warren Kelly', on: '2026-04-05' }
     ],
     early: [
-      { id: 'EX-E01', keyword: 'Early Access QA - Nair', addedBy: 'Somchai Anuwat', on: '2026-05-11' }
+      { id: 'EX-E01', keyword: 'Early Access QA - Nair', addedBy: 'Daniel Tan', on: '2026-05-11' }
     ],
     late: [
-      { id: 'EX-L01', keyword: 'Late Season Adjustment - Moreau', addedBy: 'Nok Pattaya', on: '2026-06-22' },
-      { id: 'EX-L02', keyword: 'Late Cancellation Waiver', addedBy: 'Wayan Kertha', on: '2026-07-02' }
+      { id: 'EX-L01', keyword: 'Late Season Adjustment - Moreau', addedBy: 'Nicole Parker', on: '2026-06-22' },
+      { id: 'EX-L02', keyword: 'Late Cancellation Waiver', addedBy: 'Warren Kelly', on: '2026-07-02' }
     ]
   };
 

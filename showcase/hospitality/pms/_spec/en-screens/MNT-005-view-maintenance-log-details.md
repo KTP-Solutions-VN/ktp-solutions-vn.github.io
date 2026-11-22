@@ -1,8 +1,8 @@
-# MNT-005 — View Maintenance Log Details
+# MNT-005 — Repair Request Record
 
 **Type:** Full page
 **Route:** maintenance/view/:id
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Screen displaying (readonly) the details of a maintenance log: villa information, category, description, priority, status, supporting photos, and processing history (log).
@@ -24,5 +24,5 @@ Screen displaying (readonly) the details of a maintenance log: villa information
 - View only, no edit actions on this screen (navigate to Edit/Update at MNT-004 if needed).
 
 ## Navigation
-- Entered from: MNT-001 — Maintenance Log List (view icon).
-- Navigates to: may link to MNT-004 (Update Processing) or MNT-006 (Maintenance Cost).
+- Entered from: MNT-001 — Repair Requests (view icon).
+- Navigates to: may link to MNT-004 (Repair Progress Update) or MNT-006 (Repair Expenses).

@@ -1,4 +1,4 @@
-# BOOK-099 — Add / Edit FAQ Question
+# BOOK-099 — New Knowledge Article
 
 **Type:** Full page (opened from BOOK-098)
 
@@ -6,7 +6,7 @@
 
 **Friendly route:** no dedicated route found in config/Routes.php (uses the default route)
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 

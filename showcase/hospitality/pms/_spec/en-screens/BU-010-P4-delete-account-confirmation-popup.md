@@ -1,10 +1,10 @@
-# BU-010-P4 — Delete Account Confirmation Popup
+# BU-010-P4 — Confirm Account Deletion
 
 **Type:** Popup (opened from BU-010, Accounts tab)
 
 **Route:** Bootstrap modal (`#exampleModalDelete`) in the `business-unit/accounts.ctp` element; submitted via POST to the `BusinessUnitController::paymentMethod()` action with `tab=accounts`, `page_action=delete`.
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A confirmation popup shown before permanently deleting an account.

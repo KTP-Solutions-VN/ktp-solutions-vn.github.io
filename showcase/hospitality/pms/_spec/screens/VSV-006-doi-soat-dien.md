@@ -1,10 +1,10 @@
-# VSV-006 — Đối soát điện (Reconcile)
+# VSV-006 — Tất toán hóa đơn điện (Power Bill Settlement)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `VillaServicesController::reconcile()` — mặc định `/villa-services/reconcile`
 
-**Module:** Dịch vụ villa — Điện
+**Module:** Dịch vụ lưu trú — Đo điện
 
 ## Mô tả ngắn gọn
 Đối soát các phiếu điện (`ElectricalBill`) đã kết thúc (end_date) trong 3 tháng gần nhất, tách thành 2 nhóm: đã đối soát xong (có end meter) và còn treo (chưa có end meter/chưa hoàn tất).
@@ -33,5 +33,5 @@ Hai bảng dữ liệu:
 - Không có thao tác thêm/sửa/xóa trực tiếp trên trang này (chỉ xem và xác nhận trạng thái).
 
 ## Điều hướng
-- Vào từ: Menu chính (mục Reconcile/Đối soát điện).
+- Vào từ: Menu chính (mục Power Bill Settlement).
 - Điều hướng đến: không có trang con; có liên kết ngầm tới dữ liệu tại VSV-004-P1/VSV-005-P1 (không điều hướng trực tiếp).

@@ -1,10 +1,10 @@
-# BU-001-P1 — Delete Business Unit Confirmation Popup
+# BU-001-P1 — Confirm Unit Deletion
 
 **Type:** Popup (opened from BU-001)
 
 **Route:** Static Bootstrap modal (`#exampleModal`) in `list.ctp`; on confirmation the browser navigates to `BusinessUnitController::delete($id)` — `/business-unit/delete/{id_base64}`.
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A confirmation popup shown before deleting a business unit from the system.
@@ -20,5 +20,5 @@ A confirmation popup shown before deleting a business unit from the system.
 - **Cancel:** closes the modal without performing any action.
 
 ## Navigation
-- Opened from: BU-001 (Business Unit List) — Delete icon on each row.
+- Opened from: BU-001 (Operating Units) — Delete icon on each row.
 - After confirmation: calls `BusinessUnitController::delete()`, logs the activity, displays a flash message, then redirects back to BU-001.

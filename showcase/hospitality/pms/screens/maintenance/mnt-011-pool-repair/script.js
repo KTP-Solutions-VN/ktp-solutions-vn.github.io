@@ -12,7 +12,7 @@
       storageKey: 'mm_mnt_pool_repair',
       baseData: MNT.POOL_REPAIR,
       entityLabel: 'service',
-      entityTitle: 'Pool Repair Service',
+      entityTitle: 'Pool Repair Type',
       tbodyId: 'list-tbody',
       allBu: false
     });

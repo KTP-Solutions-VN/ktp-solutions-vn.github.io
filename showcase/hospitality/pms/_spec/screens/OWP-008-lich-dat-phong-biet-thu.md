@@ -1,10 +1,10 @@
-# OWP-008 — Lịch đặt phòng theo biệt thự
+# OWP-008 — Lịch công suất (Occupancy Calendar)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `ExternalUserController::calendar($villa_id)` — không có route đẹp riêng, mở từ OWP-005 (icon lịch), dạng `.../calendar/{villa_id_base64}`
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 

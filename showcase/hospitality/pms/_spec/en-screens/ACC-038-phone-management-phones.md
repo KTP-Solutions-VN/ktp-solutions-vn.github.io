@@ -1,10 +1,10 @@
-# ACC-038 — Phone Management (Phones)
+# ACC-038 — Mobile Devices
 
 **Type:** Full page
 
 **Route:** `AccountController::phones()` — default `/account/phones`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 Manages the list of phones (company assets, `Vehicle` table with `assets_type = 'phone'`) by Business Unit: view the list, add, edit, and delete via an on-page modal.
@@ -42,5 +42,5 @@ Query conditions: `Vehicle.assets_type = 'phone'` and `Vehicle.business_unit_id`
 - When Business Unit is changed within the modal: AJAX `account/getBusinessUsers` reloads the employee list (Used By) for that BU.
 
 ## Navigation
-- Entered from: Sidebar > Account & HR > Phones (`active_menu = 'acc-phones'`).
+- Entered from: Sidebar > Finance & Admin > Mobile Devices (`active_menu = 'acc-phones'`).
 - No navigation to other pages — all add/edit/delete actions are performed via modal on this same page.

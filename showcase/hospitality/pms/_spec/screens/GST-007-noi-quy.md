@@ -1,11 +1,11 @@
-# GST-007 — Nội quy
+# GST-007 — Chính sách lưu trú (Stay Policies)
 
 **Loại:** Trang đầy đủ
 **Route:** `Guest::rules()` — mặc định `/guest/rules`; route đẹp (fallback DashedRoute): `/guest/rules`
-**Module:** Cổng thông tin Khách
+**Module:** Không gian khách
 
 ## Mô tả ngắn gọn
-Mục "Rules" trong menu điều hướng dành cho khách (đặt `active_menu = 4`). Action chỉ set `title_for_layout` và `active_menu` rồi render view, **không có logic nghiệp vụ hay truy vấn dữ liệu nào khác**.
+Mục "Stay Policies" trong menu điều hướng dành cho khách (đặt `active_menu = 4`). Action chỉ set `title_for_layout` và `active_menu` rồi render view, **không có logic nghiệp vụ hay truy vấn dữ liệu nào khác**.
 
 ## Mô tả chi tiết
 File view `plugins/Welcome/src/Template/Guest/rules.ctp` hiện **rỗng (0 byte)** — trang chưa được triển khai nội dung, khi truy cập chỉ hiển thị khung layout mặc định.

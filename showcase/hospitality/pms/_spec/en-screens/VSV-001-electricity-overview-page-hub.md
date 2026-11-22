@@ -1,10 +1,10 @@
-# VSV-001 — Electricity: Overview Page (Hub)
+# VSV-001 — Service Overview
 
 **Type:** Full page (tile-based navigation hub)
 
 **Route:** `VillaServicesController::list()` — defaults to `/villa-services/list`
 
-**Module:** Villa Services — Electricity
+**Module:** In-Stay Services — Metering
 
 ## Overview
 The hub page for the Electricity subsystem, grouping child screens into 3 sections (Set-up, Charges, Controls) displayed as tiles for quick navigation. This is not a data-entry page — it is merely the entry point of the Electricity module.
@@ -28,5 +28,5 @@ There is no data table or filter. The layout consists of 3 sections, each contai
 - There are no add/edit/delete buttons on this page.
 
 ## Navigation
-- Entered from: Main menu ("Electricity" item in the sidebar).
-- Navigates to: VSV-002 (Villa Electricity Set-up), VSV-011 (Electricity Check-in Control), VSV-012 (Electricity Check-out Control).
+- Entered from: Main menu ("Service Overview" item in the sidebar).
+- Navigates to: VSV-002 (Metering Setup), VSV-011 (Arrival Reading Audit), VSV-012 (Departure Reading Audit).

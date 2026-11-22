@@ -1,4 +1,4 @@
-# BOOK-092 — Cài đặt tin nhắn chào mừng
+# BOOK-092 — Mẫu lời chào (Greeting Templates)
 
 **Loại:** Trang đầy đủ
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định)
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 
@@ -30,5 +30,5 @@ Quản lý các mẫu tin nhắn chào mừng (welcome message) gửi cho khách
 
 ## Điều hướng
 
-- Vào từ menu quản lý chat/wiki.
-- Tin nhắn chào mừng được sử dụng khi kích hoạt chat tại BOOK-089-P1 (Kích hoạt/Sửa chat).
+- Vào từ menu hội thoại & tri thức.
+- Tin nhắn chào mừng được sử dụng khi kích hoạt chat tại BOOK-089-P1 (Mở luồng chat khách).

@@ -1,10 +1,10 @@
-# FUND-006 — Chi tiết dự án quỹ
+# FUND-006 — Hồ sơ dự án được tài trợ (Funded Project Profile)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `FundController::viewProject($id)` — `/fund/view-project/:id`
 
-**Module:** FUND = Quỹ đầu tư
+**Module:** FUND = Vốn nhà đầu tư
 
 ## Mô tả ngắn gọn
 Xem thông tin chi tiết của một dự án quỹ (logo, mô tả, hình ảnh gốc) cùng toàn bộ lịch sử cập nhật tiến độ (`ProjectLog`) đã tạo ở FUND-005, theo thứ tự mới nhất trước.

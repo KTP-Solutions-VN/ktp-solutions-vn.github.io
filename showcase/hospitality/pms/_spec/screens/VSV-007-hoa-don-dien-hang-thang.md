@@ -1,10 +1,10 @@
-# VSV-007 — Hóa đơn điện hàng tháng (Monthly Bill)
+# VSV-007 — Hóa đơn tiện ích (Utility Invoices)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `VillaServicesController::monthlyBill()` — mặc định `/villa-services/monthly-bill` (POST cùng action để tìm kiếm/cập nhật)
 
-**Module:** Dịch vụ villa — Điện
+**Module:** Dịch vụ lưu trú — Đo điện
 
 ## Mô tả ngắn gọn
 Trang quản lý hóa đơn tiền điện hàng tháng (dành cho villa quản lý điện theo hình thức trả tiền điện lưới/nhà cung cấp — ví dụ villa cho khách thuê dài hạn). Cho phép xem theo villa (liệt kê các tháng kể từ ngày bắt đầu hợp đồng điện) hoặc xem theo tháng (liệt kê tất cả villa), nhập chỉ số cuối kỳ và số tiền hóa đơn cho từng kỳ.
@@ -35,5 +35,5 @@ Trang quản lý hóa đơn tiền điện hàng tháng (dành cho villa quản 
 - **Update**: submit toàn bộ bảng (POST `action=update`) → lưu từng dòng vào `ElectricalMonthlyBill` (tạo mới hoặc cập nhật theo villa_id + tháng/năm suy ra từ end_date), qua action `addMonthlyBill` (AJAX nội bộ, không có view riêng).
 
 ## Điều hướng
-- Vào từ: Menu chính (mục Electricity/Monthly Bill).
+- Vào từ: Menu chính (mục Utility Invoices).
 - Điều hướng đến: trang thiết lập dịch vụ điện villa (`Property::ServiceSetting`) khi villa chưa có chỉ số bắt đầu.

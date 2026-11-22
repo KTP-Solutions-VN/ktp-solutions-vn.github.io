@@ -1,9 +1,9 @@
 
   var PERIOD_DATA = {
-    today:   { revenue: 'SGD 2,940', orders: 9,   refunds: 2, bookings: 6,  trend: [18,22,19,26,24,30] },
-    week:    { revenue: 'SGD 11,860', orders: 41, refunds: 4, bookings: 19, trend: [60,72,68,80,76,92] },
-    month:   { revenue: 'SGD 42,180', orders: 168, refunds: 5, bookings: 57, trend: [210,238,224,260,255,298] },
-    quarter: { revenue: 'SGD 118,420', orders: 512, refunds: 11, bookings: 143, trend: [640,690,712,755,780,822] }
+    today:   { revenue: 'AUD 2,940', orders: 9,   refunds: 2, bookings: 6,  trend: [18,22,19,26,24,30] },
+    week:    { revenue: 'AUD 11,860', orders: 41, refunds: 4, bookings: 19, trend: [60,72,68,80,76,92] },
+    month:   { revenue: 'AUD 42,180', orders: 168, refunds: 5, bookings: 57, trend: [210,238,224,260,255,298] },
+    quarter: { revenue: 'AUD 118,420', orders: 512, refunds: 11, bookings: 143, trend: [640,690,712,755,780,822] }
   };
   var ATTENTION_ROWS = (typeof DATA_YEU_CAU_HOAN_TIEN !== 'undefined')
     ? DATA_YEU_CAU_HOAN_TIEN.filter(function (r) { return r.status === 'Pending Approval' || r.status === 'Initiated'; })
@@ -73,7 +73,7 @@
       return;
     }
     tbody.innerHTML = ATTENTION_ROWS.map(function (r) {
-      return '<tr><td class="cell-strong">' + r.id + '</td><td>' + r.customerName + ' — SGD ' + r.amount.toFixed(2) + '</td><td>' + badgeForRefund(r.status) + '</td>' +
+      return '<tr><td class="cell-strong">' + r.id + '</td><td>' + r.customerName + ' — AUD ' + r.amount.toFixed(2) + '</td><td>' + badgeForRefund(r.status) + '</td>' +
         '<td class="row-actions"><a class="btn btn-ghost btn-sm" href="../../screens/don-hang/duyet-yeu-cau-hoan-tien/index.html">Review</a></td></tr>';
     }).join('');
   }

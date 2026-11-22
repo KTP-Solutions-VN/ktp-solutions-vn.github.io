@@ -1,9 +1,9 @@
-# BOOK-051 — Đã thanh toán (Paid)
+# BOOK-051 — Khoản chi trả đã tất toán (Settled Payouts)
 
 **Loại:** Trang đầy đủ (mở từ BOOK-052)
 **Route:** Booking/paid (mặc định: `/booking/paid`)
 **Route đẹp:** `/booking/partner-payments/paid`
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Danh sách các khoản thanh toán đối tác (chủ villa partnership) đã được xác nhận thanh toán xong (`PartnerBooking.status = paid`), kèm ngày thanh toán, người thanh toán và phương thức thanh toán.
@@ -32,4 +32,4 @@ Danh sách các khoản thanh toán đối tác (chủ villa partnership) đã �
 - Lọc theo đơn vị kinh doanh
 
 ## Điều hướng
-- Mở từ: BOOK-052 (Partner Payments) > nút "Paid", hoặc từ BOOK-049 sau khi xác nhận thanh toán
+- Mở từ: BOOK-052 (Partner Payouts) > nút "Paid", hoặc từ BOOK-049 sau khi xác nhận thanh toán

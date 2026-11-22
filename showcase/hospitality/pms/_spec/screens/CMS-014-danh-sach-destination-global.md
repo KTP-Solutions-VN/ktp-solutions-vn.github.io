@@ -1,10 +1,10 @@
-# CMS-014 — Danh sách Destination Global
+# CMS-014 — Điểm đến trang tổng hợp (Aggregator Destinations)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::destinationGlobal()` — mặc định `/cms/destination-global`
 
-**Module:** CMS = Nội dung trang chủ villa
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Danh sách toàn bộ điểm đến (`District`, kèm Country/Region) tương tự CMS-012, nhưng dùng để chỉnh nội dung điểm đến ở phạm vi "Guest Collection" (website tổng hợp, không gắn riêng theo villa) — dữ liệu chỉnh sửa lưu ở model `GuestCollectionDestination`. Không phân trang server-side.
@@ -28,5 +28,5 @@ Sắp xếp mặc định: Quốc gia → Vùng → District (tăng dần). Khô
 - **Edit:** điều hướng đến CMS-015 (`/cms/destination-global-edit/:district_id`) để chỉnh nội dung/ảnh giới thiệu điểm đến trong Guest Collection.
 
 ## Điều hướng
-- Vào từ: CMS-005 (Common Text, nút "Destination Global").
+- Vào từ: CMS-005 (Khối nội dung dùng chung, nút "Aggregator Destinations").
 - Điều hướng đến: CMS-015 (sửa nội dung điểm đến — Guest Collection).

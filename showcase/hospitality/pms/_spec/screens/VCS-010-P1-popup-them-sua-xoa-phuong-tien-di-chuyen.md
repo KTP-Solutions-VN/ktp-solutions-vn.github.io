@@ -1,8 +1,8 @@
-# VCS-010-P1 — Popup Thêm/Sửa/Xóa Phương tiện di chuyển
+# VCS-010-P1 — Form phương án di chuyển (Transport Option Form)
 
 **Loại:** Popup/Modal (mở từ VCS-010)
 **Route:** Không có route riêng — dùng chung form POST về `villa-common-setting/villa-transport` (hidden `action`=`add`/`edit`/`delete`); kiểm tra trùng tên qua AJAX `villa-common-setting/checkVillaTransport`
-**Module:** VCS = Cấu hình chung villa
+**Module:** VCS = Thuộc tính tài sản
 
 ## Mô tả ngắn gọn
 Modal Bootstrap dùng chung (`#exampleModal`) cho 3 kịch bản Thêm/Sửa/Xóa Phương tiện di chuyển. Ở chế độ Xóa, phần nhập liệu bị ẩn.
@@ -20,5 +20,5 @@ Modal Bootstrap dùng chung (`#exampleModal`) cho 3 kịch bản Thêm/Sửa/Xó
 - Validate: `name` bắt buộc, kiểm tra trùng tên qua remote AJAX `checkVillaTransport`.
 
 ## Điều hướng
-- Mở từ: VCS-010 (nút Add new / Edit / Delete trên bảng danh sách Phương tiện di chuyển).
+- Mở từ: VCS-010 (nút Add new / Edit / Delete trên bảng Phương án di chuyển).
 - Điều hướng tới: không chuyển trang — submit xong reload lại VCS-010 (redirect `referer()`).

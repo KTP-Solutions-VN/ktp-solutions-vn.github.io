@@ -1,10 +1,10 @@
-# CMS-034 — Guest Contract Editor
+# CMS-034 — Agreement Templates
 
 **Type:** Full page
 
 **Route:** `CmsController::contracts()` — default `/cms/contracts` (GET may include the query parameters `country_id`, `language_code`, `tab`, `section_key`, `payment_setting_type`, `general_version_id`; the same route also accepts AJAX GET `?ajax_action=load` and AJAX/POST form submission)
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 Administration screen for editing the **content/terms of the guest contract (Guest Contract)** shared across the entire system, configured per **Country** and **Language** pair. The content authored here consists of template text paragraphs (rich text, which can include dynamic variables `{property.xxx}`, `{booking.xxx}`) that are merged into a villa's actual guest contract at the time it is issued. The screen has **3 main content blocks (tabs)**: General (shared content by "version"/property type), Section (clause blocks: check-in/checkout, deposit, pool cleaning), and Electricity (electricity fee terms by payment type). Access is controlled by the permission key `Cms-contracts`; if the user lacks sufficient permission, the system shows a warning Flash message and redirects to the previous page (or returns a JSON error if called via AJAX).
@@ -157,5 +157,5 @@ Data model: `GuestContractElectricityTemplate` — 1 record per (Country, Paymen
 **Multilingual mechanism:** stored as **one separate record per (content object, language) pair** — not serialized together in a single column for multiple languages. Specifically: General → each (version, language_code) is 1 row in `GuestContractGeneralVersionContent`; Section → each (country_id, section_key, language_code) is 1 row in `GuestContractSectionTemplate`; Electricity → each (country_id, payment_setting_type, language_code) is 1 row in `GuestContractElectricityTemplate`. All content is always tied to a specific `country_id` — there is no concept of "global" content shared across multiple countries.
 
 ## Navigation
-- Accessed from: the main menu (Settings/CMS, `active_menu = 184`), requiring the permission key `Cms-contracts`.
+- Accessed from: the main menu (Web Publishing, `active_menu = 184`), requiring the permission key `Cms-contracts`.
 - Navigates to: none (this is a self-contained action that manages all 3 tabs entirely via in-place AJAX; it does not open any popup or navigate to any other sub-action within `CmsController`).

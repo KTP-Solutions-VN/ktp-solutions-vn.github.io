@@ -1,8 +1,8 @@
-# PROP-020 — Onboarding List (New Property Data-Entry Wizard)
+# PROP-020 — Property Intake
 
 **Type:** Full page
 **Route:** property/on-boardings
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Screen listing Onboarding processes (adding a new property to the system via a multi-step wizard, stored as JSON in the `VillaOnboarding` table), showing status (pending/in_progress/completed/aborted) and allowing view/edit/review actions depending on status.
@@ -33,6 +33,6 @@ Screen listing Onboarding processes (adding a new property to the system via a m
 - Changing Business Unit → (in the current build, JS only sets a variable and does not auto-reload the page).
 
 ## Navigation
-- Opened from: the Onboarding menu (outside the scope of the current spec).
+- Opened from: the Property Intake menu (outside the scope of the current spec).
 - Navigates to: `addOnboarding`, `viewOnboarding`, `editOnBoarding`, `reviewOnBoarding` (onboarding wizard actions, outside the scope of PROP-017..031).
 - Child popup: none.

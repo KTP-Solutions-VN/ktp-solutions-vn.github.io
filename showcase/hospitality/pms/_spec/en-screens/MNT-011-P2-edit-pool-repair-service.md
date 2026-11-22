@@ -1,8 +1,8 @@
-# MNT-011-P2 — Edit Pool Repair Service
+# MNT-011-P2 — Edit Pool Repair Type
 
 **Type:** Popup (opened from MNT-011)
 **Route:** maintenance/editPoolRepair/:id
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Page for editing an existing pool repair service: name, illustrative image, applicable business unit(s), status.
@@ -21,5 +21,5 @@ Page for editing an existing pool repair service: name, illustrative image, appl
 - **Cancel**: returns to MNT-011.
 
 ## Navigation
-- Entered from: Edit icon on MNT-011 — Pool Repair.
+- Entered from: Edit icon on MNT-011 — Pool Repair Types.
 - Navigates to: after Save, returns to MNT-011.

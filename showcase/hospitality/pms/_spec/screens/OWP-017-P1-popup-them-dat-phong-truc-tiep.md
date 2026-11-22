@@ -1,10 +1,10 @@
-# OWP-017-P1 — Popup Thêm yêu cầu đặt phòng trực tiếp
+# OWP-017-P1 — Tạo yêu cầu lưu trú (New Stay Request)
 
 **Loại:** Popup (mở từ OWP-017)
 
 **Route:** `ExternalUserController::addDirectBooking($id = null)` — không có route đẹp riêng, mở từ nút "Request New Booking" trên OWP-017 (mặc định `/external-user/add-direct-booking`)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 

@@ -1,10 +1,10 @@
-# CS-008-P1 — Add/Edit/Delete Unit Popup
+# CS-008-P1 — Unit Form
 
 **Type:** Popup (opened from CS-008)
 
 **Route:** Bootstrap Modal (`#exampleModal`) within `units.ctp`; submits to the same action `CommonSettingController::units()`; duplicate name check via AJAX `checkUnit()` — `/common-setting/check-unit`; loads Region/District/Area/Residence based on the parent level via AJAX `getData()` — `/common-setting/get-data`.
 
-**Module:** CS = Common Lookup Settings
+**Module:** CS = Reference Data
 
 ## Overview
 A shared popup for Adding (supporting entry of multiple Units at once), Editing (a single Unit), and Deleting a Unit — with 5 cascading parent-selection levels (Country → Region → District → Area → Residence).
@@ -30,5 +30,5 @@ A shared popup for Adding (supporting entry of multiple Units at once), Editing 
 - **Cancel:** closes the modal.
 
 ## Navigation
-- Opened from: CS-008 (Unit list).
+- Opened from: CS-008 (Unit Setup).
 - After submission: returns to CS-008 with a flash message.

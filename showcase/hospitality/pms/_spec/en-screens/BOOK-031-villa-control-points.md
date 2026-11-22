@@ -1,8 +1,8 @@
-# BOOK-031 — Villa Control Points
+# BOOK-031 — Audit Checkpoints
 
 **Type:** Full page
 **Route:** Booking/checkControlPoint (default: `/booking/check-control-point`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 A list of villas by business unit, showing the number of control points and reminders configured for each villa. This is the master administration/configuration screen underlying the check-in/check-out control process (BOOK-029, BOOK-030).
@@ -27,5 +27,5 @@ A list of villas by business unit, showing the number of control points and remi
 - View/manage control points and reminders for each villa
 
 ## Navigation
-- Opened from: Booking module menu > Check Control Point
+- Opened from: Reservations module menu > Audit Checkpoints
 - Navigates to: detailed control point/reminder configuration by villa (within the scope of the Villa module)

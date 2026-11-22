@@ -1,8 +1,8 @@
-# OPR-019 — Personal Assignment Schedule (Roster)
+# OPR-019 — My Assignments
 
 **Type:** Full page
 **Route:** operator/roster + dashed-style pretty route: operator/roster
-**Module:** OPR = Garden/Pool Operations
+**Module:** OPR = Upkeep Jobs
 
 ## Overview
 Screen for housekeeping staff (cleaner) to look up their own team assignment schedule for today and tomorrow: displays status as assigned (with team name/member count/vehicle), pending assignment, on weekly day off (weekoff), or no data available (empty).
@@ -21,5 +21,5 @@ Screen for housekeeping staff (cleaner) to look up their own team assignment sch
 - View only; no editing actions — this is a personal lookup screen.
 
 ## Navigation
-- Entered from: the "Roster" menu in the sidebar (for housekeeping staff).
+- Entered from: the "My Assignments" menu in the sidebar (for housekeeping staff).
 - Leads to: no further navigation.

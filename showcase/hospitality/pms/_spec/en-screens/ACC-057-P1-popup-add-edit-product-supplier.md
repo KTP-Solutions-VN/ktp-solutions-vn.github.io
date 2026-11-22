@@ -1,10 +1,10 @@
-# ACC-057-P1 — Popup: Add/Edit Product Supplier
+# ACC-057-P1 — Goods Vendor Form
 
 **Type:** Popup (opened from ACC-057)
 
 **Route:** `AccountController::addSupplier($tab, $id, $show_page, $payment_detail_id)` — default `/account/add-supplier/<tab>/<id>/<show_page>/<payment_detail_id>`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 A multi-tab form shared by both adding and editing a "Product" type supplier: supplier information, the list of allocated products (Product Allocation), and bank account details — all 3 tabs are shown only when an `id` is present (editing); when adding a new supplier only the "Suppliers" tab is shown.
@@ -27,7 +27,7 @@ A multi-tab form shared by both adding and editing a "Product" type supplier: su
 | 10 | Email | `email` | Text | Yes (`required`) | |
 | 11 | Messenger / Messenger ID | `messenger` / `messenger_id` | Text | No | |
 | 12 | Currency | `currency` | Select2 | Not explicitly marked required | |
-| 13 | VAT (%) | `vat` | Number input (0–100, step 0.01) | No | |
+| 13 | GST (%) | `vat` | Number input (0–100, step 0.01) | No | |
 | 14 | Status | `status` | Select: Active/Inactive | Yes (`required`) | |
 | 15 | Business Units | `business_units[]` | Multi-select checkboxes | Yes (`required`, JS validation) | |
 
@@ -52,5 +52,5 @@ A multi-tab form shared by both adding and editing a "Product" type supplier: su
 - **Cancel:** returns to ACC-057.
 
 ## Navigation
-- Entered from: ACC-057 (Product Suppliers) — "Add new" button or the Edit button on each row.
+- Entered from: ACC-057 (Goods Vendors) — "Add new" button or the Edit button on each row.
 - Navigates to: returns to itself (`list` tab) after a successful save, or back to ACC-057 on Cancel.

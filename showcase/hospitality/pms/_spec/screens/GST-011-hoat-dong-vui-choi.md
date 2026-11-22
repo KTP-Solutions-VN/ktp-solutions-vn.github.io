@@ -1,8 +1,8 @@
-# GST-011 — Hoạt động vui chơi quanh biệt thự
+# GST-011 — Hoạt động quanh đây (Things to Do Nearby)
 
 **Loại:** Trang đầy đủ
 **Route:** `Guest::activities($booking_id = null)` — mặc định `/guest/activities/:booking_id`; route đẹp (fallback DashedRoute): `/guest/activities`
-**Module:** Cổng thông tin Khách
+**Module:** Không gian khách
 
 ## Mô tả ngắn gọn
 Trang gợi ý hoạt động vui chơi/giải trí quanh khu vực villa. Nếu `booking_id` rỗng, tự động chuyển hướng về GST-002. **Lưu ý:** toàn bộ logic lấy dữ liệu theo booking (tên villa, quận/huyện, ảnh điểm đến) trong action đã bị **comment (vô hiệu hoá)** trong controller — nội dung hiển thị hiện là nội dung tĩnh, không phụ thuộc booking.

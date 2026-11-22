@@ -1,10 +1,10 @@
-# VSV-011 — Electricity Check-in Control (Electricity Check-in Control)
+# VSV-011 — Arrival Reading Audit
 
 **Type:** Full page
 
 **Route:** `VillaServicesController::electricityCheckInControl()` — defaults to `/villa-services/electricity-check-in-control`; all filters are read/written via the query string (GET)
 
-**Module:** Villa Services — Electricity
+**Module:** In-Stay Services — Metering
 
 ## Overview
 A back-office operations screen enabling staff to verify whether the concierge has recorded the electricity check-in meter reading and photos on time for each booking, monitor overall KPIs, and perform bulk correction/reminder/payment-confirmation actions.
@@ -52,5 +52,5 @@ A back-office operations screen enabling staff to verify whether the concierge h
 - List pagination (Paginator).
 
 ## Navigation
-- Entered from: VSV-001 ("Check-in" tile in the Controls section) or the main menu.
-- Navigates to: VSV-011-P1 (View Electricity Check-in Control Detail).
+- Entered from: VSV-001 ("Arrival Reading Audit" tile in the Controls section) or the main menu.
+- Navigates to: VSV-011-P1 (Arrival Reading Detail).

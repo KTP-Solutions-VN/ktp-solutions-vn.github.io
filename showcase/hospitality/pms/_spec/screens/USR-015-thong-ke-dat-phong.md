@@ -1,10 +1,10 @@
-# USR-015 — Thống kê đặt phòng (Statistics)
+# USR-015 — Phân tích đặt chỗ (Reservation Analytics)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `UserController::statistics()` — mặc định `user/statistics`
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Trang báo cáo/thống kê tổng hợp về đặt phòng (booking) theo khoảng thời gian, đơn vị kinh doanh (business unit) và kênh bán (channel): tổng số booking, tổng số đêm, độ dài lưu trú trung bình, thời gian đặt trước trung bình (lead time), phân bổ theo thời gian đặt trước, phân bổ theo ngày trong tháng/tuần và báo cáo theo quốc tịch khách.
@@ -37,5 +37,5 @@ Trang báo cáo/thống kê tổng hợp về đặt phòng (booking) theo kho�
 - **Lọc (submit form GET/POST):** tính lại toàn bộ số liệu theo bộ lọc đã chọn.
 
 ## Điều hướng
-- Vào từ: menu Users → Statistics.
+- Vào từ: menu Workforce → Reservation Analytics.
 - Không điều hướng tiếp sang màn hình khác.

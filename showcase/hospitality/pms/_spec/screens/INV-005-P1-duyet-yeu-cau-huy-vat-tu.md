@@ -1,10 +1,10 @@
-# INV-005-P1 — Duyệt yêu cầu hủy vật tư
+# INV-005-P1 — Duyệt xóa sổ hàng (Approve Write-off)
 
 **Loại:** Popup (mở từ INV-005)
 
 **Route:** Submit POST tới `InventoryController::discard()` (`/inventory/discard`)
 
-**Module:** INV = Kho vật tư
+**Module:** INV = Kiểm soát kho
 
 ## Mô tả ngắn gọn
 Modal xác nhận duyệt một yêu cầu hủy vật tư hỏng tại villa, trừ số lượng khỏi tồn kho của villa đó.

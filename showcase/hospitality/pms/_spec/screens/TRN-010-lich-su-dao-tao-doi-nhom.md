@@ -1,8 +1,8 @@
-# TRN-010 — Lịch sử đào tạo của đội nhóm
+# TRN-010 — Tiến độ học của đội (Team Learning Progress)
 
 **Loại:** Trang đầy đủ
 **Route:** `TrainingController::myTeamRecord()` — `/training/my-team-record`
-**Module:** TRN = Đào tạo
+**Module:** TRN = Học viện nhân viên
 
 ## Mô tả ngắn gọn
 Màn hình dự kiến hiển thị lịch sử đào tạo của cả đội/nhóm do người dùng quản lý; hiện tại chưa triển khai, chỉ hiển thị thông báo "tính năng sắp ra mắt".
@@ -16,5 +16,5 @@ Màn hình dự kiến hiển thị lịch sử đào tạo của cả đội/nh
 - Không có nút thao tác (tính năng chưa hoàn thiện).
 
 ## Điều hướng
-- **Vào từ:** Menu chính "Training" → "My Team Record".
+- **Vào từ:** Menu chính "Staff Academy" → "Team Learning Progress".
 - **Đi tới:** Không có.

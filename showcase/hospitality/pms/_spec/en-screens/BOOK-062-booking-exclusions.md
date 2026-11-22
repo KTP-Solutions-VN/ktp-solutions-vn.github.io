@@ -1,8 +1,8 @@
-# BOOK-062 — Booking Exclusions
+# BOOK-062 — Report Exclusions
 
 **Type:** Full page
 **Route:** Booking/exception/:tab? (default: `/booking/exception`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Manages a list of keywords (typically guest names) excluded from booking reports/statistics, grouped into 4 categories: full exclusion (Complete), zero value (Nill Value), early exclusion (Early), and late exclusion (Late). Used to filter internal/owner-stay bookings out of business figures.
@@ -35,4 +35,4 @@ Manages a list of keywords (typically guest names) excluded from booking reports
 - Check for duplicate keywords before saving (`keywordCheck`)
 
 ## Navigation
-- Opened from: Booking module menu > Booking Exclusions
+- Opened from: Reservations module menu > Report Exclusions

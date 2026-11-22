@@ -4,7 +4,7 @@
   var ADDED_KEY = 'mm_cms_insights_added';
   var EDITS_KEY = 'mm_cms_insights_edits';
   var DELETED_KEY = 'mm_cms_insights_deleted';
-  var LANGS = [{ code: 'en', name: 'English' }, { code: 'fr', name: 'French' }, { code: 'th', name: 'Thai' }];
+  var LANGS = [{ code: 'en', name: 'English' }, { code: 'fr', name: 'French' }, { code: 'zh', name: 'Chinese' }];
   var editingId = null;
   var editingItem = null;
 
@@ -74,7 +74,7 @@
       deleted.push(pendingId);
       localStorage.setItem(DELETED_KEY, JSON.stringify(deleted));
       MM.closeModal('delete-modal');
-      MM.showToast('Insight deleted.');
+      MM.showToast('Article deleted.');
       pendingId = null;
       render();
     });
@@ -132,7 +132,7 @@
     function openDrawer(item) {
       editingId = item ? item.id : null;
       editingItem = item || null;
-      document.getElementById('insight-drawer-title').textContent = item ? 'Edit Insight' : 'Add Insight';
+      document.getElementById('insight-drawer-title').textContent = item ? 'Edit Article' : 'Add Article';
       document.getElementById('save-btn').textContent = item ? 'Save Changes' : 'Save';
       document.getElementById('insight-form').reset();
 
@@ -184,12 +184,12 @@
           var edits = readJson(EDITS_KEY, {});
           edits[editingId] = Object.assign({}, edits[editingId], payload);
           localStorage.setItem(EDITS_KEY, JSON.stringify(edits));
-          MM.showToast('Insight updated.');
+          MM.showToast('Article updated.');
         } else {
           var added = readJson(ADDED_KEY, []);
-          added.push(Object.assign({ id: MM.uid('INS'), author: 'Somchai Anuwat', date: new Date().toISOString().slice(0, 10) }, payload));
+          added.push(Object.assign({ id: MM.uid('INS'), author: 'Daniel Tan', date: new Date().toISOString().slice(0, 10) }, payload));
           localStorage.setItem(ADDED_KEY, JSON.stringify(added));
-          MM.showToast('Insight created.');
+          MM.showToast('Article created.');
         }
         MM.closeModal('insight-drawer');
         render();

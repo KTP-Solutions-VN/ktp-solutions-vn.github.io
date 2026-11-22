@@ -1,13 +1,13 @@
-# VSV-014 — Cleaning
+# VSV-014 — Housekeeping Overview
 
 **Type:** Full page
 
 **Route:** `VillaServicesController::cleaning()` — defaults to `/villa-services/cleaning`
 
-**Module:** Villa Services — Cleaning
+**Module:** In-Stay Services — Housekeeping
 
 ## Overview
-A placeholder screen for the "Cleaning" overview page within the Villa Services group. The action only sets the page title; the view simply displays a "Exciting new feature available soon." message — no business logic has been implemented. The actual cleaning functionality is currently implemented separately in the Cleaning Teams screen (VSV-016 — `cleaningTeams`).
+A placeholder screen for the "Housekeeping Overview" page within the In-Stay Services group. The action only sets the page title; the view simply displays a "Exciting new feature available soon." message — no business logic has been implemented. The actual cleaning functionality is currently implemented separately in the Housekeeping Crews screen (VSV-016 — `cleaningTeams`).
 
 ## Detailed Description
 There are no fields/data tables — the page only displays a "coming soon" message.
@@ -16,5 +16,5 @@ There are no fields/data tables — the page only displays a "coming soon" messa
 - No functional buttons (not yet implemented).
 
 ## Navigation
-- Entered from: Main menu (Services/Cleaning item).
+- Entered from: Main menu (Housekeeping Overview item).
 - Navigates to: none (not automatically linked to VSV-016 despite sharing the same subject matter).

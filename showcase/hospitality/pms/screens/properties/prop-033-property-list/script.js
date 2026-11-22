@@ -8,14 +8,14 @@
   /* every screen in the Properties module.                             */
   /* ------------------------------------------------------------------ */
   var PROPERTY_EXT = {
-    'PV-101': { type: 'Pool Villa', area: 'Kamala' },
-    'PV-102': { type: 'Pool Villa', area: 'Bang Tao' },
-    'PV-103': { type: 'Beachfront Villa', area: 'Uluwatu' },
-    'PV-104': { type: 'Hillside Villa', area: 'Ubud' },
-    'PV-105': { type: 'Pool Villa', area: 'Surin' },
-    'PV-106': { type: 'Garden Villa', area: 'Bophut' },
-    'PV-107': { type: 'Pool Villa', area: 'Choeng Mon' },
-    'PV-108': { type: 'Beachfront Villa', area: 'Seminyak' }
+    'PV-101': { type: 'Pool Villa', area: 'Sentosa Cove' },
+    'PV-102': { type: 'Pool Villa', area: 'Ocean Drive' },
+    'PV-103': { type: 'Beachfront Villa', area: 'Wategos' },
+    'PV-104': { type: 'Hillside Villa', area: 'Bangalow' },
+    'PV-105': { type: 'Pool Villa', area: 'Paradise Island' },
+    'PV-106': { type: 'Garden Villa', area: 'Noosaville' },
+    'PV-107': { type: 'Pool Villa', area: 'Sunshine Beach' },
+    'PV-108': { type: 'Beachfront Villa', area: 'Belongil' }
   };
   var DEFAULT_EXT = { type: 'Pool Villa', area: 'New Area' };
 
@@ -106,7 +106,7 @@
       '</tr>';
   }
 
-  var GROUP_LABELS_BU = ['Phuket Collection', 'Bali Retreats', 'Koh Samui Estates'];
+  var GROUP_LABELS_BU = ['Sentosa Collection', 'Byron Bay Retreats', 'Noosa Estates'];
   var GROUP_LABELS_STATUS = ['active', 'onboarding', 'paused', 'closed'];
 
   function render() {

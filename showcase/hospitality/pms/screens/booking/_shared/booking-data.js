@@ -73,20 +73,20 @@
   /* screens need; additional rows extend the set for list density.    */
   /* ---------------------------------------------------------------- */
   var BASE_EXTRA = {
-    'BK-10231': { referer: 'Booking.com', bookingDate: '2026-08-02T10:14:00', amount: 8400, commission: 588, tax: 0, paymentStatus: 'Paid', country: 'United Kingdom', adults: 4, children: 1, mobile: '+44 7700 900123', concierge: 'Somchai Anuwat', notes: 'Anniversary trip — champagne on arrival requested.' },
-    'BK-10232': { referer: 'Airbnb', bookingDate: '2026-08-06T15:40:00', amount: 5600, commission: 336, tax: 0, paymentStatus: 'Paid', country: 'Poland', adults: 2, children: 0, mobile: '+48 501 234 567', concierge: 'Somchai Anuwat', notes: '' },
-    'BK-10233': { referer: 'Expedia', bookingDate: '2026-08-11T09:05:00', amount: 11200, commission: 896, tax: 0, paymentStatus: 'Awaiting deposit', country: 'Singapore', adults: 6, children: 2, mobile: '+65 8123 4567', concierge: 'Wayan Kertha', notes: 'Requested early check-in at 11:00.' },
-    'BK-10234': { referer: 'Direct', bookingDate: '2026-07-28T11:20:00', amount: 4200, commission: 0, tax: 0, paymentStatus: 'Paid', country: 'Italy', adults: 2, children: 0, mobile: '+39 345 678 9012', concierge: 'Wayan Kertha', notes: '' },
-    'BK-10235': { referer: 'Booking.com', bookingDate: '2026-06-30T14:02:00', amount: 3600, commission: 252, tax: 0, paymentStatus: 'Refunded', country: 'United Kingdom', adults: 2, children: 0, mobile: '+44 7700 900123', concierge: 'Somchai Anuwat', notes: 'Guest cancelled due to flight changes.' }
+    'BK-10231': { referer: 'Booking.com', bookingDate: '2026-08-02T10:14:00', amount: 8400, commission: 588, tax: 0, paymentStatus: 'Paid', country: 'United Kingdom', adults: 4, children: 1, mobile: '+44 7700 900123', concierge: 'Daniel Tan', notes: 'Anniversary trip — champagne on arrival requested.' },
+    'BK-10232': { referer: 'Airbnb', bookingDate: '2026-08-06T15:40:00', amount: 5600, commission: 336, tax: 0, paymentStatus: 'Paid', country: 'Poland', adults: 2, children: 0, mobile: '+48 501 234 567', concierge: 'Daniel Tan', notes: '' },
+    'BK-10233': { referer: 'Expedia', bookingDate: '2026-08-11T09:05:00', amount: 11200, commission: 896, tax: 0, paymentStatus: 'Awaiting deposit', country: 'Singapore', adults: 6, children: 2, mobile: '+65 8123 4567', concierge: 'Warren Kelly', notes: 'Requested early check-in at 11:00.' },
+    'BK-10234': { referer: 'Direct', bookingDate: '2026-07-28T11:20:00', amount: 4200, commission: 0, tax: 0, paymentStatus: 'Paid', country: 'Italy', adults: 2, children: 0, mobile: '+39 345 678 9012', concierge: 'Warren Kelly', notes: '' },
+    'BK-10235': { referer: 'Booking.com', bookingDate: '2026-06-30T14:02:00', amount: 3600, commission: 252, tax: 0, paymentStatus: 'Refunded', country: 'United Kingdom', adults: 2, children: 0, mobile: '+44 7700 900123', concierge: 'Daniel Tan', notes: 'Guest cancelled due to flight changes.' }
   };
 
   var EXTRA_ROWS = [
-    { id: 'BK-10236', property: 'Villa Lotus Terrace', guest: 'Klaus Richter', checkIn: '2026-09-12', checkOut: '2026-09-18', status: 'new', total: 6300, referer: 'Azura Website', bookingDate: '2026-08-20T08:30:00', amount: 6300, commission: 0, tax: 0, paymentStatus: 'Unpaid', country: 'Germany', adults: 2, children: 0, mobile: '+49 170 1234567', concierge: 'Nok Pattaya', notes: 'First-time guest — welcome amenity requested.' },
-    { id: 'BK-10237', property: 'Villa Silver Tide', guest: 'Emma Johansson', checkIn: '2026-09-14', checkOut: '2026-09-21', status: 'request', total: 11200, referer: 'Owner', bookingDate: '2026-08-22T13:10:00', amount: 11200, commission: 0, tax: 0, paymentStatus: 'Awaiting deposit', country: 'Sweden', adults: 5, children: 1, mobile: '+46 70 123 4567', concierge: 'Wayan Kertha', notes: '' },
-    { id: 'BK-10238', property: 'Villa Golden Palm', guest: "Liam O'Connor", checkIn: '2026-08-24', checkOut: '2026-08-27', status: 'checked-out', total: 2340, referer: 'Airbnb', bookingDate: '2026-08-01T09:00:00', amount: 2340, commission: 140, tax: 0, paymentStatus: 'Paid', country: 'Ireland', adults: 2, children: 0, mobile: '+353 85 123 4567', concierge: 'Nok Pattaya', notes: '' },
-    { id: 'BK-10239', property: 'Villa Sapphire Cliff', guest: 'Michael Tan', checkIn: '2026-10-02', checkOut: '2026-10-06', status: 'confirmed', total: 4800, referer: 'Booking.com', bookingDate: '2026-08-24T16:45:00', amount: 4800, commission: 336, tax: 0, paymentStatus: 'Paid', country: 'Singapore', adults: 3, children: 0, mobile: '+65 8123 4567', concierge: 'Somchai Anuwat', notes: '' },
-    { id: 'BK-10240', property: 'Villa Emerald Bay', guest: 'Sophia Rossi', checkIn: '2026-06-18', checkOut: '2026-06-22', status: 'black', total: 5100, referer: 'Direct', bookingDate: '2026-06-01T10:00:00', amount: 5100, commission: 0, tax: 0, paymentStatus: 'Disputed', country: 'Italy', adults: 2, children: 0, mobile: '+39 345 678 9012', concierge: 'Wayan Kertha', notes: 'Flagged — chargeback dispute in progress.' },
-    { id: 'BK-10241', property: 'Villa Coral Horizon', guest: 'James Whitfield', checkIn: '2026-09-01', checkOut: '2026-09-03', status: 'checked-in', total: 1900, referer: 'Azura Website', bookingDate: '2026-08-15T12:00:00', amount: 1900, commission: 0, tax: 0, paymentStatus: 'Paid', country: 'United Kingdom', adults: 2, children: 0, mobile: '+44 7700 900123', concierge: 'Somchai Anuwat', notes: '' }
+    { id: 'BK-10236', property: 'Villa Lotus Terrace', guest: 'Klaus Richter', checkIn: '2026-09-12', checkOut: '2026-09-18', status: 'new', total: 6300, referer: 'Azura Website', bookingDate: '2026-08-20T08:30:00', amount: 6300, commission: 0, tax: 0, paymentStatus: 'Unpaid', country: 'Germany', adults: 2, children: 0, mobile: '+49 170 1234567', concierge: 'Nicole Parker', notes: 'First-time guest — welcome amenity requested.' },
+    { id: 'BK-10237', property: 'Villa Silver Tide', guest: 'Emma Johansson', checkIn: '2026-09-14', checkOut: '2026-09-21', status: 'request', total: 11200, referer: 'Owner', bookingDate: '2026-08-22T13:10:00', amount: 11200, commission: 0, tax: 0, paymentStatus: 'Awaiting deposit', country: 'Sweden', adults: 5, children: 1, mobile: '+46 70 123 4567', concierge: 'Warren Kelly', notes: '' },
+    { id: 'BK-10238', property: 'Villa Golden Palm', guest: "Liam O'Connor", checkIn: '2026-08-24', checkOut: '2026-08-27', status: 'checked-out', total: 2340, referer: 'Airbnb', bookingDate: '2026-08-01T09:00:00', amount: 2340, commission: 140, tax: 0, paymentStatus: 'Paid', country: 'Ireland', adults: 2, children: 0, mobile: '+353 85 123 4567', concierge: 'Nicole Parker', notes: '' },
+    { id: 'BK-10239', property: 'Villa Sapphire Cliff', guest: 'Michael Tan', checkIn: '2026-10-02', checkOut: '2026-10-06', status: 'confirmed', total: 4800, referer: 'Booking.com', bookingDate: '2026-08-24T16:45:00', amount: 4800, commission: 336, tax: 0, paymentStatus: 'Paid', country: 'Singapore', adults: 3, children: 0, mobile: '+65 8123 4567', concierge: 'Daniel Tan', notes: '' },
+    { id: 'BK-10240', property: 'Villa Emerald Bay', guest: 'Sophia Rossi', checkIn: '2026-06-18', checkOut: '2026-06-22', status: 'black', total: 5100, referer: 'Direct', bookingDate: '2026-06-01T10:00:00', amount: 5100, commission: 0, tax: 0, paymentStatus: 'Disputed', country: 'Italy', adults: 2, children: 0, mobile: '+39 345 678 9012', concierge: 'Warren Kelly', notes: 'Flagged — chargeback dispute in progress.' },
+    { id: 'BK-10241', property: 'Villa Coral Horizon', guest: 'James Whitfield', checkIn: '2026-09-01', checkOut: '2026-09-03', status: 'checked-in', total: 1900, referer: 'Azura Website', bookingDate: '2026-08-15T12:00:00', amount: 1900, commission: 0, tax: 0, paymentStatus: 'Paid', country: 'United Kingdom', adults: 2, children: 0, mobile: '+44 7700 900123', concierge: 'Daniel Tan', notes: '' }
   ];
 
   BOOK.BOOKINGS = (window.MM.MOCK_BOOKINGS || []).map(function (b) {
@@ -230,18 +230,18 @@
   /* Direct bookings (BOOK-042/043/044/045/046)                         */
   /* ---------------------------------------------------------------- */
   BOOK.DIRECT_BOOKINGS = [
-    { id: 'DB-501', property: 'Villa Sapphire Cliff', checkIn: '2026-09-20', checkOut: '2026-09-25', firstName: 'Richard', lastName: 'Halstead', email: 'r.halstead@example.com', phone: '+66 81 234 5678', guests: 3, type: 'Owner Stay', amount: 0, paid: 'N/A', specialConditions: 'Owner personal use — no charge.', requestedBy: 'Richard Halstead', on: '2026-08-18', status: 'approved', processedBy: 'Somchai Anuwat', reason: '' },
+    { id: 'DB-501', property: 'Villa Sapphire Cliff', checkIn: '2026-09-20', checkOut: '2026-09-25', firstName: 'Richard', lastName: 'Halstead', email: 'r.halstead@example.com', phone: '+65 9234 5678', guests: 3, type: 'Owner Stay', amount: 0, paid: 'N/A', specialConditions: 'Owner personal use — no charge.', requestedBy: 'Richard Halstead', on: '2026-08-18', status: 'approved', processedBy: 'Daniel Tan', reason: '' },
     { id: 'DB-502', property: 'Villa Coral Horizon', checkIn: '2026-09-28', checkOut: '2026-10-02', firstName: 'Isabelle', lastName: 'Moreau', email: 'i.moreau@example.com', phone: '+33 6 12 34 56 78', guests: 4, type: 'Friends & Family', amount: 3200, paid: 'Unpaid', specialConditions: 'Late check-out requested (14:00).', requestedBy: 'Isabelle Moreau', on: '2026-08-21', status: 'pending', processedBy: '', reason: '' },
-    { id: 'DB-503', property: 'Villa Azure Ridge', checkIn: '2026-08-30', checkOut: '2026-09-02', firstName: 'David', lastName: 'Chen', email: 'd.chen@example.com', phone: '+66 89 555 1212', guests: 2, type: 'Owner Stay', amount: 0, paid: 'N/A', specialConditions: '', requestedBy: 'David Chen', on: '2026-08-10', status: 'rejected', processedBy: 'Wayan Kertha', reason: 'Villa already booked for those dates.' },
-    { id: 'DB-504', property: 'Villa Lotus Terrace', checkIn: '2026-10-05', checkOut: '2026-10-09', firstName: 'Priya', lastName: 'Nair', email: 'p.nair@example.com', phone: '+66 86 777 3344', guests: 5, type: 'Partner Rate', amount: 2800, paid: 'Paid', specialConditions: 'Airport pickup requested at 15:30.', requestedBy: 'Priya Nair', on: '2026-08-23', status: 'pending', processedBy: '', reason: '' }
+    { id: 'DB-503', property: 'Villa Azure Ridge', checkIn: '2026-08-30', checkOut: '2026-09-02', firstName: 'David', lastName: 'Chen', email: 'd.chen@example.com', phone: '+61 495 551 212', guests: 2, type: 'Owner Stay', amount: 0, paid: 'N/A', specialConditions: '', requestedBy: 'David Chen', on: '2026-08-10', status: 'rejected', processedBy: 'Warren Kelly', reason: 'Villa already booked for those dates.' },
+    { id: 'DB-504', property: 'Villa Lotus Terrace', checkIn: '2026-10-05', checkOut: '2026-10-09', firstName: 'Priya', lastName: 'Nair', email: 'p.nair@example.com', phone: '+61 467 773 344', guests: 5, type: 'Partner Rate', amount: 2800, paid: 'Paid', specialConditions: 'Airport pickup requested at 15:30.', requestedBy: 'Priya Nair', on: '2026-08-23', status: 'pending', processedBy: '', reason: '' }
   ];
 
   BOOK.CANCELLED_DIRECT_BOOKINGS = [
-    { id: 'DB-497', checkIn: '2026-08-05', checkOut: '2026-08-08', guest: 'Wayan Kertha', property: 'Villa Coral Horizon', email: 'wayan.k@example.com', phone: '+66 89 555 1212', type: 'Friends & Family', amount: 2100, cancelledOn: '2026-07-30', cancelledBy: 'Somchai Anuwat', reason: 'Guest schedule conflict — requested to rebook later.' },
-    { id: 'DB-499', checkIn: '2026-08-14', checkOut: '2026-08-17', guest: 'Nok Pattaya', property: 'Villa Lotus Terrace', email: 'nok.p@example.com', phone: '+66 86 777 3344', type: 'Owner Stay', amount: 0, cancelledOn: '2026-08-09', cancelledBy: 'Wayan Kertha', reason: 'Owner travel plans changed.' },
-    { id: 'DB-500', checkIn: '2026-08-22', checkOut: '2026-08-26', guest: 'Klaus Richter', property: 'Villa Emerald Bay', email: 'klaus.richter@example.com', phone: '+49 170 1234567', type: 'Partner Rate', amount: 3400, cancelledOn: '2026-08-15', cancelledBy: 'Wayan Kertha', reason: 'Partner agency cancelled on guest’s behalf.' },
-    { id: 'DB-503B', checkIn: '2026-09-03', checkOut: '2026-09-06', guest: 'Emma Johansson', property: 'Villa Silver Tide', email: 'emma.johansson@example.com', phone: '+46 70 123 4567', type: 'Friends & Family', amount: 1980, cancelledOn: '2026-08-27', cancelledBy: 'Somchai Anuwat', reason: 'Duplicate request — guest booked directly with owner instead.' },
-    { id: 'DB-505', checkIn: '2026-09-10', checkOut: '2026-09-14', guest: "Liam O'Connor", property: 'Villa Golden Palm', email: 'liam.oconnor@example.com', phone: '+353 85 123 4567', type: 'Owner Stay', amount: 0, cancelledOn: '2026-09-01', cancelledBy: 'Nok Pattaya', reason: 'Owner postponed stay to next quarter.' }
+    { id: 'DB-497', checkIn: '2026-08-05', checkOut: '2026-08-08', guest: 'Warren Kelly', property: 'Villa Coral Horizon', email: 'warren.k@example.com', phone: '+61 495 551 212', type: 'Friends & Family', amount: 2100, cancelledOn: '2026-07-30', cancelledBy: 'Daniel Tan', reason: 'Guest schedule conflict — requested to rebook later.' },
+    { id: 'DB-499', checkIn: '2026-08-14', checkOut: '2026-08-17', guest: 'Nicole Parker', property: 'Villa Lotus Terrace', email: 'nicole.p@example.com', phone: '+61 467 773 344', type: 'Owner Stay', amount: 0, cancelledOn: '2026-08-09', cancelledBy: 'Warren Kelly', reason: 'Owner travel plans changed.' },
+    { id: 'DB-500', checkIn: '2026-08-22', checkOut: '2026-08-26', guest: 'Klaus Richter', property: 'Villa Emerald Bay', email: 'klaus.richter@example.com', phone: '+49 170 1234567', type: 'Partner Rate', amount: 3400, cancelledOn: '2026-08-15', cancelledBy: 'Warren Kelly', reason: 'Partner agency cancelled on guest’s behalf.' },
+    { id: 'DB-503B', checkIn: '2026-09-03', checkOut: '2026-09-06', guest: 'Emma Johansson', property: 'Villa Silver Tide', email: 'emma.johansson@example.com', phone: '+46 70 123 4567', type: 'Friends & Family', amount: 1980, cancelledOn: '2026-08-27', cancelledBy: 'Daniel Tan', reason: 'Duplicate request — guest booked directly with owner instead.' },
+    { id: 'DB-505', checkIn: '2026-09-10', checkOut: '2026-09-14', guest: "Liam O'Connor", property: 'Villa Golden Palm', email: 'liam.oconnor@example.com', phone: '+353 85 123 4567', type: 'Owner Stay', amount: 0, cancelledOn: '2026-09-01', cancelledBy: 'Nicole Parker', reason: 'Owner postponed stay to next quarter.' }
   ];
 
   /* ---------------------------------------------------------------- */
@@ -252,33 +252,33 @@
     { id: 'PP-902', property: 'Villa Azure Ridge', bookingNo: 'BK-10234', checkIn: '2026-08-20', checkOut: '2026-08-25', amount: 1470, stage: 'due', paidOn: null, paidBy: null, paidThrough: null, owner: 'David Chen' },
     { id: 'PP-903', property: 'Villa Silver Tide', bookingNo: 'BK-10237', checkIn: '2026-09-14', checkOut: '2026-09-21', amount: 3920, stage: 'later', paidOn: null, paidBy: null, paidThrough: null, owner: 'David Chen' },
     { id: 'PP-904', property: 'Villa Lotus Terrace', bookingNo: 'BK-10236', checkIn: '2026-09-12', checkOut: '2026-09-18', amount: 2205, stage: 'later', paidOn: null, paidBy: null, paidThrough: null, owner: 'Priya Nair' },
-    { id: 'PP-905', property: 'Villa Sapphire Cliff', bookingNo: 'BK-10231', checkIn: '2026-09-02', checkOut: '2026-09-09', amount: 2940, stage: 'paid', paidOn: '2026-08-15', paidBy: 'Somchai Anuwat', paidThrough: 'Bank Transfer', owner: 'Richard Halstead' },
-    { id: 'PP-906', property: 'Villa Coral Horizon', bookingNo: 'BK-10232', checkIn: '2026-09-05', checkOut: '2026-09-10', amount: 1960, stage: 'paid', paidOn: '2026-08-18', paidBy: 'Somchai Anuwat', paidThrough: 'PromptPay', owner: 'Richard Halstead' }
+    { id: 'PP-905', property: 'Villa Sapphire Cliff', bookingNo: 'BK-10231', checkIn: '2026-09-02', checkOut: '2026-09-09', amount: 2940, stage: 'paid', paidOn: '2026-08-15', paidBy: 'Daniel Tan', paidThrough: 'Bank Transfer', owner: 'Richard Halstead' },
+    { id: 'PP-906', property: 'Villa Coral Horizon', bookingNo: 'BK-10232', checkIn: '2026-09-05', checkOut: '2026-09-10', amount: 1960, stage: 'paid', paidOn: '2026-08-18', paidBy: 'Daniel Tan', paidThrough: 'PayNow', owner: 'Richard Halstead' }
   ];
 
   BOOK.PARTNER_BOOKINGS = [
-    { id: 'PB-701', property: 'Villa Golden Palm', received: '2026-08-20', bookingNo: 'BK-10238', checkIn: '2026-08-24', checkOut: '2026-08-27', status: 'confirmed', lastActionBy: 'Nok Pattaya' },
-    { id: 'PB-702', property: 'Villa Silver Tide', received: '2026-08-22', bookingNo: 'BK-10237', checkIn: '2026-09-14', checkOut: '2026-09-21', status: 'sent', lastActionBy: 'Wayan Kertha' },
+    { id: 'PB-701', property: 'Villa Golden Palm', received: '2026-08-20', bookingNo: 'BK-10238', checkIn: '2026-08-24', checkOut: '2026-08-27', status: 'confirmed', lastActionBy: 'Nicole Parker' },
+    { id: 'PB-702', property: 'Villa Silver Tide', received: '2026-08-22', bookingNo: 'BK-10237', checkIn: '2026-09-14', checkOut: '2026-09-21', status: 'sent', lastActionBy: 'Warren Kelly' },
     { id: 'PB-703', property: 'Villa Lotus Terrace', received: '2026-08-20', bookingNo: 'BK-10236', checkIn: '2026-09-12', checkOut: '2026-09-18', status: 'new', lastActionBy: '—' },
-    { id: 'PB-704', property: 'Villa Sapphire Cliff', received: '2026-08-02', bookingNo: 'BK-10231', checkIn: '2026-09-02', checkOut: '2026-09-09', status: 'paid', lastActionBy: 'Somchai Anuwat' },
-    { id: 'PB-705', property: 'Villa Emerald Bay', received: '2026-06-01', bookingNo: 'BK-10240', checkIn: '2026-06-18', checkOut: '2026-06-22', status: 'rejected', lastActionBy: 'Wayan Kertha' }
+    { id: 'PB-704', property: 'Villa Sapphire Cliff', received: '2026-08-02', bookingNo: 'BK-10231', checkIn: '2026-09-02', checkOut: '2026-09-09', status: 'paid', lastActionBy: 'Daniel Tan' },
+    { id: 'PB-705', property: 'Villa Emerald Bay', received: '2026-06-01', bookingNo: 'BK-10240', checkIn: '2026-06-18', checkOut: '2026-06-22', status: 'rejected', lastActionBy: 'Warren Kelly' }
   ];
 
   /* ---------------------------------------------------------------- */
   /* Check-in / check-out control points (BOOK-029/030/031/033/034/035) */
   /* ---------------------------------------------------------------- */
   BOOK.CHECKIN_CONTROLS = [
-    { id: 'CI-301', property: 'Villa Sapphire Cliff', staff: 'Somchai Anuwat', start: '13:42', end: '13:58', gps: '7.8804, 98.3923', comments: 'All amenities set up, welcome drinks placed.' },
-    { id: 'CI-302', property: 'Villa Coral Horizon', staff: 'Somchai Anuwat', start: '14:05', end: '14:20', gps: '7.9012, 98.3011', comments: '' },
-    { id: 'CI-303', property: 'Villa Azure Ridge', staff: 'Wayan Kertha', start: '—', end: '—', gps: '—', comments: 'Not yet started.' },
-    { id: 'CI-304', property: 'Villa Emerald Bay', staff: 'Wayan Kertha', start: '11:10', end: '11:36', gps: '-8.6905, 115.1729', comments: 'AC unit in Bedroom 3 checked, running fine.' },
-    { id: 'CI-305', property: 'Villa Lotus Terrace', staff: 'Nok Pattaya', start: '10:02', end: '10:19', gps: '9.5120, 100.0136', comments: 'Pool towels restocked.' }
+    { id: 'CI-301', property: 'Villa Sapphire Cliff', staff: 'Daniel Tan', start: '13:42', end: '13:58', gps: '1.2441, 103.8419', comments: 'All amenities set up, welcome drinks placed.' },
+    { id: 'CI-302', property: 'Villa Coral Horizon', staff: 'Daniel Tan', start: '14:05', end: '14:20', gps: '1.2466, 103.8392', comments: '' },
+    { id: 'CI-303', property: 'Villa Azure Ridge', staff: 'Warren Kelly', start: '—', end: '—', gps: '—', comments: 'Not yet started.' },
+    { id: 'CI-304', property: 'Villa Emerald Bay', staff: 'Warren Kelly', start: '11:10', end: '11:36', gps: '-28.6474, 153.6120', comments: 'AC unit in Bedroom 3 checked, running fine.' },
+    { id: 'CI-305', property: 'Villa Lotus Terrace', staff: 'Nicole Parker', start: '10:02', end: '10:19', gps: '-26.3925, 153.0905', comments: 'Pool towels restocked.' }
   ];
 
   BOOK.CHECKOUT_CONTROLS = [
-    { id: 'CO-401', property: 'Villa Marble Cove', staff: 'Somchai Anuwat', start: '10:15', end: '10:44', gps: '7.9501, 98.3312', damage: 'None', comments: 'Villa left in excellent condition.', satisfaction: 5 },
-    { id: 'CO-402', property: 'Villa Golden Palm', staff: 'Nok Pattaya', start: '11:00', end: '11:35', gps: '9.5044, 100.0201', damage: '1 broken pool towel rail', comments: 'Guest notified, minor repair logged.', satisfaction: 4 },
-    { id: 'CO-403', property: 'Villa Silver Tide', staff: 'Wayan Kertha', start: '—', end: '—', gps: '—', damage: '—', comments: 'Pending — check-out later today.', satisfaction: null }
+    { id: 'CO-401', property: 'Villa Marble Cove', staff: 'Daniel Tan', start: '10:15', end: '10:44', gps: '1.2482, 103.8441', damage: 'None', comments: 'Villa left in excellent condition.', satisfaction: 5 },
+    { id: 'CO-402', property: 'Villa Golden Palm', staff: 'Nicole Parker', start: '11:00', end: '11:35', gps: '-26.4048, 153.1062', damage: '1 broken pool towel rail', comments: 'Guest notified, minor repair logged.', satisfaction: 4 },
+    { id: 'CO-403', property: 'Villa Silver Tide', staff: 'Warren Kelly', start: '—', end: '—', gps: '—', damage: '—', comments: 'Pending — check-out later today.', satisfaction: null }
   ];
 
   BOOK.VILLA_CONTROL_POINTS = BOOK.VILLAS.map(function (v, i) {

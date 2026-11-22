@@ -1,10 +1,10 @@
-# BU-013 — Thêm vùng kinh doanh
+# BU-013 — Thêm vùng báo cáo (New Reporting Zone)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `BusinessUnitController::addZoning()` — mặc định `/business-unit/add-zoning`
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Biểu mẫu thêm mới một vùng kinh doanh, gán tên tùy chỉnh và chọn các Đơn vị kinh doanh thuộc vùng. Mã vùng (`zone_name`) được hệ thống tự sinh, không nhập tay.

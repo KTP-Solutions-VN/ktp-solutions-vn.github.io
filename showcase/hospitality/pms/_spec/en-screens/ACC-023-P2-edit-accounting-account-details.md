@@ -1,10 +1,10 @@
-# ACC-023-P2 — Edit Accounting Account Details
+# ACC-023-P2 — Edit Account Structure
 
 **Type:** Popup / edit page (opened from ACC-023)
 
 **Route:** `AccountController::editChartAccount($id)` — default `/account/edit-chart-account/<id>` (`id` passed as base64)
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 Edit the full list of detail rows (`ChartAccountDetails`) for a Chart of Account: dynamically add new rows, delete rows, edit the rank/nature/category/sub_category/details/allocation fields, then save all changes in bulk.
@@ -33,5 +33,5 @@ Dynamic form-style detail table (each row is one `ChartAccountDetails` record, f
 - **Save:** submits the entire `data[]` array via POST to the `editChartAccount` action itself. Server: removes old `ChartAccountDetails` records no longer present in the submitted `data[]` (via the `deleteSeletedRow` function), then calls `_saveData('ChartAccountDetails', ...)` for each remaining row (update if `chart_account_detail_id` is present, insert otherwise); records success/failure and redirects back to the calling page (`referer()`).
 
 ## Navigation
-- Entered from: ACC-023 (Chart of Accounts) — file icon (Edit Content) on each row.
+- Entered from: ACC-023 (Account Structure) — file icon (Edit Content) on each row.
 - Navigates to: no other page — after saving, returns to the previous page (`referer()`), typically ACC-023.

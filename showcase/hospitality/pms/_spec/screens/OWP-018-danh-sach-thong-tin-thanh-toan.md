@@ -1,10 +1,10 @@
-# OWP-018 — Danh sách thông tin thanh toán
+# OWP-018 — Tài khoản nhận tiền (Payout Accounts)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `ExternalUserController::paymentDetails()` — không có route đẹp riêng (mặc định `/external-user/payment-details`)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 
@@ -36,7 +36,7 @@ Danh sách — cột hiển thị:
 
 ## Điều hướng
 
-- Truy cập từ menu chính (Payment Details)
-- Nút "+" → OWP-018-P1 (popup thêm thông tin thanh toán)
-- Icon sửa → OWP-018-P2 (popup sửa thông tin thanh toán)
+- Truy cập từ menu chính (Payouts)
+- Nút "+" → OWP-018-P1 (popup thêm tài khoản nhận tiền)
+- Icon sửa → OWP-018-P2 (popup sửa tài khoản nhận tiền)
 - Icon xoá → popup xác nhận, sau khi xoá quay lại OWP-018

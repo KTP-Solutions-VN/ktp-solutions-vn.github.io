@@ -1,10 +1,10 @@
-# OWP-002 — Trang tổng quan (Dashboard)
+# OWP-002 — Tổng quan (Overview)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `ExternalUserController::dashboard()` — không có route đẹp riêng (truy cập qua `/external-user/dashboard` theo mặc định CakePHP)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 

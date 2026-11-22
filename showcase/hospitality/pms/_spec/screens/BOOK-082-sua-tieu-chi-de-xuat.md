@@ -1,9 +1,9 @@
-# BOOK-082 — Sửa tiêu chí đề xuất villa (Edit Criteria)
+# BOOK-082 — Sửa ngưỡng công suất (Edit Occupancy Threshold)
 
 **Loại:** Popup (mở từ BOOK-080)
 **Route:** Booking/editCriteria/:id
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Form sửa một bộ tiêu chí đã tồn tại, cấu trúc field giống hệt BOOK-081 nhưng được nạp sẵn giá trị hiện tại của tiêu chí (`$id` truyền vào dạng mã hoá base64).
@@ -33,5 +33,5 @@ Toàn bộ dữ liệu tiêu chí (`criteria_data`) được unserialize từ b�
 - Nếu `id` không hợp lệ hoặc không tìm thấy dữ liệu — hiện thông báo lỗi và redirect về BOOK-080
 
 ## Điều hướng
-- Mở từ: BOOK-080 (Tiêu chí đề xuất villa) — icon Sửa trên từng dòng
+- Mở từ: BOOK-080 (Ngưỡng công suất) — icon Sửa trên từng dòng
 - Điều hướng tới: quay lại BOOK-080 sau khi lưu

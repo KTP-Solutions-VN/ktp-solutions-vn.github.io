@@ -1,10 +1,10 @@
-# USR-019 — Xem chi tiết Nhà cung cấp dịch vụ (View Provider Details)
+# USR-019 — Hồ sơ nhà thầu (Contractor Profile)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `UserController::viewProviderDetails($id)` — mặc định `user/viewProviderDetails/:id`
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Trang xem chi tiết (chỉ đọc) thông tin một tài khoản nhân sự thuộc nhà cung cấp dịch vụ bên ngoài.

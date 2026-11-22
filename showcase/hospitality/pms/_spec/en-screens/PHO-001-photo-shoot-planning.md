@@ -1,10 +1,10 @@
-# PHO-001 — Photo Shoot Planning
+# PHO-001 — Shoot Coordination
 
 **Type:** Full page
 
 **Route:** `PhotosController::planning($shootId)` — default `/photos/planning/:shootId`
 
-**Module:** Photos
+**Module:** Photo Library
 
 ## Overview
 A screen for creating and tracking photo shoot plans for a villa/residence/unit: scheduling shoots, selecting photographers, and tracking photo delivery progress and follow-up items. Includes a consolidated dashboard showing shoots pending photo delivery and follow-up items requiring action.
@@ -51,5 +51,5 @@ Filter: Business Unit/Zone dropdown (`id`, saves the business unit to a cookie w
 - **Record follow-up / photo delivery result**: updates the tracking status for each shoot.
 
 ## Navigation
-- Accessed from: the Photography Management menu (active_menu = 185). Note: `PropertyController` also has a separate action that renders this same template (`setTemplatePath('Photos')->setTemplate('planning')`) for the "Property > Photography" flow — this is outside the scope of PhotosController and therefore not documented here.
+- Accessed from: the Photo Library menu (active_menu = 185). Note: `PropertyController` also has a separate action that renders this same template (`setTemplatePath('Photos')->setTemplate('planning')`) for the "Property > Shoots" flow — this is outside the scope of PhotosController and therefore not documented here.
 - Navigates to: no navigation to other screens in the main flow; can return via the main menu.

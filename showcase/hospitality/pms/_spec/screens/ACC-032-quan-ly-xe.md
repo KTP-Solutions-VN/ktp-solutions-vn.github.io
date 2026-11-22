@@ -1,4 +1,4 @@
-# ACC-032 — Quản lý xe (Vehicles)
+# ACC-032 — Đội xe công ty (Company Fleet)
 
 **Loại:** Trang đầy đủ (danh sách + modal thêm/sửa/xóa ngay trong trang, không có view popup riêng)
 
@@ -8,7 +8,7 @@
 - AJAX kiểm tra trùng tên xe: `AccountController::getUniqueName()` — mặc định `/account/get-unique-name` (POST, trả JSON) — được gọi qua jQuery Validate `remote` khi nhập field "Name"
 - (Ngoài phạm vi, chỉ ghi nhận): validate trùng biển số dùng action `checkSerialNumber` (không thuộc phạm vi tài liệu này)
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Quản lý danh sách xe (tài sản công ty loại `vehicle`) theo Business Unit: xem danh sách xe đang hoạt động/đã bán, thêm mới, sửa, xóa xe qua modal ngay trong trang; khi gán "Used by" (nhân viên sử dụng xe) hệ thống đồng thời tạo/cập nhật bản ghi `UserCompanyAsset` (loại `car`) để theo dõi tài sản được cấp cho nhân viên.
@@ -40,7 +40,7 @@ Quản lý danh sách xe (tài sản công ty loại `vehicle`) theo Business Un
 | # | Tên field | Field code | Loại dữ liệu/input | Bắt buộc | Ghi chú |
 |---|---|---|---|---|---|
 | 1 | Business Unit | `business_unit` | Select2 (BU theo quyền user) | Có | |
-| 2 | Vehicle type | `vtype` | Select2: Car / Lorry / Pick-up / Samlo / Motorcycle | Có | |
+| 2 | Vehicle type | `vtype` | Select2: Car / Lorry / Pick-up / Van / Motorcycle | Có | |
 | 3 | Name | `name` | Text | Có | Validate remote trùng tên qua `getUniqueName` (loại trừ chính nó khi edit) |
 | 4 | Brand | `brand` | Text | Có | |
 | 5 | Color | `color` | Text | Có | |
@@ -63,5 +63,5 @@ Quản lý danh sách xe (tài sản công ty loại `vehicle`) theo Business Un
 - **Đổi Business Unit:** reload trang với query `?id=<business_unit>`.
 
 ## Điều hướng
-- Vào từ: Sidebar > Account & HR > Settings (submenu) > **Assets > Vehicles**.
+- Vào từ: Sidebar > Finance & Admin > Finance Preferences (submenu) > **Assets > Company Fleet**.
 - Điều hướng đến: không có trang con dạng URL riêng — toàn bộ thao tác thêm/sửa/xóa xử lý qua modal JS (`#addVehicle`) ngay trên trang này, không phải các view `.ctp` popup riêng biệt (không tồn tại `add_vehicle.ctp`/`edit_vehicle.ctp`). Sau khi lưu/xóa, trang tự redirect lại chính nó (`referer()`).

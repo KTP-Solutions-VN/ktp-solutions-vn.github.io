@@ -1,10 +1,10 @@
-# PHO-001 — Kế hoạch chụp ảnh (Photo Shoot Planning)
+# PHO-001 — Điều phối buổi chụp (Shoot Coordination)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `PhotosController::planning($shootId)` — mặc định `/photos/planning/:shootId`
 
-**Module:** PHO = Hình ảnh
+**Module:** PHO = Thư viện ảnh
 
 ## Mô tả ngắn gọn
 Màn hình lập và theo dõi kế hoạch chụp ảnh (shoot) cho villa/residence/unit: tạo lịch chụp, chọn nhiếp ảnh gia, theo dõi tiến độ giao ảnh và các mục cần follow-up. Có bảng điều khiển tổng hợp (dashboard) hiển thị các shoot đang chờ giao ảnh và các follow-up cần xử lý.
@@ -51,5 +51,5 @@ Filter: dropdown Business Unit/Zone (`id`, lưu cookie business unit khi đổi)
 - **Ghi nhận follow-up / kết quả giao ảnh**: cập nhật trạng thái theo dõi cho từng shoot.
 
 ## Điều hướng
-- Vào từ: menu Photography Management (active_menu = 185). Lưu ý: `PropertyController` cũng có action riêng render lại chính template này (`setTemplatePath('Photos')->setTemplate('planning')`) cho luồng "Property > Photography" — nằm ngoài phạm vi PhotosController nên không tài liệu hoá tại đây.
+- Vào từ: menu Photo Library (active_menu = 185). Lưu ý: `PropertyController` cũng có action riêng render lại chính template này (`setTemplatePath('Photos')->setTemplate('planning')`) cho luồng "Property > Shoots" — nằm ngoài phạm vi PhotosController nên không tài liệu hoá tại đây.
 - Điều hướng đến: không điều hướng sang màn khác trong luồng chính; có thể quay lại qua menu chính.

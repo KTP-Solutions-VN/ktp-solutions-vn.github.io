@@ -1,9 +1,9 @@
-# BOOK-058 — Thêm mẫu xác nhận đặt phòng
+# BOOK-058 — Thêm mẫu thư xác nhận (New Confirmation Layout)
 
 **Loại:** Popup/Trang (mở từ BOOK-057)
 **Route:** Booking/addConfirmationTemplate
 **Route đẹp:** `/booking/confirmation-template/add`
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Form tạo mới mẫu PDF xác nhận đặt phòng: thông tin công ty/thương hiệu (logo, địa chỉ, liên hệ), ngôn ngữ áp dụng và các đơn vị kinh doanh sử dụng mẫu.

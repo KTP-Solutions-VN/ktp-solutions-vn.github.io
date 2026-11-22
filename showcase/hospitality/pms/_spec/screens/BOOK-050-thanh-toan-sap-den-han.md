@@ -1,9 +1,9 @@
-# BOOK-050 — Thanh toán sắp đến hạn (Due Later)
+# BOOK-050 — Khoản chi trả sắp tới (Upcoming Payouts)
 
 **Loại:** Trang đầy đủ (mở từ BOOK-052)
 **Route:** Booking/dueLater (mặc định: `/booking/due-later`)
 **Route đẹp:** `/booking/partner-payments/due-later`
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Danh sách các khoản thanh toán đối tác (chủ villa partnership) đã được xác nhận (`PartnerBooking.status = confirmed`) nhưng CHƯA đến hạn thanh toán theo tần suất thanh toán cấu hình trên hợp đồng villa. Dùng để theo dõi trước các khoản sẽ phải chi trả.
@@ -31,5 +31,5 @@ Danh sách các khoản thanh toán đối tác (chủ villa partnership) đã �
 - Xem chi tiết khoản thanh toán (popup lấy dữ liệu qua `paymentModule`, gồm thông tin tài khoản ngân hàng chủ villa)
 
 ## Điều hướng
-- Mở từ: BOOK-052 (Partner Payments) > nút "Due Later"
+- Mở từ: BOOK-052 (Partner Payouts) > nút "Due Later"
 - Điều hướng tới: không (khoản sẽ tự chuyển sang BOOK-049 khi đến hạn)

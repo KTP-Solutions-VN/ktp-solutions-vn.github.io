@@ -1,8 +1,8 @@
-# PROP-029 — Báo cáo Property (Property Reports)
+# PROP-029 — Báo cáo hợp đồng (Contract Reports)
 
 **Loại:** Trang đầy đủ
 **Route:** property/property-reports/:tab/:villa_id
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang khung chứa các tab báo cáo liên quan tới Property, hiện chỉ có 1 tab hoạt động là "Contracts" (báo cáo hợp đồng), lọc theo Business Unit. Nội dung chi tiết của tab được render qua element `property/contract_report`.

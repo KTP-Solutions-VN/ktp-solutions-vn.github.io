@@ -1,10 +1,10 @@
-# USR-002 — Chỉ số kinh doanh (Indicators)
+# USR-002 — Bảng điểm doanh thu (Revenue Scorecard)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `UserController::indicators()` — mặc định `user/indicators`
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Màn hình báo cáo/biểu đồ doanh thu (quá khứ và tương lai) theo business unit, kênh bán, loại doanh thu và khoảng thời gian, dành cho Superadmin/Admin/Business Unit Manager theo dõi hiệu quả kinh doanh của villa. Dữ liệu được tổng hợp từ booking, quy đổi theo tiền tệ tham chiếu.
@@ -28,5 +28,5 @@ Kết quả hiển thị dạng biểu đồ/bảng theo tháng: doanh thu quá 
 - Không có chức năng thêm/sửa/xoá — đây là màn hình chỉ xem (read-only report).
 
 ## Điều hướng
-- Vào từ: menu chính (mục Indicators), sau khi đăng nhập.
+- Vào từ: menu chính (mục Revenue Scorecard), sau khi đăng nhập.
 - Điều hướng đến: không có điều hướng con.

@@ -2,10 +2,10 @@
   'use strict';
 
   var SEED = [
-    { id: 'DB-01', property: 'Villa Sapphire Cliff', checkin: '2026-09-10', checkout: '2026-09-14', requestedBy: 'Richard Halstead (Owner)', on: '2026-08-20', status: 'pending', processedBy: '—', first: 'Richard', last: 'Halstead', email: 'richard.h@example.com', phone: '+66 81 234 5678', guests: 4, type: 'Owner Stay', amount: 0, paid: 'unpaid', by: 'Richard Halstead', conditions: 'Owner and family, no cleaning fee.' },
-    { id: 'DB-02', property: 'Villa Lotus Bay', checkin: '2026-09-18', checkout: '2026-09-22', requestedBy: 'Aroon P. (Partner)', on: '2026-08-19', status: 'approved', processedBy: 'Somchai Anuwat', first: 'Kanya', last: 'Srisai', email: 'kanya.s@example.com', phone: '+66 82 345 6789', guests: 2, type: 'Partner Rate', amount: 800, paid: 'paid', by: 'Aroon P.', conditions: '' },
-    { id: 'DB-03', property: 'Villa Amber Ridge', checkin: '2026-09-25', checkout: '2026-09-28', requestedBy: 'Nalin S. (Manager)', on: '2026-08-18', status: 'rejected', processedBy: 'Somchai Anuwat', first: 'Tom', last: 'Becker', email: '', phone: '+66 83 456 7890', guests: 6, type: 'Complimentary', amount: 0, paid: 'unpaid', by: 'Nalin S.', conditions: 'Requested for press stay — declined, dates overlap OTA booking.' },
-    { id: 'DB-04', property: 'Villa Coral Breeze', checkin: '2026-10-02', checkout: '2026-10-06', requestedBy: 'Piti K. (Owner)', on: '2026-08-22', status: 'pending', processedBy: '—', first: 'Piti', last: 'Kittikorn', email: 'piti.k@example.com', phone: '+66 84 567 8901', guests: 3, type: 'Owner Stay', amount: 0, paid: 'unpaid', by: 'Piti Kittikorn', conditions: '' }
+    { id: 'DB-01', property: 'Villa Sapphire Cliff', checkin: '2026-09-10', checkout: '2026-09-14', requestedBy: 'Richard Halstead (Owner)', on: '2026-08-20', status: 'pending', processedBy: '—', first: 'Richard', last: 'Halstead', email: 'richard.h@example.com', phone: '+65 9234 5678', guests: 4, type: 'Owner Stay', amount: 0, paid: 'unpaid', by: 'Richard Halstead', conditions: 'Owner and family, no cleaning fee.' },
+    { id: 'DB-02', property: 'Villa Lotus Bay', checkin: '2026-09-18', checkout: '2026-09-22', requestedBy: 'Adam P. (Partner)', on: '2026-08-19', status: 'approved', processedBy: 'Daniel Tan', first: 'Karen', last: 'Siow', email: 'karen.s@example.com', phone: '+65 9345 6789', guests: 2, type: 'Partner Rate', amount: 800, paid: 'paid', by: 'Adam P.', conditions: '' },
+    { id: 'DB-03', property: 'Villa Amber Ridge', checkin: '2026-09-25', checkout: '2026-09-28', requestedBy: 'Natalie S. (Manager)', on: '2026-08-18', status: 'rejected', processedBy: 'Daniel Tan', first: 'Tom', last: 'Becker', email: '', phone: '+65 9456 7890', guests: 6, type: 'Complimentary', amount: 0, paid: 'unpaid', by: 'Natalie S.', conditions: 'Requested for press stay — declined, dates overlap OTA booking.' },
+    { id: 'DB-04', property: 'Villa Coral Breeze', checkin: '2026-10-02', checkout: '2026-10-06', requestedBy: 'Peter K. (Owner)', on: '2026-08-22', status: 'pending', processedBy: '—', first: 'Peter', last: 'Kwek', email: 'peter.k@example.com', phone: '+65 9567 8901', guests: 3, type: 'Owner Stay', amount: 0, paid: 'unpaid', by: 'Peter Kwek', conditions: '' }
   ];
 
   function getHidden() { return JSON.parse(localStorage.getItem('mm_book_direct_hidden') || '[]'); }
@@ -78,9 +78,9 @@
     var editBtn = e.target.closest('[data-edit]');
     if (editBtn) { openForm(findRecord(editBtn.getAttribute('data-edit'))); return; }
     var approveBtn = e.target.closest('[data-approve]');
-    if (approveBtn) { updateStatus(approveBtn.getAttribute('data-approve'), 'approved', 'Somchai Anuwat'); MM.showToast('Request approved'); render(); return; }
+    if (approveBtn) { updateStatus(approveBtn.getAttribute('data-approve'), 'approved', 'Daniel Tan'); MM.showToast('Request approved'); render(); return; }
     var rejectBtn = e.target.closest('[data-reject]');
-    if (rejectBtn) { updateStatus(rejectBtn.getAttribute('data-reject'), 'rejected', 'Somchai Anuwat'); MM.showToast('Request rejected'); render(); return; }
+    if (rejectBtn) { updateStatus(rejectBtn.getAttribute('data-reject'), 'rejected', 'Daniel Tan'); MM.showToast('Request rejected'); render(); return; }
     var delBtn = e.target.closest('[data-delete]');
     if (delBtn) { pendingDeleteId = delBtn.getAttribute('data-delete'); MM.openModal('delete-modal'); }
   });
@@ -100,7 +100,7 @@
   var editingId = null;
   function openForm(record) {
     editingId = record ? record.id : null;
-    document.getElementById('form-modal-title').textContent = record ? 'Edit Direct Booking' : 'Add Direct Booking';
+    document.getElementById('form-modal-title').textContent = record ? 'Edit Stay Request' : 'Add Stay Request';
     document.getElementById('db-form').reset();
     if (record) {
       document.getElementById('df-property').value = record.property;

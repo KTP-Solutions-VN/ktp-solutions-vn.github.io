@@ -1,10 +1,10 @@
-# FUND-005 — Cập nhật dự án quỹ
+# FUND-005 — Sửa dự án được tài trợ (Edit Funded Project)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `FundController::updateProject($id)` — `/fund/update-project/:id` (POST)
 
-**Module:** FUND = Quỹ đầu tư
+**Module:** FUND = Vốn nhà đầu tư
 
 ## Mô tả ngắn gọn
 Form thêm một "bản cập nhật tiến độ" (nhật ký `ProjectLog`) cho một dự án quỹ đang mở — không sửa trực tiếp thông tin gốc của dự án mà thêm một mốc cập nhật mới kèm hình ảnh và bình luận.

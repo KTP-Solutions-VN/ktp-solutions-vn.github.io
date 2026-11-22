@@ -1,10 +1,10 @@
-# ACC-062 — Petty Cash (Advance / Reimbursement)
+# ACC-062 — Cash Advances
 
 **Type:** Full page
 
 **Route:** `AccountController::pettyCash($tab, $sub_tab)` — default `/account/petty-cash/<tab>/<sub_tab>`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 Manages the entire lifecycle of "Claim Expense" (employee expense reimbursement requests): verifying/rejecting new claims, aggregating approved claims awaiting payment, and looking up the history of paid/rejected claims — viewable either from an "All" perspective (Latest Claim) or filtered per employee (By User Claim).
@@ -37,5 +37,5 @@ Main data columns in the claims table (depending on sub-tab): User, Property, Co
 - Switching Tab/Sub-tab or changing Business Unit/User updates the URL and corresponding query string (`/account/petty-cash/<tab>/<sub_tab>?business_unit=...&user_id=...`).
 
 ## Navigation
-- Entered from: Sidebar > "Petty Cash" item under the Account/Expenses group.
-- Navigates to: ACC-063 (Expense Payments) is the next step after a claim is approved (`approved`, awaiting actual payment); there is no direct link between the two pages, they are related only through the `ClaimExpense` data.
+- Entered from: Sidebar > "Cash Advances" item under the Finance & Admin / Spending group.
+- Navigates to: ACC-063 (Expense Settlements) is the next step after a claim is approved (`approved`, awaiting actual payment); there is no direct link between the two pages, they are related only through the `ClaimExpense` data.

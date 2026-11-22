@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var PHOTOGRAPHERS = ['Phuket Frame Photography', 'Andaman Pool Services', 'Bali Lens Studio', 'Samui Coastal Shots'];
+  var PHOTOGRAPHERS = ['Sentosa Frame Photography', 'Coral Pool Services', 'Byron Lens Studio', 'Noosa Coastal Shots'];
   var OBJECTIVES = ['OTA refresh', 'Full new set', 'Pool + drone extras', 'Owner set', 'Seasonal update'];
   var FOLLOWUP_TYPES = ['Quality', 'Coverage', 'Resolution', 'Missing Area'];
   var UNITS = [

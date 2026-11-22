@@ -1,10 +1,10 @@
-# OWN-010 — Add New Agency
+# OWN-010 — New Partner Agency
 
 **Type:** Full page
 
 **Route:** `/Owner/agency` (controller `Owner`, action `agency($tab = null, $agency_id = null, $show_page = null, $payment_detail_id = null)`, when `agency_id` is not supplied)
 
-**Module:** Owner Management (Admin)
+**Module:** Owner Relations (Admin)
 
 ## Overview
 
@@ -28,12 +28,12 @@ A form for creating a new Agency in the system, consisting of 2 tabs: "Agency De
 
 ## Functions / Actions
 
-- **Save** (Agency Details tab): saves `Agency` and `UserBusinessUnit` records; logs the activity; after saving, switches to OWN-011 (Edit Agency) on the "agency_payment_details" tab, `show_page=agencyList`.
-- **Cancel**: returns to OWN-009 (Agency List).
+- **Save** (Agency Details tab): saves `Agency` and `UserBusinessUnit` records; logs the activity; after saving, switches to OWN-011 (Edit Partner Agency) on the "agency_payment_details" tab, `show_page=agencyList`.
+- **Cancel**: returns to OWN-009 (Partner Agencies).
 - Payment Details tab: not usable on the Add New screen (requires `agency_id`; only becomes active after saving and switching to OWN-011).
 
 ## Navigation
 
 - Opened from: OWN-009 ("+ Add New" button).
-- After a successful save: switches to OWN-011 — Edit Agency (Payment Details tab).
+- After a successful save: switches to OWN-011 — Edit Partner Agency (Payment Details tab).
 - Cancel: returns to OWN-009.

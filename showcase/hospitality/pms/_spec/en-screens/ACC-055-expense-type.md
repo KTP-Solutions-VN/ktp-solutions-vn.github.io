@@ -1,13 +1,13 @@
-# ACC-055 — Expense Type
+# ACC-055 — Cost Categories
 
 **Type:** Full page
 
 **Route:** `AccountController::expenseType()` — default `/account/expense-type`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
-Manages the "Expense Type" catalog used in Rebill/Recurring statements — a list with an add/edit/delete popup on the same page.
+Manages the "Cost Categories" catalog used in Rebill/Recurring statements — a list with an add/edit/delete popup on the same page.
 
 ## Detailed Description
 
@@ -36,5 +36,5 @@ Add/Edit/Delete popup (`#exampleModal` modal, a single form shared by all three 
 - **Cancel:** closes the popup without saving.
 
 ## Navigation
-- Entered from: Sidebar > "Expense Type" item under the Account/Expenses group.
+- Entered from: Sidebar > "Cost Categories" item under the Finance & Admin / Spending group.
 - Navigates to: no navigation to other pages — all actions are handled in the popup on the same page (submitting reloads the list).

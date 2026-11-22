@@ -1,10 +1,10 @@
-# ACC-033 — Timesheet
+# ACC-033 — Attendance Log
 
 **Type:** Full page
 
 **Route:** `AccountController::timesheet()` — default `/account/timesheet`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 Tracks daily clock-in/clock-out times for all internal employees (`employment = Internal`, `is_clock_in = yes`, excluding Superadmin and test staff) by Business Unit and by day; allows authorized users to validate clock times, manually correct clock-in times, and view the GPS location at clock-in/clock-out as well as the daily movement route on a map.
@@ -41,5 +41,5 @@ Filters above the table:
 - The `getUserWorkingStatus` AJAX action is **not** used on this screen (it is used on ACC-042 — Daily Wage).
 
 ## Navigation
-- Entered from: Sidebar > Account & HR > Timesheet (`active_menu = acc-timesheet`).
+- Entered from: Sidebar > Finance & Admin > Attendance Log (`active_menu = acc-timesheet`).
 - Navigates to: no dedicated popup page; Track/time-entry actions are all handled via modal/AJAX on the same page. The "User tracking not enabled." link opens the User edit page (`User::edit`) in a new tab.

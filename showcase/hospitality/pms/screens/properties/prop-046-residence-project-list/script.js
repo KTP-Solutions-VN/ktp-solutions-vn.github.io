@@ -1,8 +1,8 @@
 (function () {
   'use strict';
   var RESIDENCES = [
-    { id: 'res1', name: 'Laguna Residence', bu: 'Phuket Collection', units: 12 },
-    { id: 'res2', name: 'Petitenget Villas', bu: 'Bali Retreats', units: 8 }
+    { id: 'res1', name: 'Cove Drive Residence', bu: 'Sentosa Collection', units: 12 },
+    { id: 'res2', name: 'Belongil Beach Villas', bu: 'Byron Bay Retreats', units: 8 }
   ];
   function rows(data) {
     document.getElementById('residence-tbody').innerHTML = data.map(function (r) {

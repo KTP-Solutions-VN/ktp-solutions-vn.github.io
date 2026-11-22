@@ -243,7 +243,7 @@
         MM.showToast('Photo updated');
       } else {
         REN.updateProject(projectId, function (p) {
-          p.photos.push({ id: REN.uid('PHT'), tone: (p.photos.length % 4) + 1, caption: document.getElementById('f-caption').value.trim(), createdBy: 'Somchai Anuwat', createdAt: new Date().toISOString().slice(0, 10) });
+          p.photos.push({ id: REN.uid('PHT'), tone: (p.photos.length % 4) + 1, caption: document.getElementById('f-caption').value.trim(), createdBy: 'Daniel Tan', createdAt: new Date().toISOString().slice(0, 10) });
         });
         MM.showToast('Photo added');
       }

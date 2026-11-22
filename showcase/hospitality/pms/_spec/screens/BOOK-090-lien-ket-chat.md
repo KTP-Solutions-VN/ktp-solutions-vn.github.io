@@ -1,4 +1,4 @@
-# BOOK-090 — Liên kết chat với booking khác
+# BOOK-090 — Gộp hội thoại (Merge Conversation)
 
 **Loại:** Trang đầy đủ (mở từ BOOK-089)
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định)
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 
@@ -36,4 +36,4 @@ Cho phép liên kết (gộp) chat của một booking mới vào một nhóm ch
 
 - Mở từ BOOK-089 (nút Liên kết trên dòng có trạng thái "New").
 - Sau khi liên kết thành công → quay lại BOOK-089.
-- Booking sau khi liên kết có thể xem lại quan hệ liên kết tại BOOK-091 (Xem chat đã liên kết).
+- Booking sau khi liên kết có thể xem lại quan hệ liên kết tại BOOK-091 (Hội thoại đã gộp).

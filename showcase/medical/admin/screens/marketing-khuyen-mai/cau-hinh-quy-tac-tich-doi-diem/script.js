@@ -1,1 +1,1 @@
-document.getElementById('saveBtn').addEventListener('click', function(){ CJToast('Loyalty rules saved.'); });
+document.getElementById('saveBtn').addEventListener('click', function(){ CJToast('Reward points setup saved.'); });

@@ -1,10 +1,10 @@
-# BU-004 — Xem chi tiết đơn vị kinh doanh
+# BU-004 — Hồ sơ đơn vị vận hành (Operating Unit Profile)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `BusinessUnitController::viewDetails($id)` — mặc định `/business-unit/view-details/{id}`
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Trang chỉ xem (read-only) toàn bộ thông tin của một đơn vị kinh doanh.

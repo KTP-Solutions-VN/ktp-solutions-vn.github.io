@@ -1,14 +1,14 @@
-# OWN-013 — Danh sách nhân viên Agency
+# OWN-013 — Người dùng của đại lý (Agency Users)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `/Owner/agencyStaff` (controller `Owner`, action `agencyStaff()`)
 
-**Module:** Quản lý chủ sở hữu (Admin)
+**Module:** Quan hệ chủ nhà (Admin)
 
 ## Mô tả ngắn gọn
 
-Màn hình liệt kê toàn bộ nhân viên (staff) của các Agency đang ở trạng thái Active. Đây là menu cấp 1 trong sidebar (mục "Agency Staff").
+Màn hình liệt kê toàn bộ nhân viên (staff) của các Agency đang ở trạng thái Active. Đây là menu cấp 1 trong sidebar (mục "Agency Users").
 
 ## Mô tả chi tiết
 
@@ -25,13 +25,13 @@ Màn hình liệt kê toàn bộ nhân viên (staff) của các Agency đang ở
 
 ## Chức năng/nút thao tác
 
-- **+ Add New**: mở OWN-014 (Thêm mới nhân viên Agency).
-- **Sửa** (icon bút): mở OWN-015 (Chỉnh sửa nhân viên Agency).
+- **+ Add New**: mở OWN-014 (Thêm người dùng đại lý).
+- **Sửa** (icon bút): mở OWN-015 (Sửa người dùng đại lý).
 - **Xoá** (icon thùng rác): xác nhận qua popup modal, sau đó gọi `delete-agency-staff/{id}` (không có giao diện riêng).
 
 ## Điều hướng
 
-- Mở từ: Menu sidebar "Agency Staff" (`active_menu` 106).
+- Mở từ: Menu sidebar "Agency Users" (`active_menu` 106).
 - Đi tới:
-  - OWN-014 — Thêm mới nhân viên Agency
-  - OWN-015 — Chỉnh sửa nhân viên Agency
+  - OWN-014 — Thêm người dùng đại lý
+  - OWN-015 — Sửa người dùng đại lý

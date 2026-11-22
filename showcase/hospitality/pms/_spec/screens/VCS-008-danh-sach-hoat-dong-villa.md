@@ -1,11 +1,11 @@
-# VCS-008 — Danh sách Hoạt động Villa (Property Activities)
+# VCS-008 — Hoạt động cho khách (Guest Activities)
 
 **Loại:** Trang đầy đủ
 **Route:** villa-common-setting/villa-activity (dashed mặc định CakePHP DashedRoute: `/villa-common-setting/villa-activity`)
-**Module:** VCS = Cấu hình chung villa
+**Module:** VCS = Thuộc tính tài sản
 
 ## Mô tả ngắn gọn
-Màn hình quản lý dữ liệu chủ "Hoạt động" (Activity) mà villa có thể cung cấp cho khách (ví dụ: yoga, câu cá...). Hiển thị dạng bảng danh sách, cho phép Thêm/Sửa/Xóa qua 1 popup dùng chung. Cấu trúc và hành vi giống hệt VCS-001 (Vật dụng), khác model dữ liệu.
+Màn hình quản lý dữ liệu chủ "Hoạt động" (Activity) mà villa có thể cung cấp cho khách (ví dụ: yoga, câu cá...). Hiển thị dạng bảng danh sách, cho phép Thêm/Sửa/Xóa qua 1 popup dùng chung. Cấu trúc và hành vi giống hệt VCS-001 (Danh mục tiện nghi), khác model dữ liệu.
 
 ## Mô tả chi tiết
 | # | Tên field (label) | Field code (name/id) | Loại dữ liệu/input | Bắt buộc | Ghi chú |
@@ -24,6 +24,6 @@ Không có ô tìm kiếm/lọc riêng (DataTable client-side `#zero_config`).
 - Submit form popup gửi `POST` về chính action `villaActivity` với `action=add|edit|delete`; controller `VillaCommonSettingController::villaActivity()` lưu/xóa bảng `Activity`, ghi Activity Log, hiển thị Flash message, redirect `referer()`.
 
 ## Điều hướng
-- Mở từ: Menu Settings > "Properties" > submenu "Property Activities".
+- Mở từ: Menu Portfolio Setup > "Property Attributes" > submenu "Guest Activities".
 - Điều hướng tới: không điều hướng sang trang khác (thao tác CRUD tại chỗ qua popup + reload).
-- Popup con: VCS-008-P1 (Thêm/Sửa/Xóa Hoạt động villa).
+- Popup con: VCS-008-P1 (Form hoạt động cho khách).

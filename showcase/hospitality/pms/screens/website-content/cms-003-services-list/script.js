@@ -95,7 +95,7 @@
 
     function openDrawer(service) {
       editingId = service ? service.id : null;
-      document.getElementById('service-drawer-title').textContent = service ? 'Edit Villa Service' : 'Add Villa Service';
+      document.getElementById('service-drawer-title').textContent = service ? 'Edit Showcase Service' : 'Add Showcase Service';
       document.getElementById('save-service-btn').textContent = service ? 'Save Changes' : 'Save Service';
       var form = document.getElementById('service-form');
       form.reset();

@@ -1,10 +1,10 @@
-# CMS-012 — Danh sách điểm đến (Destination)
+# CMS-012 — Cẩm nang điểm đến (Destination Guides)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::destination($action, $id)` — mặc định `/cms/destination/:action/:id`
 
-**Module:** CMS = Nội dung trang chủ villa
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Danh sách toàn bộ điểm đến (quận/huyện — `District`, kèm Country/Region) để chọn vào chỉnh sửa nội dung giới thiệu điểm đến hiển thị trên website. Không phân trang server-side (lấy toàn bộ `District->find('all')`).
@@ -30,5 +30,5 @@ Lưu ý: tham số `$action`/`$id` trên route không được controller sử d
 - **Edit:** điều hướng đến CMS-013 (`/cms/destination-edit/:district_id`) để chỉnh nội dung/ảnh giới thiệu của điểm đến (theo district) đó.
 
 ## Điều hướng
-- Vào từ: CMS-005 (Common Text, nút "Destination").
+- Vào từ: CMS-005 (Khối nội dung dùng chung, nút "Destination Guides").
 - Điều hướng đến: CMS-013 (sửa nội dung điểm đến theo villa/district).

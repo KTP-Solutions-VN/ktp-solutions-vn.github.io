@@ -1,8 +1,8 @@
-# PROP-054 — Trạng thái Báo cáo hàng tháng (Report Status)
+# PROP-054 — Trạng thái gửi báo cáo (Report Dispatch Status)
 
 **Loại:** Trang đầy đủ
 **Route:** property/report-status
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang theo dõi trạng thái gửi báo cáo hàng tháng (Monthly Report) cho từng Property theo Business Unit: đã gửi hay chưa, cho phép đánh dấu "Không cần thiết" (tạo bản ghi báo cáo với `sent=True` mà không cần file), xóa bản ghi báo cáo, và gửi email báo cáo/newsletter cho chủ nhà.
@@ -36,6 +36,6 @@ Xác nhận xóa bản ghi `MonthlyReport` theo `report_id`.
 - Nút "Post"/gửi email (`email_owner`) — gửi email báo cáo/newsletter hàng tháng cho chủ nhà theo ngôn ngữ của Owner (dùng `EmailTemplate` + `MonthlyNewsLetter`).
 
 ## Điều hướng
-- Mở từ: Menu Property/Reports (không thuộc phạm vi mã hiện tại).
-- Điều hướng tới: Không điều hướng sang trang khác; liên hệ dữ liệu với PROP-018 (Bản tin hàng tháng), PROP-053 (BU Reports).
+- Mở từ: Menu báo cáo chủ nhà (không thuộc phạm vi mã hiện tại).
+- Điều hướng tới: Không điều hướng sang trang khác; liên hệ dữ liệu với PROP-018 (Bản tin chủ nhà), PROP-053 (Owner Reports by Unit).
 - Popup con: Modal xác nhận xóa (không tách mã riêng, thao tác phụ trợ tại chỗ).

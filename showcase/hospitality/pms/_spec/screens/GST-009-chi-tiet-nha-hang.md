@@ -1,8 +1,8 @@
-# GST-009 — Chi tiết nhà hàng
+# GST-009 — Thông tin nhà hàng (Restaurant Profile)
 
 **Loại:** Trang đầy đủ
 **Route:** `Guest::restaurant($restaurant_id = null)` — mặc định `/guest/restaurant/:restaurant_id`; route đẹp (fallback DashedRoute): `/guest/restaurant`
-**Module:** Cổng thông tin Khách
+**Module:** Không gian khách
 
 ## Mô tả ngắn gọn
 Trang chi tiết một nhà hàng: ảnh, địa chỉ, bản đồ, đánh giá, mô tả, thực đơn, giờ mở cửa và số điện thoại liên hệ. Được mở từ danh sách nhà hàng GST-008 bằng liên kết trang đầy đủ (không phải popup/modal).

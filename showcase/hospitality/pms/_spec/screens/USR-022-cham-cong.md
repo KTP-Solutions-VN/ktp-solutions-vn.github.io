@@ -1,10 +1,10 @@
-# USR-022 — Chấm công (Clock In / Clock Out)
+# USR-022 — Đồng hồ chấm công (Time Clock)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `UserController::clockIn()` — mặc định `user/clockIn`
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Trang cho phép nhân viên bắt đầu ngày làm việc (Start my day), kết thúc ngày làm việc (End my day) hoặc đánh dấu nghỉ trong ngày (Day off today). Hệ thống lấy vị trí GPS hiện tại của trình duyệt, so khớp với văn phòng đã đăng ký để hiển thị thông báo "Tôi đang ở [tên văn phòng]".

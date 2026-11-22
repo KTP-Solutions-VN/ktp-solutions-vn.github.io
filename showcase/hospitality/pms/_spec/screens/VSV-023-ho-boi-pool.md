@@ -1,10 +1,10 @@
-# VSV-023 — Hồ bơi (Pool)
+# VSV-023 — Lượt chăm sóc hồ bơi (Pool Care Visits)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `VillaServicesController::pool()` — mặc định `/villa-services/pool`; upload/duyệt báo giá qua route đẹp `/villa-services/pool/upload-quotation`, `/villa-services/pool/update-quotation-status/:id/:status`, `/villa-services/pool/delete-quotation/:id` (đều AJAX, không có view riêng)
 
-**Module:** Dịch vụ villa — Hồ bơi
+**Module:** Dịch vụ lưu trú — Chăm sóc hồ bơi
 
 ## Mô tả ngắn gọn
 Danh sách các lượt vệ sinh/kiểm tra hồ bơi, cho phép theo dõi trạng thái (đã dọn/có sự cố), kiểm tra GPS người thực hiện có đúng vị trí villa không, xem chi tiết báo cáo, tải biên bản PDF, và xử lý quy trình báo giá sửa chữa khi hồ bơi gặp sự cố cần khắc phục (đơn vị ngoài gửi báo giá, nội bộ duyệt/từ chối).
@@ -41,5 +41,5 @@ Danh sách các lượt vệ sinh/kiểm tra hồ bơi, cho phép theo dõi tr�
 - **Duyệt/Từ chối báo giá** (Internal, khi báo giá đã gửi): route đẹp `/villa-services/pool/update-quotation-status/:id/:status` (`repair_approved`/`quotation_rejected`).
 
 ## Điều hướng
-- Vào từ: Menu chính (mục Pool).
+- Vào từ: Menu chính (mục Pool Care Visits).
 - Điều hướng đến: không có trang con dạng route riêng (thao tác qua modal/AJAX tại chỗ).

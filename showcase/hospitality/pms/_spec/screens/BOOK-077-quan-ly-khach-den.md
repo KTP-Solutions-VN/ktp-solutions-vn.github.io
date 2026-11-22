@@ -1,9 +1,9 @@
-# BOOK-077 — Quản lý khách đến (Guest Arrival)
+# BOOK-077 — Bảng khách đến (Arrivals Board)
 
 **Loại:** Trang đầy đủ
 **Route:** Booking/guestArrival
 **Route đẹp:** `/booking/guest-arrival`
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Trang trung tâm theo dõi khách đến (thay thế màn hình "Pre Arrival Information" cũ), hiển thị danh sách booking dưới dạng 5 tab (Đến theo ngày, Check-in online mới, Cảnh báo, Chưa trả phòng, Lưu trữ) với bộ lọc theo đơn vị kinh doanh, ngày, trạng thái check-in online và tìm kiếm. Dữ liệu bảng được tải qua AJAX (không phải server-render truyền thống).
@@ -50,7 +50,7 @@ Trang trung tâm theo dõi khách đến (thay thế màn hình "Pre Arrival Inf
 - Tải hộ chiếu khách (`downloadGuestArrivalPassports`), hợp đồng (`downloadGuestArrivalContract`), trang concierge (`downloadGuestArrivalConciergePage`) — các link tải file, không phải màn hình riêng
 
 ## Điều hướng
-- Mở từ: Menu module Đặt phòng > Guest Arrival
+- Mở từ: Menu module Đặt chỗ > Arrivals Board
 - Điều hướng tới: không có trang con riêng, mọi thao tác chi tiết thực hiện qua modal/drawer trong cùng trang
 
 **Ghi chú bổ sung:** Các action `guestArrivalList`, `guestArrivalCounts`, `guestArrivalOccupancy`, `decideGuestArrivalTime`, `reviewGuestArrivalCheckin`, `confirmGuestArrivalGuestCount`, `dismissGuestArrivalAlert` đều trả JSON thuần (không có view .ctp riêng) và chỉ là API hỗ trợ cho màn `guest_arrival.ctp` — không tách file riêng theo đúng yêu cầu.

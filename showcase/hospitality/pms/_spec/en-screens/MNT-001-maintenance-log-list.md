@@ -1,8 +1,8 @@
-# MNT-001 — Maintenance Log List
+# MNT-001 — Repair Requests
 
 **Type:** Full page
 **Route:** maintenance/list
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Screen listing maintenance logs (Maintenance log) that are open/pending (status Open/Pending), viewable across 4 tabs: Property (by villa), Priority (by priority level), Due Date (by due date), Areas (by area). Includes an advanced search form (POST submit, "search" tab) filtering by multiple criteria.
@@ -33,9 +33,9 @@ Screen listing maintenance logs (Maintenance log) that are open/pending (status 
 ## Functions / Actions
 - **4 Tabs**: switch views client-side (data `data_v`, `data_p`, `data_d`, `data_a` pre-rendered according to 4 different sort orders: by villa, by priority, by due date, by area).
 - **Search**: submits a POST form, results grouped by villa (`search_data`), displayed on the "search" tab.
-- **Add New** ("+" button): opens MNT-002 — Add Maintenance Log.
+- **Add New** ("+" button): opens MNT-002 — New Repair Request.
 - **Click on a row/card**: depending on status — opens MNT-003 (Accept/Reject, if status is Pending) or MNT-004 (Update Processing, if status is Open/already accepted).
 
 ## Navigation
-- Entered from: "Maintenance" menu in the sidebar.
+- Entered from: "Repair Requests" menu in the sidebar.
 - Navigates to: MNT-002 (Add New), MNT-003 (Accept Task), MNT-004 (Process), MNT-005 (View Details).

@@ -1,10 +1,10 @@
-# OWP-020 — Report History
+# OWP-020 — Statement Archive
 
 **Type:** Full page
 
 **Route:** `ExternalUserController::ReportHistory($villa_id)` — no dedicated friendly route (default `/external-user/report-history/{villa_id_base64}`)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 

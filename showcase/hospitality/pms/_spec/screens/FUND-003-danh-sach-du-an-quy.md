@@ -1,10 +1,10 @@
-# FUND-003 — Danh sách dự án quỹ
+# FUND-003 — Dự án được tài trợ (Funded Projects)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `FundController::projects()` — `/fund/projects`
 
-**Module:** FUND = Quỹ đầu tư
+**Module:** FUND = Vốn nhà đầu tư
 
 ## Mô tả ngắn gọn
 Danh sách các dự án huy động vốn (Project Fund) đang mở và đã đóng, dùng làm căn cứ để gán vào từng nhà đầu tư ở FUND-001.
@@ -24,11 +24,11 @@ Danh sách các dự án huy động vốn (Project Fund) đang mở và đã đ
 Không có bộ lọc riêng — hiển thị toàn bộ dự án mở rồi đến dự án đã đóng.
 
 ## Chức năng/nút thao tác
-- **Add New**: chuyển sang FUND-004 (Thêm dự án).
-- **View (mắt)**: chuyển sang FUND-006 (Chi tiết dự án).
-- **Update (bút)**: chuyển sang FUND-005 (Cập nhật dự án) — chỉ hiện khi dự án đang mở.
+- **Add New**: chuyển sang FUND-004 (Thêm dự án được tài trợ).
+- **View (mắt)**: chuyển sang FUND-006 (Hồ sơ dự án được tài trợ).
+- **Update (bút)**: chuyển sang FUND-005 (Sửa dự án được tài trợ) — chỉ hiện khi dự án đang mở.
 - **Close (dấu X)**: AJAX `fund/close-project` — gỡ dự án khỏi `Fund.project_id` của mọi nhà đầu tư đang tham chiếu, đặt `ProjectFund.status = close`.
 
 ## Điều hướng
-- Vào từ: menu quản lý Quỹ đầu tư (`active_menu = 303`).
+- Vào từ: menu Vốn nhà đầu tư (`active_menu = 303`).
 - Điều hướng đến: FUND-004, FUND-005, FUND-006.

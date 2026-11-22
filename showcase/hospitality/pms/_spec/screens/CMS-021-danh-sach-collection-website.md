@@ -1,10 +1,10 @@
-# CMS-021 — Danh sách Collection Website
+# CMS-021 — Trang chủ đề (Themed Sites)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::collectionWebsites($action, $id)` — mặc định `/cms/collection-websites/:action/:id`
 
-**Module:** CMS = Nội dung trang chủ
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Danh sách các "trang web bộ sưu tập villa" (Collection Website) — các mini-site giới thiệu một bộ sưu tập villa theo chủ đề, mỗi trang có tên hiển thị và URL riêng. Tham số `action`/`id` trên route dùng cho thao tác xóa (`/cms/collection-websites/delete/:id`); khi không truyền tham số, action chỉ hiển thị danh sách.
@@ -30,5 +30,5 @@ Không có filter/tìm kiếm; toàn bộ bản ghi `GuestCollectionWebsite` đ�
 - **Delete (trên từng dòng):** gọi `collectionWebsites('delete', $id)` — xóa bản ghi `GuestCollectionWebsite` tương ứng (`_deleteData`), hiển thị thông báo thành công/lỗi rồi redirect quay lại chính danh sách CMS-021 (không có bước xác nhận riêng ở phía server; giao diện có sẵn 1 modal xác nhận dùng chung nhưng không thấy gắn sự kiện vào nút Delete trong view này).
 
 ## Điều hướng
-- Vào từ: menu chính (mục Settings, mục "Collections Website").
-- Điều hướng đến: CMS-022 (thêm/sửa Collection Website) qua nút Add/Edit; CMS-023 (`collectionTabs`, quản lý nội dung chi tiết) qua nút Manage.
+- Vào từ: menu chính (mục Settings, mục "Themed Sites").
+- Điều hướng đến: CMS-022 (Trình sửa trang chủ đề) qua nút Add/Edit; CMS-023 (`collectionTabs`, quản lý nội dung chi tiết) qua nút Manage.

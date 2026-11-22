@@ -1,10 +1,10 @@
-# OWN-004-P2 — Xem chi tiết yêu cầu chi phí (Claim)
+# OWN-004-P2 — Chi tiết chi phí chủ nhà (Owner Expense Detail)
 
 **Loại:** Popup (mở từ OWN-004, mở ở tab trình duyệt mới)
 
 **Route:** `/Owner/viewClaim/{claim_id}` (controller `Owner`, action `viewClaim($claim_id)`)
 
-**Module:** Quản lý chủ sở hữu (Admin)
+**Module:** Quan hệ chủ nhà (Admin)
 
 ## Mô tả ngắn gọn
 

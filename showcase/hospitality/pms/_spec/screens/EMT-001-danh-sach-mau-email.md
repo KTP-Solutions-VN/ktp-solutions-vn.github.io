@@ -1,10 +1,10 @@
-# EMT-001 — Danh sách mẫu email (Email Template List)
+# EMT-001 — Thư viện email (Email Library)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `EmailTemplateController::list()` — mặc định `/email-template/list`
 
-**Module:** EMT = Mẫu email
+**Module:** EMT = Thư viện email
 
 ## Mô tả ngắn gọn
 Danh sách các mẫu email được cấu hình sẵn trong hệ thống (theo mục đích sử dụng và ngôn ngữ), dùng để soạn sẵn nội dung gửi email tự động (ví dụ: mail newsletter cho chủ nhà).
@@ -23,9 +23,9 @@ Không có filter/tìm kiếm riêng; sắp xếp mặc định theo `title` tă
 
 ## Chức năng/nút thao tác
 - **Add new:** mở EMT-002 (Thêm mẫu email).
-- **Edit (icon):** mở EMT-003 (Sửa mẫu email) với id đã mã hóa base64.
+- **Edit (icon):** mở EMT-003 (Trình sửa mẫu email) với id đã mã hóa base64.
 - **Delete (icon):** mở popup xác nhận EMT-001-P1, khi đồng ý điều hướng tới `email-template/delete/:id`.
 
 ## Điều hướng
-- Vào từ: menu cấu hình hệ thống (Email Template).
+- Vào từ: menu cấu hình hệ thống (Email Library).
 - Điều hướng đến: EMT-002 (Thêm mới), EMT-003 (Sửa), EMT-001-P1 (Xác nhận xóa).

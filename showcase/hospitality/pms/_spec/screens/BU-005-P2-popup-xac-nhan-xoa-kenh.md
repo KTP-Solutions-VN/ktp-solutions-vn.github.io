@@ -1,10 +1,10 @@
-# BU-005-P2 — Popup xác nhận xóa kênh
+# BU-005-P2 — Xác nhận xóa kênh (Confirm Channel Deletion)
 
 **Loại:** Popup (mở từ BU-005)
 
 **Route:** Modal Bootstrap (`#deleteModal`) tĩnh trong `chanels.ctp`; submit POST cùng action `BusinessUnitController::chanels()` với `action=delete`.
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Popup xác nhận trước khi xóa một kênh (Chanel) khỏi hệ thống.

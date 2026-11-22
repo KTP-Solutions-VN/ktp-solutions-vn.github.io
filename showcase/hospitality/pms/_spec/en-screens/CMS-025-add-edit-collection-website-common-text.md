@@ -1,10 +1,10 @@
-# CMS-025 — Add/Edit Collection Website Common Text
+# CMS-025 — Themed Site Snippet Editor
 
 **Type:** Full page
 
 **Route:** `CmsController::editCollectionCommonText($id)` — default `/cms/edit-collection-common-text/:id`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 Form for adding a new or editing an existing common text record (`CollectionTranslation`), shared for both the Add action (no `id` passed, page title "Add") and the Edit action (`id` present, page title "Edit"). Each record is tied to one fixed `type` and one specific language — **this is multilingual, but in a "one record = one language" style** (unlike the other tabs of CMS-023, which store multiple languages serialized into a single field); to obtain a translation for another language, a new record must be created with the same `type` and `title` but a different `language`.

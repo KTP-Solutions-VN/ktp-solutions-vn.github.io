@@ -5,7 +5,7 @@
   var SECTIONS_KEY = 'mm_gc_sections';
   var ELECTRICITY_KEY = 'mm_gc_electricity';
 
-  var COUNTRIES = ['Thailand', 'Indonesia'];
+  var COUNTRIES = ['Singapore', 'Australia'];
   var LANGS = [
     { code: 'en', name: 'English' }, { code: 'fr', name: 'French' }, { code: 'cn', name: 'Chinese' },
     { code: 'ru', name: 'Russian' }, { code: 'ar', name: 'Arabic' }
@@ -32,37 +32,37 @@
     { key: 'combined_separate', label: 'Combined Separate', vars: ['{property.electricity_quota_kwh}', '{property.electricity_extra_kwh_rate}'], note: 'Combined with other utilities but settled separately from rent.' }
   ];
   var PREVIEW_VALUES = {
-    Thailand: { check_in_time: '2:00 PM', check_out_time: '11:00 AM', deposit_amount: '$500', pool_cleaning_time: '9:00 AM', pool_cleaning_frequency: 'twice weekly', electricity_daily_amount: '$8.00/day', electricity_quota_kwh: '50 kWh', electricity_extra_kwh_rate: '$0.35/kWh', electricity_kwh_rate: '$0.30/kWh' },
-    Indonesia: { check_in_time: '2:00 PM', check_out_time: '12:00 PM', deposit_amount: '$400', pool_cleaning_time: '8:00 AM', pool_cleaning_frequency: 'three times weekly', electricity_daily_amount: '$6.00/day', electricity_quota_kwh: '40 kWh', electricity_extra_kwh_rate: '$0.30/kWh', electricity_kwh_rate: '$0.28/kWh' }
+    Singapore: { check_in_time: '2:00 PM', check_out_time: '11:00 AM', deposit_amount: '$500', pool_cleaning_time: '9:00 AM', pool_cleaning_frequency: 'twice weekly', electricity_daily_amount: '$8.00/day', electricity_quota_kwh: '50 kWh', electricity_extra_kwh_rate: '$0.35/kWh', electricity_kwh_rate: '$0.30/kWh' },
+    Australia: { check_in_time: '2:00 PM', check_out_time: '12:00 PM', deposit_amount: '$400', pool_cleaning_time: '8:00 AM', pool_cleaning_frequency: 'three times weekly', electricity_daily_amount: '$6.00/day', electricity_quota_kwh: '40 kWh', electricity_extra_kwh_rate: '$0.30/kWh', electricity_kwh_rate: '$0.28/kWh' }
   };
 
   var SEED_VERSIONS = {
-    Thailand: [
+    Singapore: [
       { id: 'GCV-TH-1', name: 'Standard House Agreement', internal_note: 'Default for most detached villas', property_type: 'house',
         body: { en: 'This Guest Contract ("Agreement") is entered into between {property.name} and the Guest named on the confirmed booking. By completing check-in, the Guest agrees to the terms set out in this Agreement, including the sections referenced below on check-in/checkout, deposit and electricity.',
                 fr: 'Le présent contrat d’hébergement ("l’Accord") est conclu entre {property.name} et l’invité nommé sur la réservation confirmée. En procédant à l’enregistrement, l’invité accepte les termes du présent Accord.' } },
       { id: 'GCV-TH-2', name: 'Resort Villa Agreement', internal_note: 'Used for resort-branded villas with shared facilities', property_type: 'resort',
         body: { en: 'This Resort Villa Agreement governs the Guest’s stay at {property.name}, including use of shared resort facilities in addition to the private villa. Resort house rules apply alongside the sections referenced below.' } }
     ],
-    Indonesia: [
+    Australia: [
       { id: 'GCV-ID-1', name: 'Standard Villa Agreement', internal_note: '', property_type: 'flat',
-        body: { en: 'This Guest Contract applies to stays at {property.name} in Indonesia. The Guest agrees to the terms set out below, including check-in/checkout, deposit and electricity arrangements.' } }
+        body: { en: 'This Guest Contract applies to stays at {property.name} in Australia. The Guest agrees to the terms set out below, including check-in/checkout, deposit and electricity arrangements.' } }
     ]
   };
   var SEED_SECTIONS = {
-    'Thailand|checkin_checkout|en': 'Check-in begins at {property.check_in_time} and check-out is by {property.check_out_time}. Early check-in or late check-out may be requested through your concierge, subject to availability.',
-    'Thailand|checkin_checkout|fr': 'L’arrivée débute à {property.check_in_time} et le départ doit avoir lieu avant {property.check_out_time}.',
-    'Thailand|deposit_no_deposit|en': 'No security deposit is required for this booking.',
-    'Thailand|deposit|en': 'A refundable security deposit of {property.deposit_amount} is due prior to arrival and will be refunded within 7 days of checkout, subject to a property inspection.',
-    'Thailand|pool_cleaning|en': 'The pool is professionally cleaned at {property.pool_cleaning_time}, {property.pool_cleaning_frequency}. Please avoid pool use during service windows.',
-    'Indonesia|checkin_checkout|en': 'Check-in from {property.check_in_time}, check-out by {property.check_out_time}.',
-    'Indonesia|pool_cleaning|en': 'Pool service occurs at {property.pool_cleaning_time}, {property.pool_cleaning_frequency}.'
+    'Singapore|checkin_checkout|en': 'Check-in begins at {property.check_in_time} and check-out is by {property.check_out_time}. Early check-in or late check-out may be requested through your concierge, subject to availability.',
+    'Singapore|checkin_checkout|fr': 'L’arrivée débute à {property.check_in_time} et le départ doit avoir lieu avant {property.check_out_time}.',
+    'Singapore|deposit_no_deposit|en': 'No security deposit is required for this booking.',
+    'Singapore|deposit|en': 'A refundable security deposit of {property.deposit_amount} is due prior to arrival and will be refunded within 7 days of checkout, subject to a property inspection.',
+    'Singapore|pool_cleaning|en': 'The pool is professionally cleaned at {property.pool_cleaning_time}, {property.pool_cleaning_frequency}. Please avoid pool use during service windows.',
+    'Australia|checkin_checkout|en': 'Check-in from {property.check_in_time}, check-out by {property.check_out_time}.',
+    'Australia|pool_cleaning|en': 'Pool service occurs at {property.pool_cleaning_time}, {property.pool_cleaning_frequency}.'
   };
   var SEED_ELECTRICITY = {
-    'Thailand|included|en': 'Electricity is included in the rental rate at no additional cost to the Guest.',
-    'Thailand|collect_fixed|en': 'A fixed electricity charge of {property.electricity_daily_amount} applies for each night of the stay.',
-    'Thailand|collect_kwh|en': 'Electricity is billed at {property.electricity_kwh_rate} based on actual meter readings taken at check-in and check-out.',
-    'Indonesia|collect_quota|en': 'The rate includes {property.electricity_quota_kwh} of electricity; usage beyond this is billed at {property.electricity_extra_kwh_rate}.'
+    'Singapore|included|en': 'Electricity is included in the rental rate at no additional cost to the Guest.',
+    'Singapore|collect_fixed|en': 'A fixed electricity charge of {property.electricity_daily_amount} applies for each night of the stay.',
+    'Singapore|collect_kwh|en': 'Electricity is billed at {property.electricity_kwh_rate} based on actual meter readings taken at check-in and check-out.',
+    'Australia|collect_quota|en': 'The rate includes {property.electricity_quota_kwh} of electricity; usage beyond this is billed at {property.electricity_extra_kwh_rate}.'
   };
 
   function readStore(key, seed) {

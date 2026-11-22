@@ -1,10 +1,10 @@
-# ACC-007-P1 — Popup thêm bút toán sao kê
+# ACC-007-P1 — Thêm bút toán (New Ledger Entry)
 
 **Loại:** Popup (mở từ ACC-007)
 
 **Route:** `AccountController::addStatement($account_id)` — mặc định `/account/add-statement/<account_id>`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Form thêm mới một bút toán (statement entry) vào sao kê của tài khoản đang mở, tự sinh số Ref tăng dần theo tên account.
@@ -28,5 +28,5 @@ Form thêm mới một bút toán (statement entry) vào sao kê của tài kho�
 - Nếu `account_id` không hợp lệ: báo lỗi "Invalid URL" và quay lại trang trước.
 
 ## Điều hướng
-- Vào từ: ACC-007 (Sao kê tài khoản) — nút "Add new".
+- Vào từ: ACC-007 (Sổ cái tài khoản) — nút "Add new".
 - Điều hướng đến: quay lại ACC-007 sau khi lưu hoặc hủy.

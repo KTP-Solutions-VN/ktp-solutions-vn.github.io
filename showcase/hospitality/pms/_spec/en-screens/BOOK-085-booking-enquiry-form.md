@@ -1,9 +1,9 @@
-# BOOK-085 — Booking Enquiry Form
+# BOOK-085 — Stay Enquiry
 
 **Type:** Full page (intended for customers/guests, not an internal admin page)
 **Route:** Booking/bookingEnquiry/:id
 **Pretty route:** No dedicated route found in config/Routes.php (note: the `/booking-enquiry` route in Routes.php points to `Api2::bookingEnquiry`, which is DIFFERENT from this action)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 A public-facing page displaying villa information and allowing guests to fill out a form to submit a booking request directly to the villa owner (via email), together with a date picker highlighting already-booked dates. This form is intended to be filled out by external guests/partners, not as an internal tool for operations staff.
@@ -25,9 +25,9 @@ A public-facing page displaying villa information and allowing guests to fill ou
 - Greeting message "Thank you for booking with us + villa name"
 
 ## Functions / Actions
-- **Submit** button — checks whether the selected dates overlap with an existing booking (if so: displays a "Dates already booked..." warning and returns to the form); if valid, sends a request email to the business unit's email address that owns the villa (`business_unit.email`), then navigates to BOOK-086 (Booking Request Success Confirmation)
+- **Submit** button — checks whether the selected dates overlap with an existing booking (if so: displays a "Dates already booked..." warning and returns to the form); if valid, sends a request email to the business unit's email address that owns the villa (`business_unit.email`), then navigates to BOOK-086 (Enquiry Received)
 - Calendar month navigation (prev/next buttons on the date range picker) — calls the `getOccupiedDates` AJAX action to load fully booked dates for that month
 
 ## Navigation
 - Opened from: the (public) villa detail page when the guest clicks "Enquire"/"Book now"
-- Navigates to: BOOK-086 (Booking Request Success Confirmation) after a successful submission
+- Navigates to: BOOK-086 (Enquiry Received) after a successful submission

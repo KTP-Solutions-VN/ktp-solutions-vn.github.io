@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
       tbody.innerHTML = '<tr><td colspan="7"><div class="empty-state">' +
         '<svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M9 21V10"/></svg>' +
         '<h3>No manual bookings yet</h3><p>Bookings you add via "Add New Booking" will appear here for approval tracking.</p>' +
-        '<a class="btn btn-primary" href="../book-036-add-new-booking/index.html">Add New Booking</a></div></td></tr>';
+        '<a class="btn btn-primary" href="../book-036-add-new-booking/index.html">New Reservation</a></div></td></tr>';
     } else {
       tbody.innerHTML = rows.map(function (b, i) {
         return '<tr>' +

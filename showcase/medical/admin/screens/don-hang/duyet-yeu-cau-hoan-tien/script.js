@@ -36,7 +36,7 @@
     tbody.innerHTML = list.map(function (r) {
       var sel = r.id === state.selectedId ? 'style="background:var(--primary-50);"' : '';
       return '<tr ' + sel + ' data-id="' + r.id + '" class="queueRow">' +
-        '<td class="cell-strong">' + r.id + '</td><td>' + r.orderId + '</td><td class="tabular-nums">SGD ' + r.amount.toFixed(2) + '</td><td>' + badge(r.status) + '</td></tr>';
+        '<td class="cell-strong">' + r.id + '</td><td>' + r.orderId + '</td><td class="tabular-nums">AUD ' + r.amount.toFixed(2) + '</td><td>' + badge(r.status) + '</td></tr>';
     }).join('');
     document.querySelectorAll('.queueRow').forEach(function (tr) {
       tr.addEventListener('click', function () { state.selectedId = tr.getAttribute('data-id'); renderQueue(); renderDetail(); });
@@ -90,7 +90,7 @@
       '</div>' +
       renderStepper(r.status) +
       '<div class="section-title">Reason</div><p style="margin-bottom:var(--sp-4);">' + r.reason + '</p>' +
-      '<div class="section-title">Amount</div><p style="font-size:20px;font-weight:700;color:var(--primary-dark);margin-bottom:var(--sp-4);">SGD ' + r.amount.toFixed(2) + '</p>' +
+      '<div class="section-title">Amount</div><p style="font-size:20px;font-weight:700;color:var(--primary-dark);margin-bottom:var(--sp-4);">AUD ' + r.amount.toFixed(2) + '</p>' +
       '<div class="section-title">Multi-level Approval Chain</div><div class="timeline" style="margin-bottom:var(--sp-4);">' + chainHtml + '</div>' +
       '<hr class="hr">' +
       '<div style="display:flex;gap:var(--sp-2);">' + actionsHtml + '</div>';

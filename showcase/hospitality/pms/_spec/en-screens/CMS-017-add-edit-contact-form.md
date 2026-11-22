@@ -1,10 +1,10 @@
-# CMS-017 — Add/Edit Contact Form
+# CMS-017 — Enquiry Form Editor
 
 **Type:** Full page
 
 **Route:** `CmsController::editContactForm($id)` — default `/cms/edit-contact-form/:id`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 Form for adding a new or editing an existing contact form configuration (a single shared action for both Add when no `id` is passed, and Edit when `id` is present). No multilingual element.

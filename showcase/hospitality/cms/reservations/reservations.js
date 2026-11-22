@@ -13,8 +13,8 @@
   /* ------------------------------------------------------------------ */
 
   var PROPERTIES = [
-    'Villa Andaman Breeze — Room 1',
-    'Villa Andaman Breeze — Room 2',
+    'Villa Ocean Breeze — Room 1',
+    'Villa Ocean Breeze — Room 2',
     'Aegean Sunset Villa',
     'Sunset Cove Bungalow — Room 1',
     'Palm Grove Residence',

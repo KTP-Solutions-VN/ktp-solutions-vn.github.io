@@ -1,10 +1,10 @@
-# CMS-001 — Danh sách villa quản lý nội dung trang chủ (CMS Property List)
+# CMS-001 — Trang web tài sản (Property Web Pages)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::list($id)` — mặc định `/cms/list/:id`
 
-**Module:** CMS = Nội dung trang chủ villa
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Màn hình chọn villa để vào chỉnh sửa nội dung hiển thị trên trang chủ/website villa (CMS). Danh sách villa được lọc theo phân quyền Business Unit/Zone của user đăng nhập, hiển thị villa đang mở (`status = Open`).
@@ -30,5 +30,5 @@ Filter: dropdown chọn Business Unit/Zone (`id` — tham số GET/POST), khi ch
 - **Chọn villa (click dòng/tên villa):** mở màn hình CMS-002 (tab Welcome mặc định) của villa đó.
 
 ## Điều hướng
-- Vào từ: menu chính (mục "Properties"/CMS, active_menu = 18).
+- Vào từ: menu chính (mục "Property Web Pages", active_menu = 18).
 - Điều hướng đến: CMS-002 (màn hình CMS chính theo villa, tab welcome mặc định).

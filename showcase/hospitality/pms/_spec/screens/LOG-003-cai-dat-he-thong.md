@@ -1,10 +1,10 @@
-# LOG-003 — Cài đặt hệ thống (Settings)
+# LOG-003 — Cài đặt website & SEO (Site & SEO Settings)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `LoginController::settings()` — mặc định `login/settings`
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Form cấu hình thông tin chung của website/hệ thống (tiêu đề site, mô tả/từ khoá SEO, email quản trị, email gửi đi...), lấy dữ liệu nền từ bảng `Setting` (id=1). Đây là action dùng chung với USR-003 (cùng method `settings()` kế thừa từ `LoginController`, chỉ khác theme/route truy cập), nhưng khi vào qua `/login/settings` thì render template riêng của Login.

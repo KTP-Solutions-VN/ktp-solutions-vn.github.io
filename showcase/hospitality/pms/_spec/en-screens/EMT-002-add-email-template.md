@@ -1,10 +1,10 @@
-# EMT-002 — Add Email Template
+# EMT-002 — New Email Template
 
 **Type:** Full page
 
 **Route:** `EmailTemplateController::add()` — default `/email-template/add`
 
-**Module:** Email Templates
+**Module:** Email Library
 
 ## Overview
 Form for creating a new email content template by purpose of use (template for) and language; content is composed using the TinyMCE editor and supports dynamic placeholders (`##OWNER_NAME##`, `##NEWS_LETTER##`, `##VILLA_NAME##`, `##START_DATE##`, `##END_DATE##`).
@@ -23,5 +23,5 @@ Form for creating a new email content template by purpose of use (template for) 
 - **Cancel (reset):** clears the entered content on the form (reset, no navigation).
 
 ## Navigation
-- Opened from: the "Add new" button on EMT-001 (Email Template List).
+- Opened from: the "Add new" button on EMT-001 (Email Library).
 - After saving: redirects to EMT-001.

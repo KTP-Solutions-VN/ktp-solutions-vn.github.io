@@ -10,12 +10,12 @@
      villas whose electricity is included in the rate — same as the legacy
      spec's exclusion rules. */
   var BILLS = [
-    { id: 'EB-01', property: 'Villa Sapphire Cliff', start: '2026-07-20', end: '2026-07-27', startMeter: 3900, endMeter: 4210, amountDue: 2635, amountReceived: 2635, paidBy: 'Cash' },
-    { id: 'EB-02', property: 'Villa Coral Horizon', start: '2026-08-01', end: '2026-08-06', startMeter: 3600, endMeter: 3860, amountDue: 2080, amountReceived: 2080, paidBy: 'Credit Card' },
-    { id: 'EB-03', property: 'Villa Emerald Bay', start: '2026-08-10', end: '2026-08-17', startMeter: 4900, endMeter: 5120, amountDue: 2024, amountReceived: 2024, paidBy: 'Online Payment' },
+    { id: 'EB-01', property: 'Villa Sapphire Cliff', start: '2026-07-20', end: '2026-07-27', startMeter: 3900, endMeter: 4210, amountDue: 105, amountReceived: 105, paidBy: 'Cash' },
+    { id: 'EB-02', property: 'Villa Coral Horizon', start: '2026-08-01', end: '2026-08-06', startMeter: 3600, endMeter: 3860, amountDue: 83, amountReceived: 83, paidBy: 'Credit Card' },
+    { id: 'EB-03', property: 'Villa Emerald Bay', start: '2026-08-10', end: '2026-08-17', startMeter: 4900, endMeter: 5120, amountDue: 88, amountReceived: 88, paidBy: 'Online Payment' },
     { id: 'EB-04', property: 'Villa Silver Tide', start: '2026-08-24', end: null, startMeter: 6040, endMeter: null, amountDue: null, amountReceived: 0, paidBy: null },
     { id: 'EB-05', property: 'Villa Lotus Terrace', start: '2026-08-28', end: null, startMeter: 2990, endMeter: null, amountDue: null, amountReceived: 0, paidBy: null },
-    { id: 'EB-06', property: 'Villa Golden Palm', start: '2026-06-15', end: '2026-06-22', startMeter: 1500, endMeter: 1780, amountDue: 2576, amountReceived: 2200, paidBy: 'Bank Transfer' }
+    { id: 'EB-06', property: 'Villa Golden Palm', start: '2026-06-15', end: '2026-06-22', startMeter: 1500, endMeter: 1780, amountDue: 112, amountReceived: 96, paidBy: 'Bank Transfer' }
   ];
 
   function loadStatus() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch (e) { return {}; } }
@@ -70,8 +70,8 @@
     document.getElementById('kpi-outstanding').textContent = outstanding.length;
     var dueSum = outstanding.reduce(function (s, r) { return s + (r.bill.amountDue || 0); }, 0);
     var recvSum = outstanding.reduce(function (s, r) { return s + (r.bill.amountReceived || 0); }, 0);
-    document.getElementById('kpi-amount-due').textContent = VSV.fmtMoney(dueSum, 'THB');
-    document.getElementById('kpi-amount-recv').textContent = VSV.fmtMoney(recvSum, 'THB');
+    document.getElementById('kpi-amount-due').textContent = VSV.fmtMoney(dueSum, 'SGD');
+    document.getElementById('kpi-amount-recv').textContent = VSV.fmtMoney(recvSum, 'SGD');
     document.getElementById('result-count').textContent = rows.length + ' bill' + (rows.length === 1 ? '' : 's') + ' in range';
 
     var outBody = document.getElementById('outstanding-tbody');

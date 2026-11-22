@@ -1,10 +1,10 @@
-# USR-005 — Thêm người dùng (nhân viên nội bộ)
+# USR-005 — Thêm thành viên đội ngũ (New Team Member)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `UserController::add($tab)` — mặc định `user/add/:tab`
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Form thêm mới một nhân viên nội bộ vào hệ thống. Màn hình có cấu trúc 4 tab (Định danh/Identification, Văn phòng/Office, Admin, Payroll) dùng chung với USR-006 (Sửa), nhưng khi thêm mới chỉ tab "Identification" được kích hoạt — các tab còn lại (Office, Admin, Payroll) bị khoá cho tới khi nhân viên được lưu lần đầu (khi đó `id` sinh ra và tiếp tục hoàn thiện hồ sơ trên màn USR-006).
@@ -42,4 +42,4 @@ Form thêm mới một nhân viên nội bộ vào hệ thống. Màn hình có 
 
 ## Điều hướng
 - Mở từ: USR-004 (nút "Thêm mới").
-- Điều hướng đến: sau khi lưu thành công, chuyển sang USR-006 (Sửa người dùng) với `id` vừa tạo để tiếp tục nhập Office/Admin/Payroll, hoặc quay về USR-004.
+- Điều hướng đến: sau khi lưu thành công, chuyển sang USR-006 (Sửa thành viên đội ngũ) với `id` vừa tạo để tiếp tục nhập Office/Admin/Payroll, hoặc quay về USR-004.

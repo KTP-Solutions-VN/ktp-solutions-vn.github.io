@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Welcome Screen — CareJourney Kiosk</title>
+<meta name="theme-color" content="#4C5FFF">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgo=">
+<link rel="stylesheet" href="../../../assets/css/global.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="kiosk-device" id="kioskDevice">
+
+    <div class="kiosk-topbar">
+      <div class="kiosk-brand">
+        <div class="kiosk-brand-mark" aria-hidden="true">CJ</div>
+        <div>
+          <div class="kiosk-brand-name">CareJourney</div>
+          <div class="kiosk-brand-sub">Self-Service Kiosk</div>
+        </div>
+      </div>
+      <div class="kiosk-topbar-right">
+        <div class="kiosk-idle-ring" id="idleRing" title="Session activity"></div>
+      </div>
+    </div>
+
+    <div class="kiosk-content">
+      <div class="content-col content-col-wide">
+
+        <div class="home-hero">
+          <h1>How can Meridian Health help you today?</h1>
+          <p>Choose a service to begin — no account or sign-in required. Prefer to talk to someone? Any team member nearby is happy to help.</p>
+        </div>
+
+        <div class="home-stat-band">
+          <div class="stat-pill">
+            <div class="stat-pill-icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M15.5 6a3 3 0 0 1 0 5.8"/><path d="M16.5 14.3A5.5 5.5 0 0 1 20.5 20"/></svg></div>
+            <div class="stat-pill-text">
+              <strong id="skipCount">—</strong> visitors helped today across every kiosk service — no waiting at the counter
+            </div>
+          </div>
+        </div>
+
+        <div class="home-tiles-row">
+          <a class="home-tile" href="../catalog/index.html" data-tile="shop">
+            <div class="home-tile-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M6.5 8h11l1 12H5.5Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></div>
+            <div class="home-tile-title">Products &amp; Bundles</div>
+            <div class="home-tile-desc">Explore new products and event-only bundle deals, then reserve them at your own pace.</div>
+            <div class="home-tile-cta">Start <svg viewBox="0 0 24 24"><path d="M4.5 12h15"/><path d="m13.5 5.5 6.5 6.5-6.5 6.5"/></svg></div>
+          </a>
+
+          <a class="home-tile" href="../ward-visit/step-1-slot/index.html" data-tile="tour">
+            <div class="home-tile-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg></div>
+            <div class="home-tile-title">Schedule a Visit</div>
+            <div class="home-tile-desc">Plan a guided walk-through of our maternity ward, birthing suites and nursery.</div>
+            <div class="home-tile-cta">Start <svg viewBox="0 0 24 24"><path d="M4.5 12h15"/><path d="m13.5 5.5 6.5 6.5-6.5 6.5"/></svg></div>
+          </a>
+
+          <a class="home-tile" href="../maternity-package/step-1-intro/index.html" data-tile="maternity">
+            <div class="home-tile-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12.5 20s-7-4.3-9-8.7C1.9 8 3.3 4.8 6.4 4.2c2-.4 3.7.5 4.7 1.9.9-1.4 2.6-2.3 4.6-1.9 3.1.6 4.5 3.8 2.9 7.1-2 4.4-6.1 8.7-6.1 8.7Z"/><path d="M4 11h2l1.2-2.4L9 12l1-2h2.2"/></svg></div>
+            <div class="home-tile-title">Maternity Package Sign-up</div>
+            <div class="home-tile-desc">Register interest in an antenatal care plan or reserve a birthing suite ahead of your due date.</div>
+            <div class="home-tile-cta">Start <svg viewBox="0 0 24 24"><path d="M4.5 12h15"/><path d="m13.5 5.5 6.5 6.5-6.5 6.5"/></svg></div>
+          </a>
+        </div>
+
+        <div class="home-tiles-row row-secondary">
+          <a class="home-tile" href="../parenting-classes/step-1-intro/index.html" data-tile="parenting">
+            <div class="home-tile-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M3 9.5 12 5l9 4.5-9 4.5-9-4.5Z"/><path d="M7 11.8v4.4c0 1.3 2.2 2.3 5 2.3s5-1 5-2.3v-4.4"/><path d="M20 9.5v6"/></svg></div>
+            <div class="home-tile-title">Birth &amp; Parenting Classes</div>
+            <div class="home-tile-desc">Classes at the Meridian Parenting Centre — birth preparation, newborn care and more.</div>
+            <div class="home-tile-cta">Start <svg viewBox="0 0 24 24"><path d="M4.5 12h15"/><path d="m13.5 5.5 6.5 6.5-6.5 6.5"/></svg></div>
+          </a>
+
+          <a class="home-tile" href="../membership/step-1-intro/index.html" data-tile="membership">
+            <div class="home-tile-icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5"/><path d="m8.5 13.5-1.6 6.5L12 18l5.1 2-1.6-6.5"/></svg></div>
+            <div class="home-tile-title">Member Enrollment</div>
+            <div class="home-tile-desc">Enroll in the FBP/NBP family programme for member pricing with your first baby or the next.</div>
+            <div class="home-tile-cta">Start <svg viewBox="0 0 24 24"><path d="M4.5 12h15"/><path d="m13.5 5.5 6.5 6.5-6.5 6.5"/></svg></div>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <button type="button" class="faq-fab" id="faqFab">
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.5 9.3a2.6 2.6 0 0 1 5 .9c0 1.7-2.4 2-2.4 3.6"/><circle cx="12" cy="17" r=".2" fill="currentColor"/></svg>
+      Need Help?
+    </button>
+
+    <div class="faq-overlay" id="faqOverlay">
+      <div class="faq-panel">
+        <div class="faq-panel-head">
+          <h2>Frequently asked questions</h2>
+          <button type="button" class="faq-close-btn" id="faqCloseBtn" aria-label="Close">
+            <svg class="icon" viewBox="0 0 24 24"><path d="m6 6 12 12"/><path d="m18 6-12 12"/></svg>
+          </button>
+        </div>
+        <div class="faq-panel-body"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../../../assets/data/event-leads.js"></script>
+  <script src="../../../assets/data/catalog.js"></script>
+  <script src="../../../assets/data/tour-slots.js"></script>
+  <script src="../../../assets/data/maternity-inquiries.js"></script>
+  <script src="../../../assets/data/parenting-classes.js"></script>
+  <script src="../../../assets/data/memberships.js"></script>
+  <script src="../../../assets/js/global.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

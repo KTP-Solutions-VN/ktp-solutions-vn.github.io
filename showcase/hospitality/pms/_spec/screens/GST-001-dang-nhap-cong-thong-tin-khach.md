@@ -1,11 +1,11 @@
-# GST-001 — Đăng nhập Cổng thông tin Khách
+# GST-001 — Đăng nhập Guest Hub (Guest Hub Login)
 
 **Loại:** Trang đầy đủ
 **Route:** `Guest::index()` — mặc định `/guest/index`; route đẹp: `/Welcome`, `/Welcome/:id` (đều trỏ về cùng action, tham số `id` không được controller sử dụng)
-**Module:** Cổng thông tin Khách
+**Module:** Không gian khách
 
 ## Mô tả ngắn gọn
-Trang đăng nhập bằng "mã truy cập" (access code) do hệ thống cấp cho từng đoàn khách (nhóm chat). Đây cũng là `loginAction`/`logoutRedirect`/`unauthorizedRedirect` mặc định của Guest Portal.
+Trang đăng nhập bằng "mã truy cập" (access code) do hệ thống cấp cho từng đoàn khách (nhóm chat). Đây cũng là `loginAction`/`logoutRedirect`/`unauthorizedRedirect` mặc định của Guest Hub.
 
 ## Mô tả chi tiết
 
@@ -18,10 +18,10 @@ Trang đăng nhập bằng "mã truy cập" (access code) do hệ thống cấp 
 - **Nút submit "Access Portal"**: gửi POST `access_code`; nếu hợp lệ, hệ thống:
   - Ghi log truy cập (`_generateAccessLogs`) với nội dung "`<Tên khách>` logged into the system."
   - Thiết lập phiên Auth (`user_type = guest-user`, `access_code`, `booking_id`, thông tin khách…)
-  - Chuyển hướng tới GST-002 (Danh sách đặt phòng)
+  - Chuyển hướng tới GST-002 (Đặt chỗ của tôi)
 - Nếu access_code sai/đoàn không hoạt động: hiển thị Flash lỗi, ở lại trang.
-- Nếu người dùng đã đăng nhập và mở lại URL này: tự động chuyển hướng tới GST-003 (Chi tiết đặt phòng của tôi).
+- Nếu người dùng đã đăng nhập và mở lại URL này: tự động chuyển hướng tới GST-003 (Chi tiết chuyến đi).
 
 ## Điều hướng
-- Đăng nhập thành công → GST-002 (Danh sách đặt phòng)
-- Đã có phiên đăng nhập từ trước → GST-003 (Chi tiết đặt phòng của tôi)
+- Đăng nhập thành công → GST-002 (Đặt chỗ của tôi)
+- Đã có phiên đăng nhập từ trước → GST-003 (Chi tiết chuyến đi)

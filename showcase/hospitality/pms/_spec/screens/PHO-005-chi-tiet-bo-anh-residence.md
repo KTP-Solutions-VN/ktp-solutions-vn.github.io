@@ -1,10 +1,10 @@
-# PHO-005 — Chi tiết bộ ảnh khu vực chung (Residence)
+# PHO-005 — Chi tiết album khu vực chung (Shared Space Album)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `PhotosController::residenceDetail($residenceId, $setType = 'ota')` — route đẹp `/photos/residence/:id/:set_type` (khai báo tường minh); dùng chung view `detail.ctp` với PHO-007 nhưng gọi tường minh qua `$this->render('detail')` với `$isResidence = true` (ẩn bớt panel Quality Score/Completeness so với PHO-007).
 
-**Module:** PHO = Hình ảnh
+**Module:** PHO = Thư viện ảnh
 
 ## Mô tả ngắn gọn
 Hiển thị chi tiết một bộ ảnh (theo `set_type`, ví dụ OTA/High Res) thuộc khu vực chung của residence: lưới ảnh, gắn cờ (Essential/Bird view/AI/Night), tải thêm ảnh vào bộ, xem/tải/xoá từng ảnh.
@@ -29,4 +29,4 @@ Không có panel Quality Score / Completeness Against Standard (chỉ áp dụng
 
 ## Điều hướng
 - Vào từ: PHO-004 (chọn set) hoặc PHO-003 (nút mở nhanh set).
-- Điều hướng đến: PHO-004 (Residence Page), PHO-003 (Common Areas).
+- Điều hướng đến: PHO-004 (Khu vực chung theo khu căn hộ), PHO-003 (Shared Space Albums).

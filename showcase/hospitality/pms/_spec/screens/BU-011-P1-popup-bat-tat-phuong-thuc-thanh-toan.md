@@ -1,10 +1,10 @@
-# BU-011-P1 — Popup Bật/tắt phương thức thanh toán theo Đơn vị kinh doanh
+# BU-011-P1 — Bật/tắt phương thức theo đơn vị (Payment Methods per Unit Toggle)
 
 **Loại:** Popup (mở từ BU-011)
 
 **Route:** Modal Bootstrap (`#exampleModal`) tĩnh trong `business_unit_payment_method.ctp`; toggle qua AJAX tới `getBusinessPaymentMethod` (nạp trạng thái) và `setBusinessPaymentMethod` (lưu khi bấm).
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Popup liệt kê toàn bộ phương thức thanh toán hiện có, mỗi dòng có công tắc bật/tắt (toggle) để gán/gỡ phương thức đó cho Đơn vị kinh doanh đang chọn — lưu ngay khi bấm, không cần nút Save riêng.

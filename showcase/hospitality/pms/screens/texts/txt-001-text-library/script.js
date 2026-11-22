@@ -1,23 +1,23 @@
 (function () {
   'use strict';
 
-  var LANGUAGES = ['English', 'Thai', 'Chinese', 'Russian', 'German'];
+  var LANGUAGES = ['English', 'Malay', 'Chinese', 'Russian', 'German'];
   var OTAS = ['Booking.com', 'Airbnb', 'Agoda', 'Expedia'];
 
   var UNITS = [
-    { id: 'UNT-01', name: 'Villa Sapphire Cliff — Master Suite', status: 'complete', elements: 5, updatedBy: 'Somchai A.', updatedAt: '2026-08-18' },
-    { id: 'UNT-02', name: 'Villa Lotus Bay — Garden Room', status: 'partial', elements: 3, updatedBy: 'Aroon P.', updatedAt: '2026-08-15' },
+    { id: 'UNT-01', name: 'Villa Sapphire Cliff — Master Suite', status: 'complete', elements: 5, updatedBy: 'Daniel T.', updatedAt: '2026-08-18' },
+    { id: 'UNT-02', name: 'Villa Lotus Bay — Garden Room', status: 'partial', elements: 3, updatedBy: 'Adam P.', updatedAt: '2026-08-15' },
     { id: 'UNT-03', name: 'Villa Amber Ridge — Ocean View Room', status: 'none', elements: 0, updatedBy: '—', updatedAt: '—' }
   ];
   var RESIDENCES = [
-    { id: 'RES-01', name: 'Coral Breeze Residence', status: 'complete', elements: 6, updatedBy: 'Nalin S.', updatedAt: '2026-08-20' },
-    { id: 'RES-02', name: 'Jade Horizon Residence', status: 'partial', elements: 4, updatedBy: 'Piti K.', updatedAt: '2026-08-12' }
+    { id: 'RES-01', name: 'Coral Breeze Residence', status: 'complete', elements: 6, updatedBy: 'Natalie S.', updatedAt: '2026-08-20' },
+    { id: 'RES-02', name: 'Jade Horizon Residence', status: 'partial', elements: 4, updatedBy: 'Peter K.', updatedAt: '2026-08-12' }
   ];
 
   var SHARED_SEED = [
-    { id: 'SHT-01', title: 'Standard House Rules — Thailand', element: 'House Rules', group: 'Legal & Compliance', bu: 'Phuket Collection', usage: 12, status: 'complete' },
+    { id: 'SHT-01', title: 'Standard House Rules — Singapore', element: 'House Rules', group: 'Legal & Compliance', bu: 'Sentosa Collection', usage: 12, status: 'complete' },
     { id: 'SHT-02', title: 'Pool Safety Notice', element: 'Amenities Summary', group: 'Safety', bu: 'All Business Units', usage: 24, status: 'complete' },
-    { id: 'SHT-03', title: 'Check-in Instructions Template', element: 'Description', group: 'Guest Communication', bu: 'Koh Samui Collection', usage: 8, status: 'partial' }
+    { id: 'SHT-03', title: 'Check-in Instructions Template', element: 'Description', group: 'Guest Communication', bu: 'Noosa Collection', usage: 8, status: 'partial' }
   ];
   var PROFILE_SEED = [
     { id: 'PRF-01', title: 'Booking.com Standard Profile', element: 'Description', group: 'OTA Profiles', bu: 'All Business Units', usage: 18, status: 'complete' },
@@ -25,7 +25,7 @@
   ];
   var LANG_SEED = [
     { id: 'LNG-01', name: 'English', listings: 42, shared: 12, profiles: 6, updatedAt: '2026-08-20', inUse: true },
-    { id: 'LNG-02', name: 'Thai', listings: 30, shared: 8, profiles: 4, updatedAt: '2026-08-19', inUse: true },
+    { id: 'LNG-02', name: 'Malay', listings: 30, shared: 8, profiles: 4, updatedAt: '2026-08-19', inUse: true },
     { id: 'LNG-03', name: 'Chinese', listings: 18, shared: 5, profiles: 2, updatedAt: '2026-08-10', inUse: true },
     { id: 'LNG-04', name: 'Russian', listings: 5, shared: 1, profiles: 0, updatedAt: '2026-07-28', inUse: false }
   ];

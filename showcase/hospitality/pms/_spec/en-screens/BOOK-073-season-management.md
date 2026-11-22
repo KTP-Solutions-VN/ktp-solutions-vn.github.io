@@ -1,9 +1,9 @@
-# BOOK-073 — Season Management
+# BOOK-073 — Season Calendar
 
 **Type:** Full page (the add/edit/delete/copy popups are all part of the same view, not separate files)
 **Route:** Booking/seasons (default: `/booking/seasons`)
 **Pretty route:** no dedicated route found in config/Routes.php (uses the default route)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Page for declaring and managing rate seasons (Season: Low/Mid/High/Peak, etc.) by Region — each region has its own set of seasons shared by all villas within it. Supports manual declaration via a table, visual drag-and-drop on a timeline, quick text entry ("Smart Season Input"), and copying a season set from another region.

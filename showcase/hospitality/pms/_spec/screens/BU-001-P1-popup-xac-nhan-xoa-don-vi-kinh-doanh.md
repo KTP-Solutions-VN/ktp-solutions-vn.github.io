@@ -1,10 +1,10 @@
-# BU-001-P1 — Popup xác nhận xóa đơn vị kinh doanh
+# BU-001-P1 — Xác nhận xóa đơn vị (Confirm Unit Deletion)
 
 **Loại:** Popup (mở từ BU-001)
 
 **Route:** Modal Bootstrap (`#exampleModal`) tĩnh trong `list.ctp`; xác nhận sẽ điều hướng trình duyệt tới `BusinessUnitController::delete($id)` — `/business-unit/delete/{id_base64}`.
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Popup xác nhận trước khi xóa một đơn vị kinh doanh khỏi hệ thống.

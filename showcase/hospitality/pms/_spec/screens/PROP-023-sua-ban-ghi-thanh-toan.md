@@ -1,8 +1,8 @@
-# PROP-023 — Sửa bản ghi thanh toán dịch vụ Property (Payment Record Edit)
+# PROP-023 — Sửa bút toán phí dịch vụ (Edit Service Fee Entry)
 
 **Loại:** Trang đầy đủ
 **Route:** property/payment-record-edit/:villa_id/:payment_id (cả 2 tham số truyền dạng base64)
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Form chỉnh sửa một bản ghi thanh toán dịch vụ (Villa Payment Record) đã tồn tại của một Property — bao gồm loại dịch vụ, số tiền, khoảng thời gian áp dụng, người trả và chứng từ đính kèm.

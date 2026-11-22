@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
     btn.addEventListener('click', function () {
       var id = btn.getAttribute('data-view');
       var r = DATA.filter(function (x) { return x.id === id; })[0];
-      document.getElementById('dm-title').textContent = r.property + ' — Check-in Control';
+      document.getElementById('dm-title').textContent = r.property + ' — Arrival Audit';
       document.getElementById('dm-sub').textContent = r.staff + ' · ' + r.start + '–' + r.end;
       document.getElementById('dm-location').innerHTML = [
         [r.start, r.property + ' main gate', '0 m'],

@@ -1,10 +1,10 @@
-# OTA-001-P1 — Chọn Content Element cho listing OTA
+# OTA-001-P1 — Chọn thành phần listing (Pick Listing Elements)
 
 **Loại:** Popup (mở từ OTA-001)
 
 **Route:** Modal tĩnh trong `listing.ctp`; lưu lựa chọn qua AJAX `OtaContentController::assignElements($platformId)` — `POST /ota-content/assign-elements/:platformId`
 
-**Module:** OTA = Nội dung OTA
+**Module:** OTA = Nội dung kênh
 
 ## Mô tả ngắn gọn
 Hộp thoại liệt kê toàn bộ Content Element đang khả dụng ("Available for") với OTA hiện tại, nhóm theo scope, cho phép tick chọn để đưa vào (hoặc bỏ khỏi) phần listing.

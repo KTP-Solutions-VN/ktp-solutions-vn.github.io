@@ -6,7 +6,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Brand — v2 REAL Meridian Health colors, extracted from the brand guideline
+  /* Brand — v2 CareJourney palette
      (--primary, --secondary, --tertiary, --error custom properties). Replaces the v1 blue
      palette below. Background of record is now WHITE; blue/teal are accents only. */
   --primary: #4C5FFF;

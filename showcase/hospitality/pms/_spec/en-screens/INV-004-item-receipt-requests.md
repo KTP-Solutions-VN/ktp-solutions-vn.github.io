@@ -1,10 +1,10 @@
-# INV-004 — Item Receipt Requests
+# INV-004 — Incoming Stock Requests
 
 **Type:** Full page
 
 **Route:** `InventoryController::itemRequest()` — `/inventory/item-request`
 
-**Module:** INV = Inventory
+**Module:** INV = Stock Control
 
 ## Overview
 A list of item receipt requests from Villas (`InventoryItemRequest`), allowing approval to transfer items from the business unit's central inventory down to the villa.
@@ -29,5 +29,5 @@ No dedicated filter.
 - **Approve (check mark)**: opens the INV-004-P1 popup to confirm the quantity and approve the stock transfer.
 
 ## Navigation
-- Entry point: Inventory menu (`active_menu = 152`).
+- Entry point: Stock Control menu (`active_menu = 152`).
 - Navigates to: popup INV-004-P1.

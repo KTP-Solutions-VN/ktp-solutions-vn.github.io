@@ -1,10 +1,10 @@
-# OWP-001-P1 — Forgot Password Popup
+# OWP-001-P1 — Password Recovery
 
 **Type:** Popup (opened from OWP-001)
 
 **Route:** `ExternalUserController::forgotPassword()` — no dedicated friendly route, no dedicated view (autoRender = false); the popup UI is embedded directly in `index.ctp` (div `#recoverform`), submitted via AJAX/POST to the `forgotPassword` action
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 
@@ -24,4 +24,4 @@ Popup that lets the user enter their email to receive a password reset link. The
 ## Navigation
 
 - After submission → returns to OWP-001 (redirect referer) with a notification
-- Email received contains a link → OWP-003 Reset Password
+- Email received contains a link → OWP-003 New Password

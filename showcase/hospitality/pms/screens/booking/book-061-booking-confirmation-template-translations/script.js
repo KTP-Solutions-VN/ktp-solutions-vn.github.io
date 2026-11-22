@@ -1,7 +1,7 @@
 (function () {
   'use strict';
   var STORAGE_KEY = 'mm_book_translations';
-  var LANG_NAMES = { fr: 'French', th: 'Thai', id: 'Indonesian', it: 'Italian' };
+  var LANG_NAMES = { fr: 'French', ms: 'Malay', zh: 'Chinese', it: 'Italian' };
 
   var BASE_TEXTS = [
     { id: 't1', en: 'Booking Reference', fr: 'Référence de réservation' },

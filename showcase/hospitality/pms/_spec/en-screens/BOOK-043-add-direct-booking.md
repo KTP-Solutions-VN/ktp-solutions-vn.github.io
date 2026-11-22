@@ -1,8 +1,8 @@
-# BOOK-043 — Add Direct Booking
+# BOOK-043 — New Stay Request
 
 **Type:** Popup (opened from BOOK-042)
 **Route:** Booking/addDirectBooking/:id? (default: `/booking/add-direct-booking`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Form for submitting a direct booking request for a villa (typically used by villa owners/partners), including guest information, stay dates, and special conditions.
@@ -30,5 +30,5 @@ Form for submitting a direct booking request for a villa (typically used by vill
 - **Submit Request** button — creates a new direct booking request, moving it into BOOK-042 pending approval
 
 ## Navigation
-- Opened from: BOOK-042 (Direct Booking List)
+- Opened from: BOOK-042 (Direct Stay Requests)
 - Navigates to: back to BOOK-042

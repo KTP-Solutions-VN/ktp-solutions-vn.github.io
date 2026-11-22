@@ -1,8 +1,8 @@
-# VCS-001 — Amenities List (Item)
+# VCS-001 — Amenity Catalog
 
 **Type:** Full page
 **Route:** villa-common-setting/items (default CakePHP DashedRoute: `/villa-common-setting/items`)
-**Module:** VCS = Villa Common Settings
+**Module:** VCS = Property Attributes
 
 ## Overview
 Master data management screen for "Amenity" (Item) — a category used to populate a villa's Amenity Inventory. Displayed as a list table, with Add/Edit/Delete supported through a single shared popup.
@@ -24,6 +24,6 @@ No dedicated search/filter field (client-side DataTable `#zero_config`).
 - Submitting the popup form sends a `POST` to the same `items` action with `action=add|edit|delete`; the `VillaCommonSettingController::items()` controller saves/deletes records in the `Item` table, writes an Activity Log entry, displays a Flash message, then redirects back to the previous page (`referer()`).
 
 ## Navigation
-- Opened from: Settings menu > "Inventories" > "Items" submenu.
+- Opened from: Portfolio Setup menu > "Property Attributes" > "Amenity Catalog" submenu.
 - Navigates to: no navigation to another page (CRUD operations are performed in place via popup + reload).
-- Child popup: VCS-001-P1 (Add/Edit/Delete Amenity).
+- Child popup: VCS-001-P1 (Amenity Form).

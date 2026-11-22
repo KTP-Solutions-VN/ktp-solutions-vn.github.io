@@ -1,11 +1,11 @@
-# TRN-011 — Training Settings
+# TRN-011 — Academy Settings
 
 **Type:** Full page
 **Route:** `TrainingController::setting()` — `/training/setting`
-**Module:** TRN = Training
+**Module:** TRN = Staff Academy
 
 ## Overview
-Settings page for the Training module; the view file is currently completely empty (no content/business logic has been implemented).
+Settings page for the Staff Academy module; the view file is currently completely empty (no content/business logic has been implemented).
 
 ## Detailed Description
 No fields or data are present (empty view).
@@ -14,5 +14,5 @@ No fields or data are present (empty view).
 - None.
 
 ## Navigation
-- **Entered from:** main menu "Training" → "Settings".
+- **Entered from:** main menu "Staff Academy" → "Academy Settings".
 - **Leads to:** none.

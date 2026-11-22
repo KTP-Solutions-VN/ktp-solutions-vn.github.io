@@ -1,10 +1,10 @@
-# VSV-011 — Kiểm soát check-in điện (Electricity Check-in Control)
+# VSV-011 — Kiểm tra chỉ số khi đến (Arrival Reading Audit)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `VillaServicesController::electricityCheckInControl()` — mặc định `/villa-services/electricity-check-in-control`; toàn bộ bộ lọc đọc/ghi qua query string (GET)
 
-**Module:** Dịch vụ villa — Điện
+**Module:** Dịch vụ lưu trú — Đo điện
 
 ## Mô tả ngắn gọn
 Màn hình vận hành (back-office) để nhân viên kiểm tra xem concierge đã ghi nhận chỉ số/ảnh đồng hồ điện check-in đúng hạn hay chưa cho từng booking, theo dõi KPI tổng quan và thực hiện các thao tác sửa/nhắc nhở/xác nhận thu tiền hàng loạt.
@@ -52,5 +52,5 @@ Màn hình vận hành (back-office) để nhân viên kiểm tra xem concierge 
 - Phân trang danh sách (Paginator).
 
 ## Điều hướng
-- Vào từ: VSV-001 (tile "Check-in" trong khối Controls) hoặc menu chính.
-- Điều hướng đến: VSV-011-P1 (Xem chi tiết kiểm soát check-in điện).
+- Vào từ: VSV-001 (tile "Arrival Reading Audit" trong khối Controls) hoặc menu chính.
+- Điều hướng đến: VSV-011-P1 (Chi tiết chỉ số khi đến).

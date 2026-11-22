@@ -1,10 +1,10 @@
-# CMS-019 — Thêm/Sửa dịch vụ Concierge
+# CMS-019 — Trình sửa dịch vụ concierge (Concierge Service Editor)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::editConcierges($id)` — mặc định `/cms/edit-concierges/:id`
 
-**Module:** CMS = Nội dung trang chủ
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Form thêm mới hoặc chỉnh sửa một mục "Concierge" (dịch vụ concierge hiển thị ở trang chủ/mini-website). Mỗi Concierge gồm một tiêu đề (`title`) và một danh sách ảnh minh họa có thể thêm/xóa động, mỗi ảnh có chú thích (`legend`) được nhập/hiển thị theo từng ngôn ngữ đang chọn.
@@ -37,5 +37,5 @@ Khi không có `id` (chế độ Thêm mới): form trống, không có ảnh n�
 - **Reset:** đưa form về trạng thái mặc định (HTML reset, không gọi server).
 
 ## Điều hướng
-- Vào từ: CMS-018 (danh sách Concierge, action `concierges`) — nút "Add New" (thêm mới, không kèm `id`) hoặc link "Edit" trên từng dòng (kèm `id`).
-- Điều hướng đến: sau khi Save (thành công hoặc lỗi) đều quay lại CMS-018 (danh sách Concierge, action `concierges`), trừ trường hợp lỗi ở chế độ Sửa/Thêm thì có thể ở lại chính màn hình CMS-019.
+- Vào từ: CMS-018 (Trưng bày concierge, action `concierges`) — nút "Add New" (thêm mới, không kèm `id`) hoặc link "Edit" trên từng dòng (kèm `id`).
+- Điều hướng đến: sau khi Save (thành công hoặc lỗi) đều quay lại CMS-018 (Trưng bày concierge, action `concierges`), trừ trường hợp lỗi ở chế độ Sửa/Thêm thì có thể ở lại chính màn hình CMS-019.

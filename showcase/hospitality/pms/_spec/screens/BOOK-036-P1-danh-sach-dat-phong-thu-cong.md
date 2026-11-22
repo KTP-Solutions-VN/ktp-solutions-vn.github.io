@@ -1,8 +1,8 @@
-# BOOK-036-P1 — Danh sách đặt phòng thủ công
+# BOOK-036-P1 — Đặt chỗ ngoại tuyến (Offline Reservations)
 
 **Loại:** Trang đầy đủ (liên quan trực tiếp BOOK-036)
 **Route:** Booking/addBookingList (mặc định: `/booking/add-booking-list`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Danh sách các đặt phòng được tạo thủ công (manual booking) qua BOOK-036, kèm trạng thái duyệt.
@@ -23,5 +23,5 @@ Danh sách các đặt phòng được tạo thủ công (manual booking) qua BO
 - Xem chi tiết trạng thái duyệt
 
 ## Điều hướng
-- Mở từ: BOOK-036 (Thêm đặt phòng mới)
+- Mở từ: BOOK-036 (Tạo đặt chỗ mới)
 - Điều hướng tới: BOOK-036 (khi sửa)

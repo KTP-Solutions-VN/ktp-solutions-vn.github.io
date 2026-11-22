@@ -1,10 +1,10 @@
-# CMS-012 — Destination List
+# CMS-012 — Destination Guides
 
 **Type:** Full page
 
 **Route:** `CmsController::destination($action, $id)` — default `/cms/destination/:action/:id`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 List of all destinations (districts — `District`, together with Country/Region) for selecting one to edit its destination introduction content displayed on the website. No server-side pagination (retrieves the entire result set via `District->find('all')`).
@@ -30,5 +30,5 @@ Note: the `$action`/`$id` route parameters are not used in the controller's logi
 - **Edit:** navigates to CMS-013 (`/cms/destination-edit/:district_id`) to edit the introduction content/images for that destination (district).
 
 ## Navigation
-- Accessed from: CMS-005 (Common Text, "Destination" button).
+- Accessed from: CMS-005 (Shared Content Blocks, "Destination Guides" button).
 - Navigates to: CMS-013 (edit destination content by villa/district).

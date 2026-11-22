@@ -1,8 +1,8 @@
-# VCS-006-P2 — Popup Thêm Loại dịch vụ (Villa Service)
+# VCS-006-P2 — Form loại dịch vụ của nhà cung cấp (Vendor Service Type Form)
 
 **Loại:** Popup/Modal (mở từ VCS-006)
 **Route:** Không có route riêng — dùng chung form POST về `villa-common-setting/service-providers` (hidden `action`=`add_service`); kiểm tra trùng tên qua AJAX `villa-common-setting/check-service-name` (route đẹp cấu hình riêng trong Routes.php)
-**Module:** VCS = Cấu hình chung villa
+**Module:** VCS = Thuộc tính tài sản
 
 ## Mô tả ngắn gọn
 Modal Bootstrap (`#serviceModel`) chỉ phục vụ Thêm mới "Loại dịch vụ" (`ProviderService`) — dữ liệu chủ dùng để gắn cho các Nhà cung cấp dịch vụ ở VCS-006. Chỉ hiển thị với user Superadmin (do tab "Services" chỉ hiện với Superadmin).
@@ -20,5 +20,5 @@ Modal Bootstrap (`#serviceModel`) chỉ phục vụ Thêm mới "Loại dịch v
 - Validate: `name` bắt buộc, kiểm tra trùng qua remote AJAX `checkServiceName`.
 
 ## Điều hướng
-- Mở từ: VCS-006 (tab "Services") — nút "+ Add new".
+- Mở từ: VCS-006 (tab "Service Catalog") — nút "+ Add new".
 - Điều hướng tới: không chuyển trang — submit xong reload lại VCS-006 (redirect `referer()`), Loại dịch vụ mới xuất hiện trong danh sách chọn ở VCS-006-P1.

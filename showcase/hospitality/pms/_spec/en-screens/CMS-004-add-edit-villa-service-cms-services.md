@@ -1,10 +1,10 @@
-# CMS-004 — Add/Edit Villa Service (CMS Services)
+# CMS-004 — Showcase Service Editor
 
 **Type:** Full page
 
 **Route:** `CmsController::cmsServices($id)` — default `/cms/cms-services/:id`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 Form for adding or editing villa service content displayed on the website (Concierge, Maintenance, Cleaning, Transport), using a single shared action for both Add (no `id` passed) and Edit (`id` present). Each service group consists of one multilingual text block and one illustrative image.

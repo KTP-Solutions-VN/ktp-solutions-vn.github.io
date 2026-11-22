@@ -1,10 +1,10 @@
-# OWN-004 — Trạng thái villa theo chủ sở hữu
+# OWN-004 — Trạng thái tài sản của chủ nhà (Owner Property Status)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `/Owner/status/{tab}` (controller `Owner`, action `status($tab)`)
 
-**Module:** Quản lý chủ sở hữu (Admin)
+**Module:** Quan hệ chủ nhà (Admin)
 
 ## Mô tả ngắn gọn
 
@@ -43,7 +43,7 @@ Màn hình tổng hợp trạng thái vận hành của một villa theo góc nh
 
 ## Điều hướng
 
-- Vào từ: menu chính (sidebar) mục liên quan tới Owner/Status, hoặc điều hướng nội bộ có `bu_id`/`villa_id` trên query string.
+- Vào từ: menu chính (sidebar) mục liên quan tới Owner Property Status, hoặc điều hướng nội bộ có `bu_id`/`villa_id` trên query string.
 - Đi tới:
-  - OWN-004-P1 — Xem chi tiết dịch vụ vườn (tab Garden)
-  - OWN-004-P2 — Xem chi tiết yêu cầu chi phí (tab Receipts)
+  - OWN-004-P1 — Chi tiết lượt chăm vườn (tab Garden)
+  - OWN-004-P2 — Chi tiết chi phí chủ nhà (tab Receipts)

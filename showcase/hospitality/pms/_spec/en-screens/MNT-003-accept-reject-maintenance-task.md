@@ -1,8 +1,8 @@
-# MNT-003 — Accept/Reject Maintenance Task
+# MNT-003 — Repair Triage
 
 **Type:** Full page
 **Route:** maintenance/accept/:id (id base64)
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Screen allowing a technician/assigned handler to view details of a maintenance log currently in Pending status and decide to Accept or Reject the task.
@@ -19,5 +19,5 @@ Screen allowing a technician/assigned handler to view details of a maintenance l
 - **Reject**: submits a different `type`, updates `Maintenance.status = Rejected`, returns to MNT-001.
 
 ## Navigation
-- Entered from: MNT-001 — Maintenance Log List (clicking on a Pending task).
+- Entered from: MNT-001 — Repair Requests (clicking on a Pending task).
 - Navigates to: after Accept/Reject, returns to MNT-001.

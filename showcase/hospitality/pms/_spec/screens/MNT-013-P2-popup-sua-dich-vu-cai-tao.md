@@ -1,8 +1,8 @@
-# MNT-013-P2 — Sửa dịch vụ cải tạo
+# MNT-013-P2 — Sửa loại nâng cấp (Edit Refurbishment Type)
 
 **Loại:** Popup (mở từ MNT-013)
 **Route:** maintenance/editRenovationServices/:id
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Trang chỉnh sửa một dịch vụ cải tạo đã có: tên, ảnh minh họa, đơn vị kinh doanh áp dụng, trạng thái.
@@ -21,5 +21,5 @@ Trang chỉnh sửa một dịch vụ cải tạo đã có: tên, ảnh minh h�
 - **Cancel**: quay về MNT-013.
 
 ## Điều hướng
-- Vào từ: icon Sửa trên MNT-013 — Dịch vụ cải tạo.
+- Vào từ: icon Sửa trên MNT-013 — Loại hạng mục nâng cấp.
 - Đi tới: sau khi Save, quay về MNT-013.

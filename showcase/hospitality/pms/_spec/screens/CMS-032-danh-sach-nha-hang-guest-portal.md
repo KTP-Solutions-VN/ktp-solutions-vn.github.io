@@ -1,13 +1,13 @@
-# CMS-032 — Danh sách nhà hàng Guest Portal
+# CMS-032 — Gợi ý ăn uống (Dining Picks)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::guestPortal()` — mặc định `/cms/guest-portal`
 
-**Module:** CMS = Nội dung trang chủ
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
-Danh sách các nhà hàng (Restaurant) hiển thị trên Guest Portal, lọc theo Business Unit/Zone mà user đang đăng nhập được phân quyền. Từ đây có thể thêm mới, sửa hoặc xoá nhà hàng.
+Danh sách các nhà hàng (Restaurant) hiển thị trên Guest Hub, lọc theo Business Unit/Zone mà user đang đăng nhập được phân quyền. Từ đây có thể thêm mới, sửa hoặc xoá nhà hàng.
 
 ## Mô tả chi tiết
 

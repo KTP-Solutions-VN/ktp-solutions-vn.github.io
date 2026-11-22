@@ -1,10 +1,10 @@
-# VSV-022 — Thiết lập xử lý báo cáo kiểm tra (Inspection Edit)
+# VSV-022 — Phân loại kết quả kiểm tra (Inspection Triage)
 
 **Loại:** Popup (mở từ VSV-021, dạng trang riêng)
 
 **Route:** `VillaServicesController::inspectionEdit()` — `/villa-services/inspectionEdit?id=<inspection_key>`
 
-**Module:** Dịch vụ villa — Kiểm tra (Inspection)
+**Module:** Dịch vụ lưu trú — Kiểm tra
 
 ## Mô tả ngắn gọn
 Trang trung gian trước khi xử lý một báo cáo kiểm tra: tóm tắt villa/người kiểm tra/thời điểm/số lượng hạng mục, cho phép đặt hạn xử lý chung và gán người phụ trách theo từng bộ phận (Maintenance, Cleaning, Purchasing, Gardening, Renovation) tương ứng với các hạng mục phát hiện, trước khi bắt đầu (Start) vào màn hình xử lý chi tiết.
@@ -28,4 +28,4 @@ Trang trung gian trước khi xử lý một báo cáo kiểm tra: tóm tắt vi
 
 ## Điều hướng
 - Vào từ: VSV-021 — nút "Edit" trên từng báo cáo.
-- Điều hướng đến: VSV-022-P1 (Xử lý chi tiết từng hạng mục kiểm tra).
+- Điều hướng đến: VSV-022-P1 (Xử lý hạng mục kiểm tra).

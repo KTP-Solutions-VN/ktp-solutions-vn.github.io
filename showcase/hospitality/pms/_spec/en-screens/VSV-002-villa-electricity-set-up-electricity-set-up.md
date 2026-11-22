@@ -1,10 +1,10 @@
-# VSV-002 — Villa Electricity Set-up (Electricity Set-up)
+# VSV-002 — Metering Setup
 
 **Type:** Full page
 
 **Route:** `VillaServicesController::propertySetup($tab = null)` — defaults to `/villa-services/property-setup/<tab>`; the tab is also read from the query string (`?tab=pricing|management&business_unit_id=...&villa_id=...`)
 
-**Module:** Villa Services — Electricity
+**Module:** In-Stay Services — Metering
 
 ## Overview
 A screen for configuring electricity settings per villa: whether electricity is managed or not, pricing rules (per kWh / free quota / fixed daily price), pricing configuration by OTA channel, and villa information (type, area, owner). There are 2 main tabs: **Management** (enable/disable electricity management for a villa) and **Pricing** (set up electricity pricing by villa/booking channel).
@@ -43,5 +43,5 @@ Common filters: Business Unit (`business_unit_id`, select, including an "All" op
 - Filter by Business Unit / Property / Pricing set / Price type (GET submit).
 
 ## Navigation
-- Entered from: VSV-001 ("Electricity Set-up" tile).
+- Entered from: VSV-001 ("Metering Setup" tile).
 - Navigates to: no child screens; after saving, the current page reloads (`$this->redirect($this->referer())`).

@@ -1,8 +1,8 @@
-# MNT-014 — Dịch vụ dọn dẹp (Cleaning Services)
+# MNT-014 — Tiêu chuẩn dọn phòng (Housekeeping Standards)
 
 **Loại:** Trang đầy đủ (kèm chỉnh sửa nội tuyến qua modal/khu vực ẩn-hiện trên cùng trang)
 **Route:** maintenance/cleaningServices (ajax GET cùng route trả JSON tìm kiếm; `maintenance/getCleaningServiceData/:id` nạp dữ liệu sửa; `maintenance/updateCleaningService` lưu sửa)
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Màn hình quản lý các dịch vụ dọn dẹp (`GardenService.type = cleaning`) cùng bộ "tiêu chuẩn dọn dẹp" (Cleaning Service Standard) gắn với mỗi dịch vụ — mỗi tiêu chuẩn gồm tên (legend) và icon minh họa. Trang hiển thị thống kê tổng quan (số dịch vụ, tổng số tiêu chuẩn, số BU được phủ, số dịch vụ chưa có tiêu chuẩn) và cho phép sửa dịch vụ + quản lý tiêu chuẩn ngay tại chỗ (nạp dữ liệu qua ajax, không chuyển trang).
@@ -44,15 +44,15 @@ Màn hình quản lý các dịch vụ dọn dẹp (`GardenService.type = cleani
 | 6 | Danh sách tiêu chuẩn | `standards_json` | Builder động (legend + icon từng dòng) | Không | Xóa toàn bộ tiêu chuẩn cũ và ghi lại theo danh sách mới khi submit |
 
 ## Chức năng/nút thao tác
-- **Add New**: điều hướng sang MNT-014-P1 — Thêm dịch vụ dọn dẹp (trang riêng, không phải modal).
+- **Add New**: điều hướng sang MNT-014-P1 — Thêm dịch vụ dọn phòng (trang riêng, không phải modal).
 - **Sửa** (icon): nạp dữ liệu dịch vụ + tiêu chuẩn qua ajax vào khu vực form ẩn trên cùng trang; nút **Update Service** submit về `updateCleaningService` (xóa hết `CleaningServiceStandard` cũ, lưu lại theo `standards_json`).
 - **Thêm tiêu chuẩn mới** (trong khu vực sửa): thêm dòng legend + icon vào danh sách trước khi Update.
 - **Xóa dịch vụ**: mở modal xác nhận, xóa `GardenService` + toàn bộ `CleaningServiceStandard` liên quan (`deleteCleaningService`).
 - **Tìm kiếm**: gọi lại chính route bằng ajax GET (`q`), trả JSON danh sách kết quả.
 
 ## Điều hướng
-- Vào từ: menu Settings/Maintenance trong sidebar.
-- Đi tới: MNT-014-P1 (Thêm dịch vụ dọn dẹp).
+- Vào từ: menu cài đặt Repair Desk trong sidebar.
+- Đi tới: MNT-014-P1 (Thêm dịch vụ dọn phòng).
 
 ## Ghi chú
 - File `edit_cleaning_service.ctp` là view độc lập cũ, hiện không được liên kết tới từ giao diện (chức năng sửa đã chuyển thành khu vực nội tuyến trong chính trang này) — không tài liệu hoá thành màn hình riêng.

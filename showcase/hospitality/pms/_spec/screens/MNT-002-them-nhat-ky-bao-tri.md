@@ -1,8 +1,8 @@
-# MNT-002 — Thêm nhật ký bảo trì mới
+# MNT-002 — Tạo yêu cầu sửa chữa (New Repair Request)
 
 **Loại:** Trang đầy đủ
 **Route:** maintenance/add
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Màn hình tạo mới một nhật ký bảo trì (Maintenance log/task): chọn villa, danh mục bảo trì (mức ưu tiên tự gán theo danh mục), nhập mô tả sự cố và đính kèm ảnh minh chứng (nhiều ảnh, thêm động).
@@ -23,5 +23,5 @@ Màn hình tạo mới một nhật ký bảo trì (Maintenance log/task): chọ
 - **Cancel**: quay lại MNT-001.
 
 ## Điều hướng
-- Vào từ: nút "+" trên màn hình MNT-001 — Danh sách nhật ký bảo trì.
+- Vào từ: nút "+" trên màn hình MNT-001 — Yêu cầu sửa chữa.
 - Đi tới: sau khi Save, quay về MNT-001.

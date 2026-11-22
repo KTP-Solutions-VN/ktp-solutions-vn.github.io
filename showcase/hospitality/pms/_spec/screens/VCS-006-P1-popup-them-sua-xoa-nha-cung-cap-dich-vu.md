@@ -1,8 +1,8 @@
-# VCS-006-P1 — Popup Thêm/Sửa/Xóa Nhà cung cấp dịch vụ
+# VCS-006-P1 — Form nhà cung cấp được duyệt (Approved Vendor Form)
 
 **Loại:** Popup/Modal (mở từ VCS-006)
 **Route:** Không có route riêng — dùng chung form POST về `villa-common-setting/service-providers` (hidden `action`=`add`/`edit`/`delete`); kiểm tra trùng tên qua AJAX `villa-common-setting/check-service-provider-name` (route đẹp cấu hình riêng trong Routes.php)
-**Module:** VCS = Cấu hình chung villa
+**Module:** VCS = Thuộc tính tài sản
 
 ## Mô tả ngắn gọn
 Modal Bootstrap (`#providerModal`) cho 3 kịch bản Thêm/Sửa/Xóa Nhà cung cấp dịch vụ, gồm thông tin liên hệ, loại dịch vụ cung cấp (mỗi loại có thể gắn nhãn hiển thị riêng) và danh sách Business Unit được phép sử dụng. Ở chế độ Xóa, phần nhập liệu bị ẩn.
@@ -33,5 +33,5 @@ Modal Bootstrap (`#providerModal`) cho 3 kịch bản Thêm/Sửa/Xóa Nhà cung
 - Validate: các field text/select bắt buộc; `name` kiểm tra trùng qua remote AJAX `checkServiceProviderName`; `business_units` yêu cầu tick tối thiểu 1.
 
 ## Điều hướng
-- Mở từ: VCS-006 (tab "Service Providers") — nút Add new / Edit / Delete trên bảng danh sách.
+- Mở từ: VCS-006 (tab "Approved Vendors") — nút Add new / Edit / Delete trên bảng danh sách.
 - Điều hướng tới: không chuyển trang — submit xong reload lại VCS-006 (redirect `referer()`).

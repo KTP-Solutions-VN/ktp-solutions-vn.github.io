@@ -1,10 +1,10 @@
-# CMS-016 — Contact Form List
+# CMS-016 — Enquiry Forms
 
 **Type:** Full page
 
 **Route:** `CmsController::contactForm($action, $id)` — default `/cms/contact-form/:action/:id`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 List of contact form configurations (title + recipient email) displayed/connected on the website. No server-side pagination (retrieves the entire result set via `CmsContactUs->find('all')`).
@@ -28,5 +28,5 @@ No server-side filter/search, no server-side pagination.
 - **Delete:** calls back into this action in the form `/cms/contact-form/delete/:id` — deletes the `CmsContactUs` record, shows a flash message, then redirects back to the list.
 
 ## Navigation
-- Accessed from: CMS-005 (Common Text, "Contact Form" button) or breadcrumb from CMS-017.
-- Navigates to: CMS-017 (add/edit contact form).
+- Accessed from: CMS-005 (Shared Content Blocks, "Enquiry Forms" button) or breadcrumb from CMS-017.
+- Navigates to: CMS-017 (Enquiry Form Editor).

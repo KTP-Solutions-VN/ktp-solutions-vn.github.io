@@ -1,10 +1,10 @@
-# USR-023 — Quản lý Nhân vật ảo (Virtual Users)
+# USR-023 — Avatar phòng ban (Department Avatars)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `UserController::virtualUsers()` — mặc định `user/virtualUsers`
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Trang quản lý thư viện "nhân vật ảo" (avatar đại diện theo giới tính/bộ phận/quốc gia) dùng cho các bộ phận vận hành (concierge, dọn phòng, bảo trì, cải tạo, làm vườn, hồ bơi...). Chỉ Superadmin được truy cập. Cho phép lọc theo quốc gia/giới tính/bộ phận, thêm mới hoặc sửa một nhân vật ảo qua panel (drawer) ngay trên trang.
@@ -38,5 +38,5 @@ Trang quản lý thư viện "nhân vật ảo" (avatar đại diện theo giớ
 - **Xoá:** gọi `user/deleteVirtualUser/:id`.
 
 ## Điều hướng
-- Vào từ: menu Users → Virtual Users (chỉ hiển thị/khả dụng với Superadmin).
+- Vào từ: menu Workforce → Department Avatars (chỉ hiển thị/khả dụng với Superadmin).
 - Không điều hướng sang trang khác (thao tác thêm/sửa thực hiện ngay trên trang qua ajax).

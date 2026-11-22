@@ -1,10 +1,10 @@
-# BU-022-P4 — Popup Xác nhận xóa tài khoản kênh
+# BU-022-P4 — Xác nhận xóa tài khoản kênh (Confirm Channel Account Deletion)
 
 **Loại:** Popup (mở từ BU-022, tab Tài khoản kênh)
 
 **Route:** Modal Bootstrap (`#deleteModal`) tĩnh trong `channels.ctp`; submit POST tới `BusinessUnitController::channels('accounts')` với `action=delete`.
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Popup xác nhận trước khi xóa vĩnh viễn một tài khoản kênh.

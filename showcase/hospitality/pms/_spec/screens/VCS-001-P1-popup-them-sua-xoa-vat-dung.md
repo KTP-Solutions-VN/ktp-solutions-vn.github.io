@@ -1,8 +1,8 @@
-# VCS-001-P1 — Popup Thêm/Sửa/Xóa Vật dụng
+# VCS-001-P1 — Form tiện nghi (Amenity Form)
 
 **Loại:** Popup/Modal (mở từ VCS-001)
 **Route:** Không có route riêng — dùng chung form POST về `villa-common-setting/items` (hidden `action`=`add`/`edit`/`delete`); kiểm tra trùng tên qua AJAX `villa-common-setting/check-item`
-**Module:** VCS = Cấu hình chung villa
+**Module:** VCS = Thuộc tính tài sản
 
 ## Mô tả ngắn gọn
 Modal Bootstrap dùng chung (`#exampleModal`) cho 3 kịch bản Thêm/Sửa/Xóa Vật dụng. Ở chế độ Xóa, phần nhập liệu bị ẩn (`.modal-body { display:none }`), chỉ còn tiêu đề xác nhận.
@@ -20,5 +20,5 @@ Modal Bootstrap dùng chung (`#exampleModal`) cho 3 kịch bản Thêm/Sửa/Xó
 - Validate: `name` bắt buộc, kiểm tra trùng tên qua remote AJAX `checkItem`.
 
 ## Điều hướng
-- Mở từ: VCS-001 (nút Add new / Edit / Delete trên bảng danh sách Vật dụng).
+- Mở từ: VCS-001 (nút Add new / Edit / Delete trên bảng Danh mục tiện nghi).
 - Điều hướng tới: không chuyển trang — submit xong reload lại VCS-001 (redirect `referer()`).

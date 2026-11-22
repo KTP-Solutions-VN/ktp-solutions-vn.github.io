@@ -1,10 +1,10 @@
-# ACC-062 — Tạm ứng / Hoàn ứng (Petty Cash)
+# ACC-062 — Tạm ứng tiền mặt (Cash Advances)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `AccountController::pettyCash($tab, $sub_tab)` — mặc định `/account/petty-cash/<tab>/<sub_tab>`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Trang quản lý toàn bộ vòng đời "Claim Expense" (đề nghị hoàn ứng chi phí của nhân viên): xác thực/từ chối claim mới, tổng hợp claim đã duyệt chờ thanh toán, và tra cứu lịch sử claim đã thanh toán/bị từ chối — xem theo góc nhìn "Tất cả" (Latest Claim) hoặc lọc theo từng nhân viên (By User Claim).
@@ -37,5 +37,5 @@ Cột dữ liệu chính trên bảng claim (tuỳ sub-tab): User, Property, Com
 - Chuyển Tab/Sub-tab, đổi Business Unit/User cập nhật lại URL và query string tương ứng (`/account/petty-cash/<tab>/<sub_tab>?business_unit=...&user_id=...`).
 
 ## Điều hướng
-- Vào từ: Sidebar > mục "Petty Cash" trong nhóm Account/Expenses.
-- Điều hướng đến: ACC-063 (Thanh toán chi phí) là bước tiếp theo sau khi claim được duyệt (`approved`, chờ thanh toán thực tế); không có điều hướng trực tiếp bằng link giữa 2 trang, chỉ liên quan qua dữ liệu `ClaimExpense`.
+- Vào từ: Sidebar > mục "Cash Advances" trong nhóm Finance & Admin / Spending.
+- Điều hướng đến: ACC-063 (Quyết toán chi phí) là bước tiếp theo sau khi claim được duyệt (`approved`, chờ thanh toán thực tế); không có điều hướng trực tiếp bằng link giữa 2 trang, chỉ liên quan qua dữ liệu `ClaimExpense`.

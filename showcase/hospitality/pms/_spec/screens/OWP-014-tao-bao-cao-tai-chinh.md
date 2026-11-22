@@ -1,14 +1,14 @@
-# OWP-014 — Tạo báo cáo tài chính (Owner Statement)
+# OWP-014 — Sao kê thu nhập (Earnings Statement)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `ExternalUserController::generateReports()` — không có route đẹp riêng (mặc định `/external-user/generate-reports`)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 
-Màn hình tạo báo cáo tài chính chi tiết (bảng kê thu chi) cho một biệt thự trong khoảng thời gian tuỳ chọn: doanh thu theo từng ngày, hoa hồng OTA, VAT, chi phí bảo trì, khoản chi khác, và số tiền thực nhận của chủ sở hữu. Có thể đồng bộ dữ liệu đặt phòng và tải báo cáo về máy.
+Màn hình tạo báo cáo tài chính chi tiết (bảng kê thu chi) cho một biệt thự trong khoảng thời gian tuỳ chọn: doanh thu theo từng ngày, hoa hồng OTA, GST, chi phí bảo trì, khoản chi khác, và số tiền thực nhận của chủ sở hữu. Có thể đồng bộ dữ liệu đặt phòng và tải báo cáo về máy.
 
 ## Mô tả chi tiết
 
@@ -29,7 +29,7 @@ Bảng báo cáo — cột hiển thị (theo ngày):
 | 3 | Khách hàng | customer | |
 | 4 | Doanh thu gộp | gross / payout | |
 | 5 | Hoa hồng OTA | ota_commission | |
-| 6 | VAT | vat | Hiện khi có VAT theo kênh |
+| 6 | GST | vat | Hiện khi có GST theo kênh |
 | 7 | Doanh thu ròng | daily_net / net | |
 | 8 | Phí dịch vụ theo từng loại | services (%) | Nhiều cột động theo loại dịch vụ |
 | 9 | Chủ sở hữu nhận | owner | |
@@ -45,5 +45,5 @@ Bảng báo cáo — cột hiển thị (theo ngày):
 
 ## Điều hướng
 
-- Truy cập từ menu chính (Generate Report)
+- Truy cập từ menu chính (Statements)
 - Không điều hướng sang màn hình khác (xử lý tại chỗ)

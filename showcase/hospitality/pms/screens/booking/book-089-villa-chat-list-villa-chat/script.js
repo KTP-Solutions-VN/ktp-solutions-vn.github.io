@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
       '<td>' + MM.BOOK.flag(r.country) + '</td>' +
       '<td>' + (r.referer || '—') + '</td>' +
       '<td><button class="btn btn-ghost btn-sm" data-copy="' + r.portalCode + '" data-copy-label="Portal access code" title="Copy portal access code"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> ' + r.portalCode + '</button></td>' +
-      '<td><div class="tdac-cell"><button class="btn btn-ghost btn-sm" data-copy="' + r.tdacCode + '" data-copy-label="TDAC link" title="Copy TDAC link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button><button class="btn btn-ghost btn-sm" data-send-tdac="' + r.bookingId + '" title="Send TDAC email"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg></button></div></td>' +
+      '<td><div class="tdac-cell"><button class="btn btn-ghost btn-sm" data-copy="' + r.tdacCode + '" data-copy-label="SGAC link" title="Copy SGAC link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button><button class="btn btn-ghost btn-sm" data-send-tdac="' + r.bookingId + '" title="Send SGAC email"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg></button></div></td>' +
       '<td>' + (r.leader || '<span class="text-muted">—</span>') + '</td>' +
       '<td>' + MM.BOOK.chatStatusBadge(r.status) + (blocked ? warnIcon('Communication restricted for this guest') : '') + (r.warnFakePhone ? warnIcon('Phone number looks invalid') : '') + '</td>' +
       '<td><div class="row-actions">' + actionButtons(r) +
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
       btn.addEventListener('click', function () { copyText(btn.getAttribute('data-copy'), btn.getAttribute('data-copy-label')); });
     });
     document.querySelectorAll('[data-send-tdac]').forEach(function (btn) {
-      btn.addEventListener('click', function () { MM.showToast('TDAC email sent for booking ' + btn.getAttribute('data-send-tdac') + '.'); });
+      btn.addEventListener('click', function () { MM.showToast('SGAC email sent for booking ' + btn.getAttribute('data-send-tdac') + '.'); });
     });
     document.querySelectorAll('[data-block]').forEach(function (btn) {
       btn.addEventListener('click', function () {

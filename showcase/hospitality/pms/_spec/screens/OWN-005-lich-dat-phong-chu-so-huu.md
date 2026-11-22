@@ -1,10 +1,10 @@
-# OWN-005 — Lịch đặt phòng chủ sở hữu
+# OWN-005 — Lịch công suất của chủ nhà (Owner Occupancy Calendar)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `/Owner/calendar` (controller `Owner`, action `calendar()`)
 
-**Module:** Quản lý chủ sở hữu (Admin)
+**Module:** Quan hệ chủ nhà (Admin)
 
 ## Mô tả ngắn gọn
 
@@ -27,5 +27,5 @@ Dữ liệu lịch (booking) được tải qua AJAX (`getVillaBookingDetail`) v
 
 ## Điều hướng
 
-- Vào từ: menu chính (sidebar) mục "Calendar".
+- Vào từ: menu chính (sidebar) mục "Owner Occupancy Calendar".
 - Không có popup con; đây là màn hình độc lập.

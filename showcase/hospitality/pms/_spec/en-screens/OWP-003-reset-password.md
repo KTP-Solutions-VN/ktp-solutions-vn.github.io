@@ -1,10 +1,10 @@
-# OWP-003 — Reset Password
+# OWP-003 — New Password
 
 **Type:** Full page
 
 **Route:** `ExternalUserController::resetPassword($token)` — no dedicated friendly route; accessed via the link in the email `/external-user/reset-password/{token}` (CakePHP default)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 

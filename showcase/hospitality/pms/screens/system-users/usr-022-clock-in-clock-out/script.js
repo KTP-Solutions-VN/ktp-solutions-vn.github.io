@@ -7,7 +7,7 @@
   setInterval(tick, 1000);
 
   setTimeout(function () {
-    document.getElementById('location-text').textContent = 'I am at Phuket Collection Office';
+    document.getElementById('location-text').textContent = 'I am at Sentosa Collection Office';
   }, 800);
 
   document.getElementById('start-btn').addEventListener('click', function () {

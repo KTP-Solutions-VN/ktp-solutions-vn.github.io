@@ -1,8 +1,8 @@
-# PROP-023 — Edit Property Service Payment Record (Payment Record Edit)
+# PROP-023 — Edit Service Fee Entry
 
 **Type:** Full page
 **Route:** property/payment-record-edit/:villa_id/:payment_id (both parameters passed base64-encoded)
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Form for editing an existing service payment record (Villa Payment Record) for a property — including service type, amount, applicable period, payer, and attached documentation.

@@ -1,10 +1,10 @@
-# OWN-004 — Villa Status by Owner
+# OWN-004 — Owner Property Status
 
 **Type:** Full page
 
 **Route:** `/Owner/status/{tab}` (controller `Owner`, action `status($tab)`)
 
-**Module:** Owner Management (Admin)
+**Module:** Owner Relations (Admin)
 
 ## Overview
 
@@ -43,7 +43,7 @@ A screen consolidating the operational status of a villa from the owner's perspe
 
 ## Navigation
 
-- Entered from: main menu (sidebar) item related to Owner/Status, or internal navigation carrying `bu_id`/`villa_id` in the query string.
+- Entered from: main menu (sidebar) item related to Owner Property Status, or internal navigation carrying `bu_id`/`villa_id` in the query string.
 - Navigates to:
-  - OWN-004-P1 — View Garden Service Details (Garden tab)
-  - OWN-004-P2 — View Expense Claim Details (Receipts tab)
+  - OWN-004-P1 — Garden Visit Detail (Garden tab)
+  - OWN-004-P2 — Owner Expense Detail (Receipts tab)

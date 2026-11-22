@@ -1,10 +1,10 @@
-# OWN-016 — Owner Login Log
+# OWN-016 — Owner Access History
 
 **Type:** Full page
 
 **Route:** `/Owner/loginLog` (controller `Owner`, action `loginLog()`)
 
-**Module:** Owner Management (Admin)
+**Module:** Owner Relations (Admin)
 
 ## Overview
 
@@ -33,5 +33,5 @@ A screen for tracking owners' login history into the Owner's Portal, broken down
 
 ## Navigation
 
-- Opened from: OWN-001 ("Login Log" button).
+- Opened from: OWN-001 ("Access History" button).
 - Does not navigate to another page — login history details are viewed directly via a drawer on the same page, with no separate URL.

@@ -1,10 +1,10 @@
-# BU-009-P2 — Popup Xác nhận xóa nền tảng chat
+# BU-009-P2 — Xác nhận xóa ứng dụng (Confirm App Deletion)
 
 **Loại:** Popup (mở từ BU-009)
 
 **Route:** Modal Bootstrap (`#exampleModal`, chế độ ẩn phần form) tĩnh trong `chat_platform.ctp`; submit POST cùng action `BusinessUnitController::chatPlatform()` với `action=delete`.
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Popup xác nhận trước khi xóa vĩnh viễn một nền tảng chat.

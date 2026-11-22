@@ -1,10 +1,10 @@
-# NOT-004 — Help Other User
+# NOT-004 — Cover for Colleague
 
 **Type:** Full page
 
 **Route:** `NoticeController::helpOtheruser($id)` — default `/notice/help-otheruser/:id`
 
-**Module:** Notices
+**Module:** Announcements
 
 ## Overview
 Allows the recipient of a task to forward/request another staff member to jointly assist in handling that task (adds a new `NoticeBoardDetail` associated with the same `NoticeBoard`).
@@ -23,5 +23,5 @@ Allows the recipient of a task to forward/request another staff member to jointl
 - **Cancel:** returns to NOT-002.
 
 ## Navigation
-- Opened from: NOT-003 (Notice Detail) — the "Get Help" link (currently commented out in the code; accessible only via a direct route).
-- After sending/canceling: redirects to NOT-002 (Notice List).
+- Opened from: NOT-003 (Announcement View) — the "Get Help" link (currently commented out in the code; accessible only via a direct route).
+- After sending/canceling: redirects to NOT-002 (Announcements & Tasks).

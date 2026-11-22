@@ -9,7 +9,7 @@
    writes through TRN.getTutorials()/TRN.saveTutorials() so edits made on
    one screen (e.g. adding a slide on TRN-003) are visible everywhere else
    in the demo session. The "current user" for My Record / reading sessions
-   is Somchai Anuwat, matching the shell's topbar identity.
+   is Daniel Tan, matching the shell's topbar identity.
    ========================================================================== */
 
 (function () {
@@ -20,7 +20,7 @@
 
   function clone(obj) { return JSON.parse(JSON.stringify(obj)); }
 
-  TRN.CURRENT_USER = 'Somchai Anuwat';
+  TRN.CURRENT_USER = 'Daniel Tan';
   TRN.CURRENT_USER_ID = 'STF-01';
 
   TRN.BUSINESS_UNITS = Array.from(new Set((window.MM.MOCK_PROPERTIES || []).map(function (p) { return p.bu; })));
@@ -36,7 +36,7 @@
     {
       id: 'TUT-101',
       title: 'Villa Turnover Cleaning Standards',
-      businessUnit: 'Phuket Collection',
+      businessUnit: 'Sentosa Collection',
       accessLevel: 'staff',
       roles: ['Housekeeping'],
       image: null,
@@ -46,10 +46,10 @@
       isReadyRelease: true,
       releaseDate: '2026-06-01',
       status: 'active',
-      createdBy: 'Kanya Srisawat',
+      createdBy: 'Karen Seah',
       createdAt: '2026-05-20 09:12',
       slides: [
-        { id: 'SLD-1', title: 'Welcome & Purpose', mediaType: 'image', text: 'This tutorial covers the standard turnover cleaning checklist used across every Phuket Collection villa between guest stays.', isQuizPage: false },
+        { id: 'SLD-1', title: 'Welcome & Purpose', mediaType: 'image', text: 'This tutorial covers the standard turnover cleaning checklist used across every Sentosa Collection villa between guest stays.', isQuizPage: false },
         { id: 'SLD-2', title: 'Bathroom Standards', mediaType: 'image', text: 'All bathrooms must be sanitized, mirrors streak-free, and fresh linen placed on every rail before check-in.', isQuizPage: false },
         { id: 'SLD-3', title: 'Bedroom & Linen', mediaType: 'image', text: 'Beds are made with fresh linen, no dust on surfaces, and welcome amenities placed per the villa\'s service tier.', isQuizPage: true, question: 'How often should bed linen be replaced between guest stays?', option1: 'Every stay', option2: 'Every 3 stays', option3: 'Only if visibly soiled', correctAnswer: '1', points: 10, explanation: 'Linen is replaced for every new guest stay regardless of visible condition.' },
         { id: 'SLD-4', title: 'The End', mediaType: 'image', text: 'You have completed the Villa Turnover Cleaning Standards tutorial.', isQuizPage: false }
@@ -58,7 +58,7 @@
     {
       id: 'TUT-102',
       title: 'Pool Chemical Safety Procedures',
-      businessUnit: 'Bali Retreats',
+      businessUnit: 'Byron Bay Retreats',
       accessLevel: 'staff',
       roles: ['Maintenance Technician'],
       image: null,
@@ -68,7 +68,7 @@
       isReadyRelease: true,
       releaseDate: '2026-04-15',
       status: 'active',
-      createdBy: 'Wayan Kertha',
+      createdBy: 'Warren Kelly',
       createdAt: '2026-04-02 14:30',
       slides: [
         { id: 'SLD-1', title: 'Chemical Storage', mediaType: 'image', text: 'Pool chemicals must be stored in a ventilated, locked area away from direct sunlight and separated by type.', isQuizPage: false },
@@ -79,7 +79,7 @@
     {
       id: 'TUT-103',
       title: 'Guest Concierge Service Standards',
-      businessUnit: 'Phuket Collection',
+      businessUnit: 'Sentosa Collection',
       accessLevel: 'manager',
       roles: ['Concierge', 'Business Unit Manager'],
       image: null,
@@ -89,7 +89,7 @@
       isReadyRelease: true,
       releaseDate: '2026-03-10',
       status: 'active',
-      createdBy: 'Somchai Anuwat',
+      createdBy: 'Daniel Tan',
       createdAt: '2026-02-28 11:00',
       slides: [
         { id: 'SLD-1', title: 'Greeting Guests on Arrival', mediaType: 'image', text: 'Concierge staff greet every guest by name within 2 minutes of arrival, offering a welcome drink and villa orientation.', isQuizPage: false },
@@ -100,7 +100,7 @@
     {
       id: 'TUT-104',
       title: 'Emergency Evacuation Procedures',
-      businessUnit: 'Koh Samui Estates',
+      businessUnit: 'Noosa Estates',
       accessLevel: 'admin',
       roles: ['Concierge', 'Housekeeping', 'Maintenance Technician', 'Team Leader', 'Business Unit Manager', 'Front Office'],
       image: null,
@@ -110,7 +110,7 @@
       isReadyRelease: true,
       releaseDate: '2026-01-05',
       status: 'active',
-      createdBy: 'Nok Pattaya',
+      createdBy: 'Nicole Parker',
       createdAt: '2025-12-20 10:00',
       slides: [
         { id: 'SLD-1', title: 'Evacuation Routes', mediaType: 'image', text: 'Every villa has two marked evacuation routes — review the site map posted at the staff entrance.', isQuizPage: false },
@@ -121,7 +121,7 @@
     {
       id: 'TUT-105',
       title: 'New Booking System Walkthrough',
-      businessUnit: 'Bali Retreats',
+      businessUnit: 'Byron Bay Retreats',
       accessLevel: 'staff',
       roles: ['Front Office'],
       image: null,
@@ -131,7 +131,7 @@
       isReadyRelease: false,
       releaseDate: null,
       status: 'inactive',
-      createdBy: 'Wayan Kertha',
+      createdBy: 'Warren Kelly',
       createdAt: '2026-08-18 16:45',
       slides: [
         { id: 'SLD-1', title: 'Draft — Booking Screen Overview', mediaType: 'image', text: 'Draft content, still being written. Do not release yet.', isQuizPage: false }
@@ -140,7 +140,7 @@
     {
       id: 'TUT-106',
       title: 'Fire Safety & First Aid',
-      businessUnit: 'Phuket Collection',
+      businessUnit: 'Sentosa Collection',
       accessLevel: 'manager',
       roles: ['Team Leader'],
       image: null,
@@ -150,7 +150,7 @@
       isReadyRelease: true,
       releaseDate: '2026-02-01',
       status: 'active',
-      createdBy: 'Somchai Anuwat',
+      createdBy: 'Daniel Tan',
       createdAt: '2026-01-20 09:00',
       slides: [
         { id: 'SLD-1', title: 'Fire Extinguisher Types', mediaType: 'image', text: 'Know the difference between CO2, foam, and dry powder extinguishers and when to use each.', isQuizPage: true, question: 'Which extinguisher type is safe for electrical fires?', option1: 'CO2', option2: 'Water', option3: 'Foam', correctAnswer: '1', points: 10, explanation: 'CO2 extinguishers do not conduct electricity, making them safe for electrical fires.' },
@@ -161,7 +161,7 @@
     {
       id: 'TUT-107',
       title: 'Garden & Landscaping Basics',
-      businessUnit: 'Koh Samui Estates',
+      businessUnit: 'Noosa Estates',
       accessLevel: 'staff',
       roles: ['Housekeeping', 'Maintenance Technician'],
       image: null,
@@ -171,10 +171,10 @@
       isReadyRelease: true,
       releaseDate: '2025-11-01',
       status: 'active',
-      createdBy: 'Nok Pattaya',
+      createdBy: 'Nicole Parker',
       createdAt: '2025-10-25 13:20',
       slides: [
-        { id: 'SLD-1', title: 'Lawn Care Schedule', mediaType: 'image', text: 'Lawns are mowed weekly and hedges trimmed on a 2-week cycle across all Koh Samui Estates properties.', isQuizPage: false },
+        { id: 'SLD-1', title: 'Lawn Care Schedule', mediaType: 'image', text: 'Lawns are mowed weekly and hedges trimmed on a 2-week cycle across all Noosa Estates properties.', isQuizPage: false },
         { id: 'SLD-2', title: 'The End', mediaType: 'image', text: 'You have completed the Garden & Landscaping Basics tutorial.', isQuizPage: false }
       ]
     }
@@ -183,14 +183,14 @@
   /* User training / reading records — drives TRN-008 (My Record) and the
      "already read" state on TRN-007 (Library). Keyed by staff + tutorial. */
   TRN.BASE_RECORDS = [
-    { id: 'UTR-1', staffId: 'STF-01', staffName: 'Somchai Anuwat', tutorialId: 'TUT-101', viewCount: 2, lastReadDate: '2026-07-10', isCompleteRead: true },
-    { id: 'UTR-2', staffId: 'STF-01', staffName: 'Somchai Anuwat', tutorialId: 'TUT-103', viewCount: 1, lastReadDate: '2026-03-15', isCompleteRead: true },
-    { id: 'UTR-3', staffId: 'STF-01', staffName: 'Somchai Anuwat', tutorialId: 'TUT-104', viewCount: 1, lastReadDate: '2026-01-12', isCompleteRead: true },
-    { id: 'UTR-4', staffId: 'STF-01', staffName: 'Somchai Anuwat', tutorialId: 'TUT-106', viewCount: 3, lastReadDate: '2026-08-05', isCompleteRead: true },
-    { id: 'UTR-5', staffId: 'STF-02', staffName: 'Wayan Kertha', tutorialId: 'TUT-102', viewCount: 1, lastReadDate: '2026-04-20', isCompleteRead: true },
-    { id: 'UTR-6', staffId: 'STF-04', staffName: 'Kanya Srisawat', tutorialId: 'TUT-101', viewCount: 4, lastReadDate: '2026-08-22', isCompleteRead: true },
-    { id: 'UTR-7', staffId: 'STF-05', staffName: 'Budi Santoso', tutorialId: 'TUT-102', viewCount: 1, lastReadDate: '2026-05-01', isCompleteRead: true },
-    { id: 'UTR-8', staffId: 'STF-03', staffName: 'Nok Pattaya', tutorialId: 'TUT-104', viewCount: 2, lastReadDate: '2026-02-14', isCompleteRead: true }
+    { id: 'UTR-1', staffId: 'STF-01', staffName: 'Daniel Tan', tutorialId: 'TUT-101', viewCount: 2, lastReadDate: '2026-07-10', isCompleteRead: true },
+    { id: 'UTR-2', staffId: 'STF-01', staffName: 'Daniel Tan', tutorialId: 'TUT-103', viewCount: 1, lastReadDate: '2026-03-15', isCompleteRead: true },
+    { id: 'UTR-3', staffId: 'STF-01', staffName: 'Daniel Tan', tutorialId: 'TUT-104', viewCount: 1, lastReadDate: '2026-01-12', isCompleteRead: true },
+    { id: 'UTR-4', staffId: 'STF-01', staffName: 'Daniel Tan', tutorialId: 'TUT-106', viewCount: 3, lastReadDate: '2026-08-05', isCompleteRead: true },
+    { id: 'UTR-5', staffId: 'STF-02', staffName: 'Warren Kelly', tutorialId: 'TUT-102', viewCount: 1, lastReadDate: '2026-04-20', isCompleteRead: true },
+    { id: 'UTR-6', staffId: 'STF-04', staffName: 'Karen Seah', tutorialId: 'TUT-101', viewCount: 4, lastReadDate: '2026-08-22', isCompleteRead: true },
+    { id: 'UTR-7', staffId: 'STF-05', staffName: 'Ben Sullivan', tutorialId: 'TUT-102', viewCount: 1, lastReadDate: '2026-05-01', isCompleteRead: true },
+    { id: 'UTR-8', staffId: 'STF-03', staffName: 'Nicole Parker', tutorialId: 'TUT-104', viewCount: 2, lastReadDate: '2026-02-14', isCompleteRead: true }
   ];
 
   /* ---------------------------------------------------------------- */

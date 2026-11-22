@@ -5,20 +5,20 @@
   /* Electricity ledger: one entry per guest check-out collection ("checkout")
      or provider invoice payment ("bill"), across a handful of villas. */
   var LEDGER = [
-    { villa: 'PV-101', date: '2026-08-05', type: 'checkout', amount: 2200 },
-    { villa: 'PV-101', date: '2026-08-12', type: 'bill', amount: 1950 },
-    { villa: 'PV-101', date: '2026-08-20', type: 'checkout', amount: 2400 },
-    { villa: 'PV-101', date: '2026-08-27', type: 'checkout', amount: 2635 },
-    { villa: 'PV-102', date: '2026-08-06', type: 'checkout', amount: 2080 },
-    { villa: 'PV-102', date: '2026-08-15', type: 'bill', amount: 1800 },
-    { villa: 'PV-103', date: '2026-08-08', type: 'checkout', amount: 1900 },
-    { villa: 'PV-103', date: '2026-08-17', type: 'checkout', amount: 2024 },
-    { villa: 'PV-103', date: '2026-08-22', type: 'bill', amount: 2100 },
-    { villa: 'PV-105', date: '2026-08-10', type: 'checkout', amount: 1600 },
-    { villa: 'PV-106', date: '2026-07-30', type: 'checkout', amount: 1450 },
-    { villa: 'PV-106', date: '2026-08-11', type: 'bill', amount: 1300 },
-    { villa: 'PV-108', date: '2026-08-02', type: 'checkout', amount: 3100 },
-    { villa: 'PV-108', date: '2026-08-24', type: 'checkout', amount: 2900 }
+    { villa: 'PV-101', date: '2026-08-05', type: 'checkout', amount: 88 },
+    { villa: 'PV-101', date: '2026-08-12', type: 'bill', amount: 78 },
+    { villa: 'PV-101', date: '2026-08-20', type: 'checkout', amount: 96 },
+    { villa: 'PV-101', date: '2026-08-27', type: 'checkout', amount: 105 },
+    { villa: 'PV-102', date: '2026-08-06', type: 'checkout', amount: 83 },
+    { villa: 'PV-102', date: '2026-08-15', type: 'bill', amount: 72 },
+    { villa: 'PV-103', date: '2026-08-08', type: 'checkout', amount: 83 },
+    { villa: 'PV-103', date: '2026-08-17', type: 'checkout', amount: 88 },
+    { villa: 'PV-103', date: '2026-08-22', type: 'bill', amount: 91 },
+    { villa: 'PV-105', date: '2026-08-10', type: 'checkout', amount: 64 },
+    { villa: 'PV-106', date: '2026-07-30', type: 'checkout', amount: 63 },
+    { villa: 'PV-106', date: '2026-08-11', type: 'bill', amount: 57 },
+    { villa: 'PV-108', date: '2026-08-02', type: 'checkout', amount: 135 },
+    { villa: 'PV-108', date: '2026-08-24', type: 'checkout', amount: 126 }
   ];
 
   /* Villas with at least one payment-missing incident, for the warning column. */
@@ -100,9 +100,9 @@
     var totalReceived = villaIds.reduce(function (s, id) { return s + byVilla[id].received; }, 0);
     var totalPaid = villaIds.reduce(function (s, id) { return s + byVilla[id].paid; }, 0);
     document.getElementById('summary-kpis').innerHTML =
-      '<div class="stat-card success"><div class="stat-card__label">Total Received</div><div class="stat-card__value">' + VSV.fmtMoney(totalReceived, 'THB') + '</div></div>' +
-      '<div class="stat-card warning"><div class="stat-card__label">Total Paid to Providers</div><div class="stat-card__value">' + VSV.fmtMoney(totalPaid, 'THB') + '</div></div>' +
-      '<div class="stat-card accent"><div class="stat-card__label">Net Profit</div><div class="stat-card__value">' + VSV.fmtMoney(totalReceived - totalPaid, 'THB') + '</div></div>' +
+      '<div class="stat-card success"><div class="stat-card__label">Total Received</div><div class="stat-card__value">' + VSV.fmtMoney(totalReceived, 'SGD') + '</div></div>' +
+      '<div class="stat-card warning"><div class="stat-card__label">Total Paid to Providers</div><div class="stat-card__value">' + VSV.fmtMoney(totalPaid, 'SGD') + '</div></div>' +
+      '<div class="stat-card accent"><div class="stat-card__label">Net Profit</div><div class="stat-card__value">' + VSV.fmtMoney(totalReceived - totalPaid, 'SGD') + '</div></div>' +
       '<div class="stat-card"><div class="stat-card__label">Villas With Missing Payments</div><div class="stat-card__value">' + Object.keys(PAYMENT_MISSING).length + '</div></div>';
   }
 

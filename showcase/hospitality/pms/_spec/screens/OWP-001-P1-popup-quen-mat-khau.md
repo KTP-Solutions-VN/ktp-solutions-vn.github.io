@@ -1,10 +1,10 @@
-# OWP-001-P1 — Popup Quên mật khẩu
+# OWP-001-P1 — Khôi phục mật khẩu (Password Recovery)
 
 **Loại:** Popup (mở từ OWP-001)
 
 **Route:** `ExternalUserController::forgotPassword()` — không có route đẹp riêng, không có view riêng (autoRender = false), giao diện popup nằm ngay trong `index.ctp` (div `#recoverform`), submit AJAX/POST tới action `forgotPassword`
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 
@@ -24,4 +24,4 @@ Popup cho phép người dùng nhập email để nhận liên kết đặt lạ
 ## Điều hướng
 
 - Sau khi submit → quay lại OWP-001 (redirect referer) kèm thông báo
-- Email nhận được chứa link → OWP-003 Đặt lại mật khẩu
+- Email nhận được chứa link → OWP-003 Mật khẩu mới

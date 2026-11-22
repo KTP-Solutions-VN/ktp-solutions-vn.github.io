@@ -1,10 +1,10 @@
-# LOG-003 — System Settings
+# LOG-003 — Site & SEO Settings
 
 **Type:** Full page
 
 **Route:** `LoginController::settings()` — default `login/settings`
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 A configuration form for general website/system information (site title, SEO description/keywords, admin email, outgoing email, etc.), sourced from the `Setting` table (id=1). This action is shared with USR-003 (both use the `settings()` method inherited from `LoginController`, differing only in theme/access route); however, when accessed via `/login/settings`, it renders the Login module's own template.

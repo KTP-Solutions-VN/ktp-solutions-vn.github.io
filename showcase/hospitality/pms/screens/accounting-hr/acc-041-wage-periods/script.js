@@ -1,7 +1,7 @@
 (function () {
   'use strict';
   ACC.wireCrudScreen({
-    storageKey: 'mm_acc_wage_periods', baseData: MM.ACC.WAGE_PERIODS, entityLabel: 'wage period', entityTitle: 'Wage Period', nameField: 'name', colCount: 3,
+    storageKey: 'mm_acc_wage_periods', baseData: MM.ACC.WAGE_PERIODS, entityLabel: 'pay period', entityTitle: 'Pay Period', nameField: 'name', colCount: 3,
     fields: [{ id: 'f-name', key: 'name' }, { id: 'f-sub', key: 'status' }],
     rowHtml: function (w) {
       return '<tr><td class="cell-strong">' + w.name + '</td><td><span class="badge ' + (w.status === 'Open' ? 'badge-success' : 'badge-neutral') + '">' + w.status + '</span></td>' +

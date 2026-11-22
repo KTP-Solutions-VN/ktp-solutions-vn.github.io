@@ -73,12 +73,12 @@
   }
 
   function renderServiceSummary(p) {
-    var poolVendor = (p.bu === 'Bali Retreats') ? 'Bali Bloom Gardens' : 'Andaman Pool Services';
+    var poolVendor = (p.bu === 'Byron Bay Retreats') ? 'Byron Bloom Gardens' : 'Coral Pool Services';
     var rows = [
       ['Concierge', p.concierge || 'Unassigned'],
       ['Common Area', 'In-house housekeeping team'],
       ['Electricity', 'Metered — municipal grid'],
-      ['Cleaning', 'Siam Linen Supply'],
+      ['Cleaning', 'Straits Linen Supply'],
       ['Water', 'Municipal supply'],
       ['Internet', 'Fibre, 500 Mbps'],
       ['Television', 'Cable + streaming bundle'],
@@ -205,7 +205,7 @@
       otaLinks = details.ota || [];
       docs = details.documents || [];
     } else {
-      renderServiceSummary({ concierge: null, bu: 'Phuket Collection' });
+      renderServiceSummary({ concierge: null, bu: 'Sentosa Collection' });
       document.getElementById('service-settings-link').href = '../prop-049-property-service-utility-settings/index.html';
     }
     renderOtaTable();

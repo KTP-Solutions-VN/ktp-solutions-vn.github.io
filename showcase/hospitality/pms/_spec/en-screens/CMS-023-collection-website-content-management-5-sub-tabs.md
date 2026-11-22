@@ -1,10 +1,10 @@
-# CMS-023 — Collection Website Content Management (5 sub-tabs)
+# CMS-023 — Themed Site Content
 
 **Type:** Full page
 
 **Route:** `CmsController::collectionTabs($tab, $id)` — default `/cms/collection-tabs/:tab/:id`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 Screen for managing all detailed content of **a single** "collection website" (a website aggregating multiple villas by region, used to present a villa collection to guests). The interface is tab-based, consisting of 5 sub-tabs: **I Wish**, **Properties**, **Insights**, **Id Card**, **Footer**. `$id` is the id of the `GuestCollectionWebsite` record (selected from CMS-021); `$tab` determines the active tab in the URL (default `i-wish` when empty). When `$id` is not yet present (no website selected/created), the 4 tabs Properties/Insights/Id Card/Footer are locked (`disabled` class), and only the I Wish tab is operable.
@@ -13,7 +13,7 @@ Tab switching is handled by JS (changing the URL via `history.replaceState`, not
 
 ## Detailed Description
 
-### Tab: I Wish (`tab=i-wish`, default)
+### Tab: Wishlist (`tab=i-wish`, default)
 List of all "I Wish" categories (guest needs/preferences, e.g. Beach, Golf, Spa...) sourced from the shared master category `GuestCollectionIwish`, allowing each category to be toggled on/off for the current collection website.
 
 | # | Column Name | Field Code | Notes |
@@ -37,7 +37,7 @@ Data is stored in `GuestProperty.data` (PHP serialize), structured as `data[gues
 
 Related models: `GuestProperty` (guest_collection_website_id, data), `District` (contains `Country`), `Villa` (contains `Owner`, `VillaLocation`), `GuestCollectionIwish`/`GuestIwish` (to determine which I Wish categories are "on" for this website — reusing the result from the I Wish tab).
 
-### Tab: Insights (`tab=insights`, usable only once `$id` exists)
+### Tab: Journal (`tab=insights`, usable only once `$id` exists)
 List of "Insights" (articles/suggested information for guests) attached to the collection website, where each row can be assigned to one Insight type from a shared category.
 
 | # | Column Name | Field Code | Type | Notes |
@@ -101,11 +101,11 @@ Related models: `GuestFooter` (id, guest_collection_website_id, websites, book_w
 
 ## Functions / Actions
 - **Switch tab (nav-link):** changes the URL via JS, no reload (except the Properties tab, which triggers `location.reload()`).
-- **I Wish tab — toggle icon:** enables/disables directly, calling AJAX `POST /VM/cms/addIwish` (action `addIwish()`, no clean route, no dedicated page). Payload: `collection_id`, `wish_id`, `status` (`On`/`Off`). `status=On` → creates/updates a `GuestIwish` record; `status=Off` → confirms via `confirm()` then deletes (`deleteAll`) the corresponding `GuestIwish` record. Returns JSON `{response, message}`, updating the `#message-board` notification block via JS, no page reload.
+- **Wishlist tab — toggle icon:** enables/disables directly, calling AJAX `POST /VM/cms/addIwish` (action `addIwish()`, no clean route, no dedicated page). Payload: `collection_id`, `wish_id`, `status` (`On`/`Off`). `status=On` → creates/updates a `GuestIwish` record; `status=Off` → confirms via `confirm()` then deletes (`deleteAll`) the corresponding `GuestIwish` record. Returns JSON `{response, message}`, updating the `#message-board` notification block via JS, no page reload.
 - **Properties tab — Save (`property_form`):** saves the villa/region/I Wish matrix to `GuestProperty`; if no I Wish is checked, shows the error "Please select the desired I Wish corrosponding to property." Reset returns the form to default values (client-side).
-- **Insights tab — Add New (modal):** submits `action=insight_new_form` → creates a new `GuestInsight`.
-- **Insights tab — changing the per-row Insight dropdown:** calls AJAX `POST /VM/cms/updateInsightAjax` (action `updateInsightAjax()`, no clean route) immediately on `change`, payload `guest_insight_id`, `value` → instantly updates `GuestInsight.guest_collection_insight_id`, no Save/redirect needed.
-- **Insights tab — Delete (confirmation modal):** submits `collection_insight_delete=delete` + `collection_insight_id` → deletes the `GuestInsight`.
+- **Journal tab — Add New (modal):** submits `action=insight_new_form` → creates a new `GuestInsight`.
+- **Journal tab — changing the per-row Insight dropdown:** calls AJAX `POST /VM/cms/updateInsightAjax` (action `updateInsightAjax()`, no clean route) immediately on `change`, payload `guest_insight_id`, `value` → instantly updates `GuestInsight.guest_collection_insight_id`, no Save/redirect needed.
+- **Journal tab — Delete (confirmation modal):** submits `collection_insight_delete=delete` + `collection_insight_id` → deletes the `GuestInsight`.
 - **Id Card tab — Save (`collection_id_card_form`):** saves/initializes `GuestIdCard`; images are only overwritten when a new file/cropped image is provided, otherwise the existing image is retained.
 - **Footer tab — Save (links) (`footer_form_1`):** saves the list of website links to `GuestFooter.websites`.
 - **Footer tab — Search (language filter):** reloads the content of the 5 Form 2 dropdowns for the selected language (does not save data).
@@ -115,6 +115,6 @@ Related models: `GuestFooter` (id, guest_collection_website_id, websites, book_w
 Technical note: the `$villas` variable (full list of all villas) is passed to the view by the controller but is not found to be used in any of the 5 tab elements (`i_wish.ctp`, `properties.ctp`, `insights.ctp`, `id_card.ctp`, `footer.ctp`) — this may be a redundant/unused variable.
 
 ## Navigation
-- Accessed from: CMS-021 (Collection Website list — selecting a website to enter detailed content management); a JS breadcrumb on the page also includes a link back to CMS-021 (`controller=cms, action=collectionWebsites`, label "Collections Website").
+- Accessed from: CMS-021 (Themed Sites — selecting a website to enter detailed content management); a JS breadcrumb on the page also includes a link back to CMS-021 (`controller=cms, action=collectionWebsites`, label "Themed Sites").
 - Navigates to: all internal popups (Add Insight, Delete Insight) remain on the same page, with no navigation to another URL. After saving each tab (except Footer form 2), the page redirects back to itself (`collectionTabs/<tab>/<id>`) to display the flash message.
 - Related (not covered in depth here, handled by a colleague): CMS-022 (`collectionWebsiteEdit` — edits the website's basic information, separate from this screen); the source categories for the I Wish/Insights tabs are managed in CMS-028/CMS-029 (`iWish`/`iWishEdit`) and CMS-026/CMS-027 (`insights`/`insightsEdit`); the text categories used for the Footer tab are managed in CMS-024 (`collectionCommonText`) and CMS-025 (`editCollectionCommonText`).

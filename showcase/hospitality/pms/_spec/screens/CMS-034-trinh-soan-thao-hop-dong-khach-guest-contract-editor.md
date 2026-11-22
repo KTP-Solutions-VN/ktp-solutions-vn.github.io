@@ -1,10 +1,10 @@
-# CMS-034 — Trình soạn thảo nội dung hợp đồng khách (Guest Contract Editor)
+# CMS-034 — Mẫu thỏa thuận (Agreement Templates)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::contracts()` — mặc định `/cms/contracts` (GET có thể kèm query `country_id`, `language_code`, `tab`, `section_key`, `payment_setting_type`, `general_version_id`; cùng route cũng nhận AJAX GET `?ajax_action=load` và AJAX/POST submit form)
 
-**Module:** CMS = Nội dung trang chủ
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Màn hình quản trị soạn thảo **nội dung/điều khoản hợp đồng khách (Guest Contract)** dùng chung cho toàn hệ thống, được cấu hình theo từng cặp **Country (quốc gia)** và **Language (ngôn ngữ)**. Nội dung soạn ở đây là các đoạn văn bản mẫu (rich text, có thể chèn biến động `{property.xxx}`, `{booking.xxx}`) sẽ được ghép vào hợp đồng khách thực tế của villa khi phát hành. Màn hình có **3 khối nội dung chính (tab)**: General (nội dung chung theo từng "phiên bản"/property type), Section (các đoạn điều khoản: check-in/checkout, deposit, pool cleaning), và Electricity (điều khoản tiền điện theo từng kiểu thanh toán). Truy cập được kiểm soát bởi permission key `Cms-contracts`; nếu không đủ quyền, hệ thống hiển thị Flash cảnh báo và redirect về trang trước (hoặc trả JSON lỗi nếu gọi qua AJAX).
@@ -157,5 +157,5 @@ Model dữ liệu: `GuestContractElectricityTemplate` — 1 bản ghi ứng vớ
 **Cơ chế đa ngôn ngữ:** lưu trữ theo dạng **1 bản ghi riêng cho mỗi cặp (đối tượng nội dung, ngôn ngữ)** — không serialize gộp nhiều ngôn ngữ trong 1 cột. Cụ thể: General → mỗi (version, language_code) là 1 dòng trong `GuestContractGeneralVersionContent`; Section → mỗi (country_id, section_key, language_code) là 1 dòng trong `GuestContractSectionTemplate`; Electricity → mỗi (country_id, payment_setting_type, language_code) là 1 dòng trong `GuestContractElectricityTemplate`. Toàn bộ nội dung luôn gắn với 1 `country_id` cụ thể — không có khái niệm nội dung "toàn cầu" dùng chung nhiều quốc gia.
 
 ## Điều hướng
-- Vào từ: menu chính (Settings/CMS, `active_menu = 184`), yêu cầu permission key `Cms-contracts`.
+- Vào từ: menu chính (Web Publishing, `active_menu = 184`), yêu cầu permission key `Cms-contracts`.
 - Điều hướng đến: không có (đây là action độc lập, tự quản lý toàn bộ 3 tab bằng AJAX tại chỗ; không mở popup hay điều hướng sang action con nào khác trong `CmsController`).

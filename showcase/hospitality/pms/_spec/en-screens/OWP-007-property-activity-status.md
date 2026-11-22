@@ -1,10 +1,10 @@
-# OWP-007 — Property Activity Status
+# OWP-007 — Activity Tracker
 
 **Type:** Full page
 
 **Route:** `ExternalUserController::status($tab, $villa_id)` — no dedicated friendly route, opened from OWP-005 ("View Activity" icon), of the form `.../status/rental/{villa_id_base64}`
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 

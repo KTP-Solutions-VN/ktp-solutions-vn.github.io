@@ -1,10 +1,10 @@
-# CMS-011 — Edit Partner Logo
+# CMS-011 — Edit Partner Badge
 
 **Type:** Full page
 
 **Route:** `CmsController::logoEdit($id)` — default `/cms/logo-edit/:id`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 Form for editing an existing partner logo. Requires a valid `id` (if `id` is empty, the action does not process the form / does not set any data).

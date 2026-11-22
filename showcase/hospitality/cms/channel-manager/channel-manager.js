@@ -6,13 +6,13 @@
   'use strict';
 
   var PROPERTIES = [
-    'Villa Andaman Breeze', 'Aegean Sunset Villa', 'Sunset Cove Bungalow',
+    'Villa Ocean Breeze', 'Aegean Sunset Villa', 'Sunset Cove Bungalow',
     'Palm Grove Residence', 'Caribbean Blue Villa', 'Sunshine Coast Bungalow'
   ];
 
   var CONNECTIONS = [
-    { channel: 'Booking.com', property: 'Villa Andaman Breeze', provider: 'beds24', status: 'connected', lastSync: '2 min ago' },
-    { channel: 'Airbnb', property: 'Villa Andaman Breeze', provider: 'channex', status: 'connected', lastSync: '5 min ago' },
+    { channel: 'Booking.com', property: 'Villa Ocean Breeze', provider: 'beds24', status: 'connected', lastSync: '2 min ago' },
+    { channel: 'Airbnb', property: 'Villa Ocean Breeze', provider: 'channex', status: 'connected', lastSync: '5 min ago' },
     { channel: 'Agoda', property: 'Aegean Sunset Villa', provider: 'channex', status: 'connected', lastSync: '11 min ago' },
     { channel: 'Booking.com', property: 'Aegean Sunset Villa', provider: 'beds24', status: 'connected', lastSync: '4 min ago' },
     { channel: 'Expedia', property: 'Palm Grove Residence', provider: 'beds24', status: 'connected', lastSync: '18 min ago' },

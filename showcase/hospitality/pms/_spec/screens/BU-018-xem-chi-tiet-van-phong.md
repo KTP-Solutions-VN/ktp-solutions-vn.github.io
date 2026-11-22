@@ -1,10 +1,10 @@
-# BU-018 — Xem chi tiết văn phòng
+# BU-018 — Hồ sơ văn phòng (Office Profile)
 
 **Loại:** Trang đầy đủ (chỉ đọc)
 
 **Route:** `BusinessUnitController::viewOffice($id)` — mặc định `/business-unit/view-office/{id}` (id mã hoá base64)
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Trang xem chi tiết (read-only) thông tin một văn phòng: tên, Đơn vị kinh doanh, phòng ban, địa chỉ, tọa độ và ảnh.

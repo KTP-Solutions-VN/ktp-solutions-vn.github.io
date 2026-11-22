@@ -1,8 +1,8 @@
-# PROP-040 — Property Quality (Quality)
+# PROP-040 — Listing Quality
 
 **Type:** Full page
 **Route:** property/quality
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 A page for tracking listing quality and reviews of a property across OTA channels, along with Home Improvement quality tracking and the status of listing redo requests. Can be filtered by Business Unit/Entry Level (Property, Residence, Unit)/Property/OTA channel, logging score/comment entries per OTA, and creating To Do reminder tasks.
@@ -77,6 +77,6 @@ Displays the status/history of listing redo requests, and allows canceling a req
 - View the log (if any) of a Redo request (linked to PROP-031/redoLog).
 
 ## Navigation
-- Opened from: the Property/Quality menu (outside the scope of the current spec).
-- Navigates to: no navigation to other pages (all actions occur via in-place AJAX modals); data-related to PROP-031 (Request OTA Listing Redo).
+- Opened from: the Listing Quality menu (outside the scope of the current spec).
+- Navigates to: no navigation to other pages (all actions occur via in-place AJAX modals); data-related to PROP-031 (Listing Refresh Request).
 - Child popup: Add/Edit Listing-Review modal, Delete confirmation modal, Add To Do modal, "Be Redone" modal (not documented as separate codes, being in-place supplementary actions).

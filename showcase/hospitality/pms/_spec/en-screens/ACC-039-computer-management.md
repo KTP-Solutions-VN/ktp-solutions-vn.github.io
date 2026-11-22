@@ -1,10 +1,10 @@
-# ACC-039 — Computer Management (Computers)
+# ACC-039 — IT Equipment
 
 **Type:** Full page
 
 **Route:** `AccountController::computers()` — default `/account/computers`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 Manages the list of computers (company assets, `Vehicle` table with `assets_type = 'computer'`) by Business Unit: view the list, add, edit, and delete via an on-page modal.
@@ -42,5 +42,5 @@ Query conditions: `Vehicle.assets_type = 'computer'` and `Vehicle.business_unit_
 - When Business Unit is changed within the modal: AJAX `account/getBusinessUsers` reloads the employee list (Used By) for that BU.
 
 ## Navigation
-- Entered from: Sidebar > Account & HR > Computers (`active_menu = 'acc-computers'`).
+- Entered from: Sidebar > Finance & Admin > IT Equipment (`active_menu = 'acc-computers'`).
 - No navigation to other pages — all add/edit/delete actions are performed via modal on this same page.

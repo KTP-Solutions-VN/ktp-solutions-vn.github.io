@@ -1,8 +1,8 @@
-# VCS-003 — Property Types List (Property/Villa Type)
+# VCS-003 — Accommodation Types
 
 **Type:** Full page
 **Route:** villa-common-setting/villa-types (default DashedRoute: `/villa-common-setting/villa-types`)
-**Module:** VCS = Villa Common Settings
+**Module:** VCS = Property Attributes
 
 ## Overview
 Master data management screen for "Property Type" (Villa Type), where each type is associated with one Property Category (Flat/House/Resort, etc.). When a new Villa Type is added, the system automatically creates a default set of Photo Standard Areas for that type.
@@ -25,6 +25,6 @@ The list is sorted by `name`; no dedicated search/filter field.
 - Submitting the popup form sends a `POST` to the `villaTypes` action; saves/deletes records in the `VillaType` table, writes an Activity Log entry, displays a Flash message, and redirects back to the previous page.
 
 ## Navigation
-- Opened from: Settings menu > "Properties" (Villa Common Settings) > "Property Types" submenu.
+- Opened from: Portfolio Setup menu > "Property Attributes" > "Accommodation Types" submenu.
 - Navigates to: no navigation to another page.
-- Child popup: VCS-003-P1 (Add/Edit/Delete Property Type).
+- Child popup: VCS-003-P1 (Accommodation Type Form).

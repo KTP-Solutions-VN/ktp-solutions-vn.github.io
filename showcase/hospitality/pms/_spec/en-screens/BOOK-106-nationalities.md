@@ -1,4 +1,4 @@
-# BOOK-106 — Nationalities
+# BOOK-106 — Guest Origins
 
 **Type:** Full page
 
@@ -6,7 +6,7 @@
 
 **Friendly route:** no dedicated route found in config/Routes.php
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 
@@ -18,7 +18,7 @@ Manage "nationality groups" (mega-nationality groups) — grouping multiple gues
 
 | # | Field Label | Field Code | Data Type / Input | Required | Notes |
 |---|---|---|---|---|---|
-| 1 | Country | country_id (country_filter) | Select | No | Fixed list in the order Thailand, Greece, France; defaults to the user's country |
+| 1 | Country | country_id (country_filter) | Select | No | Fixed list in the order Singapore, Greece, France; defaults to the user's country |
 
 **Nationality Group List (cards):**
 

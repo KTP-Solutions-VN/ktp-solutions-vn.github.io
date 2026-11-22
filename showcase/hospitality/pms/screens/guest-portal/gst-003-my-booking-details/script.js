@@ -37,7 +37,7 @@
     if (ready) {
       iconWrap.style.background = 'var(--color-success-bg)';
       iconWrap.style.color = 'var(--color-success)';
-      copy.innerHTML = '<span class="badge badge-success" style="margin-bottom:8px;">Ready</span><br>Your times are confirmed — the Amenities &amp; Access Portal is unlocked.';
+      copy.innerHTML = '<span class="badge badge-success" style="margin-bottom:8px;">Ready</span><br>Your times are confirmed — Quick Links are now unlocked.';
       btn.disabled = false;
       btn.classList.add('access-portal-btn-ready');
     } else {

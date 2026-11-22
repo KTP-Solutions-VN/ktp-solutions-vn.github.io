@@ -1,10 +1,10 @@
-# VSV-017-P1 — View Garden Job Details (Garden Job View)
+# VSV-017-P1 — Garden Care Visit Detail
 
 **Type:** Popup (opened from VSV-017, as a dedicated page)
 
 **Route:** `VillaServicesController::gardenView($id)` — `/villa-services/garden-view/<garden_job_id>`
 
-**Module:** Villa Services — Garden
+**Module:** In-Stay Services — Garden Care
 
 ## Overview
 A read-only page displaying the details of a recorded garden visit: service, operator, timing, whether it was part of the plan, along with a set of before/after photos and descriptions.

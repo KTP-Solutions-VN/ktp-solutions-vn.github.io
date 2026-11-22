@@ -1,8 +1,8 @@
-# GST-004 — Amenities Access Portal
+# GST-004 — Quick Links
 
 **Type:** Full page
 **Route:** `Guest::accessPortal($booking_id = null)` — default `/guest/access-portal/:booking_id`; pretty route (DashedRoute fallback): `/guest/access-portal`
-**Module:** Guest Portal
+**Module:** Guest Hub
 
 ## Overview
 A central hub page containing 4 navigation icons leading to the amenity function groups available to guests currently in residence: My Booking, Restaurants, Activities, Landmarks. Unlocked once the guest has confirmed both arrival/departure times at GST-003, or the system forces a redirect here when the guest account has no valid booking (`total_booking == 0`, checked in `beforeFilter`).
@@ -24,8 +24,8 @@ If the `booking_id` passed in is invalid/no matching `Booking` is found, the sys
 - **Logout** icon → logs out, returns to GST-001.
 
 ## Navigation
-- → GST-002 (My Booking), or automatically when `booking_id` is invalid
-- → GST-008 (Restaurant List)
-- → GST-011 (Activities)
-- → GST-010 (Featured Landmarks)
+- → GST-002 (My Reservations), or automatically when `booking_id` is invalid
+- → GST-008 (Dining Nearby)
+- → GST-011 (Things to Do Nearby)
+- → GST-010 (Sights Nearby)
 - → GST-001 (logout)

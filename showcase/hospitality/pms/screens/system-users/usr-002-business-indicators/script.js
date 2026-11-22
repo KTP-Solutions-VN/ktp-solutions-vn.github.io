@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  var data = [{ label: 'Phuket Collection', value: 820000 }, { label: 'Bali Retreats', value: 640000 }, { label: 'Koh Samui Estates', value: 380000 }];
+  var data = [{ label: 'Sentosa Collection', value: 820000 }, { label: 'Byron Bay Retreats', value: 640000 }, { label: 'Noosa Estates', value: 380000 }];
   var svg = document.getElementById('bu-chart');
   var W = 560, H = 220, padL = 140, padR = 40, padT = 10, barH = 34, gap = 24;
   var max = Math.max.apply(null, data.map(function (d) { return d.value; })) * 1.1;

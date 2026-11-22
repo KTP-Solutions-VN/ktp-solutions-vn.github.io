@@ -1,8 +1,8 @@
-# BOOK-063 — Unlinked Bookings
+# BOOK-063 — Unsynced Reservations
 
 **Type:** Full page
 **Route:** Booking/unlinkedBookings (default: `/booking/unlinked-bookings`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 List of bookings that have not been marked as modified/synced by the channel manager (`Booking.is_channel_modify = 0`), used to review bookings with potential data discrepancies between the system and OTA channels.
@@ -28,4 +28,4 @@ List of bookings that have not been marked as modified/synced by the channel man
 - Filter by business unit; sort by value
 
 ## Navigation
-- Opened from: Booking module menu > Unlinked Bookings
+- Opened from: Reservations module menu > Unsynced Reservations

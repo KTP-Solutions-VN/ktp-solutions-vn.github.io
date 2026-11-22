@@ -1,8 +1,8 @@
-# REN-011 — Project Progress & Cost Report
+# REN-011 — Budget vs. Progress
 
 **Type:** Full page
 **Route:** renovation/report/:id + dashed-style route: renovation/report/:id (id passed as base64)
-**Module:** REN = Renovation
+**Module:** REN = Refurbishment
 
 ## Overview
 Read-only screen presenting a summary report comparing the plan versus actual figures for a renovation project across four criteria: start date, completion date, construction duration, and total cost, along with the variation between them.
@@ -21,5 +21,5 @@ Read-only screen presenting a summary report comparing the plan versus actual fi
 - View only; no editing actions are available on this screen.
 
 ## Navigation
-- Entered from: REN-003 — Renovation Project Follow-up.
+- Entered from: REN-003 — Project Timeline.
 - Leads to: no further navigation; return to REN-003 using the browser back button.

@@ -1,10 +1,10 @@
-# OWP-002 — Dashboard
+# OWP-002 — Overview
 
 **Type:** Full page
 
 **Route:** `ExternalUserController::dashboard()` — no dedicated friendly route (accessed via `/external-user/dashboard`, CakePHP default)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 

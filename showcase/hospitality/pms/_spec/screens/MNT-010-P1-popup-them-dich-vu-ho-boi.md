@@ -1,8 +1,8 @@
-# MNT-010-P1 — Thêm dịch vụ hồ bơi
+# MNT-010-P1 — Thêm loại dịch vụ hồ bơi (New Pool Service Type)
 
 **Loại:** Popup (mở từ MNT-010)
 **Route:** maintenance/addPoolServices
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Trang thêm mới một dịch vụ hồ bơi: tên, ảnh minh họa (crop 1:1), đơn vị kinh doanh áp dụng, trạng thái.
@@ -21,5 +21,5 @@ Trang thêm mới một dịch vụ hồ bơi: tên, ảnh minh họa (crop 1:1)
 - **Cancel**: quay về MNT-010.
 
 ## Điều hướng
-- Vào từ: nút "Add New" trên MNT-010 — Dịch vụ hồ bơi.
+- Vào từ: nút "Add New" trên MNT-010 — Loại dịch vụ hồ bơi.
 - Đi tới: sau khi Save, quay về MNT-010.

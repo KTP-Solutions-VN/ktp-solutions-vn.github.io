@@ -1,10 +1,10 @@
-# USR-010 — Granted Leaves
+# USR-010 — Leave History
 
 **Type:** Full page
 
 **Route:** `UserController::grantedLeaves()` — default `user/grantedLeaves`
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 A screen listing, by department, staff members along with the history of their two most recent granted leaves, and allowing a screen to be opened for assigning new leave days to each staff member (USR-011).
@@ -27,8 +27,8 @@ A screen listing, by department, staff members along with the history of their t
 
 ## Functions / Actions
 - **Select Department:** reloads the staff list via ajax.
-- **Add Leaves:** opens USR-011 (Assign Leave Days) for the selected staff member.
+- **Add Leaves:** opens USR-011 (Grant Time Off) for the selected staff member.
 
 ## Navigation
-- Entry point: Users menu → Granted Leaves, or from USR-004.
-- Navigates to: USR-011 (Assign Leave Days).
+- Entry point: Workforce menu → Leave History, or from USR-004.
+- Navigates to: USR-011 (Grant Time Off).

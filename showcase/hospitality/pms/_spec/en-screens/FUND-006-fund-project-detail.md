@@ -1,10 +1,10 @@
-# FUND-006 — Fund Project Detail
+# FUND-006 — Funded Project Profile
 
 **Type:** Full page
 
 **Route:** `FundController::viewProject($id)` — `/fund/view-project/:id`
 
-**Module:** FUND = Investment Fund
+**Module:** FUND = Investor Capital
 
 ## Overview
 View the detailed information of a fund project (logo, description, original images) along with the full history of progress updates (`ProjectLog`) created on FUND-005, ordered newest first.

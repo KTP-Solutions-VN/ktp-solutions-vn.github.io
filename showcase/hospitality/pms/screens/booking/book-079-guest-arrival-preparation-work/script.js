@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
       MM.BOOK.addVipPrepEntry(bookingId, {
         cleaning: document.getElementById('cleaning-input').value.trim(),
         checkin: document.getElementById('checkin-input').value.trim(),
-        author: 'Somchai Anuwat',
+        author: 'Daniel Tan',
         date: new Date().toISOString()
       });
       MM.showToast("Preparation log saved — off to VIP Guest List.");

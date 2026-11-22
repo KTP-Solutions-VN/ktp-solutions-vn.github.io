@@ -1,11 +1,11 @@
-# GST-003 — Chi tiết đặt phòng của tôi
+# GST-003 — Chi tiết chuyến đi (Trip Details)
 
 **Loại:** Trang đầy đủ
 **Route:** `Guest::yourBooking($booking_id = null)` — mặc định `/guest/your-booking/:booking_id`; route đẹp: `/guest/your-booking` (khai báo tường minh trong `Routes.php`, không truyền `booking_id` trong URL đẹp — khi không truyền, hệ thống lấy booking mặc định của khách `user['guest_booking_id']`)
-**Module:** Cổng thông tin Khách
+**Module:** Không gian khách
 
 ## Mô tả ngắn gọn
-Trang chi tiết một đặt phòng cụ thể: hiển thị địa chỉ villa, ngày nhận/trả phòng, và cho phép khách xác nhận hoặc điều chỉnh giờ đến/giờ đi dự kiến (pre-arrival). Khi cả hai mốc giờ đã được xác nhận, khách được mở khoá nút vào GST-004 (Cổng truy cập tiện ích). Đây cũng là trang mặc định sau khi đăng nhập (`Auth.loginRedirect`) và là đích của `home_redirect` khi booking gần nhất chưa hoàn tất xác nhận giờ.
+Trang chi tiết một đặt phòng cụ thể: hiển thị địa chỉ villa, ngày nhận/trả phòng, và cho phép khách xác nhận hoặc điều chỉnh giờ đến/giờ đi dự kiến (pre-arrival). Khi cả hai mốc giờ đã được xác nhận, khách được mở khoá nút vào GST-004 (Lối tắt). Đây cũng là trang mặc định sau khi đăng nhập (`Auth.loginRedirect`) và là đích của `home_redirect` khi booking gần nhất chưa hoàn tất xác nhận giờ.
 
 ## Mô tả chi tiết
 
@@ -37,6 +37,6 @@ Trang chi tiết một đặt phòng cụ thể: hiển thị địa chỉ villa
 - Icon **Logout** → đăng xuất, về GST-001.
 
 ## Điều hướng
-- → GST-004 (Cổng truy cập tiện ích) khi đã xác nhận cả giờ đến và giờ đi
-- → GST-002 (Danh sách đặt phòng) qua icon Home (tuỳ trạng thái)
+- → GST-004 (Lối tắt) khi đã xác nhận cả giờ đến và giờ đi
+- → GST-002 (Đặt chỗ của tôi) qua icon Home (tuỳ trạng thái)
 - → GST-001 (đăng xuất)

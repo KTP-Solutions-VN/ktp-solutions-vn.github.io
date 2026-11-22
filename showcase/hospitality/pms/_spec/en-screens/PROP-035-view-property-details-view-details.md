@@ -1,8 +1,8 @@
-# PROP-035 — View Property Details (View Details)
+# PROP-035 — Property Profile
 
 **Type:** Full page
 **Route:** property/view-details/:villa_id (default CakePHP DashedRoute: `/property/view-details/:villa_id`)
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 A read-only detail page for a property (villa), consolidating information from several related tables (Villa, VillaLocation, VillaImage, VillaDetail, VillaPool, VillaOtaManagement, VillaService, etc.) into blocks: Images, Location (with a Google Maps embed), Assigned Concierge, Internet, Pool Cleaning, Property Type, and the list of OTA/distribution channels. If `villa_id` is not found, the user is redirected to the previous page with an error flash message.
@@ -46,6 +46,6 @@ Note: the fields `villa_usage`, `villa_activities`, `villa_transport`, `villa_ac
 - No Edit/Save button on this page (view details only).
 
 ## Navigation
-- Opened from: PROP-033 (Property List) — "View Details" icon on each row.
+- Opened from: PROP-033 (Property Register) — "View Details" icon on each row.
 - Navigates to: no active navigation to other pages within the page content (there is a hidden JS-driven breadcrumb link back to PROP-033, not displayed as it is commented out).
 - Child popup: none.

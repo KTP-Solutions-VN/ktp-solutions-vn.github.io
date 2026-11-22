@@ -1,10 +1,10 @@
-# INV-005 — Item Discard Requests
+# INV-005 — Write-off Requests
 
 **Type:** Full page
 
 **Route:** `InventoryController::discard()` — `/inventory/discard`
 
-**Module:** INV = Inventory
+**Module:** INV = Stock Control
 
 ## Overview
 A list of requests to discard/remove damaged items (`InventoryDiscardRequest`) originating at villas, allowing approval to deduct the quantity from the villa's stock.
@@ -29,5 +29,5 @@ No dedicated filter.
 - **Approve (check mark)**: opens the INV-005-P1 popup to confirm the quantity and approve the item discard.
 
 ## Navigation
-- Entry point: Inventory menu (`active_menu = 153`).
+- Entry point: Stock Control menu (`active_menu = 153`).
 - Navigates to: popup INV-005-P1.

@@ -1,8 +1,8 @@
-# PROP-024 — Monthly Payment Report for Property Owners (Payment/Owner Report)
+# PROP-024 — Owner Payout Reports
 
 **Type:** Full page
 **Route:** property/payment-report
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Screen for looking up and downloading the monthly reports (Monthly Report) sent to the owner of a specific property, filterable by Business Unit and Property, showing the projected next payment date.
@@ -34,6 +34,6 @@ A notice line "Your Next Payment is scheduled on: {payment_date}" is displayed a
 - "Download Report" button on each row — downloads the corresponding report file.
 
 ## Navigation
-- Opened from: the Property Reports/Payment menu (outside the scope of the current spec).
+- Opened from: the owner reports menu (outside the scope of the current spec).
 - Navigates to: downloaded file `/files/monthly-report/{url}` (not a page navigation).
 - Child popup: none.

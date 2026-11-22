@@ -1,10 +1,10 @@
-# VSV-005-P1 — Nhập đồng hồ điện lưu trú dài hạn (Long Stay Meter)
+# VSV-005-P1 — Ghi chỉ số lưu trú dài ngày (Record Extended-Stay Reading)
 
 **Loại:** Popup (mở từ VSV-005, dạng trang riêng)
 
 **Route:** `VillaServicesController::addLongStayMeter($booking_id)` — `/villa-services/add-long-stay-meter/<booking_id>`; lưu qua `saveLongStayDiscount()` (POST, không có view riêng)
 
-**Module:** Dịch vụ villa — Điện
+**Module:** Dịch vụ lưu trú — Đo điện
 
 ## Mô tả ngắn gọn
 Form nhập chu kỳ đo điện định kỳ cho khách lưu trú dài hạn (bảng `IntermediaryPayment`, tách khỏi `ElectricalBill` một lần của luồng ngắn hạn). Mỗi lần lưu tạo một kỳ đo mới, chỉ số cuối kỳ trước tự động trở thành chỉ số đầu kỳ sau.
@@ -35,4 +35,4 @@ Form nhập chu kỳ đo điện định kỳ cho khách lưu trú dài hạn (b
 
 ## Điều hướng
 - Vào từ: VSV-005 — nút "Enter".
-- Điều hướng đến: quay lại VSV-005 (Đồng hồ điện lưu trú dài hạn) sau khi lưu.
+- Điều hướng đến: quay lại VSV-005 (Đo điện lưu trú dài ngày) sau khi lưu.

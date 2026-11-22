@@ -1,10 +1,10 @@
-# SET-004 — Hostex Set-up
+# SET-004 — Channel Account Mapping
 
 **Type:** Full page
 
 **Route:** `SettingController::hostexSetup()` — default `/setting/hostex-setup`; data loaded via AJAX GET `getHostexData()` (`/setting/get-hostex-data`)
 
-**Module:** SET = System Settings
+**Module:** SET = Platform Settings
 
 ## Overview
 A screen for configuring the Hostex distribution-channel integration: for each OTA channel (Booking.com, Airbnb, Agoda, Expedia, Trip.com, etc.), declare the Hostex accounts (email/account name) holding listings, link each account to its corresponding OTA Account, and specify whether the account belongs to **Azura Stays** or an external partner **Agency**. The number of properties linked to each account is automatically calculated from OTA data stored on the Villa and shown as an expandable property list when clicked.
@@ -37,6 +37,6 @@ Add/Edit account form (shown/hidden inline below each channel's table, not a mod
 - **View Properties linked:** expands a sub-row showing the property list (image + name, link to the villa's OTA management page) via AJAX `getHostexAccountProperties`.
 
 ## Navigation
-- Accessed from: SET-001, or System Settings menu > Hostex Set-up.
+- Accessed from: SET-001, or Platform Settings menu > Channel Account Mapping.
 - Navigates to: SET-004-P1 (add/edit account form, inline), SET-004-P2 (delete confirmation popup), SET-004-P3 (cannot-delete warning popup).
 - External link: from the linked property list, opens the Villa's OTA management page (`/property/villa/ota management/:id`) in a new tab.

@@ -1,11 +1,11 @@
-# VCS-009 — Danh sách Khả năng tiếp cận (Accessible)
+# VCS-009 — Đặc điểm tiếp cận (Access Features)
 
 **Loại:** Trang đầy đủ
 **Route:** villa-common-setting/villa-accessible (dashed mặc định CakePHP DashedRoute: `/villa-common-setting/villa-accessible`)
-**Module:** VCS = Cấu hình chung villa
+**Module:** VCS = Thuộc tính tài sản
 
 ## Mô tả ngắn gọn
-Màn hình quản lý dữ liệu chủ "Khả năng tiếp cận" villa (ví dụ: gần biển, xa trung tâm...). Hiển thị dạng bảng danh sách, cho phép Thêm/Sửa/Xóa qua 1 popup dùng chung. Cấu trúc và hành vi giống hệt VCS-001 (Vật dụng), khác model dữ liệu.
+Màn hình quản lý dữ liệu chủ "Khả năng tiếp cận" villa (ví dụ: gần biển, xa trung tâm...). Hiển thị dạng bảng danh sách, cho phép Thêm/Sửa/Xóa qua 1 popup dùng chung. Cấu trúc và hành vi giống hệt VCS-001 (Danh mục tiện nghi), khác model dữ liệu.
 
 ## Mô tả chi tiết
 | # | Tên field (label) | Field code (name/id) | Loại dữ liệu/input | Bắt buộc | Ghi chú |
@@ -24,6 +24,6 @@ Không có ô tìm kiếm/lọc riêng (DataTable client-side `#zero_config`).
 - Submit form popup gửi `POST` về chính action `villaAccessible` với `action=add|edit|delete`; controller `VillaCommonSettingController::villaAccessible()` lưu/xóa bảng `VillaAccessible`, ghi Activity Log, hiển thị Flash message, redirect `referer()`.
 
 ## Điều hướng
-- Mở từ: Menu Settings > "Properties" > submenu "Accessible".
+- Mở từ: Menu Portfolio Setup > "Property Attributes" > submenu "Access Features".
 - Điều hướng tới: không điều hướng sang trang khác (thao tác CRUD tại chỗ qua popup + reload).
-- Popup con: VCS-009-P1 (Thêm/Sửa/Xóa Khả năng tiếp cận).
+- Popup con: VCS-009-P1 (Form đặc điểm tiếp cận).

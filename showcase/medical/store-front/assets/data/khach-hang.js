@@ -21,15 +21,15 @@
 const DATA_KHACH_HANG = [
   {
     id: "CUS-1001",
-    name: "Grace Lim Wei Ting",
-    email: "grace.lim@example.com",
-    phone: "+65 9123 4567",
-    oneMeridianPassId: "OTP-88291034",
+    name: "Charlotte Nguyen",
+    email: "charlotte.nguyen@example.com",
+    phone: "+61 491 234 567",
+    oneMeridianPassId: "CJP-88291034",
     membershipType: "FBP",
     membershipStatus: "Active",
     memberSince: "2025-11-02",
     addresses: [
-      { label: "Home", line1: "12 Jalan Anak Bukit, #08-14", city: "Singapore", postalCode: "588178" }
+      { label: "Home", line1: "Unit 8, 12 Avoca Street, Randwick", city: "Sydney", postalCode: "2031" }
     ],
     loyaltyPointsBalance: 1840,
     marketingConsent: { email: true, sms: true, phone: false, push: true },
@@ -39,15 +39,15 @@ const DATA_KHACH_HANG = [
   },
   {
     id: "CUS-1002",
-    name: "Nur Aisyah Rahman",
-    email: "aisyah.rahman@example.com",
-    phone: "+65 8234 1190",
-    oneMeridianPassId: "OTP-77120456",
+    name: "Sienna Brooks",
+    email: "sienna.brooks@example.com",
+    phone: "+61 482 341 190",
+    oneMeridianPassId: "CJP-77120456",
     membershipType: "NBP",
     membershipStatus: "Active",
     memberSince: "2024-05-14",
     addresses: [
-      { label: "Home", line1: "88 Tampines Ave 5, #12-02", city: "Singapore", postalCode: "529765" }
+      { label: "Home", line1: "Unit 12, 88 Hawkesbury Road, Westmead", city: "Sydney", postalCode: "2145" }
     ],
     loyaltyPointsBalance: 3220,
     marketingConsent: { email: true, sms: false, phone: false, push: true },
@@ -57,10 +57,10 @@ const DATA_KHACH_HANG = [
   },
   {
     id: "CUS-1003",
-    name: "Michelle Tan Hui Xin",
-    email: "michelle.tan@example.com",
-    phone: "+65 9876 2201",
-    oneMeridianPassId: "OTP-90233871",
+    name: "Ella Wright",
+    email: "ella.wright@example.com",
+    phone: "+61 498 762 201",
+    oneMeridianPassId: "CJP-90233871",
     membershipType: "None",
     membershipStatus: "None",
     memberSince: null,
@@ -73,15 +73,15 @@ const DATA_KHACH_HANG = [
   },
   {
     id: "CUS-1004",
-    name: "Priya Sharma",
-    email: "priya.sharma@example.com",
-    phone: "+65 8123 7742",
-    oneMeridianPassId: "OTP-66910233",
+    name: "Maya Singh",
+    email: "maya.singh@example.com",
+    phone: "+61 481 237 742",
+    oneMeridianPassId: "CJP-66910233",
     membershipType: "FBP",
     membershipStatus: "Pending",
     memberSince: null,
     addresses: [
-      { label: "Home", line1: "5 Marine Parade Rd, #03-19", city: "Singapore", postalCode: "440005" }
+      { label: "Home", line1: "Unit 3, 5 Spring Street, Bondi Junction", city: "Sydney", postalCode: "2022" }
     ],
     loyaltyPointsBalance: 90,
     marketingConsent: { email: true, sms: false, phone: false, push: false },

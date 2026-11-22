@@ -1,8 +1,8 @@
-# OPR-008 — Perform Cleaning by Inspection Point
+# OPR-008 — Housekeeping Checklist
 
 **Type:** Full page
 **Route:** operator/cleaningDetails?id=&last_id= + dashed-style pretty route: operator/cleaning-details
-**Module:** OPR = Garden/Pool Operations
+**Module:** OPR = Upkeep Jobs
 
 ## Overview
 Step-by-step (point-by-point) wizard screen for housekeeping staff to perform the cleaning items of a `Cleaning` round: each inspection point requires an evidence photo, with the ability to click Next to move to the following point, Back to return to the previous point, Reset the current point, or Finish to complete the entire cleaning round.
@@ -26,4 +26,4 @@ Step-by-step (point-by-point) wizard screen for housekeeping staff to perform th
 
 ## Navigation
 - Entered from: OPR-007 (clicking Start) or continuing an in-progress cleaning round from the list.
-- Leads to: after Finish, returns to OPR-007 — Cleaning List.
+- Leads to: after Finish, returns to OPR-007 — Housekeeping Rounds.

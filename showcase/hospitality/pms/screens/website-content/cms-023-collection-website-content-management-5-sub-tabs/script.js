@@ -3,8 +3,8 @@
   var STORAGE_KEY = 'mm_cms_collection_content';
 
   var COLLECTIONS = {
-    'GCW-01': 'Andaman Beachfront Collection',
-    'GCW-02': 'Bali Rice Terrace Retreats',
+    'GCW-01': 'Coral Beachfront Collection',
+    'GCW-02': 'Byron Hinterland Retreats',
     'GCW-03': 'Family-Friendly Villas',
     'GCW-04': 'Wedding & Celebration Villas',
     'GCW-05': 'Pet-Friendly Escapes'
@@ -16,15 +16,15 @@
   ];
 
   var REGIONS = {
-    'Phuket Collection': ['Villa Sapphire Cliff', 'Villa Coral Horizon', 'Villa Marble Cove'],
-    'Bali Retreats': ['Villa Emerald Bay', 'Villa Azure Ridge', 'Villa Silver Tide'],
-    'Koh Samui Estates': ['Villa Lotus Terrace', 'Villa Golden Palm']
+    'Sentosa Collection': ['Villa Sapphire Cliff', 'Villa Coral Horizon', 'Villa Marble Cove'],
+    'Byron Bay Retreats': ['Villa Emerald Bay', 'Villa Azure Ridge', 'Villa Silver Tide'],
+    'Noosa Estates': ['Villa Lotus Terrace', 'Villa Golden Palm']
   };
 
   var INSIGHTS_MOCK = [
-    { id: 'GI-01', title: 'A Guide to Phuket’s Hidden Beaches', type: 'Local Culture' },
-    { id: 'GI-02', title: 'Best Beachside Dining in Bali', type: 'Dining Guide' },
-    { id: 'GI-03', title: 'Family Activities in Koh Samui', type: 'Family Activities' }
+    { id: 'GI-01', title: 'A Guide to Sentosa’s Hidden Beaches', type: 'Local Culture' },
+    { id: 'GI-02', title: 'Best Beachside Dining in Byron Bay', type: 'Dining Guide' },
+    { id: 'GI-03', title: 'Family Activities in Noosa', type: 'Family Activities' }
   ];
 
   function readJSON(key, fallback) { try { var v = JSON.parse(localStorage.getItem(key)); return v || fallback; } catch (e) { return fallback; } }
@@ -37,7 +37,7 @@
     iwish: { 'IW-01': true, 'IW-02': false, 'IW-03': true, 'IW-04': false, 'IW-05': false, 'IW-06': true },
     properties: {},
     insights: INSIGHTS_MOCK.slice(),
-    idcard: { languages: ['en'], contact: '+66 76 555 010', email: 'collection@azurastays.example' },
+    idcard: { languages: ['en'], contact: '+65 6655 5010', email: 'collection@azurastays.example' },
     footerLinks: [{ name: 'Instagram', url: 'https://instagram.com/azurastays' }],
     facebook: '', instagram: ''
   };
@@ -58,7 +58,7 @@
         persist();
         renderIWish();
         renderProperties();
-        MM.showToast(data.iwish[id] ? 'I Wish category enabled.' : 'I Wish category disabled.');
+        MM.showToast(data.iwish[id] ? 'Wishlist category enabled.' : 'Wishlist category disabled.');
       });
     });
   }
@@ -96,7 +96,7 @@
       sel.addEventListener('change', function () {
         var id = sel.getAttribute('data-insight-type');
         var ins = data.insights.find(function (x) { return x.id === id; });
-        if (ins) { ins.type = sel.value; persist(); MM.showToast('Insight type updated.'); }
+        if (ins) { ins.type = sel.value; persist(); MM.showToast('Article type updated.'); }
       });
     });
     var pendingDeleteId = null;
@@ -128,8 +128,8 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('page-website-name').textContent = COLLECTIONS[websiteId] || 'Content Management';
-    document.getElementById('page-title').textContent = COLLECTIONS[websiteId] || 'Content Management';
+    document.getElementById('page-website-name').textContent = COLLECTIONS[websiteId] || 'Themed Site Content';
+    document.getElementById('page-title').textContent = COLLECTIONS[websiteId] || 'Themed Site Content';
 
     renderIWish();
     renderProperties();
@@ -201,7 +201,7 @@
         renderInsights();
         insightForm.reset();
         MM.closeModal('add-insight-modal');
-        MM.showToast('Insight added.');
+        MM.showToast('Article added.');
       });
     });
 
@@ -212,7 +212,7 @@
         persist();
         renderInsights();
         MM.closeModal('delete-insight-modal');
-        MM.showToast('Insight deleted.');
+        MM.showToast('Article deleted.');
       });
     });
   });

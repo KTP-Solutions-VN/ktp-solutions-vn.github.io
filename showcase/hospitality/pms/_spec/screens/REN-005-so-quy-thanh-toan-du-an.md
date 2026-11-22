@@ -1,8 +1,8 @@
-# REN-005 — Sổ quỹ thanh toán dự án cải tạo
+# REN-005 — Sổ chi tiêu dự án (Project Spend Ledger)
 
 **Loại:** Trang đầy đủ
 **Route:** renovation/paymentList/:renovation_id + route đẹp dạng dashed: renovation/payment-list/:renovation_id (id truyền base64)
-**Module:** REN = Cải tạo
+**Module:** REN = Nâng cấp tài sản
 
 ## Mô tả ngắn gọn
 Sổ quỹ (ledger) ghi nhận toàn bộ giao dịch thu/chi (`RenovationPayment`) liên quan tới dự án cải tạo: mỗi hóa đơn phát sinh, mỗi khoản tạm ứng/hoàn ứng đều được ghi thành một hoặc nhiều dòng thu/chi ở đây.
@@ -22,8 +22,8 @@ Sổ quỹ (ledger) ghi nhận toàn bộ giao dịch thu/chi (`RenovationPaymen
 | 8 | Balance | Tính lũy kế | Chạy dồn qua các dòng |
 
 ## Chức năng/nút thao tác
-- **+ Payment**: mở REN-006 — Thêm khoản thanh toán (`addPayment`).
+- **+ Payment**: mở REN-006 — Ghi nhận thanh toán dự án (`addPayment`).
 
 ## Điều hướng
-- Vào từ: icon "Wallet" tại REN-003 — Theo dõi dự án cải tạo.
-- Đi tới: REN-006 — Thêm khoản thanh toán.
+- Vào từ: icon "Wallet" tại REN-003 — Tiến trình dự án.
+- Đi tới: REN-006 — Ghi nhận thanh toán dự án.

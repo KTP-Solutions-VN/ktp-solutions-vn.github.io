@@ -1,10 +1,10 @@
-# VID-001-P2 — Sửa video
+# VID-001-P2 — Sửa video hướng dẫn (Edit Video Guide)
 
 **Loại:** Popup (mở từ VID-001)
 
 **Route:** Modal tĩnh trong `index.ctp` (`#video-edit-modal`); lưu qua `VideosController::edit($id)` — `POST /videos/edit/:id` (multipart/form-data)
 
-**Module:** VID = Video
+**Module:** VID = Video hướng dẫn
 
 ## Mô tả ngắn gọn
 Chỉnh sửa metadata một video đã có trong thư viện, có thể thay thế file video, không đổi được danh mục/property/loại video đã gán ban đầu (Property video), nhưng có thể sửa lại danh sách quốc gia (Country video).

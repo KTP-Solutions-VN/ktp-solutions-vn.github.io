@@ -42,7 +42,7 @@
     var edits = getEdits()[villaId] || {};
 
     document.getElementById('breadcrumb-villa').textContent = villa.name;
-    document.getElementById('villa-title').textContent = villa.name + ' — Website Content';
+    document.getElementById('villa-title').textContent = villa.name + ' — Web Page';
     document.getElementById('villa-subtitle').textContent = villa.bu + ' · ' + villa.bedrooms + ' bedrooms · ' + villa.id;
     var statusBadge = document.getElementById('villa-status-badge');
     statusBadge.textContent = MM.CMS.STATUS_LABEL[content.status] || content.status;
@@ -154,7 +154,7 @@
         var btn = form.querySelector('button[type="submit"]');
         MM.simulateSave(btn, 'Saving...', function () {
           saveEdit(villaId, tabKey, data);
-          document.getElementById('villa-updated').textContent = new Date().toISOString().slice(0, 10) + ' by Somchai Anuwat';
+          document.getElementById('villa-updated').textContent = new Date().toISOString().slice(0, 10) + ' by Daniel Tan';
           if (content.status === 'draft') {
             statusBadge.textContent = 'Needs Review';
             statusBadge.className = 'badge badge-warning';

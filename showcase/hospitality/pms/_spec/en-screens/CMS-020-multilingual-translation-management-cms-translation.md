@@ -1,13 +1,13 @@
-# CMS-020 — Multilingual Translation Management (CMS Translation)
+# CMS-020 — Interface Translations
 
 **Type:** Full page
 
 **Route:** `CmsController::cmsTranslation($tab)` — default `/cms/cms-translation/:tab`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
-Administration screen for multilingual translations across the entire system, consisting of 4 tabs corresponding to 4 different content sources: Mini Website, Guest Portal, Owner Portal, Azura Manager. Each tab allows selecting a language and editing the translated content of the corresponding source. The `tab` URL parameter determines which tab is active when the page loads; when the user clicks to switch tabs, the URL is updated via `history.replaceState` (no page reload).
+Administration screen for multilingual translations across the entire system, consisting of 4 tabs corresponding to 4 different content sources: Mini Website, Guest Hub, Owner Hub, Azura Manager. Each tab allows selecting a language and editing the translated content of the corresponding source. The `tab` URL parameter determines which tab is active when the page loads; when the user clicks to switch tabs, the URL is updated via `history.replaceState` (no page reload).
 
 ## Detailed Description
 
@@ -20,11 +20,11 @@ Common to all 4 tabs: a **Language** dropdown (field `language`, list sourced fr
 - Display: a list of translation field rows (label from `title`, input field is `text`) for the selected language.
 - Save: submitting the form → for each row, calls `_saveData('CmsTranslation', ['id', 'language', 'text', 'title'])` — updates by record `id`.
 
-**Tab 2 — Guest Portal** (`guest-portal`):
+**Tab 2 — Guest Hub** (`guest-portal`):
 - Data source & storage: `GuestPortalTranslation` table (same structure: `id`, `language`, `title`, `text`).
 - Display & save: same as Tab 1, but operating on `GuestPortalTranslation`.
 
-**Tab 3 — Owner Portal** (`owner-portal`):
+**Tab 3 — Owner Hub** (`owner-portal`):
 - Data source: a **JSON file**, not a DB table. Path: `WWW_ROOT/locale/owner-translation/<language_code>.json` (if the selected language's file does not exist, falls back to reading `en.json`).
 - Display: a table with 3 columns — Page (grouped by the `page_name_N` keys in the JSON file), Label (derived from the key name), Translation (a text input for each remaining key in the JSON).
 - Save: submitting the entire `text[key]` array from the form → overwrites the **entire content** of the JSON file `WWW_ROOT/locale/owner-translation/<language>.json` with `json_encode($request_data['text'])` (only writes if the file already exists; does not auto-create a new file).
@@ -38,11 +38,11 @@ Note on the differing save mechanisms between tabs:
 - Tabs 3, 4: saves the **entire JSON file** for the currently selected language (fully overwrites the file's content with the current form data).
 
 ## Functions / Actions
-- **Select tab (Mini Website / Guest Portal / Owner Portal / Azura Manager):** switches the displayed content and updates the `tab` URL parameter (no reload).
+- **Select tab (Mini Website / Guest Hub / Owner Hub / Azura Manager):** switches the displayed content and updates the `tab` URL parameter (no reload).
 - **Select Language (dropdown, separate per tab):** reloads the translation content for the new language in the active tab.
 - **Save (each tab has its own Save button):** saves the translation content of the active tab (via the corresponding save mechanism described above), then displays a save-success notification and remains on the page.
 - **Reset:** returns the current tab's form to its default state (HTML reset).
 
 ## Navigation
-- Accessed from: main menu (Settings/Translations item).
+- Accessed from: main menu (Interface Translations item).
 - Navigates to: no navigation to other screens; after saving, remains on CMS-020 itself, with the active tab preserved via the `tab` URL parameter.

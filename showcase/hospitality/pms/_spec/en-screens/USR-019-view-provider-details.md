@@ -1,10 +1,10 @@
-# USR-019 — View Provider Details
+# USR-019 — Contractor Profile
 
 **Type:** Full page
 
 **Route:** `UserController::viewProviderDetails($id)` — default `user/viewProviderDetails/:id`
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 A read-only detail page displaying information for a staff account belonging to an external service provider.

@@ -1,10 +1,10 @@
-# EMT-001-P1 — Xác nhận xóa mẫu email
+# EMT-001-P1 — Xác nhận xóa mẫu (Confirm Template Deletion)
 
 **Loại:** Popup (mở từ EMT-001)
 
 **Route:** Modal tĩnh trong `list.ctp`; xác nhận điều hướng tới `EmailTemplateController::delete($id)` — `GET /email-template/delete/:id`
 
-**Module:** EMT = Mẫu email
+**Module:** EMT = Thư viện email
 
 ## Mô tả ngắn gọn
 Hộp thoại xác nhận trước khi xóa một mẫu email.
@@ -17,5 +17,5 @@ Không có field nhập liệu, chỉ có thông điệp xác nhận và tên m�
 - **Cancel:** đóng modal.
 
 ## Điều hướng
-- Mở từ: EMT-001 (Danh sách mẫu email).
+- Mở từ: EMT-001 (Thư viện email).
 - Sau khi xác nhận: quay lại EMT-001.

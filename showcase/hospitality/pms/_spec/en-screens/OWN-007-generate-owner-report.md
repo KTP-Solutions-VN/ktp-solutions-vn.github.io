@@ -1,10 +1,10 @@
-# OWN-007 — Generate Owner Report
+# OWN-007 — Owner Statement Builder
 
 **Type:** Full page
 
 **Route:** `/Owner/generateReports` (controller `Owner`, action `generateReports()`)
 
-**Module:** Owner Management (Admin)
+**Module:** Owner Relations (Admin)
 
 ## Overview
 
@@ -33,7 +33,7 @@ A screen for generating a revenue/payout report for a villa owner by villa and t
 | 3 | Customer | `customer` | Text | |
 | 4 | Gross Revenue | `gross` | Number | |
 | 5 | OTA Commission | `ota_commission` | Number | |
-| 6 | VAT (%) | `vat` | Number | Only shown if percentage-based VAT applies |
+| 6 | GST (%) | `vat` | Number | Only shown if percentage-based GST applies |
 | 7 | Net Revenue | `net` | Number | |
 | 8 | Daily Net Revenue | `daily_net` | Number | |
 | 9 | Services (dynamic) | `services_array` | Number/% | Columns generated dynamically based on villa service categories |
@@ -53,5 +53,5 @@ A screen for generating a revenue/payout report for a villa owner by villa and t
 
 ## Navigation
 
-- Entered from: main menu (sidebar) item "Generate Report"; also linked from the Property page (report_ready.ctp).
+- Entered from: main menu (sidebar) item "Owner Statement Builder"; also linked from the Property page (report_ready.ctp).
 - No separate page-level popups; the period-removal modal is an in-page action modal on the same screen.

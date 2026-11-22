@@ -1,10 +1,10 @@
-# ACC-056-P1 — Popup: Add Rebill
+# ACC-056-P1 — New Owner Recharge
 
 **Type:** Popup (opened from ACC-056)
 
 **Route:** `AccountController::addRebill()` — default `/account/add-rebill`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 Form for adding a new Rebill record for a Property by rebill month/expense month, allowing multiple expense line items to be entered (expense type, amount, description).
@@ -28,5 +28,5 @@ Form for adding a new Rebill record for a Property by rebill month/expense month
 - **Cancel:** returns to ACC-056 (`rebill`).
 
 ## Navigation
-- Entered from: ACC-056 (Rebill) — "Add new" button.
+- Entered from: ACC-056 (Owner Recharges) — "Add new" button.
 - Navigates to: returns to ACC-056 after saving or canceling.

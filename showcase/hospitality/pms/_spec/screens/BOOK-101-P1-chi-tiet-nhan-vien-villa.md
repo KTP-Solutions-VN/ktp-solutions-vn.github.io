@@ -1,4 +1,4 @@
-# BOOK-101-P1 — Chi tiết nhân viên villa (Staff Detail)
+# BOOK-101-P1 — Chi tiết nhân viên trực (On-duty Staff Detail)
 
 **Loại:** Popup/trang phụ (mở từ BOOK-101)
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 
@@ -35,12 +35,12 @@ Hiển thị thông tin nhân viên phụ trách trả phòng, dọn dẹp (clea
 ## Chức năng/nút thao tác
 
 - Chỉ xem thông tin, không có form nhập liệu trên popup này.
-- Nút "Clean" ở khối Cleaning → mở `/VM/villa-services/planning-teams-detail/:id/staff` (thuộc module Villa Services, ngoài phạm vi Booking).
-- Nút "Clean" ở khối Makeup → mở `/VM/villa-services/makeup-teams-detail/:id/staff` (thuộc module Villa Services, ngoài phạm vi Booking).
-- Icon đóng (ảnh close) → quay lại BOOK-101 (Trạng thái villa).
+- Nút "Clean" ở khối Cleaning → mở `/VM/villa-services/planning-teams-detail/:id/staff` (thuộc module Dịch vụ lưu trú (In-Stay Services), ngoài phạm vi Đặt chỗ).
+- Nút "Clean" ở khối Makeup → mở `/VM/villa-services/makeup-teams-detail/:id/staff` (thuộc module Dịch vụ lưu trú (In-Stay Services), ngoài phạm vi Đặt chỗ).
+- Icon đóng (ảnh close) → quay lại BOOK-101 (Bảng trạng thái trực tiếp).
 
 ## Điều hướng
 
 - Mở từ BOOK-101 (icon "Staff" trên dòng villa có booking).
-- → Villa Services (planning-teams-detail / makeup-teams-detail) khi bấm nút "Clean" — ngoài phạm vi tài liệu Booking.
+- → In-Stay Services (planning-teams-detail / makeup-teams-detail) khi bấm nút "Clean" — ngoài phạm vi tài liệu Đặt chỗ.
 - Đóng popup → quay lại BOOK-101.

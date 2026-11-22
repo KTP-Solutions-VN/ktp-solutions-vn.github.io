@@ -1,10 +1,10 @@
-# OWP-015 — Property Business Performance
+# OWP-015 — Performance Trends
 
 **Type:** Full page
 
 **Route:** `ExternalUserController::performance()` — no dedicated friendly route (default `/external-user/performance`)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 
@@ -38,5 +38,5 @@ Filters:
 
 ## Navigation
 
-- Accessed from the main menu (Performance)
+- Accessed from the main menu (Performance Trends)
 - No navigation to another screen

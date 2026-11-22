@@ -2,11 +2,11 @@
   'use strict';
 
   var DEPARTMENTS = [
-    { key: 'maintenance', label: 'Maintenance', staff: ['Kittisak Rungrueang', 'Anan Boonmee', 'Somsak Chaiyaporn'] },
+    { key: 'maintenance', label: 'Maintenance', staff: ['Kumar Rajan', 'Alan Beh', 'Samuel Chong'] },
     { key: 'cleaning', label: 'Cleaning', staff: VSV.CLEANING_STAFF || [] },
-    { key: 'purchasing', label: 'Purchasing', staff: ['Waraporn Suksai', 'Chatchai Termsak'] },
+    { key: 'purchasing', label: 'Purchasing', staff: ['Wendy Seng', 'Charles Tham'] },
     { key: 'gardening', label: 'Gardening', staff: VSV.GARDEN_STAFF || [] },
-    { key: 'renovation', label: 'Renovation', staff: ['Piti Kittikorn', 'Narong Wattana'] }
+    { key: 'renovation', label: 'Renovation', staff: ['Peter Kwek', 'Nigel Wan'] }
   ];
 
   var REPORTS = MM.MOCK_PROPERTIES.slice(0, 6).map(function (p, i) {
@@ -17,9 +17,9 @@
     ];
     return {
       id: 'insp' + i, bu: p.bu, property: p.name, task: 'Quarterly Inspection', status: statuses[i % 4],
-      createdBy: 'Somchai Anuwat', on: '2026-08-' + (10 + i), itemCount: 2 + (i % 3),
+      createdBy: 'Daniel Tan', on: '2026-08-' + (10 + i), itemCount: 2 + (i % 3),
       inProgress: statuses[i % 4] === 'In Progress',
-      approvedBy: statuses[i % 4] === 'Completed' ? 'Wayan Kertha' : null,
+      approvedBy: statuses[i % 4] === 'Completed' ? 'Warren Kelly' : null,
       approvedOn: statuses[i % 4] === 'Completed' ? '2026-08-20' : null,
       departments: deptSets[i % deptSets.length]
     };

@@ -1,8 +1,8 @@
-# PROP-035 — Xem chi tiết Property (View Details)
+# PROP-035 — Hồ sơ tài sản (Property Profile)
 
 **Loại:** Trang đầy đủ
 **Route:** property/view-details/:villa_id (dashed mặc định CakePHP DashedRoute: `/property/view-details/:villa_id`)
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang xem chi tiết read-only một Property (villa), tổng hợp thông tin từ nhiều bảng liên quan (Villa, VillaLocation, VillaImage, VillaDetail, VillaPool, VillaOtaManagement, VillaService...) thành các khối: Hình ảnh, Vị trí (kèm bản đồ Google Maps), Concierge phụ trách, Internet, Vệ sinh hồ bơi, Loại hình Property, Danh sách OTA/kênh phân phối. Nếu không tìm thấy `villa_id`, chuyển hướng về trang trước kèm flash lỗi.
@@ -46,6 +46,6 @@ Ghi chú: các field `villa_usage`, `villa_activities`, `villa_transport`, `vill
 - Không có nút Edit/Save trên trang này (thuần xem chi tiết).
 
 ## Điều hướng
-- Mở từ: PROP-033 (Danh sách Property) — icon "View Details" trên từng dòng.
+- Mở từ: PROP-033 (Sổ đăng ký tài sản) — icon "View Details" trên từng dòng.
 - Điều hướng tới: Không điều hướng chủ động sang trang khác từ nội dung trang (chỉ có breadcrumb ẩn dẫn về PROP-033 qua JS, không hiển thị do bị comment).
 - Popup con: Không có.

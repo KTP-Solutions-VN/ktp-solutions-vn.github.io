@@ -1,4 +1,4 @@
-# BOOK-103 — Occupancy-Based Action List (Action)
+# BOOK-103 — Pricing Adjustments
 
 **Type:** Full page
 
@@ -6,7 +6,7 @@
 
 **Friendly route:** no dedicated route found in config/Routes.php
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 
@@ -29,11 +29,11 @@ Sorted by `VillaAction.id` descending (most recent first).
 
 ## Functions / Actions
 
-- "+ Action" button (top-right corner) opens BOOK-104 (Add Action).
-- "Follow up" icon on each row opens BOOK-105 (Follow Up Action) with the id base64-encoded.
+- "+ Action" button (top-right corner) opens BOOK-104 (New Pricing Adjustment).
+- "Follow up" icon on each row opens BOOK-105 (Adjustment Follow-up) with the id base64-encoded.
 
 ## Navigation
 
-- Accessed from the main menu ("Action" icon, active_menu = 1000).
+- Accessed from the main menu ("Pricing Adjustments" icon, active_menu = 1000).
 - Navigates to BOOK-104 when "+ Action" is clicked.
 - Navigates to BOOK-105 when the Follow Up icon on a row is clicked.

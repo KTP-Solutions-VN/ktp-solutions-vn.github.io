@@ -1,8 +1,8 @@
-# TRN-003 — Add New Tutorial and Slide
+# TRN-003 — New Lesson
 
 **Type:** Full page
 **Route:** `TrainingController::addTutorial($tutorial_id = null, $slide_id = null)` — `/training/add-tutorial/{tutorial_id}/{slide_id}`
-**Module:** TRN = Training
+**Module:** TRN = Staff Academy
 
 ## Overview
 A 2-step wizard screen: (1) create/declare the Tutorial's general information; after saving, (2) a form for adding content Slides one after another (image/video + text + optional quiz) until the Finish button is pressed.

@@ -1,10 +1,10 @@
-# OWP-010-P1 — Booking Detail Popup
+# OWP-010-P1 — Reservation Detail
 
 **Type:** Popup (opened from OWP-010 and OWP-008)
 
 **Route:** `ExternalUserController::bookingDetails($id)` — no dedicated friendly route (default `/external-user/booking-details/{id_base64}`)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 

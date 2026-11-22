@@ -1,6 +1,6 @@
 /* ==========================================================================
    Entity: Loyalty Point Ledger (Sổ giao dịch điểm thưởng)
-   Module: Loyalty Points Module
+   Module: Rewards (points ledger)
    Schema:
      id           string
      customerId   string   references DATA_KHACH_HANG[].id

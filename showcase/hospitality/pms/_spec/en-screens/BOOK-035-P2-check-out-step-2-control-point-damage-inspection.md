@@ -1,8 +1,8 @@
-# BOOK-035-P2 — Check-out — Step 2: Control Point / Damage Inspection
+# BOOK-035-P2 — On-site Check-out · Step 2: Damage Check
 
 **Type:** Popup (step 2 of the check-out process, opened from BOOK-035)
 **Route:** Booking/checkOutStep2/:check_out_id (default: `/booking/check-out-step2/:check_out_id`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 A step for inspecting each villa control point at check-out, recording any damage (issue) that occurred along with a description, the responsible party, the compensation amount, and photos of the condition found.
@@ -27,5 +27,5 @@ A step for inspecting each villa control point at check-out, recording any damag
 - Continue button to proceed to Step 3
 
 ## Navigation
-- Opened from: BOOK-035 (Check-out — Step 1)
-- Navigates to: BOOK-035-P3 (Step 3: Satisfaction Rating)
+- Opened from: BOOK-035 (On-site Check-out)
+- Navigates to: BOOK-035-P3 (Step 3: Guest Rating)

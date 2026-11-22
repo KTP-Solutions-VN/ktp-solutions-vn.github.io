@@ -1,8 +1,8 @@
-# PROP-038 — Property Rules (Villa Rules)
+# PROP-038 — House Policies
 
 **Type:** Popup (opened from PROP-021)
 **Route:** property/villa-rules/:villa_id (villa_id passed base64-encoded)
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 A modal/page for declaring the rules applicable to a property: house rules, deposit, electricity & other charges (multilingual), cleaning rules, smoking, and parties & events. Data is stored in the `VillaRule` table.
@@ -23,6 +23,6 @@ A modal/page for declaring the rules applicable to a property: house rules, depo
 - Changing the language — updates the Electricity & Other Charges content per the saved language (JS).
 
 ## Navigation
-- Opened from: PROP-021 (Properties Pending Onboarding Action List) — "Villa Rules" icon (opens as a modal via a data attribute).
+- Opened from: PROP-021 (Go-Live Blockers) — "Villa Rules" icon (opens as a modal via a data attribute).
 - Navigates to: none (saves in place and redirects back to itself).
 - Child popup: none.

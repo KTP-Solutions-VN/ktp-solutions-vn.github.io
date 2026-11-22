@@ -1,4 +1,4 @@
-# BOOK-101 — Trạng thái villa (Property Status)
+# BOOK-101 — Bảng trạng thái trực tiếp (Live Status Board)
 
 **Loại:** Trang đầy đủ
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định)
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 
@@ -34,9 +34,9 @@ Bảng theo dõi realtime trạng thái dọn dẹp (cleaning/makeup) và trạn
 
 - Đổi Đơn vị kinh doanh hoặc phạm vi dọn dẹp → tải lại bảng qua AJAX (`fetchpropertystatus`).
 - Cập nhật nhanh trạng thái dọn dẹp/khách/makeup qua các AJAX `updateCleaningstatus`, `updateGueststatus`, `updateMakeupstatus` (thao tác trực tiếp trên bảng, không chuyển trang).
-- Bấm vào một dòng villa → mở popup BOOK-101-P1 (Chi tiết nhân viên villa).
+- Bấm vào một dòng villa → mở popup BOOK-101-P1 (Chi tiết nhân viên trực).
 
 ## Điều hướng
 
-- Vào từ menu vận hành/quản lý villa.
-- → BOOK-101-P1 (Chi tiết nhân viên villa) khi bấm vào dòng villa.
+- Vào từ menu Live Status Board.
+- → BOOK-101-P1 (Chi tiết nhân viên trực) khi bấm vào dòng villa.

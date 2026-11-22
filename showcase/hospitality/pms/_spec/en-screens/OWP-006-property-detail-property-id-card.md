@@ -1,10 +1,10 @@
-# OWP-006 — Property Detail (Property ID Card)
+# OWP-006 — Property Snapshot
 
 **Type:** Full page
 
 **Route:** `ExternalUserController::viewDetails($villa_id)` — no dedicated friendly route, accessed from OWP-005 (default `/external-user/view-details/{villa_id}`)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 
@@ -63,5 +63,5 @@ Field table (read-only), grouped by information block:
 
 ## Navigation
 
-- Accessed from OWP-005 Property List (click the property name or the view icon)
+- Accessed from OWP-005 My Portfolio (click the property name or the view icon)
 - No further navigation from this page (breadcrumb returns to OWP-005)

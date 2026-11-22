@@ -1,8 +1,8 @@
-# VCS-002 — Price Categories List (Price Category)
+# VCS-002 — Rate Tiers
 
 **Type:** Full page
 **Route:** villa-common-setting/price-categories (default DashedRoute: `/villa-common-setting/price-categories`)
-**Module:** VCS = Villa Common Settings
+**Module:** VCS = Property Attributes
 
 ## Overview
 Master data management screen for "Price Category," used to classify service/villa pricing tiers in the system. Displayed as a list table, with Add/Edit/Delete supported through a single shared popup.
@@ -25,6 +25,6 @@ The list is sorted by `description asc` (server-side); no dedicated search/filte
 - Submitting the popup form sends a `POST` to the `priceCategories` action; the controller saves/deletes records in the `PriceCategory` table, writes an Activity Log entry, displays a Flash message, then redirects back to the previous page (`referer()`).
 
 ## Navigation
-- Opened from: Settings menu > "Properties" (Villa Common Settings) > "Price Categories" submenu.
+- Opened from: Portfolio Setup menu > "Property Attributes" > "Rate Tiers" submenu.
 - Navigates to: no navigation to another page.
-- Child popup: VCS-002-P1 (Add/Edit/Delete Price Category).
+- Child popup: VCS-002-P1 (Rate Tier Form).

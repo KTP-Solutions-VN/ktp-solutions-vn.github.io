@@ -1,10 +1,10 @@
-# OWP-009 — Nhật ký bảo trì
+# OWP-009 — Lịch sử sửa chữa (Repair History)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `ExternalUserController::maintenanceLog($id)` — route đẹp: `/external-user/property/log/:id` (config/Routes.php dòng 108)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 

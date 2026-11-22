@@ -1,10 +1,10 @@
-# USR-020 — Danh sách Quy tắc lương (Payroll Rules)
+# USR-020 — Quy tắc tính công (Wage Rules)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `UserController::payrollRules()` — mặc định `user/payrollRules`
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Danh sách các quy tắc tính lương theo pháp nhân (legal entity), quốc tịch và thâm niên (seniority), dùng làm cơ sở tính mức lương ngày (daily wage) cho nhân sự.
@@ -29,14 +29,14 @@ Danh sách các quy tắc tính lương theo pháp nhân (legal entity), quốc 
 | 4 | Quốc tịch | `nationality` | Danh sách quốc gia (JSON) |
 | 5 | Thâm niên | `seniority_type` | Less than/Equal to or More than/Between |
 | 6 | Số tháng | `seniority_value1`/`seniority_value2` | |
-| 7 | Mức lương (THB) | `wage_amount` | |
+| 7 | Mức lương (SGD) | `wage_amount` | |
 | 8 | Ngày tạo | `created_at` | |
 | 9 | Thao tác | — | Xoá |
 
 ## Chức năng/nút thao tác
-- **Thêm mới:** mở USR-021 (Thêm Quy tắc lương).
+- **Thêm mới:** mở USR-021 (Thêm quy tắc tính công).
 - **Xoá:** popup xác nhận, gọi `user/delete-payroll-rule/:base64(id)`.
 
 ## Điều hướng
-- Vào từ: menu Settings/Users → Payroll Rules.
-- Điều hướng đến: USR-021 (Thêm Quy tắc lương).
+- Vào từ: menu Workforce → Wage Rules.
+- Điều hướng đến: USR-021 (Thêm quy tắc tính công).

@@ -1,8 +1,8 @@
 (function () {
   'use strict';
   var BASE_DATA = [
-    { id: 'v1', name: 'Toyota Hilux (Ops)', plate: 'กข 1234', usedBy: 'Somchai Anuwat', status: 'Active' },
-    { id: 'v2', name: 'Honda PCX (Concierge)', plate: 'B 5678 ABC', usedBy: 'Wayan Kertha', status: 'Active' }
+    { id: 'v1', name: 'Toyota Hilux (Ops)', plate: 'SLA 1234 K', usedBy: 'Daniel Tan', status: 'Active' },
+    { id: 'v2', name: 'Honda PCX (Concierge)', plate: 'B 5678 ABC', usedBy: 'Warren Kelly', status: 'Active' }
   ];
   document.getElementById('f-user').innerHTML = MM.MOCK_STAFF.map(function (s) { return '<option>' + s.name + '</option>'; }).join('');
 

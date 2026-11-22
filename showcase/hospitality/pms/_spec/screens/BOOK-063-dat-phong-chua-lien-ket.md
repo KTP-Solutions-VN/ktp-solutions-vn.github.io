@@ -1,8 +1,8 @@
-# BOOK-063 — Đặt phòng chưa liên kết (Unlinked Bookings)
+# BOOK-063 — Đặt chỗ chưa đồng bộ (Unsynced Reservations)
 
 **Loại:** Trang đầy đủ
 **Route:** Booking/unlinkedBookings (mặc định: `/booking/unlinked-bookings`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Danh sách các đặt phòng chưa được kênh quản lý (channel manager) đánh dấu là đã chỉnh sửa/đồng bộ (`Booking.is_channel_modify = 0`), dùng để rà soát các booking có khả năng bị lệch dữ liệu giữa hệ thống và kênh OTA.
@@ -28,4 +28,4 @@ Danh sách các đặt phòng chưa được kênh quản lý (channel manager) 
 - Lọc theo đơn vị kinh doanh, sắp xếp theo giá trị
 
 ## Điều hướng
-- Mở từ: Menu module Đặt phòng > Unlinked Bookings
+- Mở từ: Menu module Đặt chỗ > Unsynced Reservations

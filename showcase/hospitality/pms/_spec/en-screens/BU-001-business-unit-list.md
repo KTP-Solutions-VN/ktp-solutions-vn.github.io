@@ -1,10 +1,10 @@
-# BU-001 — Business Unit List
+# BU-001 — Operating Units
 
 **Type:** Full page
 
 **Route:** `BusinessUnitController::list()` — default `/business-unit/list`
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A list of all business units in the system, sorted by country name and then by unit name. Allows filtering by Active/Paused status, viewing details, editing, deleting, and toggling the active status directly from the list.
@@ -27,13 +27,13 @@ List (DataTable `#zero_config`):
 Filter: "Show Active" / "Show Paused" toggle button (via hidden field `paused_stop_show`, the display preference is saved per logged-in user).
 
 ## Functions / Actions
-- **Add new:** navigates to BU-002 (Add Business Unit).
-- **View (eye icon):** navigates to BU-004 (View Details) — `action=viewDetails`.
+- **Add new:** navigates to BU-002 (New Operating Unit).
+- **View (eye icon):** navigates to BU-004 (Operating Unit Profile) — `action=viewDetails`.
 - **Edit (pencil icon):** navigates to BU-003 (Edit) — `action=edit`, id is `base64_encode`d.
 - **Delete (trash icon):** opens the BU-001-P1 delete confirmation popup; confirming navigates to `delete/{id}` (id base64-encoded via JS `btoa`).
 - **Toggle switch (toggle icon):** calls a hidden AJAX request to the `updateBusinessUnitStatus` action to switch the status between Active ⇄ Paused; switching to Paused also updates the status of related Villas (any Villa currently Open is switched to Paused, and the villa is removed from the "business_unit_id_2" slot if it matches).
 - **Show Active/Show Paused:** changes the list filter condition based on `BusinessUnit.status`.
 
 ## Navigation
-- Accessed from: Main menu > Business Unit.
-- Navigates to: BU-002 (Add), BU-003 (Edit), BU-004 (View Details), BU-001-P1 (delete confirmation popup).
+- Accessed from: Main menu > Operating Units.
+- Navigates to: BU-002 (Add), BU-003 (Edit), BU-004 (Operating Unit Profile), BU-001-P1 (delete confirmation popup).

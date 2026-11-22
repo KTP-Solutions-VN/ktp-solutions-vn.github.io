@@ -1,10 +1,10 @@
-# ACC-038 — Quản lý điện thoại (Phones)
+# ACC-038 — Thiết bị di động (Mobile Devices)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `AccountController::phones()` — mặc định `/account/phones`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Quản lý danh sách điện thoại (tài sản công ty, bảng `Vehicle` với `assets_type = 'phone'`) theo từng Business Unit: xem danh sách, thêm mới, sửa, xóa qua modal trên cùng trang.
@@ -42,5 +42,5 @@ Bộ lọc:
 - Khi đổi Business Unit trong modal: AJAX `account/getBusinessUsers` để nạp lại danh sách nhân viên (Used By) theo BU.
 
 ## Điều hướng
-- Vào từ: Sidebar > Account & HR > Phones (`active_menu = 'acc-phones'`).
+- Vào từ: Sidebar > Finance & Admin > Mobile Devices (`active_menu = 'acc-phones'`).
 - Không điều hướng sang trang khác — toàn bộ thao tác thêm/sửa/xóa thực hiện qua modal ngay trên trang này.

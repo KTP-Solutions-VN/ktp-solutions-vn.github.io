@@ -1,8 +1,8 @@
-# OPR-004 — View Pool Job Details
+# OPR-004 — Pool Round Record
 
 **Type:** Full page
 **Route:** operator/poolView/:id + dashed-style pretty route: operator/pool-view/:id
-**Module:** OPR = Garden/Pool Operations
+**Module:** OPR = Upkeep Jobs
 
 ## Overview
 Read-only screen showing the details of a completed pool job: villa information, service, personnel involved, timing, plan status, and a list of evidence photos/descriptions.
@@ -23,5 +23,5 @@ Read-only screen showing the details of a completed pool job: villa information,
 - View only; no editing actions on this screen.
 
 ## Navigation
-- Entered from: the "View" (eye) icon on OPR-003 — Pool Job List.
+- Entered from: the "View" (eye) icon on OPR-003 — Pool Rounds.
 - Leads to: no further navigation; use the browser's back button to return to OPR-003.

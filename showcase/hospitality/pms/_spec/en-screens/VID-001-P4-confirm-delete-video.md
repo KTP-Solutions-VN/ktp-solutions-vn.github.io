@@ -1,13 +1,13 @@
-# VID-001-P4 — Confirm Delete Video
+# VID-001-P4 — Confirm Video Deletion
 
 **Type:** Popup (opened from VID-001)
 
 **Route:** Static modal within `index.ctp` (`#video-confirm-modal`); confirmation calls AJAX `VideosController::delete($id)` — `POST /videos/delete/:id`
 
-**Module:** Videos
+**Module:** Video Guides
 
 ## Overview
-A shared confirmation dialog before permanently deleting a video from the library (including deletion of the physical file and related Guest Portal/country assignments).
+A shared confirmation dialog before permanently deleting a video from the library (including deletion of the physical file and related Guest Hub/country assignments).
 
 ## Detailed Description
 No input fields; only displays the name of the video to be deleted and a confirmation message.

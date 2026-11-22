@@ -1,10 +1,10 @@
-# CS-004 — Areas
+# CS-004 — Area Setup
 
 **Type:** Full page
 
 **Route:** `CommonSettingController::areas()` — default `/common-setting/areas`
 
-**Module:** CS = Common Lookup Settings
+**Module:** CS = Reference Data
 
 ## Overview
 A list for managing the Area lookup data — a level below District, within the geographic hierarchy Country > Region > District > Area.
@@ -29,5 +29,5 @@ List (DataTable `#zero_config`, sorted by Country > Region > District > Area):
 - **Delete:** opens popup CS-004-P1 in delete-confirmation mode.
 
 ## Navigation
-- Accessed from: System Settings menu > Common Lookup Settings > Areas.
-- Navigates to: CS-004-P1 (Add/Edit/Delete Area popup).
+- Accessed from: Configuration menu > Reference Data > Area Setup.
+- Navigates to: CS-004-P1 (Area Form popup).

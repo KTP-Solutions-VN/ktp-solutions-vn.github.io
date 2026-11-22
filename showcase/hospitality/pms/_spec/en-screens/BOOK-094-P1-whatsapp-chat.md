@@ -1,4 +1,4 @@
-# BOOK-094-P1 — WhatsApp Chat
+# BOOK-094-P1 — Chat Thread (Classic)
 
 **Type:** Full page (opened from BOOK-094, opens in a new tab)
 
@@ -6,7 +6,7 @@
 
 **Pretty route:** `/VM/booking/whatsapp-chat/:booking_id` (used directly in the link in the view; not declared in config/Routes.php)
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 
@@ -31,5 +31,5 @@ A direct WhatsApp chat window with a booking's guest, displaying guest/villa inf
 
 ## Navigation
 
-- Opened from: BOOK-094 (WhatsApp Manager) via the Chat button, opening in a new browser tab.
+- Opened from: BOOK-094 (Chat Inbox (Classic)) via the Chat button, opening in a new browser tab.
 - No further navigation; close the tab to return to BOOK-094.

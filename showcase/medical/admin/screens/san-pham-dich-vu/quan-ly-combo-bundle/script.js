@@ -10,14 +10,14 @@
       tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="es-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></div><h3>No combos found</h3><p>Try adjusting your search.</p></div></td></tr>';
       return;
     }
-    tbody.innerHTML = list.map(function (o) { return '<tr>' + '<td style="font-size:20px;">' + o.thumbnail + '</td>' + '<td class="cell-strong">' + o.name + '</td>' + '<td>' + o.components.map(function(c){return c.name + ' ×' + c.qty;}).join(', ') + '</td>' + '<td class="tabular-nums">SGD ' + o.comboPrice.toFixed(0) + ' <span style="color:var(--gray-400);text-decoration:line-through;">' + o.sumOfComponents.toFixed(0) + '</span></td>' + '<td>' + CJBadge(o.status, {Draft:'neutral',Published:'success',Unpublished:'error'}) + '</td>' + '<td class="row-actions"><a class="btn btn-ghost btn-sm btn-icon-only openComboLink" href="../../../screens/san-pham-dich-vu/tao-chinh-sua-combo/index.html?id=' + o.id + '" data-id="' + o.id + '"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path></svg></a></td>' + '</tr>'; }).join('');
+    tbody.innerHTML = list.map(function (o) { return '<tr>' + '<td style="font-size:20px;">' + o.thumbnail + '</td>' + '<td class="cell-strong">' + o.name + '</td>' + '<td>' + o.components.map(function(c){return c.name + ' ×' + c.qty;}).join(', ') + '</td>' + '<td class="tabular-nums">AUD ' + o.comboPrice.toFixed(0) + ' <span style="color:var(--gray-400);text-decoration:line-through;">' + o.sumOfComponents.toFixed(0) + '</span></td>' + '<td>' + CJBadge(o.status, {Draft:'neutral',Published:'success',Unpublished:'error'}) + '</td>' + '<td class="row-actions"><a class="btn btn-ghost btn-sm btn-icon-only openComboLink" href="../../../screens/san-pham-dich-vu/tao-chinh-sua-combo/index.html?id=' + o.id + '" data-id="' + o.id + '"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path></svg></a></td>' + '</tr>'; }).join('');
     document.querySelectorAll('.openComboLink').forEach(function (link) {
       link.addEventListener('click', function (e) { e.preventDefault(); openComboDrawer(link.getAttribute('data-id')); });
     });
   }
   searchEl.addEventListener('input', render);
 
-  /* ---------------- #65 Create/Edit Combo drawer --------------------------- */
+  /* ---------------- Bundle Builder drawer --------------------------- */
   var editingComboId = null;
   CJDrawer.bind('comboOverlay');
   document.querySelectorAll('#comboOverlay .tab-btn').forEach(function (btn) {
@@ -62,7 +62,7 @@
       var qty = Number(row.querySelector('.cQty').value) || 0;
       return total + qty * productPrice(row.getAttribute('data-pid'));
     }, 0);
-    document.getElementById('cbSum').value = 'SGD ' + sum.toFixed(0);
+    document.getElementById('cbSum').value = 'AUD ' + sum.toFixed(0);
   }
   document.getElementById('cbAddComponent').addEventListener('change', function () {
     var opt = this.options[this.selectedIndex];
@@ -91,7 +91,7 @@
   function openComboDrawer(id) {
     var o = id ? getData().find(function (x) { return x.id === id; }) : null;
     editingComboId = o ? o.id : null;
-    document.getElementById('cbDrawerTitle').textContent = o ? 'Edit Combo' : 'Create Combo';
+    document.getElementById('cbDrawerTitle').textContent = o ? 'Edit Bundle' : 'New Bundle';
     document.getElementById('cbName').value = o ? o.name : '';
     populateAddComponentSelect();
     renderComponents(o ? o.components : []);

@@ -1,8 +1,8 @@
-# BOOK-041 — Team (Lịch làm việc đội ngũ)
+# BOOK-041 — Lịch trực concierge (Concierge Duty Roster)
 
 **Loại:** Trang đầy đủ
 **Route:** Booking/team (mặc định: `/booking/team`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Màn hình xem lịch làm việc/phân công của đội ngũ concierge theo đơn vị kinh doanh, phục vụ tra cứu nhanh ai đang phụ trách villa nào trong ngày.
@@ -15,5 +15,5 @@ Nội dung tải động qua AJAX (controller chỉ set tiêu đề trang), cấ
 - Điều hướng theo ngày, lọc theo đơn vị kinh doanh
 
 ## Điều hướng
-- Mở từ: BOOK-040 (Kế hoạch villa theo lịch)
-- Điều hướng tới: BOOK-028 (Chi tiết đặt phòng) khi click vào một booking cụ thể
+- Mở từ: BOOK-040 (Lịch bàn giao dạng lịch)
+- Điều hướng tới: BOOK-028 (Hồ sơ đặt chỗ) khi click vào một booking cụ thể

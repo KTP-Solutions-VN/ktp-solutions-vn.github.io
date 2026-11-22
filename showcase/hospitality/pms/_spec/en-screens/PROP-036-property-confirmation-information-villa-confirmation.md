@@ -1,8 +1,8 @@
-# PROP-036 — Property Confirmation Information (Villa Confirmation)
+# PROP-036 — Confirmation Letter
 
 **Type:** Full page
 **Route:** property/confirmation/:villa_id (villa_id passed base64-encoded), opened from PROP-021 ("Villa Confirmation" icon)
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Page for entering/composing the confirmation letter sent to guests upon a successful booking for a property: a welcome message per language, pick-up instructions, and parking instructions. Data is stored in the `VillaConfirmation` table; multilingual fields are serialized by language code.
@@ -20,6 +20,6 @@ Page for entering/composing the confirmation letter sent to guests upon a succes
 - Changing the language — updates the Welcome Message textarea with the content saved for that language (JS, no page reload).
 
 ## Navigation
-- Opened from: PROP-021 (Properties Pending Onboarding Action List) — "Villa Confirmation" icon.
+- Opened from: PROP-021 (Go-Live Blockers) — "Villa Confirmation" icon.
 - Navigates to: none (saves in place and redirects back to itself).
 - Child popup: none.

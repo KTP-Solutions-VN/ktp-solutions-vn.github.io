@@ -1,8 +1,8 @@
-# PROP-062 — Yêu cầu xác thực lại Onboarding Property (Edit On Boarding)
+# PROP-062 — Xác thực lại hồ sơ tiếp nhận (Intake Revalidation)
 
 **Loại:** Trang đầy đủ
-**Route:** property/edit-on-boarding/:id, mở từ PROP-020 (Danh sách Onboarding)
-**Module:** PROP = Bất động sản
+**Route:** property/edit-on-boarding/:id, mở từ PROP-020 (Tiếp nhận tài sản)
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang xem lại chi tiết dữ liệu Onboarding đã nhập (Property/Unit) theo dạng bảng Field/Entry/Prepared by/Validated by, cho phép chọn người xác thực (Validator) khác và gửi lại yêu cầu xác thực (tạo thông báo `NoticeBoard` mới) cho bản ghi Villa Onboarding.
@@ -15,10 +15,10 @@ Trang xem lại chi tiết dữ liệu Onboarding đã nhập (Property/Unit) th
 | 3 | Number of Unit | `number_of_unit` | Hidden | — | Số lượng Unit (nếu Property có nhiều unit) |
 
 ## Chức năng/nút thao tác
-- Nút "Save"/"Send" — submit form, tạo bản ghi `NoticeBoard` + `NoticeBoardDetail` gửi yêu cầu xác thực tới Validator đã chọn (deadline mặc định +5 ngày), hiện Flash message rồi redirect về PROP-020 (Danh sách Onboarding).
+- Nút "Save"/"Send" — submit form, tạo bản ghi `NoticeBoard` + `NoticeBoardDetail` gửi yêu cầu xác thực tới Validator đã chọn (deadline mặc định +5 ngày), hiện Flash message rồi redirect về PROP-020 (Tiếp nhận tài sản).
 - Xác thực từng field riêng lẻ (AJAX `validateOnBoarding`) — đánh dấu field đã được duyệt bởi user hiện tại; khi tất cả field đã duyệt, trạng thái bản ghi Onboarding chuyển thành "completed".
 
 ## Điều hướng
-- Mở từ: PROP-020 (Danh sách Onboarding).
-- Điều hướng tới: PROP-020 (Danh sách Onboarding) sau khi lưu.
+- Mở từ: PROP-020 (Tiếp nhận tài sản).
+- Điều hướng tới: PROP-020 (Tiếp nhận tài sản) sau khi lưu.
 - Popup con: Không có.

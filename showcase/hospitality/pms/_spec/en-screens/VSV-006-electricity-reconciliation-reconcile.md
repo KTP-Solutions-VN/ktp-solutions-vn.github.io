@@ -1,10 +1,10 @@
-# VSV-006 — Electricity Reconciliation (Reconcile)
+# VSV-006 — Power Bill Settlement
 
 **Type:** Full page
 
 **Route:** `VillaServicesController::reconcile()` — defaults to `/villa-services/reconcile`
 
-**Module:** Villa Services — Electricity
+**Module:** In-Stay Services — Metering
 
 ## Overview
 Reconciles electricity bills (`ElectricalBill`) that have ended (end_date) within the last 3 months, split into 2 groups: fully reconciled (has an end meter reading) and still outstanding (no end meter reading yet/not completed).
@@ -33,5 +33,5 @@ Data retrieval conditions: `ElectricalBill.end_date` within the range `[today - 
 - No direct add/edit/delete actions on this page (view and status-confirmation only).
 
 ## Navigation
-- Entered from: Main menu (Reconcile/Electricity Reconciliation item).
+- Entered from: Main menu (Power Bill Settlement item).
 - Navigates to: no child page; there is an implicit link to data in VSV-004-P1/VSV-005-P1 (no direct navigation).

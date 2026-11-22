@@ -22,21 +22,21 @@ const POS = (() => {
 
   function fmtCurrency(n) {
     const v = Number(n) || 0;
-    return 'S$' + v.toLocaleString('en-SG', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return 'A$' + v.toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
 
   function fmtDateTime(iso) {
     if (!iso) return '—';
     const d = new Date(iso);
     if (isNaN(d)) return iso;
-    return d.toLocaleString('en-SG', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    return d.toLocaleString('en-AU', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
   }
 
   function fmtTime(iso) {
     if (!iso) return '—';
     const d = new Date(iso);
     if (isNaN(d)) return iso;
-    return d.toLocaleTimeString('en-SG', { hour: '2-digit', minute: '2-digit' });
+    return d.toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit' });
   }
 
   function readJSON(key, fallback) {
@@ -54,8 +54,8 @@ const POS = (() => {
     if (!s) {
       s = {
         sessionId: 'SES-' + new Date().toISOString().slice(0, 10).replace(/-/g, ''),
-        cashierName: 'Mei Lin Tan',
-        outlet: 'Meridian Health — Central Pharmacy',
+        cashierName: 'Lucy Edwards',
+        outlet: 'Meridian Health — Randwick Pharmacy',
         openedAt: new Date(new Date().setHours(9, 0, 0, 0)).toISOString(),
         openingFloat: 200.00,
         status: 'open',
@@ -101,7 +101,7 @@ const POS = (() => {
     writeJSON(LS_KEYS.prescriptions, extra);
   }
 
-  const TAX_RATE = 0.08;
+  const TAX_RATE = 0.10;
   function computeCartTotals(cart) {
     const subtotal = cart.items.reduce((s, i) => s + i.lineTotal, 0);
     const discount = cart.discount || 0;
@@ -127,9 +127,9 @@ const POS = (() => {
       timestamp: new Date().toISOString(),
       items: cart.items.map(i => ({ sku: i.sku, name: i.name, qty: i.qty, unitPrice: i.override ? i.override.newPrice : i.unitPrice, lineTotal: i.lineTotal, override: i.override })),
       subtotal: totals.subtotal, discount: totals.discount, tax: totals.tax, total: totals.total,
-      // Customer & Rewards panel (Sales Screen #54) keeps these synced onto the cart on every
-      // total recalculation, so a sale finalized here after the Rx sub-flow (#55-58) still
-      // carries the same promo/loyalty detail through to Session Closing (#59).
+      // Customer & Rewards panel (Sales Terminal) keeps these synced onto the cart on every
+      // total recalculation, so a sale finalized here after the Rx sub-flow (popup screens) still
+      // carries the same promo/loyalty detail through to Shift Close-Out.
       promoCode: cart.promoCode || null,
       promoDiscountAmount: cart.promoDiscountAmount || 0,
       customerId: cart.customer ? cart.customer.id : null,
@@ -184,7 +184,7 @@ const POS = (() => {
   function initClock(el) {
     function tick() {
       const now = new Date();
-      el.textContent = now.toLocaleString('en-SG', { weekday: 'short', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      el.textContent = now.toLocaleString('en-AU', { weekday: 'short', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit', second: '2-digit' });
     }
     tick();
     setInterval(tick, 1000);
@@ -193,7 +193,7 @@ const POS = (() => {
   function wireResetButtons() {
     document.querySelectorAll('.reset-demo-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        if (confirm('Reset all demo data and return to Sales Screen?')) resetDemoData();
+        if (confirm('Reset all demo data and return to Sales Terminal?')) resetDemoData();
       });
     });
   }

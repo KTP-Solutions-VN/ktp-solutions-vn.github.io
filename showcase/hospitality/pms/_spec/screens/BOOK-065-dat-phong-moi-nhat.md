@@ -1,8 +1,8 @@
-# BOOK-065 — Đặt phòng mới nhất (Latest Bookings)
+# BOOK-065 — Đặt chỗ gần đây (Recent Reservations)
 
 **Loại:** Trang đầy đủ
 **Route:** Booking/latestBookings (mặc định: `/booking/latest-bookings`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Bảng theo dõi các đặt phòng mới phát sinh (mặc định trong 24 giờ gần nhất, hoặc theo khoảng ngày chọn), kèm biểu đồ doanh thu ròng theo tháng, dùng để theo dõi nhanh dòng booking mới và loại trừ các booking của chủ nhà (owner booking) khỏi doanh thu thực.
@@ -36,5 +36,5 @@ Bảng theo dõi các đặt phòng mới phát sinh (mặc định trong 24 gi�
 - Tải xuống danh sách (`downloadLatestBooking`)
 
 ## Điều hướng
-- Mở từ: Menu module Đặt phòng > Latest Bookings
-- Điều hướng tới: BOOK-028 (Chi tiết đặt phòng) khi bấm vào một dòng
+- Mở từ: Menu module Đặt chỗ > Recent Reservations
+- Điều hướng tới: BOOK-028 (Hồ sơ đặt chỗ) khi bấm vào một dòng

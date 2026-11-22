@@ -1,8 +1,8 @@
-# BOOK-039 — Danh sách kế hoạch (Planning List)
+# BOOK-039 — Lịch bàn giao (Handover Schedule)
 
 **Loại:** Trang đầy đủ
 **Route:** Booking/planningList (mặc định: `/booking/planning-list`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Danh sách các yêu cầu/kế hoạch liên quan đến check-in/check-out theo villa: kênh đặt, thời gian, người phụ trách concierge và trạng thái chat với khách. Hỗ trợ lọc theo đơn vị kinh doanh, khoảng ngày và xuất dữ liệu (export).
@@ -37,5 +37,5 @@ Danh sách các yêu cầu/kế hoạch liên quan đến check-in/check-out the
 - Xem chi tiết từng dòng kế hoạch
 
 ## Điều hướng
-- Mở từ: Menu module Đặt phòng > Planning
-- Điều hướng tới: BOOK-040 (Kế hoạch villa theo lịch)
+- Mở từ: Menu module Đặt chỗ > Handover Schedule
+- Điều hướng tới: BOOK-040 (Lịch bàn giao dạng lịch)

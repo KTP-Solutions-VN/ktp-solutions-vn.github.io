@@ -1,10 +1,10 @@
-# ACC-053-P1 — Popup thêm ngày lễ
+# ACC-053-P1 — Thêm ngày lễ (New Holiday)
 
 **Loại:** Popup (mở từ ACC-053)
 
 **Route:** `AccountController::addPublicHoliday()` — mặc định `/account/add-public-holiday`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Form thêm mới một ngày lễ công cho một quốc gia cụ thể: khai báo mô tả, thiết lập quy tắc HR (loại ngày lễ, hệ số OT, có tính vào lương/nghỉ phép hay không) và tác động định giá theo nhu cầu.
@@ -13,7 +13,7 @@ Form thêm mới một ngày lễ công cho một quốc gia cụ thể: khai b�
 
 | # | Tên field | Field code | Loại dữ liệu/input | Bắt buộc | Ghi chú |
 |---|---|---|---|---|---|
-| 1 | Country | `country_id` | Select2 (Thailand/France/Greece) | Có (`required`) | |
+| 1 | Country | `country_id` | Select2 (Singapore/France/Greece) | Có (`required`) | |
 | 2 | Date | `date` | Text + datepicker (`dd MM, yyyy`), `startDate` = hôm nay | Có (`required`) | Validate remote AJAX `checkUniqueDate` — không cho trùng ngày với ngày lễ khác cùng quốc gia |
 | 3 | Description | `description` | Textarea | Có (class `required`) | |
 | 4 | Comment | `comment` | Textarea | Có (class `required`) | |
@@ -30,5 +30,5 @@ Form thêm mới một ngày lễ công cho một quốc gia cụ thể: khai b�
 - **checkUniqueDate (AJAX nền, không phải nút):** POST `/account/checkUniqueDate` chạy khi đổi Country hoặc Date để kiểm tra ngày đã tồn tại cho quốc gia đó chưa (action `checkUniqueDate`, không có view riêng, trả về `true`/`false`).
 
 ## Điều hướng
-- Vào từ: ACC-053 (Ngày lễ) — nút "Add new".
+- Vào từ: ACC-053 (Lịch ngày lễ) — nút "Add new".
 - Điều hướng đến: quay lại ACC-053 sau khi lưu hoặc hủy.

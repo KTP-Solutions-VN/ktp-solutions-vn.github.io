@@ -1,13 +1,13 @@
-# CMS-026 — Danh sách bài viết Insights
+# CMS-026 — Nhật ký du lịch (Travel Journal)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::insights($action, $id)` — mặc định `/cms/insights/:action/:id`
 
-**Module:** CMS = Nội dung trang chủ
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
-Màn hình danh sách các bài viết "Insights" (nội dung dạng bài viết/tin tức global, không gắn theo villa cụ thể) thuộc mục Common Texts của CMS. Từ đây có thể thêm mới, sửa hoặc xoá từng bài viết.
+Màn hình danh sách các bài viết "Travel Journal" (nội dung dạng bài viết/tin tức global, không gắn theo villa cụ thể) thuộc mục Shared Content Blocks của CMS. Từ đây có thể thêm mới, sửa hoặc xoá từng bài viết.
 
 ## Mô tả chi tiết
 
@@ -27,6 +27,6 @@ Dữ liệu lấy toàn bộ (`find('all')`, không điều kiện, không sắp
 - **Delete (từng dòng):** link `action => insights, delete, $id` → gọi lại action `insights` với `$action='delete'`, `$id`; controller xoá bản ghi (`_deleteData('GuestCollectionInsight', 'id', $id)`), hiện Flash message thành công/lỗi, sau đó redirect lại chính màn hình danh sách này.
 
 ## Điều hướng
-- Vào từ: menu Settings → Common Texts (`CmsController::commonText`), nút/link "Insights".
-- Điều hướng đến: CMS-027 (thêm/sửa bài Insight).
-- Liên quan: tab "Insights" trong màn hình collection tabs của property CMS (CMS-023, `plugins/VillaManagement/src/Template/Cms/collection_tabs.ctp`) hiển thị danh sách các Insight global này để gán/gỡ vào một villa cụ thể — tab đó dùng element riêng (`Element/cms/insights.ctp`) và action AJAX `CmsController::updateInsightAjax()` để lưu lựa chọn (không phải action `insights` của màn hình này, chỉ đọc chung dữ liệu `GuestCollectionInsight`).
+- Vào từ: menu Settings → Shared Content Blocks (`CmsController::commonText`), nút/link "Travel Journal".
+- Điều hướng đến: CMS-027 (Trình sửa bài nhật ký).
+- Liên quan: tab "Journal" trong màn hình collection tabs của property CMS (CMS-023, `plugins/VillaManagement/src/Template/Cms/collection_tabs.ctp`) hiển thị danh sách các Insight global này để gán/gỡ vào một villa cụ thể — tab đó dùng element riêng (`Element/cms/insights.ctp`) và action AJAX `CmsController::updateInsightAjax()` để lưu lựa chọn (không phải action `insights` của màn hình này, chỉ đọc chung dữ liệu `GuestCollectionInsight`).

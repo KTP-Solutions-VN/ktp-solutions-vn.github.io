@@ -1,10 +1,10 @@
-# ACC-023 — Chart of Accounts
+# ACC-023 — Account Structure
 
 **Type:** Full page
 
 **Route:** `AccountController::chartAccounts()` — default `/account/chart-accounts`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 A list of "Chart of Account" records by Business Unit, visible only to Superadmin in the menu. Allows adding/editing the name and applicable Business Units via a popup, deleting (including all related `ChartAccountDetails` records), and navigating to view/edit the account structure details.
@@ -41,5 +41,5 @@ Add/Edit popup (modal `#exampleModal`, form `#chart_account_form`):
 - Hidden validation: the `checkAccount()` action — AJAX check for duplicate Chart of Account names (distinguishes add/edit via `id`).
 
 ## Navigation
-- Entered from: Sidebar > (Superadmin group, under Settings) > "Chart of Accounts" (`user_type = Superadmin` and `filterSidebar($user, 'ChartAccount-chartOfAccount') == 1`).
-- Navigates to: ACC-023-P1 (View Accounting Account Details), ACC-023-P2 (Edit Accounting Account Details).
+- Entered from: Sidebar > (Superadmin group, under Settings) > "Account Structure" (`user_type = Superadmin` and `filterSidebar($user, 'ChartAccount-chartOfAccount') == 1`).
+- Navigates to: ACC-023-P1 (Account Structure Details), ACC-023-P2 (Edit Account Structure).

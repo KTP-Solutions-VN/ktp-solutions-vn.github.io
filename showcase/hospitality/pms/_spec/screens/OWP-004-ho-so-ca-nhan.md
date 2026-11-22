@@ -1,14 +1,14 @@
-# OWP-004 — Hồ sơ cá nhân
+# OWP-004 — Tài khoản của tôi (My Account)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `ExternalUserController::profile()` — không có route đẹp riêng (mặc định `/external-user/profile`)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 
-Trang xem và cập nhật thông tin cá nhân của Chủ sở hữu/nhân viên đại lý: họ tên, quốc tịch, email, số điện thoại, công ty, ngôn ngữ hiển thị. Gồm 2 tab: "Hồ sơ" (Profile) và "Đổi mật khẩu" (OWP-004-P1).
+Trang xem và cập nhật thông tin cá nhân của Chủ sở hữu/nhân viên đại lý: họ tên, quốc tịch, email, số điện thoại, công ty, ngôn ngữ hiển thị. Gồm 2 tab: "Hồ sơ" (Profile) và "Cập nhật mật khẩu" (OWP-004-P1).
 
 ## Mô tả chi tiết
 

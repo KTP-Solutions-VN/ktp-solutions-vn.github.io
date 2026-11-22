@@ -1,10 +1,10 @@
-# VSV-007 — Monthly Electricity Bill (Monthly Bill)
+# VSV-007 — Utility Invoices
 
 **Type:** Full page
 
 **Route:** `VillaServicesController::monthlyBill()` — defaults to `/villa-services/monthly-bill` (POST to the same action for search/update)
 
-**Module:** Villa Services — Electricity
+**Module:** In-Stay Services — Metering
 
 ## Overview
 A page for managing monthly electricity bills (for villas whose electricity is managed by paying the grid/provider directly — e.g., villas rented to long-term tenants). Allows viewing by villa (listing months since the electricity contract start date) or by month (listing all villas), and entering the end meter reading and bill amount for each period.
@@ -35,5 +35,5 @@ A page for managing monthly electricity bills (for villas whose electricity is m
 - **Update**: submits the entire table (POST `action=update`) → saves each row into `ElectricalMonthlyBill` (creates new or updates based on villa_id + month/year derived from end_date), via the `addMonthlyBill` action (internal AJAX, no dedicated view).
 
 ## Navigation
-- Entered from: Main menu (Electricity/Monthly Bill item).
+- Entered from: Main menu (Utility Invoices item).
 - Navigates to: the villa electricity service setup page (`Property::ServiceSetting`) when a villa has no start meter data.

@@ -1,10 +1,10 @@
-# CMS-010 — Thêm Logo đối tác
+# CMS-010 — Thêm huy hiệu đối tác (New Partner Badge)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::logoAdd()` — mặc định `/cms/logo-add`
 
-**Module:** CMS = Nội dung trang chủ villa
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Form thêm mới một logo đối tác gồm tiêu đề, ảnh logo và link liên kết. Không có yếu tố đa ngôn ngữ.

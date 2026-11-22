@@ -1,10 +1,10 @@
-# BU-006 — Liên kết Villa theo kênh
+# BU-006 — Liên kết listing theo kênh (Channel Listing Links)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `BusinessUnitController::channelVilla($channel_id)` — mặc định `/business-unit/channel-villa/{channel_id}`
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Trang hiển thị dạng lưới (card) danh sách villa của một đơn vị kinh doanh, kèm liên kết OTA (ota_link) tương ứng với kênh đang chọn — dùng để đối chiếu nhanh liên kết villa trên kênh OTA. Mở ở tab mới từ BU-005/BU-007.

@@ -23,10 +23,10 @@
     document.getElementById('ordItems').innerHTML = order.items.map(function (it) {
       return '<tr><td class="cell-strong">' + it.name + '</td><td>' + it.variant + '</td><td>' + it.qty + '</td><td class="tabular-nums">' + it.price.toFixed(2) + '</td></tr>';
     }).join('');
-    document.getElementById('ordSubtotal').textContent = 'SGD ' + order.subtotal.toFixed(2);
-    document.getElementById('ordDiscount').textContent = '- SGD ' + order.discount.toFixed(2);
-    document.getElementById('ordGst').textContent = 'SGD ' + order.gst.toFixed(2);
-    document.getElementById('ordTotal').textContent = 'SGD ' + order.total.toFixed(2);
+    document.getElementById('ordSubtotal').textContent = 'AUD ' + order.subtotal.toFixed(2);
+    document.getElementById('ordDiscount').textContent = '- AUD ' + order.discount.toFixed(2);
+    document.getElementById('ordGst').textContent = 'AUD ' + order.gst.toFixed(2);
+    document.getElementById('ordTotal').textContent = 'AUD ' + order.total.toFixed(2);
     document.getElementById('statusSelect').value = order.status in {Ordered:1,Paid:1,Processing:1,Delivered:1,'Ready for Collection':1,Completed:1,Cancelled:1,Refunded:1} ? order.status : 'Ordered';
     document.getElementById('ordSourceTag').innerHTML = sourceTag(order.purchaseSource);
     document.getElementById('ordFulfillment').textContent = order.fulfillmentMethod;

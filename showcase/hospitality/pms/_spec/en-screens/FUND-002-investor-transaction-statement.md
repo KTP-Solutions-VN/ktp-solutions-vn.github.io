@@ -1,10 +1,10 @@
-# FUND-002 — Investor Transaction Statement
+# FUND-002 — Investor Ledger
 
 **Type:** Full page
 
 **Route:** `FundController::statements($in_id = null)` — `/fund/statements` or `/fund/statements/:in_id` (parameter passed when navigating from FUND-001; also filterable via query `id` = business unit, `investors` = investor/fund id).
 
-**Module:** FUND = Investment Fund
+**Module:** FUND = Investor Capital
 
 ## Overview
 View the transaction history (investments, withdrawals, interest payouts, interest capitalizations) of a specific investor, the running balance for each investment, and initiate new transactions.

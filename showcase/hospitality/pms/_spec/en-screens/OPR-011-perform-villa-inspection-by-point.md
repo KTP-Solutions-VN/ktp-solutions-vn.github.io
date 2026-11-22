@@ -1,8 +1,8 @@
-# OPR-011 — Perform Villa Inspection by Point
+# OPR-011 — Run Condition Check
 
 **Type:** Full page
 **Route:** operator/inspectionDetails?id=&last_id= + dashed-style pretty route: operator/inspection-details
-**Module:** OPR = Garden/Pool Operations
+**Module:** OPR = Upkeep Jobs
 
 ## Overview
 Step-by-step (point-by-point) wizard screen for staff to perform the inspection points (inspection point) of an `Inspection` round: select the inspection item (Inspection Service), area (Location Service), capture an evidence photo, with the ability to Next/Back/Reset/Update each point, and Finish to complete the entire inspection round.
@@ -28,4 +28,4 @@ Step-by-step (point-by-point) wizard screen for staff to perform the inspection 
 
 ## Navigation
 - Entered from: OPR-010 (clicking Start) or continuing a draft (`fetchDraftInspection`).
-- Leads to: after Finish, returns to OPR-010 — Villa Inspection List.
+- Leads to: after Finish, returns to OPR-010 — Condition Checks.

@@ -1,8 +1,8 @@
-# VCS-002 — Danh sách Hạng mục giá (Price Category)
+# VCS-002 — Bậc giá (Rate Tiers)
 
 **Loại:** Trang đầy đủ
 **Route:** villa-common-setting/price-categories (dashed mặc định: `/villa-common-setting/price-categories`)
-**Module:** VCS = Cấu hình chung villa
+**Module:** VCS = Thuộc tính tài sản
 
 ## Mô tả ngắn gọn
 Màn hình quản lý dữ liệu chủ "Hạng mục giá" (Price Category) dùng để phân loại các mức giá dịch vụ/villa trong hệ thống. Hiển thị dạng bảng danh sách, cho phép Thêm/Sửa/Xóa qua 1 popup dùng chung.
@@ -25,6 +25,6 @@ Danh sách được sắp xếp theo `description asc` (server-side), không có
 - Submit form popup gửi `POST` về chính action `priceCategories`; controller lưu/xóa bảng `PriceCategory`, ghi Activity Log, hiển thị Flash message, sau đó redirect về trang trước (`referer()`).
 
 ## Điều hướng
-- Mở từ: Menu Settings > "Properties" (Cấu hình chung villa) > submenu "Price Categories".
+- Mở từ: Menu Portfolio Setup > "Property Attributes" (Thuộc tính tài sản) > submenu "Rate Tiers".
 - Điều hướng tới: không điều hướng sang trang khác.
-- Popup con: VCS-002-P1 (Thêm/Sửa/Xóa Hạng mục giá).
+- Popup con: VCS-002-P1 (Form bậc giá).

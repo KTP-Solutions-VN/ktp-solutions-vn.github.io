@@ -1,11 +1,11 @@
-# BOOK-038 — Khôi phục/Tra cứu đặt phòng (Retrieve Booking)
+# BOOK-038 — Tra cứu đặt chỗ (Reservation Lookup)
 
 **Loại:** Trang đầy đủ
 **Route:** Booking/retrieveBooking (mặc định: `/booking/retrieve-booking`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
-Màn hình tra cứu toàn bộ đặt phòng theo khoảng ngày đặt/ngày nhận phòng và trạng thái (bao gồm cả các trạng thái đã huỷ), phục vụ tra cứu/khôi phục thông tin booking, kèm liên kết truy cập cổng thông tin khách (Access Portal), trạng thái khai báo TDAC và người phụ trách (Leader).
+Màn hình tra cứu toàn bộ đặt phòng theo khoảng ngày đặt/ngày nhận phòng và trạng thái (bao gồm cả các trạng thái đã huỷ), phục vụ tra cứu/khôi phục thông tin booking, kèm liên kết truy cập cổng thông tin khách (Access Portal), trạng thái khai báo SGAC và người phụ trách (Leader).
 
 ## Mô tả chi tiết
 
@@ -29,7 +29,7 @@ Màn hình tra cứu toàn bộ đặt phòng theo khoảng ngày đặt/ngày n
 | 6 | Nationality | Quốc tịch |
 | 7 | OTA | Kênh đặt |
 | 8 | Access Portal | Liên kết truy cập cổng thông tin khách |
-| 9 | TDAC | Trạng thái khai báo TDAC (Thai Digital Arrival Card) |
+| 9 | SGAC | Trạng thái khai báo SGAC (SG Arrival Card) |
 | 10 | Leader | Người phụ trách |
 | 11 | Status | Trạng thái booking |
 | 12 | Actions | Thao tác |
@@ -37,8 +37,8 @@ Màn hình tra cứu toàn bộ đặt phòng theo khoảng ngày đặt/ngày n
 ## Chức năng/nút thao tác
 - Lọc theo khoảng ngày đặt/nhận phòng và trạng thái (kể cả Cancelled)
 - Xem chi tiết / khôi phục thông tin từng booking
-- Truy cập nhanh Access Portal, xem trạng thái TDAC
+- Truy cập nhanh Access Portal, xem trạng thái SGAC
 
 ## Điều hướng
-- Mở từ: Menu module Đặt phòng > Retrieve Booking
-- Điều hướng tới: BOOK-028 (Chi tiết đặt phòng) khi xem chi tiết
+- Mở từ: Menu module Đặt chỗ > Reservation Lookup
+- Điều hướng tới: BOOK-028 (Hồ sơ đặt chỗ) khi xem chi tiết

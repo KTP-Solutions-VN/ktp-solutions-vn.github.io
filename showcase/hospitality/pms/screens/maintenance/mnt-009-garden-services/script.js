@@ -12,7 +12,7 @@
       storageKey: 'mm_mnt_garden_services',
       baseData: MNT.GARDEN_SERVICES,
       entityLabel: 'service',
-      entityTitle: 'Garden Service',
+      entityTitle: 'Garden Service Type',
       tbodyId: 'list-tbody',
       allBu: false
     });

@@ -1,8 +1,8 @@
-# MNT-014-P1 — Thêm dịch vụ dọn dẹp
+# MNT-014-P1 — Thêm dịch vụ dọn phòng (New Housekeeping Service)
 
 **Loại:** Trang đầy đủ (mở từ MNT-014)
 **Route:** maintenance/addCleaningService
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Trang thêm mới một dịch vụ dọn dẹp: tên, ảnh minh họa, đơn vị kinh doanh áp dụng, trạng thái, và danh sách "tiêu chuẩn dọn dẹp" (mỗi tiêu chuẩn gồm tên/legend + icon minh họa, thêm động).
@@ -24,5 +24,5 @@ Trang thêm mới một dịch vụ dọn dẹp: tên, ảnh minh họa, đơn v
 - **Cancel**: quay về MNT-014.
 
 ## Điều hướng
-- Vào từ: nút "Add New" trên MNT-014 — Dịch vụ dọn dẹp.
+- Vào từ: nút "Add New" trên MNT-014 — Tiêu chuẩn dọn phòng.
 - Đi tới: sau khi lưu, quay về MNT-014.

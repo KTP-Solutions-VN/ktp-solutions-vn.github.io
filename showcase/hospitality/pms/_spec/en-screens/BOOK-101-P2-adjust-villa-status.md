@@ -1,4 +1,4 @@
-# BOOK-101-P2 — Adjust Villa Status (Adjust Detail)
+# BOOK-101-P2 — Adjust Live Status
 
 **Type:** Popup / sub-page (opened from BOOK-101)
 
@@ -6,7 +6,7 @@
 
 **Friendly route:** no dedicated route found in config/Routes.php
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 

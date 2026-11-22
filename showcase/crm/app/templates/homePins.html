@@ -1,4 +1,4 @@
-<!-- Partial trang chủ: báo cáo người dùng ghim từ trang Báo cáo (M27.04, thay trang Dashboard). Dữ liệu: pins[{id,name,bars}] -->
+<!-- Partial trang tổng quan: báo cáo người dùng ghim từ trang Phân tích (M27.04, thay trang Dashboard). Dữ liệu: pins[{id,name,bars}] -->
 {{#if pins.length}}<div class="row r-111"{{fa "M27.04"}}>
   {{#each pins}}<div class="card np"><div class="card-h"><h3>{{name}}</h3><span class="sp"></span><a class="sm" href="/p/reports?i={{id}}"><b>{{t "home.openRep"}}</b></a><button class="ibtn" title="{{t "rep.unpin"}}" onclick="pinReport('{{id}}')">×</button></div><div class="card-b">{{> bars items=bars}}</div></div>{{/each}}
 </div>{{/if}}

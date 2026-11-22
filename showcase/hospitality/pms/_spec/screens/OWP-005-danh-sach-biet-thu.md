@@ -1,10 +1,10 @@
-# OWP-005 — Danh sách biệt thự (Property List)
+# OWP-005 — Danh mục của tôi (My Portfolio)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `ExternalUserController::list()` — route đẹp: `/external-user/property/list` (config/Routes.php dòng 107)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 
@@ -36,5 +36,5 @@ Bộ lọc/nút điều khiển:
 
 ## Điều hướng
 
-- Truy cập từ menu chính (Property) hoặc redirect sau đăng nhập (OWP-001)
-- Click một dòng → OWP-006 Chi tiết biệt thự
+- Truy cập từ menu chính (My Portfolio) hoặc redirect sau đăng nhập (OWP-001)
+- Click một dòng → OWP-006 Tóm tắt tài sản

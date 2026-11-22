@@ -1,11 +1,11 @@
-# PROP-051 — Tổng hợp gán Hợp đồng khách (Guest Contract) theo Business Unit
+# PROP-051 — Mức sẵn sàng hợp đồng (Contract Readiness)
 
 **Loại:** Trang đầy đủ
 **Route:** property/guest-contract-bu-recap
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
-Trang tổng hợp trạng thái gán hợp đồng cổng thông tin khách (Guest Contract) cho toàn bộ Property trong một Business Unit: đã sẵn sàng ký (Ready), chưa gán hợp đồng (No Contract), thiếu thông tin bắt buộc (Missing Info). Hỗ trợ lọc nhanh, tìm kiếm, phân trang, xem trước (preview) hợp đồng và xuất Excel. Nội dung này cũng được nhúng làm tab "Portal Contract" trong PROP-048 (Services).
+Trang tổng hợp trạng thái gán hợp đồng cổng thông tin khách (Guest Contract) cho toàn bộ Property trong một Business Unit: đã sẵn sàng ký (Ready), chưa gán hợp đồng (No Contract), thiếu thông tin bắt buộc (Missing Info). Hỗ trợ lọc nhanh, tìm kiếm, phân trang, xem trước (preview) hợp đồng và xuất Excel. Nội dung này cũng được nhúng làm tab "Portal Contract" trong PROP-048 (Nhập dịch vụ hàng loạt).
 
 ## Mô tả chi tiết
 
@@ -43,6 +43,6 @@ Trang tổng hợp trạng thái gán hợp đồng cổng thông tin khách (Gu
 - Phân trang Previous/Next.
 
 ## Điều hướng
-- Mở từ: Menu Property/Reports, hoặc từ PROP-048 (Services — tab Portal Contract, nút "Export Excel").
-- Điều hướng tới: PROP-050 (tab Portal Contract, mở tab mới), PROP-052 (Guest Contract Assignment PDF — preview).
+- Mở từ: Menu báo cáo chủ nhà, hoặc từ PROP-048 (Nhập dịch vụ hàng loạt — tab Contract Readiness, nút "Export Excel").
+- Điều hướng tới: PROP-050 (tab Portal Contract, mở tab mới), PROP-052 (In hợp đồng khách — preview).
 - Popup con: Modal Preview hợp đồng (không tách mã riêng, dùng chung nội dung PROP-052).

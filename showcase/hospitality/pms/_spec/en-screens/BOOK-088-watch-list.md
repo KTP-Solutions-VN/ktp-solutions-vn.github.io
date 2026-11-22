@@ -1,9 +1,9 @@
-# BOOK-088 — Watch List
+# BOOK-088 — Monitored Stays
 
 **Type:** Full page
 **Route:** Booking/watchList
 **Pretty route:** No dedicated route found in config/Routes.php (the URL uses the form `/booking/watch-list?business_unit=...` per the script in the view)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 A list of bookings that require special monitoring based on guest nationality/phone number (per the list of countries configured for monitoring for each business unit), helping to identify bookings from guest groups requiring attention (e.g. by country phone code). Allows marking each booking as "seen" and exporting an Excel report.
@@ -36,5 +36,5 @@ Only bookings with a check-out date from yesterday onward, that are not cancelle
 - **Group Chat** status link — opens/activates the booking's chat group (`activateChat` action)
 
 ## Navigation
-- Opened from: Booking module menu > Watch List
+- Opened from: Reservations module menu > Monitored Stays
 - Navigates to: no dedicated sub-page; the chat group is opened via the `activateChat` action (outside the scope of this screen group)

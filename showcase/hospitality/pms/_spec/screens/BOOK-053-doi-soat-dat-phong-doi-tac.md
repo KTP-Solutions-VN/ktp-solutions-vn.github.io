@@ -1,8 +1,8 @@
-# BOOK-053 — Đối soát đặt phòng đối tác (Partner Bookings)
+# BOOK-053 — Đặt chỗ của đối tác (Partner Reservations)
 
 **Loại:** Trang đầy đủ
 **Route:** Booking/partnerBookings (mặc định: `/booking/partner-bookings`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Danh sách các đặt phòng thuộc villa có hợp đồng partnership (`VillaContract.ownership_type = partnership`), dùng để chủ nhà/quản lý xác nhận (confirm) hoặc từ chối (reject) từng booking trước khi đưa vào luồng thanh toán đối tác (BOOK-052).
@@ -35,5 +35,5 @@ Danh sách các đặt phòng thuộc villa có hợp đồng partnership (`Vill
 - Gửi email xác nhận đặt phòng cho chủ nhà kèm PDF (`sendEmailToBookingConfirmation`)
 
 ## Điều hướng
-- Mở từ: Menu module Đặt phòng > Partner Bookings
-- Điều hướng tới: BOOK-052 (Partner Payments) khi booking được confirm
+- Mở từ: Menu module Đặt chỗ > Partner Reservations
+- Điều hướng tới: BOOK-052 (Partner Payouts) khi booking được confirm

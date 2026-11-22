@@ -1,8 +1,8 @@
-# PROP-058 — Danh sách Listing cần làm lại (Listing To Be Redone)
+# PROP-058 — Hàng đợi làm mới listing (Listing Refresh Queue)
 
 **Loại:** Trang đầy đủ
 **Route:** property/listing-redone
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang tổng hợp toàn bộ yêu cầu làm lại (redo) listing OTA của các Property trong Business Unit, chia thành 2 nhóm: đang chờ xử lý (pending, sắp theo ngày yêu cầu) và đã hoàn thành (done, sắp theo ngày hoàn thành gần nhất). Cho phép đánh dấu hoàn thành hoặc hủy yêu cầu ngay trên danh sách.
@@ -28,9 +28,9 @@ Trang tổng hợp toàn bộ yêu cầu làm lại (redo) listing OTA của cá
 - Đổi Business Unit → reload danh sách.
 - Nút "Done" trên dòng đang pending → gọi AJAX `redoAction` với `action=done`, đánh dấu yêu cầu hoàn thành.
 - Nút "Cancel" trên dòng đang pending → gọi AJAX `redoAction` với `action=cancel`, hủy yêu cầu redo.
-- Icon xem log (nếu có) → mở PROP-057 (Redo Log) theo `villa_id`/`channel_id`.
+- Icon xem log (nếu có) → mở PROP-057 (Lịch sử làm mới listing) theo `villa_id`/`channel_id`.
 
 ## Điều hướng
-- Mở từ: Menu Property/Quality (không thuộc phạm vi mã hiện tại).
-- Điều hướng tới: PROP-057 (Redo Log).
+- Mở từ: Menu Listing Quality (không thuộc phạm vi mã hiện tại).
+- Điều hướng tới: PROP-057 (Lịch sử làm mới listing).
 - Popup con: Không có (thao tác Done/Cancel xử lý AJAX tại chỗ).

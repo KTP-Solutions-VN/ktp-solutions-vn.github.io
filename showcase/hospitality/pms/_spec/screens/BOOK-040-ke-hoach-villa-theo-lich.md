@@ -1,8 +1,8 @@
-# BOOK-040 — Kế hoạch villa theo lịch (Planning Calendar)
+# BOOK-040 — Lịch bàn giao dạng lịch (Handover Calendar)
 
 **Loại:** Trang đầy đủ
 **Route:** Booking/planning/:date? (mặc định: `/booking/planning`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Màn hình lịch (calendar) trực quan thể hiện kế hoạch nhận/trả phòng và lịch làm việc của concierge theo villa/đơn vị kinh doanh và theo ngày, cho phép xem nhanh tình trạng sẵn sàng của đội ngũ (Team Availability).
@@ -33,5 +33,5 @@ Màn hình lịch (calendar) trực quan thể hiện kế hoạch nhận/trả 
 - Cập nhật kế hoạch (liên kết action `savePlanning`, `updateBookingPlan`)
 
 ## Điều hướng
-- Mở từ: BOOK-039 (Danh sách kế hoạch), Menu module Đặt phòng > Planning Calendar
-- Điều hướng tới: BOOK-041 (Team)
+- Mở từ: BOOK-039 (Lịch bàn giao), Menu module Đặt chỗ > Handover Calendar
+- Điều hướng tới: BOOK-041 (Lịch trực concierge)

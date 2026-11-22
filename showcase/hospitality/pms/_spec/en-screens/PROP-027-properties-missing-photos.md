@@ -1,8 +1,8 @@
-# PROP-027 — Properties Missing Photos
+# PROP-027 — Photo Coverage Gaps
 
 **Type:** Full page
 **Route:** property/photography/missing-photos (a custom route configured in Routes.php, mapped to the `photographyMissingPhotos` action)
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Screen listing properties without a usable photo set, or missing photos of standard areas (bedroom, living room, etc.), categorized by priority level, supporting quick planning of catch-up shoots.
@@ -45,6 +45,6 @@ Paginated 25 rows per page (`pagination`).
 - Previous/Next pagination navigation.
 
 ## Navigation
-- Opened from: PROP-026 (Photography Planning) — breadcrumb/menu.
+- Opened from: PROP-026 (Shoot Scheduler) — breadcrumb/menu.
 - Navigates to: `Property::photography` (PROP-026), `Photos::property`, `Photos::detail` (outside this scope).
 - Child popup: none.

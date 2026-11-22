@@ -1,4 +1,4 @@
-# BOOK-089-P1 — Activate / Edit Guest Chat
+# BOOK-089-P1 — Open Guest Thread
 
 **Type:** Full page (opened from BOOK-089)
 
@@ -6,7 +6,7 @@
 
 **Pretty route:** No dedicated route found in config/Routes.php (uses the default route, e.g. `/booking/activate-chat/<base64_id>`)
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 
@@ -42,4 +42,4 @@ A form for activating a chat group (GroupChat) for a specific booking: select th
 ## Navigation
 
 - Opened from: BOOK-089 (Open/Edit button on each row).
-- After saving → returns to BOOK-089 (Villa Chat List).
+- After saving → returns to BOOK-089 (Guest Conversations).

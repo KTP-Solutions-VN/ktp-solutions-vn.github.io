@@ -1,8 +1,8 @@
-# COMP-001 — Danh sách Công ty & Đơn vị pháp nhân (Subsidiaries)
+# COMP-001 — Cơ cấu công ty (Company Structure)
 
 **Loại:** Trang đầy đủ
 **Route:** company/list (route CakePHP mặc định dạng dashed: `/company/list`, có tham số phụ `:tab` — vd `/company/list/subsidiaries-list`)
-**Module:** COMP = Công ty
+**Module:** COMP = Pháp nhân
 
 ## Mô tả ngắn gọn
 Màn hình quản lý dữ liệu chủ về Công ty (legal entity) và Đơn vị pháp nhân trực thuộc (Subsidiary) của hệ thống, hiển thị dưới dạng 2 tab trong cùng một trang. Cho phép thêm mới, sửa, xóa công ty và subsidiary thông qua một popup dùng chung. Đây là dữ liệu gốc dùng để liên kết với Đơn vị kinh doanh (Business Unit) và Bất động sản (Property).
@@ -44,6 +44,6 @@ Không có ô tìm kiếm/lọc riêng ở tab này (DataTable client-side, `bSo
 - Submit form popup gọi action `list` với `POST` (`action=add|edit|delete`), controller `CompanyController::list()` xử lý lưu/xóa cho cả `Company` và `CompanySubsidiary`, ghi Activity Log, hiển thị Flash message, sau đó redirect về trang trước (`referer()`).
 
 ## Điều hướng
-- Mở từ: Menu Settings/Master data (menu "Companies").
+- Mở từ: Menu Portfolio Setup (menu "Company Structure").
 - Điều hướng tới: không điều hướng sang trang khác (thao tác CRUD tại chỗ qua popup + reload).
-- Popup con: COMP-001-P1 (Thêm/Sửa/Xóa Công ty hoặc Đơn vị pháp nhân).
+- Popup con: COMP-001-P1 (Form công ty / pháp nhân chi nhánh).

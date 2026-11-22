@@ -1,10 +1,10 @@
-# PAGE-001 — Trang chào mặc định CakePHP (Default Home / Scaffold Page)
+# PAGE-001 — Kiểm tra tình trạng nền tảng (Platform Health Check)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `PagesController::display(...$path)` — mặc định `/pages/*` (route được comment tắt trong `config/Routes.php`, dòng `//$routes->connect('/pages/*', ...)`). View duy nhất trong `src/Template/Pages/` là `home.ctp`.
 
-**Module:** PAGE = Trang tĩnh
+**Module:** PAGE = Trang tiện ích
 
 ## Mô tả ngắn gọn
 Đây là trang chào mặc định (scaffold) do CakePHP sinh ra khi khởi tạo dự án, hiển thị thông tin kiểm tra môi trường (PHP version, extension, quyền ghi thư mục, kết nối database, DebugKit) và các liên kết tài liệu CakePHP. Trang chỉ hiển thị khi `debug = true`; nếu tắt debug sẽ trả lỗi 404 (`NotFoundException`).

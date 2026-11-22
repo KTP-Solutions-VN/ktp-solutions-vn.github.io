@@ -8,8 +8,8 @@
   var SEED_ITEMS = [
     { id: 'it-1', title: 'Living Room — Furniture Condition', desc: 'Sofa cushion showing wear; requires re-upholstery or replacement.', service: 'Housekeeping', location: 'Living Room', status: 'pending', agent: '' },
     { id: 'it-2', title: 'Kitchen — Appliance Check', desc: 'Dishwasher not draining fully after cycle completes.', service: 'Maintenance', location: 'Kitchen', status: 'ready', agent: '' },
-    { id: 'it-3', title: 'Pool Deck — Tile Crack', desc: 'Hairline crack noted on the north pool deck tile row.', service: 'Pool', location: 'Pool Deck', status: 'in-progress', agent: 'Andaman Pool Services — Team 1' },
-    { id: 'it-4', title: 'Master Bath — Grout Mould', desc: 'Grout discoloration in the master bathroom shower area.', service: 'Housekeeping', location: 'Master Bathroom', status: 'completed', agent: 'Somchai A.', comment: 'Cleaned and re-sealed grout lines.' }
+    { id: 'it-3', title: 'Pool Deck — Tile Crack', desc: 'Hairline crack noted on the north pool deck tile row.', service: 'Pool', location: 'Pool Deck', status: 'in-progress', agent: 'Coral Pool Services — Team 1' },
+    { id: 'it-4', title: 'Master Bath — Grout Mould', desc: 'Grout discoloration in the master bathroom shower area.', service: 'Housekeeping', location: 'Master Bathroom', status: 'completed', agent: 'Daniel T.', comment: 'Cleaned and re-sealed grout lines.' }
   ];
 
   function storageKey() { return 'mm_vsv_inspection_items_' + reportId; }
@@ -19,11 +19,11 @@
   }
   function saveItems(items) { localStorage.setItem(storageKey(), JSON.stringify(items)); }
 
-  document.getElementById('report-title').textContent = 'Process Inspection Items — ' + property.name;
-  document.getElementById('report-subtitle').textContent = 'Quarterly Inspection · Inspector: Somchai Anuwat';
+  document.getElementById('report-title').textContent = 'Resolve Inspection Items — ' + property.name;
+  document.getElementById('report-subtitle').textContent = 'Quarterly Inspection · Inspector: Daniel Tan';
   document.getElementById('scope-summary').innerHTML = [
-    ['Villa', property.name], ['Inspector', 'Somchai Anuwat'], ['Scope Status', 'Confirmed by Wayan Kertha on 2026-08-18'],
-    ['Maintenance Supervisor', 'Kittisak Rungrueang'], ['Cleaning Supervisor', 'Nok Pattaya']
+    ['Villa', property.name], ['Inspector', 'Daniel Tan'], ['Scope Status', 'Confirmed by Warren Kelly on 2026-08-18'],
+    ['Maintenance Supervisor', 'Kumar Rajan'], ['Cleaning Supervisor', 'Nicole Parker']
   ].map(function (row) { return '<div><dt>' + row[0] + '</dt><dd>' + row[1] + '</dd></div>'; }).join('');
 
   var STATUS_LABEL = { pending: 'Pending', ready: 'Ready', 'in-progress': 'In Progress', paused: 'Paused', completed: 'Completed', help: 'Help Requested' };

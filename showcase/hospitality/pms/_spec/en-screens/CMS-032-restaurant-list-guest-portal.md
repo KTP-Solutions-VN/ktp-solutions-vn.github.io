@@ -1,13 +1,13 @@
-# CMS-032 — Restaurant List (Guest Portal)
+# CMS-032 — Dining Picks
 
 **Type:** Full page
 
 **Route:** `CmsController::guestPortal()` — default `/cms/guest-portal`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
-List of restaurants displayed on the Guest Portal, filtered by the Business Unit/Zone the logged-in user is authorized for. From here, restaurants can be added, edited, or deleted.
+List of restaurants displayed on the Guest Hub, filtered by the Business Unit/Zone the logged-in user is authorized for. From here, restaurants can be added, edited, or deleted.
 
 ## Detailed Description
 
@@ -32,4 +32,4 @@ Filter: "Business Unit" dropdown (`business_unit` — GET), defaulting to the Bu
 
 ## Navigation
 - Accessed from: the Settings menu (active_menu = 182).
-- Navigates to: CMS-033 (restaurant add/edit form) when clicking "+ Add New" or the Edit icon.
+- Navigates to: CMS-033 (Dining Pick Editor) when clicking "+ Add New" or the Edit icon.

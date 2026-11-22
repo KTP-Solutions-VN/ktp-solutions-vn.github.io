@@ -1,7 +1,7 @@
 (function () {
   'use strict';
   ACC.wireCrudScreen({
-    storageKey: 'mm_acc_expense_types', baseData: MM.ACC.EXPENSE_TYPES, entityLabel: 'expense type', entityTitle: 'Expense Type', nameField: 'name', colCount: 3,
+    storageKey: 'mm_acc_expense_types', baseData: MM.ACC.EXPENSE_TYPES, entityLabel: 'cost category', entityTitle: 'Cost Category', nameField: 'name', colCount: 3,
     fields: [{ id: 'f-name', key: 'name' }, { id: 'f-sub', key: 'category' }],
     rowHtml: function (t) {
       return '<tr><td class="cell-strong">' + t.name + '</td><td class="cell-sub">' + (t.category || '—') + '</td>' +

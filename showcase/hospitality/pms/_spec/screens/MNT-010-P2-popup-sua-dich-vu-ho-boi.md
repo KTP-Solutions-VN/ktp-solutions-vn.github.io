@@ -1,8 +1,8 @@
-# MNT-010-P2 — Sửa dịch vụ hồ bơi
+# MNT-010-P2 — Sửa loại dịch vụ hồ bơi (Edit Pool Service Type)
 
 **Loại:** Popup (mở từ MNT-010)
 **Route:** maintenance/editPoolService/:id
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Trang chỉnh sửa một dịch vụ hồ bơi đã có: tên, ảnh minh họa, đơn vị kinh doanh áp dụng, trạng thái.
@@ -21,5 +21,5 @@ Trang chỉnh sửa một dịch vụ hồ bơi đã có: tên, ảnh minh họa
 - **Cancel**: quay về MNT-010.
 
 ## Điều hướng
-- Vào từ: icon Sửa trên MNT-010 — Dịch vụ hồ bơi.
+- Vào từ: icon Sửa trên MNT-010 — Loại dịch vụ hồ bơi.
 - Đi tới: sau khi Save, quay về MNT-010.

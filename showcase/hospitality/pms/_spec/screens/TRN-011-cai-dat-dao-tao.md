@@ -1,11 +1,11 @@
-# TRN-011 — Cài đặt Đào tạo
+# TRN-011 — Cài đặt học viện (Academy Settings)
 
 **Loại:** Trang đầy đủ
 **Route:** `TrainingController::setting()` — `/training/setting`
-**Module:** TRN = Đào tạo
+**Module:** TRN = Học viện nhân viên
 
 ## Mô tả ngắn gọn
-Trang cài đặt của module Đào tạo; hiện file view trống hoàn toàn (chưa có nội dung/nghiệp vụ nào được triển khai).
+Trang cài đặt của module Học viện nhân viên; hiện file view trống hoàn toàn (chưa có nội dung/nghiệp vụ nào được triển khai).
 
 ## Mô tả chi tiết
 Không có field hay dữ liệu nào (view rỗng).
@@ -14,5 +14,5 @@ Không có field hay dữ liệu nào (view rỗng).
 - Không có.
 
 ## Điều hướng
-- **Vào từ:** Menu chính "Training" → "Settings".
+- **Vào từ:** Menu chính "Staff Academy" → "Academy Settings".
 - **Đi tới:** Không có.

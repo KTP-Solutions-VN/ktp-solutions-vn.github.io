@@ -1,10 +1,10 @@
-# TXT-001-P1 — Thêm/Sửa văn bản
+# TXT-001-P1 — Trình sửa mô tả (Description Editor)
 
 **Loại:** Popup (mở từ TXT-001)
 
 **Route:** Modal tĩnh trong `index.ctp` (`#texts-editor-modal`); lưu qua AJAX `TextsController::saveText()` — `POST /texts/save-text`
 
-**Module:** TXT = Văn bản
+**Module:** TXT = Kho mô tả
 
 ## Mô tả ngắn gọn
 Form soạn nội dung văn bản cho một Content Element, áp dụng cho một property/unit/residence cụ thể (direct context) hoặc là một văn bản dùng lại (Shared/Profile) áp dụng cho nhiều Business Unit.

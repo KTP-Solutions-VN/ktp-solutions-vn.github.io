@@ -1,10 +1,10 @@
-# BU-016 — Thêm văn phòng
+# BU-016 — Thêm địa điểm văn phòng (New Office Location)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `BusinessUnitController::addOffice()` — mặc định `/business-unit/add-office`
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Biểu mẫu thêm mới một văn phòng: tên, Đơn vị kinh doanh, phòng ban trực thuộc, địa chỉ, tọa độ bản đồ và ảnh minh họa.

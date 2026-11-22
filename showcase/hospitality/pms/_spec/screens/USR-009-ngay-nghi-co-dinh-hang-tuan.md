@@ -1,10 +1,10 @@
-# USR-009 — Ngày nghỉ cố định hàng tuần (Weekly Off)
+# USR-009 — Ngày nghỉ hằng tuần (Weekly Rest Days)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `UserController::weeklyOff()` — mặc định `user/weeklyOff`
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Màn hình quản lý ngày nghỉ cố định trong tuần (Chủ nhật → Thứ bảy) cho từng nhân viên theo phòng ban. Người quản lý chọn phòng ban, hệ thống tải danh sách nhân viên thuộc phòng ban đó (ajax `filterUser`) và cho phép chọn/đổi ngày nghỉ cố định của từng người (ajax `changeOff`).
@@ -29,5 +29,5 @@ Màn hình quản lý ngày nghỉ cố định trong tuần (Chủ nhật → T
 - **Chọn radio ngày nghỉ:** lưu ngay lập tức qua ajax `changeOff`, hiển thị flash thành công.
 
 ## Điều hướng
-- Vào từ: menu Users → Weekly Off, hoặc từ USR-004.
+- Vào từ: menu Workforce → Weekly Rest Days, hoặc từ USR-004.
 - Điều hướng đến: không có điều hướng con (là màn hình thao tác trực tiếp qua ajax).

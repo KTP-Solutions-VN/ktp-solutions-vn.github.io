@@ -1,10 +1,10 @@
-# FUND-007 — Cấu hình lãi suất nhà đầu tư
+# FUND-007 — Lợi suất nhà đầu tư (Investor Yield Rates)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `FundController::rates($owner_id)` — `/fund/rates/:owner_id` (GET hiển thị, POST lưu toàn bộ bảng)
 
-**Module:** FUND = Quỹ đầu tư
+**Module:** FUND = Vốn nhà đầu tư
 
 ## Mô tả ngắn gọn
 Cấu hình các bậc lãi suất (khoảng tháng đầu tư → % lãi suất áp dụng) cho một nhà đầu tư, chỉnh sửa trực tiếp (inline edit) trên bảng.

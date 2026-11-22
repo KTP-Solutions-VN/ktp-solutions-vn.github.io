@@ -1,10 +1,10 @@
-# ACC-028 — Đối soát tài khoản (bản cũ/legacy)
+# ACC-028 — Khớp số dư – bản cổ điển (Bank Matching (Classic))
 
 **Loại:** Trang đầy đủ (nghi vấn không còn được sử dụng — xem phần Điều hướng)
 
 **Route:** `AccountController::reconcile()` — mặc định `/account/reconcile`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Action rất ngắn: chỉ lấy danh sách toàn bộ `Account` (không lọc theo `is_statement_open`) rồi render trang `reconcile.ctp` với một form tĩnh (chọn Account, nhập Start Balance/Reconcile Amount/Reconcile Date) và nút Save — nhưng form này không submit đi đâu (không có `Form->create`, action, hay xử lý POST nào trong controller). Có vẻ là bản dựng dở/legacy của chức năng đối soát, đã được thay thế bởi ACC-009 (`statementReconcile`).
@@ -26,5 +26,5 @@ Không có bảng danh sách bút toán, không có DataTable, không có xử l
 - Không có AJAX nào được gắn kèm trong file `reconcile.ctp` ngoài cập nhật breadcrumb.
 
 ## Điều hướng
-- Vào từ: KHÔNG tìm thấy link nào trỏ tới action `reconcile` trong toàn bộ template (đã tìm kiếm `account-sidebar.ctp` và các view khác). Action này dùng cùng `active_menu = 'acc-statementReconcile'` như ACC-009 (`statementReconcile`), nhưng mục menu "Reconcile" trong sidebar trỏ thẳng tới `statementReconcile`, không trỏ tới `reconcile`. Kết luận: đây là màn hình dường như không còn được liên kết trong menu hiện tại, có khả năng là phiên bản cũ/legacy đã bị thay thế bởi ACC-009.
+- Vào từ: KHÔNG tìm thấy link nào trỏ tới action `reconcile` trong toàn bộ template (đã tìm kiếm `account-sidebar.ctp` và các view khác). Action này dùng cùng `active_menu = 'acc-statementReconcile'` như ACC-009 (`statementReconcile`), nhưng mục menu "Bank Matching" trong sidebar trỏ thẳng tới `statementReconcile`, không trỏ tới `reconcile`. Kết luận: đây là màn hình dường như không còn được liên kết trong menu hiện tại, có khả năng là phiên bản cũ/legacy đã bị thay thế bởi ACC-009.
 - Điều hướng đến: không có (nút Save/Cancel không hoạt động đúng nghĩa nghiệp vụ đối soát).

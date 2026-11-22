@@ -1,8 +1,8 @@
-# VCS-004 — Services List (Service)
+# VCS-004 — Service Catalog
 
 **Type:** Full page
 **Route:** villa-common-setting/services (default DashedRoute: `/villa-common-setting/services`)
-**Module:** VCS = Villa Common Settings
+**Module:** VCS = Property Attributes
 
 ## Overview
 Master data management screen for "Service" — a service category used as a configuration component for Contract Service Type (see VCS-005). Displayed as a list table, with Add/Edit/Delete supported through a single shared popup.
@@ -24,6 +24,6 @@ No dedicated search/filter field.
 - Submitting the popup form sends a `POST` to the `services` action; saves/deletes records in the `Service` table, writes an Activity Log entry, displays a Flash message, and redirects back to the previous page.
 
 ## Navigation
-- Opened from: Settings menu > "Properties" (Villa Common Settings) > "Services" submenu.
+- Opened from: Portfolio Setup menu > "Property Attributes" > "Service Catalog" submenu.
 - Navigates to: no navigation to another page.
-- Child popup: VCS-004-P1 (Add/Edit/Delete Service).
+- Child popup: VCS-004-P1 (Catalog Service Form).

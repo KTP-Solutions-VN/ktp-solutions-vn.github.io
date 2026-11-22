@@ -12,7 +12,7 @@
       storageKey: 'mm_mnt_pool_services',
       baseData: MNT.POOL_SERVICES,
       entityLabel: 'service',
-      entityTitle: 'Pool Service',
+      entityTitle: 'Pool Service Type',
       tbodyId: 'list-tbody',
       allBu: false
     });

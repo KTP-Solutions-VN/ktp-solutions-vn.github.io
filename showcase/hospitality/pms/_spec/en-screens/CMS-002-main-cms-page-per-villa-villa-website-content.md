@@ -1,10 +1,10 @@
-# CMS-002 — Main CMS Page per Villa (Villa Website Content)
+# CMS-002 — Property Web Page
 
 **Type:** Full page
 
 **Route:** `CmsController::cms($tab, $villa_id, $lang1)` — default `/cms/cms/:tab/:villa_id/:lang1` (default tab is `welcome` when empty, or `main`)
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 The central screen of the CMS module: manages all content displayed on the website (mini-website) of a specific villa. It consists of 8 content tabs (Welcome, Why Here, Daily Life, Comfort, Booking, Menu, Services, SEO), each containing one or more independent sub-forms with their own Save button. All 8 tabs are pre-rendered simultaneously on a single page (data for each tab is fully loaded by the controller in one request); switching tabs is purely a show/hide effect (Bootstrap tab) plus a URL update via `history.replaceState`, NOT a separate AJAX load — each sub-form, when its Save button is clicked, still submits a normal (full-page) POST back to the `cms` action with the same `$tab`, `$villa_id`, `$lang1`, then redirects back to that same tab.

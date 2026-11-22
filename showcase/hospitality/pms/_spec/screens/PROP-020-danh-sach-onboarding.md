@@ -1,8 +1,8 @@
-# PROP-020 — Danh sách Onboarding (Wizard nhập liệu Property mới)
+# PROP-020 — Tiếp nhận tài sản (Property Intake)
 
 **Loại:** Trang đầy đủ
 **Route:** property/on-boardings
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Màn hình danh sách các tiến trình Onboarding (thêm Property mới vào hệ thống qua wizard nhiều bước, lưu ở bảng `VillaOnboarding` dạng JSON), hiển thị trạng thái (pending/in_progress/completed/aborted) và cho phép xem/sửa/review theo trạng thái.
@@ -33,6 +33,6 @@ Màn hình danh sách các tiến trình Onboarding (thêm Property mới vào h
 - Đổi Business Unit → (JS hiện chỉ set biến, không tự reload trang trong bản hiện tại).
 
 ## Điều hướng
-- Mở từ: Menu Onboarding (không thuộc phạm vi mã hiện tại).
+- Mở từ: Menu Hồ sơ tài sản Intake (không thuộc phạm vi mã hiện tại).
 - Điều hướng tới: `addOnboarding`, `viewOnboarding`, `editOnBoarding`, `reviewOnBoarding` (các action wizard onboarding, ngoài phạm vi PROP-017..031).
 - Popup con: Không có.

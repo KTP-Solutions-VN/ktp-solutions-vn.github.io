@@ -1,10 +1,10 @@
-# VID-001-P3 — Xem video (Video Player)
+# VID-001-P3 — Trình phát video (Video Guide Player)
 
 **Loại:** Popup (mở từ VID-001)
 
 **Route:** Modal tĩnh trong `index.ctp` (`#video-player-modal`); nội dung phát qua `VideosController::play($id)` — `GET /videos/play/:id` (stream file, có kiểm tra quyền truy cập theo scope BU/quốc gia)
 
-**Module:** VID = Video
+**Module:** VID = Video hướng dẫn
 
 ## Mô tả ngắn gọn
 Popup phát trực tiếp video đã chọn (HTML5 video player) mà không cần rời khỏi trang danh sách.

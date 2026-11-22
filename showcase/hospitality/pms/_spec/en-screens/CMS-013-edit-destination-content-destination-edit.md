@@ -1,10 +1,10 @@
-# CMS-013 — Edit Destination Content (Destination Edit)
+# CMS-013 — Destination Guide Editor
 
 **Type:** Full page
 
 **Route:** `CmsController::destinationEdit($district_id)` — default `/cms/destination-edit/:district_id`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 Form for managing an image gallery introducing a destination (`district_id`), where each image has a multilingual caption (legend). Data is stored in the `CmsDestination` model (destination information) and `CmsImage` (tag = `Destination`) for each image in the gallery. Requires a valid `district_id` — if empty, the action does not set variables / does not render the form content.

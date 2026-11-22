@@ -1,10 +1,10 @@
-# CMS-008 — Sửa "Why Us"
+# CMS-008 — Sửa lợi ích đặt trực tiếp (Edit Book-Direct Benefit)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::whyUsEdit($id)` — mặc định `/cms/why-us-edit/:id`
 
-**Module:** CMS = Nội dung trang chủ villa
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Form chỉnh sửa một mục "Why Us" đã có, cho phép cập nhật tiêu đề, ảnh và bổ sung/chỉnh bản dịch mô tả ngắn theo từng ngôn ngữ. Yêu cầu `id` hợp lệ (nếu `id` rỗng, action không xử lý form/không set dữ liệu).

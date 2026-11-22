@@ -1,9 +1,9 @@
-# BOOK-061 — Bản dịch mẫu xác nhận đặt phòng (Translations)
+# BOOK-061 — Bản dịch mẫu thư (Layout Translations)
 
 **Loại:** Trang đầy đủ (mở từ BOOK-057)
 **Route:** Booking/transalateConfirmationTemplate
 **Route đẹp:** `/booking/confirmation-template/transalations`
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Quản lý bản dịch các đoạn text cố định (label) hiển thị trên PDF xác nhận đặt phòng theo từng ngôn ngữ (trừ tiếng Anh mặc định).

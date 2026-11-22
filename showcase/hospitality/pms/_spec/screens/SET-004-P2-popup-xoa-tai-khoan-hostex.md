@@ -1,10 +1,10 @@
-# SET-004-P2 — Popup Xóa tài khoản Hostex
+# SET-004-P2 — Gỡ tài khoản đã ánh xạ (Remove Mapped Account)
 
 **Loại:** Popup (mở từ SET-004)
 
 **Route:** Modal Bootstrap `#exampleModal` trong `hostex_setup.ctp`; xác nhận gửi AJAX POST tới `deleteHostexAccount()` — `/setting/delete-hostex-account`.
 
-**Module:** SET = Cài đặt hệ thống
+**Module:** SET = Cài đặt nền tảng
 
 ## Mô tả ngắn gọn
 Popup xác nhận trước khi xóa một tài khoản Hostex, chỉ hiển thị khi tài khoản đó chưa liên kết với property nào (`props = 0`); nếu còn liên kết property, hệ thống sẽ hiện SET-004-P3 thay vì popup này.

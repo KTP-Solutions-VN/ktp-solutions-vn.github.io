@@ -1,10 +1,10 @@
-# CMS-018 — Concierge List
+# CMS-018 — Concierge Showcase
 
 **Type:** Full page
 
 **Route:** `CmsController::concierges($action, $id)` — default `/cms/concierges/:action/:id`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 List of concierge services displayed on the website. No server-side pagination (retrieves the entire result set via `CmsConcierge->find('all')`).
@@ -27,5 +27,5 @@ No server-side filter/search, no server-side pagination.
 - **Delete:** calls back into this action in the form `/cms/concierges/delete/:id` — deletes the `CmsConcierge` record **and** deletes all related gallery images in `CmsImage` (condition `villa_id = id`, `tag = 'Concierge'`), shows a flash message, then redirects back to the list (using `['controller'=>'Cms','action'=>'concierges']`).
 
 ## Navigation
-- Accessed from: CMS-005 (Common Text, "Concierge" button).
-- Navigates to: CMS-019 (add/edit concierge — out of scope for this document).
+- Accessed from: CMS-005 (Shared Content Blocks, "Concierge Showcase" button).
+- Navigates to: CMS-019 (Concierge Service Editor — out of scope for this document).

@@ -1,10 +1,10 @@
-# BU-005 — Channel List (Chanels)
+# BU-005 — Sales Channels
 
 **Type:** Full page
 
 **Route:** `BusinessUnitController::chanels()` — default `/business-unit/chanels`
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A list of sales/payment channels (Chanel) associated with business units — used to configure the payment counterparty (manager, receiving account, payment type). This is the legacy channel management screen; a newer version that also incorporates Booking Platform and OTA Content Elements is available at BU-007.
@@ -28,5 +28,5 @@ List (DataTable):
 - All three actions (add/edit/delete) log an activity entry.
 
 ## Navigation
-- Accessed from: Business Unit menu > Channels (Chanels).
+- Accessed from: Operating Units menu > Sales Channels.
 - Navigates to: BU-005-P1 (add/edit channel popup), BU-005-P2 (delete confirmation popup).

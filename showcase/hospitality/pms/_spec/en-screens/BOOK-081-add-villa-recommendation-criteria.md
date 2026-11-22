@@ -1,9 +1,9 @@
-# BOOK-081 — Add Villa Recommendation Criteria
+# BOOK-081 — New Occupancy Threshold
 
 **Type:** Popup (opened from BOOK-080)
 **Route:** Booking/addCriteria
 **Pretty route:** no dedicated route found in config/Routes.php
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Form for adding a new set of criteria for evaluating villa occupancy across 3 fixed time horizons: Last Minute (close to the date), Regular (mid-range), and Early Bird (booked ahead), each with an "under"/"over" threshold used to color-code results red/green during a check.
@@ -32,5 +32,5 @@ The three Last Minute/Regular/Early Bird rows have "Horizon" (the horizon name) 
 - **Cancel** button (reset) — clears the entered data
 
 ## Navigation
-- Opened from: BOOK-080 (Villa Recommendation Criteria) — "Add new" button
+- Opened from: BOOK-080 (Occupancy Thresholds) — "Add new" button
 - Navigates to: back to BOOK-080 after saving

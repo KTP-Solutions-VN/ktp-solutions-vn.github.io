@@ -1,8 +1,8 @@
-# GST-002 — Guest Booking List
+# GST-002 — My Reservations
 
 **Type:** Full page
 **Route:** `Guest::bookings()` — default `/guest/bookings`; pretty route (DashedRoute fallback): `/guest/bookings`
-**Module:** Guest Portal
+**Module:** Guest Hub
 
 ## Overview
 Lists all bookings associated with the `access_code` of the currently logged-in guest, split into "upcoming bookings" and "past bookings". This is the page the guest is redirected to after successfully logging in with the access code at GST-001.
@@ -22,8 +22,8 @@ Lists all bookings associated with the `access_code` of the currently logged-in 
 | 9 | Total booking count | `guest_booking_count` | Number | No | Used to select the singular/plural banner text |
 
 ## Functions / Actions
-- Clicking an **upcoming booking** card → opens GST-003 (My Booking Details) for that `booking_id`.
-- Clicking a **past booking** card → opens GST-004 (Amenities Access Portal) for that `booking_id`.
+- Clicking an **upcoming booking** card → opens GST-003 (Trip Details) for that `booking_id`.
+- Clicking a **past booking** card → opens GST-004 (Quick Links) for that `booking_id`.
 - Clicking the **"Complete your online check-in to unlock..."** link → opens GST-003 with the `booking_id` of the first upcoming booking.
 - **Home** icon (top-left of banner) → navigates according to `home_redirect` (defaults to this same page, or GST-004 if the most recent booking already has both arrival/departure times confirmed).
 - **Logout** icon (top-right of banner) → logs out, returns to GST-001.

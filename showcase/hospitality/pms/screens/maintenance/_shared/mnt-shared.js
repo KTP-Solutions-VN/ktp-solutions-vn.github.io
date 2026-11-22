@@ -140,18 +140,18 @@
      Tickets"), reused by the processing lifecycle screens (002-006). */
   MNT.LOGS = [
     { id: 'MT-9001', property: 'Villa Sapphire Cliff', category: 'cat1', description: 'AC unit not cooling in master bedroom', priority: 'pr2', status: 'Pending', assignee: null, openBy: 'James Whitfield (Guest)', openDate: '2026-08-26', dueDate: '2026-08-27' },
-    { id: 'MT-9002', property: 'Villa Coral Horizon', category: 'cat2', description: 'Leaking tap in guest bathroom', priority: 'pr2', status: 'Open', assignee: 'Budi Santoso', openBy: 'Kanya Srisawat (Housekeeping)', openDate: '2026-08-25', dueDate: '2026-08-26' },
-    { id: 'MT-9003', property: 'Villa Emerald Bay', category: 'cat3', description: 'Pool pump making loud grinding noise', priority: 'pr1', status: 'Open', assignee: 'Budi Santoso', openBy: 'Somchai Anuwat (Concierge)', openDate: '2026-08-27', dueDate: '2026-08-27' },
-    { id: 'MT-9004', property: 'Villa Marble Cove', category: 'cat5', description: 'WiFi router offline in living area', priority: 'pr4', status: 'Closed', assignee: 'Wayan Kertha', openBy: 'Nok Pattaya (Concierge)', openDate: '2026-08-20', dueDate: '2026-08-27', closeBy: 'Wayan Kertha', closeDate: '2026-08-21' },
-    { id: 'MT-9005', property: 'Villa Golden Palm', category: 'cat4', description: 'Broken sun lounger on pool deck', priority: 'pr4', status: 'Rejected', assignee: null, openBy: 'Nok Pattaya (Concierge)', openDate: '2026-08-18', dueDate: '2026-08-25' },
+    { id: 'MT-9002', property: 'Villa Coral Horizon', category: 'cat2', description: 'Leaking tap in guest bathroom', priority: 'pr2', status: 'Open', assignee: 'Ben Sullivan', openBy: 'Karen Seah (Housekeeping)', openDate: '2026-08-25', dueDate: '2026-08-26' },
+    { id: 'MT-9003', property: 'Villa Emerald Bay', category: 'cat3', description: 'Pool pump making loud grinding noise', priority: 'pr1', status: 'Open', assignee: 'Ben Sullivan', openBy: 'Daniel Tan (Concierge)', openDate: '2026-08-27', dueDate: '2026-08-27' },
+    { id: 'MT-9004', property: 'Villa Marble Cove', category: 'cat5', description: 'WiFi router offline in living area', priority: 'pr4', status: 'Closed', assignee: 'Warren Kelly', openBy: 'Nicole Parker (Concierge)', openDate: '2026-08-20', dueDate: '2026-08-27', closeBy: 'Warren Kelly', closeDate: '2026-08-21' },
+    { id: 'MT-9005', property: 'Villa Golden Palm', category: 'cat4', description: 'Broken sun lounger on pool deck', priority: 'pr4', status: 'Rejected', assignee: null, openBy: 'Nicole Parker (Concierge)', openDate: '2026-08-18', dueDate: '2026-08-25' },
     { id: 'MT-9006', property: 'Villa Azure Ridge', category: 'cat1', description: 'Flickering lights in dining room', priority: 'pr3', status: 'Pending', assignee: null, openBy: 'Sophia Rossi (Guest)', openDate: '2026-08-27', dueDate: '2026-08-30' },
-    { id: 'MT-9007', property: 'Villa Lotus Terrace', category: 'cat2', description: 'Toilet not flushing in master bath', priority: 'pr2', status: 'Open', assignee: 'Budi Santoso', openBy: 'Priya Nair (Owner)', openDate: '2026-08-24', dueDate: '2026-08-25' }
+    { id: 'MT-9007', property: 'Villa Lotus Terrace', category: 'cat2', description: 'Toilet not flushing in master bath', priority: 'pr2', status: 'Open', assignee: 'Ben Sullivan', openBy: 'Priya Nair (Owner)', openDate: '2026-08-24', dueDate: '2026-08-25' }
   ];
 
   MNT.LOG_HISTORY = {
     'MT-9004': [
-      { by: 'Wayan Kertha', comment: 'Accepted task, checking router.', status: 'Open', date: '2026-08-20 10:15' },
-      { by: 'Wayan Kertha', comment: 'Router reset, WiFi restored and tested.', status: 'Closed', date: '2026-08-21 09:00' }
+      { by: 'Warren Kelly', comment: 'Accepted task, checking router.', status: 'Open', date: '2026-08-20 10:15' },
+      { by: 'Warren Kelly', comment: 'Router reset, WiFi restored and tested.', status: 'Closed', date: '2026-08-21 09:00' }
     ]
   };
 
@@ -164,40 +164,40 @@
 
   /* GardenService-style catalogs — MNT-009/010/011/013/014/015, all share
      name + image + business units + status. */
-  MNT.BUSINESS_UNITS = ['Phuket Collection', 'Bali Retreats', 'Koh Samui Estates'];
+  MNT.BUSINESS_UNITS = ['Sentosa Collection', 'Byron Bay Retreats', 'Noosa Estates'];
 
   MNT.GARDEN_SERVICES = [
-    { id: 'gs1', name: 'Weekly Lawn Mowing', businessUnits: ['Phuket Collection', 'Bali Retreats'], status: 'Active', createdBy: 'Somchai A.', createdAt: '2024-01-05' },
-    { id: 'gs2', name: 'Hedge Trimming', businessUnits: ['Phuket Collection'], status: 'Active', createdBy: 'Somchai A.', createdAt: '2024-01-05' },
-    { id: 'gs3', name: 'Pest Control Spray', businessUnits: ['Bali Retreats', 'Koh Samui Estates'], status: 'Inactive', createdBy: 'Wayan K.', createdAt: '2024-01-06' }
+    { id: 'gs1', name: 'Weekly Lawn Mowing', businessUnits: ['Sentosa Collection', 'Byron Bay Retreats'], status: 'Active', createdBy: 'Daniel T.', createdAt: '2024-01-05' },
+    { id: 'gs2', name: 'Hedge Trimming', businessUnits: ['Sentosa Collection'], status: 'Active', createdBy: 'Daniel T.', createdAt: '2024-01-05' },
+    { id: 'gs3', name: 'Pest Control Spray', businessUnits: ['Byron Bay Retreats', 'Noosa Estates'], status: 'Inactive', createdBy: 'Warren K.', createdAt: '2024-01-06' }
   ];
 
   MNT.POOL_SERVICES = [
-    { id: 'pls1', name: 'Pool Chemical Balance', businessUnits: ['Phuket Collection', 'Koh Samui Estates'], status: 'Active', createdBy: 'Somchai A.', createdAt: '2024-01-07' },
-    { id: 'pls2', name: 'Pool Filter Cleaning', businessUnits: ['Bali Retreats'], status: 'Active', createdBy: 'Wayan K.', createdAt: '2024-01-07' }
+    { id: 'pls1', name: 'Pool Chemical Balance', businessUnits: ['Sentosa Collection', 'Noosa Estates'], status: 'Active', createdBy: 'Daniel T.', createdAt: '2024-01-07' },
+    { id: 'pls2', name: 'Pool Filter Cleaning', businessUnits: ['Byron Bay Retreats'], status: 'Active', createdBy: 'Warren K.', createdAt: '2024-01-07' }
   ];
 
   MNT.POOL_REPAIR = [
-    { id: 'pr01', name: 'Pool Pump Repair', businessUnits: ['Phuket Collection'], status: 'Active', createdBy: 'Somchai A.', createdAt: '2024-01-08' },
-    { id: 'pr02', name: 'Tile Resealing', businessUnits: ['Bali Retreats', 'Koh Samui Estates'], status: 'Active', createdBy: 'Nok P.', createdAt: '2024-01-08' }
+    { id: 'pr01', name: 'Pool Pump Repair', businessUnits: ['Sentosa Collection'], status: 'Active', createdBy: 'Daniel T.', createdAt: '2024-01-08' },
+    { id: 'pr02', name: 'Tile Resealing', businessUnits: ['Byron Bay Retreats', 'Noosa Estates'], status: 'Active', createdBy: 'Nicole P.', createdAt: '2024-01-08' }
   ];
 
   MNT.RENOVATION_SERVICES = [
-    { id: 'rv1', name: 'Full Bathroom Renovation', businessUnits: ['Phuket Collection'], status: 'Active', createdBy: 'Somchai A.', createdAt: '2024-01-09' },
-    { id: 'rv2', name: 'Exterior Repainting', businessUnits: ['Bali Retreats'], status: 'Active', createdBy: 'Wayan K.', createdAt: '2024-01-09' }
+    { id: 'rv1', name: 'Full Bathroom Renovation', businessUnits: ['Sentosa Collection'], status: 'Active', createdBy: 'Daniel T.', createdAt: '2024-01-09' },
+    { id: 'rv2', name: 'Exterior Repainting', businessUnits: ['Byron Bay Retreats'], status: 'Active', createdBy: 'Warren K.', createdAt: '2024-01-09' }
   ];
 
   MNT.BACK_OFFICE_SERVICES = [
-    { id: 'bo1', name: 'Guest Welcome Pack Assembly', status: 'Active', createdBy: 'Somchai A.', createdAt: '2024-01-10', businessUnits: MNT.BUSINESS_UNITS.slice() },
-    { id: 'bo2', name: 'Linen Inventory Count', status: 'Active', createdBy: 'Somchai A.', createdAt: '2024-01-10', businessUnits: MNT.BUSINESS_UNITS.slice() }
+    { id: 'bo1', name: 'Guest Welcome Pack Assembly', status: 'Active', createdBy: 'Daniel T.', createdAt: '2024-01-10', businessUnits: MNT.BUSINESS_UNITS.slice() },
+    { id: 'bo2', name: 'Linen Inventory Count', status: 'Active', createdBy: 'Daniel T.', createdAt: '2024-01-10', businessUnits: MNT.BUSINESS_UNITS.slice() }
   ];
 
   MNT.CLEANING_SERVICES = [
-    { id: 'cs1', name: 'Standard Turnover Clean', businessUnits: ['Phuket Collection', 'Bali Retreats'], status: 'Active', createdBy: 'Kanya S.', createdAt: '2024-01-11',
+    { id: 'cs1', name: 'Standard Turnover Clean', businessUnits: ['Sentosa Collection', 'Byron Bay Retreats'], status: 'Active', createdBy: 'Karen S.', createdAt: '2024-01-11',
       standards: [{ legend: 'No dust on surfaces', icon: null }, { legend: 'Fresh linen on all beds', icon: null }, { legend: 'Bathrooms sanitized', icon: null }] },
-    { id: 'cs2', name: 'Deep Clean (Quarterly)', businessUnits: ['Koh Samui Estates'], status: 'Active', createdBy: 'Kanya S.', createdAt: '2024-01-11',
+    { id: 'cs2', name: 'Deep Clean (Quarterly)', businessUnits: ['Noosa Estates'], status: 'Active', createdBy: 'Karen S.', createdAt: '2024-01-11',
       standards: [{ legend: 'Windows cleaned inside/outside', icon: null }] },
-    { id: 'cs3', name: 'Post-Renovation Clean', businessUnits: ['Phuket Collection'], status: 'Inactive', createdBy: 'Kanya S.', createdAt: '2024-01-12', standards: [] }
+    { id: 'cs3', name: 'Post-Renovation Clean', businessUnits: ['Sentosa Collection'], status: 'Inactive', createdBy: 'Karen S.', createdAt: '2024-01-12', standards: [] }
   ];
 
   /* Maintenance Service Matrix — Category > Subcategory > Issue (MNT-012) */
@@ -226,8 +226,8 @@
 
   /* Inspection Time Rules — per business unit maturity days (MNT-016) */
   MNT.INSPECTION_RULES = [
-    { id: 'insr1', businessUnit: 'Phuket Collection', properties: 'Villa Sapphire Cliff, Villa Coral Horizon, Villa Marble Cove', newDays: 2, seenDays: 5, okDays: 10, createdBy: 'Somchai A.', updatedAt: '2024-02-01' },
-    { id: 'insr2', businessUnit: 'Bali Retreats', properties: 'Villa Emerald Bay, Villa Azure Ridge, Villa Silver Tide', newDays: 3, seenDays: 7, okDays: 14, createdBy: 'Wayan K.', updatedAt: '2024-02-02' }
+    { id: 'insr1', businessUnit: 'Sentosa Collection', properties: 'Villa Sapphire Cliff, Villa Coral Horizon, Villa Marble Cove', newDays: 2, seenDays: 5, okDays: 10, createdBy: 'Daniel T.', updatedAt: '2024-02-01' },
+    { id: 'insr2', businessUnit: 'Byron Bay Retreats', properties: 'Villa Emerald Bay, Villa Azure Ridge, Villa Silver Tide', newDays: 3, seenDays: 7, okDays: 14, createdBy: 'Warren K.', updatedAt: '2024-02-02' }
   ];
 
   MNT.statusBadge = function (status) {
@@ -343,7 +343,7 @@
           name: document.getElementById('f-name').value.trim(),
           status: document.getElementById('f-status').value,
           businessUnits: bus,
-          createdBy: 'Somchai A.',
+          createdBy: 'Daniel T.',
           createdAt: new Date().toISOString().slice(0, 10)
         };
         if (editingId) {

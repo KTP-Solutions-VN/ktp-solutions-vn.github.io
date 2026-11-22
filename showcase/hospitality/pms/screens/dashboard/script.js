@@ -57,9 +57,9 @@
   (function renderOccupancyChart() {
     var svg = document.getElementById('occupancy-chart');
     var data = [
-      { label: 'Phuket Collection', value: 82, color: 'var(--color-primary-dark)' },
-      { label: 'Bali Retreats', value: 71, color: 'var(--color-primary)' },
-      { label: 'Koh Samui Estates', value: 64, color: 'var(--color-accent)' }
+      { label: 'Sentosa Collection', value: 82, color: 'var(--color-primary-dark)' },
+      { label: 'Byron Bay Retreats', value: 71, color: 'var(--color-primary)' },
+      { label: 'Noosa Estates', value: 64, color: 'var(--color-accent)' }
     ];
     var cx = 70, cy = 100, r = 54, sw = 16;
 

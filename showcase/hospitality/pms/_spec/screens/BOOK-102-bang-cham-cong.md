@@ -1,4 +1,4 @@
-# BOOK-102 — Bảng chấm công (Timesheet)
+# BOOK-102 — Chấm công hiện trường (Field Attendance)
 
 **Loại:** Trang đầy đủ
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 
@@ -49,5 +49,5 @@ Dòng có `is_sick_leave = yes` được tô nền cam.
 
 ## Điều hướng
 
-- Vào từ menu chính (icon Timesheet, mục "Booking-timesheet"), hiển thị theo quyền `filterSidebar`.
-- Không điều hướng sang trang khác trong module Booking; toàn bộ thao tác xử lý bằng AJAX ngay tại trang.
+- Vào từ menu chính (icon Field Attendance, mục "Booking-timesheet"), hiển thị theo quyền `filterSidebar`.
+- Không điều hướng sang trang khác trong module Đặt chỗ; toàn bộ thao tác xử lý bằng AJAX ngay tại trang.

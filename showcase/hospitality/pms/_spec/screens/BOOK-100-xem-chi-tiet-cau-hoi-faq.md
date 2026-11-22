@@ -1,4 +1,4 @@
-# BOOK-100 — Xem chi tiết câu hỏi FAQ
+# BOOK-100 — Chi tiết bài viết tri thức (Knowledge Article)
 
 **Loại:** Trang đầy đủ / xem (mở từ BOOK-098)
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định)
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 

@@ -1,8 +1,8 @@
-# MNT-013-P2 — Edit Renovation Service
+# MNT-013-P2 — Edit Refurbishment Type
 
 **Type:** Popup (opened from MNT-013)
 **Route:** maintenance/editRenovationServices/:id
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Page for editing an existing renovation service: name, illustrative image, applicable business unit(s), status.
@@ -21,5 +21,5 @@ Page for editing an existing renovation service: name, illustrative image, appli
 - **Cancel**: returns to MNT-013.
 
 ## Navigation
-- Entered from: Edit icon on MNT-013 — Renovation Services.
+- Entered from: Edit icon on MNT-013 — Refurbishment Types.
 - Navigates to: after Save, returns to MNT-013.

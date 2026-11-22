@@ -1,10 +1,10 @@
-# CS-003 — Vùng (Regions)
+# CS-003 — Thiết lập vùng (Region Setup)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CommonSettingController::regions()` — mặc định `/common-setting/regions`
 
-**Module:** CS = Danh mục dùng chung
+**Module:** CS = Dữ liệu tham chiếu
 
 ## Mô tả ngắn gọn
 Danh sách quản lý danh mục Vùng (Region) trực thuộc một Quốc gia, kèm số lượng villa đang hoạt động/ngừng hoạt động thuộc vùng đó.
@@ -27,5 +27,5 @@ Danh sách (DataTable `#zero_config`, sắp xếp theo `Country.name`, `Region.n
 - **Xóa:** mở popup CS-003-P1 ở chế độ xác nhận xóa; xóa cascade toàn bộ `District`, `Area` có `region_id` tương ứng.
 
 ## Điều hướng
-- Vào từ: menu Cài đặt hệ thống > Danh mục dùng chung > Vùng.
-- Điều hướng đến: CS-003-P1 (popup Thêm/Sửa/Xóa vùng).
+- Vào từ: menu Cấu hình > Dữ liệu tham chiếu > Thiết lập vùng.
+- Điều hướng đến: CS-003-P1 (popup Form vùng).

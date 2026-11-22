@@ -1,8 +1,8 @@
-# PROP-052 — Guest Contract PDF Export (Guest Contract Assignment PDF)
+# PROP-052 — Print Guest Contracts
 
 **Type:** Full page (output is a directly downloaded PDF file, not an interactive HTML page)
 **Route:** property/guest-contract-assignment-pdf?villa_id=...&general_version_id=...&language_code=...&electricity_mode=...
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Action that generates and returns a complete Guest Contract PDF file for a Property, based on the assigned contract template version (`general_version_id`), the selected language, and the selected electricity billing mode (`electricity_mode`). The `.ctp` view is only an HTML/CSS template (A4 size) used as input for the Dompdf library to render the PDF; it is not an interactive screen.
@@ -24,6 +24,6 @@ Action that generates and returns a complete Guest Contract PDF file for a Prope
 - The PDF file name is auto-generated in the format `Guest-Contract-{PropertyName}-{ElectricityMode}.pdf`.
 
 ## Navigation
-- Opened from: PROP-051 (Guest Contract BU Recap — Preview/Download button), PROP-050 (Portal Contract tab).
+- Opened from: PROP-051 (Contract Readiness — Preview/Download button), PROP-050 (Portal Contract tab).
 - Navigates to: None (ends with a PDF download or an error redirect to the previous page).
 - Child popup: None.

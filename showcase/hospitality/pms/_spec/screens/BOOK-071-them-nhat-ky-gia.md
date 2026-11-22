@@ -1,9 +1,9 @@
-# BOOK-071 — Thêm nhật ký giá (trang riêng)
+# BOOK-071 — Thêm ghi chú giá (New Price Note)
 
 **Loại:** Trang đầy đủ (trang con độc lập — không phải popup/modal)
 **Route:** Booking/ratesLogAdd (mặc định: `/booking/rates-log-add`)
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Form thêm mới một bản ghi nhật ký giá (`VillaRateLog`) ở cấp villa, gồm đơn vị kinh doanh, villa và nội dung ghi chú.

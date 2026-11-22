@@ -2,11 +2,11 @@
   'use strict';
 
   var SEED = [
-    { id: 'NOT-1001', subject: 'Villa Sapphire Cliff — pool maintenance overdue', from: 'Somchai A.', property: 'Villa Sapphire Cliff', category: 'Maintenance', status: 'in-progress', sent: '2026-08-20 09:14', message: 'The pool filtration system at Villa Sapphire Cliff has been flagged as overdue for service. Please schedule a technician visit before the next guest check-in.' },
-    { id: 'NOT-1002', subject: 'Owner requested payout statement', from: 'Aroon P.', property: 'Villa Lotus Bay', category: 'Accounting', status: 'pending-confirmation', sent: '2026-08-21 11:02', message: 'Owner has requested a copy of the July payout statement. Please confirm once sent.' },
-    { id: 'NOT-1003', subject: 'Guest complaint — AC not working', from: 'Nalin S.', property: 'Villa Amber Ridge', category: 'Guest Service', status: 'in-progress', sent: '2026-08-22 14:40', message: 'Guest in Villa Amber Ridge reported the master bedroom AC unit is not cooling. Please dispatch maintenance today.' },
-    { id: 'NOT-1004', subject: 'Monthly cleaning checklist confirmed', from: 'Somchai A.', property: 'Villa Coral Breeze', category: 'Housekeeping', status: 'completed', sent: '2026-08-18 08:05', message: 'Monthly deep-cleaning checklist for Villa Coral Breeze has been completed and signed off.' },
-    { id: 'NOT-1005', subject: 'Renovation contractor site visit', from: 'Piti K.', property: 'Villa Jade Horizon', category: 'Renovation', status: 'pending-confirmation', sent: '2026-08-23 16:30', message: 'Contractor requests a site visit next Tuesday to assess the terrace renovation scope.' }
+    { id: 'NOT-1001', subject: 'Villa Sapphire Cliff — pool maintenance overdue', from: 'Daniel T.', property: 'Villa Sapphire Cliff', category: 'Maintenance', status: 'in-progress', sent: '2026-08-20 09:14', message: 'The pool filtration system at Villa Sapphire Cliff has been flagged as overdue for service. Please schedule a technician visit before the next guest check-in.' },
+    { id: 'NOT-1002', subject: 'Owner requested payout statement', from: 'Adam P.', property: 'Villa Lotus Bay', category: 'Accounting', status: 'pending-confirmation', sent: '2026-08-21 11:02', message: 'Owner has requested a copy of the July payout statement. Please confirm once sent.' },
+    { id: 'NOT-1003', subject: 'Guest complaint — AC not working', from: 'Natalie S.', property: 'Villa Amber Ridge', category: 'Guest Service', status: 'in-progress', sent: '2026-08-22 14:40', message: 'Guest in Villa Amber Ridge reported the master bedroom AC unit is not cooling. Please dispatch maintenance today.' },
+    { id: 'NOT-1004', subject: 'Monthly cleaning checklist confirmed', from: 'Daniel T.', property: 'Villa Coral Breeze', category: 'Housekeeping', status: 'completed', sent: '2026-08-18 08:05', message: 'Monthly deep-cleaning checklist for Villa Coral Breeze has been completed and signed off.' },
+    { id: 'NOT-1005', subject: 'Renovation contractor site visit', from: 'Peter K.', property: 'Villa Jade Horizon', category: 'Renovation', status: 'pending-confirmation', sent: '2026-08-23 16:30', message: 'Contractor requests a site visit next Tuesday to assess the terrace renovation scope.' }
   ];
 
   function getExtra() { return JSON.parse(localStorage.getItem('mm_not_notices') || '[]'); }

@@ -1,10 +1,10 @@
-# OWN-001-P1 — Xem chi tiết chủ sở hữu
+# OWN-001-P1 — Tóm tắt tài khoản chủ nhà (Owner Account Snapshot)
 
 **Loại:** Popup (mở từ OWN-001)
 
 **Route:** `/Owner/viewDetails/{id}` (controller `Owner`, action `viewDetails($id)`)
 
-**Module:** Quản lý chủ sở hữu (Admin)
+**Module:** Quan hệ chủ nhà (Admin)
 
 ## Mô tả ngắn gọn
 

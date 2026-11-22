@@ -1,8 +1,8 @@
 (function () {
   'use strict';
   var BOOK = MM.BOOK;
-  var CURRENCY_RATES = { USD: 1, THB: 36.2, EUR: 0.92 };
-  var CURRENCY_SYMBOL = { USD: '$', THB: '฿', EUR: '€' };
+  var CURRENCY_RATES = { USD: 1, SGD: 1.34, AUD: 1.52, EUR: 0.92 };
+  var CURRENCY_SYMBOL = { USD: '$', SGD: 'S$', AUD: 'A$', EUR: '€' };
 
   function last12Months() {
     var out = [];

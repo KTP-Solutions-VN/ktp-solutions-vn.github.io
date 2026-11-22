@@ -1,10 +1,10 @@
-# BU-012-P1 — Popup Xác nhận xóa vùng kinh doanh
+# BU-012-P1 — Xác nhận xóa vùng (Confirm Zone Deletion)
 
 **Loại:** Popup (mở từ BU-012)
 
 **Route:** Modal Bootstrap (`#exampleModal`) tĩnh trong `zoning.ctp`; xác nhận điều hướng tới `BusinessUnitController::deleteZoning($id)` — `/business-unit/delete-zoning/{id}` (id mã hoá base64).
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Popup xác nhận trước khi xóa (đánh dấu ẩn) một vùng kinh doanh.

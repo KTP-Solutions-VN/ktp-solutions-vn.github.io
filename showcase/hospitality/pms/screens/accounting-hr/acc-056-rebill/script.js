@@ -21,7 +21,7 @@
       stored.push({ id: MM.uid('rb'), description: document.getElementById('f-name').value.trim(), amount: parseFloat(document.getElementById('f-sub').value) || 0, status: 'Pending' });
       localStorage.setItem('mm_acc_rebills', JSON.stringify(stored));
       MM.closeModal('item-modal');
-      MM.showToast('Rebill added');
+      MM.showToast('Owner recharge added');
       render();
     });
   });

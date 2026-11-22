@@ -1,10 +1,10 @@
-# USR-021 — Thêm Quy tắc lương (Add Payroll Rule)
+# USR-021 — Thêm quy tắc tính công (New Wage Rule)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `UserController::addPayrollRules()` — mặc định `user/addPayrollRules`
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Form tạo mới một quy tắc tính lương ngày theo pháp nhân, quốc tịch và số tháng thâm niên.
@@ -19,7 +19,7 @@ Form tạo mới một quy tắc tính lương ngày theo pháp nhân, quốc t�
 | 4 | Loại thâm niên | `seniority_type` | Select2 | Có | Less than/Equal to or More than/Between |
 | 5 | Số tháng (từ) | `seniority_value1` | Number | Có | |
 | 6 | Số tháng (đến) | `seniority_value2` | Number | Có nếu loại = Between | Chỉ hiện khi chọn "Between" |
-| 7 | Mức lương (THB) | `wage_amount` | Text (number, có định dạng phân cách nghìn) | Có | |
+| 7 | Mức lương (SGD) | `wage_amount` | Text (number, có định dạng phân cách nghìn) | Có | |
 
 ## Chức năng/nút thao tác
 - **Lưu (Save):** tạo bản ghi `PayrollRule` mới, ghi người tạo.
@@ -27,4 +27,4 @@ Form tạo mới một quy tắc tính lương ngày theo pháp nhân, quốc t�
 
 ## Điều hướng
 - Mở từ: USR-020 (nút "Thêm mới").
-- Điều hướng đến: USR-020 (Danh sách Quy tắc lương) sau khi lưu thành công.
+- Điều hướng đến: USR-020 (Quy tắc tính công) sau khi lưu thành công.

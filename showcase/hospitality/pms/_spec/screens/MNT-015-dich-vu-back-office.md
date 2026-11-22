@@ -1,8 +1,8 @@
-# MNT-015 — Dịch vụ Back Office
+# MNT-015 — Loại dịch vụ hành chính (Admin Service Types)
 
 **Loại:** Trang đầy đủ
 **Route:** maintenance/backOfficeServices
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Màn hình danh sách danh mục dịch vụ back-office (`GardenService.type = back-office`). Mỗi dịch vụ có tên, ảnh minh họa, trạng thái; áp dụng mặc định cho toàn bộ đơn vị kinh doanh khi tạo mới.
@@ -27,5 +27,5 @@ Màn hình danh sách danh mục dịch vụ back-office (`GardenService.type = 
 - **Xóa**: xóa `GardenService` tương ứng (`deleteBackOfficeService`).
 
 ## Điều hướng
-- Vào từ: menu Settings/Maintenance trong sidebar.
+- Vào từ: menu cài đặt Repair Desk trong sidebar.
 - Đi tới: MNT-015-P1 (Thêm), MNT-015-P2 (Sửa).

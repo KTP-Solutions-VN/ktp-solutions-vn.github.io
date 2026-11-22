@@ -78,7 +78,7 @@
       document.getElementById('not-found').hidden = false;
       return;
     }
-    document.getElementById('page-title').textContent = 'Maintenance Cost — ' + log.id;
+    document.getElementById('page-title').textContent = 'Repair Expenses — ' + log.id;
     document.getElementById('page-sub').textContent = log.property + ' — ' + MNT.categoryName(log.category);
     document.getElementById('log-heading').textContent = 'Cost Items for ' + log.property;
     var backHref = '../mnt-005-view-maintenance-log-details/index.html?id=' + id;

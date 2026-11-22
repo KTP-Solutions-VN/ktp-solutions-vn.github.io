@@ -1,8 +1,8 @@
-# PROP-053 — Monthly Report by Business Unit (BU Reports)
+# PROP-053 — Owner Reports by Unit
 
 **Type:** Full page
 **Route:** property/bu-reports
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Page for looking up the list of monthly newsletters/reports (Monthly Report) sent to owners, filterable by Business Unit and Month. Data is sourced from the `MonthlyReport` table (contains Villa, Owner).
@@ -31,6 +31,6 @@ Page for looking up the list of monthly newsletters/reports (Monthly Report) sen
 - Action icon on each row → view/download the corresponding report file (related to PROP-018 Monthly Report, PROP-024 Payment Report).
 
 ## Navigation
-- Opened from: Property/Reports menu (outside the scope of the current code).
-- Navigates to: No navigation to another page (only filters data in place); related to PROP-018 (Monthly Newsletter) data.
+- Opened from: owner reports menu (outside the scope of the current code).
+- Navigates to: No navigation to another page (only filters data in place); related to PROP-018 (Owner Bulletins) data.
 - Child popup: None.

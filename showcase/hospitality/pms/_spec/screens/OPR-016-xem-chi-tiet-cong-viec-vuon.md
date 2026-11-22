@@ -1,11 +1,11 @@
-# OPR-016 — Xem chi tiết công việc vườn
+# OPR-016 — Hồ sơ lượt chăm vườn (Garden Round Record)
 
 **Loại:** Trang đầy đủ
 **Route:** operator/gardenView/:id + route đẹp dạng dashed: operator/garden-view/:id
-**Module:** OPR = Vận hành vườn/hồ bơi
+**Module:** OPR = Công việc bảo dưỡng
 
 ## Mô tả ngắn gọn
-Màn hình chỉ xem (read-only) chi tiết một công việc vườn (garden job) đã thực hiện: thông tin villa, dịch vụ vườn, người thực hiện (gardener), thời gian, trạng thái kế hoạch. Tương tự OPR-004 (Xem chi tiết công việc hồ bơi) nhưng áp dụng cho công việc vườn.
+Màn hình chỉ xem (read-only) chi tiết một công việc vườn (garden job) đã thực hiện: thông tin villa, dịch vụ vườn, người thực hiện (gardener), thời gian, trạng thái kế hoạch. Tương tự OPR-004 (Hồ sơ lượt hồ bơi) nhưng áp dụng cho công việc vườn.
 
 ## Mô tả chi tiết
 
@@ -22,5 +22,5 @@ Màn hình chỉ xem (read-only) chi tiết một công việc vườn (garden j
 - Chỉ xem, không có hành động chỉnh sửa trên màn hình này.
 
 ## Điều hướng
-- Vào từ: icon "Xem" (mắt) tại OPR-002 — Danh sách công việc vườn.
+- Vào từ: icon "Xem" (mắt) tại OPR-002 — Lượt chăm vườn.
 - Đi tới: không có điều hướng tiếp; quay lại OPR-002 bằng nút back trình duyệt.

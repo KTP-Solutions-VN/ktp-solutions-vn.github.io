@@ -1,10 +1,10 @@
-# PHO-003 — Common Area Photos (Common Areas)
+# PHO-003 — Shared Space Albums
 
 **Type:** Full page
 
 **Route:** `PhotosController::commonAreas()` — clean route `/photos/common-areas` (explicitly declared in `config/Routes.php`)
 
-**Module:** Photos
+**Module:** Photo Library
 
 ## Overview
 A list of residences that have common area photo sets (common area — photos shared across multiple villas/units within the same residence area), similar to PHO-002 but at the Residence level instead of the Villa level.
@@ -31,5 +31,5 @@ Warning: if the common-area storage table has not been migrated (`storageReady =
 - **Quick upload**: opens PHO-004 with an anchor to the upload area.
 
 ## Navigation
-- Accessed from: the Photos menu ("Common Areas" tab in the module's internal navigation tab bar, at the same level as PHO-002 "Photo Sets" and PHO-008 "Settings").
+- Accessed from: the Photo Library menu ("Shared Spaces" tab in the module's internal navigation tab bar, at the same level as PHO-002 "Photo Albums" and PHO-008 "Requirements").
 - Navigates to: PHO-004 (residence), PHO-005 (residenceDetail).

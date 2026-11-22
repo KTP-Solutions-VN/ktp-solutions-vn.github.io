@@ -1,10 +1,10 @@
-# CMS-013 — Sửa nội dung điểm đến (Destination Edit)
+# CMS-013 — Trình sửa cẩm nang điểm đến (Destination Guide Editor)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::destinationEdit($district_id)` — mặc định `/cms/destination-edit/:district_id`
 
-**Module:** CMS = Nội dung trang chủ villa
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Form quản lý bộ ảnh (gallery) giới thiệu cho một điểm đến (`district_id`), mỗi ảnh có chú thích (legend) đa ngôn ngữ. Dữ liệu lưu ở model `CmsDestination` (thông tin điểm đến) và `CmsImage` (tag = `Destination`) cho từng ảnh trong gallery. Yêu cầu `district_id` hợp lệ — nếu rỗng, action không set biến/không render nội dung form.

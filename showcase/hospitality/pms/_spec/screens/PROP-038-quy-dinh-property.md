@@ -1,8 +1,8 @@
-# PROP-038 — Quy định Property (Villa Rules)
+# PROP-038 — Chính sách nội quy (House Policies)
 
 **Loại:** Popup (mở từ PROP-021)
 **Route:** property/villa-rules/:villa_id (villa_id truyền dạng base64)
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Modal/trang khai báo các quy định (rules) áp dụng cho Property: nội quy nhà (house rules), tiền đặt cọc (deposit), phụ phí điện và phụ phí khác (electricity & other charges, đa ngôn ngữ), quy định dọn dẹp (cleaning), hút thuốc (smoking), tiệc/sự kiện (parties & events). Dữ liệu lưu bảng `VillaRule`.
@@ -23,6 +23,6 @@ Modal/trang khai báo các quy định (rules) áp dụng cho Property: nội qu
 - Đổi ngôn ngữ — cập nhật nội dung Electricity & Other Charges theo ngôn ngữ đã lưu (JS).
 
 ## Điều hướng
-- Mở từ: PROP-021 (Danh sách Property cần Onboarding thao tác) — icon "Villa Rules" (mở dạng modal qua data attribute).
+- Mở từ: PROP-021 (Điểm chặn trước khi mở bán) — icon "Villa Rules" (mở dạng modal qua data attribute).
 - Điều hướng tới: Không có (chỉ lưu tại chỗ và redirect về chính nó).
 - Popup con: Không có.

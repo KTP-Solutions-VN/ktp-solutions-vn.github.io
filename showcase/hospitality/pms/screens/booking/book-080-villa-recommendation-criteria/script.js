@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function openModal(c) {
-    document.getElementById('criteria-modal-title').textContent = c ? 'Edit Villa Recommendation Criteria' : 'Add Villa Recommendation Criteria';
+    document.getElementById('criteria-modal-title').textContent = c ? 'Edit Occupancy Threshold' : 'Add Occupancy Threshold';
     document.getElementById('criteria-id').value = c ? c.id : '';
     document.getElementById('criteria-name').value = c ? c.name : '';
     document.getElementById('lm-days').value = c ? c.lastMinute.days : 14;

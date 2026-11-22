@@ -2,43 +2,43 @@ document.addEventListener('DOMContentLoaded', function () {
   var BASE_TEMPLATES = [
     {
       id: 'CT-01', language: 'English', templateName: 'Standard Owner Confirmation (EN)',
-      businessUnits: ['Phuket Collection', 'Bali Retreats', 'Koh Samui Estates'],
-      createdBy: 'Somchai Anuwat', on: '2026-03-02', logo: null,
-      companyName: 'Azura Stays Villas', companyShortName: 'Azura Stays', addr1: '88 Beach Road', addr2: 'Kathu District', addr3: 'Phuket 83150, Thailand',
-      phone: '+66 76 123 456', email: 'reservations@azurastays.example', website: 'www.azurastays.example',
-      taxId: '0105558012345', signatory: 'Somchai Anuwat', currency: 'USD', replyEmail: 'no-reply@azurastays.example'
+      businessUnits: ['Sentosa Collection', 'Byron Bay Retreats', 'Noosa Estates'],
+      createdBy: 'Daniel Tan', on: '2026-03-02', logo: null,
+      companyName: 'Azura Stays Villas', companyShortName: 'Azura Stays', addr1: '88 Ocean Drive', addr2: 'Sentosa Cove', addr3: 'Singapore 098297',
+      phone: '+65 6612 3456', email: 'reservations@azurastays.example', website: 'www.azurastays.example',
+      taxId: '201912345K', signatory: 'Daniel Tan', currency: 'USD', replyEmail: 'no-reply@azurastays.example'
     },
     {
       id: 'CT-02', language: 'French', templateName: 'Confirmation Propriétaire Standard (FR)',
-      businessUnits: ['Bali Retreats'],
-      createdBy: 'Wayan Kertha', on: '2026-04-10', logo: null,
-      companyName: 'Azura Stays Villas', companyShortName: 'Azura Stays', addr1: 'Jl. Pantai Berawa No. 21', addr2: 'Canggu', addr3: 'Bali 80361, Indonésie',
-      phone: '+62 361 555 0199', email: 'reservations.bali@azurastays.example', website: 'www.azurastays.example',
-      taxId: '01.234.567.8-901.000', signatory: 'Wayan Kertha', currency: 'EUR', replyEmail: 'no-reply@azurastays.example'
+      businessUnits: ['Byron Bay Retreats'],
+      createdBy: 'Warren Kelly', on: '2026-04-10', logo: null,
+      companyName: 'Azura Stays Villas', companyShortName: 'Azura Stays', addr1: '21 Lawson Street', addr2: 'Byron Bay', addr3: 'NSW 2481, Australie',
+      phone: '+61 2 6685 0199', email: 'reservations.byronbay@azurastays.example', website: 'www.azurastays.example',
+      taxId: '51 824 753 556', signatory: 'Warren Kelly', currency: 'EUR', replyEmail: 'no-reply@azurastays.example'
     },
     {
       id: 'CT-03', language: 'German', templateName: 'Standard-Eigentümerbestätigung (DE)',
-      businessUnits: ['Koh Samui Estates'],
-      createdBy: 'Nok Pattaya', on: '2026-05-02', logo: null,
-      companyName: 'Azura Stays Villas', companyShortName: 'Azura Stays', addr1: '12 Chaweng Beach Road', addr2: 'Koh Samui', addr3: 'Surat Thani 84320, Thailand',
-      phone: '+66 77 555 210', email: 'reservations.samui@azurastays.example', website: 'www.azurastays.example',
-      taxId: '0105558012345', signatory: 'Nok Pattaya', currency: 'EUR', replyEmail: 'no-reply@azurastays.example'
+      businessUnits: ['Noosa Estates'],
+      createdBy: 'Nicole Parker', on: '2026-05-02', logo: null,
+      companyName: 'Azura Stays Villas', companyShortName: 'Azura Stays', addr1: '12 Hastings Street', addr2: 'Noosa', addr3: 'QLD 4567, Australia',
+      phone: '+61 7 5447 5210', email: 'reservations.noosa@azurastays.example', website: 'www.azurastays.example',
+      taxId: '201912345K', signatory: 'Nicole Parker', currency: 'EUR', replyEmail: 'no-reply@azurastays.example'
     },
     {
       id: 'CT-04', language: 'Spanish', templateName: 'Confirmación Estándar del Propietario (ES)',
-      businessUnits: ['Phuket Collection'],
-      createdBy: 'Somchai Anuwat', on: '2026-05-20', logo: null,
-      companyName: 'Azura Stays Villas', companyShortName: 'Azura Stays', addr1: '88 Beach Road', addr2: 'Kathu District', addr3: 'Phuket 83150, Tailandia',
-      phone: '+66 76 123 456', email: 'reservations@azurastays.example', website: 'www.azurastays.example',
-      taxId: '0105558012345', signatory: 'Somchai Anuwat', currency: 'USD', replyEmail: 'no-reply@azurastays.example'
+      businessUnits: ['Sentosa Collection'],
+      createdBy: 'Daniel Tan', on: '2026-05-20', logo: null,
+      companyName: 'Azura Stays Villas', companyShortName: 'Azura Stays', addr1: '88 Ocean Drive', addr2: 'Sentosa Cove', addr3: 'Singapur 098297',
+      phone: '+65 6612 3456', email: 'reservations@azurastays.example', website: 'www.azurastays.example',
+      taxId: '201912345K', signatory: 'Daniel Tan', currency: 'USD', replyEmail: 'no-reply@azurastays.example'
     },
     {
       id: 'CT-05', language: 'Chinese (Mandarin)', templateName: 'Standard Owner Confirmation (ZH)',
-      businessUnits: ['Bali Retreats', 'Koh Samui Estates'],
-      createdBy: 'Wayan Kertha', on: '2026-06-15', logo: null,
-      companyName: 'Azura Stays Villas', companyShortName: 'Azura Stays', addr1: 'Jl. Pantai Berawa No. 21', addr2: 'Canggu', addr3: 'Bali 80361, Indonesia',
-      phone: '+62 361 555 0199', email: 'reservations.bali@azurastays.example', website: 'www.azurastays.example',
-      taxId: '01.234.567.8-901.000', signatory: 'Wayan Kertha', currency: 'THB', replyEmail: 'no-reply@azurastays.example'
+      businessUnits: ['Byron Bay Retreats', 'Noosa Estates'],
+      createdBy: 'Warren Kelly', on: '2026-06-15', logo: null,
+      companyName: 'Azura Stays Villas', companyShortName: 'Azura Stays', addr1: '21 Lawson Street', addr2: 'Byron Bay', addr3: 'NSW 2481, Australia',
+      phone: '+61 2 6685 0199', email: 'reservations.byronbay@azurastays.example', website: 'www.azurastays.example',
+      taxId: '51 824 753 556', signatory: 'Warren Kelly', currency: 'AUD', replyEmail: 'no-reply@azurastays.example'
     }
   ];
 
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   function addTemplate(fields) {
     var extra = safeParse(EXTRA_KEY, []);
-    var row = Object.assign({ id: MM.uid('CT'), createdBy: 'Somchai Anuwat', on: new Date().toISOString().slice(0, 10) }, fields);
+    var row = Object.assign({ id: MM.uid('CT'), createdBy: 'Daniel Tan', on: new Date().toISOString().slice(0, 10) }, fields);
     extra.unshift(row);
     localStorage.setItem(EXTRA_KEY, JSON.stringify(extra));
     return row;
@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function openForm(id) {
     resetForm();
     var isEdit = !!id;
-    document.getElementById('template-form-title').textContent = isEdit ? 'Edit Booking Confirmation Template' : 'Add Booking Confirmation Template';
+    document.getElementById('template-form-title').textContent = isEdit ? 'Edit Confirmation Layout' : 'Add Confirmation Layout';
     document.getElementById('tpl-logo').removeAttribute('required');
     if (isEdit) {
       var t = getTemplateById(id);

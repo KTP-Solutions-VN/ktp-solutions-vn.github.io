@@ -1,8 +1,8 @@
-# VCS-003 — Danh sách Loại hình bất động sản (Property/Villa Type)
+# VCS-003 — Loại hình lưu trú (Accommodation Types)
 
 **Loại:** Trang đầy đủ
 **Route:** villa-common-setting/villa-types (dashed mặc định: `/villa-common-setting/villa-types`)
-**Module:** VCS = Cấu hình chung villa
+**Module:** VCS = Thuộc tính tài sản
 
 ## Mô tả ngắn gọn
 Màn hình quản lý dữ liệu chủ "Loại hình bất động sản" (Villa Type), mỗi loại hình gắn với 1 Danh mục bất động sản (Property Category: Flat/House/Resort...). Khi thêm mới một Villa Type, hệ thống tự tạo bộ khu vực ảnh chuẩn (Photo Standard Areas) mặc định cho loại hình đó.
@@ -25,6 +25,6 @@ Danh sách sắp xếp theo `name`, không có ô tìm kiếm/lọc riêng.
 - Submit form popup gửi `POST` về chính action `villaTypes`; lưu/xóa bảng `VillaType`, ghi Activity Log, hiển thị Flash message, redirect về trang trước.
 
 ## Điều hướng
-- Mở từ: Menu Settings > "Properties" (Cấu hình chung villa) > submenu "Property Types".
+- Mở từ: Menu Portfolio Setup > "Property Attributes" (Thuộc tính tài sản) > submenu "Accommodation Types".
 - Điều hướng tới: không điều hướng sang trang khác.
-- Popup con: VCS-003-P1 (Thêm/Sửa/Xóa Loại hình bất động sản).
+- Popup con: VCS-003-P1 (Form loại hình lưu trú).

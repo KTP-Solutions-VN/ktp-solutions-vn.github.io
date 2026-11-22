@@ -63,14 +63,14 @@
   BOOK.RATE_STATUS_LOG = {
     'PV-101': [
       { since: '2020-01-01', till: '2026-02-28', status: 'Daily', note: 'Default daily rate.' },
-      { since: '2026-03-01', till: null, status: 'Monthly', note: 'Monthly rent 45,000 THB, due on the 5th of each month.' }
+      { since: '2026-03-01', till: null, status: 'Monthly', note: 'Monthly rent $45,000, due on the 5th of each month.' }
     ],
     'PV-102': [
       { since: '2020-01-01', till: null, status: 'Daily', note: 'Default daily rate.' }
     ],
     'PV-103': [
       { since: '2020-01-01', till: '2026-01-14', status: 'Daily', note: 'Default daily rate.' },
-      { since: '2026-01-15', till: null, status: 'Monthly', note: 'Monthly rent 62,000 THB, due at month end.' }
+      { since: '2026-01-15', till: null, status: 'Monthly', note: 'Monthly rent $62,000, due at month end.' }
     ],
     'PV-104': [
       { since: '2020-01-01', till: null, status: 'Daily', note: 'Default daily rate.' }
@@ -80,15 +80,15 @@
     ],
     'PV-106': [
       { since: '2020-01-01', till: '2026-01-31', status: 'Daily', note: 'Default daily rate.' },
-      { since: '2026-02-01', till: null, status: 'Monthly', note: 'Monthly rent 38,000 THB, due on the 25th of each month.' }
+      { since: '2026-02-01', till: null, status: 'Monthly', note: 'Monthly rent $38,000, due on the 25th of each month.' }
     ],
     'PV-107': [
       { since: '2020-01-01', till: '2025-12-31', status: 'Daily', note: 'Default daily rate.' },
-      { since: '2026-01-01', till: null, status: 'Yearly', note: 'Annual lease agreement, 480,000 THB/year.' }
+      { since: '2026-01-01', till: null, status: 'Yearly', note: 'Annual lease agreement, $480,000/year.' }
     ],
     'PV-108': [
       { since: '2020-01-01', till: '2025-05-31', status: 'Daily', note: 'Default daily rate.' },
-      { since: '2025-06-01', till: '2026-01-14', status: 'Monthly', note: 'Monthly rent 38,000 THB.' },
+      { since: '2025-06-01', till: '2026-01-14', status: 'Monthly', note: 'Monthly rent $38,000.' },
       { since: '2026-01-15', till: null, status: 'Daily', note: 'Reverted to daily rate after contract ended.' }
     ]
   };
@@ -222,18 +222,18 @@
   BOOK.seasonColor = function (name) { return SEASON_COLORS[name] || '#4C5FFF'; };
 
   BOOK.SEASONS_BASE = {
-    'RG-01': [ // Phuket Collection
+    'RG-01': [ // Sentosa Collection
       { id: 'SSN-01', name: 'Low Season', start: '2026-01-01', end: '2026-02-28' },
       { id: 'SSN-02', name: 'Mid Season', start: '2026-03-01', end: '2026-06-30' },
       { id: 'SSN-03', name: 'High Season', start: '2026-07-01', end: '2026-10-31' },
       { id: 'SSN-04', name: 'Peak Season', start: '2026-11-01', end: '2026-12-31' }
     ],
-    'RG-02': [ // Bali Retreats
+    'RG-02': [ // Byron Bay Retreats
       { id: 'SSN-05', name: 'Low Season', start: '2026-01-01', end: '2026-03-31' },
       { id: 'SSN-06', name: 'High Season', start: '2026-04-01', end: '2026-09-30' },
       { id: 'SSN-07', name: 'Peak Season', start: '2026-10-01', end: '2026-12-31' }
     ],
-    'RG-03': [] // Koh Samui Estates — no seasons declared yet (realistic copy-to target)
+    'RG-03': [] // Noosa Estates — no seasons declared yet (realistic copy-to target)
   };
   BOOK.SEASONS_BASE['RG-01'].forEach(function (s) { s.duration = daysBetween(s.start, s.end); });
   BOOK.SEASONS_BASE['RG-02'].forEach(function (s) { s.duration = daysBetween(s.start, s.end); });
@@ -344,14 +344,14 @@
   /* "Action" text reads as a real change record.                       */
   /* ---------------------------------------------------------------- */
   BOOK.RATE_CHANGE_LOG_BASE = [
-    { id: 'RCL-01', date: '2026-08-25', entryLevel: 'Property', villaId: 'PV-101', oldRate: 1100, newRate: 1200, reason: 'High season adjustment', by: 'Somchai Anuwat' },
-    { id: 'RCL-02', date: '2026-08-20', entryLevel: 'Property', villaId: 'PV-103', oldRate: 1350, newRate: 1450, reason: 'Owner-requested increase', by: 'Wayan Kertha' },
-    { id: 'RCL-03', date: '2026-08-14', entryLevel: 'Property', villaId: 'PV-106', oldRate: 980, newRate: 1050, reason: 'Peak season adjustment', by: 'Nok Pattaya' },
-    { id: 'RCL-04', date: '2026-08-05', entryLevel: 'Property', villaId: 'PV-108', oldRate: 1500, newRate: 1600, reason: 'Renovation completed — repositioned', by: 'Wayan Kertha' },
-    { id: 'RCL-05', date: '2026-07-28', entryLevel: 'Property', villaId: 'PV-102', oldRate: 900, newRate: 950, reason: 'Annual review', by: 'Somchai Anuwat' },
-    { id: 'RCL-06', date: '2026-07-19', entryLevel: 'Property', villaId: 'PV-104', oldRate: 820, newRate: 780, reason: 'Low season correction', by: 'Wayan Kertha' },
-    { id: 'RCL-07', date: '2026-06-30', entryLevel: 'Property', villaId: 'PV-101', oldRate: 1000, newRate: 1100, reason: 'Mid season adjustment', by: 'Somchai Anuwat' },
-    { id: 'RCL-08', date: '2026-06-12', entryLevel: 'Property', villaId: 'PV-103', oldRate: 1250, newRate: 1350, reason: 'Owner-requested increase', by: 'Wayan Kertha' }
+    { id: 'RCL-01', date: '2026-08-25', entryLevel: 'Property', villaId: 'PV-101', oldRate: 1100, newRate: 1200, reason: 'High season adjustment', by: 'Daniel Tan' },
+    { id: 'RCL-02', date: '2026-08-20', entryLevel: 'Property', villaId: 'PV-103', oldRate: 1350, newRate: 1450, reason: 'Owner-requested increase', by: 'Warren Kelly' },
+    { id: 'RCL-03', date: '2026-08-14', entryLevel: 'Property', villaId: 'PV-106', oldRate: 980, newRate: 1050, reason: 'Peak season adjustment', by: 'Nicole Parker' },
+    { id: 'RCL-04', date: '2026-08-05', entryLevel: 'Property', villaId: 'PV-108', oldRate: 1500, newRate: 1600, reason: 'Renovation completed — repositioned', by: 'Warren Kelly' },
+    { id: 'RCL-05', date: '2026-07-28', entryLevel: 'Property', villaId: 'PV-102', oldRate: 900, newRate: 950, reason: 'Annual review', by: 'Daniel Tan' },
+    { id: 'RCL-06', date: '2026-07-19', entryLevel: 'Property', villaId: 'PV-104', oldRate: 820, newRate: 780, reason: 'Low season correction', by: 'Warren Kelly' },
+    { id: 'RCL-07', date: '2026-06-30', entryLevel: 'Property', villaId: 'PV-101', oldRate: 1000, newRate: 1100, reason: 'Mid season adjustment', by: 'Daniel Tan' },
+    { id: 'RCL-08', date: '2026-06-12', entryLevel: 'Property', villaId: 'PV-103', oldRate: 1250, newRate: 1350, reason: 'Owner-requested increase', by: 'Warren Kelly' }
   ];
   BOOK.getRateChangeLog = function () { return BOOK.loadMerged('mm_rate_change_log', BOOK.RATE_CHANGE_LOG_BASE); };
   BOOK.saveRateChangeLog = function (arr) { BOOK.saveAll('mm_rate_change_log', arr); };

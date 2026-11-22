@@ -60,9 +60,9 @@
         var comment = document.getElementById('f-comment').value.trim();
         MNT.updateLog(id, function (l) {
           l.status = newStatus;
-          if (newStatus === 'Closed') { l.closeBy = 'Somchai Anuwat'; l.closeDate = new Date().toISOString().slice(0, 10); }
+          if (newStatus === 'Closed') { l.closeBy = 'Daniel Tan'; l.closeDate = new Date().toISOString().slice(0, 10); }
         });
-        MNT.addHistory(id, { by: 'Somchai Anuwat', comment: comment, status: newStatus, date: new Date().toISOString().slice(0, 16).replace('T', ' ') });
+        MNT.addHistory(id, { by: 'Daniel Tan', comment: comment, status: newStatus, date: new Date().toISOString().slice(0, 16).replace('T', ' ') });
         MM.showToast('Maintenance log updated');
         setTimeout(function () { window.location.href = '../mnt-001-maintenance-ticket-list/index.html'; }, 700);
       });

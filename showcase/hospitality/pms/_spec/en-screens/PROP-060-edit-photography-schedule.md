@@ -1,8 +1,8 @@
-# PROP-060 — Edit Photography Schedule (Edit Shooting)
+# PROP-060 — Edit Shoot Schedule
 
 **Type:** Full page
 **Route:** property/edit-shooting/:req_id (req_id passed base64-encoded), opened from PROP-059 (Edit icon)
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Page for editing an existing Photography schedule: change Business Unit, applicable level (Property/Residence/Unit), Photographer (Service Provider), planned shooting date, comment. Data is saved to the `Photography` table (linked to `PhotographDetail` when the level is Property).
@@ -24,6 +24,6 @@ Page for editing an existing Photography schedule: change Business Unit, applica
 - Changing Entry Level → JS shows/hides the corresponding Residence/Unit/Property field.
 
 ## Navigation
-- Opened from: PROP-059 (Photography Schedule List) — Edit icon.
+- Opened from: PROP-059 (Upcoming Shoots) — Edit icon.
 - Navigates to: None (redirects back to the list after a successful save).
 - Child popup: None.

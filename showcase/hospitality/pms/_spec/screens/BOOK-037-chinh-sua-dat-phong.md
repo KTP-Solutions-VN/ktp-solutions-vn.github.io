@@ -1,8 +1,8 @@
-# BOOK-037 — Chỉnh sửa đặt phòng
+# BOOK-037 — Điều chỉnh đặt chỗ (Modify Reservation)
 
 **Loại:** Trang đầy đủ
 **Route:** Booking/edit/:id (mặc định: `/booking/edit/:id`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Trang chỉnh sửa đặt phòng gồm 3 khối form độc lập (mỗi khối submit riêng bằng AJAX): thông tin khách/booking (xem tại BOOK-028 phần tương ứng), thông tin nhận/trả phòng, và đặc biệt là khối **Dịch vụ thêm (Extra Services)** — nơi ghi nhận các dịch vụ khách yêu cầu. Có modal gán concierge phụ trách.
@@ -27,7 +27,7 @@ Trang chỉnh sửa đặt phòng gồm 3 khối form độc lập (mỗi khối
 | 13 | Số điện thoại liên hệ | `phone_number` | Text | Không | |
 
 ### Khối Thông tin booking, Thông tin khách, Ngày/giờ nhận-trả phòng
-Bố cục và field tương tự khối tương ứng tại BOOK-028 (Chi tiết đặt phòng), nhưng ở đây các field là **input chỉnh sửa được** (không phải readonly) và mỗi khối có nút Submit AJAX riêng.
+Bố cục và field tương tự khối tương ứng tại BOOK-028 (Hồ sơ đặt chỗ), nhưng ở đây các field là **input chỉnh sửa được** (không phải readonly) và mỗi khối có nút Submit AJAX riêng.
 
 ### Modal gán concierge (`#exampleModalLabel1`)
 Popup chọn/gán nhân viên concierge phụ trách booking.
@@ -41,5 +41,5 @@ Danh sách ảnh đính kèm booking, có thể xem/quản lý.
 - Quản lý ảnh đính kèm booking
 
 ## Điều hướng
-- Mở từ: BOOK-002 (Danh sách đặt phòng), BOOK-028 (Chi tiết đặt phòng) — nút Sửa
+- Mở từ: BOOK-002 (Tất cả đặt chỗ), BOOK-028 (Hồ sơ đặt chỗ) — nút Sửa
 - Điều hướng tới: quay lại BOOK-028/BOOK-002 sau khi lưu

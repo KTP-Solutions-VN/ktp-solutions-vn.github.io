@@ -1,10 +1,10 @@
-# BOOK-001 — Lịch check-in / check-out
+# BOOK-001 — Khách đến & đi (Arrivals & Departures)
 **Loại:** Trang đầy đủ
 **Route:** Booking/list (mặc định: `/booking/list`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
-Màn hình trang chủ/dashboard của module đặt phòng, hiển thị hai bảng theo ngày: danh sách khách **check-out** trong ngày (dải màu đỏ) và danh sách khách **check-in** trong ngày (dải màu xanh lá), nhóm theo Business Unit/Zone. Cho phép điều hướng nhanh giữa các ngày, lọc theo đơn vị kinh doanh, loại dịch vụ, lịch làm việc cá nhân của concierge, và thao tác nhanh (gán concierge, đặt giờ check-in/check-out, ghi chú, duyệt yêu cầu khách).
+Màn hình trang chủ/dashboard của module đặt chỗ, hiển thị hai bảng theo ngày: danh sách khách **check-out** trong ngày (dải màu đỏ) và danh sách khách **check-in** trong ngày (dải màu xanh lá), nhóm theo Business Unit/Zone. Cho phép điều hướng nhanh giữa các ngày, lọc theo đơn vị kinh doanh, loại dịch vụ, lịch làm việc cá nhân của concierge, và thao tác nhanh (gán concierge, đặt giờ check-in/check-out, ghi chú, duyệt yêu cầu khách).
 
 ## Mô tả chi tiết
 
@@ -53,6 +53,6 @@ Màn hình trang chủ/dashboard của module đặt phòng, hiển thị hai b�
 - Popup thêm/sửa/xoá Business Unit (`#exampleModal`) và popup xoá booking (`#exampleModal2`)
 
 ## Điều hướng
-- Mở từ: Menu chính module Đặt phòng (mục "In & Out" / Lịch check-in check-out)
-- Điều hướng tới: Click vào tên khách/villa có thể mở BOOK-009 (Chi tiết đặt phòng) hoặc BOOK-013 (Tiến trình check-in) tùy luồng thao tác
+- Mở từ: Menu chính module Đặt chỗ (mục "Arrivals & Departures" / Lịch khách đến & đi)
+- Điều hướng tới: Click vào tên khách/villa có thể mở BOOK-009 (Hồ sơ đặt chỗ) hoặc BOOK-013 (Theo dõi nhận phòng) tùy luồng thao tác
 - Popup con: popup gán concierge, popup ghi chú, popup xác nhận xóa booking, popup thông tin đưa đón sân bay (đều là modal nội bộ trong cùng trang, không phải action riêng)

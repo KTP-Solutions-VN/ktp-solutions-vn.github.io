@@ -1,8 +1,8 @@
-# PROP-050 — Add/Edit Property Details (Villa Detail)
+# PROP-050 — Property Editor
 
 **Type:** Full page
 **Route:** property/villa/:tab/:villa_id (dashed by default; `$villa_id` is empty when adding new)
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 The central screen for creating/editing all information for a Property (Villa), organized into 11 major tabs: Identification, Business Situation, Location, Property Type, OTA Management, Service and Utilities (re-embeds the content of PROP-049), Document, Language Management, Control (Check-out control points/reminders), Finance, Portal Contract (guest portal contract). Each tab has its own save form, with data aggregated from multiple tables related to the Villa.
@@ -24,7 +24,7 @@ The central screen for creating/editing all information for a Property (Villa), 
 | 10 | Price Category | `price_category_id` | Select2 | No | |
 | 11 | Price 1 / Price 2 | `price_1`/`price_2` | Number | No | |
 | 12 | Reference Currency | `reference_currency` | Select2 | No | |
-| 13 | Room ID 1-4 | `room_id_1..4` | Text | No | Linked to PROP-017 (Missing Room ID) |
+| 13 | Room ID 1-4 | `room_id_1..4` | Text | No | Linked to PROP-017 (Unmapped Room Codes) |
 | 14 | Beds24 Villa ID (primary, secondary, 2nd) | `beds_24_villa_id`/`additional_beds_24_id`/`secondary_beds_24_villa_id_1` | Text | No | Duplicate check via AJAX `checkVillaBeds24Id` |
 | 15 | Hostex Villa ID | `hostex_villa_id` | Text | No | |
 | 16 | Channel Manager | `channel_manager` | Select | No | |
@@ -76,12 +76,12 @@ The central screen for creating/editing all information for a Property (Villa), 
 | 2 | Listing ID | `listing_id` | Text (read-only, may be auto-generated) | Yes | |
 | 3 | Link | `link` | Text | Yes | Listing link on the OTA channel |
 | 4 | OTA ID | `ota_id` | Text | No | |
-| 5 | VAT | `vat` | Text | No | |
+| 5 | GST | `vat` | Text | No | |
 
 The list of assigned OTA links is displayed as a table, with Add/Edit/Delete buttons (`addOtaModal` modal).
 
 ### Service and Utilities Tab
-Re-embeds the full set of 10 sub-tabs Concierge/Common Area/Electricity/Cleaning/Water/Internet/Television/Pool/Garden/Pest Control — see full details in **PROP-049 (Property Service & Utility Settings)**, using the shared `property/*` element.
+Re-embeds the full set of 10 sub-tabs Concierge/Common Area/Electricity/Cleaning/Water/Internet/Television/Pool/Garden/Pest Control — see full details in **PROP-049 (Utilities Setup)**, using the shared `property/*` element.
 
 ### Document Tab
 | # | Field Label | Field Code | Data Type / Input | Required | Notes |
@@ -116,14 +116,14 @@ The list of uploaded documents is displayed as a table, allowing view/download/d
 | 4 | Selling Price | `selling_price` | Number | No (required if For Sale) | |
 | 5 | Starting Rental Date | `starting_rental_date` | Datepicker | No | |
 
-### Portal Contract Tab (Guest Portal Contract)
+### Portal Contract Tab (Guest Hub Contract)
 | # | Field Label | Field Code | Data Type / Input | Required | Notes |
 |---|---|---|---|---|---|
 | 1 | Guest Contract General Version | `guest_contract_general_version_id` | Select2 | Yes | Selects the contract template version applied to the Property |
 | 2 | Contract Language | `contract_language` | Select2 (multi) | No | |
 | 3 | Contract Electricity Mode | `contract_electricity_mode` | Select | No | |
 
-Saved via `_saveGuestContractAssignment`/`_savePortalContract`; related to PROP-051/052 (Guest Contract Recap/PDF).
+Saved via `_saveGuestContractAssignment`/`_savePortalContract`; related to PROP-051/052 (Contract Readiness / Print Guest Contracts).
 
 ## Functions / Actions
 - Switching tabs (URL param `$tab`, retains `$villa_id`).
@@ -135,6 +135,6 @@ Saved via `_saveGuestContractAssignment`/`_savePortalContract`; related to PROP-
 - Delete Property (Delete button, calls the `delete` action).
 
 ## Navigation
-- Opened from: PROP-033 (Property List — add new/edit), PROP-032 (Dashboard), PROP-042 (Booking Restriction — Edit icon opens the OTA Management tab).
-- Navigates to: PROP-049 (Service and Utilities — same embedded content), PROP-017 (Missing Room ID, linked Room ID data), PROP-046/047 (Residence, linked Location data), PROP-051/052 (Guest Contract Recap/PDF, linked Portal Contract tab data).
+- Opened from: PROP-033 (Property Register — add new/edit), PROP-032 (Portfolio Health), PROP-042 (Instant Book Settings — Edit icon opens the OTA Management tab).
+- Navigates to: PROP-049 (Service and Utilities — same embedded content), PROP-017 (Unmapped Room Codes, linked Room ID data), PROP-046/047 (Residence, linked Location data), PROP-051/052 (Contract Readiness / Print Guest Contracts, linked Portal Contract tab data).
 - Child popup: Add/Edit OTA Link modal (no dedicated code, a supporting operation within the OTA Management tab).

@@ -28,9 +28,9 @@
   function seedIfEmpty() {
     if (localStorage.getItem(STORAGE_KEY)) return;
     var seed = {};
-    seed[billKey('PV-104', '2026-06')] = { endDate: '2026-07-01', endMeter: 1240, amount: 3400 };
-    seed[billKey('PV-104', '2026-07')] = { endDate: '2026-08-01', endMeter: 1600, amount: 3888 };
-    seed[billKey('PV-107', '2026-06')] = { endDate: '2026-07-01', endMeter: 820, amount: 2960 };
+    seed[billKey('PV-104', '2026-06')] = { endDate: '2026-07-01', endMeter: 1240, amount: 148 };
+    seed[billKey('PV-104', '2026-07')] = { endDate: '2026-08-01', endMeter: 1600, amount: 169 };
+    seed[billKey('PV-107', '2026-06')] = { endDate: '2026-07-01', endMeter: 820, amount: 129 };
     saveBills(seed);
   }
   seedIfEmpty();

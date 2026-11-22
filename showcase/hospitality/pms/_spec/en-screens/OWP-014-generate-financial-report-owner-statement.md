@@ -1,14 +1,14 @@
-# OWP-014 — Generate Financial Report (Owner Statement)
+# OWP-014 — Earnings Statement
 
 **Type:** Full page
 
 **Route:** `ExternalUserController::generateReports()` — no dedicated friendly route (default `/external-user/generate-reports`)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 
-Screen for generating a detailed financial report (income and expense statement) for a property over a selected time period: daily revenue, OTA commission, VAT, maintenance costs, other expenses, and the owner's net payout. Booking data can be synced and the report can be downloaded.
+Screen for generating a detailed financial report (income and expense statement) for a property over a selected time period: daily revenue, OTA commission, GST, maintenance costs, other expenses, and the owner's net payout. Booking data can be synced and the report can be downloaded.
 
 ## Detailed Description
 
@@ -29,7 +29,7 @@ Report table — displayed columns (by day):
 | 3 | Customer | customer | |
 | 4 | Gross revenue | gross / payout | |
 | 5 | OTA commission | ota_commission | |
-| 6 | VAT | vat | Shown when VAT applies by channel |
+| 6 | GST | vat | Shown when GST applies by channel |
 | 7 | Net revenue | daily_net / net | |
 | 8 | Service fee by type | services (%) | Multiple dynamic columns by service type |
 | 9 | Owner receives | owner | |
@@ -45,5 +45,5 @@ Report table — displayed columns (by day):
 
 ## Navigation
 
-- Accessed from the main menu (Generate Report)
+- Accessed from the main menu (Statements)
 - No navigation to another screen (processed in place)

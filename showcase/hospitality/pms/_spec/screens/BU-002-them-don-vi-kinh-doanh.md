@@ -1,10 +1,10 @@
-# BU-002 — Thêm đơn vị kinh doanh
+# BU-002 — Thêm đơn vị vận hành (New Operating Unit)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `BusinessUnitController::add()` — mặc định `/business-unit/add`
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Form thêm mới một đơn vị kinh doanh (Business Unit), gồm thông tin liên hệ, vị trí địa lý, cấu hình pháp nhân, tiền tệ mặc định và ảnh đại diện/logo.

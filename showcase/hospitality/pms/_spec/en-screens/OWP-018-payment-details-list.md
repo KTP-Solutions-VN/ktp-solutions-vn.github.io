@@ -1,10 +1,10 @@
-# OWP-018 — Payment Details List
+# OWP-018 — Payout Accounts
 
 **Type:** Full page
 
 **Route:** `ExternalUserController::paymentDetails()` — no dedicated friendly route (default `/external-user/payment-details`)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 
@@ -36,7 +36,7 @@ List — displayed columns:
 
 ## Navigation
 
-- Accessed from the main menu (Payment Details)
-- "+" button → OWP-018-P1 (add payment detail popup)
-- Edit icon → OWP-018-P2 (edit payment detail popup)
+- Accessed from the main menu (Payouts)
+- "+" button → OWP-018-P1 (New Payout Account popup)
+- Edit icon → OWP-018-P2 (Edit Payout Account popup)
 - Delete icon → confirmation popup, returns to OWP-018 after deletion

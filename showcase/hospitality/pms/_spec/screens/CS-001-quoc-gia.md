@@ -1,10 +1,10 @@
-# CS-001 — Quốc gia (Countries)
+# CS-001 — Thiết lập quốc gia (Country Setup)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CommonSettingController::countries()` — mặc định `/common-setting/countries` (không có route đẹp riêng, route `/countries/list` trong `config/Routes.php` dòng 140 đang bị comment)
 
-**Module:** CS = Danh mục dùng chung
+**Module:** CS = Dữ liệu tham chiếu
 
 ## Mô tả ngắn gọn
 Danh sách quản lý danh mục Quốc gia dùng chung cho toàn hệ thống (Region, District, Area, Residence... đều tham chiếu tới Country). Cho phép thêm/sửa/xóa quốc gia qua một popup dùng chung.
@@ -27,5 +27,5 @@ Danh sách (DataTable `#zero_config`, không có bộ lọc riêng, sắp xếp 
 - Ghi log hoạt động (`_generateAccessLogs`) cho cả 3 thao tác thêm/sửa/xóa.
 
 ## Điều hướng
-- Vào từ: menu Cài đặt hệ thống > Danh mục dùng chung > Quốc gia.
-- Điều hướng đến: CS-001-P1 (popup Thêm/Sửa/Xóa quốc gia).
+- Vào từ: menu Cấu hình > Dữ liệu tham chiếu > Thiết lập quốc gia.
+- Điều hướng đến: CS-001-P1 (popup Form quốc gia).

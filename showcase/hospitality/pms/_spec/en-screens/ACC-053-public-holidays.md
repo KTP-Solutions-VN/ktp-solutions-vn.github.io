@@ -1,17 +1,17 @@
-# ACC-053 — Public Holidays
+# ACC-053 — Holiday Calendar
 
 **Type:** Full page
 
 **Route:** `AccountController::publicHolidays()` — default `/account/public-holidays`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 Manages the list of public holidays (`PublicHoliday`) by country and year — this data is used to calculate overtime (OT) pay multipliers and to drive demand-based pricing impact. Includes a monthly preview calendar with color-coding by demand impact level.
 
 ## Detailed Description
 
-List (DataTable `#zero_config`), sorted by `date` ascending, defaulting to a filter of the current month/year and the country matching the user's Business Unit (default Thailand `id=18`):
+List (DataTable `#zero_config`), sorted by `date` ascending, defaulting to a filter of the current month/year and the country matching the user's Business Unit (default Singapore `id=18`):
 
 | # | Column Name | Field Code | Notes |
 |---|---|---|---|
@@ -25,7 +25,7 @@ List (DataTable `#zero_config`), sorted by `date` ascending, defaulting to a fil
 | 8 | Actions | — | Edit, Delete |
 
 Filter:
-- **Country** (`country_id`): Thailand/France/Greece, defaults to the user's BU.
+- **Country** (`country_id`): Singapore/France/Greece, defaults to the user's BU.
 - **Year** (`year`): current year through +2 years.
 - **Nature** (`nature` → `holiday_type`): Official/Observed/Special/Company, defaults to "All".
 - **Salary** (`salary` → `ot_multiplier`): 3.0×/2.0×/1.5×/None, defaults to "All".
@@ -43,5 +43,5 @@ Preview calendar (`vm-preview-calendar`): displayed using its own `calendar_mont
 - **Change Country (select2 change):** automatically submits the form as soon as a value is selected.
 
 ## Navigation
-- Entered from: Sidebar > Account & HR > Public Holidays (`active_menu = acc-public-holidays`).
-- Navigates to: ACC-053-P1 (Add Public Holiday), ACC-053-P2 (Edit Public Holiday), Delete action (same page, no dedicated view), Copy Public Holiday action (action `copyPublicHoliday`, no dedicated view, redirects to referer).
+- Entered from: Sidebar > Finance & Admin > Holiday Calendar (`active_menu = acc-public-holidays`).
+- Navigates to: ACC-053-P1 (New Holiday), ACC-053-P2 (Edit Holiday), Delete action (same page, no dedicated view), Copy Public Holiday action (action `copyPublicHoliday`, no dedicated view, redirects to referer).

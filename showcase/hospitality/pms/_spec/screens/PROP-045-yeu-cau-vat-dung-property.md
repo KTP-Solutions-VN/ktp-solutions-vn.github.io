@@ -1,8 +1,8 @@
-# PROP-045 — Yêu cầu vật dụng (Inventory Request) của Property
+# PROP-045 — Yêu cầu vật tư (Stock Requests)
 
 **Loại:** Trang đầy đủ
 **Route:** property/inventory-request/:villa_id
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang liệt kê toàn bộ yêu cầu cấp/bổ sung vật dụng (Inventory Item Request) đã gửi cho một Property, cho phép xóa yêu cầu (nếu chưa xác nhận/hoàn trả) hoặc xác nhận trả vật dụng về kho Azura (Return), tự động cập nhật lại tồn kho liên quan.
@@ -25,6 +25,6 @@ Trang liệt kê toàn bộ yêu cầu cấp/bổ sung vật dụng (Inventory I
 - Icon Trả về kho (`return_inventory`, `fa-reply`) → mở modal nhập số lượng trả, submit `action=return`: giảm `item_received` trong `VillaInventory`, tăng `available_stock` trong `InventoryStock`, tạo bản ghi `InventoryItemMovement` (từ villa về kho), cập nhật trạng thái yêu cầu thành "Returned", ghi log.
 
 ## Điều hướng
-- Mở từ: PROP-044 (Quản lý vật dụng Property) — nút "All Request".
+- Mở từ: PROP-044 (Vật tư tại chỗ) — nút "All Request".
 - Điều hướng tới: Không điều hướng sang trang khác (redirect lại chính trang sau khi xử lý).
 - Popup con: Modal Delete/Return (không tách mã riêng vì là thao tác phụ trợ tại chỗ).

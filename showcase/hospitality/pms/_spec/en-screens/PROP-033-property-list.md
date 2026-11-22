@@ -1,11 +1,11 @@
-# PROP-033 — Property List
+# PROP-033 — Property Register
 
 **Type:** Full page
 **Route:** property/list/:id (default CakePHP DashedRoute: `/property/list`; the `id` parameter is the business unit id, also accepted via the query string `?id=`)
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
-The main list page (entry point) of the Property module — listing all villas/properties for the currently selected Business Unit, with filters and action buttons for add/edit/delete/duplicate/view details/view inventory, and downloading the guest contract. This is the central navigation hub to other pages in the module (villa, view_details, inventories, etc.).
+The main list page (entry point) of the Property Records module — listing all villas/properties for the currently selected Business Unit, with filters and action buttons for add/edit/delete/duplicate/view details/view inventory, and downloading the guest contract. This is the central navigation hub to other pages in the module (villa, view_details, inventories, etc.).
 
 ## Detailed Description
 | # | Field Label | Field Code | Data Type / Input | Required | Notes |
@@ -27,9 +27,9 @@ The table uses the client-side DataTable `#zero_config`. There is no dedicated s
 - "Territories" button (`.residencesBtn`/link `territories`) → navigates to the Territories page (outside the scope of the 3 assigned actions); disabled (`grey_button`) if `is_concierge` = false.
 - "Show Active"/"Show Inactive" toggle button → submits a POST form on the same page, changing the `paused_stop_show` field.
 - "Residences" button (link `residenceEnquiry`) → navigates to the Residence Enquiry page.
-- "Reports" button (link `propertyReports/contract`) → navigates to PROP-029 (Property Reports).
+- "Reports" button (link `propertyReports/contract`) → navigates to PROP-029 (Contract Reports).
 - "Copy Code" icon (`.copy_text`) on each row → copies the villa's `short_name` to the clipboard (JS only, no server call).
-- "View Details" icon (eye, class `btn-success`) → navigates to **PROP-035 — View Property Details** (`action=viewDetails, $id`). Shown only for appropriate roles (Superadmin/Admin/Business Unit Manager, or Employee/Team Leader with a Concierge/Planner role).
+- "View Details" icon (eye, class `btn-success`) → navigates to **PROP-035 — Property Profile** (`action=viewDetails, $id`). Shown only for appropriate roles (Superadmin/Admin/Business Unit Manager, or Employee/Team Leader with a Concierge/Planner role).
 - "Download Guest Contract" icon (`.guest-contract-download`) → opens child popup `#guestContractDownloadModal` (select Language + Electricity payment option via AJAX `guestContractDownloadOptions`, validated via `guestContractAssignmentValidation`, downloads the PDF via `guestContractAssignmentPdf`). Shown only for Superadmin or Employee/Team Leader with a Concierge role.
 - "Duplicate" icon (`.btn-warning`, function `copyProperty()`) → opens child popup `#exampleModal1` "Duplicate Property" (select source villa + enter new name), checks for duplicate names via AJAX `checkVillaName`, submits via AJAX `duplicateProperty`, then reloads the page.
 - "View Inventory" icon (`ti-layout-grid3-alt`) → navigates to the `inventories/$id` action (outside the scope of the 3 assigned actions).
@@ -40,6 +40,6 @@ The table uses the client-side DataTable `#zero_config`. There is no dedicated s
 - For `external_user == 'agency-staff'`: a dedicated Edit icon navigates to `villa/business situation/$id`, disabled if the villa's contract is not in `open` status.
 
 ## Navigation
-- Opened from: the main menu (Property/Properties section, `active_menu = '7'`).
-- Navigates to: PROP-034 (Add/Edit Property page, identification/service and utilities/business situation steps), PROP-035 (View Property Details), PROP-029 (Property Reports), the `territories`, `residenceEnquiry`, `inventories`, `delete`, `downloadPropertyData` actions (outside the assigned scope).
+- Opened from: the main menu (Property Register section, `active_menu = '7'`).
+- Navigates to: PROP-034 (Add/Edit Property page, identification/service and utilities/business situation steps), PROP-035 (Property Profile), PROP-029 (Contract Reports), the `territories`, `residenceEnquiry`, `inventories`, `delete`, `downloadPropertyData` actions (outside the assigned scope).
 - Child popup: Delete confirmation popup (`#exampleModal`), Duplicate Property popup (`#exampleModal1`), Download Guest Contract popup (`#guestContractDownloadModal`).

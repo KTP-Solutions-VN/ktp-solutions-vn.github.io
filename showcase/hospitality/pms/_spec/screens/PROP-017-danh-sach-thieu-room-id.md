@@ -1,8 +1,8 @@
-# PROP-017 — Danh sách Property thiếu Room ID
+# PROP-017 — Mã phòng chưa ánh xạ (Unmapped Room Codes)
 
 **Loại:** Trang đầy đủ
 **Route:** property/missing-roomids/:id (route mặc định dạng dashed, tham số `$id` truyền qua URL nhưng thực tế bị controller reset về rỗng rồi lấy lại từ `$_REQUEST['id']`)
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Màn hình liệt kê các Property (Villa) đang ở trạng thái "Open" nhưng chưa có `room_id_1` (chưa cấu hình mã phòng để đồng bộ OTA/Beds24), lọc theo Business Unit. Cho phép xuất danh sách ra file Excel.

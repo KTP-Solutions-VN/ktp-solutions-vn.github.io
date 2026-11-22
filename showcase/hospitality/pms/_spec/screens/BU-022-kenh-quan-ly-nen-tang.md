@@ -1,13 +1,13 @@
-# BU-022 — Kênh (Channels — quản lý nền tảng, tài khoản kênh & yếu tố nội dung)
+# BU-022 — Nền tảng đặt chỗ (Booking Platforms)
 
 **Loại:** Trang đầy đủ (3 tab)
 
 **Route:** `BusinessUnitController::channels($tab)` — mặc định `/business-unit/channels/{tab}` (tab: `platforms`, `accounts`, `content-elements`)
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
-Trang quản lý Kênh phân phối phiên bản mới, thay thế đường vào menu chính cho BU-005 (trang "Kênh" cũ dùng `chanels()`/`chanel.ctp` vẫn còn hoạt động qua URL trực tiếp nhưng không còn liên kết từ sidebar hiện tại). Gồm 3 tab: "Nền tảng đặt phòng" (`platforms`), "Tài khoản kênh" (`accounts`), "Yếu tố nội dung" (`content-elements`, chỉ dành cho Superadmin).
+Trang quản lý Kênh phân phối phiên bản mới, thay thế đường vào menu chính cho BU-005 (trang "Kênh bán hàng" cũ dùng `chanels()`/`chanel.ctp` vẫn còn hoạt động qua URL trực tiếp nhưng không còn liên kết từ sidebar hiện tại). Gồm 3 tab: "Nền tảng đặt phòng" (`platforms`), "Tài khoản kênh" (`accounts`), "Yếu tố nội dung" (`content-elements`, chỉ dành cho Superadmin).
 
 ## Mô tả chi tiết
 
@@ -34,7 +34,7 @@ Danh sách `Chanel` (tài khoản/kênh cụ thể thuộc một nền tảng):
 | 3 | Nền tảng | `booking_platform_id` → tên | |
 | 4 | Ownership | `ownership` | `Azura Stays` / `Partner` |
 | 5 | Ngày tạo | `created_at` | |
-| 6 | Hành động | — | Liên kết Villa theo kênh (BU-006), Sửa, Xóa |
+| 6 | Hành động | — | Liên kết listing theo kênh (BU-006), Sửa, Xóa |
 
 ### Tab 3 — Yếu tố nội dung (`content-elements`, chỉ Superadmin)
 Bảng cấu hình các thành phần nội dung OTA (kéo-thả sắp xếp thứ tự):
@@ -57,12 +57,12 @@ Bảng cấu hình các thành phần nội dung OTA (kéo-thả sắp xếp th�
 - **Add new (tab Tài khoản kênh):** mở popup BU-022-P3 ở chế độ Thêm mới.
 - **Sửa tài khoản kênh:** mở popup BU-022-P3 ở chế độ Sửa.
 - **Xóa tài khoản kênh:** mở popup BU-022-P4 xác nhận xóa.
-- **Liên kết (icon link):** điều hướng sang BU-006 (Liên kết Villa theo kênh), mở tab mới.
+- **Liên kết (icon link):** điều hướng sang BU-006 (Liên kết listing theo kênh), mở tab mới.
 - **Add new (tab Yếu tố nội dung):** mở popup BU-022-P5 ở chế độ Thêm mới.
 - **Sửa yếu tố nội dung:** mở popup BU-022-P5 ở chế độ Sửa.
 - **Xóa (lưu trữ) yếu tố nội dung:** mở popup BU-022-P6 xác nhận xóa, cảnh báo nếu yếu tố đang gắn với nền tảng hoặc đang dùng trong Texts.
 - **Kéo-thả (tab Yếu tố nội dung):** đổi thứ tự hiển thị, lưu ngay qua AJAX.
 
 ## Điều hướng
-- Vào từ: menu chính > Kênh (sidebar hiện tại trỏ tới `channels`, tab mặc định `platforms`); hoặc từ `OtaContent::listing`.
-- Điều hướng đến: BU-006 (Liên kết Villa theo kênh), BU-022-P1…P6 (các popup), `OtaContent::listing` (Superadmin).
+- Vào từ: menu chính > Nền tảng đặt chỗ (Booking Platforms) (sidebar hiện tại trỏ tới `channels`, tab mặc định `platforms`); hoặc từ `OtaContent::listing`.
+- Điều hướng đến: BU-006 (Liên kết listing theo kênh), BU-022-P1…P6 (các popup), `OtaContent::listing` (Superadmin).

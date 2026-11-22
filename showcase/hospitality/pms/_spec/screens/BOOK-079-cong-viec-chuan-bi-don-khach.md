@@ -1,9 +1,9 @@
-# BOOK-079 — Công việc chuẩn bị đón khách (Preparation Work)
+# BOOK-079 — Chuẩn bị đón khách VIP (VIP Arrival Prep)
 
 **Loại:** Trang đầy đủ (mở từ BOOK-078)
 **Route:** Booking/preparationWork/:button/:booking_id
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Form ghi nhận nhật ký công việc chuẩn bị đón khách VIP: tình trạng dọn dẹp (cleaning) và chuẩn bị đón khách (check-in), phục vụ đội vận hành trước khi khách VIP đến.
@@ -21,9 +21,9 @@ Form ghi nhận nhật ký công việc chuẩn bị đón khách VIP: tình tr�
 | 2 | Check-in (Chuẩn bị đón) | `check_in` | Textarea | Có | Ghi chú công việc chuẩn bị đón khách; tương tự hiển thị lịch sử cũ |
 
 ## Chức năng/nút thao tác
-- Nút **"Let's get ready!"** (submit) — lưu log mới vào `VipGuestInformation.data` (nối thêm vào mảng lịch sử `cleaning`/`check_in` nếu đã tồn tại), sau đó redirect về BOOK-078 (VIP Guests)
+- Nút **"Let's get ready!"** (submit) — lưu log mới vào `VipGuestInformation.data` (nối thêm vào mảng lịch sử `cleaning`/`check_in` nếu đã tồn tại), sau đó redirect về BOOK-078 (Khách VIP sắp đến)
 - Nút **Cancel** (reset) — xoá nội dung đang nhập trên form
 
 ## Điều hướng
-- Mở từ: BOOK-078 (Danh sách khách VIP) — bấm icon "Get Ready" (xanh dương/xanh lá) trên một booking
+- Mở từ: BOOK-078 (Khách VIP sắp đến) — bấm icon "Get Ready" (xanh dương/xanh lá) trên một booking
 - Điều hướng tới: quay lại BOOK-078 sau khi lưu thành công hoặc thất bại

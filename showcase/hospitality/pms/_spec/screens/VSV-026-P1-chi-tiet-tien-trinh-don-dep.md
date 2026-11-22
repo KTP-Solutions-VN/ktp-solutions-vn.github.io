@@ -1,10 +1,10 @@
-# VSV-026-P1 — Chi tiết tiến trình dọn dẹp villa (Planning Detail View)
+# VSV-026-P1 — Chi tiết tiến độ dọn chuyển khách (Turnover Progress Detail)
 
 **Loại:** Popup (mở từ VSV-026, dạng trang riêng)
 
 **Route:** `VillaServicesController::planningTeamsDetail($id, $location)` — `/villa-services/planning-teams-detail/<villa_clean_id>/<location>`
 
-**Module:** Dịch vụ villa — Dọn dẹp
+**Module:** Dịch vụ lưu trú — Dọn phòng
 
 ## Mô tả ngắn gọn
 Trang xem chi tiết (chỉ đọc) một lượt dọn dẹp villa cụ thể: vị trí villa, hành trình bắt đầu/kết thúc (thời gian, địa điểm, khoảng cách), người thực hiện, và bộ ảnh + ghi chú (comment) đã upload trong quá trình dọn.

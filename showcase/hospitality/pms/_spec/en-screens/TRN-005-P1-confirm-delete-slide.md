@@ -1,8 +1,8 @@
-# TRN-005-P1 — Confirm Delete Slide Popup
+# TRN-005-P1 — Confirm Slide Deletion
 
 **Type:** Popup (opened from TRN-005)
 **Route:** Bootstrap modal within `edit_tutorial.ctp`; the delete action calls `TrainingController::deleteSlide($id)` — `/training/delete-slide/{id_base64}`
-**Module:** TRN = Training
+**Module:** TRN = Staff Academy
 
 ## Overview
 Confirmation dialog shown before deleting a Slide (and its associated Quiz question, if any).

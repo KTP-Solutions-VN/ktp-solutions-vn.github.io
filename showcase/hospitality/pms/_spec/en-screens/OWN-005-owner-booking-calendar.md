@@ -1,10 +1,10 @@
-# OWN-005 — Owner Booking Calendar
+# OWN-005 — Owner Occupancy Calendar
 
 **Type:** Full page
 
 **Route:** `/Owner/calendar` (controller `Owner`, action `calendar()`)
 
-**Module:** Owner Management (Admin)
+**Module:** Owner Relations (Admin)
 
 ## Overview
 
@@ -27,5 +27,5 @@ Calendar (booking) data is loaded via AJAX (`getVillaBookingDetail`) and display
 
 ## Navigation
 
-- Entered from: main menu (sidebar) item "Calendar".
+- Entered from: main menu (sidebar) item "Owner Occupancy Calendar".
 - No child popups; this is a standalone screen.

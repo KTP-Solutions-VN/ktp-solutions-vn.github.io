@@ -1,10 +1,10 @@
-# OTA-001 — Nội dung Listing của một kênh OTA (Listing Content)
+# OTA-001 — Nội dung listing theo kênh (Channel Listing Copy)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `OtaContentController::listing($platformId)` — mặc định `/ota-content/listing/:platformId`
 
-**Module:** OTA = Nội dung OTA
+**Module:** OTA = Nội dung kênh
 
 ## Mô tả ngắn gọn
 Quản lý các "Content Element" (đoạn nội dung mô tả chuẩn hóa) được gán vào phần listing của một kênh OTA (Booking Platform) cụ thể, nhóm theo phạm vi (scope): Property, Unit, Residence, Shared, Account. Chỉ Superadmin được truy cập.
@@ -31,4 +31,4 @@ Không có filter tìm kiếm; dữ liệu chia theo 5 khối scope cố định
 
 ## Điều hướng
 - Vào từ: tab "Platforms" trên màn hình Channels (`BusinessUnit::channels`) — ngoài phạm vi module được giao.
-- Điều hướng đến: OTA-001-P1 (Chọn Content Element), OTA-001-P2 (Xác nhận xóa).
+- Điều hướng đến: OTA-001-P1 (Chọn thành phần listing), OTA-001-P2 (Xác nhận xóa).

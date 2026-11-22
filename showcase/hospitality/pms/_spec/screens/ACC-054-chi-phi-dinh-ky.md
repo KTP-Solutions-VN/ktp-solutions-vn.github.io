@@ -1,10 +1,10 @@
-# ACC-054 — Chi phí định kỳ (Recurring)
+# ACC-054 — Chi phí theo lịch (Scheduled Costs)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `AccountController::recurring()` — mặc định `/account/recurring`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Cho phép người dùng chọn Business Unit, loại dịch vụ (Villa Service, ví dụ Pool/Garden) và nhà cung cấp (Provider), sau đó hiển thị danh sách Property đang áp dụng dịch vụ đó theo nhà cung cấp đã chọn để đánh dấu "đã đối soát" (reconcile) chi phí định kỳ của tháng hiện tại cho từng Property.
@@ -34,5 +34,5 @@ Danh sách Property (bảng `#zero_config`, hiển thị khi đã Search):
 - **Reconcile (trên từng dòng):** gọi AJAX `saveRecouncile` (POST `villa_id`, `service_type`, `amount`, `provider_id`) để lưu/cập nhật bản ghi `VillaExpense` (`expense_type = recurring`, `month` = tháng hiện tại); thành công thì đổi chữ trên dòng thành "Reconciled" ngay tại chỗ, không reload trang.
 
 ## Điều hướng
-- Vào từ: Sidebar > mục "Recurring" trong nhóm Account/Expenses.
+- Vào từ: Sidebar > mục "Scheduled Costs" trong nhóm Finance & Admin / Spending.
 - Điều hướng đến: không điều hướng sang trang khác — toàn bộ thao tác xử lý AJAX tại chỗ.

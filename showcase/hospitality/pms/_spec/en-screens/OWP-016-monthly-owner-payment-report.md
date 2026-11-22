@@ -1,10 +1,10 @@
-# OWP-016 — Monthly Owner Payment Report
+# OWP-016 — Monthly Payout Summary
 
 **Type:** Full page
 
 **Route:** `ExternalUserController::paymentReport($villa_id)` — no dedicated friendly route, opened from OWP-005 ($ icon), of the form `.../payment-report/{villa_id_base64}`
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 

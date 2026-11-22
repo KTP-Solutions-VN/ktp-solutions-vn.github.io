@@ -1,10 +1,10 @@
-# OWN-001 — Owner List
+# OWN-001 — Owner Accounts
 
 **Type:** Full page
 
 **Route:** `/Owner/list` (controller `Owner`, action `list()`)
 
-**Module:** Owner Management (Admin)
+**Module:** Owner Relations (Admin)
 
 ## Overview
 
@@ -34,21 +34,21 @@ This screen lists all villa Owners in the system. It allows filtering by Busines
 
 ## Functions / Actions
 
-- **Add New** (button "+ Add New"): navigates to OWN-002 (Add New Owner).
-- **Login Log** (button): navigates to OWN-014 (Owner Login Log).
+- **Add New** (button "+ Add New"): navigates to OWN-002 (New Owner Account).
+- **Access History** (button): navigates to OWN-014 (Owner Access History).
 - **Filter by Business Unit**: submits the filter form to reload the list.
 - **Active/Inactive owners** (toggle button): switches the status filter condition and resubmits the list.
-- **View details** (eye icon, per row): opens OWN-001-P1 (View Owner Details).
-- **Villa Ownership** (house icon, per row): navigates to OWN-003 (Edit Owner) — "Properties" tab.
-- **Payment** (dollar icon, per row): navigates to OWN-003 (Edit Owner) — "Payment Details" tab.
-- **Edit** (pencil icon, per row): navigates to OWN-003 (Edit Owner) — "Owner Details" tab.
+- **View details** (eye icon, per row): opens OWN-001-P1 (Owner Account Snapshot).
+- **Villa Ownership** (house icon, per row): navigates to OWN-003 (Edit Owner Account) — "Properties" tab.
+- **Payment** (dollar icon, per row): navigates to OWN-003 (Edit Owner Account) — "Payment Details" tab.
+- **Edit** (pencil icon, per row): navigates to OWN-003 (Edit Owner Account) — "Owner Details" tab.
 - **Delete** (trash icon, per row): deletes the owner (action `delete($id)`, no dedicated UI — only a confirmation followed by an ajax call/redirect).
 
 ## Navigation
 
-- Entered from: main menu (sidebar) item "Owners".
+- Entered from: main menu (sidebar) item "Owner Accounts".
 - Navigates to:
-  - OWN-002 — Add New Owner (Add New button)
-  - OWN-001-P1 — View Owner Details (eye icon)
-  - OWN-003 — Edit Owner (house/dollar/pencil icon, opens the corresponding tabs)
-  - OWN-014 — Owner Login Log (Login Log button)
+  - OWN-002 — New Owner Account (Add New button)
+  - OWN-001-P1 — Owner Account Snapshot (eye icon)
+  - OWN-003 — Edit Owner Account (house/dollar/pencil icon, opens the corresponding tabs)
+  - OWN-014 — Owner Access History (Access History button)

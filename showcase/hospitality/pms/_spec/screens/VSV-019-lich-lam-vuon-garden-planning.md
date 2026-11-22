@@ -1,10 +1,10 @@
-# VSV-019 — Lịch làm vườn (Garden Planning)
+# VSV-019 — Lập lịch chăm vườn (Garden Visit Planner)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `VillaServicesController::gardenPlanning($tab)` — mặc định `/villa-services/garden-planning/<tab>` (tab: `team-<n>` hoặc `team-total`); dữ liệu lưu qua AJAX `saveGardenPlanning`, tải qua `getPlanningAjax`
 
-**Module:** Dịch vụ villa — Vườn
+**Module:** Dịch vụ lưu trú — Chăm vườn
 
 ## Mô tả ngắn gọn
 Trang lập kế hoạch phân công villa cần chăm sóc vườn vào từng khung giờ (slot) của từng đội làm vườn, theo ngày và đơn vị kinh doanh — là phiên bản trang riêng của tab "Planning" trong VSV-017.
@@ -42,5 +42,5 @@ Trang lập kế hoạch phân công villa cần chăm sóc vườn vào từng 
 - Đổi Date/Business Unit → tải lại toàn bộ lịch và danh sách villa đến hạn.
 
 ## Điều hướng
-- Vào từ: Menu chính (mục Garden/Planning) hoặc liên quan tab "Planning" trong VSV-017.
+- Vào từ: Menu chính (mục Garden Visit Planner) hoặc liên quan tab "Planning" trong VSV-017.
 - Điều hướng đến: không có trang con.

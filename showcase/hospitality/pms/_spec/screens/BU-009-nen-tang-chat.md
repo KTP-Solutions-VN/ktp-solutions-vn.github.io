@@ -1,13 +1,13 @@
-# BU-009 — Nền tảng chat (Chat Platforms)
+# BU-009 — Ứng dụng nhắn tin (Messaging Apps)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `BusinessUnitController::chatPlatform()` — mặc định `/business-unit/chat-platform`
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
-Danh sách các nền tảng chat (Zalo, WhatsApp, Messenger…) dùng để liên hệ với khách hàng, có thể thêm/sửa/xóa ngay trên trang qua popup.
+Danh sách các nền tảng chat (WeChat, WhatsApp, Messenger…) dùng để liên hệ với khách hàng, có thể thêm/sửa/xóa ngay trên trang qua popup.
 
 ## Mô tả chi tiết
 

@@ -1,10 +1,10 @@
-# VSV-026-P1 — Villa Cleaning Progress Details (Planning Detail View)
+# VSV-026-P1 — Turnover Progress Detail
 
 **Type:** Popup (opened from VSV-026, as a dedicated page)
 
 **Route:** `VillaServicesController::planningTeamsDetail($id, $location)` — `/villa-services/planning-teams-detail/<villa_clean_id>/<location>`
 
-**Module:** Villa Services — Cleaning
+**Module:** In-Stay Services — Housekeeping
 
 ## Overview
 A read-only page showing the details of a specific villa cleaning visit: villa location, start/end journey (time, location, distance), the person who performed it, and the set of photos + notes (comments) uploaded during the cleaning process.

@@ -1,8 +1,8 @@
-# REN-007 — Add Invoice/Payment Receipt
+# REN-007 — Add Invoice or Receipt
 
 **Type:** Full page
 **Route:** renovation/addNewReceipt/:renovation_id + dashed-style pretty route: renovation/add-new-receipt/:renovation_id (id passed as base64)
-**Module:** REN = Renovation
+**Module:** REN = Refurbishment
 
 ## Overview
 Form for creating a new payment receipt for a renovation project: upload the invoice PDF file, allocate the actual amount spent across the declared items (or add a new ad-hoc item), and select the payer and payment method. The system automatically generates the invoice file name from the villa + sequence number, updates the `real_amount` of the related items, and records the corresponding income/expense entries in the ledger (REN-005).
@@ -25,5 +25,5 @@ Form for creating a new payment receipt for a renovation project: upload the inv
   - If "Paid by company": records 2 lines — a debit "Supplier" line based on the payment method and a credit "Company" line.
 
 ## Navigation
-- Entered from: the "+ Add new invoice" button on REN-003 — Renovation Project Follow-up.
-- Leads to: after successfully saving, returns to REN-003 — Renovation Project Follow-up.
+- Entered from: the "+ Add new invoice" button on REN-003 — Project Timeline.
+- Leads to: after successfully saving, returns to REN-003 — Project Timeline.

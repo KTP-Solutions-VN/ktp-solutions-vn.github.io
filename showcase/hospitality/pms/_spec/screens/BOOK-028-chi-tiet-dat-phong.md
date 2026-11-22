@@ -1,11 +1,11 @@
-# BOOK-028 — Chi tiết đặt phòng (đầy đủ)
+# BOOK-028 — Hồ sơ đặt chỗ (Reservation Record)
 
 **Loại:** Trang đầy đủ
 **Route:** Booking/viewDetails/:id (mặc định: `/booking/view-details/:id`, id được base64_encode)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
-Trang xem chi tiết đầy đủ (chỉ đọc) của một đặt phòng, gồm nhiều khối thông tin: thông tin booking, thông tin khách, thông tin trước khi đến (pre-arrival), giờ nhận/trả phòng, và hình ảnh đính kèm booking. Khác với BOOK-002-P1 (Xem nhanh) ở chỗ có thêm khối Pre-arrival Details, Arrival & Departure (giờ/nhân viên check-in-out) và Booking Images.
+Trang xem chi tiết đầy đủ (chỉ đọc) của một đặt phòng, gồm nhiều khối thông tin: thông tin booking, thông tin khách, thông tin trước khi đến (pre-arrival), giờ nhận/trả phòng, và hình ảnh đính kèm booking. Khác với BOOK-002-P1 (Xem nhanh đặt chỗ) ở chỗ có thêm khối Pre-arrival Details, Arrival & Departure (giờ/nhân viên check-in-out) và Booking Images.
 
 ## Mô tả chi tiết
 
@@ -66,9 +66,9 @@ Trang xem chi tiết đầy đủ (chỉ đọc) của một đặt phòng, gồ
 Danh sách ảnh đính kèm booking (`booking_images`), hiển thị dạng lưới ảnh.
 
 ## Chức năng/nút thao tác
-- Trang chỉ đọc, không có nút chỉnh sửa trực tiếp — chỉnh sửa thực hiện qua BOOK "Chỉnh sửa đặt phòng" (edit)
-- Breadcrumb điều hướng: Trang chủ > Danh sách đặt phòng > Chi tiết đặt phòng
+- Trang chỉ đọc, không có nút chỉnh sửa trực tiếp — chỉnh sửa thực hiện qua BOOK "Điều chỉnh đặt chỗ" (Modify Reservation)
+- Breadcrumb điều hướng: Trang chủ > Đặt chỗ > Tất cả đặt chỗ > Hồ sơ đặt chỗ
 
 ## Điều hướng
-- Mở từ: BOOK-002 (Danh sách đặt phòng), BOOK-001 (Lịch check-in/check-out) — click vào tên khách/villa
+- Mở từ: BOOK-002 (Tất cả đặt chỗ), BOOK-001 (Khách đến & đi) — click vào tên khách/villa
 - Điều hướng tới: quay lại BOOK-002 qua breadcrumb

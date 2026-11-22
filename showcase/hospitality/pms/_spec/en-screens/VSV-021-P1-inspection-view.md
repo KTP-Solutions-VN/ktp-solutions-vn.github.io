@@ -1,10 +1,10 @@
-# VSV-021-P1 — View Inspection Report Details (Inspection View)
+# VSV-021-P1 — Inspection Report Detail
 
 **Type:** Popup (opened from VSV-021, as a dedicated page)
 
 **Route:** `VillaServicesController::inspectionView()` — `/villa-services/inspectionView?id=<inspection_key>&keys=<list of keys, optional>`
 
-**Module:** Villa Services — Inspection
+**Module:** In-Stay Services — Inspections
 
 ## Overview
 A page for viewing each inspection point of a report, in a sequential photo-browsing format (Previous/Next) along with the description, comments, and information on who performed it/the service/location; allows commenting, assigning tasks, or transferring an inspection point to another report.

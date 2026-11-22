@@ -1,11 +1,11 @@
-# GST-007 — Rules
+# GST-007 — Stay Policies
 
 **Type:** Full page
 **Route:** `Guest::rules()` — default `/guest/rules`; pretty route (DashedRoute fallback): `/guest/rules`
-**Module:** Guest Portal
+**Module:** Guest Hub
 
 ## Overview
-The "Rules" item in the guest navigation menu (sets `active_menu = 4`). The action only sets `title_for_layout` and `active_menu` and then renders the view, **with no other business logic or data queries**.
+The "Stay Policies" item in the guest navigation menu (sets `active_menu = 4`). The action only sets `title_for_layout` and `active_menu` and then renders the view, **with no other business logic or data queries**.
 
 ## Detailed Description
 The view file `plugins/Welcome/src/Template/Guest/rules.ctp` is currently **empty (0 bytes)** — the page content has not been implemented; accessing it only displays the default layout shell.

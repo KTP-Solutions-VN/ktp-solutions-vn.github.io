@@ -10,7 +10,7 @@
     'STF-01': { hasLeader: true, leader: 'Priya Nair (BU Manager)' },
     'STF-02': { hasLeader: false, leader: null },
     'STF-03': { hasLeader: true, leader: 'Priya Nair (BU Manager)' },
-    'STF-04': { hasLeader: true, leader: 'Somchai Anuwat (Concierge Lead)' },
+    'STF-04': { hasLeader: true, leader: 'Daniel Tan (Concierge Lead)' },
     'STF-05': { hasLeader: false, leader: null }
   };
 

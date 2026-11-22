@@ -1,8 +1,8 @@
-# PROP-022 — Thêm Tài khoản ngân hàng của Property (Bank Account)
+# PROP-022 — Thông tin ngân hàng của tài sản (Property Bank Details)
 
 **Loại:** Trang đầy đủ
 **Route:** property/payment-record/:villa_id (villa_id truyền dạng base64)
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Form thêm/cập nhật thông tin tài khoản ngân hàng (Villa Bank Account) dùng để nhận thanh toán cho một Property cụ thể. Mỗi Property chỉ có 1 bản ghi tài khoản ngân hàng (nếu đã tồn tại thì submit sẽ update theo id cũ).

@@ -1,8 +1,8 @@
-# MNT-006 — Chi phí bảo trì
+# MNT-006 — Chi phí sửa chữa (Repair Expenses)
 
 **Loại:** Trang đầy đủ
 **Route:** maintenance/cost/:id (id base64)
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Màn hình khai báo chi phí phát sinh cho một nhật ký bảo trì: danh sách các khoản chi (vật tư hoàn ứng, nhân công, vật tư sẵn có), mỗi khoản có loại, tên vật tư/nhân công, chi phí, hóa đơn đính kèm; tự tính tổng chi phí.
@@ -23,5 +23,5 @@ Màn hình khai báo chi phí phát sinh cho một nhật ký bảo trì: danh s
 - **Save** (submit `cost_form`): lưu/cập nhật bản ghi `MaintenanceCost` (dữ liệu serialize theo 3 nhóm loại), ghi log hoạt động, quay lại trang trước.
 
 ## Điều hướng
-- Vào từ: MNT-005 — Xem chi tiết nhật ký bảo trì (hoặc trực tiếp từ MNT-001).
+- Vào từ: MNT-005 — Hồ sơ yêu cầu sửa chữa (hoặc trực tiếp từ MNT-001).
 - Đi tới: sau khi Save, quay lại trang gọi tới (referer).

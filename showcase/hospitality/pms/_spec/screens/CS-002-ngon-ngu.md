@@ -1,10 +1,10 @@
-# CS-002 — Ngôn ngữ (Languages)
+# CS-002 — Thiết lập ngôn ngữ (Language Setup)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CommonSettingController::languages()` — mặc định `/common-setting/languages`
 
-**Module:** CS = Danh mục dùng chung
+**Module:** CS = Dữ liệu tham chiếu
 
 ## Mô tả ngắn gọn
 Danh sách quản lý danh mục Ngôn ngữ hệ thống, mỗi ngôn ngữ gắn với một danh sách các quốc gia áp dụng.
@@ -28,5 +28,5 @@ Danh sách (DataTable `#zero_config`, sắp xếp theo `name`):
 - Khi lưu, hệ thống tự sinh `language_code` từ tên ngôn ngữ (`CommonController::_getLanguageCode`), người dùng không nhập trực tiếp.
 
 ## Điều hướng
-- Vào từ: menu Cài đặt hệ thống > Danh mục dùng chung > Ngôn ngữ.
-- Điều hướng đến: CS-002-P1 (popup Thêm/Sửa/Xóa ngôn ngữ).
+- Vào từ: menu Cấu hình > Dữ liệu tham chiếu > Thiết lập ngôn ngữ.
+- Điều hướng đến: CS-002-P1 (popup Form ngôn ngữ).

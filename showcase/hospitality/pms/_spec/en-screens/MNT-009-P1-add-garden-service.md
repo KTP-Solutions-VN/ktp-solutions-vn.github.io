@@ -1,8 +1,8 @@
-# MNT-009-P1 — Add Garden Service
+# MNT-009-P1 — New Garden Service Type
 
 **Type:** Popup (opened from MNT-009)
 **Route:** maintenance/addGardenService
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Page for adding a new garden service: name, illustrative image (1:1 crop), applicable business unit(s), status.
@@ -21,5 +21,5 @@ Page for adding a new garden service: name, illustrative image (1:1 crop), appli
 - **Cancel**: returns to MNT-009.
 
 ## Navigation
-- Entered from: "Add New" button on MNT-009 — Garden Services.
+- Entered from: "Add New" button on MNT-009 — Garden Service Types.
 - Navigates to: after Save, returns to MNT-009.

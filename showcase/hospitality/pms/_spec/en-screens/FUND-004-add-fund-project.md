@@ -1,10 +1,10 @@
-# FUND-004 — Add Fund Project
+# FUND-004 — New Funded Project
 
 **Type:** Full page
 
 **Route:** `FundController::addProject()` — `/fund/add-project` (POST)
 
-**Module:** FUND = Investment Fund
+**Module:** FUND = Investor Capital
 
 ## Overview
 A form for creating a new fund-raising project (Project Fund) with description, logo, and up to 4 illustrative images.

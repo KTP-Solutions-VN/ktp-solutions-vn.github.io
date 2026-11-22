@@ -1,10 +1,10 @@
-# OWP-017-P1 — Add Direct Booking Request Popup
+# OWP-017-P1 — New Stay Request
 
 **Type:** Popup (opened from OWP-017)
 
 **Route:** `ExternalUserController::addDirectBooking($id = null)` — no dedicated friendly route, opened from the "Request New Booking" button on OWP-017 (default `/external-user/add-direct-booking`)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 

@@ -1,10 +1,10 @@
-# TXT-001-P3 — Xác nhận xóa văn bản/ngôn ngữ
+# TXT-001-P3 — Xác nhận xóa mô tả (Confirm Description Deletion)
 
 **Loại:** Popup (mở từ TXT-001)
 
 **Route:** Modal tĩnh dùng chung trong `index.ctp` (`#texts-delete-modal`); xác nhận gọi AJAX `TextsController::deleteText()` (`POST /texts/delete-text`) hoặc `TextsController::deleteLanguage()` (`POST /texts/delete-language`) tùy ngữ cảnh mở popup.
 
-**Module:** TXT = Văn bản
+**Module:** TXT = Kho mô tả
 
 ## Mô tả ngắn gọn
 Hộp thoại xác nhận dùng chung cho hai thao tác xóa: xóa một văn bản dùng lại (Shared/Profile) hoặc gỡ một ngôn ngữ khỏi quốc gia (chỉ khi ngôn ngữ đó chưa được sử dụng).

@@ -1,10 +1,10 @@
-# USR-021 — Add Payroll Rule
+# USR-021 — New Wage Rule
 
 **Type:** Full page
 
 **Route:** `UserController::addPayrollRules()` — default `user/addPayrollRules`
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 A form for creating a new daily wage calculation rule based on legal entity, nationality, and months of seniority.
@@ -19,7 +19,7 @@ A form for creating a new daily wage calculation rule based on legal entity, nat
 | 4 | Seniority Type | `seniority_type` | Select2 | Yes | Less than/Equal to or More than/Between |
 | 5 | Number of Months (from) | `seniority_value1` | Number | Yes | |
 | 6 | Number of Months (to) | `seniority_value2` | Number | Required if type = Between | Only shown when "Between" is selected |
-| 7 | Wage Amount (THB) | `wage_amount` | Text (number, with thousands separator formatting) | Yes | |
+| 7 | Wage Amount (SGD) | `wage_amount` | Text (number, with thousands separator formatting) | Yes | |
 
 ## Functions / Actions
 - **Save:** creates a new `PayrollRule` record, recording the creator.
@@ -27,4 +27,4 @@ A form for creating a new daily wage calculation rule based on legal entity, nat
 
 ## Navigation
 - Opened from: USR-020 (the "Add New" button).
-- Navigates to: USR-020 (Payroll Rules List) after a successful save.
+- Navigates to: USR-020 (Wage Rules) after a successful save.

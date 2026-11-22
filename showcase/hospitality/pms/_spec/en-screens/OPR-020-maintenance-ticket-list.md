@@ -1,8 +1,8 @@
-# OPR-020 — Maintenance Ticket List
+# OPR-020 — Field Repair Reports
 
 **Type:** Full page
 **Route:** operator/maintenance + dashed-style pretty route: operator/maintenance
-**Module:** OPR = Garden/Pool Operations
+**Module:** OPR = Upkeep Jobs
 
 ## Overview
 Screen listing published maintenance tickets (`status = publish`), filtered by business unit, with a count badge per BU, pagination, quick-view details via modal, and navigation to create/edit tickets.
@@ -27,11 +27,11 @@ Screen listing published maintenance tickets (`status = publish`), filtered by b
 | 8 | Actions | — | Quick view (modal), Edit/Manage |
 
 ## Functions / Actions
-- **+ New Ticket**: navigates to OPR-021 — Create New Maintenance Ticket.
+- **+ New Ticket**: navigates to OPR-021 — Report Field Repair.
 - **Quick view (MaintenanceView modal)**: displays ticket details (description, tried/checked, etc.) directly on the page without leaving it.
 - **Edit/Manage (pencil icon)**: navigates via `window.location.href = editMaintenanceTicket/btoa(ticketId)` — opens OPR-022.
 - **Filter by BU**: switches tab/area to filter the list and refresh pagination (AJAX, `disableAutoLayout` on AJAX requests).
 
 ## Navigation
-- Entered from: the "Maintenance" menu in the sidebar.
-- Leads to: OPR-021 — Create New Maintenance Ticket; OPR-022 — Edit/Manage Maintenance Ticket.
+- Entered from: the "Field Repair Reports" menu in the sidebar.
+- Leads to: OPR-021 — Report Field Repair; OPR-022 — Manage Field Repair.

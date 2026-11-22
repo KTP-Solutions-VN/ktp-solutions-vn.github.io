@@ -1,9 +1,9 @@
-# BOOK-075 — Change Villa Rate Type (Monthly/Daily)
+# BOOK-075 — Switch Rate Basis
 
 **Type:** Full page (sub-page, navigated from BOOK-067 — not a popup/modal)
 **Route:** Booking/changeVillaRates/:business_unit_id/:villa_id/:action (action = `monthly` or `daily`)
 **Pretty route:** no dedicated route found in config/Routes.php (uses the default route, e.g. `/booking/change-villa-rates/1/2/monthly`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Form for quickly switching a villa's rate calculation method between Daily and Monthly rates, initializing a corresponding new rate-status record (`VillaRateStatus`).

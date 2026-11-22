@@ -99,8 +99,7 @@
     });
   }
 
-  /* ---- Quick "Add to Cart" from carousel cards (mirrors Product Detail's
-     add-to-cart field shape so the Channel-Aware Cart groups it correctly) ---- */
+  /* ---- Quick "Add to Cart" from carousel cards (mirrors Item Details' add-to-cart field shape so the channel-grouped Shopping Cart groups it correctly) ---- */
   function initQuickAddToCart() {
     document.addEventListener('click', function (e) {
       var btn = e.target.closest && e.target.closest('[data-add-id]');

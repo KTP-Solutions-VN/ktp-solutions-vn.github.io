@@ -5,8 +5,8 @@
    ========================================================================== */
 
 :root {
-  /* Brand colors v2 — retheme, real values from the brand guideline.
-     See ../../ui-kit-brief.md "v2 Retheme" note + ../../../shared-brand-brief.md. */
+  /* Brand colors v2 — retheme (CareJourney palette).
+     See ../../ui-kit-brief.md "v2 Retheme" note. */
   --primary: #4C5FFF;
   --primary-light: #9DA7FF;
   --primary-lightest: #EEF0FF;
@@ -143,8 +143,7 @@ svg { flex-shrink: 0; }
 }
 
 /* ---------- Device chrome status bar (replaces nav/login) ----------
-   v2: nav chrome is now white with a hairline border, per shared-brand-brief
-   "Cách dùng màu mới" — Primary lives only in the brand-mark chip + CTAs,
+   v2: nav chrome is now white with a hairline border, per the v2 palette-usage rule — Primary lives only in the brand-mark chip + CTAs,
    not as a solid dark fill across the bar. */
 .device-bar {
   flex: none;

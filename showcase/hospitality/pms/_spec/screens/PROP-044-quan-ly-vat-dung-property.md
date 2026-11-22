@@ -1,8 +1,8 @@
-# PROP-044 — Quản lý vật dụng (Inventory) của Property
+# PROP-044 — Vật tư tại chỗ (On-site Stock)
 
 **Loại:** Trang đầy đủ
 **Route:** property/inventories/:villa_id
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang liệt kê vật dụng/vật tư (inventory) hiện có tại một Property: tồn kho ban đầu, tồn kho khả dụng, số lượng đã nhận. Cho phép báo hư hỏng/thất thoát (tạo yêu cầu loại bỏ vật tư gửi admin) hoặc xóa vật dụng khỏi Property.
@@ -28,11 +28,11 @@ Trang liệt kê vật dụng/vật tư (inventory) hiện có tại một Prope
 | 4 | Id (ẩn) | `id` | Hidden | — | Id bản ghi VillaInventory |
 
 ## Chức năng/nút thao tác
-- Nút "All Request" → điều hướng tới PROP-045 (Inventory Request) tại `inventory-request/:villa_id`.
+- Nút "All Request" → điều hướng tới PROP-045 (Yêu cầu vật tư) tại `inventory-request/:villa_id`.
 - Icon Xóa (`delete_inventory`) → mở modal xác nhận, submit `action=delete`: xóa bản ghi `VillaInventory`, ghi Activity Log và Inventory Log.
 - Icon Báo hư hỏng (`damaged`) → mở modal nhập số lượng + lý do, submit `action=damaged`: tạo bản ghi `InventoryDiscardRequest` gửi yêu cầu loại bỏ tới admin, ghi log.
 
 ## Điều hướng
-- Mở từ: PROP-035 (Xem chi tiết Property) hoặc menu quản lý vật dụng Property.
-- Điều hướng tới: PROP-045 (Inventory Request — All Request).
+- Mở từ: PROP-035 (Hồ sơ tài sản) hoặc menu On-site Stock.
+- Điều hướng tới: PROP-045 (Yêu cầu vật tư — All Request).
 - Popup con: Modal thao tác vật dụng (Delete/Damaged) — không tách mã riêng vì là thao tác phụ trợ tại chỗ.

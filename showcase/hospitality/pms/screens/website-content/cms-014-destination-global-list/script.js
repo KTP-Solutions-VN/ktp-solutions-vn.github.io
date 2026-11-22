@@ -2,13 +2,13 @@
   'use strict';
 
   var COUNTRY_BY_REGION = {
-    'Phuket': 'Thailand',
-    'Bali': 'Indonesia',
-    'Koh Samui': 'Thailand'
+    'Sentosa': 'Singapore',
+    'Byron Bay': 'Australia',
+    'Noosa': 'Australia'
   };
 
   var CONTENT_KEY = 'mm_cms_destglobal_content';
-  var LANGUAGES = (window.MM && MM.CMS && MM.CMS.LANGUAGES) || ['English', 'French', 'German', 'Thai', 'Chinese'];
+  var LANGUAGES = (window.MM && MM.CMS && MM.CMS.LANGUAGES) || ['English', 'French', 'German', 'Malay', 'Chinese'];
 
   function readJson(key, fallback) { try { return JSON.parse(localStorage.getItem(key)) || fallback; } catch (e) { return fallback; } }
   function writeJson(key, val) { localStorage.setItem(key, JSON.stringify(val)); }

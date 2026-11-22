@@ -1,10 +1,10 @@
-# ACC-007 — Sao kê tài khoản (Statements)
+# ACC-007 — Sổ cái tài khoản (Account Ledger)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `AccountController::statements($account_id)` — mặc định `/account/statements/<account_id>` (`account_id` truyền dạng base64 trên URL)
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Xem sổ sao kê (statement) của một tài khoản (Account) cụ thể: liệt kê toàn bộ bút toán credit/debit đã phát sinh, tính số dư lũy kế (balance) theo thứ tự nhập liệu. Mỗi tài khoản đang "mở sao kê" xuất hiện như một mục riêng trong menu Statements.
@@ -37,5 +37,5 @@ Chỉ lấy các bút toán `AccountStatement.account_id = <account_id>` và `is
 - Không có bộ lọc trên trang; mỗi account là một trang riêng qua tham số `account_id`.
 
 ## Điều hướng
-- Vào từ: Sidebar > nhóm "Statements" > mục theo tên từng account đang mở sao kê (`filterSidebar($user, 'Account-statements')`, danh sách `$open_statements`).
-- Điều hướng đến: ACC-007-P1 (Thêm bút toán sao kê), ACC-007-P2 (Sửa bút toán sao kê), thao tác Xóa (action `deleteStatement`, không có view riêng).
+- Vào từ: Sidebar > nhóm "Ledgers" > mục theo tên từng account đang mở sao kê (`filterSidebar($user, 'Account-statements')`, danh sách `$open_statements`).
+- Điều hướng đến: ACC-007-P1 (Thêm bút toán), ACC-007-P2 (Sửa bút toán), thao tác Xóa (action `deleteStatement`, không có view riêng).

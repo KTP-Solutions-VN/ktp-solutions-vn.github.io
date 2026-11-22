@@ -28,7 +28,7 @@
       '</tr>';
   }
 
-  /* ---------------- #18 Order Detail drawer (opened from a row) ---------- */
+  /* ---------------- Order Overview drawer (opened from a row) ---------- */
   function openOrderDetail(id) {
     var order = getData().find(function (o) { return o.id === id; });
     if (!order) return;
@@ -39,10 +39,10 @@
     document.getElementById('drOrdItems').innerHTML = order.items.map(function (it) {
       return '<tr><td class="cell-strong">' + it.name + '</td><td>' + it.variant + '</td><td>' + it.qty + '</td><td class="tabular-nums">' + it.price.toFixed(2) + '</td></tr>';
     }).join('');
-    document.getElementById('drOrdSubtotal').textContent = 'SGD ' + order.subtotal.toFixed(2);
-    document.getElementById('drOrdDiscount').textContent = '- SGD ' + order.discount.toFixed(2);
-    document.getElementById('drOrdGst').textContent = 'SGD ' + order.gst.toFixed(2);
-    document.getElementById('drOrdTotal').textContent = 'SGD ' + order.total.toFixed(2);
+    document.getElementById('drOrdSubtotal').textContent = 'AUD ' + order.subtotal.toFixed(2);
+    document.getElementById('drOrdDiscount').textContent = '- AUD ' + order.discount.toFixed(2);
+    document.getElementById('drOrdGst').textContent = 'AUD ' + order.gst.toFixed(2);
+    document.getElementById('drOrdTotal').textContent = 'AUD ' + order.total.toFixed(2);
     document.getElementById('drStatusSelect').value = order.status in {Ordered:1,Paid:1,Processing:1,Delivered:1,'Ready for Collection':1,Completed:1,Cancelled:1,Refunded:1} ? order.status : 'Ordered';
     document.getElementById('drOrdSourceTag').innerHTML = sourceTag(order.purchaseSource);
     document.getElementById('drOrdFulfillment').textContent = order.fulfillmentMethod;
@@ -98,7 +98,7 @@
   }
   CJDrawer.bind('orderDetailOverlay');
 
-  /* ---------------- #19 Create Manual Order drawer ------------------------ */
+  /* ---------------- Assisted Order Entry drawer ------------------------ */
   CJDrawer.bind('manualOrderOverlay');
   document.getElementById('createOrderBtn').addEventListener('click', function () {
     document.querySelectorAll('#manualOrderOverlay .tab-btn').forEach(function (b, i) { b.classList.toggle('active', i === 0); });
@@ -119,7 +119,7 @@
   });
 
   /* Deep-link support: ?openOrder=ID or ?openCreateOrder=1 (used by the thin
-     standalone #18/#19 redirect wrappers so old bookmarks/links keep working) */
+     standalone Order Overview / Assisted Order Entry redirect wrappers so old bookmarks/links keep working) */
   function handleDeepLink() {
     var params = new URLSearchParams(window.location.search);
     if (params.get('openOrder')) { openOrderDetail(params.get('openOrder')); }

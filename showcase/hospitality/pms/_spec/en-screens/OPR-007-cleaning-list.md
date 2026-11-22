@@ -1,11 +1,11 @@
-# OPR-007 — Cleaning List
+# OPR-007 — Housekeeping Rounds
 
 **Type:** Full page
 **Route:** operator/cleaning + dashed-style pretty route: operator/cleaning
-**Module:** OPR = Garden/Pool Operations
+**Module:** OPR = Upkeep Jobs
 
 ## Overview
-Screen for housekeeping staff to select a business unit and villa to start a cleaning round. After clicking Start, the system creates a `Cleaning` record and navigates to OPR-008 (perform cleaning by inspection point).
+Screen for housekeeping staff to select a business unit and villa to start a cleaning round. After clicking Start, the system creates a `Cleaning` record and navigates to OPR-008 (Housekeeping Checklist).
 
 ## Detailed Description
 
@@ -21,5 +21,5 @@ Screen for housekeeping staff to select a business unit and villa to start a cle
 - **List table**: view/continue an in-progress cleaning round by navigating to the corresponding `operator/cleaningDetails?id=`.
 
 ## Navigation
-- Entered from: the "Cleaning" menu in the sidebar.
-- Leads to: OPR-008 — Perform Cleaning by Inspection Point.
+- Entered from: the "Housekeeping Rounds" menu in the sidebar.
+- Leads to: OPR-008 — Housekeeping Checklist.

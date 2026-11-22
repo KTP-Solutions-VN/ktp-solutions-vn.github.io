@@ -1,10 +1,10 @@
-# BU-020 — Add Bank
+# BU-020 — New Bank
 
 **Type:** Full page
 
 **Route:** `BusinessUnitController::addBank()` — default `/business-unit/add-bank`
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A form for adding a new bank to the shared catalog, including identifying information, account number formatting rules, and logo.
@@ -26,5 +26,5 @@ A form for adding a new bank to the shared catalog, including identifying inform
 - **Cancel:** returns to BU-019 without saving.
 
 ## Navigation
-- Opened from: BU-019 (bank list) — "Add new" button.
+- Opened from: BU-019 (Bank Directory) — "Add new" button.
 - After saving: redirects back to BU-019.

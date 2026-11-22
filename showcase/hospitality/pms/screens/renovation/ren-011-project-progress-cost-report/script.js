@@ -5,7 +5,7 @@
   var projectId = params.get('id') || REN.getProjects()[0].id;
   var project = REN.getProject(projectId);
 
-  document.getElementById('proj-title').textContent = project.title + ' — Progress & Cost Report';
+  document.getElementById('proj-title').textContent = project.title + ' — Budget vs. Progress';
   document.getElementById('proj-sub').textContent = project.villaName + ' · ' + project.bu;
   document.getElementById('stat-status').innerHTML = REN.statusBadge(project.status);
 

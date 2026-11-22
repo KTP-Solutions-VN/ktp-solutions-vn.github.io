@@ -1,4 +1,4 @@
-# BOOK-093 — Khung chat khách (bản cũ)
+# BOOK-093 — Luồng chat khách – bản cổ điển (Guest Thread (Classic))
 
 **Loại:** Trang đầy đủ (độc lập, hiện không có điểm truy cập trong menu/UI)
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định)
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 
@@ -29,4 +29,4 @@ Khung chat WhatsApp phiên bản cũ cho một booking cụ thể: hiển thị 
 ## Điều hướng
 
 - Không có liên kết vào từ UI hiện tại (chức năng đã được thay thế); trước đây được mở từ danh sách quản lý WhatsApp.
-- Chức năng tương đương hiện hành: BOOK-094-P1 (Chat WhatsApp) và BOOK-095-P1 (Chat WhatsApp bản mới).
+- Chức năng tương đương hiện hành: BOOK-094-P1 (Luồng chat – bản cổ điển) và BOOK-095-P1 (Luồng chat).

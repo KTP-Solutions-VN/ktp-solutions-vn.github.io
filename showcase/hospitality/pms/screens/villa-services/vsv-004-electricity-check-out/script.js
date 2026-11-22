@@ -3,7 +3,7 @@
   var VSV = MM.VSV;
   var STORAGE_KEY = 'mm_vsv_checkout_bills';
   var TODAY = '2026-09-02';
-  var CURRENT_USER = 'Somchai Anuwat';
+  var CURRENT_USER = 'Daniel Tan';
 
   var nameToId = {};
   MM.MOCK_PROPERTIES.forEach(function (p) { nameToId[p.name] = p.id; });
@@ -12,19 +12,19 @@
      departures today. One (Villa Marble Cove) deliberately has no start
      meter recorded, to demonstrate the blocking warning. */
   var CHECKOUT_BOOKINGS = [
-    { id: 'BK-20301', property: 'Villa Sapphire Cliff', guest: 'James Whitfield', checkIn: '2026-08-27', checkOut: TODAY, startMeter: 4210, checkInBy: 'Somchai Anuwat' },
-    { id: 'BK-20302', property: 'Villa Coral Horizon', guest: 'Anna Kowalski', checkIn: '2026-08-29', checkOut: TODAY, startMeter: 3860, checkInBy: 'Somchai Anuwat' },
-    { id: 'BK-20303', property: 'Villa Emerald Bay', guest: 'Michael Tan', checkIn: '2026-08-30', checkOut: TODAY, startMeter: 5120, checkInBy: 'Wayan Kertha' },
+    { id: 'BK-20301', property: 'Villa Sapphire Cliff', guest: 'James Whitfield', checkIn: '2026-08-27', checkOut: TODAY, startMeter: 4210, checkInBy: 'Daniel Tan' },
+    { id: 'BK-20302', property: 'Villa Coral Horizon', guest: 'Anna Kowalski', checkIn: '2026-08-29', checkOut: TODAY, startMeter: 3860, checkInBy: 'Daniel Tan' },
+    { id: 'BK-20303', property: 'Villa Emerald Bay', guest: 'Michael Tan', checkIn: '2026-08-30', checkOut: TODAY, startMeter: 5120, checkInBy: 'Warren Kelly' },
     { id: 'BK-20304', property: 'Villa Marble Cove', guest: 'Sophia Rossi', checkIn: '2026-08-25', checkOut: TODAY, startMeter: null, checkInBy: null },
-    { id: 'BK-20305', property: 'Villa Lotus Terrace', guest: 'David Chen', checkIn: '2026-08-28', checkOut: TODAY, startMeter: 2990, checkInBy: 'Nok Pattaya' },
-    { id: 'BK-20306', property: 'Villa Golden Palm', guest: 'Priya Nair', checkIn: '2026-08-31', checkOut: TODAY, startMeter: 1780, checkInBy: 'Nok Pattaya' },
-    { id: 'BK-20307', property: 'Villa Silver Tide', guest: 'Isabelle Moreau', checkIn: '2026-08-24', checkOut: TODAY, startMeter: 6040, checkInBy: 'Wayan Kertha' }
+    { id: 'BK-20305', property: 'Villa Lotus Terrace', guest: 'David Chen', checkIn: '2026-08-28', checkOut: TODAY, startMeter: 2990, checkInBy: 'Nicole Parker' },
+    { id: 'BK-20306', property: 'Villa Golden Palm', guest: 'Priya Nair', checkIn: '2026-08-31', checkOut: TODAY, startMeter: 1780, checkInBy: 'Nicole Parker' },
+    { id: 'BK-20307', property: 'Villa Silver Tide', guest: 'Isabelle Moreau', checkIn: '2026-08-24', checkOut: TODAY, startMeter: 6040, checkInBy: 'Warren Kelly' }
   ];
 
   function seedIfEmpty() {
     if (localStorage.getItem(STORAGE_KEY)) return;
     var seed = {};
-    seed['BK-20307'] = { endMeter: 6210, amount: 1360, additionalFees: 0, note: 'Paid in cash on departure.', enteredBy: 'Wayan Kertha', enteredAt: '2026-09-02 09:40' };
+    seed['BK-20307'] = { endMeter: 6210, amount: 59, additionalFees: 0, note: 'Paid in cash on departure.', enteredBy: 'Warren Kelly', enteredAt: '2026-09-02 09:40' };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(seed));
   }
   seedIfEmpty();

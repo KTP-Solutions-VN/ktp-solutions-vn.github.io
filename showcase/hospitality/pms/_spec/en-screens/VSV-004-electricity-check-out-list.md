@@ -1,10 +1,10 @@
-# VSV-004 — Electricity Check-out (List)
+# VSV-004 — Departure Meter Reading
 
 **Type:** Full page
 
 **Route:** `VillaServicesController::checkOut()` — defaults to `/villa-services/check-out`
 
-**Module:** Villa Services — Electricity
+**Module:** In-Stay Services — Metering
 
 ## Overview
 Lists the bookings checking out on the selected day, enabling staff to enter the end meter reading, calculate the electricity amount due, and record payment.
@@ -27,7 +27,7 @@ List of bookings checking out on the selected day:
 | 8 | Amount Received | `received` | `ElectricalBill.recieved` |
 | 9 | Additional Fees | `additional_fees` | `ElectricalBill.additional_fees` |
 | 10 | Note | `note` | `ElectricalBill.note` |
-| 11 | Action | — | "Fill it now" → opens VSV-004-P1 (Enter End Meter Reading) |
+| 11 | Action | — | "Fill it now" → opens VSV-004-P1 (Record Departure Reading) |
 
 If a specific villa is selected and that booking **has no start meter recorded** → a "No Start Meter" warning is displayed (blocking entry to the end meter step), and a noticeboard entry is logged to remind staff that the check-in step was missed.
 
@@ -37,5 +37,5 @@ If a specific villa is selected and that booking **has no start meter recorded**
 - If the selected villa has exactly one matching booking with a start meter already recorded → automatically redirects directly to VSV-004-P1.
 
 ## Navigation
-- Entered from: Main menu (Electricity/Check-out item) or after saving VSV-004-P1 (redirect back).
-- Navigates to: VSV-004-P1 (Enter End Meter Reading).
+- Entered from: Main menu (Departure Meter Reading item) or after saving VSV-004-P1 (redirect back).
+- Navigates to: VSV-004-P1 (Record Departure Reading).

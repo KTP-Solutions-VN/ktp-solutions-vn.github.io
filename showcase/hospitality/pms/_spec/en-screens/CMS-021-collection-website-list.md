@@ -1,10 +1,10 @@
-# CMS-021 — Collection Website List
+# CMS-021 — Themed Sites
 
 **Type:** Full page
 
 **Route:** `CmsController::collectionWebsites($action, $id)` — default `/cms/collection-websites/:action/:id`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 List of "villa collection websites" (Collection Website) — mini-sites presenting a themed collection of villas, each with its own display name and URL. The `action`/`id` route parameters are used for the delete operation (`/cms/collection-websites/delete/:id`); when no parameters are passed, the action simply displays the list.
@@ -30,5 +30,5 @@ No filter/search; all `GuestCollectionWebsite` records are listed.
 - **Delete (per row):** calls `collectionWebsites('delete', $id)` — deletes the corresponding `GuestCollectionWebsite` record (`_deleteData`), shows a success/error notification, then redirects back to the CMS-021 list itself (there is no separate server-side confirmation step; the interface has a shared confirmation modal available, but no event binding to the Delete button is found in this view).
 
 ## Navigation
-- Accessed from: main menu (Settings item, "Collections Website" entry).
-- Navigates to: CMS-022 (add/edit Collection Website) via the Add/Edit buttons; CMS-023 (`collectionTabs`, manages detailed content) via the Manage button.
+- Accessed from: main menu (Settings item, "Themed Sites" entry).
+- Navigates to: CMS-022 (Themed Site Editor) via the Add/Edit buttons; CMS-023 (`collectionTabs`, manages detailed content) via the Manage button.

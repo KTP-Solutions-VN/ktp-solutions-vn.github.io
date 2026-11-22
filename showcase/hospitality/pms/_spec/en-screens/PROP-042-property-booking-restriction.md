@@ -1,8 +1,8 @@
-# PROP-042 — Property Booking Restriction
+# PROP-042 — Instant Book Settings
 
 **Type:** Full page
 **Route:** property/booking-restriction
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Page listing Properties (Open status) together with their current booking type (Instant Booking / Non-Instant Booking), filterable by Business Unit and booking type. Allows quickly toggling Instant Booking mode directly on the list; data is stored in the `VillaBookingType` table.
@@ -30,6 +30,6 @@ Page listing Properties (Open status) together with their current booking type (
 - Edit icon → navigates to `property/villa/ota management/{villa_id}` (the "OTA Management" tab of the Villa Detail screen).
 
 ## Navigation
-- Opened from: Property menu (outside the scope of the current code).
+- Opened from: Property Records menu (outside the scope of the current code).
 - Navigates to: `property/villa/ota management/:villa_id` (OTA Management tab of the `villa` action, outside the scope of documented codes).
 - Child popup: None.

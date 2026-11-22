@@ -1,10 +1,10 @@
-# ACC-061 — Ma trận phê duyệt (Approval Matrix)
+# ACC-061 — Hạn mức chi tiêu (Spending Limits)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `AccountController::approvalMatrix()` — mặc định `/account/approval-matrix`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Cấu hình danh sách người dùng có quyền phê duyệt (approval) theo từng Business Unit — mỗi dòng gắn 1 User với danh sách Business Unit mà người đó được phép phê duyệt.
@@ -37,5 +37,5 @@ Popup thêm/sửa (modal `#exampleModal`, dùng chung 1 form cho add/edit/delete
 - **Save (nút trong popup):** submit POST về chính action `approvalMatrix`; server xử lý `add`/`edit`/`delete` trên bảng `ApprovalMatrix`, hiện Flash message, rồi `redirect($this->referer())`.
 
 ## Điều hướng
-- Vào từ: Sidebar > mục "Approval Matrix" trong Account Settings.
+- Vào từ: Sidebar > mục "Spending Limits" trong Finance Preferences.
 - Điều hướng đến: không điều hướng sang trang khác — toàn bộ thao tác xử lý trong popup trên cùng trang.

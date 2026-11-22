@@ -1,10 +1,10 @@
-# OWP-010 — Danh sách đặt phòng (Booking List)
+# OWP-010 — Đặt chỗ (Reservations)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `ExternalUserController::bookingList()` — không có route đẹp riêng (mặc định `/external-user/booking-list`)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 
@@ -43,5 +43,5 @@ Danh sách — cột hiển thị:
 
 ## Điều hướng
 
-- Truy cập từ menu chính (Booking)
+- Truy cập từ menu chính (Reservations)
 - Click icon xem chi tiết → OWP-010-P1 (popup chi tiết đặt phòng)

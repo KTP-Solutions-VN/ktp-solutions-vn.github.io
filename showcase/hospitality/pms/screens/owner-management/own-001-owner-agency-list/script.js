@@ -8,7 +8,7 @@
     'OWN-04': { username: 'p.nair', phone: '+65 9123 4567', password: '••••••••', company: '—', language: 'English' }
   };
 
-  var BU_BY_OWNER = { 'OWN-01': 'Phuket Collection', 'OWN-02': 'Bali Retreats', 'OWN-03': 'Bali Retreats', 'OWN-04': 'Koh Samui Estates' };
+  var BU_BY_OWNER = { 'OWN-01': 'Sentosa Collection', 'OWN-02': 'Byron Bay Retreats', 'OWN-03': 'Byron Bay Retreats', 'OWN-04': 'Noosa Estates' };
   var NATIONALITY = { 'OWN-01': 'United Kingdom', 'OWN-02': 'France', 'OWN-03': 'Singapore', 'OWN-04': 'Singapore' };
 
   var editingId = null;
@@ -20,7 +20,7 @@
       return {
         id: o.id, first: parts[0], family: parts.slice(1).join(' '), email: o.email,
         nationality: NATIONALITY[o.id] || 'International', properties: o.properties.length,
-        bu: BU_BY_OWNER[o.id] || 'Phuket Collection', status: o.payoutStatus === 'overdue' ? 'active' : 'active',
+        bu: BU_BY_OWNER[o.id] || 'Sentosa Collection', status: o.payoutStatus === 'overdue' ? 'active' : 'active',
         payoutStatus: o.payoutStatus, createdAt: '2025-11-02'
       };
     }).concat(stored.map(function (o) {

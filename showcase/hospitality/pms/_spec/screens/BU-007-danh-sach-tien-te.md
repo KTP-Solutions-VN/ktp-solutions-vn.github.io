@@ -1,10 +1,10 @@
-# BU-007 — Danh sách tiền tệ (Currency)
+# BU-007 — Thiết lập tiền tệ (Currency Setup)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `BusinessUnitController::currency()` — mặc định `/business-unit/currency`
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Danh sách các loại tiền tệ (Currency) được cấu hình trong hệ thống, dùng làm cơ sở cho tỷ giá quy đổi (BU-008) và các đơn vị kinh doanh/tài khoản. Cho phép thêm, sửa, xóa ngay trên trang qua popup.
@@ -24,11 +24,11 @@ Danh sách (DataTable `#zero_config`):
 | 7 | Hành động | — | Sửa, Xóa |
 
 ## Chức năng/nút thao tác
-- **Rates:** điều hướng sang BU-008 (Tỷ giá quy đổi).
+- **Rates:** điều hướng sang BU-008 (Tỷ giá ngoại tệ).
 - **Add new** (chỉ hiển thị với user `Superadmin`): mở popup BU-007-P1 ở chế độ Thêm mới.
 - **Sửa (icon bút):** mở popup BU-007-P1 ở chế độ Sửa, nạp sẵn dữ liệu dòng đã chọn.
 - **Xóa (icon thùng rác):** mở popup BU-007-P2 xác nhận xóa.
 
 ## Điều hướng
 - Vào từ: menu Settings.
-- Điều hướng đến: BU-008 (Tỷ giá quy đổi), BU-007-P1 (popup thêm/sửa), BU-007-P2 (popup xác nhận xóa).
+- Điều hướng đến: BU-008 (Tỷ giá ngoại tệ), BU-007-P1 (popup thêm/sửa), BU-007-P2 (popup xác nhận xóa).

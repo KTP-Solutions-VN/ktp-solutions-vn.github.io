@@ -1,10 +1,10 @@
-# ACC-058 — Sản phẩm
+# ACC-058 — Danh mục hàng hóa (Goods Catalog)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `AccountController::products($tab)` — mặc định `/account/products/<tab>`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Trang 3 tab quản lý danh mục Sản phẩm: danh sách Product, phân bổ Product cho Nhà cung cấp (Product Allocation), và danh mục nhóm Sản phẩm (Product Categories).
@@ -36,5 +36,5 @@ Tab **Product Categories** (element `account/product_categories`): danh sách nh
 - Chuyển tab cập nhật URL (`/account/products/<tab>`) mà không reload toàn trang.
 
 ## Điều hướng
-- Vào từ: Sidebar > mục "Products" trong Account Settings.
-- Điều hướng đến: ACC-058-P1 (Popup thêm/sửa sản phẩm).
+- Vào từ: Sidebar > mục "Goods Catalog" trong Finance Preferences.
+- Điều hướng đến: ACC-058-P1 (Form mặt hàng).

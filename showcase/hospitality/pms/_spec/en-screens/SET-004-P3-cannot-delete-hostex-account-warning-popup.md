@@ -1,10 +1,10 @@
-# SET-004-P3 — Cannot-Delete Hostex Account Warning Popup
+# SET-004-P3 — Mapped Account In-Use Warning
 
 **Type:** Popup (opened from SET-004)
 
 **Route:** Bootstrap Modal `#warnModal` within `hostex_setup.ctp`; handled entirely client-side (JavaScript), does not call any controller action.
 
-**Module:** SET = System Settings
+**Module:** SET = Platform Settings
 
 ## Overview
 A warning popup shown when the user clicks Delete on a Hostex account that is still linked to at least one property — preventing deletion to avoid losing booking/property data linkage.

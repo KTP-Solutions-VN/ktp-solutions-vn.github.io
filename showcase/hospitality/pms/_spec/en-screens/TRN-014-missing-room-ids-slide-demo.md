@@ -1,8 +1,8 @@
-# TRN-014 — "Missing Room IDs" Slide Demo
+# TRN-014 — Lesson Slide Demo
 
 **Type:** Full page
 **Route:** `TrainingController::slide2()` — `/training/slide2`
-**Module:** TRN = Training
+**Module:** TRN = Staff Academy
 
 ## Overview
 A static page displaying a sample illustrative image titled "Missing Room IDS", with no dynamic data and no business logic. This appears to be a leftover demo/test screen within the module.
@@ -16,5 +16,5 @@ A static page displaying a sample illustrative image titled "Missing Room IDS", 
 - No action buttons on the page.
 
 ## Navigation
-- **Entered from:** no link pointing to this page was found from other screens in the Training module; only accessible via a direct URL.
+- **Entered from:** no link pointing to this page was found from other screens in the Staff Academy module; only accessible via a direct URL.
 - **Leads to:** none.

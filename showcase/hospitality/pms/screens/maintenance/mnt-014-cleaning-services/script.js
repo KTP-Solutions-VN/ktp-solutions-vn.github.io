@@ -60,7 +60,7 @@
   function openDrawer(service) {
     editingId = service ? service.id : null;
     standards = service ? (service.standards || []).map(function (st) { return { legend: st.legend }; }) : [];
-    document.getElementById('service-drawer-title').textContent = service ? 'Edit Cleaning Service' : 'Add Cleaning Service';
+    document.getElementById('service-drawer-title').textContent = service ? 'Edit Housekeeping Service' : 'Add Housekeeping Service';
     document.getElementById('save-btn').textContent = service ? 'Update Service' : 'Create Service';
     document.getElementById('svc-form').reset();
     document.getElementById('img-thumb').innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>';
@@ -137,7 +137,7 @@
             name: name,
             status: status,
             businessUnits: bus,
-            createdBy: 'Somchai A.',
+            createdBy: 'Daniel T.',
             createdAt: new Date().toISOString().slice(0, 10),
             standards: cleanStandards
           });

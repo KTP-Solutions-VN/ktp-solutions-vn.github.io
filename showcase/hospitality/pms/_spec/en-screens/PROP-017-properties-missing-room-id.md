@@ -1,8 +1,8 @@
-# PROP-017 — Properties Missing Room ID
+# PROP-017 — Unmapped Room Codes
 
 **Type:** Full page
 **Route:** property/missing-roomids/:id (default dashed-format route; the `$id` parameter is passed via URL but is actually reset to empty by the controller and re-read from `$_REQUEST['id']`)
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Screen listing properties (Villas) in "Open" status that do not yet have a `room_id_1` (no room code configured for OTA/Beds24 sync), filterable by Business Unit. Allows exporting the list to an Excel file.

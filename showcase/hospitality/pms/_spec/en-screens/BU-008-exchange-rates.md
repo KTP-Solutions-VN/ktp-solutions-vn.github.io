@@ -1,10 +1,10 @@
-# BU-008 — Exchange Rates
+# BU-008 — FX Rates
 
 **Type:** Full page
 
 **Route:** `BusinessUnitController::rates()` — default `/business-unit/rates`
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A table of exchange rates between the reference currency and other currencies, broken down by period (month), with support for entering forecast rates for the current period.
@@ -25,5 +25,5 @@ Additional information: a "Forecast" row (for the current month's forecast) is d
 - The reference currency's rate is always fixed at 1 (not editable).
 
 ## Navigation
-- Accessed from: BU-007 (Currency list) — "Rates" button.
+- Accessed from: BU-007 (Currency Setup) — "Rates" button.
 - Navigates to: BU-008-P1 (enter/update exchange rate popup).

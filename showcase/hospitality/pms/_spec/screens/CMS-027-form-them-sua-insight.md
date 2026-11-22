@@ -1,10 +1,10 @@
-# CMS-027 — Thêm/sửa bài viết Insight
+# CMS-027 — Trình sửa bài nhật ký (Journal Article Editor)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::insightsEdit($id)` — mặc định `/cms/insights-edit/:id`
 
-**Module:** CMS = Nội dung trang chủ
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Form thêm mới hoặc chỉnh sửa một bài viết "Insight": tiêu đề, nội dung theo từng ngôn ngữ, ảnh minh hoạ và danh sách điểm đến (Global Destinations) liên kết. Không có `$id` → chế độ thêm mới (tiêu đề trang "Add"); có `$id` → chế độ sửa (tiêu đề trang "Edit").
@@ -35,4 +35,4 @@ Không đa ngôn ngữ cho `title` — chỉ `text` là field đa ngôn ngữ (t
 ## Điều hướng
 - Vào từ: CMS-026 (nút "Add New" hoặc link "Edit" trên từng dòng).
 - Điều hướng đến: quay lại CMS-026 sau khi Save (thành công hoặc lỗi).
-- Liên quan: breadcrumb trên trang link ngược về Settings và Common Texts/Insights (CMS-026); dữ liệu bài Insight tạo/sửa ở đây được dùng làm nguồn lựa chọn cho tab "Insights" trong CMS-023 (collection tabs của villa) và action AJAX `updateInsightAjax()` — không điều hướng trực tiếp qua lại nhưng dùng chung bảng dữ liệu `GuestCollectionInsight`.
+- Liên quan: breadcrumb trên trang link ngược về Settings và Shared Content Blocks/Travel Journal (CMS-026); dữ liệu bài Insight tạo/sửa ở đây được dùng làm nguồn lựa chọn cho tab "Journal" trong CMS-023 (collection tabs của villa) và action AJAX `updateInsightAjax()` — không điều hướng trực tiếp qua lại nhưng dùng chung bảng dữ liệu `GuestCollectionInsight`.

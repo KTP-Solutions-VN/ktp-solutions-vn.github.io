@@ -1,8 +1,8 @@
-# OPR-020 — Danh sách phiếu bảo trì (Maintenance)
+# OPR-020 — Báo cáo sửa chữa hiện trường (Field Repair Reports)
 
 **Loại:** Trang đầy đủ
 **Route:** operator/maintenance + route đẹp dạng dashed: operator/maintenance
-**Module:** OPR = Vận hành vườn/hồ bơi
+**Module:** OPR = Công việc bảo dưỡng
 
 ## Mô tả ngắn gọn
 Màn hình danh sách các phiếu bảo trì (maintenance ticket) đã phát hành (`status = publish`), lọc theo đơn vị kinh doanh, có badge số lượng phiếu theo từng BU, phân trang, xem nhanh chi tiết qua modal và điều hướng sang tạo/sửa phiếu.
@@ -27,11 +27,11 @@ Màn hình danh sách các phiếu bảo trì (maintenance ticket) đã phát h�
 | 8 | Actions | — | Xem nhanh (modal), Sửa/Quản lý |
 
 ## Chức năng/nút thao tác
-- **+ New Ticket**: điều hướng tới OPR-021 — Tạo phiếu bảo trì mới.
+- **+ New Ticket**: điều hướng tới OPR-021 — Báo sửa chữa hiện trường.
 - **Xem nhanh (modal MaintenanceView)**: hiển thị chi tiết phiếu (mô tả, tried/checked...) ngay trên trang, không rời trang.
 - **Sửa/Quản lý (icon bút)**: điều hướng `window.location.href = editMaintenanceTicket/btoa(ticketId)` — mở OPR-022.
 - **Lọc theo BU**: đổi tab/khu vực để lọc danh sách và cập nhật lại phân trang (ajax, `disableAutoLayout` khi request ajax).
 
 ## Điều hướng
-- Vào từ: menu "Maintenance" trong sidebar.
-- Đi tới: OPR-021 — Tạo phiếu bảo trì mới; OPR-022 — Sửa/quản lý phiếu bảo trì.
+- Vào từ: menu "Field Repair Reports" trong sidebar.
+- Đi tới: OPR-021 — Báo sửa chữa hiện trường; OPR-022 — Quản lý sửa chữa hiện trường.

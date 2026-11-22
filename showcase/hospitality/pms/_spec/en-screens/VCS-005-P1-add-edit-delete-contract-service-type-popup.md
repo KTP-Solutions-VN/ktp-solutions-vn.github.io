@@ -1,8 +1,8 @@
-# VCS-005-P1 — Add/Edit/Delete Contract Service Type Popup
+# VCS-005-P1 — Service Bundle Form
 
 **Type:** Popup/Modal (opened from VCS-005)
 **Route:** No dedicated route — uses a shared form that POSTs to `villa-common-setting/contract-service-types` (hidden `action`=`add`/`edit`/`delete`); duplicate service-combination check via AJAX `villa-common-setting/check-contract-servicetype`
-**Module:** VCS = Villa Common Settings
+**Module:** VCS = Property Attributes
 
 ## Overview
 A shared Bootstrap modal (`#exampleModal`) covering the three Add/Edit/Delete scenarios. Rather than entering a name, the user selects one or more Services via checkboxes — the Contract Service Type's display name is automatically generated from the list of selected services. In Delete mode, the input section is hidden.
@@ -23,5 +23,5 @@ A shared Bootstrap modal (`#exampleModal`) covering the three Add/Edit/Delete sc
 - Validation: at least 1 Service must be selected; the service combination is checked for existing duplicates via remote AJAX `checkContractServicetype`.
 
 ## Navigation
-- Opened from: VCS-005 (Add new / Edit / Delete buttons on the Contract Service Types list table).
+- Opened from: VCS-005 (Add new / Edit / Delete buttons on the Service Bundles table).
 - Navigates to: no page change — after submission, VCS-005 is reloaded (redirect via `referer()`).

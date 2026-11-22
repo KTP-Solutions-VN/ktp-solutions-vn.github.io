@@ -3,7 +3,7 @@
 
   function requirePrescriptionDraft() {
     if (!draft) {
-      POS.toast('No prescription in progress — start from Sales Screen.', 'warning');
+      POS.toast('No prescription in progress — start from Sales Terminal.', 'warning');
       window.location.href = '../man-hinh-ban-hang-pos/index.html';
       return false;
     }
@@ -77,7 +77,7 @@
   }
 
   function cancelFlow() {
-    if (confirm('Cancel this prescription and return to Sales Screen? Unsaved info will be lost.')) {
+    if (confirm('Cancel this prescription and return to Sales Terminal? Unsaved info will be lost.')) {
       POS.clearDraftRx();
       window.location.href = '../man-hinh-ban-hang-pos/index.html';
     }

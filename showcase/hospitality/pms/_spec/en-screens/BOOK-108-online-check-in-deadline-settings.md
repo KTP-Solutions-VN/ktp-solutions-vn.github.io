@@ -1,4 +1,4 @@
-# BOOK-108 — Online Check-in Deadline Settings
+# BOOK-108 — Pre-arrival Deadlines
 
 **Type:** Full page
 
@@ -6,7 +6,7 @@
 
 **Friendly route:** `/booking/online-checkin/deadline-settings`
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 

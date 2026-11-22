@@ -1,8 +1,8 @@
-# PROP-048 — Quản lý dịch vụ hàng loạt qua Business Unit (Services)
+# PROP-048 — Nhập dịch vụ hàng loạt (Bulk Service Import)
 
 **Loại:** Trang đầy đủ
 **Route:** property/services/:tab (dashed mặc định, hỗ trợ thêm query `?tab=`, `?electricity_tab=`)
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang quản lý hàng loạt (bulk) các cấu hình dịch vụ Internet, hồ bơi (Pool) và Điện (Electricity — Provider/Guest) cho toàn bộ Property trong một Business Unit thông qua import file Excel (.xlsx). Có thêm tab "Portal Contract Recap" hiển thị bảng tổng hợp trạng thái gán hợp đồng cổng thông tin cho từng Property (giống chức năng ở PROP-051 Guest Contract BU Recap).
@@ -42,6 +42,6 @@ Có bộ lọc nhanh (quick filter chips), ô tìm kiếm theo tên/ID Property,
 - Tab Portal Contract: nút "Refresh" (tải lại), nút "Export Excel" (điều hướng `guestContractBuRecap?export=1`), các chip lọc nhanh, ô tìm kiếm.
 
 ## Điều hướng
-- Mở từ: Menu Property/Services (không thuộc phạm vi mã hiện tại).
-- Điều hướng tới: PROP-051 (Guest Contract BU Recap) khi bấm "Export Excel" ở tab Portal Contract.
+- Mở từ: Menu dịch vụ tài sản (không thuộc phạm vi mã hiện tại).
+- Điều hướng tới: PROP-051 (Mức sẵn sàng hợp đồng) khi bấm "Export Excel" ở tab Portal Contract.
 - Popup con: Không có (kết quả upload hiển thị dạng bảng ngay trong trang, không phải modal).

@@ -1,10 +1,10 @@
-# BU-022-P2 — Popup: Confirm Booking Platform Deletion
+# BU-022-P2 — Confirm Platform Deletion
 
 **Type:** Popup (opened from BU-022, Booking Platform tab)
 
 **Route:** Static Bootstrap modal (`#deletePlatformModal`) within `channels.ctp`; submits via POST to `BusinessUnitController::channels('platforms')` with `platform_action=delete`.
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A confirmation popup shown before permanently deleting a booking platform. The system blocks deletion if any Channel Account (`Chanel`) is still using this platform, displaying the list of accounts that must be removed first.

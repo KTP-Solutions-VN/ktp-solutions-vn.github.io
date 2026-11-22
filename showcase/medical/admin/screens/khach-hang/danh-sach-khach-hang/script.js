@@ -16,7 +16,7 @@
   }
   searchEl.addEventListener('input', render);
 
-  /* ---------------- #35 Customer Detail drawer ---------------------------- */
+  /* ---------------- Customer Profile drawer ---------------------------- */
   CJDrawer.bind('customerDetailOverlay');
   function openCustomerDrawer(id) {
     var c = DATA.find(function (x) { return x.id === id; });
@@ -34,7 +34,7 @@
     document.getElementById('dcPoints').textContent = c.loyaltyPoints.toLocaleString();
     var orders = (typeof DATA_DON_HANG !== 'undefined' ? DATA_DON_HANG : []).filter(function (o) { return o.customerId === c.id; });
     document.getElementById('dcOrders').innerHTML = orders.length ? orders.map(function (o) {
-      return '<tr><td class="cell-strong"><a href="../../../screens/don-hang/danh-sach-don-hang/index.html?openOrder=' + o.id + '">' + o.id + '</a></td><td>' + o.createdAt.split(' ')[0] + '</td><td>' + CJBadge(o.status, { Completed: 'success', Cancelled: 'error', Refunded: 'neutral' }) + '</td><td class="tabular-nums">SGD ' + o.total.toFixed(2) + '</td></tr>';
+      return '<tr><td class="cell-strong"><a href="../../../screens/don-hang/danh-sach-don-hang/index.html?openOrder=' + o.id + '">' + o.id + '</a></td><td>' + o.createdAt.split(' ')[0] + '</td><td>' + CJBadge(o.status, { Completed: 'success', Cancelled: 'error', Refunded: 'neutral' }) + '</td><td class="tabular-nums">AUD ' + o.total.toFixed(2) + '</td></tr>';
     }).join('') : '<tr><td colspan="4" style="text-align:center;color:var(--gray-500);padding:var(--sp-4);">No orders yet.</td></tr>';
     document.getElementById('dcEditBtn').onclick = function () {
       phoneInput.disabled = false;

@@ -1,10 +1,10 @@
-# CMS-030 — Danh sách nội dung Arrival (hướng dẫn khách đến villa)
+# CMS-030 — Hướng dẫn đường đến (Getting-There Guides)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::arrival($action, $id)` — mặc định `/cms/arrival` (danh sách); xoá dùng `/cms/arrival/delete/:id`
 
-**Module:** CMS = Nội dung trang chủ
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Danh sách các bản ghi nội dung "Arrival" — nhóm nội dung hướng dẫn/thông tin dành cho khách khi đến villa (sân bay, bến tàu, thuê xe, phương thức di chuyển khác, check-in, lưu trú), hiển thị trên website. Cùng action `arrival` xử lý cả hiển thị danh sách và xoá bản ghi (khi có tham số `$action = 'delete'` và `$id`).
@@ -27,5 +27,5 @@ Dữ liệu lấy toàn bộ (`find('all')`, không điều kiện lọc/phân t
 - **Delete (trên từng dòng):** link đến `CmsController::arrival('delete', $id)` — xoá thẳng bản ghi `CmsArrival` (không có popup xác nhận riêng, xoá ngay khi click link), sau đó redirect lại về danh sách kèm Flash message thành công/thất bại.
 
 ## Điều hướng
-- Vào từ: menu Settings/Common Texts (active_menu = 181).
-- Điều hướng đến: CMS-031 (form thêm/sửa nội dung Arrival) khi bấm "+ Arrival" hoặc "Edit".
+- Vào từ: menu Shared Content Blocks (active_menu = 181).
+- Điều hướng đến: CMS-031 (Trình sửa hướng dẫn đường đến) khi bấm "+ Arrival" hoặc "Edit".

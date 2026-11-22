@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
         all.unshift({
           id: 'RCL-' + MM.uid(), date: new Date().toISOString().slice(0, 10),
           entryLevel: document.getElementById('log-level').value, villaId: villaId,
-          action: document.getElementById('log-action').value, by: 'Somchai Anuwat'
+          action: document.getElementById('log-action').value, by: 'Daniel Tan'
         });
         MM.showToast('Log entry added.');
       }

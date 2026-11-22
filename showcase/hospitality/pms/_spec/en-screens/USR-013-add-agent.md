@@ -1,10 +1,10 @@
-# USR-013 — Add Agent
+# USR-013 — New Sales Agent
 
 **Type:** Full page
 
 **Route:** `UserController::addAgents()` — default `user/addAgents`
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 A form for creating a new sales Agent account, including personal information, login credentials, operating area, and the agent's activity status.
@@ -23,7 +23,7 @@ A form for creating a new sales Agent account, including personal information, l
 | 8 | Username | `username` | Text | Yes | Duplicate check via `checkUserName` ajax call |
 | 9 | Password | `password` | Password | Yes | |
 | 10 | Phone Number | `phone_number` | Text | Yes | |
-| 11 | Geographic Area | `geo_graphical_location` | Select2 | Yes | China/Phuket/Thailand/Other |
+| 11 | Geographic Area | `geo_graphical_location` | Select2 | Yes | China/Sentosa/Singapore/Other |
 | 12 | Contact Date | `contact_date` | Text (date picker) | Yes | |
 | 13 | Activity Status | `status` | Select | Yes | New/Top Performer/Active/Occasional/Dormant |
 | 14 | Notes | `note` | Textarea | Yes | |
@@ -35,4 +35,4 @@ A form for creating a new sales Agent account, including personal information, l
 
 ## Navigation
 - Opened from: USR-012 (the "Add New" button).
-- Navigates to: USR-012 (Agent List) after a successful save.
+- Navigates to: USR-012 (Sales Agents) after a successful save.

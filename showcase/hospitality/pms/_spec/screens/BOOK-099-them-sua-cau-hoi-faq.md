@@ -1,4 +1,4 @@
-# BOOK-099 — Thêm / Sửa câu hỏi FAQ
+# BOOK-099 — Thêm bài viết tri thức (New Knowledge Article)
 
 **Loại:** Trang đầy đủ (mở từ BOOK-098)
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định)
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 

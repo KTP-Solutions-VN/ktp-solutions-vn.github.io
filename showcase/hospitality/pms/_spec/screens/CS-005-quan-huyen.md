@@ -1,10 +1,10 @@
-# CS-005 — Quận/Huyện (Districts)
+# CS-005 — Thiết lập quận/huyện (District Setup)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CommonSettingController::districts()` — mặc định `/common-setting/districts`
 
-**Module:** CS = Danh mục dùng chung
+**Module:** CS = Dữ liệu tham chiếu
 
 ## Mô tả ngắn gọn
 Danh sách quản lý danh mục Quận/Huyện (District) trực thuộc Vùng và Quốc gia. Mỗi District đồng bộ với một bản ghi `CmsDestination` (trang điểm đến trên website).
@@ -28,5 +28,5 @@ Danh sách (DataTable `#zero_config`, sắp xếp theo Country > Region > Distri
 - **Xóa:** mở popup CS-005-P1 ở chế độ xác nhận xóa; xóa cascade `Area` có `district_id` tương ứng và bản ghi `CmsDestination` liên quan.
 
 ## Điều hướng
-- Vào từ: menu Cài đặt hệ thống > Danh mục dùng chung > Quận/Huyện.
-- Điều hướng đến: CS-005-P1 (popup Thêm/Sửa/Xóa quận huyện).
+- Vào từ: menu Cấu hình > Dữ liệu tham chiếu > Thiết lập quận/huyện.
+- Điều hướng đến: CS-005-P1 (popup Form quận/huyện).

@@ -64,7 +64,7 @@
       if (!btn) return;
       var id = btn.getAttribute('data-toggle-hide');
       TRN.updateTutorial(id, function (t) { t.status = t.status === 'active' ? 'inactive' : 'active'; });
-      MM.showToast('Tutorial visibility updated');
+      MM.showToast('Lesson visibility updated');
       render();
     });
   });

@@ -77,7 +77,7 @@
           priority: cat ? cat.priorityId : null,
           status: 'Pending',
           assignee: null,
-          openBy: 'Somchai Anuwat (Business Unit Manager)',
+          openBy: 'Daniel Tan (Business Unit Manager)',
           openDate: now.toISOString().slice(0, 10),
           dueDate: due.toISOString().slice(0, 10)
         };

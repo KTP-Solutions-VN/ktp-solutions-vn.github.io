@@ -1,10 +1,10 @@
-# INV-005-P1 — Approve Item Discard Request
+# INV-005-P1 — Approve Write-off
 
 **Type:** Popup (opened from INV-005)
 
 **Route:** Submits via POST to `InventoryController::discard()` (`/inventory/discard`)
 
-**Module:** INV = Inventory
+**Module:** INV = Stock Control
 
 ## Overview
 A modal for confirming approval of a request to discard a damaged item at a villa, deducting the quantity from that villa's stock.

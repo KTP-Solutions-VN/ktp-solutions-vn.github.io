@@ -1,10 +1,10 @@
-# USR-007 — Xem chi tiết người dùng
+# USR-007 — Hồ sơ thành viên (Team Member Profile)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `UserController::viewDetails($id, $tab)` — mặc định `user/viewDetails/:id/:tab`
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Trang xem (read-only) thông tin chi tiết của một nhân viên: định danh, business unit đang thuộc về, vai trò, ngôn ngữ, văn phòng đăng ký, và danh sách tài khoản ngân hàng. Dùng cho các vai trò không có quyền sửa nhưng cần tra cứu hồ sơ nhân viên, hoặc để xem nhanh trước khi quyết định vào sửa (USR-006).
@@ -49,4 +49,4 @@ Trang xem (read-only) thông tin chi tiết của một nhân viên: định dan
 
 ## Điều hướng
 - Mở từ: USR-004 (icon Xem chi tiết).
-- Điều hướng đến: USR-006 (Sửa người dùng) nếu có quyền chỉnh sửa; nếu không hợp lệ (`id` sai) sẽ báo lỗi và quay lại trang trước.
+- Điều hướng đến: USR-006 (Sửa thành viên đội ngũ) nếu có quyền chỉnh sửa; nếu không hợp lệ (`id` sai) sẽ báo lỗi và quay lại trang trước.

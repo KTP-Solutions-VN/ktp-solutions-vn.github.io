@@ -1,10 +1,10 @@
-# SET-004-P3 — Popup cảnh báo không thể xóa tài khoản Hostex
+# SET-004-P3 — Cảnh báo tài khoản đang được dùng (Mapped Account In-Use Warning)
 
 **Loại:** Popup (mở từ SET-004)
 
 **Route:** Modal Bootstrap `#warnModal` trong `hostex_setup.ctp`; xử lý hoàn toàn phía client (JavaScript), không gọi action nào của controller.
 
-**Module:** SET = Cài đặt hệ thống
+**Module:** SET = Cài đặt nền tảng
 
 ## Mô tả ngắn gọn
 Popup cảnh báo hiển thị khi người dùng bấm Xóa một tài khoản Hostex đang còn liên kết với ít nhất 1 property — chặn không cho xóa để tránh mất liên kết dữ liệu booking/property.

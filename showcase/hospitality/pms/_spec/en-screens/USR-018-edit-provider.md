@@ -1,17 +1,17 @@
-# USR-018 — Edit Provider
+# USR-018 — Edit Contractor
 
 **Type:** Full page
 
 **Route:** `UserController::editProvider($id)` — default `user/editProvider/:id` (id is base64-encoded)
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 A form for editing a staff account belonging to an external service provider, similar to USR-017 but pre-populated with the existing data (re-entering the password is not required).
 
 ## Detailed Description
 
-Fields are similar to USR-017 (Add Provider): Service, Provider, First Name, Family Name, Usage Name, Nationality, Email, Username, Phone Number, Status, Access, Role, Module Permissions, Business Unit, Language, Profile Photo, Avatar — all pre-populated with the current values from the `User` record.
+Fields are similar to USR-017 (New Contractor): Service, Provider, First Name, Family Name, Usage Name, Nationality, Email, Username, Phone Number, Status, Access, Role, Module Permissions, Business Unit, Language, Profile Photo, Avatar — all pre-populated with the current values from the `User` record.
 
 | # | Field Label | Field Code | Data Type / Input | Required | Notes |
 |---|---|---|---|---|---|
@@ -24,4 +24,4 @@ Fields are similar to USR-017 (Add Provider): Service, Provider, First Name, Fam
 
 ## Navigation
 - Opened from: USR-016 (the "Edit" button on each row).
-- Navigates to: USR-016 (Provider List) after a successful save.
+- Navigates to: USR-016 (Contractors) after a successful save.

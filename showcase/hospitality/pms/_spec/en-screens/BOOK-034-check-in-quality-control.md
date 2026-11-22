@@ -1,8 +1,8 @@
-# BOOK-034 — Check-in Quality Control
+# BOOK-034 — Check-in Verification
 
 **Type:** Full page (opened following BOOK-029/BOOK-029-P1)
 **Route:** Booking/qualityControl/:checkin_detail_id/:date/:villa_id (default: `/booking/quality-control/...`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 A screen for reconciling the quality of the check-in process performed: comparing the staff member who performed the task against the assigned staff member (concierge), comparing the actual GPS location against the villa's location (matching or differing), and comparing the planned check-in time against the actual time.
@@ -21,5 +21,5 @@ A screen for reconciling the quality of the check-in process performed: comparin
 - Automatic reconciliation, with no edit actions — used for monitoring execution quality
 
 ## Navigation
-- Opened from: BOOK-029 (Check-in Control) / BOOK-029-P1
+- Opened from: BOOK-029 (Arrival Audit) / BOOK-029-P1
 - No further navigation — this is the final results screen

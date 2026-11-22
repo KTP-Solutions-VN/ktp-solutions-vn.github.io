@@ -1,10 +1,10 @@
-# ACC-041 — Kỳ lương (Wage Periods)
+# ACC-041 — Chu kỳ lương (Pay Periods)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `AccountController::wagePeriods()` — mặc định `/account/wage-periods`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Quản lý danh sách các kỳ lương (`WagePeriod`) của một Business Unit theo tần suất trả lương (Bi-Monthly/Monthly): tự sinh kỳ lương đầu tiên nếu chưa có, tự sinh trước các kỳ lương tương lai, cho phép chỉnh ngày kết thúc của kỳ đang mở và xác thực (validate) từng kỳ. Nếu Business Unit thuộc một "zone" dùng chung lịch lương, thay đổi sẽ tự đồng bộ sang các BU khác trong zone.
@@ -36,5 +36,5 @@ Filter:
 - **Đồng bộ zone:** nếu BU thuộc `BusinessUnitZone`, hệ thống tự tạo/xóa các bản ghi `WagePeriod` tương ứng cho từng BU thành viên (liên kết qua `zone_row_id`) để đảm bảo lịch lương thống nhất trong zone.
 
 ## Điều hướng
-- Vào từ: Sidebar > Account & HR > Wage Periods (`active_menu = acc-wagePeriods`).
+- Vào từ: Sidebar > Finance & Admin > Pay Periods (`active_menu = acc-wagePeriods`).
 - Điều hướng đến: không có trang con/popup; toàn bộ thao tác thực hiện trực tiếp trên bảng.

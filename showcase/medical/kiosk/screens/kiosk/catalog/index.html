@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Product Catalog — CareJourney Kiosk</title>
+<meta name="theme-color" content="#4C5FFF">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgo=">
+<link rel="stylesheet" href="../../../assets/css/global.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="kiosk-device" id="kioskDevice">
+
+    <div class="kiosk-topbar">
+      <div class="kiosk-brand">
+        <div class="kiosk-brand-mark" aria-hidden="true">CJ</div>
+        <div>
+          <div class="kiosk-brand-name">CareJourney</div>
+          <div class="kiosk-brand-sub">Products &amp; Bundles</div>
+        </div>
+      </div>
+      <div class="kiosk-topbar-right">
+        <div class="kiosk-idle-ring" id="idleRing" title="Session activity"></div>
+        <button type="button" class="kiosk-home-btn" id="homeBtn" aria-label="Cancel to Home" title="Cancel to Home">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9a1 1 0 0 0 1 1h4v-5h2v5h4a1 1 0 0 0 1-1v-9"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="kiosk-progress" data-step="1">
+      <div class="kiosk-progress-step is-active">
+        <div class="kiosk-progress-bar"><span></span></div>
+        <div class="kiosk-progress-label">1 · Choose items</div>
+      </div>
+      <div class="kiosk-progress-step">
+        <div class="kiosk-progress-bar"><span></span></div>
+        <div class="kiosk-progress-label">2 · Reserve</div>
+      </div>
+    </div>
+
+    <div class="kiosk-content">
+      <div class="content-col content-col-wide">
+
+        <div>
+          <h1 style="font-size:24px;">Explore products &amp; event bundles</h1>
+          <p style="margin-top:6px;color:var(--gray-600);font-size:14px;line-height:1.5;">
+            No need to wait for a consultant — look around and pick anything you'd like to reserve.
+          </p>
+        </div>
+
+        <div class="search-box">
+          <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-3.6-3.6"/></svg>
+          <input type="text" id="searchInput" placeholder="Search products and bundles">
+        </div>
+
+        <div class="category-scroller" id="categoryScroller"></div>
+
+        <div class="catalog-grid" id="catalogList"></div>
+
+        <div class="empty-state" id="emptyState" style="display:none;">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-3.6-3.6"/></svg>
+          <div><strong>No matches found</strong></div>
+          <div style="font-size:13px;">Try a different search term or category.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="kiosk-footer">
+      <span id="selectedSummary" class="kiosk-footer-note">Select at least one item to continue</span>
+      <button type="button" class="btn btn-primary btn-huge" id="continueBtn" disabled>
+        Review &amp; reserve
+        <svg class="icon" viewBox="0 0 24 24"><path d="M4.5 12h15"/><path d="m13.5 5.5 6.5 6.5-6.5 6.5"/></svg>
+      </button>
+    </div>
+
+    <button type="button" class="faq-fab" id="faqFab">
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.5 9.3a2.6 2.6 0 0 1 5 .9c0 1.7-2.4 2-2.4 3.6"/><circle cx="12" cy="17" r=".2" fill="currentColor"/></svg>
+      Need Help?
+    </button>
+    <div class="faq-overlay" id="faqOverlay">
+      <div class="faq-panel">
+        <div class="faq-panel-head">
+          <h2>Frequently asked questions</h2>
+          <button type="button" class="faq-close-btn" id="faqCloseBtn" aria-label="Close">
+            <svg class="icon" viewBox="0 0 24 24"><path d="m6 6 12 12"/><path d="m18 6-12 12"/></svg>
+          </button>
+        </div>
+        <div class="faq-panel-body"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../../../assets/data/event-leads.js"></script>
+  <script src="../../../assets/data/catalog.js"></script>
+  <script src="../../../assets/js/global.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

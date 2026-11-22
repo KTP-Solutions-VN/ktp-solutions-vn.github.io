@@ -1,10 +1,10 @@
-# CS-007-P1 — Popup Thêm/Sửa/Xóa Loại địa điểm
+# CS-007-P1 — Form thẻ vị trí (Location Tag Form)
 
 **Loại:** Popup (mở từ CS-007)
 
 **Route:** Modal Bootstrap (`#exampleModal`) trong `location_types.ctp`; submit cùng action `CommonSettingController::locationTypes()`; kiểm tra trùng tên qua AJAX `checkLocation()` — `/common-setting/check-location`.
 
-**Module:** CS = Danh mục dùng chung
+**Module:** CS = Dữ liệu tham chiếu
 
 ## Mô tả ngắn gọn
 Popup dùng chung cho Thêm mới/Sửa/Xóa một Loại địa điểm villa.
@@ -22,5 +22,5 @@ Popup dùng chung cho Thêm mới/Sửa/Xóa một Loại địa điểm villa.
 - **Cancel:** đóng modal.
 
 ## Điều hướng
-- Mở từ: CS-007 (danh sách Loại địa điểm).
+- Mở từ: CS-007 (Thẻ vị trí).
 - Sau khi submit: quay lại CS-007 kèm flash message.

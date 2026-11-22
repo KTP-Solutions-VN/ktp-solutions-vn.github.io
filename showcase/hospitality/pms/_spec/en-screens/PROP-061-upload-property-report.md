@@ -1,8 +1,8 @@
-# PROP-061 — Upload Property Report (Upload Report)
+# PROP-061 — Add Monthly Report
 
 **Type:** Full page
 **Route:** property/upload-report
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Page for searching and uploading a report (Monthly Report) file for a specific Property, while also displaying the list of previously uploaded reports so that they can be emailed to the owner.
@@ -41,6 +41,6 @@ Page for searching and uploading a report (Monthly Report) file for a specific P
 - "Post" button on each row — sends the report email to the corresponding owner.
 
 ## Navigation
-- Opened from: Property/Reports menu (outside the scope of the current code).
-- Navigates to: No navigation to another page; related to PROP-018 (Monthly Newsletter), PROP-053/054/055 (BU Reports/Report Status/Report Ready) data.
+- Opened from: owner reports menu (outside the scope of the current code).
+- Navigates to: No navigation to another page; related to PROP-018 (Owner Bulletins), PROP-053/054/055 (BU Reports/Report Status/Report Ready) data.
 - Child popup: None.

@@ -1,10 +1,10 @@
-# INV-003 — Cập nhật kho vật tư
+# INV-003 — Điều chỉnh tồn kho (Adjust Stock)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `InventoryController::edit($id)` — `/inventory/edit/:id` (`id` được mã hóa base64 trên URL; POST để lưu)
 
-**Module:** INV = Kho vật tư
+**Module:** INV = Kiểm soát kho
 
 ## Mô tả ngắn gọn
 Form chỉnh sửa một dòng tồn kho hiện có (`InventoryStock`): đổi đơn vị kinh doanh, đổi vật tư, hoặc điều chỉnh lại số lượng tồn kho ban đầu.

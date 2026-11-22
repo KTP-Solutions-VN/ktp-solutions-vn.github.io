@@ -1,8 +1,8 @@
-# REN-008 — Edit Invoice/Payment Receipt
+# REN-008 — Edit Invoice or Receipt
 
 **Type:** Full page
 **Route:** renovation/editRenovationReceipt/:id + dashed-style pretty route: renovation/edit-renovation-receipt/:id (id passed as base64)
-**Module:** REN = Renovation
+**Module:** REN = Refurbishment
 
 ## Overview
 Form for editing a saved payment receipt: update the amount allocated to each item, the payer, and the payment method. Upon saving, the system recalculates the `real_amount` difference for each item and overwrites the related ledger entries tied to this receipt.
@@ -22,5 +22,5 @@ Form for editing a saved payment receipt: update the amount allocated to each it
 - **Update**: merges items with duplicate names, recalculates the `real_amount` difference against the previous value, updates `RenovationItem`; deletes all existing `RenovationPayment` records tied to this receipt and re-records them per the new `paid_type` (same logic as REN-007).
 
 ## Navigation
-- Entered from: the "Edit" icon in the invoice table on REN-003 — Renovation Project Follow-up.
-- Leads to: after successfully saving, returns to REN-003 — Renovation Project Follow-up.
+- Entered from: the "Edit" icon in the invoice table on REN-003 — Project Timeline.
+- Leads to: after successfully saving, returns to REN-003 — Project Timeline.

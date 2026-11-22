@@ -1,8 +1,8 @@
-# TRN-008 — Lịch sử đào tạo của tôi
+# TRN-008 — Tiến độ học của tôi (My Learning Progress)
 
 **Loại:** Trang đầy đủ
 **Route:** `TrainingController::myRecord()` — `/training/my-record`
-**Module:** TRN = Đào tạo
+**Module:** TRN = Học viện nhân viên
 
 ## Mô tả ngắn gọn
 Danh sách các Tutorial mà người dùng hiện tại đã từng đọc, kèm số lần xem, ngày đọc gần nhất và trạng thái đến hạn đọc lại (theo tần suất quiz).
@@ -29,5 +29,5 @@ Cột hiển thị:
 - **Đọc** (icon sách): → TRN-009 (readTutorial), bắt đầu một lượt đọc mới.
 
 ## Điều hướng
-- **Vào từ:** Menu chính "Training" → "My Record"; đích đến sau khi hoàn tất/dừng đọc bài (TRN-009).
+- **Vào từ:** Menu chính "Staff Academy" → "My Learning Progress"; đích đến sau khi hoàn tất/dừng đọc bài (TRN-009).
 - **Đi tới:** TRN-009 (đọc bài).

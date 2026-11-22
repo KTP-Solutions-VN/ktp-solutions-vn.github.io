@@ -1,10 +1,10 @@
-# OWP-018-P1 — Add Payment Detail Popup
+# OWP-018-P1 — New Payout Account
 
 **Type:** Popup (opened from OWP-018)
 
 **Route:** `ExternalUserController::addPaymentDetail()` — no dedicated friendly route, opened from the "+" button on OWP-018 (default `/external-user/add-payment-detail`)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 

@@ -1,10 +1,10 @@
-# OWN-004-P1 — View Garden Service Details
+# OWN-004-P1 — Garden Visit Detail
 
 **Type:** Popup (opened from OWN-004)
 
 **Route:** `/Owner/gardenView/{id}` (controller `Owner`, action `gardenView($id)`)
 
-**Module:** Owner Management (Admin)
+**Module:** Owner Relations (Admin)
 
 ## Overview
 

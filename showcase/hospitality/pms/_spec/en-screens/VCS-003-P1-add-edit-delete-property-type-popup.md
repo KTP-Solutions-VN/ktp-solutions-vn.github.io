@@ -1,8 +1,8 @@
-# VCS-003-P1 — Add/Edit/Delete Property Type Popup
+# VCS-003-P1 — Accommodation Type Form
 
 **Type:** Popup/Modal (opened from VCS-003)
 **Route:** No dedicated route — uses a shared form that POSTs to `villa-common-setting/villa-types` (hidden `action`=`add`/`edit`/`delete`); duplicate-name check via AJAX `villa-common-setting/checkvillatype`
-**Module:** VCS = Villa Common Settings
+**Module:** VCS = Property Attributes
 
 ## Overview
 A shared Bootstrap modal (`#exampleModal`) covering the three Add/Edit/Delete Property Type scenarios, comprising the Property Type Name and its parent Property Category. In Delete mode, the input section is hidden.
@@ -21,5 +21,5 @@ A shared Bootstrap modal (`#exampleModal`) covering the three Add/Edit/Delete Pr
 - Validation: `name` is required + checked for duplicates via remote AJAX `checkvillatype`.
 
 ## Navigation
-- Opened from: VCS-003 (Add new / Edit / Delete buttons on the Property Types list table).
+- Opened from: VCS-003 (Add new / Edit / Delete buttons on the Accommodation Types table).
 - Navigates to: no page change — after submission, VCS-003 is reloaded (redirect via `referer()`); on successful creation, the system implicitly generates related Photo Standard Areas data (no dedicated screen for this).

@@ -1,1 +1,1 @@
-document.getElementById('saveBtn').addEventListener('click', function(){ CJToast('GST configuration saved.'); });
+document.getElementById('saveBtn').addEventListener('click', function(){ CJToast('Tax settings saved.'); });

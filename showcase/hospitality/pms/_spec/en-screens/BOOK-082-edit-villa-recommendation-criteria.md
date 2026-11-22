@@ -1,9 +1,9 @@
-# BOOK-082 — Edit Villa Recommendation Criteria
+# BOOK-082 — Edit Occupancy Threshold
 
 **Type:** Popup (opened from BOOK-080)
 **Route:** Booking/editCriteria/:id
 **Pretty route:** no dedicated route found in config/Routes.php
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Form for editing an existing criteria set, with a field structure identical to BOOK-081 but pre-populated with the criteria's current values (`$id` is passed as a base64-encoded value).
@@ -33,5 +33,5 @@ All criteria data (`criteria_data`) is unserialized from the `Recommendation` re
 - If the `id` is invalid or no data is found — an error message is shown and the user is redirected to BOOK-080
 
 ## Navigation
-- Opened from: BOOK-080 (Villa Recommendation Criteria) — Edit icon on each row
+- Opened from: BOOK-080 (Occupancy Thresholds) — Edit icon on each row
 - Navigates to: back to BOOK-080 after saving

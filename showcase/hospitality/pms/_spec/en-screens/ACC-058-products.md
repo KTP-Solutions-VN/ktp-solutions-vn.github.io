@@ -1,10 +1,10 @@
-# ACC-058 — Products
+# ACC-058 — Goods Catalog
 
 **Type:** Full page
 
 **Route:** `AccountController::products($tab)` — default `/account/products/<tab>`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 A 3-tab page for managing the Products catalog: the Product list, Product allocation to Suppliers (Product Allocation), and the Product category list (Product Categories).
@@ -36,5 +36,5 @@ A 3-tab page for managing the Products catalog: the Product list, Product alloca
 - Switching tabs updates the URL (`/account/products/<tab>`) without a full page reload.
 
 ## Navigation
-- Entered from: Sidebar > "Products" item under Account Settings.
-- Navigates to: ACC-058-P1 (Add/Edit Product popup).
+- Entered from: Sidebar > "Goods Catalog" item under Finance Preferences.
+- Navigates to: ACC-058-P1 (Goods Item Form popup).

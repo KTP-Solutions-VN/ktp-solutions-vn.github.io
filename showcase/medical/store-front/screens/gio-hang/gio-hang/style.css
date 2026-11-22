@@ -1,4 +1,4 @@
-/* Screen-specific overrides: Cart (#6) — signature moment "Channel-Aware Cart" */
+/* Screen-specific overrides: Shopping Cart — signature moment (cart grouped by channel) */
 @media (max-width: 900px) {
   #cart-root { grid-template-columns: 1fr !important; }
 }

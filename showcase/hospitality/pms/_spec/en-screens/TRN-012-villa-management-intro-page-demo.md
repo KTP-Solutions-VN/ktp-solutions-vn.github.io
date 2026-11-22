@@ -1,8 +1,8 @@
-# TRN-012 — Villa Management Introduction Page (demo)
+# TRN-012 — Intro Lesson Demo
 
 **Type:** Full page
 **Route:** `TrainingController::page()` — `/training/page`
-**Module:** TRN = Training
+**Module:** TRN = Staff Academy
 
 ## Overview
 A static banner-style page introducing "Villa Management" in general, with left/right navigation buttons and a Stop button; the content is placeholder text (lorem ipsum) and is not tied to any actual Tutorial business data. This appears to be a leftover demo/placeholder screen, with no visible link to it from other screens in the module.
@@ -17,5 +17,5 @@ A static banner-style page introducing "Villa Management" in general, with left/
 - **Stop**: button is displayed, no JS handler was found attached to it.
 
 ## Navigation
-- **Entered from:** no link pointing to this page was found from other screens in the Training module; only accessible via a direct URL.
+- **Entered from:** no link pointing to this page was found from other screens in the Staff Academy module; only accessible via a direct URL.
 - **Leads to:** none.

@@ -1,10 +1,10 @@
-# CS-001-P1 — Add/Edit/Delete Country Popup
+# CS-001-P1 — Country Form
 
 **Type:** Popup (opened from CS-001)
 
 **Route:** Static Bootstrap Modal (`#exampleModal`) within `countries.ctp`; submits via POST to the same action `CommonSettingController::countries()`; duplicate name check via AJAX `checkCountry()` — `/common-setting/check-country`.
 
-**Module:** CS = Common Lookup Settings
+**Module:** CS = Reference Data
 
 ## Overview
 A shared popup for three operations: Add, Edit, and Delete a country — the content/title/button are dynamically switched via JS depending on the action.
@@ -24,5 +24,5 @@ In **Delete** mode: the `modal-body` section (name input field) is hidden, leavi
 - **Cancel:** closes the modal without saving.
 
 ## Navigation
-- Opened from: CS-001 (Country list) — "Add new" button, Edit icon, Delete icon on each row.
+- Opened from: CS-001 (Country Setup) — "Add new" button, Edit icon, Delete icon on each row.
 - After submission: redirects back to CS-001 (using `referer()`), displaying a success/error flash message.

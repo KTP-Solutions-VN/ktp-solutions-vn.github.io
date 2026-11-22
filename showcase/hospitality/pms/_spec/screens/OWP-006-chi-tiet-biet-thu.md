@@ -1,10 +1,10 @@
-# OWP-006 — Chi tiết biệt thự (Property ID Card)
+# OWP-006 — Tóm tắt tài sản (Property Snapshot)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `ExternalUserController::viewDetails($villa_id)` — không có route đẹp riêng, truy cập từ OWP-005 (mặc định `/external-user/view-details/{villa_id}`)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 
@@ -63,5 +63,5 @@ Bảng field (chỉ đọc), nhóm theo khối thông tin:
 
 ## Điều hướng
 
-- Vào từ OWP-005 Danh sách biệt thự (click tên biệt thự hoặc icon xem)
+- Vào từ OWP-005 Danh mục của tôi (click tên biệt thự hoặc icon xem)
 - Không điều hướng tiếp tới màn hình khác trong trang này (breadcrumb quay lại OWP-005)

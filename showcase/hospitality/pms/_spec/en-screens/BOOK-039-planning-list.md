@@ -1,8 +1,8 @@
-# BOOK-039 — Planning List
+# BOOK-039 — Handover Schedule
 
 **Type:** Full page
 **Route:** Booking/planningList (default: `/booking/planning-list`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 List of requests/plans related to check-in/check-out by villa: booking channel, time, responsible concierge, and chat status with the guest. Supports filtering by business unit, date range, and data export.
@@ -37,5 +37,5 @@ List of requests/plans related to check-in/check-out by villa: booking channel, 
 - View details of each planning row
 
 ## Navigation
-- Opened from: Booking module menu > Planning
-- Navigates to: BOOK-040 (Villa Planning Calendar)
+- Opened from: Reservations module menu > Handover Schedule
+- Navigates to: BOOK-040 (Handover Calendar)

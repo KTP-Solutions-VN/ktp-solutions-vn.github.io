@@ -1,8 +1,8 @@
-# REN-009 — Add Project Photo
+# REN-009 — Upload Progress Photo
 
 **Type:** Full page
 **Route:** renovation/addPhoto/:renovation_id + dashed-style route: renovation/add-photo/:renovation_id (id passed as base64)
-**Module:** REN = Renovation
+**Module:** REN = Refurbishment
 
 ## Overview
 Form for uploading a renovation progress photo with a caption, saved to the project's photo gallery (displayed back on REN-003).
@@ -18,5 +18,5 @@ Form for uploading a renovation progress photo with a caption, saved to the proj
 - **Save**: uploads the photo and saves the `RenovationPhoto` record linked to `renovation_id`, with `created_by` set to the current user.
 
 ## Navigation
-- Entered from: the "+ Add Photo" button on REN-003 — Renovation Project Follow-up.
-- Leads to: after successfully saving, returns to REN-003 — Renovation Project Follow-up.
+- Entered from: the "+ Add Photo" button on REN-003 — Project Timeline.
+- Leads to: after successfully saving, returns to REN-003 — Project Timeline.

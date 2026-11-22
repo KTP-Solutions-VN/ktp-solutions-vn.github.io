@@ -1,8 +1,8 @@
-# PROP-059 — Photography Schedule List (Shootings)
+# PROP-059 — Upcoming Shoots
 
 **Type:** Full page
 **Route:** property/shootings
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Page listing all Photography schedules currently in "Pending" status (not yet completed), filterable by Business Unit, applicable across all 3 levels Property/Residence/Unit. Allows editing or deleting a photography schedule.
@@ -28,10 +28,10 @@ Page listing all Photography schedules currently in "Pending" status (not yet co
 
 ## Functions / Actions
 - Changing Business Unit → reloads the list by BU.
-- Edit icon → opens PROP-060 (Edit Shooting) at `editShooting/{base64(id)}`.
+- Edit icon → opens PROP-060 (Edit Shoot Schedule) at `editShooting/{base64(id)}`.
 - Delete icon → opens a confirmation modal, calls `deleteShooting/{base64(id)}`.
 
 ## Navigation
-- Opened from: PROP-019 (Add New Shooting Schedule) or the Photography menu (outside the scope of the current code).
-- Navigates to: PROP-060 (Edit Shooting — editShooting).
+- Opened from: PROP-019 (Schedule a Shoot) or the Shoots menu (outside the scope of the current code).
+- Navigates to: PROP-060 (Edit Shoot Schedule — editShooting).
 - Child popup: Delete confirmation modal (no dedicated code, an inline supporting operation).

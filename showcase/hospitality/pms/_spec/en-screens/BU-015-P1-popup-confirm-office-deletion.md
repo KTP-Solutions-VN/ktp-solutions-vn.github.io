@@ -1,10 +1,10 @@
-# BU-015-P1 — Popup: Confirm Office Deletion
+# BU-015-P1 — Confirm Office Deletion
 
 **Type:** Popup (opened from BU-015)
 
 **Route:** Static Bootstrap modal (`#exampleModal`) within `offices.ctp`; confirmation navigates to `BusinessUnitController::deleteOffice($id)` — `/business-unit/delete-office/{id}` (id base64-encoded).
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A confirmation popup shown before permanently deleting an office.
@@ -20,5 +20,5 @@ A confirmation popup shown before permanently deleting an office.
 - **Cancel:** closes the modal without deleting.
 
 ## Navigation
-- Opened from: BU-015 (office list) — Delete icon on each row.
+- Opened from: BU-015 (Office Locations) — Delete icon on each row.
 - After confirmation: redirects back to BU-015.

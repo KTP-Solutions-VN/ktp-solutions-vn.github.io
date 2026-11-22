@@ -1,10 +1,10 @@
-# VSV-003-P1 — Enter Start Meter Reading (Start Meter)
+# VSV-003-P1 — Record Arrival Reading
 
 **Type:** Popup (opened from VSV-003, as a separate page — opens a new tab when clicking "Enter")
 
 **Route:** View at `VillaServicesController::startMeter($booking_id)` — `/villa-services/start-meter/<booking_id>`; saved via `VillaServicesController::saveMeter()` — `/villa-services/save-meter` (POST, no dedicated view, always redirects)
 
-**Module:** Villa Services — Electricity
+**Module:** In-Stay Services — Metering
 
 ## Overview
 A form for entering the electricity meter reading at the time of guest check-in for a specific booking: meter reading, photo of the meter area, close-up photo of the meter number, reading time, and (optionally) collecting an electricity deposit at check-in.
@@ -34,4 +34,4 @@ Accompanying read-only information: guest name, villa, check-in/check-out dates,
 
 ## Navigation
 - Entered from: VSV-003 — "Enter" button on each booking row.
-- Navigates to: back to VSV-003 (Electricity Check-in) after saving.
+- Navigates to: back to VSV-003 (Arrival Meter Reading) after saving.

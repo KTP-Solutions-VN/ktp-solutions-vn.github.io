@@ -1,8 +1,8 @@
-# MNT-013 — Renovation Services
+# MNT-013 — Refurbishment Types
 
 **Type:** Full page
 **Route:** maintenance/renovationServices
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Screen listing renovation service categories (`GardenService.type = renovation`), used as reference items when planning renovation projects (REN module). Each service has a name, illustrative image, applicable business unit(s), and status.
@@ -22,10 +22,10 @@ Screen listing renovation service categories (`GardenService.type = renovation`)
 | 8 | Actions | — | Edit, Delete |
 
 ## Functions / Actions
-- **Add New**: opens MNT-013-P1 — Add Renovation Service.
-- **Edit** (icon): opens MNT-013-P2 — Edit Renovation Service.
+- **Add New**: opens MNT-013-P1 — New Refurbishment Type.
+- **Edit** (icon): opens MNT-013-P2 — Edit Refurbishment Type.
 - **Delete**: deletes the corresponding `GardenService` (`deleteRenovationService`).
 
 ## Navigation
-- Entered from: Settings/Maintenance menu in the sidebar.
+- Entered from: Repair Desk settings menu in the sidebar.
 - Navigates to: MNT-013-P1 (Add), MNT-013-P2 (Edit).

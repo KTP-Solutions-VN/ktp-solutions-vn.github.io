@@ -1,4 +1,4 @@
-# ACC-030 — OTA Reconciliation
+# ACC-030 — Channel Payout Matching
 
 **Type:** Full page
 
@@ -7,7 +7,7 @@
 - AJAX to fetch table data: `AccountController::getOtaData()` — default `/account/get-ota-data` (GET/POST, returns JSON, `autoRender = false`)
 - AJAX to update payment reconciliation status: `AccountController::updatePaymentRecon()` — default `/account/update-payment-recon` (POST, returns JSON)
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 An OTA payment reconciliation screen (currently applies only to `Booking.com`): aggregates all bookings requiring payment/commission reconciliation, classified by payment status (Locked/Pending/In transit/Charged/Received/No payment), allowing staff to mark payment as received, commission as paid, or a virtual card as charged — marking "payment received" automatically generates a credit entry in the corresponding account's Statement (Account Statement).
@@ -20,7 +20,7 @@ Retrieves `Booking` records where: `referer = 'Booking.com'`, `Villa.business_un
 ### Summary block ("Total" / "By month" tabs)
 | # | Metric | Field Code | Notes |
 |---|---|---|---|
-| 1 | Amount expected | `totals.expected` | Total gross amount (converted to THB if currency differs, via the `Rate` table for the booking month, default rate 37.88 if no Rate record exists) |
+| 1 | Amount expected | `totals.expected` | Total gross amount (converted to SGD if currency differs, via the `Rate` table for the booking month, default rate 1.35 if no Rate record exists) |
 | 2 | Commission due | `totals.commission_due` | Total commission for bookings that are "Received" but `is_paid_commission = no` |
 | 3 | Pending to charge | `totals.pending` | Number of bookings in "Charge Now" status |
 | 4 | By month (horizontally scrolling cards) | `totals.monthly` | Grouped by the month of `fund_availability` (or `check_out_date`/`created_at` if not yet set), each card showing that month's expected amount + commission |
@@ -40,7 +40,7 @@ All / Locked / Pending / In transit / Charged / Received / No payment — counte
 | 2 | Dates | `booking_date`, `check_in_date`, `check_out_date` | 3 sub-lines: Book / In / Out (format `dd Mon yy`) |
 | 3 | Refund | computed from `api_message` (regex "cancel free of charge until N days before arrival") | Badge "Non" (red) if none, or "N Days" (green) |
 | 4 | Payment | `payment_method` (Bank Transfer/Manual VC/Auto VC/Third party) + `bank_account` | Badge colored by method; derived from the latest `VillaOtaManagement` log with `from <= today` |
-| 5 | Amount | `amount` (gross, converted) + `commission` | Sub-line shows "Com ฿x" or "No Com" |
+| 5 | Amount | `amount` (gross, converted) + `commission` | Sub-line shows "Com S$x" or "No Com" |
 | 6 | Funds availability | `fund_availability` | Expected date funds are received, computed via `getReconciliationStatus` |
 | 7 | Status | `recon_status` | Locked / Pending / In Transit / Charged / Received / To Verify / Charge Now / No payment — corresponding colored badge |
 | 8 | Action | depends on status | See Functions section below |
@@ -57,7 +57,7 @@ Action buttons are shown per row based on conditions (JS `renderTable`, calling 
 |---|---|---|---|
 | `payment_method = 'Third party'` and `is_paid_commission = 'no'` | **Mark as seen** | `mark-seen` | Sets `Booking.is_paid_commission = 'yes'` |
 | `payment_method = 'Manual VC'`, `is_charge_virtual_card = 'no'`, `recon_status != 'Locked'` | **Mark charged** | `charge` | Sets `Booking.is_charge_virtual_card = 'yes'` |
-| `is_received_payment = 'no'` (and not covered by the two cases above) | **Mark received** | `receive` | Sets `Booking.is_received_payment = 'yes'`; if `account_id` + `amount` are available (derived from `payment_method`/log), automatically generates a new entry in `AccountStatement` (auto-incrementing Ref `<account.name>-00001`, `category_id = 3`, `payment_type = credit`, `description = 'booking reconcile'`, currency-converted via `Rate` if the account does not use THB) |
+| `is_received_payment = 'no'` (and not covered by the two cases above) | **Mark received** | `receive` | Sets `Booking.is_received_payment = 'yes'`; if `account_id` + `amount` are available (derived from `payment_method`/log), automatically generates a new entry in `AccountStatement` (auto-incrementing Ref `<account.name>-00001`, `category_id = 3`, `payment_type = credit`, `description = 'booking reconcile'`, currency-converted via `Rate` if the account does not use SGD) |
 | `is_received_payment = 'yes'` and `is_paid_commission = 'no'` | **Pay commission** | `pay-commission` | Sets `Booking.is_paid_commission = 'yes'` |
 | Remaining cases (already Received & commission paid, or Locked/No payment not eligible) | — (dash) | — | No action |
 
@@ -68,5 +68,5 @@ Before each AJAX call, a confirmation popup is shown with the corresponding mess
 - **Changing pages (pagination):** re-calls `getOtaData` with `page`.
 
 ## Navigation
-- Entered from: Sidebar > Account & HR > **Pay out > OTA** > OTA platform name (currently only "Booking.com", taken from `BookingPlatform` with `name = 'Booking.com'`) — `filterSidebar($user, 'acc-ota')` must permit this item to display.
-- Navigates to: no sub-page/dedicated popup — all actions are handled via AJAX in place, without page navigation. The entry auto-generated by "Mark received" is only written to the `AccountStatement` table and does not open the corresponding ACC-007 (Statements) screen.
+- Entered from: Sidebar > Finance & Admin > **Payouts > Channels** > OTA platform name (currently only "Booking.com", taken from `BookingPlatform` with `name = 'Booking.com'`) — `filterSidebar($user, 'acc-ota')` must permit this item to display.
+- Navigates to: no sub-page/dedicated popup — all actions are handled via AJAX in place, without page navigation. The entry auto-generated by "Mark received" is only written to the `AccountStatement` table and does not open the corresponding ACC-007 (Account Ledger) screen.

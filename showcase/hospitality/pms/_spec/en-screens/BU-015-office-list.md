@@ -1,10 +1,10 @@
-# BU-015 — Office List
+# BU-015 — Office Locations
 
 **Type:** Full page
 
 **Route:** `BusinessUnitController::offices()` — default `/business-unit/offices`
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A list of physical offices associated with each Business Unit, together with their affiliated departments.
@@ -22,11 +22,11 @@ List (DataTable `#zero_config`):
 | 5 | Actions | — | View, Edit, Delete |
 
 ## Functions / Actions
-- **Add new:** navigates to BU-016 (Add Office).
-- **View (eye icon):** navigates to BU-018 (View Office Details).
-- **Edit (pencil icon):** navigates to BU-017 (Edit Office).
+- **Add new:** navigates to BU-016 (New Office Location).
+- **View (eye icon):** navigates to BU-018 (Office Profile).
+- **Edit (pencil icon):** navigates to BU-017 (Edit Office Location).
 - **Delete (trash icon):** opens popup BU-015-P1 to confirm deletion; confirmation navigates to `delete-office/{id}` (id base64-encoded via JS `btoa`).
 
 ## Navigation
 - Accessed from: Settings menu.
-- Navigates to: BU-016 (Add), BU-017 (Edit), BU-018 (View Details), BU-015-P1 (delete confirmation popup).
+- Navigates to: BU-016 (Add), BU-017 (Edit), BU-018 (Office Profile), BU-015-P1 (delete confirmation popup).

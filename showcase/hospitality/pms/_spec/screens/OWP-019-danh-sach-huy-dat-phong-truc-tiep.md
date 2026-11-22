@@ -1,10 +1,10 @@
-# OWP-019 — Danh sách hủy đặt phòng trực tiếp
+# OWP-019 — Yêu cầu lưu trú đã hủy (Cancelled Stay Requests)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `ExternalUserController::cancelDirectBookingList()` — không có route đẹp riêng (mặc định `/external-user/cancel-direct-booking-list`)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 
@@ -35,5 +35,5 @@ Danh sách — cột hiển thị:
 
 ## Điều hướng
 
-- Truy cập từ OWP-017 (liên kết "Delete Booking" — hiện đang ẩn trong giao diện) hoặc menu chính
+- Truy cập từ OWP-017 (liên kết "Delete Request" — hiện đang ẩn trong giao diện) hoặc menu chính
 - Sau khi gửi yêu cầu huỷ → quay lại OWP-019

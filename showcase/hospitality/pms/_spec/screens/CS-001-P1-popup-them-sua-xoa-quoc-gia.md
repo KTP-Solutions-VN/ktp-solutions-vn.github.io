@@ -1,10 +1,10 @@
-# CS-001-P1 — Popup Thêm/Sửa/Xóa Quốc gia
+# CS-001-P1 — Form quốc gia (Country Form)
 
 **Loại:** Popup (mở từ CS-001)
 
 **Route:** Modal Bootstrap (`#exampleModal`) tĩnh trong `countries.ctp`; submit POST cùng action `CommonSettingController::countries()`; kiểm tra trùng tên qua AJAX `checkCountry()` — `/common-setting/check-country`.
 
-**Module:** CS = Danh mục dùng chung
+**Module:** CS = Dữ liệu tham chiếu
 
 ## Mô tả ngắn gọn
 Một popup dùng chung cho 3 thao tác: Thêm mới, Sửa, Xóa quốc gia — nội dung/tiêu đề/nút bấm được đổi động bằng JS tùy thao tác.
@@ -24,5 +24,5 @@ Một popup dùng chung cho 3 thao tác: Thêm mới, Sửa, Xóa quốc gia —
 - **Cancel:** đóng modal, không lưu.
 
 ## Điều hướng
-- Mở từ: CS-001 (danh sách Quốc gia) — nút "Add new", icon Sửa, icon Xóa trên từng dòng.
+- Mở từ: CS-001 (Thiết lập quốc gia) — nút "Add new", icon Sửa, icon Xóa trên từng dòng.
 - Sau khi submit: redirect quay lại CS-001 (dùng `referer()`), hiển thị flash message thành công/lỗi.

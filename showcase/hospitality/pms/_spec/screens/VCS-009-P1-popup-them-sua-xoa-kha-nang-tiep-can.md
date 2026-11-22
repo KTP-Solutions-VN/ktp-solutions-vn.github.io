@@ -1,8 +1,8 @@
-# VCS-009-P1 — Popup Thêm/Sửa/Xóa Khả năng tiếp cận
+# VCS-009-P1 — Form đặc điểm tiếp cận (Access Feature Form)
 
 **Loại:** Popup/Modal (mở từ VCS-009)
 **Route:** Không có route riêng — dùng chung form POST về `villa-common-setting/villa-accessible` (hidden `action`=`add`/`edit`/`delete`); kiểm tra trùng tên qua AJAX `villa-common-setting/checkVillaAccessible`
-**Module:** VCS = Cấu hình chung villa
+**Module:** VCS = Thuộc tính tài sản
 
 ## Mô tả ngắn gọn
 Modal Bootstrap dùng chung (`#exampleModal`) cho 3 kịch bản Thêm/Sửa/Xóa Khả năng tiếp cận villa. Ở chế độ Xóa, phần nhập liệu bị ẩn.
@@ -20,5 +20,5 @@ Modal Bootstrap dùng chung (`#exampleModal`) cho 3 kịch bản Thêm/Sửa/Xó
 - Validate: `name` bắt buộc, kiểm tra trùng tên qua remote AJAX `checkVillaAccessible`.
 
 ## Điều hướng
-- Mở từ: VCS-009 (nút Add new / Edit / Delete trên bảng danh sách Khả năng tiếp cận).
+- Mở từ: VCS-009 (nút Add new / Edit / Delete trên bảng Đặc điểm tiếp cận).
 - Điều hướng tới: không chuyển trang — submit xong reload lại VCS-009 (redirect `referer()`).

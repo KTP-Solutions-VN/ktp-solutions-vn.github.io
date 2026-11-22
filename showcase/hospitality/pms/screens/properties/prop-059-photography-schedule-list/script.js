@@ -5,8 +5,8 @@
   var HIDDEN_KEY = 'mm_prop_shootings_hidden';
   var EDITS_KEY = 'mm_prop_shootings_edits';
   var BASE_DATA = [
-    { id: 's1', property: 'Villa Marble Cove', photographer: 'Phuket Frame Photography', date: '2026-09-05' },
-    { id: 's2', property: 'Villa Golden Palm', photographer: 'Bali Bloom Studio', date: '2026-09-12' }
+    { id: 's1', property: 'Villa Marble Cove', photographer: 'Sentosa Frame Photography', date: '2026-09-05' },
+    { id: 's2', property: 'Villa Golden Palm', photographer: 'Byron Bloom Studio', date: '2026-09-12' }
   ];
   function currentData() {
     var hidden = JSON.parse(localStorage.getItem(HIDDEN_KEY) || '[]');
@@ -29,7 +29,7 @@
 
   function openDrawer(shoot) {
     editingId = shoot ? shoot.id : null;
-    document.getElementById('shoot-drawer-title').textContent = shoot ? 'Edit Photography Schedule' : 'Add New Photo Shoot Schedule';
+    document.getElementById('shoot-drawer-title').textContent = shoot ? 'Edit Shoot Schedule' : 'Add New Photo Shoot Schedule';
     document.getElementById('shoot-save-btn').textContent = shoot ? 'Save Changes' : 'Schedule Shoot';
     document.getElementById('shoot-form').reset();
     if (shoot) {

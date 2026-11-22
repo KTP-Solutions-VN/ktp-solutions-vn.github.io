@@ -1,10 +1,10 @@
-# VSV-012 — Kiểm soát check-out điện (Electricity Check-out Control)
+# VSV-012 — Kiểm tra chỉ số khi đi (Departure Reading Audit)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `VillaServicesController::electricityCheckOutControl()` — mặc định `/villa-services/electricity-check-out-control`; bộ lọc đọc/ghi qua query string (GET)
 
-**Module:** Dịch vụ villa — Điện
+**Module:** Dịch vụ lưu trú — Đo điện
 
 ## Mô tả ngắn gọn
 Màn hình vận hành để kiểm tra việc thu tiền điện check-out: chỉ số cuối kỳ, số tiền tính được, số tiền khách đã trả, minh chứng thanh toán, và các khoản giảm giá (discount) cần phê duyệt.
@@ -51,5 +51,5 @@ Màn hình vận hành để kiểm tra việc thu tiền điện check-out: ch�
 - Phân trang danh sách.
 
 ## Điều hướng
-- Vào từ: VSV-001 (tile "Check-out" trong khối Controls) hoặc menu chính.
-- Điều hướng đến: VSV-012-P1 (Xem chi tiết kiểm soát check-out điện).
+- Vào từ: VSV-001 (tile "Departure Reading Audit" trong khối Controls) hoặc menu chính.
+- Điều hướng đến: VSV-012-P1 (Chi tiết chỉ số khi đi).

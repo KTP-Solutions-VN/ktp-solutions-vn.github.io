@@ -1,10 +1,10 @@
-# USR-007 — View User Details
+# USR-007 — Team Member Profile
 
 **Type:** Full page
 
 **Route:** `UserController::viewDetails($id, $tab)` — default `user/viewDetails/:id/:tab`
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 A read-only page displaying a staff member's detailed information: identification, assigned business unit, role, language, registered office, and list of bank accounts. Used by roles without edit permissions who still need to look up a staff profile, or for a quick review before deciding to proceed to edit (USR-006).
@@ -49,4 +49,4 @@ A read-only page displaying a staff member's detailed information: identificatio
 
 ## Navigation
 - Opened from: USR-004 (View Details icon).
-- Navigates to: USR-006 (Edit User) if the user has edit permissions; if the `id` is invalid, an error is shown and the user is returned to the previous page.
+- Navigates to: USR-006 (Edit Team Member) if the user has edit permissions; if the `id` is invalid, an error is shown and the user is returned to the previous page.

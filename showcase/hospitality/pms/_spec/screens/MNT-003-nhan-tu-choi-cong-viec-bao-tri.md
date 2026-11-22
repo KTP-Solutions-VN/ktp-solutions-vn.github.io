@@ -1,8 +1,8 @@
-# MNT-003 — Nhận/Từ chối công việc bảo trì
+# MNT-003 — Phân loại yêu cầu sửa chữa (Repair Triage)
 
 **Loại:** Trang đầy đủ
 **Route:** maintenance/accept/:id (id base64)
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Màn hình để kỹ thuật viên/người phụ trách xem thông tin một nhật ký bảo trì đang ở trạng thái Pending và quyết định Nhận (Accept) hoặc Từ chối (Reject) công việc.
@@ -19,5 +19,5 @@ Màn hình để kỹ thuật viên/người phụ trách xem thông tin một n
 - **Reject**: submit `type` khác, cập nhật `Maintenance.status = Rejected`, chuyển về MNT-001.
 
 ## Điều hướng
-- Vào từ: MNT-001 — Danh sách nhật ký bảo trì (click vào công việc đang Pending).
+- Vào từ: MNT-001 — Yêu cầu sửa chữa (click vào công việc đang Pending).
 - Đi tới: sau khi Accept/Reject, quay về MNT-001.

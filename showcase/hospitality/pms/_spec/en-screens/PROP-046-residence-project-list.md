@@ -1,8 +1,8 @@
-# PROP-046 — Residence/Project List (Residence Enquiry)
+# PROP-046 — Residences & Projects
 
 **Type:** Full page
 **Route:** property/residence-enquiry
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Page listing Residences/Projects that contain at least one open Property, filterable by Business Unit. Displays district, internal/official name, Residence code, and information for the Owner with the most Properties in that Residence.
@@ -29,9 +29,9 @@ Page listing Residences/Projects that contain at least one open Property, filter
 
 ## Functions / Actions
 - Changing Business Unit → reloads the Residence list.
-- "View" icon (`fa-eye`) → opens PROP-047 (View Residence Details) at `viewResidenceEnquiry/:residence_id/:business_unit_id`.
+- "View" icon (`fa-eye`) → opens PROP-047 (Residence Profile) at `viewResidenceEnquiry/:residence_id/:business_unit_id`.
 
 ## Navigation
-- Opened from: Property menu (outside the scope of the current code).
-- Navigates to: PROP-047 (View Residence/Project Details).
+- Opened from: Property Records menu (outside the scope of the current code).
+- Navigates to: PROP-047 (Residence Profile).
 - Child popup: None.

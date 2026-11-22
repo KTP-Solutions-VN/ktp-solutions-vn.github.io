@@ -1,14 +1,14 @@
-# OWN-008-P1 — Add Owner Payment Details
+# OWN-008-P1 — New Owner Payout Account
 
 **Type:** Popup (opened from OWN-008)
 
 **Route:** `/Owner/addPaymentDetail/{owner_id}` (controller `Owner`, action `addPaymentDetail($owner_id)`)
 
-**Module:** Owner Management (Admin)
+**Module:** Owner Relations (Admin)
 
 ## Overview
 
-A form for adding a new payment account/detail (bank) for a specific owner. Opened from the "+ Payment Details" button on screen OWN-008 (Owner Payment List).
+A form for adding a new payment account/detail (bank) for a specific owner. Opened from the "+ Payment Details" button on screen OWN-008 (Owner Payout Accounts).
 
 ## Detailed Description
 
@@ -26,7 +26,7 @@ A form for adding a new payment account/detail (bank) for a specific owner. Open
 ## Functions / Actions
 
 - **Save**: saves a new `OwnerBankAccount` record for the owner; if a record with the same `payment_type` (prefered/other) already exists, it is overwritten; logs the activity; after saving, redirects to OWN-008 (`payment/{owner_id}`).
-- **Cancel**: returns to OWN-001 (Owner List).
+- **Cancel**: returns to OWN-001 (Owner Accounts).
 
 ## Navigation
 

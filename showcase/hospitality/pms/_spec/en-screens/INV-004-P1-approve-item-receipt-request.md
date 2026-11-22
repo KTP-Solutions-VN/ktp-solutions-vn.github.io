@@ -1,10 +1,10 @@
-# INV-004-P1 — Approve Item Receipt Request
+# INV-004-P1 — Approve Incoming Stock
 
 **Type:** Popup (opened from INV-004)
 
 **Route:** Submits via POST to `InventoryController::itemRequest()` (`/inventory/item-request`)
 
-**Module:** INV = Inventory
+**Module:** INV = Stock Control
 
 ## Overview
 A modal for confirming approval of a villa's item receipt request, transferring the quantity from the business unit's central inventory down to the villa's inventory.

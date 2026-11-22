@@ -1,8 +1,8 @@
-# TRN-006 — Sửa Slide Tutorial
+# TRN-006 — Sửa slide bài học (Edit Lesson Slide)
 
 **Loại:** Trang đầy đủ
 **Route:** `TrainingController::editSlide($id)` — `/training/edit-slide/{id}`
-**Module:** TRN = Đào tạo
+**Module:** TRN = Học viện nhân viên
 
 ## Mô tả ngắn gọn
 Sửa nội dung của một Slide riêng lẻ trong Tutorial: media (ảnh/video), nội dung text và câu hỏi Quiz tùy chọn.

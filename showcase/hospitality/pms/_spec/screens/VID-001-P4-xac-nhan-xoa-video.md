@@ -1,13 +1,13 @@
-# VID-001-P4 — Xác nhận xóa video
+# VID-001-P4 — Xác nhận xóa video (Confirm Video Deletion)
 
 **Loại:** Popup (mở từ VID-001)
 
 **Route:** Modal tĩnh trong `index.ctp` (`#video-confirm-modal`); xác nhận gọi AJAX `VideosController::delete($id)` — `POST /videos/delete/:id`
 
-**Module:** VID = Video
+**Module:** VID = Video hướng dẫn
 
 ## Mô tả ngắn gọn
-Hộp thoại xác nhận dùng chung trước khi xóa vĩnh viễn một video khỏi thư viện (bao gồm xóa file vật lý và các gán Guest Portal/quốc gia liên quan).
+Hộp thoại xác nhận dùng chung trước khi xóa vĩnh viễn một video khỏi thư viện (bao gồm xóa file vật lý và các gán Guest Hub/quốc gia liên quan).
 
 ## Mô tả chi tiết
 Không có field nhập liệu, chỉ hiển thị tên video sắp xóa và thông điệp xác nhận.

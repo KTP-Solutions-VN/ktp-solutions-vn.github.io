@@ -1,8 +1,8 @@
-# BOOK-030-P1 — Chi tiết điểm kiểm soát trả phòng
+# BOOK-030-P1 — Chi tiết điểm kiểm tra khi đi (Departure Checkpoint Details)
 
 **Loại:** Popup (mở từ BOOK-030)
 **Route:** Booking/viewCheckOutDetail/:id/:check_out_date/:booking_id
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Popup xem chi tiết một lượt kiểm soát trả phòng: thông tin villa, đánh giá mức hài lòng, ghi chú hư hỏng/comment và các hạng mục kiểm soát điểm.
@@ -19,5 +19,5 @@ Popup xem chi tiết một lượt kiểm soát trả phòng: thông tin villa, 
 - Xem chi tiết kết quả kiểm soát trả phòng theo từng hạng mục
 
 ## Điều hướng
-- Mở từ: BOOK-030 (Kiểm soát trả phòng)
+- Mở từ: BOOK-030 (Kiểm tra khi khách đi)
 - Đóng popup quay lại BOOK-030

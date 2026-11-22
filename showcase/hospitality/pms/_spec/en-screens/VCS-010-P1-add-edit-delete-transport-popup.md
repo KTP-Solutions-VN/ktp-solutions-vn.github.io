@@ -1,8 +1,8 @@
-# VCS-010-P1 — Add/Edit/Delete Transport Popup
+# VCS-010-P1 — Transport Option Form
 
 **Type:** Popup/Modal (opened from VCS-010)
 **Route:** No dedicated route — uses a shared form that POSTs to `villa-common-setting/villa-transport` (hidden `action`=`add`/`edit`/`delete`); duplicate-name check via AJAX `villa-common-setting/checkVillaTransport`
-**Module:** VCS = Villa Common Settings
+**Module:** VCS = Property Attributes
 
 ## Overview
 A shared Bootstrap modal (`#exampleModal`) covering the three Add/Edit/Delete Transport scenarios. In Delete mode, the input section is hidden.
@@ -20,5 +20,5 @@ A shared Bootstrap modal (`#exampleModal`) covering the three Add/Edit/Delete Tr
 - Validation: `name` is required, checked for duplicates via remote AJAX `checkVillaTransport`.
 
 ## Navigation
-- Opened from: VCS-010 (Add new / Edit / Delete buttons on the Transport list table).
+- Opened from: VCS-010 (Add new / Edit / Delete buttons on the Transport Options table).
 - Navigates to: no page change — after submission, VCS-010 is reloaded (redirect via `referer()`).

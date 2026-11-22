@@ -2,14 +2,14 @@
   "approval_rules": [
     {
       "doc": "quotes",
-      "cond": "< S$ 50,000",
+      "cond": "< A$ 50,000",
       "levels": [
         "Sales Manager"
       ]
     },
     {
       "doc": "quotes",
-      "cond": "≥ S$ 50,000",
+      "cond": "≥ A$ 50,000",
       "levels": [
         "Sales Manager",
         "Sales Director",
@@ -25,14 +25,14 @@
     },
     {
       "doc": "pr",
-      "cond": "< S$ 5,000",
+      "cond": "< A$ 5,000",
       "levels": [
         "Operation Manager"
       ]
     },
     {
       "doc": "pr",
-      "cond": "≥ S$ 5,000",
+      "cond": "≥ A$ 5,000",
       "levels": [
         "Operation Manager",
         "General Manager"

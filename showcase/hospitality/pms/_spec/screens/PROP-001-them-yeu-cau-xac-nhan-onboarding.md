@@ -1,7 +1,7 @@
-# PROP-001 — Thêm yêu cầu xác nhận Onboarding bất động sản
+# PROP-001 — Tạo yêu cầu tiếp nhận (New Intake Request)
 **Loại:** Trang đầy đủ
 **Route:** property/add-onboarding (tham số tùy chọn `$id` – id bản ghi Villa Onboarding hiện có)
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Màn hình khởi tạo hồ sơ Onboarding cho một bất động sản mới (độc lập hoặc dạng Residence nhiều Unit). Người dùng chọn người xác nhận (validator), sau đó nhập từng trường thông tin cơ bản (Property Name, Short Name, Beds24 Name, Owner on VM, Location on VM...) — mỗi lần rời khỏi ô nhập (blur) hệ thống lưu ngay qua AJAX. Cuối cùng gửi yêu cầu validate tới người được chọn (tạo thông báo trong NoticeBoard).
@@ -31,6 +31,6 @@ Màn hình khởi tạo hồ sơ Onboarding cho một bất động sản mới 
 - Nút "Cancel": quay lại danh sách Onboarding (`onBoardings`).
 
 ## Điều hướng
-- Mở từ: Menu quản lý Bất động sản, mục Onboarding (danh sách `onBoardings`, nút "Add").
+- Mở từ: Menu Hồ sơ tài sản, mục Tiếp nhận (danh sách `onBoardings`, nút "Add").
 - Điều hướng tới: sau khi gửi yêu cầu, redirect về `property/onBoardings` (không thuộc phạm vi PROP-001..016).
 - Popup con: không có.

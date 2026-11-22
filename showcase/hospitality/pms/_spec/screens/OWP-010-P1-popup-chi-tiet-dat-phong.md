@@ -1,10 +1,10 @@
-# OWP-010-P1 — Popup Chi tiết đặt phòng
+# OWP-010-P1 — Chi tiết đặt chỗ (Reservation Detail)
 
 **Loại:** Popup (mở từ OWP-010 và OWP-008)
 
 **Route:** `ExternalUserController::bookingDetails($id)` — không có route đẹp riêng (mặc định `/external-user/booking-details/{id_base64}`)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 

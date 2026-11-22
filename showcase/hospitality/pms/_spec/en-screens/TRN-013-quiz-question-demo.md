@@ -1,8 +1,8 @@
-# TRN-013 — Quiz Question Demo
+# TRN-013 — Knowledge Check Demo
 
 **Type:** Full page
 **Route:** `TrainingController::quizQuestion()` — `/training/quiz-question`
-**Module:** TRN = Training
+**Module:** TRN = Staff Academy
 
 ## Overview
 A static page illustrating a sample quiz question interface (hard-coded "A VIP booking has a value"), not connected to any actual Quiz data. This appears to be a demo/placeholder screen, with no link pointing to it from elsewhere in the module.
@@ -17,5 +17,5 @@ A static page illustrating a sample quiz question interface (hard-coded "A VIP b
 - **Validate**: a form submit button, but with no server-side handling action (the form has no action attribute; it exists only to illustrate the interface).
 
 ## Navigation
-- **Entered from:** no link pointing to this page was found from other screens in the Training module; only accessible via a direct URL.
+- **Entered from:** no link pointing to this page was found from other screens in the Staff Academy module; only accessible via a direct URL.
 - **Leads to:** none.

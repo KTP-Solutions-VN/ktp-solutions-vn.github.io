@@ -1,8 +1,8 @@
-# TRN-006 — Edit Tutorial Slide
+# TRN-006 — Edit Lesson Slide
 
 **Type:** Full page
 **Route:** `TrainingController::editSlide($id)` — `/training/edit-slide/{id}`
-**Module:** TRN = Training
+**Module:** TRN = Staff Academy
 
 ## Overview
 Edit the content of a single Slide within a Tutorial: media (image/video), text content, and an optional Quiz question.

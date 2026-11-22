@@ -1,8 +1,8 @@
-# BOOK-040 — Villa Planning Calendar
+# BOOK-040 — Handover Calendar
 
 **Type:** Full page
 **Route:** Booking/planning/:date? (default: `/booking/planning`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 A visual calendar screen displaying the check-in/check-out plan and concierge work schedule by villa/business unit and by date, allowing quick viewing of team readiness status (Team Availability).
@@ -33,5 +33,5 @@ A visual calendar screen displaying the check-in/check-out plan and concierge wo
 - Update the plan (linked to the `savePlanning`, `updateBookingPlan` actions)
 
 ## Navigation
-- Opened from: BOOK-039 (Planning List), Booking module menu > Planning Calendar
-- Navigates to: BOOK-041 (Team)
+- Opened from: BOOK-039 (Handover Schedule), Reservations module menu > Handover Calendar
+- Navigates to: BOOK-041 (Concierge Duty Roster)

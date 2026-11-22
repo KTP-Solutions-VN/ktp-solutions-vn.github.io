@@ -1,8 +1,8 @@
-# BOOK-065 — Latest Bookings
+# BOOK-065 — Recent Reservations
 
 **Type:** Full page
 **Route:** Booking/latestBookings (default: `/booking/latest-bookings`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 A tracking table of newly created bookings (default: within the last 24 hours, or a selected date range), accompanied by a monthly net revenue chart. Used to quickly monitor incoming bookings and to exclude owner bookings from actual revenue.
@@ -36,5 +36,5 @@ A tracking table of newly created bookings (default: within the last 24 hours, o
 - Download the list (`downloadLatestBooking`)
 
 ## Navigation
-- Opened from: Booking module menu > Latest Bookings
-- Navigates to: BOOK-028 (Booking Details) when clicking on a row
+- Opened from: Reservations module menu > Recent Reservations
+- Navigates to: BOOK-028 (Reservation Record) when clicking on a row

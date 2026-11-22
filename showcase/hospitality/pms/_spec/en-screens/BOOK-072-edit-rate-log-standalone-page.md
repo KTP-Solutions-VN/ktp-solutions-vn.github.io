@@ -1,9 +1,9 @@
-# BOOK-072 — Edit Rate Log (Standalone Page)
+# BOOK-072 — Edit Price Note
 
 **Type:** Full page (independent sub-page — not a popup/modal)
 **Route:** Booking/ratesLogEdit/:id
 **Pretty route:** no dedicated route found in config/Routes.php (uses the default route, e.g. `/booking/rates-log-edit/12`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Form for editing a rate log record (`VillaRateLog`) identified by the `id` passed in the URL, including business unit, villa, and note content.

@@ -1,10 +1,10 @@
-# PHO-007 — Property Photo Set Detail (Villa)
+# PHO-007 — Property Album
 
 **Type:** Full page
 
 **Route:** `PhotosController::detail($villaId, $setType = 'ota')` — default route `/photos/detail/:id/:set_type` (no pretty route declared); shares the `detail.ctp` view with PHO-005 but is called with the default context (`$isResidence` empty/false), so the Quality Score and Completeness Against Standard panels are fully displayed.
 
-**Module:** Photos
+**Module:** Photo Library
 
 ## Overview
 Displays the detail of a photo set (by `set_type`) for a villa/property: a photo grid with tags (Essential/Bird view/AI/Night), overview KPIs, quality scoring across 3 criteria, a completeness comparison table against the standard (PHO-008), the ability to upload more photos into the set, view/download/delete individual photos, and delete the entire set.
@@ -38,4 +38,4 @@ Displays the detail of a photo set (by `set_type`) for a villa/property: a photo
 
 ## Navigation
 - Accessed from: PHO-006 (Open button on a photo set card), PHO-002 (quick link to the OTA set).
-- Navigates to: PHO-006 (Property Page, after deleting a photo set), PHO-004 (Common Areas of the residence containing the villa), OTA management screen (when no Agent Link exists yet, part of another module).
+- Navigates to: PHO-006 (Property Gallery, after deleting a photo set), PHO-004 (Common Areas of the residence containing the villa), OTA management screen (when no Agent Link exists yet, part of another module).

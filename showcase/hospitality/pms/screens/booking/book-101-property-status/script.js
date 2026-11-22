@@ -65,16 +65,16 @@
     var p = MM.MOCK_PROPERTIES.filter(function (x) { return x.id === propId; })[0];
     var s = statusFor(propId);
     document.getElementById('staff-modal-title').textContent = p.name + ' — Staff Detail';
-    document.getElementById('staff-coords').textContent = 'Lat 7.891, Lng 98.296 (approx.)';
+    document.getElementById('staff-coords').textContent = 'Lat 1.246, Lng 103.840 (approx.)';
     document.getElementById('staff-checkout').innerHTML =
       '<div class="staff-row"><div><strong>' + (p.concierge || 'Concierge') + '</strong><div class="staff-row__meta">Start 10:02 AM · Villa Gate · 0.0 km</div></div><div class="staff-row__meta">End 10:18 AM · Villa Gate · 0.0 km</div></div>';
     var cleaningBlock = document.getElementById('staff-cleaning-block');
     var makeupBlock = document.getElementById('staff-makeup-block');
     if (s.cleaning === 'clean') {
       cleaningBlock.style.display = '';
-      document.getElementById('staff-cleaning').innerHTML = '<div class="staff-row"><div><strong>Nok Pattaya</strong><div class="staff-row__meta">Completed 2026-08-26</div></div><button class="btn btn-outline btn-sm" data-preview="cleaning">Clean</button></div>';
+      document.getElementById('staff-cleaning').innerHTML = '<div class="staff-row"><div><strong>Nicole Parker</strong><div class="staff-row__meta">Completed 2026-08-26</div></div><button class="btn btn-outline btn-sm" data-preview="cleaning">Clean</button></div>';
       makeupBlock.style.display = '';
-      document.getElementById('staff-makeup').innerHTML = '<div class="staff-row"><div><strong>Wayan Kertha</strong><div class="staff-row__meta">Completed 2026-08-26</div></div><button class="btn btn-outline btn-sm" data-preview="makeup">Clean</button></div>';
+      document.getElementById('staff-makeup').innerHTML = '<div class="staff-row"><div><strong>Warren Kelly</strong><div class="staff-row__meta">Completed 2026-08-26</div></div><button class="btn btn-outline btn-sm" data-preview="makeup">Clean</button></div>';
     } else {
       cleaningBlock.style.display = 'none';
       makeupBlock.style.display = 'none';

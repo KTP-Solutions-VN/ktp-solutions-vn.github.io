@@ -1,10 +1,10 @@
-# PHO-007 — Chi tiết bộ ảnh property (Villa)
+# PHO-007 — Album ảnh tài sản (Property Album)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `PhotosController::detail($villaId, $setType = 'ota')` — route mặc định `/photos/detail/:id/:set_type` (không khai báo route đẹp); dùng chung view `detail.ctp` với PHO-005 nhưng gọi mặc định (`$isResidence` rỗng/false) nên hiển thị đầy đủ panel Quality Score và Completeness Against Standard.
 
-**Module:** PHO = Hình ảnh
+**Module:** PHO = Thư viện ảnh
 
 ## Mô tả ngắn gọn
 Hiển thị chi tiết một bộ ảnh (theo `set_type`) của villa/property: lưới ảnh có gắn cờ (Essential/Bird view/AI/Night), KPI tổng quan, chấm điểm chất lượng theo 3 tiêu chí, bảng đối chiếu độ hoàn thiện so với tiêu chuẩn (PHO-008), upload thêm ảnh vào bộ, xem/tải/xoá từng ảnh, xoá cả bộ.
@@ -38,4 +38,4 @@ Hiển thị chi tiết một bộ ảnh (theo `set_type`) của villa/property:
 
 ## Điều hướng
 - Vào từ: PHO-006 (nút Open trên card bộ ảnh), PHO-002 (link nhanh tới bộ OTA).
-- Điều hướng đến: PHO-006 (Property Page, sau khi xoá bộ ảnh), PHO-004 (Common Areas của residence chứa villa), màn hình OTA management (khi chưa có Agent Link, thuộc module khác).
+- Điều hướng đến: PHO-006 (Thư viện ảnh tài sản, sau khi xoá bộ ảnh), PHO-004 (Common Areas của residence chứa villa), màn hình OTA management (khi chưa có Agent Link, thuộc module khác).

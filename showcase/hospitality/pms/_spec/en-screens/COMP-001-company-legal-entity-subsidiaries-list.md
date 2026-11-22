@@ -1,8 +1,8 @@
-# COMP-001 — Company & Legal Entity (Subsidiaries) List
+# COMP-001 — Company Structure
 
 **Type:** Full page
 **Route:** company/list (default CakePHP dashed-format route: `/company/list`, with an additional `:tab` parameter — e.g. `/company/list/subsidiaries-list`)
-**Module:** COMP = Company
+**Module:** COMP = Legal Entities
 
 ## Overview
 A master-data management screen for Companies (legal entities) and their affiliated Legal Entities (Subsidiaries), displayed as 2 tabs on the same page. Allows adding, editing, and deleting companies and subsidiaries through a shared popup. This is the master data used to link with Business Units and Properties.
@@ -44,6 +44,6 @@ No separate search/filter field on this tab (client-side DataTable, `bSort:false
 - Submitting the popup form calls the `list` action via `POST` (`action=add|edit|delete`); the `CompanyController::list()` controller handles saving/deleting for both `Company` and `CompanySubsidiary`, logs the Activity Log, displays a Flash message, then redirects back to the previous page (`referer()`).
 
 ## Navigation
-- Accessed from: Settings/Master data menu ("Companies" menu item).
+- Accessed from: Portfolio Setup menu ("Company Structure" menu item).
 - Navigates to: no navigation to other pages (CRUD operations occur in place via popup + reload).
-- Child popup: COMP-001-P1 (Add/Edit/Delete Company or Legal Entity).
+- Child popup: COMP-001-P1 (Company / Branch Entity Form).

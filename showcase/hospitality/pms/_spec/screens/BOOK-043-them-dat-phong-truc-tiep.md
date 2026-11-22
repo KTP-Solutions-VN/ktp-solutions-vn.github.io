@@ -1,8 +1,8 @@
-# BOOK-043 — Thêm đặt phòng trực tiếp
+# BOOK-043 — Tạo yêu cầu lưu trú (New Stay Request)
 
 **Loại:** Popup (mở từ BOOK-042)
 **Route:** Booking/addDirectBooking/:id? (mặc định: `/booking/add-direct-booking`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Form gửi yêu cầu đặt phòng trực tiếp cho villa (thường dùng bởi chủ villa/đối tác), gồm thông tin khách, ngày ở và điều kiện đặc biệt.
@@ -30,5 +30,5 @@ Form gửi yêu cầu đặt phòng trực tiếp cho villa (thường dùng b�
 - Nút **Gửi yêu cầu** — tạo mới yêu cầu đặt phòng trực tiếp, chuyển vào BOOK-042 chờ duyệt
 
 ## Điều hướng
-- Mở từ: BOOK-042 (Danh sách đặt phòng trực tiếp)
+- Mở từ: BOOK-042 (Yêu cầu lưu trú trực tiếp)
 - Điều hướng tới: quay lại BOOK-042

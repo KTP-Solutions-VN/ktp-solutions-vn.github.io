@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
       all.unshift({
         id: 'RCL-' + MM.uid(), date: new Date().toISOString().slice(0, 10),
         entryLevel: 'Property', villaId: villaSel.value,
-        action: document.getElementById('log-action').value, by: 'Somchai Anuwat'
+        action: document.getElementById('log-action').value, by: 'Daniel Tan'
       });
       BOOK.saveRateChangeLog(all);
       MM.showToast('Rate log saved.');

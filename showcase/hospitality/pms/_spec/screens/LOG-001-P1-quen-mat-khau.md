@@ -1,10 +1,10 @@
-# LOG-001-P1 — Quên mật khẩu (Forgot Password)
+# LOG-001-P1 — Khôi phục mật khẩu (Password Recovery)
 
 **Loại:** Popup/Modal (mở từ LOG-001)
 
 **Route:** `LoginController::forgotPassword()` — mặc định `login/forgotPassword`; route đẹp: `/forgot-password`
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Panel "Quên mật khẩu" hiển thị/ẩn (toggle bằng JS) ngay trên màn hình đăng nhập LOG-001, cho phép người dùng nhập email để nhận liên kết đặt lại mật khẩu. Action xử lý phía server không render view riêng (autoRender=false), chỉ gửi mail và redirect quay lại trang trước đó kèm flash message.
@@ -20,4 +20,4 @@ Panel "Quên mật khẩu" hiển thị/ẩn (toggle bằng JS) ngay trên màn 
 
 ## Điều hướng
 - Mở từ: LOG-001, bấm link "Quên mật khẩu?".
-- Điều hướng đến: sau khi submit, quay lại LOG-001 (flash message); email nhận được dẫn tới LOG-002 (Đặt lại mật khẩu) kèm token.
+- Điều hướng đến: sau khi submit, quay lại LOG-001 (flash message); email nhận được dẫn tới LOG-002 (Đặt mật khẩu mới) kèm token.

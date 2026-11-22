@@ -1,11 +1,11 @@
-# VCS-008 — Villa Activities List (Property Activities)
+# VCS-008 — Guest Activities
 
 **Type:** Full page
 **Route:** villa-common-setting/villa-activity (default CakePHP DashedRoute: `/villa-common-setting/villa-activity`)
-**Module:** VCS = Villa Common Settings
+**Module:** VCS = Property Attributes
 
 ## Overview
-Master data management screen for "Activity" that a villa can offer to guests (e.g., yoga, fishing, etc.). Displayed as a list table, with Add/Edit/Delete supported through a single shared popup. Structure and behavior are identical to VCS-001 (Amenities), differing only in the underlying data model.
+Master data management screen for "Activity" that a villa can offer to guests (e.g., yoga, fishing, etc.). Displayed as a list table, with Add/Edit/Delete supported through a single shared popup. Structure and behavior are identical to VCS-001 (Amenity Catalog), differing only in the underlying data model.
 
 ## Detailed Description
 | # | Field Label | Field Code | Data Type / Input | Required | Notes |
@@ -24,6 +24,6 @@ No dedicated search/filter field (client-side DataTable `#zero_config`).
 - Submitting the popup form sends a `POST` to the `villaActivity` action with `action=add|edit|delete`; the `VillaCommonSettingController::villaActivity()` controller saves/deletes records in the `Activity` table, writes an Activity Log entry, displays a Flash message, and redirects via `referer()`.
 
 ## Navigation
-- Opened from: Settings menu > "Properties" > "Property Activities" submenu.
+- Opened from: Portfolio Setup menu > "Property Attributes" > "Guest Activities" submenu.
 - Navigates to: no navigation to another page (CRUD operations performed in place via popup + reload).
-- Child popup: VCS-008-P1 (Add/Edit/Delete Property Activity).
+- Child popup: VCS-008-P1 (Guest Activity Form).

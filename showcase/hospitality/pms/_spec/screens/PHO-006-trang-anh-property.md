@@ -1,10 +1,10 @@
-# PHO-006 — Trang ảnh property (Villa)
+# PHO-006 — Thư viện ảnh tài sản (Property Gallery)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `PhotosController::property($villaId)` — route mặc định `/photos/property/:id` (không khai báo route đẹp trong `config/Routes.php`)
 
-**Module:** PHO = Hình ảnh
+**Module:** PHO = Thư viện ảnh
 
 ## Mô tả ngắn gọn
 Trang landing quản lý ảnh của một villa/property: ảnh panoramic (hero banner), 3 chỉ số tổng quan (số bộ ảnh, điểm OTA, ngày chụp gần nhất), form upload bộ ảnh mới, danh sách card các bộ ảnh hiện có (OTA/High Res/Extras/Owner's set/Raw-Temporary/Archive) và khối ảnh khu vực chung của residence chứa villa (nếu có).
@@ -45,8 +45,8 @@ Khối "Residence Common Areas" (nếu villa thuộc residence có ảnh khu v�
 - **Delete** một bộ ảnh: mở modal xác nhận, submit tới `detail` action với `action=delete` (chỉ hiện nếu `canDeletePhotoSet`).
 - **Mở trang Residence** chứa khu vực chung của villa (nếu có).
 - **Mở nhanh bộ ảnh khu vực chung** của residence: sang PHO-005 (`residenceDetail`).
-- **Tab điều hướng**: Photo Sets (PHO-002), Common Areas (PHO-003), Settings (PHO-008).
+- **Tab điều hướng**: Photo Albums (PHO-002), Shared Spaces (PHO-003), Requirements (PHO-008).
 
 ## Điều hướng
 - Vào từ: PHO-002 (click villa hoặc icon Upload trong danh sách).
-- Điều hướng đến: PHO-007 (Open bộ ảnh), PHO-005 (mở nhanh bộ ảnh khu vực chung residence), PHO-004 (Residence page), PHO-002 (tab Photo Sets), PHO-003 (tab Common Areas), PHO-008 (tab Settings).
+- Điều hướng đến: PHO-007 (Open bộ ảnh), PHO-005 (mở nhanh bộ ảnh khu vực chung residence), PHO-004 (Khu vực chung theo khu căn hộ), PHO-002 (tab Photo Albums), PHO-003 (tab Shared Spaces), PHO-008 (tab Requirements).

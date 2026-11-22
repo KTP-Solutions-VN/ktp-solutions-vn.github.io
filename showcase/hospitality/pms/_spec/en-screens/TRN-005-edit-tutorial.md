@@ -1,15 +1,15 @@
-# TRN-005 — Edit Tutorial
+# TRN-005 — Edit Lesson
 
 **Type:** Full page
 **Route:** `TrainingController::editTutorial($id)` — `/training/edit-tutorial/{id}`
-**Module:** TRN = Training
+**Module:** TRN = Staff Academy
 
 ## Overview
 Edit the general information of a Tutorial and manage the list of Slides within it (view/edit/delete each slide, add new slides).
 
 ## Detailed Description
 
-**Edit Tutorial form**
+**Edit Lesson form**
 | # | Field Label | Field Code | Data Type / Input | Required | Notes |
 |---|-----------|-----------|---------------------|----------|---------|
 | 1 | Business unit | `business_unit_id` | Select2 | Yes | |

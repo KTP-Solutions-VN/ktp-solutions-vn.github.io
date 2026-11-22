@@ -1,10 +1,10 @@
-# VSV-022-P1 — Xử lý chi tiết từng hạng mục kiểm tra (Inspection Edit Details)
+# VSV-022-P1 — Xử lý hạng mục kiểm tra (Resolve Inspection Items)
 
 **Loại:** Popup (mở từ VSV-021 hoặc VSV-022, dạng trang riêng)
 
 **Route:** `VillaServicesController::inspectionEditDetails()` — `/villa-services/inspectionEditDetails?id=<inspection_key>[&view=default|teamlead]`
 
-**Module:** Dịch vụ villa — Kiểm tra (Inspection)
+**Module:** Dịch vụ lưu trú — Kiểm tra
 
 ## Mô tả ngắn gọn
 Màn hình xử lý (kanban dạng thẻ) từng hạng mục phát hiện trong báo cáo kiểm tra: mỗi thẻ hiển thị ảnh "trước/sau", mô tả lỗi, dịch vụ/vị trí liên quan, người phụ trách xử lý, và các nút chuyển trạng thái xử lý (bắt đầu, tạm dừng, hoàn tất, yêu cầu duyệt lại...). Giao diện và quyền thao tác thay đổi tùy vai trò người dùng (Admin/BU Manager xem toàn bộ và gán việc; Team Leader/nhân viên xử lý xem phần việc được giao).

@@ -1,10 +1,10 @@
-# BU-005-P1 — Add/Edit Channel Popup
+# BU-005-P1 — Sales Channel Form
 
 **Type:** Popup (opened from BU-005)
 
 **Route:** Static Bootstrap modal (`#chanelModal`) in `chanels.ctp`; submitted via POST to the same `BusinessUnitController::chanels()` action.
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A shared popup for adding a new channel (Chanel) or editing an existing one — configuring the channel name, ownership, manager, applicable business units, and payment receipt/disbursement method.
@@ -31,5 +31,5 @@ A shared popup for adding a new channel (Chanel) or editing an existing one — 
 - **Cancel:** closes the modal without saving.
 
 ## Navigation
-- Opened from: BU-005 (Channel list) — "Add new" button, Edit icon on each row.
+- Opened from: BU-005 (Sales Channels) — "Add new" button, Edit icon on each row.
 - After submission: redirects back to BU-005 (`referer()`), displays a flash message.

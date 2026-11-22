@@ -1,10 +1,10 @@
-# TXT-001-P2 — Thêm ngôn ngữ văn bản (Add Text Languages)
+# TXT-001-P2 — Thêm ngôn ngữ mô tả (Add Description Languages)
 
 **Loại:** Popup (mở từ TXT-001, tab Languages)
 
 **Route:** Modal tĩnh trong `index.ctp` (`#texts-language-modal`); lưu qua AJAX `TextsController::saveLanguages()` — `POST /texts/save-languages`
 
-**Module:** TXT = Văn bản
+**Module:** TXT = Kho mô tả
 
 ## Mô tả ngắn gọn
 Cho phép bật thêm một hoặc nhiều ngôn ngữ khách (guest language) khả dụng cho một quốc gia đang có property hoạt động, phục vụ việc dịch nội dung OTA.

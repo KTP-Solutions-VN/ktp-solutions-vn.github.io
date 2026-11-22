@@ -1,8 +1,8 @@
-# TRN-013 — Demo câu hỏi trắc nghiệm
+# TRN-013 — Demo kiểm tra kiến thức (Knowledge Check Demo)
 
 **Loại:** Trang đầy đủ
 **Route:** `TrainingController::quizQuestion()` — `/training/quiz-question`
-**Module:** TRN = Đào tạo
+**Module:** TRN = Học viện nhân viên
 
 ## Mô tả ngắn gọn
 Trang tĩnh minh họa giao diện một câu hỏi trắc nghiệm mẫu (hard-code "A VIP booking has a value"), không kết nối dữ liệu Quiz thực tế. Có dấu hiệu là màn hình demo/mẫu, không thấy liên kết trỏ tới từ nơi khác trong module.

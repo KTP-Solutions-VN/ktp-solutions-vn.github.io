@@ -1,8 +1,8 @@
-# PROP-060 — Sửa lịch chụp ảnh (Edit Shooting)
+# PROP-060 — Sửa lịch chụp (Edit Shoot Schedule)
 
 **Loại:** Trang đầy đủ
 **Route:** property/edit-shooting/:req_id (req_id truyền dạng base64), mở từ PROP-059 (icon Edit)
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang chỉnh sửa một lịch chụp ảnh (Photography) đã tồn tại: đổi Business Unit, cấp độ áp dụng (Property/Residence/Unit), Nhiếp ảnh gia (Service Provider), ngày chụp dự kiến, ghi chú. Dữ liệu lưu bảng `Photography` (liên kết `PhotographDetail` khi cấp độ là Property).
@@ -24,6 +24,6 @@ Trang chỉnh sửa một lịch chụp ảnh (Photography) đã tồn tại: đ
 - Đổi Entry Level → JS ẩn/hiện field Residence/Unit/Property tương ứng.
 
 ## Điều hướng
-- Mở từ: PROP-059 (Danh sách Lịch chụp ảnh) — icon Edit.
+- Mở từ: PROP-059 (Buổi chụp sắp tới) — icon Edit.
 - Điều hướng tới: Không có (redirect lại danh sách sau khi lưu thành công).
 - Popup con: Không có.

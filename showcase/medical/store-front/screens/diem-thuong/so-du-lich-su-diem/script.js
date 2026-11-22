@@ -12,9 +12,9 @@
     var expiring = entries.filter(function (e) { return e.type === 'Earned' && e.expiresOn && new Date(e.expiresOn) < new Date('2027-01-01'); });
     var expiringPoints = expiring.reduce(function (s, e) { return s + e.points; }, 0);
 
-    document.getElementById('loy-balance').textContent = balance.toLocaleString('en-SG');
-    document.getElementById('loy-lifetime').textContent = lifetime.toLocaleString('en-SG');
-    document.getElementById('loy-expiring').textContent = expiringPoints.toLocaleString('en-SG');
+    document.getElementById('loy-balance').textContent = balance.toLocaleString('en-AU');
+    document.getElementById('loy-lifetime').textContent = lifetime.toLocaleString('en-AU');
+    document.getElementById('loy-expiring').textContent = expiringPoints.toLocaleString('en-AU');
     document.getElementById('loy-expiring-meta').textContent = expiring.length ? 'Expiring by ' + CJ.formatDate(expiring[0].expiresOn) : 'No points expiring soon';
 
     var tbody = document.getElementById('loyalty-tbody');
@@ -28,7 +28,7 @@
         '<td data-label="Type"><span class="badge ' + (TYPE_BADGE[e.type] || 'badge-neutral') + '">' + e.type + '</span></td>' +
         '<td data-label="Description">' + e.description + '</td>' +
         '<td data-label="Points" class="' + (e.points > 0 ? '' : '') + '" style="color:' + (e.points > 0 ? 'var(--success)' : 'var(--gray-600)') + ';font-weight:700;">' + (e.points > 0 ? '+' : '') + e.points + '</td>' +
-        '<td data-label="Balance After">' + e.balanceAfter.toLocaleString('en-SG') + '</td>' +
+        '<td data-label="Balance After">' + e.balanceAfter.toLocaleString('en-AU') + '</td>' +
       '</tr>';
     }).join('');
   }

@@ -1,11 +1,11 @@
-# VCS-007 — Villa Property Usage List (Property Usage)
+# VCS-007 — Usage Types
 
 **Type:** Full page
 **Route:** villa-common-setting/villa-usage (default CakePHP DashedRoute: `/villa-common-setting/villa-usage`)
-**Module:** VCS = Villa Common Settings
+**Module:** VCS = Property Attributes
 
 ## Overview
-Master data management screen for villa "Usage" (e.g., holiday rental, long-term lease, etc.). Displayed as a list table, with Add/Edit/Delete supported through a single shared popup. Structure and behavior are identical to VCS-001 (Amenities), differing only in the underlying data model.
+Master data management screen for villa "Usage" (e.g., holiday rental, long-term lease, etc.). Displayed as a list table, with Add/Edit/Delete supported through a single shared popup. Structure and behavior are identical to VCS-001 (Amenity Catalog), differing only in the underlying data model.
 
 ## Detailed Description
 | # | Field Label | Field Code | Data Type / Input | Required | Notes |
@@ -24,6 +24,6 @@ No dedicated search/filter field (client-side DataTable `#zero_config`).
 - Submitting the popup form sends a `POST` to the `villaUsage` action with `action=add|edit|delete`; the `VillaCommonSettingController::villaUsage()` controller saves/deletes records in the `Uzage` table, writes an Activity Log entry, displays a Flash message, and redirects via `referer()`.
 
 ## Navigation
-- Opened from: Settings menu > "Properties" > "Property Usage" submenu.
+- Opened from: Portfolio Setup menu > "Property Attributes" > "Usage Types" submenu.
 - Navigates to: no navigation to another page (CRUD operations performed in place via popup + reload).
-- Child popup: VCS-007-P1 (Add/Edit/Delete Property Usage).
+- Child popup: VCS-007-P1 (Usage Type Form).

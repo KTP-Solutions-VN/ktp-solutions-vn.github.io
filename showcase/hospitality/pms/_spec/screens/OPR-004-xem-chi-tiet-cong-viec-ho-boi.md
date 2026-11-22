@@ -1,8 +1,8 @@
-# OPR-004 — Xem chi tiết công việc hồ bơi
+# OPR-004 — Hồ sơ lượt hồ bơi (Pool Round Record)
 
 **Loại:** Trang đầy đủ
 **Route:** operator/poolView/:id + route đẹp dạng dashed: operator/pool-view/:id
-**Module:** OPR = Vận hành vườn/hồ bơi
+**Module:** OPR = Công việc bảo dưỡng
 
 ## Mô tả ngắn gọn
 Màn hình chỉ xem (read-only) chi tiết một công việc hồ bơi đã thực hiện: thông tin villa, dịch vụ, người thực hiện, thời gian, trạng thái kế hoạch và danh sách ảnh/mô tả minh chứng công việc.
@@ -23,5 +23,5 @@ Màn hình chỉ xem (read-only) chi tiết một công việc hồ bơi đã th
 - Chỉ xem, không có hành động chỉnh sửa trên màn hình này.
 
 ## Điều hướng
-- Vào từ: icon "Xem" (mắt) tại OPR-003 — Danh sách công việc hồ bơi.
+- Vào từ: icon "Xem" (mắt) tại OPR-003 — Lượt chăm hồ bơi.
 - Đi tới: không có điều hướng tiếp; dùng nút back của trình duyệt để quay lại OPR-003.

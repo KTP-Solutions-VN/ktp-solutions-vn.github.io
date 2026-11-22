@@ -1,8 +1,8 @@
-# BOOK-033 — Check-in Progress
+# BOOK-033 — Check-in Tracker
 
 **Type:** Full page (opened following BOOK-032)
 **Route:** Booking/checkinProgress/:id/:date/:villa_id (default: `/booking/checkin-progress/:id/:date/:villa_id`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 A screen for tracking the real-time progress of the check-in process at a villa, allowing staff to Cancel or Finish the check-in process.
@@ -19,5 +19,5 @@ A screen for tracking the real-time progress of the check-in process at a villa,
 - **Finish** button — completes the check-in process and records the result in BOOK-029
 
 ## Navigation
-- Opened from: BOOK-032 (Check-in)
-- Navigates to: the result is recorded in BOOK-029 (Check-in Control) / BOOK-029-P1
+- Opened from: BOOK-032 (On-site Check-in)
+- Navigates to: the result is recorded in BOOK-029 (Arrival Audit) / BOOK-029-P1

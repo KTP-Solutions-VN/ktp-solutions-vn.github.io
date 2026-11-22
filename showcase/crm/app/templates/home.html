@@ -1,4 +1,4 @@
-<!-- Trang chủ theo role (M27.06): sales / after / mgr. Dữ liệu chung: tenantName, firstName, homes[], role, monthLbl, empty, tasks[], taskHead, feed[]
+<!-- Trang tổng quan theo vai trò (M27.06): sales / after / mgr. Dữ liệu chung: tenantName, firstName, homes[], role, monthLbl, empty, tasks[], taskHead, feed[]
      sales: nums[], myQuotes[bars] (việc cần làm = homeTasks, chung nguồn với Bảng công việc) · after: board[], nActive, attention[], expiring[] · mgr: kpi[], approvals[], nAppr, pipeline[bars], jobStates[bars]. Mọi role: pins[] (báo cáo đã ghim, homePins). Group View (ALL) dùng home-group.html -->
 <div class="hello">
   <div><div class="muted sm">{{t "home.date"}} · {{tenantName}}</div><h1>{{t "home.hello" n=firstName}}</h1></div>
@@ -40,7 +40,7 @@
       {{else}}<tr><td class="muted">{{t "home.attNone"}}</td></tr>{{/each}}</tbody></table></div>
   <div class="card np"{{fa "M15.05"}}><div class="card-h"><h3>{{t "home.expiry"}}</h3><a class="sm" href="/e/vehicles?view=exp30"><b>{{t "home.viewAll"}}</b></a></div>
     <table><tbody>{{#each expiring}}<tr><td><a href="/e/vehicles/{{id}}"><b>{{plate}}</b></a><div class="faint sm">{{account}} · {{kind}}</div></td><td class="num"><span class="pill p-{{tone}}">{{t "home.days" n=days}}</span></td>
-      <td class="num"><button class="btn xs" onclick="sendEmail('vehicles','{{id}}','LM certificate expiry reminder')">{{t "home.remind"}}</button></td></tr>
+      <td class="num"><button class="btn xs" onclick="sendEmail('vehicles','{{id}}','Plant registration expiry reminder')">{{t "home.remind"}}</button></td></tr>
       {{else}}<tr><td class="muted">{{t "list.empty"}}</td></tr>{{/each}}</tbody></table></div>
   {{> homeTasks}}
 </div>

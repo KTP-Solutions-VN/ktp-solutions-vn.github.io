@@ -1,7 +1,7 @@
-# BOOK-002-P1 — Xem nhanh đặt phòng
+# BOOK-002-P1 — Xem nhanh đặt chỗ (Reservation Preview)
 **Loại:** Trang đầy đủ (LƯU Ý: xem ghi chú cuối trang — không phải popup dù đặt tên "Xem nhanh")
 **Route:** Booking/viewBooking/:id (mặc định: `/booking/view-booking/:id`, id được base64_encode)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Trang hiển thị thông tin chi tiết (chỉ đọc) của một đặt phòng: mã booking, kênh đặt, ngày đặt, trạng thái, ngày/giờ check-in - check-out, số tiền, hoa hồng OTA, số tiền thực nhận, thông tin khách (ngôn ngữ, số khách, người lớn/trẻ em, số điện thoại).
@@ -18,7 +18,7 @@ Bảng field hiển thị (toàn bộ dạng text/label, không có input chỉn
 | 5 | Ngày check-in | `check_in_detail.check_in_date` + `check_in_time` | Text (readonly) | - | |
 | 6 | Ngày check-out | `check_in_detail.check_out_date` + `check_out_time` | Text (readonly) | - | |
 | 7 | Số tiền (Amount) | `amount` | Số (readonly) | - | Làm tròn 2 chữ số thập phân |
-| 8 | Hoa hồng OTA | tính toán từ `commission` | Số (readonly) | - | Với Booking.com cộng thêm VAT 7% |
+| 8 | Hoa hồng OTA | tính toán từ `commission` | Số (readonly) | - | Với Booking.com cộng thêm GST 7% |
 | 9 | Số tiền thực nhận (Net amount) | tính toán `net_amount` | Số (readonly) | - | = Gross - hoa hồng OTA |
 | 10 | Ngôn ngữ khách | `guest.language` | Text (readonly) | - | N/A nếu trống |
 | 11 | Tổng số khách | `guest.guest_no` | Số (readonly) | - | |
@@ -30,7 +30,7 @@ Bảng field hiển thị (toàn bộ dạng text/label, không có input chỉn
 - Chỉ xem thông tin, không có nút chỉnh sửa/lưu trên màn hình này.
 
 ## Điều hướng
-- Mở từ: BOOK-002 (Danh sách đặt phòng — nút "Xem chi tiết"), BOOK-004 (Đặt phòng mới nhất — nút "View Booking")
+- Mở từ: BOOK-002 (Tất cả đặt chỗ — nút "Xem chi tiết"), BOOK-004 (Đặt chỗ gần đây — nút "View Booking")
 - Điều hướng tới: không có (màn hình cuối luồng, chỉ xem)
 - Popup con: không có
 

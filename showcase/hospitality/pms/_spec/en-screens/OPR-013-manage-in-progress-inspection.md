@@ -1,8 +1,8 @@
-# OPR-013 — Manage In-Progress Inspection
+# OPR-013 — Resume Condition Check
 
 **Type:** Full page
 **Route:** operator/inspectionTaskView?id= + dashed-style pretty route: operator/inspection-task-view
-**Module:** OPR = Garden/Pool Operations
+**Module:** OPR = Upkeep Jobs
 
 ## Overview
 Management screen for a villa inspection round that is in progress/incomplete: review the inspection points recorded so far, continue entering additional points, or edit existing points before finishing the inspection round.
@@ -19,5 +19,5 @@ Management screen for a villa inspection round that is in progress/incomplete: r
 - **Continue inspection**: navigates to OPR-011 (`inspectionDetails`) to add a new point or complete the inspection round.
 
 ## Navigation
-- Entered from: the "Manage" (edit pencil) icon on OPR-010 — Villa Inspection List (applies to in-progress/draft records).
-- Leads to: OPR-011 — Perform Villa Inspection by Point (to continue/complete).
+- Entered from: the "Manage" (edit pencil) icon on OPR-010 — Condition Checks (applies to in-progress/draft records).
+- Leads to: OPR-011 — Run Condition Check (to continue/complete).

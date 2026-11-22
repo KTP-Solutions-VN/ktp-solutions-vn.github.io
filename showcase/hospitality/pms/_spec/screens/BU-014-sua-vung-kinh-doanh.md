@@ -1,10 +1,10 @@
-# BU-014 — Sửa vùng kinh doanh
+# BU-014 — Sửa vùng báo cáo (Edit Reporting Zone)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `BusinessUnitController::editZoning($id)` — mặc định `/business-unit/edit-zoning/{id}` (id mã hoá base64)
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Biểu mẫu chỉnh sửa tên tùy chỉnh và danh sách Đơn vị kinh doanh thuộc một vùng đã tồn tại. Mã vùng (`zone_name`) chỉ đọc, không sửa được.

@@ -1,9 +1,9 @@
-# BOOK-069 — Process Villa Rate Status (Payment/Finish)
+# BOOK-069 — Monthly Rent Action
 
 **Type:** Full page (sub-page, navigated from BOOK-067 — not a popup/modal)
 **Route:** Booking/ratesStatusEdit/:business_unit_id/:villa_id/:action (action = `payment` or `finish`)
 **Pretty route:** no dedicated route found in config/Routes.php (uses the default route, e.g. `/booking/rates-status-edit/1/2/payment`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Confirmation screen for an action on the Monthly rate record currently applied to a villa: confirm that the current month's rent has been collected (`action=payment`), or confirm termination of the monthly rental agreement to move the villa back to a daily rate (`action=finish`).
@@ -15,7 +15,7 @@ There is no input form — only a single confirmation line and one action button
 
 | # | Case | Displayed Content | Button |
 |---|---|---|---|
-| 1 | `action=payment` | "`<Villa Name>`, rent of `<monthly_rent>` THB due on `<next_due_date>`" | **Paid** button |
+| 1 | `action=payment` | "`<Villa Name>`, rent of `<monthly_rent>` SGD due on `<next_due_date>`" | **Paid** button |
 | 2 | `action=finish` (default) | "`<Villa Name>` goes back to daily rate. There is no outstanding monthly Rent due." | **Confirm** button |
 
 ## Functions / Actions

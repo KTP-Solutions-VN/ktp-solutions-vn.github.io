@@ -1,13 +1,13 @@
-# ACC-060 — Services
+# ACC-060 — Billable Services
 
 **Type:** Full page
 
 **Route:** `AccountController::services($tab)` — default `/account/services/<tab>`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
-A 3-tab page for managing the Services catalog: the Service list, Service allocation to Suppliers (Services Allocation), and the Service category list (Services Categories). The structure and behavior are similar to ACC-058 (Products) but for `Product.type = services`.
+A 3-tab page for managing the Services catalog: the Service list, Service allocation to Suppliers (Services Allocation), and the Service category list (Services Categories). The structure and behavior are similar to ACC-058 (Goods Catalog) but for `Product.type = services`.
 
 ## Detailed Description
 
@@ -34,5 +34,5 @@ A 3-tab page for managing the Services catalog: the Service list, Service alloca
 - Switching tabs updates the URL (`/account/services/<tab>`) without a full page reload.
 
 ## Navigation
-- Entered from: Sidebar > "Services" item under Account Settings.
+- Entered from: Sidebar > "Billable Services" item under Finance Preferences.
 - Navigates to: there is NO currently functioning dedicated Add/Edit Service popup — the `addServices()` action in `AccountController` has been entirely commented out (dead code) and the `add_services.ctp` view is no longer rendered by any action; adding/editing a Service on this tab currently has no corresponding UI functionality.

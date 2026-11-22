@@ -1,8 +1,8 @@
-# PROP-031 — Yêu cầu làm lại Listing OTA (Redo)
+# PROP-031 — Yêu cầu làm mới listing (Listing Refresh Request)
 
 **Loại:** Trang đầy đủ
 **Route:** property/redo/:villa_id/:chanel_id
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Form gửi yêu cầu "làm lại" (redo) một listing OTA của Property tới một nhân viên phụ trách, kèm hạn chót (deadline). Khi gửi, hệ thống tạo bản ghi `VillaCoefficient` (type `redo_list`) và một `NoticeBoard` (thông báo công việc) gán cho người nhận.

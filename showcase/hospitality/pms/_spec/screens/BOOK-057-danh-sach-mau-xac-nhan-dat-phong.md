@@ -1,8 +1,8 @@
-# BOOK-057 — Danh sách mẫu xác nhận đặt phòng (Confirmation Template)
+# BOOK-057 — Mẫu thư xác nhận (Confirmation Layouts)
 
 **Loại:** Trang đầy đủ
 **Route:** Booking/confirmationTemplate (mặc định: `/booking/confirmation-template`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Danh sách các mẫu (template) PDF xác nhận đặt phòng gửi cho chủ villa, cấu hình theo ngôn ngữ và áp dụng cho các đơn vị kinh doanh cụ thể. Mỗi ngôn ngữ chỉ có 1 mẫu.
@@ -20,12 +20,12 @@ Danh sách các mẫu (template) PDF xác nhận đặt phòng gửi cho chủ v
 | 6 | Actions | Xem/Sửa/Xoá |
 
 ## Chức năng/nút thao tác
-- Nút **Translation** — mở BOOK-061 (Bản dịch mẫu)
+- Nút **Translation** — mở BOOK-061 (Bản dịch mẫu thư)
 - Nút **Add New** — mở BOOK-058
 - Xem chi tiết mẫu — mở BOOK-060
 - Sửa mẫu — mở BOOK-059
 - Xoá mẫu (`deleteComfirmationTemplate`)
 
 ## Điều hướng
-- Mở từ: Menu module Đặt phòng > Confirmation Template
+- Mở từ: Menu module Đặt chỗ > Confirmation Layouts
 - Điều hướng tới: BOOK-058 (Thêm), BOOK-059 (Sửa), BOOK-060 (Xem), BOOK-061 (Dịch)

@@ -1,11 +1,11 @@
-# BOOK-028 — Booking Details (Full)
+# BOOK-028 — Reservation Record
 
 **Type:** Full page
 **Route:** Booking/viewDetails/:id (default: `/booking/view-details/:id`, id is base64_encoded)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
-A page displaying the full (read-only) details of a booking, comprising multiple information blocks: booking details, guest details, pre-arrival information, check-in/check-out times, and booking-attached images. It differs from BOOK-002-P1 (Quick View) in that it includes additional blocks: Pre-arrival Details, Arrival & Departure (check-in/check-out time and staff), and Booking Images.
+A page displaying the full (read-only) details of a booking, comprising multiple information blocks: booking details, guest details, pre-arrival information, check-in/check-out times, and booking-attached images. It differs from BOOK-002-P1 (Reservation Preview) in that it includes additional blocks: Pre-arrival Details, Arrival & Departure (check-in/check-out time and staff), and Booking Images.
 
 ## Detailed Description
 
@@ -66,9 +66,9 @@ A page displaying the full (read-only) details of a booking, comprising multiple
 List of images attached to the booking (`booking_images`), displayed as an image grid.
 
 ## Functions / Actions
-- View-only page, with no direct edit button — edits are made via the "Edit Booking" screen
-- Breadcrumb navigation: Home > Booking List > Booking Details
+- View-only page, with no direct edit button — edits are made via the "Modify Reservation" screen
+- Breadcrumb navigation: Home > Reservations > All Reservations > Reservation Record
 
 ## Navigation
-- Opened from: BOOK-002 (Booking List), BOOK-001 (Check-in/Check-out Calendar) — click on guest name/villa
+- Opened from: BOOK-002 (All Reservations), BOOK-001 (Arrivals & Departures) — click on guest name/villa
 - Navigates to: back to BOOK-002 via the breadcrumb

@@ -1,7 +1,7 @@
-# BOOK-026 — Số đêm lưu trú tối thiểu
+# BOOK-026 — Số đêm tối thiểu (Minimum Nights)
 **Loại:** Trang đầy đủ
 **Route:** booking/minimum (base path `/VM` xuất hiện trong các lời gọi AJAX của ứng dụng)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Màn hình cho phép người quản lý xem và cập nhật nhanh số đêm lưu trú tối thiểu (minimum stay) áp dụng cho từng villa, lọc theo Business Unit/khu vực (Zone).
@@ -25,6 +25,6 @@ Màn hình cho phép người quản lý xem và cập nhật nhanh số đêm l
 - Bảng hỗ trợ DataTable (phân trang, ghi nhớ số dòng/trang qua cookie).
 
 ## Điều hướng
-- Mở từ: Menu Đặt phòng.
+- Mở từ: Menu Đặt chỗ.
 - Điều hướng tới: không điều hướng sang trang khác (thao tác lưu tại chỗ qua AJAX).
 - Popup con: không có.

@@ -1,10 +1,10 @@
-# BU-022-P5 — Popup Thêm/Sửa yếu tố nội dung
+# BU-022-P5 — Form thành phần listing (Listing Element Form)
 
 **Loại:** Popup (mở từ BU-022, tab Yếu tố nội dung — chỉ Superadmin)
 
 **Route:** Modal Bootstrap (`#ota-element-modal`) trong element `channel/content_elements.ctp`; submit AJAX tới `OtaContentController::createElement` / `editElement`.
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Popup dùng chung cho Thêm mới và Sửa một Yếu tố nội dung OTA (Content Element) dùng khi soạn nội dung Listing cho từng nền tảng.

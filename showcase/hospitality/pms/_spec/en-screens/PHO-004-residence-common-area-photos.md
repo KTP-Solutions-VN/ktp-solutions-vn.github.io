@@ -1,10 +1,10 @@
-# PHO-004 — Residence Common Area Photos
+# PHO-004 — Residence Shared Spaces
 
 **Type:** Full page
 
 **Route:** `PhotosController::residence($residenceId)` — clean route `/photos/residence/:id` (explicitly declared in `config/Routes.php`)
 
-**Module:** Photos
+**Module:** Photo Library
 
 ## Overview
 The detail page for a single residence: displays the existing common area photo sets (OTA/High Res/Extras/Raw-Temporary) and a form for uploading new photos for that residence.

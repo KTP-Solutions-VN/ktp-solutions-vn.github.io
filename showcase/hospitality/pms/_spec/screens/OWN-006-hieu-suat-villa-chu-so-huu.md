@@ -1,10 +1,10 @@
-# OWN-006 — Hiệu suất villa chủ sở hữu
+# OWN-006 — Hiệu quả tài sản (Property Performance)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `/Owner/performance` (controller `Owner`, action `performance()`)
 
-**Module:** Quản lý chủ sở hữu (Admin)
+**Module:** Quan hệ chủ nhà (Admin)
 
 ## Mô tả ngắn gọn
 
@@ -36,5 +36,5 @@ Ngoài ra màn hình còn tổng hợp dữ liệu so sánh hiệu suất theo n
 
 ## Điều hướng
 
-- Vào từ: menu chính (sidebar) mục "Performance".
+- Vào từ: menu chính (sidebar) mục "Property Performance".
 - Không có popup con; đây là màn hình độc lập.

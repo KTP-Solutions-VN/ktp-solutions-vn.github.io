@@ -1,10 +1,10 @@
-# CMS-029 — Thêm/sửa mục I Wish
+# CMS-029 — Trình sửa mục mong muốn (Wishlist Item Editor)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::iWishEdit($id)` — mặc định `/cms/i-wish-edit/:id`
 
-**Module:** CMS = Nội dung trang chủ
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Form thêm mới hoặc chỉnh sửa một mục "I Wish": tiêu đề, hai đoạn nội dung theo từng ngôn ngữ và tối đa 3 ảnh minh hoạ. Không có `$id` → chế độ thêm mới (tiêu đề trang "Add"); có `$id` → chế độ sửa (tiêu đề trang "Edit").
@@ -39,4 +39,4 @@ Không đa ngôn ngữ cho `title` — chỉ `text_1`/`text_2` là field đa ng�
 ## Điều hướng
 - Vào từ: CMS-028 (nút "Add New" hoặc link "Edit" trên từng dòng).
 - Điều hướng đến: quay lại CMS-028 sau khi Save (thành công hoặc lỗi).
-- Liên quan: breadcrumb trên trang link ngược về Settings và Common Texts/I Wish (CMS-028); dữ liệu mục I Wish tạo/sửa ở đây được dùng làm nguồn cho danh sách toggle On/Off trong tab "I Wish" của CMS-023 (collection tabs của villa) và action AJAX `addIwish()` — không điều hướng trực tiếp qua lại nhưng dùng chung bảng dữ liệu `GuestCollectionIwish`.
+- Liên quan: breadcrumb trên trang link ngược về Settings và Shared Content Blocks/Experience Wishlist (CMS-028); dữ liệu mục I Wish tạo/sửa ở đây được dùng làm nguồn cho danh sách toggle On/Off trong tab "Wishlist" của CMS-023 (collection tabs của villa) và action AJAX `addIwish()` — không điều hướng trực tiếp qua lại nhưng dùng chung bảng dữ liệu `GuestCollectionIwish`.

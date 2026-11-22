@@ -1,14 +1,14 @@
-# OWN-002 — Thêm mới chủ sở hữu
+# OWN-002 — Thêm tài khoản chủ nhà (New Owner Account)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `/Owner/add` (controller `Owner`, action `add($tab = null)`)
 
-**Module:** Quản lý chủ sở hữu (Admin)
+**Module:** Quan hệ chủ nhà (Admin)
 
 ## Mô tả ngắn gọn
 
-Form tạo mới một chủ sở hữu (Owner) trong hệ thống, bao gồm thông tin cá nhân, tài khoản đăng nhập, phân quyền vai trò (role), business unit phụ trách, ảnh đại diện và tuỳ chọn gửi email thông báo mật khẩu. Sau khi lưu, hệ thống chuyển sang màn hình OWN-003 (Chỉnh sửa chủ sở hữu) ở tab "Payment Details".
+Form tạo mới một chủ sở hữu (Owner) trong hệ thống, bao gồm thông tin cá nhân, tài khoản đăng nhập, phân quyền vai trò (role), business unit phụ trách, ảnh đại diện và tuỳ chọn gửi email thông báo mật khẩu. Sau khi lưu, hệ thống chuyển sang màn hình OWN-003 (Sửa tài khoản chủ nhà) ở tab "Payment Details".
 
 ## Mô tả chi tiết
 
@@ -34,10 +34,10 @@ Form tạo mới một chủ sở hữu (Owner) trong hệ thống, bao gồm th
 ## Chức năng/nút thao tác
 
 - **Save**: lưu chủ sở hữu mới, tạo bản ghi `Owner`, `UserBusinessUnit`, `UserRole`; gửi email đăng ký nếu tick "Gửi email"; ghi log hoạt động; sau đó chuyển hướng tới OWN-003 tab "payment-details".
-- **Cancel**: quay lại OWN-001 (Danh sách chủ sở hữu).
+- **Cancel**: quay lại OWN-001 (Tài khoản chủ nhà).
 
 ## Điều hướng
 
 - Mở từ: OWN-001 (nút "+ Add New").
-- Sau khi lưu thành công: chuyển tới OWN-003 — Chỉnh sửa chủ sở hữu (tab Payment Details, `show_page=list`).
+- Sau khi lưu thành công: chuyển tới OWN-003 — Sửa tài khoản chủ nhà (tab Payment Details, `show_page=list`).
 - Cancel: quay về OWN-001.

@@ -5,13 +5,13 @@
   var DELETED_KEY = 'mm_prop_onboarding_actions_deleted';
 
   var MOCK_OPEN_PROPERTIES = [
-    { id: 'PV-105', name: 'Villa Marble Cove', type: 'Hillside Pool Villa', area: 'Kata', bu: 'Phuket Collection', owner: 'Richard Halstead' },
-    { id: 'PV-107', name: 'Villa Golden Palm', type: 'Beachfront Villa', area: 'Chaweng', bu: 'Koh Samui Estates', owner: 'Priya Nair' },
-    { id: 'PV-103', name: 'Villa Emerald Bay', type: 'Garden Pool Villa', area: 'Seminyak', bu: 'Bali Retreats', owner: 'Isabelle Moreau' },
-    { id: 'PV-201', name: 'Villa Turquoise Reef', type: 'Beachfront Villa', area: 'Kamala', bu: 'Phuket Collection', owner: 'Richard Halstead' },
-    { id: 'PV-202', name: 'Villa Palm Residence — Unit 3', type: 'Residence Unit', area: 'Canggu', bu: 'Bali Retreats', owner: 'David Chen' },
-    { id: 'PV-203', name: 'Villa Orchid Rise', type: 'Hillside Pool Villa', area: 'Nusa Dua', bu: 'Bali Retreats', owner: 'David Chen' },
-    { id: 'PV-204', name: 'Villa Amber Cove', type: 'Garden Pool Villa', area: 'Lamai', bu: 'Koh Samui Estates', owner: 'Priya Nair' }
+    { id: 'PV-105', name: 'Villa Marble Cove', type: 'Hillside Pool Villa', area: 'Siloso', bu: 'Sentosa Collection', owner: 'Richard Halstead' },
+    { id: 'PV-107', name: 'Villa Golden Palm', type: 'Beachfront Villa', area: 'Noosa Heads', bu: 'Noosa Estates', owner: 'Priya Nair' },
+    { id: 'PV-103', name: 'Villa Emerald Bay', type: 'Garden Pool Villa', area: 'Belongil', bu: 'Byron Bay Retreats', owner: 'Isabelle Moreau' },
+    { id: 'PV-201', name: 'Villa Turquoise Reef', type: 'Beachfront Villa', area: 'Sentosa Cove', bu: 'Sentosa Collection', owner: 'Richard Halstead' },
+    { id: 'PV-202', name: 'Villa Palm Residence — Unit 3', type: 'Residence Unit', area: 'Byron Bay', bu: 'Byron Bay Retreats', owner: 'David Chen' },
+    { id: 'PV-203', name: 'Villa Orchid Rise', type: 'Hillside Pool Villa', area: 'Lennox Head', bu: 'Byron Bay Retreats', owner: 'David Chen' },
+    { id: 'PV-204', name: 'Villa Amber Cove', type: 'Garden Pool Villa', area: 'Peregian Beach', bu: 'Noosa Estates', owner: 'Priya Nair' }
   ];
 
   function loadDeleted() {

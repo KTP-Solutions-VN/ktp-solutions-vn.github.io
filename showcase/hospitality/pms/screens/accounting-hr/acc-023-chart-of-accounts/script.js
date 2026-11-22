@@ -6,8 +6,8 @@
 
   var MOCK = [
     {
-      id: 'coa1', name: 'Standard Villa P&L', created_at: '2024-02-10', created_by: 'Somchai Anuwat',
-      bu: ['Phuket Collection', 'Bali Retreats'],
+      id: 'coa1', name: 'Standard Villa P&L', created_at: '2024-02-10', created_by: 'Daniel Tan',
+      bu: ['Sentosa Collection', 'Byron Bay Retreats'],
       details: [
         { id: 'd1', rank: 1, nature: 'Income', category: 'Operating', sub_category: 'Room Revenue', details: 'Nightly rental income', allocation: 'Property' },
         { id: 'd2', rank: 2, nature: 'Expense', category: 'Operating', sub_category: 'Housekeeping', details: 'Cleaning & linen costs', allocation: 'Property' },
@@ -16,7 +16,7 @@
     },
     {
       id: 'coa2', name: 'Corporate Overhead', created_at: '2024-03-22', created_by: 'David Chen',
-      bu: ['Phuket Collection', 'Bali Retreats', 'Koh Samui Estates'],
+      bu: ['Sentosa Collection', 'Byron Bay Retreats', 'Noosa Estates'],
       details: [
         { id: 'd4', rank: 1, nature: 'Expense', category: 'Non-Operating', sub_category: 'Office Rent', details: 'Back-office lease', allocation: 'Business Unit' },
         { id: 'd5', rank: 2, nature: 'Expense', category: 'Non-Operating', sub_category: 'IT & Software', details: 'PMS, cloud storage subscriptions', allocation: 'Business Unit' }
@@ -24,7 +24,7 @@
     },
     {
       id: 'coa3', name: 'Owner Payout Ledger', created_at: '2025-01-05', created_by: 'Isabelle Moreau',
-      bu: ['Koh Samui Estates'],
+      bu: ['Noosa Estates'],
       details: []
     }
   ];
@@ -71,8 +71,8 @@
     editingId = null;
     document.getElementById('f-coa-name').value = '';
     document.querySelectorAll('#coa-bu-checks input').forEach(function (cb) { cb.checked = false; });
-    document.getElementById('coa-modal-title').textContent = 'Add Chart of Account';
-    document.getElementById('coa-save-btn').textContent = 'Save Chart of Account';
+    document.getElementById('coa-modal-title').textContent = 'Add Account Structure';
+    document.getElementById('coa-save-btn').textContent = 'Save Account Structure';
     MM.openModal('coa-modal');
   });
 
@@ -83,8 +83,8 @@
       editingId = rec.id;
       document.getElementById('f-coa-name').value = rec.name;
       document.querySelectorAll('#coa-bu-checks input').forEach(function (cb) { cb.checked = rec.bu.indexOf(cb.value) > -1; });
-      document.getElementById('coa-modal-title').textContent = 'Edit Chart of Account';
-      document.getElementById('coa-save-btn').textContent = 'Update Chart of Account';
+      document.getElementById('coa-modal-title').textContent = 'Edit Account Structure';
+      document.getElementById('coa-save-btn').textContent = 'Update Account Structure';
       MM.openModal('coa-modal');
     }
 
@@ -142,7 +142,7 @@
       if (editingId) {
         chart = chart.map(function (c) { return c.id === editingId ? Object.assign({}, c, { name: name, bu: checked }) : c; });
       } else {
-        chart.push({ id: MM.uid('coa'), name: name, bu: checked, created_at: new Date().toISOString().slice(0, 10), created_by: 'Somchai Anuwat', details: [] });
+        chart.push({ id: MM.uid('coa'), name: name, bu: checked, created_at: new Date().toISOString().slice(0, 10), created_by: 'Daniel Tan', details: [] });
       }
       save(chart);
       render();

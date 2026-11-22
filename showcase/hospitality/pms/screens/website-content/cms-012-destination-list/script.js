@@ -2,13 +2,13 @@
   'use strict';
 
   var COUNTRY_BY_REGION = {
-    'Phuket Collection': 'Thailand',
-    'Bali Retreats': 'Indonesia',
-    'Koh Samui Estates': 'Thailand'
+    'Sentosa Collection': 'Singapore',
+    'Byron Bay Retreats': 'Australia',
+    'Noosa Estates': 'Australia'
   };
 
   var GALLERY_KEY = 'mm_cms_dest_gallery';
-  var LANGUAGES = (window.MM && MM.CMS && MM.CMS.LANGUAGES) || ['English', 'French', 'German', 'Thai', 'Chinese'];
+  var LANGUAGES = (window.MM && MM.CMS && MM.CMS.LANGUAGES) || ['English', 'French', 'German', 'Malay', 'Chinese'];
 
   function readJson(key, fallback) { try { return JSON.parse(localStorage.getItem(key)) || fallback; } catch (e) { return fallback; } }
   function writeJson(key, val) { localStorage.setItem(key, JSON.stringify(val)); }

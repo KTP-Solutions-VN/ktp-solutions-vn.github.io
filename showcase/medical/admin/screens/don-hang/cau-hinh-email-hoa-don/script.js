@@ -18,7 +18,7 @@
     });
   }
 
-  /* ---------------- #22 Create/Edit Email/Invoice Template drawer --------- */
+  /* ---------------- Receipt & Email Template editor drawer --------- */
   var editingTemplateId = null;
   CJDrawer.bind('templateOverlay');
 

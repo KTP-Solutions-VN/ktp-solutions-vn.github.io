@@ -1,8 +1,8 @@
-# OPR-002 — Danh sách công việc vườn
+# OPR-002 — Lượt chăm vườn (Garden Rounds)
 
 **Loại:** Trang đầy đủ
 **Route:** operator/gardenJobList/:tab? + route đẹp dạng dashed: operator/garden-job-list
-**Module:** OPR = Vận hành vườn/hồ bơi
+**Module:** OPR = Công việc bảo dưỡng
 
 ## Mô tả ngắn gọn
 Màn hình danh sách các công việc vườn (garden job) đã/đang thực hiện, xem theo 2 tab: "By Date" (theo ngày, có bộ lọc business unit) và "By Property" (theo villa, có bộ lọc business unit + villa). Cho phép xem chi tiết, tải PDF báo cáo, mở/khóa quyền truy cập cho chủ nhà (owner) và xóa bản ghi.
@@ -31,7 +31,7 @@ Màn hình danh sách các công việc vườn (garden job) đã/đang thực h
 
 ## Chức năng/nút thao tác
 - **Tab By Date / By Property**: chuyển view (client-side, cùng trang, dữ liệu đã render sẵn ở cả hai bảng `garden_list_bydate` và `garden_list_byproperty`).
-- **Xem (icon mắt)**: mở OPR-016 — Xem chi tiết công việc vườn (`gardenView`).
+- **Xem (icon mắt)**: mở OPR-016 — Hồ sơ lượt chăm vườn (`gardenView`).
 - **Tải PDF (icon download)**: mở file PDF báo cáo công việc vườn (`files/garden-cleaning-pdf/...`) nếu đã có `document`.
 - **Xóa (icon thùng rác)**: mở modal xác nhận xóa (inline trong trang, không phải action riêng), submit ẩn `is_delete=yes` + `garden_job_id`, xóa `GardenJobs` và `GardenCleaning` liên quan.
 - **Xem bình luận (icon comment)**: chỉ hiện khi có `comment`, mở tooltip/alert hiển thị nội dung bình luận (client-side).
@@ -39,5 +39,5 @@ Màn hình danh sách các công việc vườn (garden job) đã/đang thực h
 - **GPS badge**: bấm mở modal hiển thị bảng Thời gian / Khoảng cách tới villa (start & end).
 
 ## Điều hướng
-- Vào từ: menu "Garden" (vận hành vườn) trong sidebar; hoặc điều hướng lại từ OPR-001 sau khi Finish/Stop một công việc vườn.
-- Đi tới: OPR-016 — Xem chi tiết công việc vườn.
+- Vào từ: menu "Garden Rounds" (công việc bảo dưỡng) trong sidebar; hoặc điều hướng lại từ OPR-001 sau khi Finish/Stop một công việc vườn.
+- Đi tới: OPR-016 — Hồ sơ lượt chăm vườn.

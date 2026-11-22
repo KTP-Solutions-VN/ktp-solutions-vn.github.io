@@ -28,7 +28,7 @@
       var isLast = idx === order.trackingTimeline.length - 1;
       var cls = isLast ? 'is-active' : 'is-done';
       if (order.status === 'Cancelled' || order.status === 'RefundRequested') cls = idx === order.trackingTimeline.length - 1 ? 'is-active' : 'is-done';
-      return '<div class="timeline__item ' + cls + '"><strong>' + t.status + '</strong><span>' + new Date(t.timestamp).toLocaleString('en-SG', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) + ' — ' + t.note + '</span></div>';
+      return '<div class="timeline__item ' + cls + '"><strong>' + t.status + '</strong><span>' + new Date(t.timestamp).toLocaleString('en-AU', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) + ' — ' + t.note + '</span></div>';
     }).join('');
 
     document.getElementById('track-root').innerHTML =
@@ -44,7 +44,7 @@
         '<div class="card"><h3 style="margin-top:0;">Order Summary</h3>' + itemsHTML + '<hr class="divider">' +
           '<div class="flex-between mb-2"><span class="text-muted">GST</span><span>' + CJ.formatSGD(order.gstAmount) + '</span></div>' +
           '<div class="flex-between"><span style="font-weight:700;">Total</span><strong class="cell-strong">' + CJ.formatSGD(order.total) + '</strong></div>' +
-          '<a class="btn btn-outline btn-block mt-4" href="../../../screens/don-hang/lich-su-don-hang/index.html">Back to Order History</a>' +
+          '<a class="btn btn-outline btn-block mt-4" href="../../../screens/don-hang/lich-su-don-hang/index.html">Back to My Orders</a>' +
         '</div>' +
       '</div>';
   }

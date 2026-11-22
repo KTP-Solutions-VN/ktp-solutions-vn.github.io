@@ -1,10 +1,10 @@
-# VSV-001 — Điện: Trang tổng quan (Hub)
+# VSV-001 — Tổng quan dịch vụ (Service Overview)
 
 **Loại:** Trang đầy đủ (hub điều hướng dạng tile)
 
 **Route:** `VillaServicesController::list()` — mặc định `/villa-services/list`
 
-**Module:** Dịch vụ villa — Điện
+**Module:** Dịch vụ lưu trú — Đo điện
 
 ## Mô tả ngắn gọn
 Trang hub của phân hệ Điện, gom các màn hình con theo 3 nhóm (Set-up, Charges, Controls) dưới dạng thẻ (tile) để điều hướng nhanh. Đây không phải trang thao tác dữ liệu, chỉ là điểm vào (entry point) của module Điện.
@@ -28,5 +28,5 @@ Không có bảng dữ liệu hay bộ lọc. Bố cục gồm 3 khối (section
 - Không có nút thêm/sửa/xóa dữ liệu trên trang này.
 
 ## Điều hướng
-- Vào từ: Menu chính (mục "Electricity"/Điện trong sidebar).
-- Điều hướng đến: VSV-002 (Thiết lập điện villa), VSV-011 (Kiểm soát check-in điện), VSV-012 (Kiểm soát check-out điện).
+- Vào từ: Menu chính (mục "Service Overview" trong sidebar).
+- Điều hướng đến: VSV-002 (Thiết lập đo điện), VSV-011 (Kiểm tra chỉ số khi đến), VSV-012 (Kiểm tra chỉ số khi đi).

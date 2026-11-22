@@ -1,8 +1,8 @@
-# PROP-037 — Property Communication Information (Villa Communication)
+# PROP-037 — Contact & Chat Details
 
 **Type:** Full page
 **Route:** property/communication/:villa_id (villa_id passed base64-encoded), opened from PROP-021 ("Villa Communication" icon)
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Page for declaring contact information for the Owner Chat group and the Concierge Chat group for a property, along with a special Requirement note and displayed Bank Account information. Supports adding multiple owner/concierge contacts (dynamic rows via JS). Data is stored in the `VillaCommunication` table.
@@ -26,6 +26,6 @@ Page for declaring contact information for the Owner Chat group and the Concierg
 - "Save" button (`why_here_form_1`) — submits the entire form, saving to the `VillaCommunication` table (inserts if no record exists, updates if one exists for `villa_id`), displays a flash message, then redirects back to the same page.
 
 ## Navigation
-- Opened from: PROP-021 (Properties Pending Onboarding Action List) — "Villa Communication" icon.
+- Opened from: PROP-021 (Go-Live Blockers) — "Villa Communication" icon.
 - Navigates to: none (saves in place and redirects back to itself).
 - Child popup: none.

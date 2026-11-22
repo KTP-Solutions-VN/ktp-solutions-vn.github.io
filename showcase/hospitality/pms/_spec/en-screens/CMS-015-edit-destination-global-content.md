@@ -1,10 +1,10 @@
-# CMS-015 — Edit Destination Global Content
+# CMS-015 — Aggregator Destination Editor
 
 **Type:** Full page
 
 **Route:** `CmsController::destinationGlobalEdit($district_id)` — default `/cms/destination-global-edit/:district_id`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 Form for editing destination introduction content (`district_id`) within the scope of the Guest Collection (the aggregated website). Data is stored in the `GuestCollectionDestination` model — one record per district, consisting of a heading, an image, and a multilingual description. Requires a valid `district_id`.

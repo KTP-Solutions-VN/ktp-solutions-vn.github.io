@@ -1,11 +1,11 @@
-# PROP-019 — Thêm lịch chụp ảnh mới (New Photo Shoot)
+# PROP-019 — Lên lịch buổi chụp (Schedule a Shoot)
 
 **Loại:** Trang đầy đủ
 **Route:** property/new-shooting
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
-Form tạo mới một lịch chụp ảnh (Photography) cho Property/Residence/Unit, chọn nhiếp ảnh gia (Service Provider loại chụp ảnh), ngày chụp và ghi chú. Đây là phiên bản chức năng cũ, độc lập với luồng "Photography Planning" mới (PROP-026).
+Form tạo mới một lịch chụp ảnh (Photography) cho Property/Residence/Unit, chọn nhiếp ảnh gia (Service Provider loại chụp ảnh), ngày chụp và ghi chú. Đây là phiên bản chức năng cũ, độc lập với luồng "Shoot Scheduler" mới (PROP-026).
 
 ## Mô tả chi tiết
 | # | Tên field (label) | Field code (name/id) | Loại dữ liệu/input | Bắt buộc | Ghi chú |
@@ -26,6 +26,6 @@ Form tạo mới một lịch chụp ảnh (Photography) cho Property/Residence/
 - Đổi Business Unit tự động gọi 3 AJAX: `common/getBusinessUnitVilla`, `property/getResidence`, `common/getUnits`, `property/getPhotographer` để nạp lại các dropdown phụ thuộc.
 
 ## Điều hướng
-- Mở từ: PROP-026 (Photography Planning) — nút "New Photo Shoot"; cũng có thể mở trực tiếp từ menu Photography cũ.
+- Mở từ: PROP-026 (Shoot Scheduler) — nút "New Photo Shoot"; cũng có thể mở trực tiếp từ menu Shoots cũ.
 - Điều hướng tới: `Property::shootings` (danh sách lịch chụp — ngoài phạm vi mã hiện tại) sau khi lưu.
 - Popup con: Không có.

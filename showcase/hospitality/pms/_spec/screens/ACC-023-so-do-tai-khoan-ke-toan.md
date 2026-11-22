@@ -1,10 +1,10 @@
-# ACC-023 — Sơ đồ tài khoản kế toán (Chart of Accounts)
+# ACC-023 — Cấu trúc tài khoản (Account Structure)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `AccountController::chartAccounts()` — mặc định `/account/chart-accounts`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Danh sách các "Chart of Account" (khung sơ đồ tài khoản kế toán) theo Business Unit, chỉ Superadmin thấy trong menu. Cho phép thêm/sửa tên + Business Unit áp dụng qua popup, xóa (kèm xóa toàn bộ chi tiết `ChartAccountDetails` liên quan), và điều hướng sang xem/sửa chi tiết cấu trúc tài khoản.
@@ -41,5 +41,5 @@ Popup thêm/sửa (modal `#exampleModal`, form `#chart_account_form`):
 - Validate ẩn: action `checkAccount()` — AJAX kiểm tra tên Chart of Account trùng (phân biệt thêm mới/sửa qua `id`).
 
 ## Điều hướng
-- Vào từ: Sidebar > (nhóm Superadmin, dưới Settings) > "Chart of Accounts" (`user_type = Superadmin` và `filterSidebar($user, 'ChartAccount-chartOfAccount') == 1`).
-- Điều hướng đến: ACC-023-P1 (Xem chi tiết tài khoản kế toán), ACC-023-P2 (Sửa chi tiết tài khoản kế toán).
+- Vào từ: Sidebar > (nhóm Superadmin, dưới Settings) > "Account Structure" (`user_type = Superadmin` và `filterSidebar($user, 'ChartAccount-chartOfAccount') == 1`).
+- Điều hướng đến: ACC-023-P1 (Chi tiết cấu trúc tài khoản), ACC-023-P2 (Sửa cấu trúc tài khoản).

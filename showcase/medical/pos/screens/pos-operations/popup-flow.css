@@ -1,4 +1,4 @@
-/* Shared styles for the popup-form screens in the Prescription workflow (#55-#58).
+/* Shared styles for the popup-form screens in the Prescription workflow (intake → dispensing → counseling → intervention).
    Each screen's index.html loads this after global.css. */
 
 .device-body { position: relative; background: var(--gray-100); }

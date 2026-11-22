@@ -1,10 +1,10 @@
-# BU-022-P6 — Popup Xác nhận xóa (lưu trữ) yếu tố nội dung
+# BU-022-P6 — Xác nhận lưu trữ thành phần (Confirm Element Archiving)
 
 **Loại:** Popup (mở từ BU-022, tab Yếu tố nội dung — chỉ Superadmin)
 
 **Route:** Modal Bootstrap (`#ota-archive-modal`) trong element `channel/content_elements.ctp`; submit AJAX tới `OtaContentController::archiveElement`.
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Popup xác nhận trước khi lưu trữ (archive/xóa) một Yếu tố nội dung, cảnh báo nếu yếu tố đang được gán cho nền tảng nào hoặc đang được dùng trong nội dung Text.

@@ -1,8 +1,8 @@
-# BOOK-054 — OTA (Channel Overview)
+# BOOK-054 — Channel Toolkit
 
 **Type:** Full page
 **Route:** Booking/ota (default: `/booking/ota`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Hub page leading to 2 OTA (Online Travel Agency) reconciliation/management functions: the villa listing by OTA channel (Listing) and the OTA revenue-share/commission reconciliation report (Share).
@@ -15,5 +15,5 @@ The page has no data of its own; it only displays 2 navigation buttons.
 - **Share** button — opens BOOK-056
 
 ## Navigation
-- Opened from: Booking module menu > OTA
+- Opened from: Reservations module menu > Channel Toolkit
 - Navigates to: BOOK-055, BOOK-056

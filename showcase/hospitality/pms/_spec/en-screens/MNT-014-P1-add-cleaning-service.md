@@ -1,8 +1,8 @@
-# MNT-014-P1 — Add Cleaning Service
+# MNT-014-P1 — New Housekeeping Service
 
 **Type:** Full page (opened from MNT-014)
 **Route:** maintenance/addCleaningService
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Page for adding a new cleaning service: name, illustrative image, applicable business unit(s), status, and a list of "cleaning standards" (each standard consisting of a name/legend + illustrative icon, dynamically added).
@@ -24,5 +24,5 @@ Page for adding a new cleaning service: name, illustrative image, applicable bus
 - **Cancel**: returns to MNT-014.
 
 ## Navigation
-- Entered from: "Add New" button on MNT-014 — Cleaning Services.
+- Entered from: "Add New" button on MNT-014 — Housekeeping Standards.
 - Navigates to: after saving, returns to MNT-014.

@@ -1,10 +1,10 @@
-# OWP-013 — Danh sách Check-out
+# OWP-013 — Khách sắp đi (Upcoming Departures)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `ExternalUserController::checkOut()` — không có route đẹp riêng (mặc định `/external-user/check-out`)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 
@@ -39,5 +39,5 @@ Danh sách — cột hiển thị:
 
 ## Điều hướng
 
-- Truy cập từ menu chính (Check-out)
+- Truy cập từ menu chính (Upcoming Departures)
 - Không có điều hướng chi tiết riêng (là danh sách tổng hợp)

@@ -1,10 +1,10 @@
-# USR-013 — Thêm Cộng tác viên (Add Agent)
+# USR-013 — Thêm đại lý bán hàng (New Sales Agent)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `UserController::addAgents()` — mặc định `user/addAgents`
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Form tạo mới một tài khoản Cộng tác viên bán hàng (Agent), gồm thông tin cá nhân, thông tin đăng nhập, khu vực hoạt động và trạng thái hoạt động của cộng tác viên.
@@ -23,7 +23,7 @@ Form tạo mới một tài khoản Cộng tác viên bán hàng (Agent), gồm 
 | 8 | Username | `username` | Text | Có | Check trùng qua ajax `checkUserName` |
 | 9 | Mật khẩu | `password` | Password | Có | |
 | 10 | Số điện thoại | `phone_number` | Text | Có | |
-| 11 | Khu vực địa lý | `geo_graphical_location` | Select2 | Có | China/Phuket/Thailand/Other |
+| 11 | Khu vực địa lý | `geo_graphical_location` | Select2 | Có | China/Sentosa/Singapore/Other |
 | 12 | Ngày liên hệ | `contact_date` | Text (date picker) | Có | |
 | 13 | Trạng thái hoạt động | `status` | Select | Có | New/Top Performer/Active/Occasional/Dormant |
 | 14 | Ghi chú | `note` | Textarea | Có | |
@@ -35,4 +35,4 @@ Form tạo mới một tài khoản Cộng tác viên bán hàng (Agent), gồm 
 
 ## Điều hướng
 - Mở từ: USR-012 (nút "Thêm mới").
-- Điều hướng đến: USR-012 (Danh sách Cộng tác viên) sau khi lưu thành công.
+- Điều hướng đến: USR-012 (Đại lý bán hàng) sau khi lưu thành công.

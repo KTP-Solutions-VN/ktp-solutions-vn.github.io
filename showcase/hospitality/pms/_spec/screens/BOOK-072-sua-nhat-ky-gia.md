@@ -1,9 +1,9 @@
-# BOOK-072 — Sửa nhật ký giá (trang riêng)
+# BOOK-072 — Sửa ghi chú giá (Edit Price Note)
 
 **Loại:** Trang đầy đủ (trang con độc lập — không phải popup/modal)
 **Route:** Booking/ratesLogEdit/:id
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định, ví dụ `/booking/rates-log-edit/12`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Form chỉnh sửa một bản ghi nhật ký giá (`VillaRateLog`) theo `id` truyền trên URL, gồm đơn vị kinh doanh, villa và nội dung ghi chú.

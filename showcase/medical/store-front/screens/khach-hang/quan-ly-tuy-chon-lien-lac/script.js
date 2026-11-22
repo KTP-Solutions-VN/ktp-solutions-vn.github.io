@@ -6,7 +6,7 @@
       btn.disabled = true;
       btn.textContent = 'Saving…';
       setTimeout(function () {
-        CJ.toast('Contact preferences saved.', 'success');
+        CJ.toast('Communication settings saved.', 'success');
         setTimeout(function () { window.location.href = ACCOUNT_URL; }, 500);
       }, 500);
     });

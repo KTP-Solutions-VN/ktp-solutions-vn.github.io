@@ -1,10 +1,10 @@
-# OWP-016 — Báo cáo thanh toán hàng tháng cho Chủ sở hữu
+# OWP-016 — Tổng hợp chi trả hằng tháng (Monthly Payout Summary)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `ExternalUserController::paymentReport($villa_id)` — không có route đẹp riêng, mở từ OWP-005 (icon $), dạng `.../payment-report/{villa_id_base64}`
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 

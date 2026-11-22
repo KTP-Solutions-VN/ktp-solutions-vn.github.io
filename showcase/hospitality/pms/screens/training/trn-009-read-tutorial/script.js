@@ -63,14 +63,14 @@
       else {
         readingComplete = true;
         TRN.recordReading(id, TRN.CURRENT_USER_ID, TRN.CURRENT_USER, true);
-        MM.showToast('Tutorial complete');
+        MM.showToast('Lesson complete');
         setTimeout(function () { window.location.href = '../trn-008-my-training-record/index.html'; }, 700);
       }
     });
     document.getElementById('stop-btn').addEventListener('click', function () {
       if (idx === slides.length - 1 && !readingComplete) {
         TRN.recordReading(id, TRN.CURRENT_USER_ID, TRN.CURRENT_USER, true);
-        MM.showToast('Tutorial complete');
+        MM.showToast('Lesson complete');
       } else {
         TRN.recordReading(id, TRN.CURRENT_USER_ID, TRN.CURRENT_USER, false);
       }

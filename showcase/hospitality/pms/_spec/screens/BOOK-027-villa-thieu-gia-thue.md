@@ -1,7 +1,7 @@
-# BOOK-027 — Villa thiếu giá thuê
+# BOOK-027 — Tài sản chưa có giá (Unpriced Properties)
 **Loại:** Trang đầy đủ
 **Route:** booking/missingRates (query `?id=<business_unit_id>`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Liệt kê các villa chưa được thiết lập giá thuê hàng ngày (villa daily price) từ ngày hiện tại đến "ngày mốc" đã cấu hình ở BOOK-027-P1, để người quản lý biết villa nào cần bổ sung giá trước khi khách có thể đặt/hiển thị trên kênh OTA.
@@ -21,6 +21,6 @@ Tiêu đề trang còn hiển thị "ngày mốc" hiện tại đang áp dụng 
 - Xem danh sách villa thiếu giá (không có thao tác sửa trực tiếp trên trang này — cần vào màn hình quản lý giá villa/mùa giá tương ứng để bổ sung).
 
 ## Điều hướng
-- Mở từ: Menu Cài đặt (Settings) → Villa thiếu giá thuê.
-- Điều hướng tới: các màn hình cấu hình giá villa (BOOK-023 Giá thuê villa, BOOK-028 Quản lý mùa giá, BOOK-030 Cập nhật giá phòng từ kênh OTA) để bổ sung giá còn thiếu.
+- Mở từ: Menu Cài đặt (Settings) → Tài sản chưa có giá.
+- Điều hướng tới: các màn hình cấu hình giá villa (BOOK-023 Trung tâm giá, BOOK-028 Lịch mùa, BOOK-030 Cập nhật giá phòng từ kênh OTA) để bổ sung giá còn thiếu.
 - Popup con: BOOK-027-P1 (Cấu hình cảnh báo thiếu giá).

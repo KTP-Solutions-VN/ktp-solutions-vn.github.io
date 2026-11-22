@@ -1,10 +1,10 @@
-# OWP-009 — Maintenance Log
+# OWP-009 — Repair History
 
 **Type:** Full page
 
 **Route:** `ExternalUserController::maintenanceLog($id)` — friendly route: `/external-user/property/log/:id` (config/Routes.php line 108)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 

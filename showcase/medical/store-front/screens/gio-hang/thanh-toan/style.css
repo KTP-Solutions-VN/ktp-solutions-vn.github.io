@@ -1,4 +1,4 @@
-/* Screen-specific overrides: Guided Checkout (#7) */
+/* Screen-specific overrides: Details & Payment */
 @media (max-width: 900px) {
   #checkout-root { grid-template-columns: 1fr !important; }
 }

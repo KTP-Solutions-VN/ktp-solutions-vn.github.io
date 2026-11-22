@@ -1,10 +1,10 @@
-# ACC-056-P2 — Popup sửa Rebill
+# ACC-056-P2 — Sửa khoản tính lại (Edit Owner Recharge)
 
 **Loại:** Popup (mở từ ACC-056)
 
 **Route:** `AccountController::editRebill($id)` — mặc định `/account/edit-rebill/<id>`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Form sửa bản ghi Rebill đã có — cùng cấu trúc field với ACC-056-P1, dữ liệu được nạp sẵn từ bản ghi `VillaExpense` (giải mã JSON cột `data` thành các dòng chi phí).
@@ -28,5 +28,5 @@ Form sửa bản ghi Rebill đã có — cùng cấu trúc field với ACC-056-P
 - Nếu `id` không hợp lệ: báo lỗi "Invalid URL" và quay lại ACC-056.
 
 ## Điều hướng
-- Vào từ: ACC-056 (Rebill) — nút Sửa trên từng dòng.
+- Vào từ: ACC-056 (Khoản tính lại cho chủ nhà) — nút Sửa trên từng dòng.
 - Điều hướng đến: quay lại ACC-056 sau khi lưu hoặc hủy.

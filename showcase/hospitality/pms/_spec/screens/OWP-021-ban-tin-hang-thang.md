@@ -1,10 +1,10 @@
-# OWP-021 — Bản tin hàng tháng
+# OWP-021 — Bản tin chủ nhà (Owner Bulletin)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `ExternalUserController::MonthlyNewsletter()` — không có route đẹp riêng (mặc định `/external-user/monthly-newsletter`)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 
@@ -27,5 +27,5 @@ Danh sách — cột hiển thị:
 
 ## Điều hướng
 
-- Truy cập từ menu chính (Monthly Newsletter)
+- Truy cập từ menu chính (Owner Bulletin)
 - Không có điều hướng tiếp — icon mắt mở popup tại chỗ, icon tải mở/tải file PDF

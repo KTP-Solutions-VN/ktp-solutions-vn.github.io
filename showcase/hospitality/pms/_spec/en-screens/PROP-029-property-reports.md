@@ -1,8 +1,8 @@
-# PROP-029 — Property Reports
+# PROP-029 — Contract Reports
 
 **Type:** Full page
 **Route:** property/property-reports/:tab/:villa_id
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 A tabbed container page for Property-related reports. Currently only one tab is active — "Contracts" (contract report) — filterable by Business Unit. The tab's detailed content is rendered via the `property/contract_report` element.

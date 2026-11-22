@@ -29,7 +29,7 @@
       if (discountAmount > subtotal) discountAmount = subtotal;
     }
     var afterDiscount = subtotal - discountAmount;
-    var gst = afterDiscount * 0.09;
+    var gst = afterDiscount * 0.10;
 
     var loyaltyToggle = document.getElementById('loyalty-toggle').checked;
     var loyaltyInput = parseInt(document.getElementById('loyalty-input').value, 10) || 0;
@@ -63,7 +63,7 @@
       var meta = CHANNEL_META[g.source];
       var title = meta.label + (g.eventName ? ': ' + g.eventName : '');
       var detail = '';
-      if (g.fulfillment === 'delivery') detail = customer.addresses.length ? customer.addresses[0].line1 + ', Singapore ' + customer.addresses[0].postalCode : 'No saved address — add one at checkout';
+      if (g.fulfillment === 'delivery') detail = customer.addresses.length ? customer.addresses[0].line1 + ' NSW ' + customer.addresses[0].postalCode : 'No saved address — add one at checkout';
       else if (g.fulfillment === 'self-collection') detail = g.eventName ? g.eventName + ' — Collection Point' : 'Meridian concierge counter';
       else detail = g.items.filter(function (i) { return i.slot; }).map(function (i) { return CJ.formatDate(i.slot.date) + ' ' + i.slot.timeSlot; }).join(', ') || 'Confirmed per selected slot';
       return '<div class="co-group-row"><span><span class="badge ' + meta.badgeCls + '">' + title + '</span> ' + FULFILLMENT_LABEL[g.fulfillment] + '</span><span class="text-sm text-muted">' + detail + '</span></div>';
@@ -93,7 +93,7 @@
 
     document.getElementById('cc-name').textContent = customer.name;
     document.getElementById('cc-email').textContent = customer.email;
-    document.getElementById('loyalty-balance-label').textContent = getLoyaltyBalance().toLocaleString('en-SG') + ' points available';
+    document.getElementById('loyalty-balance-label').textContent = getLoyaltyBalance().toLocaleString('en-AU') + ' points available';
 
     var hasAssisted = cart.some(function (i) { return i.purchaseSource !== 'online'; });
     if (hasAssisted) document.getElementById('staff-assist-banner').style.display = 'block';
@@ -153,7 +153,7 @@
             subtotal: gSub,
             discountCode: appliedDiscount ? appliedDiscount.code : null,
             discountAmount: gDiscount,
-            gstRate: 0.09,
+            gstRate: 0.10,
             gstAmount: gGst,
             loyaltyPointsUsed: Math.round(gLoyalty * 100),
             loyaltyPointsEarned: Math.round(gSub * 0.4),
@@ -161,9 +161,9 @@
             guestCheckout: isGuest,
             paymentMethod: payMethod,
             total: gSub - gDiscount + gGst - gLoyalty,
-            currency: 'SGD',
+            currency: 'AUD',
             trackingTimeline: [
-              { status: 'Order Placed', timestamp: now, note: 'Order placed via Guided Checkout' },
+              { status: 'Order Placed', timestamp: now, note: 'Order placed via online checkout' },
               { status: 'Payment Confirmed', timestamp: now, note: 'Paid via ' + payMethod }
             ]
           };

@@ -1,11 +1,11 @@
-# REN-004 — Sửa dự án cải tạo
+# REN-004 — Sửa dự án nâng cấp (Edit Refurbishment Project)
 
 **Loại:** Trang đầy đủ
 **Route:** renovation/edit/:renovation_id + route đẹp dạng dashed: renovation/edit/:renovation_id (id truyền base64)
-**Module:** REN = Cải tạo
+**Module:** REN = Nâng cấp tài sản
 
 ## Mô tả ngắn gọn
-Form chỉnh sửa thông tin khởi tạo của một dự án cải tạo: đơn vị kinh doanh, villa, tiêu đề dự án, ngày bắt đầu/hoàn thành dự kiến và danh sách hạng mục/ngân sách dự kiến. Cấu trúc field tương tự REN-001 (Tạo dự án cải tạo mới) nhưng nạp sẵn dữ liệu hiện có; khi lưu sẽ xóa toàn bộ `RenovationItem` cũ và tạo lại theo danh sách mới nhập.
+Form chỉnh sửa thông tin khởi tạo của một dự án cải tạo: đơn vị kinh doanh, villa, tiêu đề dự án, ngày bắt đầu/hoàn thành dự kiến và danh sách hạng mục/ngân sách dự kiến. Cấu trúc field tương tự REN-001 (Tạo dự án nâng cấp) nhưng nạp sẵn dữ liệu hiện có; khi lưu sẽ xóa toàn bộ `RenovationItem` cũ và tạo lại theo danh sách mới nhập.
 
 ## Mô tả chi tiết
 
@@ -23,5 +23,5 @@ Form chỉnh sửa thông tin khởi tạo của một dự án cải tạo: đ�
 - **Thêm hạng mục mới**: thêm một dòng `item[]`/`budget[]`.
 
 ## Điều hướng
-- Vào từ: icon "Sửa" tại REN-002 — Theo dõi cải tạo.
-- Đi tới: sau khi lưu thành công, quay về REN-002 — Theo dõi cải tạo.
+- Vào từ: icon "Sửa" tại REN-002 — Theo dõi nâng cấp.
+- Đi tới: sau khi lưu thành công, quay về REN-002 — Theo dõi nâng cấp.

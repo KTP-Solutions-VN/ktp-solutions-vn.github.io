@@ -1,9 +1,9 @@
-# BOOK-068 — Thêm trạng thái giá villa
+# BOOK-068 — Thêm trạng thái gói giá (New Rate Plan Status)
 
 **Loại:** Trang đầy đủ (trang con, điều hướng từ BOOK-067 — không phải popup/modal)
 **Route:** Booking/ratesStatusAdd (mặc định: `/booking/rates-status-add`)
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Form thêm mới một bản ghi trạng thái giá thuê (`VillaRateStatus`) cho villa: chọn loại giá (Yearly/Monthly/Daily) và ngày áp dụng.

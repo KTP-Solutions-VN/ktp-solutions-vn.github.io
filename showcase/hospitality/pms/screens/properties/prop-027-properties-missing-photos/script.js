@@ -2,13 +2,13 @@
   'use strict';
 
   var MOCK_ISSUES = [
-    { villaId: 'PV-105', property: 'Villa Marble Cove', bu: 'Phuket Collection', status: 'No photo set', statusKey: 'none', issues: ['No photos uploaded'], priority: 'high', nextAction: 'Schedule an initial shoot' },
-    { villaId: 'PV-107', property: 'Villa Golden Palm', bu: 'Koh Samui Estates', status: 'Partial set', statusKey: 'partial', issues: ['Missing bedroom photos', 'Missing pool deck'], priority: 'high', nextAction: 'Book a follow-up shoot' },
-    { villaId: 'PV-104', property: 'Villa Azure Ridge', bu: 'Bali Retreats', status: 'Partial set', statusKey: 'partial', issues: ['Missing living room'], priority: 'medium', nextAction: 'Request 3 additional shots' },
-    { villaId: 'PV-201', property: 'Villa Turquoise Reef', bu: 'Phuket Collection', status: 'Outdated set', statusKey: 'outdated', issues: ['Shot over 18 months ago', 'Off-standard lighting'], priority: 'medium', nextAction: 'Plan a re-shoot' },
-    { villaId: 'PV-202', property: 'Villa Palm Residence — Unit 3', bu: 'Bali Retreats', status: 'No photo set', statusKey: 'none', issues: ['No photos uploaded'], priority: 'high', nextAction: 'Schedule an initial shoot' },
-    { villaId: 'PV-203', property: 'Villa Orchid Rise', bu: 'Bali Retreats', status: 'Outdated set', statusKey: 'outdated', issues: ['Shot over 2 years ago'], priority: 'low', nextAction: 'Add to next quarter\'s plan' },
-    { villaId: 'PV-204', property: 'Villa Amber Cove', bu: 'Koh Samui Estates', status: 'Partial set', statusKey: 'partial', issues: ['Missing exterior/garden'], priority: 'low', nextAction: 'Add to next quarter\'s plan' }
+    { villaId: 'PV-105', property: 'Villa Marble Cove', bu: 'Sentosa Collection', status: 'No photo set', statusKey: 'none', issues: ['No photos uploaded'], priority: 'high', nextAction: 'Schedule an initial shoot' },
+    { villaId: 'PV-107', property: 'Villa Golden Palm', bu: 'Noosa Estates', status: 'Partial set', statusKey: 'partial', issues: ['Missing bedroom photos', 'Missing pool deck'], priority: 'high', nextAction: 'Book a follow-up shoot' },
+    { villaId: 'PV-104', property: 'Villa Azure Ridge', bu: 'Byron Bay Retreats', status: 'Partial set', statusKey: 'partial', issues: ['Missing living room'], priority: 'medium', nextAction: 'Request 3 additional shots' },
+    { villaId: 'PV-201', property: 'Villa Turquoise Reef', bu: 'Sentosa Collection', status: 'Outdated set', statusKey: 'outdated', issues: ['Shot over 18 months ago', 'Off-standard lighting'], priority: 'medium', nextAction: 'Plan a re-shoot' },
+    { villaId: 'PV-202', property: 'Villa Palm Residence — Unit 3', bu: 'Byron Bay Retreats', status: 'No photo set', statusKey: 'none', issues: ['No photos uploaded'], priority: 'high', nextAction: 'Schedule an initial shoot' },
+    { villaId: 'PV-203', property: 'Villa Orchid Rise', bu: 'Byron Bay Retreats', status: 'Outdated set', statusKey: 'outdated', issues: ['Shot over 2 years ago'], priority: 'low', nextAction: 'Add to next quarter\'s plan' },
+    { villaId: 'PV-204', property: 'Villa Amber Cove', bu: 'Noosa Estates', status: 'Partial set', statusKey: 'partial', issues: ['Missing exterior/garden'], priority: 'low', nextAction: 'Add to next quarter\'s plan' }
   ];
 
   var priorityBadge = { high: 'badge-danger', medium: 'badge-warning', low: 'badge-neutral' };

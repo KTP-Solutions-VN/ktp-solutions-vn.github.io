@@ -1,10 +1,10 @@
-# OWP-004 — Personal Profile
+# OWP-004 — My Account
 
 **Type:** Full page
 
 **Route:** `ExternalUserController::profile()` — no dedicated friendly route (default `/external-user/profile`)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 

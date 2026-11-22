@@ -1,10 +1,10 @@
-# OWN-008-P2 — Chỉnh sửa chi tiết thanh toán chủ sở hữu
+# OWN-008-P2 — Sửa tài khoản nhận tiền (Edit Owner Payout Account)
 
 **Loại:** Popup (mở từ OWN-008)
 
 **Route:** `/Owner/editPaymentDetail/{id}` (controller `Owner`, action `editPaymentDetail($id)`)
 
-**Module:** Quản lý chủ sở hữu (Admin)
+**Module:** Quan hệ chủ nhà (Admin)
 
 ## Mô tả ngắn gọn
 
@@ -27,7 +27,7 @@ Form chỉnh sửa một tài khoản/chi tiết thanh toán (ngân hàng) đã 
 ## Chức năng/nút thao tác
 
 - **Save**: cập nhật bản ghi `OwnerBankAccount`; nếu đổi `payment_type` thì bản ghi cùng loại còn lại của owner sẽ tự chuyển sang loại đối lập; ghi log hoạt động; sau khi lưu chuyển hướng tới OWN-008 (`payment/{owner_id}`).
-- **Cancel**: quay lại OWN-001 (Danh sách chủ sở hữu).
+- **Cancel**: quay lại OWN-001 (Tài khoản chủ nhà).
 
 ## Điều hướng
 

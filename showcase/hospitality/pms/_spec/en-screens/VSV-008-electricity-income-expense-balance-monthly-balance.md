@@ -1,10 +1,10 @@
-# VSV-008 — Electricity Income/Expense Balance (Monthly Balance)
+# VSV-008 — Power Cost Recovery
 
 **Type:** Full page
 
 **Route:** `VillaServicesController::monthlyBalance()` — defaults to `/villa-services/monthly-balance` (POST to the same action for search)
 
-**Module:** Villa Services — Electricity
+**Module:** In-Stay Services — Metering
 
 ## Overview
 A page for reconciling the electricity amount collected from guests (at check-out) against the amount payable to the provider/monthly bill, over a date range, either per villa or across the full villa list.
@@ -42,5 +42,5 @@ A page for reconciling the electricity amount collected from guests (at check-ou
 - No add/edit/delete buttons — this is a read-only reporting/reconciliation screen.
 
 ## Navigation
-- Entered from: Main menu (Electricity/Monthly Balance item).
+- Entered from: Main menu (Power Cost Recovery item).
 - Navigates to: no child page.

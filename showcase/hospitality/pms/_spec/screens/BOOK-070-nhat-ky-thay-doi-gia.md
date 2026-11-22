@@ -1,9 +1,9 @@
-# BOOK-070 — Nhật ký thay đổi giá
+# BOOK-070 — Ghi chú thay đổi giá (Price Change Notes)
 
 **Loại:** Trang đầy đủ
 **Route:** Booking/ratesLogs (mặc định: `/booking/rates-logs`)
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Trang ghi nhận và tra cứu nhật ký các thay đổi/ghi chú liên quan đến giá villa, có thể khai báo theo 3 cấp: Villa (Property), Khu (Residence) hoặc Toà/Đơn nguyên (Unit). Hỗ trợ thêm/sửa/xoá log ngay trên trang qua popup.

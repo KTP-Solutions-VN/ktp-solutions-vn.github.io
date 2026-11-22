@@ -1,4 +1,4 @@
-# BOOK-095 — WhatsApp Manager (New Version)
+# BOOK-095 — Chat Inbox
 
 **Type:** Full page (tabbed)
 
@@ -6,15 +6,15 @@
 
 **Pretty route:** No dedicated route found in config/Routes.php (uses the default route)
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 
-An upgraded version of BOOK-094, consisting of 2 tabs: "WhatsApp Manager" (list of bookings with a WhatsApp chat channel, similar to BOOK-094 but with an added phone number change warning) and "Notifications" (configures the WhatsApp notification level for each staff member within a business unit).
+An upgraded version of BOOK-094, consisting of 2 tabs: "Chat Inbox" (list of bookings with a WhatsApp chat channel, similar to BOOK-094 but with an added phone number change warning) and "Notifications" (configures the WhatsApp notification level for each staff member within a business unit).
 
 ## Detailed Description
 
-**Tab 1 — WhatsApp Manager** (list, filtered by Business Unit):
+**Tab 1 — Chat Inbox** (list, filtered by Business Unit):
 
 | # | Displayed Column | Field Code | Notes |
 |---|---|---|---|
@@ -40,6 +40,6 @@ An upgraded version of BOOK-094, consisting of 2 tabs: "WhatsApp Manager" (list 
 
 ## Navigation
 
-- Accessed from: WhatsApp menu (replaces BOOK-094).
-- → BOOK-095-P1 (WhatsApp Chat, new version) when clicking the Chat button.
-- Contains a help link to BOOK-096 (WhatsApp Help).
+- Accessed from: Chat Inbox menu (replaces BOOK-094).
+- → BOOK-095-P1 (Chat Thread) when clicking the Chat button.
+- Contains a help link to BOOK-096 (Chat Service Health).

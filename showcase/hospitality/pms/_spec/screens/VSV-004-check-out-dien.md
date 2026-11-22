@@ -1,10 +1,10 @@
-# VSV-004 — Check-out điện (danh sách)
+# VSV-004 — Chỉ số điện khi đi (Departure Meter Reading)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `VillaServicesController::checkOut()` — mặc định `/villa-services/check-out`
 
-**Module:** Dịch vụ villa — Điện
+**Module:** Dịch vụ lưu trú — Đo điện
 
 ## Mô tả ngắn gọn
 Liệt kê các booking check-out trong ngày để nhân viên nhập chỉ số đồng hồ điện cuối kỳ (end meter), tính tiền điện phải thu và ghi nhận thanh toán.
@@ -27,7 +27,7 @@ Bảng danh sách booking check-out ngày đã chọn:
 | 8 | Số tiền đã thu | `received` | `ElectricalBill.recieved` |
 | 9 | Phụ phí | `additional_fees` | `ElectricalBill.additional_fees` |
 | 10 | Ghi chú | `note` | `ElectricalBill.note` |
-| 11 | Hành động | — | "Fill it now" → mở VSV-004-P1 (Nhập chỉ số đồng hồ cuối kỳ) |
+| 11 | Hành động | — | "Fill it now" → mở VSV-004-P1 (Ghi chỉ số khi đi) |
 
 Nếu chọn villa cụ thể mà booking đó **chưa có start meter** → cảnh báo "No Start Meter" (không cho vào end meter), ghi nhận noticeboard nhắc nhở nhân viên đã bỏ sót bước check-in.
 
@@ -37,5 +37,5 @@ Nếu chọn villa cụ thể mà booking đó **chưa có start meter** → c�
 - Nếu villa được chọn có đúng 1 booking khớp và đã có start meter → tự động redirect thẳng sang VSV-004-P1.
 
 ## Điều hướng
-- Vào từ: Menu chính (mục Electricity/Check-out) hoặc sau khi lưu VSV-004-P1 (redirect quay lại).
-- Điều hướng đến: VSV-004-P1 (Nhập chỉ số đồng hồ cuối kỳ).
+- Vào từ: Menu chính (mục Departure Meter Reading) hoặc sau khi lưu VSV-004-P1 (redirect quay lại).
+- Điều hướng đến: VSV-004-P1 (Ghi chỉ số khi đi).

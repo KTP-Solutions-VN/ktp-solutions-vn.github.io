@@ -1,9 +1,9 @@
-# BOOK-067 — Trạng thái cập nhật giá villa
+# BOOK-067 — Trạng thái gói giá (Rate Plan Status)
 
 **Loại:** Trang đầy đủ
 **Route:** Booking/ratesStatus (mặc định: `/booking/rates-status`)
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Trang tra cứu trạng thái giá thuê hiện tại (Monthly/Daily/Yearly) của villa theo đơn vị kinh doanh: xem danh sách tổng quan tất cả villa đang áp dụng giá thuê tháng (Monthly) cùng ngày đến hạn thanh toán tiếp theo, hoặc tra cứu lịch sử chuyển đổi trạng thái giá của một villa cụ thể.
@@ -34,7 +34,7 @@ Danh sách được sắp xếp tăng dần theo `next_due_date`.
 |---|---|---|
 | 1 | Since | Ngày bắt đầu áp dụng trạng thái |
 | 2 | Till | Ngày kết thúc trạng thái (rỗng nếu đang áp dụng) |
-| 3 | Status | Loại giá (Monthly/Daily/Yearly); nếu là Monthly là link mở BOOK-076 (Xem giá thuê theo tháng) |
+| 3 | Status | Loại giá (Monthly/Daily/Yearly); nếu là Monthly là link mở BOOK-076 (Điều khoản thuê tháng) |
 | 4 | Note | Ghi chú (ví dụ số tiền thuê/tháng hoặc ngày đến hạn) |
 
 Phía trên bảng 2 có nút:
@@ -49,4 +49,4 @@ Phía trên bảng 2 có nút:
 
 ## Điều hướng
 - Mở từ: BOOK-066 (nút Status)
-- Điều hướng tới: BOOK-069 (Popup sửa/thanh toán/kết thúc giá), BOOK-075 (Đổi giá villa nhanh), BOOK-076 (Xem giá thuê theo tháng)
+- Điều hướng tới: BOOK-069 (Popup xử lý tiền thuê tháng), BOOK-075 (Đổi cách tính giá), BOOK-076 (Điều khoản thuê tháng)

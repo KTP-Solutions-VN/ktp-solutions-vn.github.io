@@ -1,4 +1,4 @@
-# BOOK-094 — WhatsApp Manager (bản cũ)
+# BOOK-094 — Hộp thư chat – bản cổ điển (Chat Inbox (Classic))
 
 **Loại:** Trang đầy đủ
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định)
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 
@@ -36,6 +36,6 @@ Danh sách các booking đang có kênh chat qua WhatsApp (chat_platform_id = 14
 
 ## Điều hướng
 
-- Vào từ menu WhatsApp.
-- → BOOK-094-P1 (Chat WhatsApp) khi bấm nút Chat trên từng dòng.
-- Phiên bản thay thế hiện hành: BOOK-095 (WhatsApp Manager bản mới, có thêm tab Notifications).
+- Vào từ menu Chat Inbox.
+- → BOOK-094-P1 (Luồng chat – bản cổ điển) khi bấm nút Chat trên từng dòng.
+- Phiên bản thay thế hiện hành: BOOK-095 (Chat Inbox, có thêm tab Notifications).

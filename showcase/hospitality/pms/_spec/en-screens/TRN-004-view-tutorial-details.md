@@ -1,8 +1,8 @@
-# TRN-004 — View Tutorial Details
+# TRN-004 — Lesson Overview
 
 **Type:** Full page
 **Route:** `TrainingController::viewTutorial($id)` — `/training/view-tutorial/{id}`
-**Module:** TRN = Training
+**Module:** TRN = Staff Academy
 
 ## Overview
 Read-only page displaying the full information of a Tutorial along with the list of Slides and Quiz questions (if any) it contains.

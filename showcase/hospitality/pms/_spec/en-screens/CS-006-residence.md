@@ -1,10 +1,10 @@
-# CS-006 — Residence
+# CS-006 — Residence Setup
 
 **Type:** Full page
 
 **Route:** `CommonSettingController::residences()` — default `/common-setting/residences`
 
-**Module:** CS = Common Lookup Settings
+**Module:** CS = Reference Data
 
 ## Overview
 A list for managing the Residence lookup data (a property/real-estate cluster) — a child level of Area, with a cover image, contact information, and a dedicated code, used as the parent lookup for the Unit lookup (CS-008).
@@ -32,5 +32,5 @@ List (DataTable `#zero_config`, sorted by Country > Region > District > Area > R
 - Duplicate check: on Add/Edit, the system performs a server-side check on the combination (`country_id`, `region_id`, `district_id`, `area_id`, `name`) to see if it already exists (`checkResidence`); if duplicated, an error is shown and the record is not saved.
 
 ## Navigation
-- Accessed from: System Settings menu > Common Lookup Settings > Residence.
-- Navigates to: CS-006-P1 (Add/Edit/Delete Residence popup); Residence data is used as the parent dropdown in CS-008 (Unit).
+- Accessed from: Configuration menu > Reference Data > Residence Setup.
+- Navigates to: CS-006-P1 (Residence Form popup); Residence data is used as the parent dropdown in CS-008 (Unit Setup).

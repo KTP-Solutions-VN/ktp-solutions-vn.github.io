@@ -1,8 +1,8 @@
-# BOOK-042 — Danh sách đặt phòng trực tiếp (Direct Booking)
+# BOOK-042 — Yêu cầu lưu trú trực tiếp (Direct Stay Requests)
 
 **Loại:** Trang đầy đủ
 **Route:** Booking/directBookingList (mặc định: `/booking/direct-booking-list`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Danh sách các yêu cầu đặt phòng trực tiếp (không qua OTA) do chủ villa/đối tác gửi lên, chờ duyệt hoặc đã xử lý, kèm trạng thái phê duyệt.
@@ -29,5 +29,5 @@ Danh sách các yêu cầu đặt phòng trực tiếp (không qua OTA) do chủ
 - Xoá yêu cầu (deleteDirectBooking)
 
 ## Điều hướng
-- Mở từ: Menu module Đặt phòng > Direct Booking
-- Điều hướng tới: BOOK-043 (Thêm), BOOK-044 (Sửa), BOOK-045 (Xem), BOOK-046 (Danh sách đã huỷ)
+- Mở từ: Menu module Đặt chỗ > Direct Stay Requests
+- Điều hướng tới: BOOK-043 (Thêm), BOOK-044 (Sửa), BOOK-045 (Xem), BOOK-046 (Yêu cầu lưu trú đã hủy)

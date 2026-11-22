@@ -1,10 +1,10 @@
-# OWP-005 — Property List
+# OWP-005 — My Portfolio
 
 **Type:** Full page
 
 **Route:** `ExternalUserController::list()` — friendly route: `/external-user/property/list` (config/Routes.php line 107)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 
@@ -36,5 +36,5 @@ Filters/controls:
 
 ## Navigation
 
-- Accessed from the main menu (Property) or redirected here after login (OWP-001)
-- Click a row → OWP-006 Property Detail
+- Accessed from the main menu (My Portfolio) or redirected here after login (OWP-001)
+- Click a row → OWP-006 Property Snapshot

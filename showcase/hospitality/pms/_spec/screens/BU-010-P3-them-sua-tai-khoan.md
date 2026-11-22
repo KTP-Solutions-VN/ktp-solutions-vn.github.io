@@ -1,10 +1,10 @@
-# BU-010-P3 — Thêm/Sửa tài khoản
+# BU-010-P3 — Form tài khoản ngân hàng (Bank Account Form)
 
 **Loại:** Trang con (mở từ BU-010, tab Tài khoản — thay thế bảng danh sách khi có tham số `page_action=add|edit`)
 
 **Route:** `BusinessUnitController::paymentMethod('accounts', 'add')` hoặc `paymentMethod('accounts', 'edit', $id)` — mặc định `/business-unit/payment-method/accounts/add` hoặc `/business-unit/payment-method/accounts/edit/{id}`
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Biểu mẫu đầy đủ để thêm mới hoặc chỉnh sửa một Tài khoản (Account) dùng để nhận/chi tiền, gồm loại tài khoản, thông tin ngân hàng, Đơn vị kinh doanh phục vụ và các phương thức thanh toán được chấp nhận.

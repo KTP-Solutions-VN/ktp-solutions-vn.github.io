@@ -1,13 +1,13 @@
-# OPR-018 — Garden Team Configuration (Garden Teams)
+# OPR-018 — Garden Crew Setup
 
 **Type:** Full page
 **Route:** villa-services/gardenTeams + dashed-style pretty route: villa-services/garden-teams
-**Module:** OPR = Garden/Pool Operations
+**Module:** OPR = Upkeep Jobs
 
 > Note: the view file `garden_teams.ctp` resides in the `Operator` theme folder, but the action that executes it belongs to `VillaServicesController::gardenTeams()`, not `OperatorController`.
 
 ## Overview
-Screen for declaring the garden teams for a specific day and business unit: each team has a working time window (start/end time) and a list of members (gardeners) added to it; this data serves as input for OPR-017 (Garden Job Planning).
+Screen for declaring the garden teams for a specific day and business unit: each team has a working time window (start/end time) and a list of members (gardeners) added to it; this data serves as input for OPR-017 (Garden Round Planner).
 
 ## Detailed Description
 
@@ -26,5 +26,5 @@ Screen for declaring the garden teams for a specific day and business unit: each
 - **Save**: sends AJAX `saveGardenTeams` to save the full configuration of teams/time windows/members for the selected date + BU (`GardenTeams` table, `members` column serialized).
 
 ## Navigation
-- Entered from: the "Garden Teams" menu in the sidebar (garden operations group).
-- Leads to: no navigation to another page; the data saved here is used by OPR-017 (Garden Planning) to assign villas to each team's slot.
+- Entered from: the "Garden Crew Setup" menu in the sidebar (upkeep jobs group).
+- Leads to: no navigation to another page; the data saved here is used by OPR-017 (Garden Round Planner) to assign villas to each team's slot.

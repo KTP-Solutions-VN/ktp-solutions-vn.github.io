@@ -1,10 +1,10 @@
-# OWN-015 — Edit Agency Staff
+# OWN-015 — Edit Agency User
 
 **Type:** Full page
 
 **Route:** `/Owner/editAgencyStaff/{id}` (controller `Owner`, action `editAgencyStaff($id)`)
 
-**Module:** Owner Management (Admin)
+**Module:** Owner Relations (Admin)
 
 ## Overview
 
@@ -32,7 +32,7 @@ A form for editing an existing Agency staff account. The field layout is the sam
 
 ## Functions / Actions
 
-- **Save**: updates `AgencyStaff`; deletes and re-creates all related `UserBusinessUnit`/`UserRole` records; logs the activity; then redirects to OWN-013 (Agency Staff List).
+- **Save**: updates `AgencyStaff`; deletes and re-creates all related `UserBusinessUnit`/`UserRole` records; logs the activity; then redirects to OWN-013 (Agency Users).
 - **Cancel**: returns to OWN-013.
 
 ## Navigation

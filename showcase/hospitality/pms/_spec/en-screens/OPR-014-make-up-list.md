@@ -1,11 +1,11 @@
-# OPR-014 — Make Up List
+# OPR-014 — Final Prep Rounds
 
 **Type:** Full page
 **Route:** operator/makeUp + dashed-style pretty route: operator/make-up
-**Module:** OPR = Garden/Pool Operations
+**Module:** OPR = Upkeep Jobs
 
 ## Overview
-Screen for staff to select a business unit and villa to start a "Make Up" round (final cleaning/villa preparation). Structure and flow are similar to OPR-007 (Cleaning) but dedicated to the make-up process.
+Screen for staff to select a business unit and villa to start a "Make Up" round (final cleaning/villa preparation). Structure and flow are similar to OPR-007 (Housekeeping Rounds) but dedicated to the make-up process.
 
 ## Detailed Description
 
@@ -20,5 +20,5 @@ Screen for staff to select a business unit and villa to start a "Make Up" round 
 - Changing **Business unit**: reloads the villa list.
 
 ## Navigation
-- Entered from: the "Make Up" menu in the sidebar.
-- Leads to: OPR-015 — Perform Make Up by Point.
+- Entered from: the "Final Prep Rounds" menu in the sidebar.
+- Leads to: OPR-015 — Final Prep Checklist.

@@ -1,10 +1,10 @@
-# BOOK-001 — Check-in / Check-out Calendar
+# BOOK-001 — Arrivals & Departures
 **Type:** Full page
 **Route:** Booking/list (default: `/booking/list`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
-The homepage/dashboard screen of the Booking module, displaying two daily tables: the list of guests **checking out** on the day (red-highlighted band) and the list of guests **checking in** on the day (green-highlighted band), grouped by Business Unit/Zone. It allows quick navigation between dates, filtering by business unit, service type, and the concierge's personal schedule, plus quick actions (assigning a concierge, setting check-in/check-out times, adding remarks, approving guest requests).
+The homepage/dashboard screen of the Reservations module, displaying two daily tables: the list of guests **checking out** on the day (red-highlighted band) and the list of guests **checking in** on the day (green-highlighted band), grouped by Business Unit/Zone. It allows quick navigation between dates, filtering by business unit, service type, and the concierge's personal schedule, plus quick actions (assigning a concierge, setting check-in/check-out times, adding remarks, approving guest requests).
 
 ## Detailed Description
 
@@ -53,6 +53,6 @@ The homepage/dashboard screen of the Booking module, displaying two daily tables
 - Add/edit/delete Business Unit popup (`#exampleModal`) and delete-booking confirmation popup (`#exampleModal2`)
 
 ## Navigation
-- Opened from: Main menu of the Booking module ("In & Out" / Check-in-Check-out Calendar)
-- Navigates to: Clicking the guest name/villa may open BOOK-009 (Booking Details) or BOOK-013 (Check-in Progress) depending on the workflow
+- Opened from: Main menu of the Reservations module ("Arrivals & Departures")
+- Navigates to: Clicking the guest name/villa may open BOOK-009 (Reservation Record) or BOOK-013 (Check-in Tracker) depending on the workflow
 - Sub-popups: assign-concierge popup, remark popup, delete-booking confirmation popup, airport transfer info popup (all are modals embedded within the same page, not separate actions)

@@ -1,9 +1,9 @@
-# BOOK-088 — Danh sách theo dõi (Watch List)
+# BOOK-088 — Lượt lưu trú cần theo dõi (Monitored Stays)
 
 **Loại:** Trang đầy đủ
 **Route:** Booking/watchList
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (URL dùng dạng `/booking/watch-list?business_unit=...` theo script trong view)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Danh sách các booking cần theo dõi đặc biệt dựa trên quốc tịch/số điện thoại khách (theo danh sách quốc gia được cấu hình theo dõi cho từng đơn vị kinh doanh), giúp phát hiện các booking từ nhóm khách cần chú ý (ví dụ theo mã vùng điện thoại quốc gia). Cho phép đánh dấu "đã xem" từng booking và xuất báo cáo Excel.
@@ -36,5 +36,5 @@ Chỉ hiển thị các booking có ngày check-out từ hôm qua trở đi, ch�
 - Link trạng thái **Group Chat** — mở/kích hoạt nhóm chat của booking (action `activateChat`)
 
 ## Điều hướng
-- Mở từ: Menu module Đặt phòng > Watch List
+- Mở từ: Menu module Đặt chỗ > Monitored Stays
 - Điều hướng tới: không có trang con riêng; mở nhóm chat qua action `activateChat` (ngoài phạm vi nhóm màn hình này)

@@ -1,10 +1,10 @@
-# ACC-040 — SIM Card Management (SIM Cards)
+# ACC-040 — Mobile Lines
 
 **Type:** Full page
 
 **Route:** `AccountController::simCards()` — default `/account/sim-cards`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 Manages the list of phone SIM cards (company assets, `Vehicle` table with `assets_type = 'sim_card'`) by Business Unit: view the list, add, edit, and delete via an on-page modal.
@@ -41,5 +41,5 @@ Query conditions: `Vehicle.assets_type = 'sim_card'` and `Vehicle.business_unit_
 - When Business Unit is changed within the modal: AJAX `account/getBusinessUsers` reloads the employee list (Used By) for that BU.
 
 ## Navigation
-- Entered from: Sidebar > Account & HR > SIM Cards (`active_menu = 'acc-simCards'`).
+- Entered from: Sidebar > Finance & Admin > Mobile Lines (`active_menu = 'acc-simCards'`).
 - No navigation to other pages — all add/edit/delete actions are performed via modal on this same page.

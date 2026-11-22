@@ -1,8 +1,8 @@
-# VCS-004-P1 — Add/Edit/Delete Service Popup
+# VCS-004-P1 — Catalog Service Form
 
 **Type:** Popup/Modal (opened from VCS-004)
 **Route:** No dedicated route — uses a shared form that POSTs to `villa-common-setting/services` (hidden `action`=`add`/`edit`/`delete`); duplicate-name check via AJAX `villa-common-setting/checkservice`
-**Module:** VCS = Villa Common Settings
+**Module:** VCS = Property Attributes
 
 ## Overview
 A shared Bootstrap modal (`#exampleModal`) covering the three Add/Edit/Delete Service scenarios. In Delete mode, the input section is hidden.
@@ -20,5 +20,5 @@ A shared Bootstrap modal (`#exampleModal`) covering the three Add/Edit/Delete Se
 - Validation: `name` is required + checked for duplicates via remote AJAX `checkservice`.
 
 ## Navigation
-- Opened from: VCS-004 (Add new / Edit / Delete buttons on the Services list table).
+- Opened from: VCS-004 (Add new / Edit / Delete buttons on the Service Catalog table).
 - Navigates to: no page change — after submission, VCS-004 is reloaded (redirect via `referer()`).

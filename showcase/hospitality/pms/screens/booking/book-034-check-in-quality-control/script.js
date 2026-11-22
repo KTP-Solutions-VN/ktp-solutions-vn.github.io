@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Find a matching booking to source the "assigned concierge" for comparison.
   var booking = BOOK.getAllBookings().filter(function (b) { return b.property === control.property; })[0];
-  var assigned = booking ? booking.concierge : 'Somchai Anuwat';
+  var assigned = booking ? booking.concierge : 'Daniel Tan';
   var mismatch = assigned !== control.staff;
 
   var performedEl = document.getElementById('qc-performed-by');

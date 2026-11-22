@@ -1,10 +1,10 @@
-# OWP-012 — Check-in List
+# OWP-012 — Upcoming Arrivals
 
 **Type:** Full page
 
 **Route:** `ExternalUserController::checkIn()` — no dedicated friendly route (default `/external-user/check-in`)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 
@@ -42,5 +42,5 @@ List — displayed columns:
 
 ## Navigation
 
-- Accessed from the main menu (Check-in)
+- Accessed from the main menu (Upcoming Arrivals)
 - No dedicated detail navigation (this is a consolidated list)

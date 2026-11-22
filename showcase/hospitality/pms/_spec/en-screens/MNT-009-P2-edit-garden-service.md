@@ -1,8 +1,8 @@
-# MNT-009-P2 — Edit Garden Service
+# MNT-009-P2 — Edit Garden Service Type
 
 **Type:** Popup (opened from MNT-009)
 **Route:** maintenance/editGardenService/:id
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Page for editing an existing garden service: name, illustrative image, applicable business unit(s), status.
@@ -21,5 +21,5 @@ Page for editing an existing garden service: name, illustrative image, applicabl
 - **Cancel**: returns to MNT-009.
 
 ## Navigation
-- Entered from: Edit icon on MNT-009 — Garden Services.
+- Entered from: Edit icon on MNT-009 — Garden Service Types.
 - Navigates to: after Save, returns to MNT-009.

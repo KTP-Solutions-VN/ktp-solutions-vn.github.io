@@ -1,9 +1,9 @@
-# BOOK-058 — Add Booking Confirmation Template
+# BOOK-058 — New Confirmation Layout
 
 **Type:** Popup/Page (opened from BOOK-057)
 **Route:** Booking/addConfirmationTemplate
 **Friendly route:** `/booking/confirmation-template/add`
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Form for creating a new PDF booking confirmation template: company/brand information (logo, address, contact details), applicable language, and the business units that use the template.

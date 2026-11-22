@@ -7,7 +7,7 @@
     var statuses = ['Open', 'In Progress', 'Completed', 'Archived'];
     return {
       id: 'insp' + i, bu: p.bu, property: p.name, task: 'Quarterly Inspection', status: statuses[i % 4],
-      createdBy: 'Somchai Anuwat', on: '2026-08-' + (10 + i),
+      createdBy: 'Daniel Tan', on: '2026-08-' + (10 + i),
       points: [
         { title: 'Living Room — Furniture Condition', desc: 'Check for wear, stains, or damage on sofas and chairs.', comments: [] },
         { title: 'Kitchen — Appliance Check', desc: 'Verify all appliances are functioning correctly.', comments: [] }

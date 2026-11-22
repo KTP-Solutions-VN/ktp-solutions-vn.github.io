@@ -1,8 +1,8 @@
-# GST-010 — Địa danh nổi bật quanh biệt thự
+# GST-010 — Điểm tham quan quanh đây (Sights Nearby)
 
 **Loại:** Trang đầy đủ
 **Route:** `Guest::landmark($booking_id = null)` — mặc định `/guest/landmark/:booking_id`; route đẹp (fallback DashedRoute): `/guest/landmark`
-**Module:** Cổng thông tin Khách
+**Module:** Không gian khách
 
 ## Mô tả ngắn gọn
 Hiển thị hình ảnh các địa danh/điểm đến nổi bật quanh khu vực (quận/huyện) nơi villa của khách toạ lạc. Nếu `booking_id` rỗng, tự động chuyển hướng về GST-002.

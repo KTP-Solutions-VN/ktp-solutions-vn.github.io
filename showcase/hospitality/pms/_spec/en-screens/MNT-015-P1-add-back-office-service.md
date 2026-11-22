@@ -1,8 +1,8 @@
-# MNT-015-P1 — Add Back Office Service
+# MNT-015-P1 — New Admin Service Type
 
 **Type:** Popup (opened from MNT-015)
 **Route:** maintenance/addBackOfficeService
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Page for adding a new back-office service: name, illustrative image (1:1 crop), status. Business unit cannot be manually selected — the system automatically applies the service to all active business units.
@@ -20,5 +20,5 @@ Page for adding a new back-office service: name, illustrative image (1:1 crop), 
 - **Cancel**: returns to MNT-015.
 
 ## Navigation
-- Entered from: "Add New" button on MNT-015 — Back Office Services.
+- Entered from: "Add New" button on MNT-015 — Admin Service Types.
 - Navigates to: after Save, returns to MNT-015.

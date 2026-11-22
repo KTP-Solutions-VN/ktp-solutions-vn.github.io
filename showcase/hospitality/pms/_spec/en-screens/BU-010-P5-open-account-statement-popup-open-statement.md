@@ -1,10 +1,10 @@
-# BU-010-P5 — Open Account Statement Popup (Open Statement)
+# BU-010-P5 — Open Account Ledger
 
 **Type:** Popup (opened from BU-010, Accounts tab)
 
 **Route:** Bootstrap modal (`#openStatementModal`) in the `business-unit/accounts.ctp` element; submitted via POST to `BusinessUnitController::openStatement()`.
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A popup for entering the Opening Date and Opening Balance to "open a statement" (activate transaction/statement tracking) for an account that has not yet been opened. Once opened, the system automatically creates an "Opening balance" (credit) entry as the starting balance; the icon in the list changes from "Open Account" to "Statement" and links directly to `Account::statements`.

@@ -1,8 +1,8 @@
-# PROP-022 — Add Property Bank Account
+# PROP-022 — Property Bank Details
 
 **Type:** Full page
 **Route:** property/payment-record/:villa_id (villa_id passed base64-encoded)
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Form for adding/updating the bank account information (Villa Bank Account) used to receive payments for a specific property. Each property has only one bank account record (if one already exists, submitting will update the existing record by its id).

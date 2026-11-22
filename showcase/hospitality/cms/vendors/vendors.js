@@ -57,10 +57,10 @@
     });
 
     document.getElementById('wiz-back-btn').style.visibility = (step === 1) ? 'hidden' : 'visible';
-    document.getElementById('wiz-next-btn').textContent = (step === TOTAL_STEPS) ? 'Create Vendor' : 'Next';
+    document.getElementById('wiz-next-btn').textContent = (step === TOTAL_STEPS) ? 'Create Operator' : 'Next';
 
     if (step === TOTAL_STEPS) {
-      document.getElementById('review-name').textContent = document.getElementById('wiz-name').value || '(unnamed vendor)';
+      document.getElementById('review-name').textContent = document.getElementById('wiz-name').value || '(unnamed operator)';
       var planLabel = document.querySelector('input[name="wiz-plan"]:checked').parentElement.querySelector('strong').textContent;
       document.getElementById('review-plan').textContent = planLabel;
     }
@@ -75,7 +75,7 @@
   document.getElementById('wiz-next-btn').addEventListener('click', function () {
     if (currentStep === TOTAL_STEPS) {
       window.CM.closeModal('modal-onboard-wizard');
-      window.CM.showToast('Vendor created — invitation email sent.');
+      window.CM.showToast('Operator created — invitation email sent.');
       return;
     }
     goToStep(currentStep + 1);

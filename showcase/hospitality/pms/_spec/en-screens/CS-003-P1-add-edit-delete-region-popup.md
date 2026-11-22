@@ -1,10 +1,10 @@
-# CS-003-P1 — Add/Edit/Delete Region Popup
+# CS-003-P1 — Region Form
 
 **Type:** Popup (opened from CS-003)
 
 **Route:** Bootstrap Modal (`#exampleModal`) within `regions.ctp`; submits to the same action `CommonSettingController::regions()`; duplicate name check via AJAX `checkRegion()` — `/common-setting/check-region`.
 
-**Module:** CS = Common Lookup Settings
+**Module:** CS = Reference Data
 
 ## Overview
 A shared popup for Adding/Editing/Deleting a Region belonging to a Country.
@@ -23,5 +23,5 @@ A shared popup for Adding/Editing/Deleting a Region belonging to a Country.
 - **Cancel:** closes the modal.
 
 ## Navigation
-- Opened from: CS-003 (Region list).
+- Opened from: CS-003 (Region Setup).
 - After submission: returns to CS-003 with a flash message.

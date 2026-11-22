@@ -1,10 +1,10 @@
-# VSV-017 — Vườn (Garden) — Trang tổng hợp
+# VSV-017 — Trung tâm chăm vườn (Garden Care Hub)
 
 **Loại:** Trang đầy đủ (dạng tab)
 
 **Route:** `VillaServicesController::garden($tab, $sub_tab)` — mặc định `/villa-services/garden/<tab>/<sub_tab>` (tab: `reports` | `team` | `planning`)
 
-**Module:** Dịch vụ villa — Vườn
+**Module:** Dịch vụ lưu trú — Chăm vườn
 
 ## Mô tả ngắn gọn
 Trang tổng hợp quản lý dịch vụ chăm sóc vườn, gồm 3 tab: **Reports** (báo cáo các lượt làm vườn đã ghi nhận, xem theo ngày/theo villa), **Team** (danh sách/roster đội làm vườn), **Planning** (lập kế hoạch phân công đội làm vườn theo villa đến hạn chăm sóc).
@@ -53,5 +53,5 @@ Trang tổng hợp quản lý dịch vụ chăm sóc vườn, gồm 3 tab: **Rep
 - **Lưu thành viên đội** (tab Team): lưu qua AJAX `saveGardenTeams`.
 
 ## Điều hướng
-- Vào từ: Menu chính (mục Garden).
-- Điều hướng đến: VSV-017-P1 (Xem chi tiết lượt làm vườn).
+- Vào từ: Menu chính (mục Garden Care Hub).
+- Điều hướng đến: VSV-017-P1 (Chi tiết lượt chăm vườn (trung tâm)).

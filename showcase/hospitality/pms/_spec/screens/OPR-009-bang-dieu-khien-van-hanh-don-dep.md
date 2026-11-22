@@ -1,8 +1,8 @@
-# OPR-009 — Bảng điều khiển vận hành dọn dẹp (Cleaning Operator)
+# OPR-009 — Bảng điều phối dọn phòng (Housekeeping Console)
 
 **Loại:** Trang đầy đủ
 **Route:** operator/cleaningOperator + route đẹp dạng dashed: operator/cleaning-operator
-**Module:** OPR = Vận hành vườn/hồ bơi
+**Module:** OPR = Công việc bảo dưỡng
 
 ## Mô tả ngắn gọn
 Dashboard quản lý dọn dẹp dành cho quản lý vận hành: theo dõi các lượt dọn dẹp đang thực hiện (in-progress) và đã hoàn thành (completed) trong ngày/khoảng thời gian, theo 2 tab "By Date" và "By Property"; cho phép chấm điểm chất lượng (rating), duyệt/giao lại cho chủ nhà (release to owner), và xóa lượt dọn dẹp/điểm dọn dẹp.
@@ -33,5 +33,5 @@ Dashboard quản lý dọn dẹp dành cho quản lý vận hành: theo dõi cá
 - **Xem điểm dọn dẹp/team**: ajax `getCleaningPointData`, `getStandardData`, `getTeam` nạp dữ liệu chi tiết vào các panel/khối trên dashboard.
 
 ## Điều hướng
-- Vào từ: menu "Cleaning Operator" (dành cho quản lý) trong sidebar.
+- Vào từ: menu "Housekeeping Console" (dành cho quản lý) trong sidebar.
 - Đi tới: không điều hướng sang trang khác cố định; các thao tác cập nhật trạng thái/điểm số xử lý ajax ngay trên trang.

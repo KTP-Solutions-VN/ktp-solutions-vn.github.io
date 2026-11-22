@@ -1,8 +1,8 @@
-# GST-004 — Cổng truy cập tiện ích
+# GST-004 — Lối tắt (Quick Links)
 
 **Loại:** Trang đầy đủ
 **Route:** `Guest::accessPortal($booking_id = null)` — mặc định `/guest/access-portal/:booking_id`; route đẹp (fallback DashedRoute): `/guest/access-portal`
-**Module:** Cổng thông tin Khách
+**Module:** Không gian khách
 
 ## Mô tả ngắn gọn
 Trang trung tâm (hub) gồm 4 icon điều hướng tới các nhóm chức năng tiện ích dành cho khách đang lưu trú: Đặt phòng của tôi, Nhà hàng, Hoạt động, Địa danh. Được mở khoá sau khi khách xác nhận xong giờ đến/giờ đi ở GST-003, hoặc được hệ thống bắt buộc chuyển tới khi tài khoản khách chưa có booking hợp lệ (`total_booking == 0`, kiểm tra ở `beforeFilter`).
@@ -24,8 +24,8 @@ Nếu `booking_id` truyền vào không hợp lệ/không tìm thấy `Booking`,
 - Icon **Logout** → đăng xuất, về GST-001.
 
 ## Điều hướng
-- → GST-002 (Đặt phòng của tôi), hoặc tự động khi `booking_id` không hợp lệ
-- → GST-008 (Danh sách nhà hàng)
-- → GST-011 (Hoạt động vui chơi)
-- → GST-010 (Địa danh nổi bật)
+- → GST-002 (Đặt chỗ của tôi), hoặc tự động khi `booking_id` không hợp lệ
+- → GST-008 (Ăn uống quanh đây)
+- → GST-011 (Hoạt động quanh đây)
+- → GST-010 (Điểm tham quan quanh đây)
 - → GST-001 (đăng xuất)

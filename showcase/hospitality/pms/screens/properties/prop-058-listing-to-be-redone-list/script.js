@@ -9,11 +9,11 @@
   function saveJSON(key, value) { localStorage.setItem(key, JSON.stringify(value)); }
 
   var MOCK_REQUESTS = [
-    { id: 'RD-01', villaId: 'PV-105', property: 'Villa Marble Cove', bu: 'Phuket Collection', channel: 'Booking.com', requestedBy: 'Kanya Srisawat', requestedDate: '2026-08-20', doneBy: null, doneDate: null, status: 'pending' },
-    { id: 'RD-02', villaId: 'PV-107', property: 'Villa Golden Palm', bu: 'Koh Samui Estates', channel: 'Airbnb', requestedBy: 'Nok Pattaya', requestedDate: '2026-08-15', doneBy: null, doneDate: null, status: 'pending' },
-    { id: 'RD-03', villaId: 'PV-104', property: 'Villa Azure Ridge', bu: 'Bali Retreats', channel: 'Agoda', requestedBy: 'Wayan Kertha', requestedDate: '2026-07-28', doneBy: null, doneDate: null, status: 'pending' },
-    { id: 'RD-04', villaId: 'PV-105', property: 'Villa Marble Cove', bu: 'Phuket Collection', channel: 'Airbnb', requestedBy: 'Somchai Anuwat', requestedDate: '2026-06-20', doneBy: 'Phuket Frame Photography', doneDate: '2026-06-28', status: 'done' },
-    { id: 'RD-05', villaId: 'PV-101', property: 'Villa Sapphire Cliff', bu: 'Phuket Collection', channel: 'Expedia', requestedBy: 'Somchai Anuwat', requestedDate: '2026-05-02', doneBy: 'Phuket Frame Photography', doneDate: '2026-05-10', status: 'done' }
+    { id: 'RD-01', villaId: 'PV-105', property: 'Villa Marble Cove', bu: 'Sentosa Collection', channel: 'Booking.com', requestedBy: 'Karen Seah', requestedDate: '2026-08-20', doneBy: null, doneDate: null, status: 'pending' },
+    { id: 'RD-02', villaId: 'PV-107', property: 'Villa Golden Palm', bu: 'Noosa Estates', channel: 'Airbnb', requestedBy: 'Nicole Parker', requestedDate: '2026-08-15', doneBy: null, doneDate: null, status: 'pending' },
+    { id: 'RD-03', villaId: 'PV-104', property: 'Villa Azure Ridge', bu: 'Byron Bay Retreats', channel: 'Agoda', requestedBy: 'Warren Kelly', requestedDate: '2026-07-28', doneBy: null, doneDate: null, status: 'pending' },
+    { id: 'RD-04', villaId: 'PV-105', property: 'Villa Marble Cove', bu: 'Sentosa Collection', channel: 'Airbnb', requestedBy: 'Daniel Tan', requestedDate: '2026-06-20', doneBy: 'Sentosa Frame Photography', doneDate: '2026-06-28', status: 'done' },
+    { id: 'RD-05', villaId: 'PV-101', property: 'Villa Sapphire Cliff', bu: 'Sentosa Collection', channel: 'Expedia', requestedBy: 'Daniel Tan', requestedDate: '2026-05-02', doneBy: 'Sentosa Frame Photography', doneDate: '2026-05-10', status: 'done' }
   ];
 
   function getAll() {
@@ -72,7 +72,7 @@
     if (doneBtn) {
       var id = doneBtn.getAttribute('data-done');
       var rec = getAll().filter(function (r) { return r.id === id; })[0];
-      setOverride(id, { status: 'done', doneBy: 'Phuket Frame Photography', doneDate: new Date().toISOString().slice(0, 10) });
+      setOverride(id, { status: 'done', doneBy: 'Sentosa Frame Photography', doneDate: new Date().toISOString().slice(0, 10) });
       MM.showToast('Marked "' + rec.property + '" (' + rec.channel + ') as redone.');
       render();
       return;
@@ -93,8 +93,8 @@
   });
 
   var MOCK_LOG = {
-    'PV-105|Airbnb': [{ doneDate: '2026-06-28', doneBy: 'Phuket Frame Photography', requestedBy: 'Somchai Anuwat' }],
-    'PV-101|Expedia': [{ doneDate: '2026-05-10', doneBy: 'Phuket Frame Photography', requestedBy: 'Somchai Anuwat' }]
+    'PV-105|Airbnb': [{ doneDate: '2026-06-28', doneBy: 'Sentosa Frame Photography', requestedBy: 'Daniel Tan' }],
+    'PV-101|Expedia': [{ doneDate: '2026-05-10', doneBy: 'Sentosa Frame Photography', requestedBy: 'Daniel Tan' }]
   };
 
   function openLog(villaId, channel) {

@@ -1,10 +1,10 @@
-# INV-001 — Inventory List
+# INV-001 — Stock Levels
 
 **Type:** Full page
 
 **Route:** `InventoryController::list()` — `/inventory/list`
 
-**Module:** INV = Inventory
+**Module:** INV = Stock Control
 
 ## Overview
 A list of inventory stock (`InventoryStock`) by business unit, allowing quantities to be added, deducted, or a stock row to be deleted.
@@ -27,12 +27,12 @@ A list of inventory stock (`InventoryStock`) by business unit, allowing quantiti
 No dedicated filter — displays all stock.
 
 ## Functions / Actions
-- **Add New**: navigates to INV-002 (Add Item to Inventory).
+- **Add New**: navigates to INV-002 (New Stock Item).
 - **(+) Add Stock**: opens the INV-001-P1 popup in "Add" mode (add-more).
 - **(-) Reduce Stock**: opens the INV-001-P1 popup in "Subtract" mode (sub-more).
 - **Delete**: opens the INV-001-P1 popup in "Delete" mode (delete).
 - Every action is recorded in the Access Log and the Inventory Item Log (see INV-006).
 
 ## Navigation
-- Entry point: Inventory menu (`active_menu = 151`).
+- Entry point: Stock Control menu (`active_menu = 151`).
 - Navigates to: INV-002, popup INV-001-P1.

@@ -1,8 +1,8 @@
-# MNT-011 — Sửa chữa hồ bơi (Pool Repair)
+# MNT-011 — Loại sửa chữa hồ bơi (Pool Repair Types)
 
 **Loại:** Trang đầy đủ
 **Route:** maintenance/poolRepair
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Màn hình danh sách danh mục dịch vụ sửa chữa hồ bơi (`GardenService.type = pool-repair`). Mỗi dịch vụ có tên, ảnh minh họa, đơn vị kinh doanh áp dụng, trạng thái.
@@ -22,10 +22,10 @@ Màn hình danh sách danh mục dịch vụ sửa chữa hồ bơi (`GardenServ
 | 8 | Hành động | — | Sửa, Xóa |
 
 ## Chức năng/nút thao tác
-- **Add New**: mở MNT-011-P1 — Thêm dịch vụ sửa chữa hồ bơi.
-- **Sửa** (icon): mở MNT-011-P2 — Sửa dịch vụ sửa chữa hồ bơi.
+- **Add New**: mở MNT-011-P1 — Thêm loại sửa chữa hồ bơi.
+- **Sửa** (icon): mở MNT-011-P2 — Sửa loại sửa chữa hồ bơi.
 - **Xóa**: xóa `GardenService` tương ứng (`deletePoolRepair`).
 
 ## Điều hướng
-- Vào từ: menu Settings/Maintenance trong sidebar.
+- Vào từ: menu cài đặt Repair Desk trong sidebar.
 - Đi tới: MNT-011-P1 (Thêm), MNT-011-P2 (Sửa).

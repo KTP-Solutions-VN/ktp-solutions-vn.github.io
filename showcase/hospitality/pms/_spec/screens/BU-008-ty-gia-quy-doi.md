@@ -1,10 +1,10 @@
-# BU-008 — Tỷ giá quy đổi (Rates)
+# BU-008 — Tỷ giá ngoại tệ (FX Rates)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `BusinessUnitController::rates()` — mặc định `/business-unit/rates`
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Bảng tỷ giá quy đổi giữa tiền tệ tham chiếu (reference currency) và các tiền tệ khác theo từng kỳ (tháng), có hỗ trợ nhập tỷ giá dự báo (forecast) cho kỳ hiện tại.

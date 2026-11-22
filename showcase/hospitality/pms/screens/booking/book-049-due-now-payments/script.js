@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
     MM.simulateSave(btn, 'Confirming…', function () {
       var all = allPayments().map(function (p) {
         if (ids.indexOf(p.id) === -1) return p;
-        return Object.assign({}, p, { stage: 'paid', paidOn: paidOn, paidBy: 'Somchai Anuwat', paidThrough: paidThrough });
+        return Object.assign({}, p, { stage: 'paid', paidOn: paidOn, paidBy: 'Daniel Tan', paidThrough: paidThrough });
       });
       savePayments(all);
       MM.closeModal('pay-modal');

@@ -24,7 +24,7 @@
 
   var state = MM.VCS.renderSimpleList({
     storageKey: PROV_KEY, baseData: MM.VCS.SERVICE_PROVIDERS, tbodyId: 'list-tbody', emptyId: 'list-empty',
-    searchId: 'search-input', countId: 'result-count', entityLabel: 'provider', rowHtml: providerRow
+    searchId: 'search-input', countId: 'result-count', entityLabel: 'vendor', rowHtml: providerRow
   });
 
   document.getElementById('bu-filter').addEventListener('change', function () {
@@ -56,7 +56,7 @@
 
   document.getElementById('add-provider-btn').addEventListener('click', function () {
     editingId = null;
-    document.getElementById('provider-modal-title').textContent = 'Add Service Provider';
+    document.getElementById('provider-modal-title').textContent = 'Add Approved Vendor';
     document.getElementById('provider-form').reset();
     renderServiceTypeChecks([]);
     renderBuChecks([]);
@@ -69,7 +69,7 @@
       var item = state.data.find(function (d) { return d.id === editBtn.dataset.edit; });
       if (!item) return;
       editingId = item.id;
-      document.getElementById('provider-modal-title').textContent = 'Edit Service Provider';
+      document.getElementById('provider-modal-title').textContent = 'Edit Approved Vendor';
       document.getElementById('f-name').value = item.name;
       document.getElementById('f-contact').value = item.contactPerson || '';
       document.getElementById('f-country').value = item.country || '';
@@ -120,7 +120,7 @@
       } else { stored.push(record); }
       localStorage.setItem(PROV_KEY, JSON.stringify(stored));
       MM.closeModal('provider-modal');
-      MM.showToast(editingId ? 'Provider updated' : 'Provider added');
+      MM.showToast(editingId ? 'Vendor updated' : 'Vendor added');
       setTimeout(function () { window.location.reload(); }, 500);
     });
   });
@@ -131,7 +131,7 @@
     var hidden = JSON.parse(localStorage.getItem(PROV_KEY + '_hidden') || '[]');
     if (MM.VCS.SERVICE_PROVIDERS.some(function (d) { return d.id === editingId; })) { hidden.push(editingId); localStorage.setItem(PROV_KEY + '_hidden', JSON.stringify(hidden)); }
     MM.closeModal('delete-provider-modal');
-    MM.showToast('Provider deleted', { danger: true });
+    MM.showToast('Vendor deleted', { danger: true });
     setTimeout(function () { window.location.reload(); }, 500);
   });
 

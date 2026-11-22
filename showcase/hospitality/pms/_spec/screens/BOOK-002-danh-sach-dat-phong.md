@@ -1,7 +1,7 @@
-# BOOK-002 — Danh sách đặt phòng
+# BOOK-002 — Tất cả đặt chỗ (All Reservations)
 **Loại:** Trang đầy đủ
 **Route:** Booking/bookingList (mặc định: `/booking/booking-list`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Màn hình tra cứu/tìm kiếm danh sách đặt phòng theo ngày check-in, cho phép lọc theo đơn vị kinh doanh, villa, tên khách. Kết quả hiển thị dạng bảng nhóm theo villa/business unit kèm các nút thao tác nhanh: sửa, xem chi tiết, tải PDF booking.
@@ -37,6 +37,6 @@ Màn hình tra cứu/tìm kiếm danh sách đặt phòng theo ngày check-in, c
 - Tải xuống file PDF thông tin booking (action `downloadBookingPdf`, không có màn hình riêng — chỉ là thao tác tải file)
 
 ## Điều hướng
-- Mở từ: Menu module Đặt phòng (mục "Booking List")
-- Điều hướng tới: BOOK-010 (Chỉnh sửa đặt phòng — nút Sửa), BOOK-002-P1 (Xem nhanh đặt phòng — nút Xem chi tiết)
+- Mở từ: Menu module Đặt chỗ (mục "All Reservations")
+- Điều hướng tới: BOOK-010 (Điều chỉnh đặt chỗ — nút Sửa), BOOK-002-P1 (Xem nhanh đặt chỗ — nút Xem chi tiết)
 - Popup con: không có (viewBooking mở dưới dạng trang riêng, xem ghi chú tại BOOK-002-P1)

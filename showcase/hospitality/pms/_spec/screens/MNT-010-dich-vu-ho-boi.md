@@ -1,8 +1,8 @@
-# MNT-010 — Dịch vụ hồ bơi (Pool Services)
+# MNT-010 — Loại dịch vụ hồ bơi (Pool Service Types)
 
 **Loại:** Trang đầy đủ
 **Route:** maintenance/poolServices
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Màn hình danh sách danh mục dịch vụ hồ bơi (`GardenService.type = pool-services`) dùng phân loại công việc hồ bơi (pool job). Mỗi dịch vụ có tên, ảnh minh họa, đơn vị kinh doanh áp dụng, trạng thái.
@@ -22,10 +22,10 @@ Màn hình danh sách danh mục dịch vụ hồ bơi (`GardenService.type = po
 | 8 | Hành động | — | Sửa, Xóa |
 
 ## Chức năng/nút thao tác
-- **Add New**: mở MNT-010-P1 — Thêm dịch vụ hồ bơi.
-- **Sửa** (icon): mở MNT-010-P2 — Sửa dịch vụ hồ bơi.
+- **Add New**: mở MNT-010-P1 — Thêm loại dịch vụ hồ bơi.
+- **Sửa** (icon): mở MNT-010-P2 — Sửa loại dịch vụ hồ bơi.
 - **Xóa**: xóa `GardenService` tương ứng (`deletePoolService`).
 
 ## Điều hướng
-- Vào từ: menu Settings/Maintenance trong sidebar.
+- Vào từ: menu cài đặt Repair Desk trong sidebar.
 - Đi tới: MNT-010-P1 (Thêm), MNT-010-P2 (Sửa).

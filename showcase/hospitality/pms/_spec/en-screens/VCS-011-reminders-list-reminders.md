@@ -1,8 +1,8 @@
-# VCS-011 — Reminders List (Reminders)
+# VCS-011 — Staff Reminders
 
 **Type:** Full page
 **Route:** villa-common-setting/reminders (default CakePHP DashedRoute: `/villa-common-setting/reminders`)
-**Module:** VCS = Villa Common Settings
+**Module:** VCS = Property Attributes
 
 ## Overview
 Master data management screen for "Reminder" content displayed to concierge staff/guests during villa operational workflows. In addition to Add/Edit/Delete via the shared popup used by other categories, this screen also supports reordering the display order (moving items up/down) via AJAX.
@@ -26,6 +26,6 @@ No dedicated search/filter field (client-side DataTable `#zero_config`).
 - Submitting the popup form sends a `POST` to the `reminders` action with `action=add|edit|delete`; the `VillaCommonSettingController::reminders()` controller saves/deletes records in the `Reminder` table, writes an Activity Log entry, displays a Flash message, and redirects via `referer()`.
 
 ## Navigation
-- Opened from: Settings menu > "Properties" > "Reminders" submenu.
+- Opened from: Portfolio Setup menu > "Property Attributes" > "Staff Reminders" submenu.
 - Navigates to: no navigation to another page (CRUD operations and reordering performed in place via popup/AJAX).
-- Child popup: VCS-011-P1 (Add/Edit/Delete Reminder).
+- Child popup: VCS-011-P1 (Staff Reminder Form).

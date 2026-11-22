@@ -1,8 +1,8 @@
-# VCS-005 — Danh sách Loại dịch vụ hợp đồng (Contract Service Type)
+# VCS-005 — Gói dịch vụ (Service Bundles)
 
 **Loại:** Trang đầy đủ
 **Route:** villa-common-setting/contract-service-types (dashed mặc định: `/villa-common-setting/contract-service-types`)
-**Module:** VCS = Cấu hình chung villa
+**Module:** VCS = Thuộc tính tài sản
 
 ## Mô tả ngắn gọn
 Màn hình quản lý dữ liệu chủ "Loại dịch vụ hợp đồng" (Contract Service Type) — mỗi loại là một tổ hợp gồm nhiều Dịch vụ (Service, xem VCS-004) được chọn qua checkbox; tên hiển thị của loại được ghép tự động từ tên các dịch vụ đã chọn (nối bằng dấu `+`). Lưu ý: menu điều hướng tới màn hình này hiện đang bị comment/ẩn trong sidebar (`management-sidebar.ctp`), nhưng action và view vẫn hoạt động khi truy cập trực tiếp URL.
@@ -26,4 +26,4 @@ Không có ô tìm kiếm/lọc riêng.
 ## Điều hướng
 - Mở từ: Không có link trong menu hiện hành (mục menu bị comment); trước đây/hoặc truy cập trực tiếp qua URL `/villa-common-setting/contract-service-types`.
 - Điều hướng tới: không điều hướng sang trang khác.
-- Popup con: VCS-005-P1 (Thêm/Sửa/Xóa Loại dịch vụ hợp đồng).
+- Popup con: VCS-005-P1 (Form gói dịch vụ).

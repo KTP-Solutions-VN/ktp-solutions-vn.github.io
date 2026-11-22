@@ -1,8 +1,8 @@
-# BOOK-064 — Missing Rate Setting
+# BOOK-064 — Unpriced Alert Threshold
 
 **Type:** Popup/Page (opened from BOOK-027)
 **Route:** Booking/missingRateSetting (default: `/booking/missing-rate-setting`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Configures the end date used as the reference point for the "Villas with Missing Rates" screen (BOOK-027) to check whether a villa has fully configured daily rates.
@@ -17,5 +17,5 @@ Configures the end date used as the reference point for the "Villas with Missing
 - **Save** button — saves the configured date
 
 ## Navigation
-- Opened from: BOOK-027 (Villas with Missing Rates) > configuration button
+- Opened from: BOOK-027 (Unpriced Properties) > configuration button
 - Navigates to: back to BOOK-027

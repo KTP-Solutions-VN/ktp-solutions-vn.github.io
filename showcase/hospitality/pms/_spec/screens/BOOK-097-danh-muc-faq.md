@@ -1,4 +1,4 @@
-# BOOK-097 — Danh mục FAQ (Wiki)
+# BOOK-097 — Chủ đề tri thức (Knowledge Topics)
 
 **Loại:** Trang đầy đủ
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định)
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 
@@ -37,5 +37,5 @@ Quản lý danh mục (category) của bộ câu hỏi thường gặp (FAQ/Wiki
 
 ## Điều hướng
 
-- Vào từ menu FAQ/Wiki.
-- Danh mục được dùng làm bộ lọc/chọn tại BOOK-098 (Danh sách câu hỏi FAQ) và BOOK-099 (Thêm/sửa câu hỏi FAQ).
+- Vào từ menu tri thức (Knowledge).
+- Danh mục được dùng làm bộ lọc/chọn tại BOOK-098 (Bài viết tri thức) và BOOK-099 (Thêm/sửa bài viết tri thức).

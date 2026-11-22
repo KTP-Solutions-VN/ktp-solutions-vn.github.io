@@ -88,7 +88,7 @@
 
     function openDrawer(item) {
       editingId = item ? item.id : null;
-      document.getElementById('cct-drawer-title').textContent = item ? 'Edit Common Text' : 'Add Common Text';
+      document.getElementById('cct-drawer-title').textContent = item ? 'Edit Snippet' : 'Add Snippet';
       document.getElementById('save-btn').textContent = item ? 'Save Changes' : 'Save';
       document.getElementById('cct-form').reset();
       if (item) {

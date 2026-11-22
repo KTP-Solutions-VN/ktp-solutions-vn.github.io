@@ -1,10 +1,10 @@
-# BU-010-P1 — Add/Edit Payment Method Popup
+# BU-010-P1 — Payment Method Form
 
 **Type:** Popup (opened from BU-010, Payment Methods tab)
 
 **Route:** Bootstrap modal (`#exampleModal`) in the `business-unit/main_list.ctp` element; submitted via AJAX to the `BusinessUnitController::paymentMethod()` action (`main-list` tab).
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A shared popup for adding a new payment method or editing an existing one, including selection of applicable business units and linked accounts.

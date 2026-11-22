@@ -1,8 +1,8 @@
-# PROP-043 — Lãnh thổ phụ trách Concierge (Territories)
+# PROP-043 — Phạm vi phụ trách concierge (Concierge Coverage)
 
 **Loại:** Trang đầy đủ
 **Route:** property/territories/:id
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang liệt kê danh sách Property (trạng thái Open) theo khu vực (Area), hiển thị Concierge phụ trách và cho phép gán/đổi nhanh Concierge cho từng Property. Lọc theo Business Unit, theo Concierge phụ trách, sắp xếp theo Area/Property/Concierge. Có nút xuất CSV danh sách.
@@ -30,6 +30,6 @@ Trang liệt kê danh sách Property (trạng thái Open) theo khu vực (Area),
 - Nút Download (icon) → tải file CSV qua `downloadConciergeTerritories/:id/:sort_by/:show_concierge`.
 
 ## Điều hướng
-- Mở từ: Menu Property/Concierge (không thuộc phạm vi mã hiện tại).
+- Mở từ: Menu Concierge Coverage (không thuộc phạm vi mã hiện tại).
 - Điều hướng tới: Không điều hướng trang khác (gán Concierge xử lý AJAX tại chỗ); tải file CSV qua `downloadConciergeTerritories`.
 - Popup con: Dropdown gán Concierge tại chỗ (không tách mã riêng, là thao tác inline nhỏ).

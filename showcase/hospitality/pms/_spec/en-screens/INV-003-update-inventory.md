@@ -1,10 +1,10 @@
-# INV-003 — Update Inventory
+# INV-003 — Adjust Stock
 
 **Type:** Full page
 
 **Route:** `InventoryController::edit($id)` — `/inventory/edit/:id` (`id` is base64-encoded in the URL; POST to save)
 
-**Module:** INV = Inventory
+**Module:** INV = Stock Control
 
 ## Overview
 A form for editing an existing stock record (`InventoryStock`): changing the business unit, changing the item, or adjusting the initial stock quantity.

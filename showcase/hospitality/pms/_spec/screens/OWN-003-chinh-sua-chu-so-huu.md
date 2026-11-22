@@ -1,10 +1,10 @@
-# OWN-003 — Chỉnh sửa chủ sở hữu
+# OWN-003 — Sửa tài khoản chủ nhà (Edit Owner Account)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `/Owner/edit/{tab}/{id}/{show_page}/{payment_detail_id}` (controller `Owner`, action `edit($tab, $id, $show_page, $payment_detail_id)`)
 
-**Module:** Quản lý chủ sở hữu (Admin)
+**Module:** Quan hệ chủ nhà (Admin)
 
 ## Mô tả ngắn gọn
 
@@ -14,7 +14,7 @@ Màn hình quản lý toàn diện một chủ sở hữu đã tồn tại, tổ
 
 ### Tab "Owner Details" (`owner-details`)
 
-Giống hệt bộ field của OWN-002 (Thêm mới chủ sở hữu), nhưng có sẵn dữ liệu để chỉnh sửa và ẩn field "Gửi email mật khẩu".
+Giống hệt bộ field của OWN-002 (Thêm tài khoản chủ nhà), nhưng có sẵn dữ liệu để chỉnh sửa và ẩn field "Gửi email mật khẩu".
 
 | # | Tên field | Field code | Loại dữ liệu/input | Bắt buộc | Ghi chú |
 |---|---|---|---|---|---|
@@ -92,7 +92,7 @@ Cấu trúc field giống hệt tab "Payment Details" của chủ sở hữu ch�
 ## Chức năng/nút thao tác
 
 - **Save** (mỗi tab có nút Save riêng): lưu dữ liệu tab tương ứng, ghi log hoạt động, chuyển hướng lại vào đúng tab vừa lưu.
-- **Cancel**: quay về OWN-001 (Danh sách chủ sở hữu).
+- **Cancel**: quay về OWN-001 (Tài khoản chủ nhà).
 - **+ Add Business Unit**: thêm dòng chọn business unit trong tab Owner Details.
 - **+ Add Co-owner**: thêm form đồng sở hữu mới (tab Owner Details).
 - **+ Payment Details / Edit / Delete** (trong tab Payment Details và Co-owner Payment Details): chuyển giữa danh sách và form thêm/sửa của cùng màn hình (qua tham số `show_page`).

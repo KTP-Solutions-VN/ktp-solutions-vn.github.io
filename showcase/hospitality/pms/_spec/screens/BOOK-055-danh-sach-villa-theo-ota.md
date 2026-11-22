@@ -1,8 +1,8 @@
-# BOOK-055 — Danh sách villa theo kênh OTA (OTA Listing)
+# BOOK-055 — Kiểm tra đồng bộ listing (Listing Sync Check)
 
 **Loại:** Trang đầy đủ (mở từ BOOK-054)
 **Route:** Booking/otaListing (mặc định: `/booking/ota-listing`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Kiểm tra villa nào CHƯA được liên kết (link) với một kênh OTA cụ thể, dựa trên cấu hình liên kết OTA của villa (`VillaOtaManagement`). Dùng để phát hiện villa còn thiếu cấu hình đồng bộ với kênh bán phòng.
@@ -24,5 +24,5 @@ Kiểm tra villa nào CHƯA được liên kết (link) với một kênh OTA c�
 - Chọn BU và kênh OTA rồi bấm **Check** để xem danh sách villa chưa liên kết
 
 ## Điều hướng
-- Mở từ: BOOK-054 (OTA) > nút "Listing"
-- Điều hướng tới: không (thao tác liên kết OTA thực hiện ở màn hình cấu hình villa, ngoài module Booking)
+- Mở từ: BOOK-054 (Bộ công cụ kênh) > nút "Listing"
+- Điều hướng tới: không (thao tác liên kết OTA thực hiện ở màn hình cấu hình villa, ngoài module Đặt chỗ)

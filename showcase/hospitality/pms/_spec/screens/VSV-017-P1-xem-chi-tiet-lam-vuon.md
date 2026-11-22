@@ -1,10 +1,10 @@
-# VSV-017-P1 — Xem chi tiết lượt làm vườn (Garden Job View)
+# VSV-017-P1 — Chi tiết lượt chăm vườn (trung tâm) (Garden Care Visit Detail)
 
 **Loại:** Popup (mở từ VSV-017, dạng trang riêng)
 
 **Route:** `VillaServicesController::gardenView($id)` — `/villa-services/garden-view/<garden_job_id>`
 
-**Module:** Dịch vụ villa — Vườn
+**Module:** Dịch vụ lưu trú — Chăm vườn
 
 ## Mô tả ngắn gọn
 Trang xem chi tiết (chỉ đọc) một lượt làm vườn đã ghi nhận: dịch vụ, người thực hiện, thời gian, có nằm trong kế hoạch hay không, kèm bộ ảnh/mô tả trước và sau khi làm.

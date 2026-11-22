@@ -1,10 +1,10 @@
-# NOT-002 — Notice/Task List (Notice List)
+# NOT-002 — Announcements & Tasks
 
 **Type:** Full page
 
 **Route:** `NoticeController::noticeList($tab, $sub_tab)` — default `/notice/notice-list/:tab/:sub_tab`
 
-**Module:** Notices
+**Module:** Announcements
 
 ## Overview
 Central task/notice management screen organized into tabs: My Task (my-task), Assigned Task (assigned-task), My Team Task (my-team-task), Reminders (reminders). Each tab displays 3 groups: in progress (active), pending completion confirmation (review/is_clap), completed (completed).
@@ -27,14 +27,14 @@ List (each group within a tab is a data table — DataTable):
 Filter/navigation: main tab (`tab`: my-task, assigned-task, my-team-task, reminders), hidden field `sub_tab` used for the sub-tab within each tab (active/review/completed) — rendered via the elements `notice_board/my_task`, `notice_board/assigned_task`, `notice_board/my_team_task`, `notice_board/reminders`.
 
 ## Functions / Actions
-- **Assign Task (icon):** opens NOT-001 (Notice Board) to create a new task.
-- **View Detail:** opens NOT-003 (View Detail) for the selected row.
+- **Assign Task (icon):** opens NOT-001 (New Announcement) to create a new task.
+- **View Detail:** opens NOT-003 (Announcement View) for the selected row.
 - **Reminder:** calls the `remindernotice($id)` action — re-sends the reminder for the notice (no dedicated view, redirects back to the current page).
 - **Mark as completed / Clap:** calls the `statusUser($id)` action (changes status to `is_clap`) or `clapUpdate($id)` (changes status to `done`) — no dedicated view, redirect only.
-- **Get Help:** opens NOT-004 (Help Other User).
+- **Get Help:** opens NOT-004 (Cover for Colleague).
 - **Delete notice:** opens the confirmation popup NOT-002-P1; confirming calls `notice/delete/:id`.
 - **Add/Edit Quote:** a hidden form submitted directly within the page (saves to the `Quote` table), no dedicated view.
 
 ## Navigation
-- Accessed from: the main "Notice Board" menu.
-- Navigates to: NOT-001 (create new), NOT-003 (view detail), NOT-004 (get help), NOT-005 (Company News, via the company news block / dedicated link).
+- Accessed from: the main "Announcements" menu.
+- Navigates to: NOT-001 (create new), NOT-003 (view detail), NOT-004 (get help), NOT-005 (Newsroom, via the company news block / dedicated link).

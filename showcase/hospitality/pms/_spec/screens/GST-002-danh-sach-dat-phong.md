@@ -1,8 +1,8 @@
-# GST-002 — Danh sách đặt phòng của khách
+# GST-002 — Đặt chỗ của tôi (My Reservations)
 
 **Loại:** Trang đầy đủ
 **Route:** `Guest::bookings()` — mặc định `/guest/bookings`; route đẹp (fallback DashedRoute): `/guest/bookings`
-**Module:** Cổng thông tin Khách
+**Module:** Không gian khách
 
 ## Mô tả ngắn gọn
 Liệt kê tất cả đặt phòng (booking) gắn với `access_code` của khách đang đăng nhập, chia thành "đặt phòng sắp tới" và "đặt phòng trong quá khứ". Đây là trang khách được chuyển tới sau khi đăng nhập thành công bằng access code ở GST-001.
@@ -22,8 +22,8 @@ Liệt kê tất cả đặt phòng (booking) gắn với `access_code` của kh
 | 9 | Tổng số đặt phòng | `guest_booking_count` | Số | Không | Dùng để chọn văn bản banner số ít/nhiều |
 
 ## Chức năng/nút thao tác
-- Click vào thẻ **booking sắp tới** → mở GST-003 (Chi tiết đặt phòng của tôi) theo `booking_id`.
-- Click vào thẻ **booking quá khứ** → mở GST-004 (Cổng truy cập tiện ích) theo `booking_id`.
+- Click vào thẻ **booking sắp tới** → mở GST-003 (Chi tiết chuyến đi) theo `booking_id`.
+- Click vào thẻ **booking quá khứ** → mở GST-004 (Lối tắt) theo `booking_id`.
 - Click link **"Hoàn tất check-in online để mở khoá gợi ý..."** → mở GST-003 với `booking_id` của booking sắp tới đầu tiên.
 - Icon **Home** (góc trái banner) → điều hướng theo `home_redirect` (mặc định về chính trang này, hoặc GST-004 nếu booking gần nhất đã xác nhận cả giờ đến/đi).
 - Icon **Logout** (góc phải banner) → đăng xuất, quay về GST-001.

@@ -52,7 +52,7 @@
       }
       localStorage.setItem('mm_inv_items', JSON.stringify(stored));
       var log = JSON.parse(localStorage.getItem('mm_inv_log_extra') || '[]');
-      log.unshift({ id: MM.uid('lg'), item: item.name, action: action === 'add-more' ? 'Stock added' : action === 'sub-more' ? 'Stock deducted' : 'Item removed', qty: action === 'add-more' ? '+' + qty : '-' + qty, by: 'Somchai Anuwat', date: new Date().toISOString().slice(0, 16).replace('T', ' ') });
+      log.unshift({ id: MM.uid('lg'), item: item.name, action: action === 'add-more' ? 'Stock added' : action === 'sub-more' ? 'Stock deducted' : 'Item removed', qty: action === 'add-more' ? '+' + qty : '-' + qty, by: 'Daniel Tan', date: new Date().toISOString().slice(0, 16).replace('T', ' ') });
       localStorage.setItem('mm_inv_log_extra', JSON.stringify(log));
       MM.closeModal('adjust-modal');
       MM.showToast('Inventory updated');

@@ -1,10 +1,10 @@
-# BU-005-P1 — Popup Thêm/Sửa kênh
+# BU-005-P1 — Form kênh bán hàng (Sales Channel Form)
 
 **Loại:** Popup (mở từ BU-005)
 
 **Route:** Modal Bootstrap (`#chanelModal`) tĩnh trong `chanels.ctp`; submit POST cùng action `BusinessUnitController::chanels()`.
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Popup dùng chung cho Thêm mới và Sửa thông tin một kênh (Chanel) — cấu hình tên kênh, ownership, quản lý, đơn vị kinh doanh áp dụng và cách nhận/trả tiền.

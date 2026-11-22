@@ -1,4 +1,4 @@
-# BOOK-089-P1 — Kích hoạt / Sửa chat khách
+# BOOK-089-P1 — Mở luồng chat khách (Open Guest Thread)
 
 **Loại:** Trang đầy đủ (mở từ BOOK-089)
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định, ví dụ `/booking/activate-chat/<base64_id>`)
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 

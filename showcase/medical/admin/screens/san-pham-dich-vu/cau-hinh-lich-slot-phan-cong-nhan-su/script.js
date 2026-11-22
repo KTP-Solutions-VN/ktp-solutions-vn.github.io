@@ -37,7 +37,7 @@
   document.getElementById('createSlotBtn').addEventListener('click', function () { CJToast('Slot created (demo only — form not shown in this walkthrough).'); });
   buildCalendar();
 
-  /* ---------------- #30 Reschedule/Cancel Session drawer ------------------ */
+  /* ---------------- Session Changes drawer ------------------ */
   CJDrawer.bind('rescheduleOverlay');
   function populateSessionSelect(selectedId) {
     var sel = document.getElementById('rSession');

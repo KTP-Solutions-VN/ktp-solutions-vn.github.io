@@ -1,10 +1,10 @@
-# ACC-028 — Account Reconcile (legacy/old version)
+# ACC-028 — Bank Matching (Classic)
 
 **Type:** Full page (suspected no longer in use — see Navigation section)
 
 **Route:** `AccountController::reconcile()` — default `/account/reconcile`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 A very short action: it simply retrieves the full list of `Account` records (no filtering by `is_statement_open`) and renders the `reconcile.ctp` page with a static form (select Account, enter Start Balance/Reconcile Amount/Reconcile Date) and a Save button — but this form does not submit anywhere (no `Form->create`, no action, and no POST handling in the controller). This appears to be an incomplete/legacy build of the reconciliation feature, superseded by ACC-009 (`statementReconcile`).
@@ -26,5 +26,5 @@ No entry list table, no DataTable, no POST handling in the controller (`reconcil
 - No AJAX calls are attached anywhere in the `reconcile.ctp` file other than a breadcrumb update.
 
 ## Navigation
-- Entered from: NO link pointing to the `reconcile` action was found anywhere in the templates (searched `account-sidebar.ctp` and other views). This action shares the same `active_menu = 'acc-statementReconcile'` as ACC-009 (`statementReconcile`), but the "Reconcile" sidebar menu item points directly to `statementReconcile`, not to `reconcile`. Conclusion: this screen appears to be no longer linked in the current menu, and is likely an old/legacy version superseded by ACC-009.
+- Entered from: NO link pointing to the `reconcile` action was found anywhere in the templates (searched `account-sidebar.ctp` and other views). This action shares the same `active_menu = 'acc-statementReconcile'` as ACC-009 (`statementReconcile`), but the "Bank Matching" sidebar menu item points directly to `statementReconcile`, not to `reconcile`. Conclusion: this screen appears to be no longer linked in the current menu, and is likely an old/legacy version superseded by ACC-009.
 - Navigates to: none (the Save/Cancel buttons do not function as a genuine reconciliation workflow).

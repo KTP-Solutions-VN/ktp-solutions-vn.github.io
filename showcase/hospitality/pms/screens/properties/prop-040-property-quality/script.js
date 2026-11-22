@@ -14,15 +14,15 @@
   function saveJSON(key, value) { localStorage.setItem(key, JSON.stringify(value)); }
 
   var MOCK_QUALITY = [
-    { id: 'QL-01', villaId: 'PV-105', ota: 'Airbnb', type: 'listing', date: '2026-08-12', user: 'Somchai Anuwat', comment: 'Title updated to mention the new infinity pool.' },
-    { id: 'QL-02', villaId: 'PV-105', ota: 'Booking.com', type: 'listing', date: '2026-07-30', user: 'Kanya Srisawat', comment: 'Amenity list out of date — missing EV charger.' },
-    { id: 'QL-03', villaId: 'PV-105', ota: 'Airbnb', type: 'review', date: '2026-08-18', user: 'Somchai Anuwat', reviews: 42, score: 9.4, comment: 'Guests consistently praise the sea view and staff.' },
-    { id: 'QL-04', villaId: 'PV-105', ota: 'Agoda', type: 'review', date: '2026-08-01', user: 'Kanya Srisawat', reviews: 18, score: 7.8, comment: 'A few complaints about slow Wi-Fi in the guest house.' },
-    { id: 'QL-05', villaId: 'PV-105', ota: 'Airbnb', type: 'home-improvement', date: '2026-06-05', user: 'Budi Santoso', comment: 'Repainted the pool deck; replaced two sun loungers.' }
+    { id: 'QL-01', villaId: 'PV-105', ota: 'Airbnb', type: 'listing', date: '2026-08-12', user: 'Daniel Tan', comment: 'Title updated to mention the new infinity pool.' },
+    { id: 'QL-02', villaId: 'PV-105', ota: 'Booking.com', type: 'listing', date: '2026-07-30', user: 'Karen Seah', comment: 'Amenity list out of date — missing EV charger.' },
+    { id: 'QL-03', villaId: 'PV-105', ota: 'Airbnb', type: 'review', date: '2026-08-18', user: 'Daniel Tan', reviews: 42, score: 9.4, comment: 'Guests consistently praise the sea view and staff.' },
+    { id: 'QL-04', villaId: 'PV-105', ota: 'Agoda', type: 'review', date: '2026-08-01', user: 'Karen Seah', reviews: 18, score: 7.8, comment: 'A few complaints about slow Wi-Fi in the guest house.' },
+    { id: 'QL-05', villaId: 'PV-105', ota: 'Airbnb', type: 'home-improvement', date: '2026-06-05', user: 'Ben Sullivan', comment: 'Repainted the pool deck; replaced two sun loungers.' }
   ];
 
   var MOCK_REDO = {
-    'PV-105|Airbnb': { status: 'redone', lastRequested: '2026-06-20', log: [{ doneDate: '2026-06-28', doneBy: 'Phuket Frame Photography', requestedBy: 'Somchai Anuwat' }] },
+    'PV-105|Airbnb': { status: 'redone', lastRequested: '2026-06-20', log: [{ doneDate: '2026-06-28', doneBy: 'Sentosa Frame Photography', requestedBy: 'Daniel Tan' }] },
     'PV-105|Booking.com': { status: 'requested', lastRequested: '2026-08-20', log: [] },
     'PV-105|Agoda': { status: 'none', lastRequested: null, log: [] },
     'PV-105|Expedia': { status: 'none', lastRequested: null, log: [] }
@@ -179,7 +179,7 @@
         ota: otaFilter.value || OTAS[0],
         type: editingType,
         date: document.getElementById('entry-date').value,
-        user: 'Somchai Anuwat',
+        user: 'Daniel Tan',
         comment: document.getElementById('entry-comment').value.trim()
       };
       if (editingType === 'review') {

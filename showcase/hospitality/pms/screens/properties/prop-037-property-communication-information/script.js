@@ -11,9 +11,9 @@
   var SEED = {
     'PV-105': {
       owner: [{ title: 'Owner', name: 'Richard Halstead', email: 'r.halstead@example.com', phone: '+44 7700 900123' }],
-      concierge: [{ title: 'Lead Concierge', name: 'Somchai Anuwat', email: 'somchai.a@azurastays.example', phone: '+66 81 234 5678' }],
+      concierge: [{ title: 'Lead Concierge', name: 'Daniel Tan', email: 'daniel.t@azurastays.example', phone: '+65 9234 5678' }],
       requirement: 'Owner prefers WhatsApp for same-day requests; email for anything requiring a paper trail.',
-      bankAccount: 'Bangkok Bank — Acct 123-4-56789-0 — Villa Marble Cove Co., Ltd.'
+      bankAccount: 'DBS Bank — Acct 123-456789-0 — Villa Marble Cove Pte. Ltd.'
     }
   };
 

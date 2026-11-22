@@ -23,16 +23,16 @@
   VCS.PRICE_CATEGORIES = [
     { id: 'pc1', name: 'Low Season', description: 'Off-peak pricing, May–Jun & Sep–Oct', createdAt: '2024-01-05 08:00' },
     { id: 'pc2', name: 'High Season', description: 'Peak demand, Jul–Aug & Dec–Jan', createdAt: '2024-01-05 08:02' },
-    { id: 'pc3', name: 'Festive Peak', description: 'Christmas, New Year and Songkran surcharge tier', createdAt: '2024-01-05 08:05' }
+    { id: 'pc3', name: 'Festive Peak', description: 'Christmas, New Year and Chinese New Year surcharge tier', createdAt: '2024-01-05 08:05' }
   ];
 
   VCS.PROPERTY_CATEGORIES = ['Flat', 'House', 'Resort'];
 
   VCS.PROPERTY_TYPES = [
-    { id: 'pt1', name: 'Beachfront Villa', category: 'House', updatedAt: '2024-02-01', updatedBy: 'Somchai A.' },
-    { id: 'pt2', name: 'Hillside Retreat', category: 'House', updatedAt: '2024-02-02', updatedBy: 'Somchai A.' },
-    { id: 'pt3', name: 'Penthouse Suite', category: 'Flat', updatedAt: '2024-02-03', updatedBy: 'Wayan K.' },
-    { id: 'pt4', name: 'Boutique Resort Bungalow', category: 'Resort', updatedAt: '2024-02-05', updatedBy: 'Nok P.' }
+    { id: 'pt1', name: 'Beachfront Villa', category: 'House', updatedAt: '2024-02-01', updatedBy: 'Daniel T.' },
+    { id: 'pt2', name: 'Hillside Retreat', category: 'House', updatedAt: '2024-02-02', updatedBy: 'Daniel T.' },
+    { id: 'pt3', name: 'Penthouse Suite', category: 'Flat', updatedAt: '2024-02-03', updatedBy: 'Warren K.' },
+    { id: 'pt4', name: 'Boutique Resort Bungalow', category: 'Resort', updatedAt: '2024-02-05', updatedBy: 'Nicole P.' }
   ];
 
   VCS.SERVICES = [
@@ -55,13 +55,13 @@
     { id: 'ps4', name: 'Photography', createdAt: '2024-01-02 09:06' }
   ];
 
-  VCS.BUSINESS_UNITS = ['Phuket Collection', 'Bali Retreats', 'Koh Samui Estates'];
+  VCS.BUSINESS_UNITS = ['Sentosa Collection', 'Byron Bay Retreats', 'Noosa Estates'];
 
   VCS.SERVICE_PROVIDERS = [
-    { id: 'sp1', name: 'Andaman Pool Services', serviceIds: ['ps1'], businessUnits: ['Phuket Collection'], contactPerson: 'Nattapong S.', address: '221 Thalang Rd, Phuket', country: 'Thailand', phone: '+66 76 123 456', email: 'contact@andamanpool.example', status: 'Active', createdAt: '2024-01-15', createdBy: 'Somchai A.' },
-    { id: 'sp2', name: 'Bali Bloom Gardens', serviceIds: ['ps2'], businessUnits: ['Bali Retreats'], contactPerson: 'Made Wirawan', address: 'Jl. Petitenget No. 12, Seminyak', country: 'Indonesia', phone: '+62 361 555 210', email: 'hello@balibloom.example', status: 'Active', createdAt: '2024-01-16', createdBy: 'Wayan K.' },
-    { id: 'sp3', name: 'Siam Linen Supply', serviceIds: ['ps3'], businessUnits: ['Phuket Collection', 'Koh Samui Estates'], contactPerson: 'Pranee K.', address: '88 Chalong Bay Rd, Phuket', country: 'Thailand', phone: '+66 76 998 112', email: 'sales@siamlinen.example', status: 'Inactive', createdAt: '2024-01-18', createdBy: 'Nok P.' },
-    { id: 'sp4', name: 'Phuket Frame Photography', serviceIds: ['ps4'], businessUnits: ['Phuket Collection'], contactPerson: 'Anurak T.', address: '15 Rawai Beach Rd, Phuket', country: 'Thailand', phone: '+66 81 234 987', email: 'book@phuketframe.example', status: 'Active', createdAt: '2024-01-20', createdBy: 'Somchai A.' }
+    { id: 'sp1', name: 'Coral Pool Services', serviceIds: ['ps1'], businessUnits: ['Sentosa Collection'], contactPerson: 'Nicholas S.', address: '221 Pasir Panjang Road, Singapore', country: 'Singapore', phone: '+65 6612 3456', email: 'contact@coralpool.example', status: 'Active', createdAt: '2024-01-15', createdBy: 'Daniel T.' },
+    { id: 'sp2', name: 'Byron Bloom Gardens', serviceIds: ['ps2'], businessUnits: ['Byron Bay Retreats'], contactPerson: 'Mitchell Webb', address: '12 Kendall Street, Byron Bay', country: 'Australia', phone: '+61 2 6685 5210', email: 'hello@byronbloom.example', status: 'Active', createdAt: '2024-01-16', createdBy: 'Warren K.' },
+    { id: 'sp3', name: 'Straits Linen Supply', serviceIds: ['ps3'], businessUnits: ['Sentosa Collection', 'Noosa Estates'], contactPerson: 'Pauline K.', address: '88 Keppel Road, Singapore', country: 'Singapore', phone: '+65 6699 8112', email: 'sales@straitslinen.example', status: 'Inactive', createdAt: '2024-01-18', createdBy: 'Nicole P.' },
+    { id: 'sp4', name: 'Sentosa Frame Photography', serviceIds: ['ps4'], businessUnits: ['Sentosa Collection'], contactPerson: 'Andrew T.', address: '15 Alexandra Road, Singapore', country: 'Singapore', phone: '+65 9123 4987', email: 'book@sentosaframe.example', status: 'Active', createdAt: '2024-01-20', createdBy: 'Daniel T.' }
   ];
 
   VCS.PROPERTY_USAGE = [
@@ -100,17 +100,17 @@
      Each item has its own icon (distinct per item, not a repeated generic
      gear) so the vertical settings nav is scannable at a glance. */
   VCS.NAV_ITEMS = [
-    { code: 'vcs-001-amenities-list', label: 'Amenities', icon: '<path d="M12 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/><path d="M8.5 13.5 6 21l6-3 6 3-2.5-7.5"/>' },
-    { code: 'vcs-002-price-categories', label: 'Price Categories', icon: '<path d="M20.59 13.41 13.42 20.6a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/><circle cx="7" cy="7" r="1.2"/>' },
-    { code: 'vcs-003-property-types', label: 'Property Types', icon: '<path d="M3 9l9-6 9 6v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"/><path d="M9 22V12h6v10"/>' },
-    { code: 'vcs-004-services', label: 'Services', icon: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>' },
-    { code: 'vcs-005-contract-service-types', label: 'Contract Service Types', icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>' },
-    { code: 'vcs-006-service-providers', label: 'Service Providers', icon: '<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>' },
-    { code: 'vcs-007-property-usage', label: 'Property Usage', icon: '<circle cx="7" cy="17" r="4"/><path d="M10.5 13.5 21 3M17 7l3 3M14 4l3 3"/>' },
-    { code: 'vcs-008-villa-activities', label: 'Villa Activities', icon: '<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>' },
-    { code: 'vcs-009-accessibility', label: 'Accessibility', icon: '<circle cx="12" cy="5" r="2"/><path d="M6 21l4-8 2 4 4 4M8 13h8"/><circle cx="17" cy="19" r="3"/>' },
-    { code: 'vcs-010-transport', label: 'Transport', icon: '<path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v5a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H6v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-5z"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/>' },
-    { code: 'vcs-011-reminders', label: 'Reminders', icon: '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>' }
+    { code: 'vcs-001-amenities-list', label: 'Amenity Catalog', icon: '<path d="M12 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/><path d="M8.5 13.5 6 21l6-3 6 3-2.5-7.5"/>' },
+    { code: 'vcs-002-price-categories', label: 'Rate Tiers', icon: '<path d="M20.59 13.41 13.42 20.6a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/><circle cx="7" cy="7" r="1.2"/>' },
+    { code: 'vcs-003-property-types', label: 'Accommodation Types', icon: '<path d="M3 9l9-6 9 6v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"/><path d="M9 22V12h6v10"/>' },
+    { code: 'vcs-004-services', label: 'Service Catalog', icon: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>' },
+    { code: 'vcs-005-contract-service-types', label: 'Service Bundles', icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>' },
+    { code: 'vcs-006-service-providers', label: 'Approved Vendors', icon: '<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>' },
+    { code: 'vcs-007-property-usage', label: 'Usage Types', icon: '<circle cx="7" cy="17" r="4"/><path d="M10.5 13.5 21 3M17 7l3 3M14 4l3 3"/>' },
+    { code: 'vcs-008-villa-activities', label: 'Guest Activities', icon: '<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>' },
+    { code: 'vcs-009-accessibility', label: 'Access Features', icon: '<circle cx="12" cy="5" r="2"/><path d="M6 21l4-8 2 4 4 4M8 13h8"/><circle cx="17" cy="19" r="3"/>' },
+    { code: 'vcs-010-transport', label: 'Transport Options', icon: '<path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13v5a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H6v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-5z"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/>' },
+    { code: 'vcs-011-reminders', label: 'Staff Reminders', icon: '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>' }
   ];
 
   VCS.renderSideNav = function (activeCode) {

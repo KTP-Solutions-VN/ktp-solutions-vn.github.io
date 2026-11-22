@@ -3,7 +3,7 @@
   var VSV = MM.VSV;
   var STORAGE_KEY = 'mm_vsv_longstay_periods';
   var TODAY = '2026-09-02';
-  var CURRENT_USER = 'Somchai Anuwat';
+  var CURRENT_USER = 'Daniel Tan';
 
   var nameToId = {};
   MM.MOCK_PROPERTIES.forEach(function (p) { nameToId[p.name] = p.id; });
@@ -19,11 +19,11 @@
     if (localStorage.getItem(STORAGE_KEY)) return;
     var seed = {};
     seed['BK-30401'] = [
-      { startMeter: 1000, endMeter: 1420, date: '2026-07-01', amount: 3570, status: 'Cleared', enteredBy: 'Somchai Anuwat' },
-      { startMeter: 1420, endMeter: 1855, date: '2026-08-01', amount: 3697, status: 'Cleared', enteredBy: 'Somchai Anuwat' }
+      { startMeter: 1000, endMeter: 1420, date: '2026-07-01', amount: 143, status: 'Cleared', enteredBy: 'Daniel Tan' },
+      { startMeter: 1420, endMeter: 1855, date: '2026-08-01', amount: 148, status: 'Cleared', enteredBy: 'Daniel Tan' }
     ];
     seed['BK-30403'] = [
-      { startMeter: 500, endMeter: 990, date: '2026-06-20', amount: 3920, status: 'Cleared', enteredBy: 'Wayan Kertha' }
+      { startMeter: 500, endMeter: 990, date: '2026-06-20', amount: 170, status: 'Cleared', enteredBy: 'Warren Kelly' }
     ];
     localStorage.setItem(STORAGE_KEY, JSON.stringify(seed));
   }

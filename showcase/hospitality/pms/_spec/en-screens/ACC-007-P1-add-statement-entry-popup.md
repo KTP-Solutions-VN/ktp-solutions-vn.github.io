@@ -1,10 +1,10 @@
-# ACC-007-P1 — Add Statement Entry Popup
+# ACC-007-P1 — New Ledger Entry
 
 **Type:** Popup (opened from ACC-007)
 
 **Route:** `AccountController::addStatement($account_id)` — default `/account/add-statement/<account_id>`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 A form for adding a new statement entry to the currently open account's statement, automatically generating a sequential Ref number based on the account name.
@@ -28,5 +28,5 @@ A form for adding a new statement entry to the currently open account's statemen
 - If `account_id` is invalid: displays an "Invalid URL" error and returns to the previous page.
 
 ## Navigation
-- Entered from: ACC-007 (Account Statements) — "Add new" button.
+- Entered from: ACC-007 (Account Ledger) — "Add new" button.
 - Navigates to: back to ACC-007 after saving or canceling.

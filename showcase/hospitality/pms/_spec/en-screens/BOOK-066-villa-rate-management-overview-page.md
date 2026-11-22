@@ -1,9 +1,9 @@
-# BOOK-066 — Villa Rate Management (Overview Page)
+# BOOK-066 — Pricing Hub
 
 **Type:** Full page
 **Route:** Booking/rates (default: `/booking/rates`)
 **Pretty route:** no dedicated route found in config/Routes.php (uses the default route)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Central navigation hub for the "Rates & Seasons" feature group: it has no data table or filters of its own, only buttons leading to the child rate-management screens (rate status, rate logs, seasons, seasonal rate logs, etc.).
@@ -20,12 +20,12 @@ The page has no input form or data table. The content consists only of 5 card-st
 | 5 | Season Logs | action `seasonPriceLogs` | BOOK-074 |
 
 ## Functions / Actions
-- **Status** button — opens BOOK-067 (Villa Rate Update Status)
+- **Status** button — opens BOOK-067 (Rate Plan Status)
 - **Recommendations** button — opens the rate-recommendation screen (outside the scope of this document)
-- **Logs** button — opens BOOK-070 (Rate Change Log)
-- **Seasons** button — opens BOOK-073 (Season Management)
-- **Season Logs** button — opens BOOK-074 (Seasonal Rate Log)
+- **Logs** button — opens BOOK-070 (Price Change Notes)
+- **Seasons** button — opens BOOK-073 (Season Calendar)
+- **Season Logs** button — opens BOOK-074 (Season Price Audit)
 
 ## Navigation
-- Opened from: Booking module menu > Rates
+- Opened from: Reservations module menu > Pricing Hub
 - Navigates to: BOOK-067, BOOK-070, BOOK-073, BOOK-074 (and the Recommendations screen, which is outside the scope of this group)

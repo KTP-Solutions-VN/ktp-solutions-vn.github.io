@@ -1,10 +1,10 @@
-# BU-022-P6 — Popup: Confirm Content Element Deletion (Archive)
+# BU-022-P6 — Confirm Element Archiving
 
 **Type:** Popup (opened from BU-022, Content Element tab — Superadmin only)
 
 **Route:** Bootstrap modal (`#ota-archive-modal`) within the `channel/content_elements.ctp` element; submits via AJAX to `OtaContentController::archiveElement`.
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A confirmation popup shown before archiving (deleting) a Content Element, warning if the element is currently assigned to any platform or is in use within Text content.

@@ -1,8 +1,8 @@
-# VCS-003-P1 — Popup Thêm/Sửa/Xóa Loại hình bất động sản
+# VCS-003-P1 — Form loại hình lưu trú (Accommodation Type Form)
 
 **Loại:** Popup/Modal (mở từ VCS-003)
 **Route:** Không có route riêng — dùng chung form POST về `villa-common-setting/villa-types` (hidden `action`=`add`/`edit`/`delete`); kiểm tra trùng tên qua AJAX `villa-common-setting/checkvillatype`
-**Module:** VCS = Cấu hình chung villa
+**Module:** VCS = Thuộc tính tài sản
 
 ## Mô tả ngắn gọn
 Modal Bootstrap dùng chung (`#exampleModal`) cho 3 kịch bản Thêm/Sửa/Xóa Loại hình bất động sản, gồm Tên loại hình và Danh mục bất động sản cha. Ở chế độ Xóa, phần nhập liệu bị ẩn.
@@ -21,5 +21,5 @@ Modal Bootstrap dùng chung (`#exampleModal`) cho 3 kịch bản Thêm/Sửa/Xó
 - Validate: `name` bắt buộc + kiểm tra trùng qua remote AJAX `checkvillatype`.
 
 ## Điều hướng
-- Mở từ: VCS-003 (nút Add new / Edit / Delete trên bảng danh sách Loại hình bất động sản).
+- Mở từ: VCS-003 (nút Add new / Edit / Delete trên bảng Loại hình lưu trú).
 - Điều hướng tới: không chuyển trang — submit xong reload lại VCS-003 (redirect `referer()`); nếu Thêm mới thành công, hệ thống ngầm tạo dữ liệu Photo Standard Areas liên quan (không có màn hình riêng).

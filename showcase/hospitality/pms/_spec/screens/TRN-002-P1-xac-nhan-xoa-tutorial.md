@@ -1,8 +1,8 @@
-# TRN-002-P1 — Popup xác nhận xóa Tutorial
+# TRN-002-P1 — Xác nhận xóa bài học (Confirm Lesson Deletion)
 
 **Loại:** Popup (mở từ TRN-002)
 **Route:** Modal Bootstrap trong `create_tutorial.ctp`; hành động xóa gọi `TrainingController::deleteTutorial($id)` — `/training/delete-tutorial/{id_base64}`
-**Module:** TRN = Đào tạo
+**Module:** TRN = Học viện nhân viên
 
 ## Mô tả ngắn gọn
 Hộp thoại xác nhận trước khi xóa vĩnh viễn một Tutorial (kèm toàn bộ Slide và câu hỏi Quiz liên quan).

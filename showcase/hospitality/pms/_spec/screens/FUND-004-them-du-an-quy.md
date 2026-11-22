@@ -1,10 +1,10 @@
-# FUND-004 — Thêm dự án quỹ
+# FUND-004 — Thêm dự án được tài trợ (New Funded Project)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `FundController::addProject()` — `/fund/add-project` (POST)
 
-**Module:** FUND = Quỹ đầu tư
+**Module:** FUND = Vốn nhà đầu tư
 
 ## Mô tả ngắn gọn
 Form tạo mới một dự án huy động vốn (Project Fund) với thông tin mô tả, logo và tối đa 4 hình ảnh minh họa.

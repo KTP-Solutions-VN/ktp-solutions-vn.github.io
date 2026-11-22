@@ -1,11 +1,11 @@
-# PROP-051 — Guest Contract Assignment Recap by Business Unit
+# PROP-051 — Contract Readiness
 
 **Type:** Full page
 **Route:** property/guest-contract-bu-recap
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
-Page summarizing the guest portal contract (Guest Contract) assignment status for all Properties in a Business Unit: ready for signature (Ready), no contract assigned (No Contract), missing required information (Missing Info). Supports quick filtering, search, pagination, contract preview, and Excel export. This content is also embedded as the "Portal Contract" tab in PROP-048 (Services).
+Page summarizing the guest portal contract (Guest Contract) assignment status for all Properties in a Business Unit: ready for signature (Ready), no contract assigned (No Contract), missing required information (Missing Info). Supports quick filtering, search, pagination, contract preview, and Excel export. This content is also embedded as the "Portal Contract" tab in PROP-048 (Bulk Service Import).
 
 ## Detailed Description
 
@@ -43,6 +43,6 @@ Page summarizing the guest portal contract (Guest Contract) assignment status fo
 - Previous/Next pagination.
 
 ## Navigation
-- Opened from: Property/Reports menu, or from PROP-048 (Services — Portal Contract tab, "Export Excel" button).
-- Navigates to: PROP-050 (Portal Contract tab, opened in a new tab), PROP-052 (Guest Contract Assignment PDF — preview).
+- Opened from: owner reports menu, or from PROP-048 (Bulk Service Import — Contract Readiness tab, "Export Excel" button).
+- Navigates to: PROP-050 (Portal Contract tab, opened in a new tab), PROP-052 (Print Guest Contracts — preview).
 - Child popup: Contract preview modal (no dedicated code, shares content with PROP-052).

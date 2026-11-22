@@ -1,10 +1,10 @@
-# CMS-016 — Danh sách Contact Form
+# CMS-016 — Biểu mẫu liên hệ (Enquiry Forms)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::contactForm($action, $id)` — mặc định `/cms/contact-form/:action/:id`
 
-**Module:** CMS = Nội dung trang chủ villa
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Danh sách các cấu hình form liên hệ (tiêu đề + email nhận liên hệ) hiển thị/kết nối trên website. Không phân trang server-side (lấy toàn bộ `CmsContactUs->find('all')`).
@@ -28,5 +28,5 @@ Không có filter/tìm kiếm server-side, không phân trang server-side.
 - **Delete:** gọi lại action này dạng `/cms/contact-form/delete/:id` — xoá bản ghi `CmsContactUs`, hiển thị flash message rồi redirect lại danh sách.
 
 ## Điều hướng
-- Vào từ: CMS-005 (Common Text, nút "Contact Form") hoặc breadcrumb từ CMS-017.
+- Vào từ: CMS-005 (Khối nội dung dùng chung, nút "Enquiry Forms") hoặc breadcrumb từ CMS-017.
 - Điều hướng đến: CMS-017 (thêm/sửa contact form).

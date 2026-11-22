@@ -3,7 +3,7 @@
   var STORAGE_KEY = 'mm_bu_chat_platforms';
   var BASE_DATA = [
     { id: 'cp1', name: 'WhatsApp Business' },
-    { id: 'cp2', name: 'LINE Official Account' },
+    { id: 'cp2', name: 'WeChat Official Account' },
     { id: 'cp3', name: 'Facebook Messenger' }
   ];
   var editingId = null;
@@ -40,7 +40,7 @@
 
   document.getElementById('add-cp-btn').addEventListener('click', function () {
     editingId = null;
-    document.getElementById('cp-modal-title').textContent = 'Add Chat Platform';
+    document.getElementById('cp-modal-title').textContent = 'Add Messaging App';
     document.getElementById('cp-form').reset();
     MM.openModal('cp-modal');
   });
@@ -51,7 +51,7 @@
     if (editBtn) {
       var item = allData.find(function (d) { return d.id === editBtn.dataset.edit; });
       editingId = item.id;
-      document.getElementById('cp-modal-title').textContent = 'Edit Chat Platform';
+      document.getElementById('cp-modal-title').textContent = 'Edit Messaging App';
       document.getElementById('f-name').value = item.name;
       MM.openModal('cp-modal');
     }

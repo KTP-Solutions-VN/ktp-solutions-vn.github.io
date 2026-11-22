@@ -1,4 +1,4 @@
-# BOOK-091 — View Linked Chat
+# BOOK-091 — Merged Conversation
 
 **Type:** Full page / view-only (opened from BOOK-089)
 
@@ -6,7 +6,7 @@
 
 **Pretty route:** No dedicated route found in config/Routes.php (uses the default route)
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 

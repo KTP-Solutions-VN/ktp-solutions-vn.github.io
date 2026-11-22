@@ -1,4 +1,4 @@
-# BOOK-095 — WhatsApp Manager (bản mới)
+# BOOK-095 — Hộp thư chat (Chat Inbox)
 
 **Loại:** Trang đầy đủ (có tab)
 
@@ -6,15 +6,15 @@
 
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định)
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 
-Phiên bản nâng cấp của BOOK-094, gồm 2 tab: "WhatsApp Manager" (danh sách booking có kênh chat WhatsApp, tương tự BOOK-094 nhưng bổ sung cảnh báo đổi số điện thoại) và "Notifications" (cấu hình mức độ nhận thông báo WhatsApp cho từng nhân viên trong đơn vị kinh doanh).
+Phiên bản nâng cấp của BOOK-094, gồm 2 tab: "Chat Inbox" (danh sách booking có kênh chat WhatsApp, tương tự BOOK-094 nhưng bổ sung cảnh báo đổi số điện thoại) và "Notifications" (cấu hình mức độ nhận thông báo WhatsApp cho từng nhân viên trong đơn vị kinh doanh).
 
 ## Mô tả chi tiết
 
-**Tab 1 — WhatsApp Manager** (danh sách, lọc theo Đơn vị kinh doanh):
+**Tab 1 — Chat Inbox** (danh sách, lọc theo Đơn vị kinh doanh):
 
 | # | Cột hiển thị | Field code | Ghi chú |
 |---|---|---|---|
@@ -40,6 +40,6 @@ Phiên bản nâng cấp của BOOK-094, gồm 2 tab: "WhatsApp Manager" (danh s
 
 ## Điều hướng
 
-- Vào từ menu WhatsApp (thay thế BOOK-094).
-- → BOOK-095-P1 (Chat WhatsApp bản mới) khi bấm nút Chat.
-- Có liên kết trợ giúp tới BOOK-096 (Trợ giúp WhatsApp).
+- Vào từ menu Chat Inbox (thay thế BOOK-094).
+- → BOOK-095-P1 (Luồng chat) khi bấm nút Chat.
+- Có liên kết trợ giúp tới BOOK-096 (Tình trạng dịch vụ chat).

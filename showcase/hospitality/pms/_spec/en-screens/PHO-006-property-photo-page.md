@@ -1,10 +1,10 @@
-# PHO-006 — Property Photo Page (Villa)
+# PHO-006 — Property Gallery
 
 **Type:** Full page
 
 **Route:** `PhotosController::property($villaId)` — default route `/photos/property/:id` (no pretty route declared in `config/Routes.php`)
 
-**Module:** Photos
+**Module:** Photo Library
 
 ## Overview
 The landing page for managing photos of a villa/property: panoramic photo (hero banner), 3 overview metrics (number of photo sets, OTA score, most recent shoot date), a form to upload a new photo set, a list of cards for existing photo sets (OTA/High Res/Extras/Owner's set/Raw-Temporary/Archive), and a block for the common-area photos of the residence containing the villa (if applicable).
@@ -45,8 +45,8 @@ List of existing photo sets (cards); each card includes: icon by set type, set n
 - **Delete** a photo set: opens a confirmation modal, submits to the `detail` action with `action=delete` (shown only if `canDeletePhotoSet`).
 - **Open Residence page** containing the villa's common areas (if applicable).
 - **Quick-open common-area photo set** of the residence: navigates to PHO-005 (`residenceDetail`).
-- **Navigation tabs**: Photo Sets (PHO-002), Common Areas (PHO-003), Settings (PHO-008).
+- **Navigation tabs**: Photo Albums (PHO-002), Shared Spaces (PHO-003), Requirements (PHO-008).
 
 ## Navigation
 - Accessed from: PHO-002 (clicking a villa or the Upload icon in the list).
-- Navigates to: PHO-007 (Open photo set), PHO-005 (quick-open residence common-area photo set), PHO-004 (Residence page), PHO-002 (Photo Sets tab), PHO-003 (Common Areas tab), PHO-008 (Settings tab).
+- Navigates to: PHO-007 (Open photo set), PHO-005 (quick-open residence common-area photo set), PHO-004 (Residence Shared Spaces), PHO-002 (Photo Albums tab), PHO-003 (Shared Spaces tab), PHO-008 (Requirements tab).

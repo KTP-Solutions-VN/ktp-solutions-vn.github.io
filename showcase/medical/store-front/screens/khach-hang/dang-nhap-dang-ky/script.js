@@ -12,7 +12,7 @@
     });
 
     function goToAccount() {
-      CJ.setAuth({ loggedIn: true, customerId: 'CUS-1001', name: 'Grace Lim Wei Ting' });
+      CJ.setAuth({ loggedIn: true, customerId: 'CUS-1001', name: 'Charlotte Nguyen' });
       window.location.href = ACCOUNT_URL;
     }
 

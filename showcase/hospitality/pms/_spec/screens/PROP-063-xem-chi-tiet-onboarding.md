@@ -1,8 +1,8 @@
-# PROP-063 — Xem chi tiết Onboarding Property (View Onboarding)
+# PROP-063 — Hồ sơ tiếp nhận (Intake Record)
 
 **Loại:** Trang đầy đủ
-**Route:** property/view-onboarding/:id, mở từ PROP-020 (Danh sách Onboarding)
-**Module:** PROP = Bất động sản
+**Route:** property/view-onboarding/:id, mở từ PROP-020 (Tiếp nhận tài sản)
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang xem (read-only) toàn bộ dữ liệu đã nhập của một bản ghi Villa Onboarding: từng field thông tin Property/Unit kèm giá trị, người nhập/ngày nhập, người xác thực/ngày xác thực.
@@ -20,6 +20,6 @@ Trang xem (read-only) toàn bộ dữ liệu đã nhập của một bản ghi V
 - (Tùy quyền) có thể có nút "Request Re-validation" điều hướng sang PROP-062 hoặc gọi `reviewOnBoarding` để reset trạng thái xác thực và yêu cầu duyệt lại.
 
 ## Điều hướng
-- Mở từ: PROP-020 (Danh sách Onboarding).
-- Điều hướng tới: PROP-062 (Yêu cầu xác thực lại Onboarding), hoặc quay lại PROP-020 (Danh sách Onboarding).
+- Mở từ: PROP-020 (Tiếp nhận tài sản).
+- Điều hướng tới: PROP-062 (Xác thực lại hồ sơ tiếp nhận), hoặc quay lại PROP-020 (Tiếp nhận tài sản).
 - Popup con: Không có.

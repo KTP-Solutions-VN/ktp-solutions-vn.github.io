@@ -11,12 +11,12 @@
   /* ---- Currency / formatting helpers ---- */
   CJ.formatSGD = function (amount) {
     var n = Number(amount) || 0;
-    return 'S$' + n.toLocaleString('en-SG', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return 'A$' + n.toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   };
   CJ.formatDate = function (isoStr) {
     var d = new Date(isoStr);
     if (isNaN(d)) return isoStr;
-    return d.toLocaleDateString('en-SG', { day: '2-digit', month: 'short', year: 'numeric' });
+    return d.toLocaleDateString('en-AU', { day: '2-digit', month: 'short', year: 'numeric' });
   };
   CJ.initials = function (name) {
     if (!name) return '?';
@@ -55,9 +55,9 @@
     });
   };
 
-  /* ---- Simulated auth (default: logged-in demo customer "Grace Lim") ---- */
+  /* ---- Simulated auth (default: logged-in demo customer "Charlotte Nguyen") ---- */
   CJ.getAuth = function () {
-    return CJ.storage.get(LS_AUTH, { loggedIn: true, customerId: 'CUS-1001', name: 'Grace Lim Wei Ting' });
+    return CJ.storage.get(LS_AUTH, { loggedIn: true, customerId: 'CUS-1001', name: 'Charlotte Nguyen' });
   };
   CJ.setAuth = function (auth) { CJ.storage.set(LS_AUTH, auth); };
   CJ.logout = function () {
@@ -71,7 +71,7 @@
     return (body && body.getAttribute('data-root')) || '../../../';
   };
 
-  /* ---- Shared product card renderer (Home, Product Listing) ---- */
+  /* ---- Shared product card renderer (Home, Browse the Catalog) ---- */
   CJ.productCardHTML = function (p, listingHref) {
     var priceHTML = p.specialPrice
       ? '<span class="price-now">' + CJ.formatSGD(p.specialPrice) + '</span><span class="price-was">' + CJ.formatSGD(p.listPrice) + '</span>'
@@ -166,7 +166,7 @@
     loggedInEls.forEach(function (el) { el.style.display = auth.loggedIn ? '' : 'none'; });
   }
 
-  /* ---- Search redirect (Home + header search -> Product Listing with query) ---- */
+  /* ---- Search redirect (Home + header search -> Browse the Catalog with query) ---- */
   function initSearchRedirect() {
     document.querySelectorAll('[data-search-form]').forEach(function (form) {
       form.addEventListener('submit', function (e) {

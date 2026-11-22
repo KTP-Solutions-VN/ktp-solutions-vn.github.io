@@ -1,8 +1,8 @@
-# BOOK-041 — Team (Team Work Schedule)
+# BOOK-041 — Concierge Duty Roster
 
 **Type:** Full page
 **Route:** Booking/team (default: `/booking/team`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Screen for viewing the work schedule/assignments of the concierge team by business unit, used to quickly look up who is responsible for which villa on a given day.
@@ -15,5 +15,5 @@ Content is loaded dynamically via AJAX (the controller only sets the page title)
 - Navigate by date, filter by business unit
 
 ## Navigation
-- Opened from: BOOK-040 (Villa Planning Calendar)
-- Navigates to: BOOK-028 (Booking Details) when clicking on a specific booking
+- Opened from: BOOK-040 (Handover Calendar)
+- Navigates to: BOOK-028 (Reservation Record) when clicking on a specific booking

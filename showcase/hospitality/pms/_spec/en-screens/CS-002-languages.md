@@ -1,10 +1,10 @@
-# CS-002 — Languages
+# CS-002 — Language Setup
 
 **Type:** Full page
 
 **Route:** `CommonSettingController::languages()` — default `/common-setting/languages`
 
-**Module:** CS = Common Lookup Settings
+**Module:** CS = Reference Data
 
 ## Overview
 A list for managing the system's Language lookup data, with each language associated with a list of applicable countries.
@@ -28,5 +28,5 @@ List (DataTable `#zero_config`, sorted by `name`):
 - On save, the system automatically generates the `language_code` from the language name (`CommonController::_getLanguageCode`); the user does not enter it directly.
 
 ## Navigation
-- Accessed from: System Settings menu > Common Lookup Settings > Languages.
-- Navigates to: CS-002-P1 (Add/Edit/Delete Language popup).
+- Accessed from: Configuration menu > Reference Data > Language Setup.
+- Navigates to: CS-002-P1 (Language Form popup).

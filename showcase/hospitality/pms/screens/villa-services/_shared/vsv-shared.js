@@ -10,19 +10,19 @@
   window.MM = window.MM || {};
   var VSV = window.MM.VSV = window.MM.VSV || {};
 
-  VSV.BUSINESS_UNITS = ['Phuket Collection', 'Bali Retreats', 'Koh Samui Estates'];
+  VSV.BUSINESS_UNITS = ['Sentosa Collection', 'Byron Bay Retreats', 'Noosa Estates'];
 
   /* Electricity configuration per villa (keyed by MM.MOCK_PROPERTIES id).
      method matches the legacy payment_setting_type values. */
   VSV.ELECTRICITY = {
-    'PV-101': { managed: true,  method: 'Collect-kWh',     costPerKwh: 8.5,  currency: 'THB', pricingSet: 'full' },
-    'PV-102': { managed: true,  method: 'Collect-Fixed',   fixedAmount: 450, currency: 'THB', pricingSet: 'full' },
-    'PV-103': { managed: true,  method: 'Collect-Quota',   freeQuota: 50, costAboveQuota: 9.2, currency: 'IDR', pricingSet: 'partial' },
-    'PV-104': { managed: false, method: null, currency: 'IDR', pricingSet: 'no' },
-    'PV-105': { managed: true,  method: 'Combined-Separate', includedQuotaKwh: 40, costPerKwh: 7.8, currency: 'THB', pricingSet: 'full' },
-    'PV-106': { managed: true,  method: 'Collect-kWh',     costPerKwh: 8.0,  currency: 'THB', pricingSet: 'full' },
-    'PV-107': { managed: true,  method: 'Platform-Rental', amount: 600, currency: 'THB', pricingSet: 'partial' },
-    'PV-108': { managed: true,  method: 'Collect-Fixed',   fixedAmount: 900, currency: 'IDR', pricingSet: 'full' }
+    'PV-101': { managed: true,  method: 'Collect-kWh',     costPerKwh: 0.34, currency: 'SGD', pricingSet: 'full' },
+    'PV-102': { managed: true,  method: 'Collect-Fixed',   fixedAmount: 18,  currency: 'SGD', pricingSet: 'full' },
+    'PV-103': { managed: true,  method: 'Collect-Quota',   freeQuota: 50, costAboveQuota: 0.4, currency: 'AUD', pricingSet: 'partial' },
+    'PV-104': { managed: false, method: null, currency: 'AUD', pricingSet: 'no' },
+    'PV-105': { managed: true,  method: 'Combined-Separate', includedQuotaKwh: 40, costPerKwh: 0.31, currency: 'SGD', pricingSet: 'full' },
+    'PV-106': { managed: true,  method: 'Collect-kWh',     costPerKwh: 0.35, currency: 'AUD', pricingSet: 'full' },
+    'PV-107': { managed: true,  method: 'Platform-Rental', amount: 26,  currency: 'AUD', pricingSet: 'partial' },
+    'PV-108': { managed: true,  method: 'Collect-Fixed',   fixedAmount: 39,  currency: 'AUD', pricingSet: 'full' }
   };
 
   VSV.METHOD_LABELS = {
@@ -36,29 +36,29 @@
   };
 
   VSV.CLEANING_STAFF = [
-    { id: 'CLN-01', name: 'Kanya Srisawat', bu: 'Phuket Collection' },
-    { id: 'CLN-02', name: 'Malee Boonmee', bu: 'Phuket Collection' },
-    { id: 'CLN-03', name: 'Siti Rahayu', bu: 'Bali Retreats' },
-    { id: 'CLN-04', name: 'Made Suarni', bu: 'Bali Retreats' },
-    { id: 'CLN-05', name: 'Ratana Chai', bu: 'Koh Samui Estates' },
-    { id: 'CLN-06', name: 'Orawan Suk', bu: 'Koh Samui Estates' }
+    { id: 'CLN-01', name: 'Karen Seah', bu: 'Sentosa Collection' },
+    { id: 'CLN-02', name: 'Michelle Beh', bu: 'Sentosa Collection' },
+    { id: 'CLN-03', name: 'Sarah Reid', bu: 'Byron Bay Retreats' },
+    { id: 'CLN-04', name: 'Megan Sutton', bu: 'Byron Bay Retreats' },
+    { id: 'CLN-05', name: 'Rebecca Clarke', bu: 'Noosa Estates' },
+    { id: 'CLN-06', name: 'Olivia Scott', bu: 'Noosa Estates' }
   ];
 
   VSV.GARDEN_STAFF = [
-    { id: 'GDN-01', name: 'Prasert Wongsa', bu: 'Phuket Collection' },
-    { id: 'GDN-02', name: 'Anurak Boonchu', bu: 'Phuket Collection' },
-    { id: 'GDN-03', name: 'Ketut Arsana', bu: 'Bali Retreats' },
-    { id: 'GDN-04', name: 'Wayan Suta', bu: 'Bali Retreats' },
-    { id: 'GDN-05', name: 'Somjai Phonsri', bu: 'Koh Samui Estates' }
+    { id: 'GDN-01', name: 'Patrick Woo', bu: 'Sentosa Collection' },
+    { id: 'GDN-02', name: 'Aaron Boey', bu: 'Sentosa Collection' },
+    { id: 'GDN-03', name: 'Kyle Armstrong', bu: 'Byron Bay Retreats' },
+    { id: 'GDN-04', name: 'Wade Simmons', bu: 'Byron Bay Retreats' },
+    { id: 'GDN-05', name: 'Shane Porter', bu: 'Noosa Estates' }
   ];
 
   VSV.CONCIERGES = [
-    { id: 'STF-01', name: 'Somchai Anuwat', bu: 'Phuket Collection' },
-    { id: 'STF-02', name: 'Wayan Kertha', bu: 'Bali Retreats' },
-    { id: 'STF-03', name: 'Nok Pattaya', bu: 'Koh Samui Estates' }
+    { id: 'STF-01', name: 'Daniel Tan', bu: 'Sentosa Collection' },
+    { id: 'STF-02', name: 'Warren Kelly', bu: 'Byron Bay Retreats' },
+    { id: 'STF-03', name: 'Nicole Parker', bu: 'Noosa Estates' }
   ];
 
-  VSV.BU_MANAGERS = ['Somchai Anuwat', 'Wayan Kertha', 'Nok Pattaya'];
+  VSV.BU_MANAGERS = ['Daniel Tan', 'Warren Kelly', 'Nicole Parker'];
 
   /* Computes the default electricity bill for a meter delta, per the villa's
      configured method — used by check-out / long-stay meter forms to compare
@@ -79,11 +79,11 @@
     }
   };
 
-  VSV.VEHICLES = ['Truck 01 (Phuket)', 'Truck 02 (Phuket)', 'Van 01 (Bali)', 'Van 02 (Bali)', 'Scooter 01 (Samui)'];
+  VSV.VEHICLES = ['Truck 01 (Sentosa)', 'Truck 02 (Sentosa)', 'Van 01 (Byron Bay)', 'Van 02 (Byron Bay)', 'Scooter 01 (Noosa)'];
 
   VSV.PAID_BY = ['Cash', 'Credit Card', 'Bank Transfer', 'Online Payment', 'Platform Collected'];
 
-  VSV.POOL_VENDORS = ['Andaman Pool Services', 'Bali Blue Pools', 'Samui Aqua Care'];
+  VSV.POOL_VENDORS = ['Coral Pool Services', 'Byron Blue Pools', 'Noosa Aqua Care'];
 
   /* -------------------------------------------------------------- */
   /* Helpers                                                          */
@@ -95,9 +95,9 @@
 
   VSV.fmtMoney = function (amount, currency) {
     if (amount === null || amount === undefined || isNaN(amount)) return '—';
-    var cur = currency || 'THB';
-    var symbol = cur === 'IDR' ? 'Rp' : (cur === 'USD' ? '$' : cur + ' ');
-    return symbol + Number(amount).toLocaleString('en-US', { minimumFractionDigits: cur === 'IDR' ? 0 : 0 });
+    var cur = currency || 'SGD';
+    var symbol = cur === 'AUD' ? 'A$' : (cur === 'USD' ? '$' : cur + ' ');
+    return symbol + Number(amount).toLocaleString('en-US', { minimumFractionDigits: cur === 'AUD' ? 0 : 0 });
   };
 
   VSV.fmtDate = function (isoStr) {
@@ -139,12 +139,12 @@
 
   /* Garden visit report history — reused by VSV-017's Reports tab. */
   VSV.GARDEN_REPORTS = [
-    { id: 'GJ-501', villaId: 'PV-101', service: 'Lawn mowing & hedge trim', operator: 'Prasert Wongsa', date: '2026-09-01', start: '08:00', end: '09:30', gps: 'ok', plan: 'Weekly', planned: true, ownerAccess: true },
-    { id: 'GJ-502', villaId: 'PV-102', service: 'Pest control spray', operator: 'Anurak Boonchu', date: '2026-09-01', start: '09:00', end: '10:00', gps: 'ok', plan: 'Monthly', planned: true, ownerAccess: false },
-    { id: 'GJ-503', villaId: 'PV-103', service: 'Tropical planting refresh', operator: 'Ketut Arsana', date: '2026-08-30', start: '13:00', end: '15:00', gps: 'nok', plan: 'One-off', planned: false, ownerAccess: false },
-    { id: 'GJ-504', villaId: 'PV-106', service: 'Lawn mowing & hedge trim', operator: 'Somjai Phonsri', date: '2026-08-29', start: '07:30', end: '09:00', gps: 'ok', plan: 'Weekly', planned: true, ownerAccess: true },
-    { id: 'GJ-505', villaId: 'PV-108', service: 'Irrigation check', operator: 'Wayan Suta', date: '2026-08-28', start: '10:00', end: '11:00', gps: 'ok', plan: 'Bi-weekly', planned: true, ownerAccess: false },
-    { id: 'GJ-506', villaId: 'PV-104', service: 'Palm tree trimming', operator: 'Ketut Arsana', date: '2026-08-27', start: '08:30', end: '10:30', gps: 'ok', plan: 'Quarterly', planned: false, ownerAccess: true }
+    { id: 'GJ-501', villaId: 'PV-101', service: 'Lawn mowing & hedge trim', operator: 'Patrick Woo', date: '2026-09-01', start: '08:00', end: '09:30', gps: 'ok', plan: 'Weekly', planned: true, ownerAccess: true },
+    { id: 'GJ-502', villaId: 'PV-102', service: 'Pest control spray', operator: 'Aaron Boey', date: '2026-09-01', start: '09:00', end: '10:00', gps: 'ok', plan: 'Monthly', planned: true, ownerAccess: false },
+    { id: 'GJ-503', villaId: 'PV-103', service: 'Tropical planting refresh', operator: 'Kyle Armstrong', date: '2026-08-30', start: '13:00', end: '15:00', gps: 'nok', plan: 'One-off', planned: false, ownerAccess: false },
+    { id: 'GJ-504', villaId: 'PV-106', service: 'Lawn mowing & hedge trim', operator: 'Shane Porter', date: '2026-08-29', start: '07:30', end: '09:00', gps: 'ok', plan: 'Weekly', planned: true, ownerAccess: true },
+    { id: 'GJ-505', villaId: 'PV-108', service: 'Irrigation check', operator: 'Wade Simmons', date: '2026-08-28', start: '10:00', end: '11:00', gps: 'ok', plan: 'Bi-weekly', planned: true, ownerAccess: false },
+    { id: 'GJ-506', villaId: 'PV-104', service: 'Palm tree trimming', operator: 'Kyle Armstrong', date: '2026-08-27', start: '08:30', end: '10:30', gps: 'ok', plan: 'Quarterly', planned: false, ownerAccess: true }
   ];
 
   /* -------------------------------------------------------------- */
@@ -156,5 +156,5 @@
   /* -------------------------------------------------------------- */
   /* Pool — visit log staff pool, reused by VSV-023.                  */
   /* -------------------------------------------------------------- */
-  VSV.POOL_STAFF = ['Andaman Pool Services — Team 1', 'Andaman Pool Services — Team 2', 'Bali Blue Pools — Team 1', 'Samui Aqua Care — Team 1'];
+  VSV.POOL_STAFF = ['Coral Pool Services — Team 1', 'Coral Pool Services — Team 2', 'Byron Blue Pools — Team 1', 'Noosa Aqua Care — Team 1'];
 })();

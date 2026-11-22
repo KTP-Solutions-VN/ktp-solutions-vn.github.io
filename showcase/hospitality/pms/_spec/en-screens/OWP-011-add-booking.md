@@ -1,10 +1,10 @@
-# OWP-011 — Add Booking
+# OWP-011 — Block Dates
 
 **Type:** Full page (currently a placeholder, not yet fully implemented)
 
 **Route:** `ExternalUserController::addBooking()` — no dedicated friendly route; no navigation link in the system currently points to this screen
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 

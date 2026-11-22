@@ -1,10 +1,10 @@
-# FUND-007 — Investor Interest Rate Configuration
+# FUND-007 — Investor Yield Rates
 
 **Type:** Full page
 
 **Route:** `FundController::rates($owner_id)` — `/fund/rates/:owner_id` (GET to display, POST to save the entire table)
 
-**Module:** FUND = Investment Fund
+**Module:** FUND = Investor Capital
 
 ## Overview
 Configure the interest rate tiers (investment-month range → applicable interest %) for an investor, edited inline directly on the table.

@@ -1,10 +1,10 @@
-# NOT-003 — Notice Detail (View Detail)
+# NOT-003 — Announcement View
 
 **Type:** Full page
 
 **Route:** `NoticeController::viewDetail($id)` — default `/notice/view-detail/:id`
 
-**Module:** Notices
+**Module:** Announcements
 
 ## Overview
 View the full details of a notice/task: sender, receiver, content, sent date, status, deadline (highlighted red if overdue), and completion date.
@@ -27,5 +27,5 @@ View the full details of a notice/task: sender, receiver, content, sent date, st
 - (Commented out, no longer active on the UI): Reminder, Done notice, Get Help — the old links pointed to `remindernotice`, `statusUser`, `helpOtheruser`.
 
 ## Navigation
-- Opened from: NOT-002 (Notice List) when viewing the detail of a row.
+- Opened from: NOT-002 (Announcements & Tasks) when viewing the detail of a row.
 - Navigates to: NOT-002 (when clicking Close), NOT-003-P1 (when clicking Delete).

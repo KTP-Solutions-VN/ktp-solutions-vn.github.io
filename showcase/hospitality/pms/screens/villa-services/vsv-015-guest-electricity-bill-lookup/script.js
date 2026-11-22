@@ -5,14 +5,14 @@
   /* Mock stay + electricity bill history — independent of the check-in/check-out
      screens' own localStorage so this lookup tool always has data to demo with. */
   var STAYS = [
-    { property: 'PV-101', guest: 'James Whitfield', checkIn: '2026-08-12', checkOut: '2026-08-19', meterIn: 4020, meterOut: 4245, unitsConsumed: 225, freeUnits: 0, charge: 1913, discount: 0, amountPaid: 1913, means: 'Cash' },
-    { property: 'PV-101', guest: 'Sophia Rossi', checkIn: '2026-08-20', checkOut: '2026-08-25', meterIn: 4245, meterOut: 4402, unitsConsumed: 157, freeUnits: 0, charge: 1335, discount: 100, amountPaid: 1235, means: 'Credit Card' },
+    { property: 'PV-101', guest: 'James Whitfield', checkIn: '2026-08-12', checkOut: '2026-08-19', meterIn: 4020, meterOut: 4245, unitsConsumed: 225, freeUnits: 0, charge: 77, discount: 0, amountPaid: 77, means: 'Cash' },
+    { property: 'PV-101', guest: 'Sophia Rossi', checkIn: '2026-08-20', checkOut: '2026-08-25', meterIn: 4245, meterOut: 4402, unitsConsumed: 157, freeUnits: 0, charge: 53, discount: 4, amountPaid: 49, means: 'Credit Card' },
     { property: 'PV-101', guest: 'James Whitfield', checkIn: '2026-09-02', checkOut: '2026-09-09', meterIn: 4820, meterOut: null, unitsConsumed: null, freeUnits: 0, charge: null, discount: 0, amountPaid: null, means: null },
-    { property: 'PV-102', guest: 'Anna Kowalski', checkIn: '2026-08-15', checkOut: '2026-08-21', meterIn: 3512, meterOut: 3512, unitsConsumed: 0, freeUnits: 0, charge: 450, discount: 0, amountPaid: 450, means: 'Online Payment' },
-    { property: 'PV-102', guest: 'Michael Tan', checkIn: '2026-08-28', checkOut: '2026-09-01', meterIn: 3512, meterOut: 3512, unitsConsumed: 0, freeUnits: 0, charge: 450, discount: 0, amountPaid: 450, means: 'Cash' },
-    { property: 'PV-103', guest: 'Isabelle Moreau', checkIn: '2026-08-10', checkOut: '2026-08-18', meterIn: 2100, meterOut: 2340, unitsConsumed: 240, freeUnits: 50, charge: 1748, discount: 0, amountPaid: 1748, means: 'Bank Transfer' },
-    { property: 'PV-106', guest: 'David Chen', checkIn: '2026-08-05', checkOut: '2026-08-11', meterIn: 6980, meterOut: 7124, unitsConsumed: 144, freeUnits: 0, charge: 1152, discount: 0, amountPaid: 1152, means: 'Platform Collected' },
-    { property: 'PV-108', guest: 'Priya Nair', checkIn: '2026-08-22', checkOut: '2026-08-29', meterIn: 5510, meterOut: 5510, unitsConsumed: 0, freeUnits: 0, charge: 900, discount: 0, amountPaid: 900, means: 'Bank Transfer' }
+    { property: 'PV-102', guest: 'Anna Kowalski', checkIn: '2026-08-15', checkOut: '2026-08-21', meterIn: 3512, meterOut: 3512, unitsConsumed: 0, freeUnits: 0, charge: 18, discount: 0, amountPaid: 18, means: 'Online Payment' },
+    { property: 'PV-102', guest: 'Michael Tan', checkIn: '2026-08-28', checkOut: '2026-09-01', meterIn: 3512, meterOut: 3512, unitsConsumed: 0, freeUnits: 0, charge: 18, discount: 0, amountPaid: 18, means: 'Cash' },
+    { property: 'PV-103', guest: 'Isabelle Moreau', checkIn: '2026-08-10', checkOut: '2026-08-18', meterIn: 2100, meterOut: 2340, unitsConsumed: 240, freeUnits: 50, charge: 76, discount: 0, amountPaid: 76, means: 'Bank Transfer' },
+    { property: 'PV-106', guest: 'David Chen', checkIn: '2026-08-05', checkOut: '2026-08-11', meterIn: 6980, meterOut: 7124, unitsConsumed: 144, freeUnits: 0, charge: 50, discount: 0, amountPaid: 50, means: 'Platform Collected' },
+    { property: 'PV-108', guest: 'Priya Nair', checkIn: '2026-08-22', checkOut: '2026-08-29', meterIn: 5510, meterOut: 5510, unitsConsumed: 0, freeUnits: 0, charge: 39, discount: 0, amountPaid: 39, means: 'Bank Transfer' }
   ];
 
   function propName(id) { var p = VSV.propertyById(id); return p ? p.name : id; }
@@ -55,7 +55,7 @@
 
     var tbody = document.getElementById('range-tbody');
     var empty = document.getElementById('range-empty');
-    var currency = (VSV.ELECTRICITY[propId] || {}).currency || 'THB';
+    var currency = (VSV.ELECTRICITY[propId] || {}).currency || 'SGD';
     if (!rows.length) { tbody.innerHTML = ''; empty.hidden = false; return; }
     empty.hidden = true;
     tbody.innerHTML = rows.map(function (r) {
@@ -78,7 +78,7 @@
     var stay = STAYS.find(function (s) { return s.property === propId && s.checkIn === date; });
     var resultCard = document.getElementById('checkin-result-card');
     var emptyCard = document.getElementById('checkin-empty');
-    var currency = (VSV.ELECTRICITY[propId] || {}).currency || 'THB';
+    var currency = (VSV.ELECTRICITY[propId] || {}).currency || 'SGD';
 
     if (!stay) {
       resultCard.hidden = true;

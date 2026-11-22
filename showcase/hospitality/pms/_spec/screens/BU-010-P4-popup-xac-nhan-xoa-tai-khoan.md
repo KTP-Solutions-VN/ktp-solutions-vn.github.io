@@ -1,10 +1,10 @@
-# BU-010-P4 — Popup Xác nhận xóa tài khoản
+# BU-010-P4 — Xác nhận xóa tài khoản (Confirm Account Deletion)
 
 **Loại:** Popup (mở từ BU-010, tab Tài khoản)
 
 **Route:** Modal Bootstrap (`#exampleModalDelete`) trong element `business-unit/accounts.ctp`; submit POST tới action `BusinessUnitController::paymentMethod()` với `tab=accounts`, `page_action=delete`.
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Popup xác nhận trước khi xóa vĩnh viễn một tài khoản.

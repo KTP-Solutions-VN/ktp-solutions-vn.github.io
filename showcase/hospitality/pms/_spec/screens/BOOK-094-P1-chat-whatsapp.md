@@ -1,4 +1,4 @@
-# BOOK-094-P1 — Chat WhatsApp
+# BOOK-094-P1 — Luồng chat – bản cổ điển (Chat Thread (Classic))
 
 **Loại:** Trang đầy đủ (mở từ BOOK-094, mở tab mới)
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** `/VM/booking/whatsapp-chat/:booking_id` (dùng trực tiếp trong link tại view, không khai báo trong config/Routes.php)
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 
@@ -31,5 +31,5 @@ Cửa sổ chat WhatsApp trực tiếp với khách của một booking, hiển 
 
 ## Điều hướng
 
-- Mở từ BOOK-094 (WhatsApp Manager) bằng nút Chat, mở trong tab trình duyệt mới.
+- Mở từ BOOK-094 (Hộp thư chat – bản cổ điển) bằng nút Chat, mở trong tab trình duyệt mới.
 - Không có điều hướng tiếp; đóng tab để quay lại BOOK-094.

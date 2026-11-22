@@ -3,14 +3,14 @@
 
   var PROPERTY_TYPES = ['Discover the villa', 'Arrival', 'Departure', 'Equipment', 'Troubleshooting'];
   var COUNTRY_TYPES = ['Marketing', 'Rules', 'Local Guide', 'Training'];
-  var COUNTRIES = ['Thailand', 'Indonesia', 'Vietnam'];
+  var COUNTRIES = ['Singapore', 'Australia', 'New Zealand'];
 
   var SEED = [
-    { id: 'VID-01', category: 'property', title: 'Discover Villa Sapphire Cliff', desc: 'A cinematic walkthrough of the villa\'s grounds, pool, and living areas.', target: 'Villa Sapphire Cliff', type: 'Discover the villa', lang: 'English', duration: '3:24', tone: 'Factual', guestPortal: true, author: 'Somchai A.', date: '2026-08-10' },
-    { id: 'VID-02', category: 'property', title: 'Arrival Guide — Villa Lotus Bay', desc: 'Step-by-step arrival instructions including gate code and parking.', target: 'Villa Lotus Bay', type: 'Arrival', lang: 'English', duration: '2:10', tone: 'Factual', guestPortal: false, author: 'Aroon P.', date: '2026-08-05' },
-    { id: 'VID-03', category: 'property', title: 'Smart TV & Sound System', desc: 'How to operate the entertainment system in the living room.', target: 'Villa Amber Ridge', type: 'Equipment', lang: 'English', duration: '1:48', tone: 'Humoristic', guestPortal: false, author: 'Nalin S.', date: '2026-07-28' },
-    { id: 'VID-04', category: 'country', title: 'Welcome to Thailand', desc: 'Marketing reel showcasing the Thailand collection of villas.', target: 'Thailand', type: 'Marketing', lang: 'English', duration: '4:02', tone: 'Factual', guestPortal: false, author: 'Management', date: '2026-07-15' },
-    { id: 'VID-05', category: 'country', title: 'House Rules — Indonesia Villas', desc: 'Standard house rules briefing for all Indonesia properties.', target: 'Indonesia', type: 'Rules', lang: 'English', duration: '2:55', tone: 'Factual', guestPortal: false, author: 'Operations', date: '2026-07-02' }
+    { id: 'VID-01', category: 'property', title: 'Discover Villa Sapphire Cliff', desc: 'A cinematic walkthrough of the villa\'s grounds, pool, and living areas.', target: 'Villa Sapphire Cliff', type: 'Discover the villa', lang: 'English', duration: '3:24', tone: 'Factual', guestPortal: true, author: 'Daniel T.', date: '2026-08-10' },
+    { id: 'VID-02', category: 'property', title: 'Arrival Guide — Villa Lotus Bay', desc: 'Step-by-step arrival instructions including gate code and parking.', target: 'Villa Lotus Bay', type: 'Arrival', lang: 'English', duration: '2:10', tone: 'Factual', guestPortal: false, author: 'Adam P.', date: '2026-08-05' },
+    { id: 'VID-03', category: 'property', title: 'Smart TV & Sound System', desc: 'How to operate the entertainment system in the living room.', target: 'Villa Amber Ridge', type: 'Equipment', lang: 'English', duration: '1:48', tone: 'Humoristic', guestPortal: false, author: 'Natalie S.', date: '2026-07-28' },
+    { id: 'VID-04', category: 'country', title: 'Welcome to Singapore', desc: 'Marketing reel showcasing the Singapore collection of villas.', target: 'Singapore', type: 'Marketing', lang: 'English', duration: '4:02', tone: 'Factual', guestPortal: false, author: 'Management', date: '2026-07-15' },
+    { id: 'VID-05', category: 'country', title: 'House Rules — Australia Villas', desc: 'Standard house rules briefing for all Australia properties.', target: 'Australia', type: 'Rules', lang: 'English', duration: '2:55', tone: 'Factual', guestPortal: false, author: 'Operations', date: '2026-07-02' }
   ];
 
   function getHidden() { return JSON.parse(localStorage.getItem('mm_vid_videos_hidden') || '[]'); }
@@ -39,7 +39,7 @@
 
   function guestPortalBadge(v) {
     if (v.category !== 'property') return '';
-    return '<span class="badge badge-' + (v.guestPortal ? 'success' : 'neutral') + ' video-card__guest-badge">' + (v.guestPortal ? 'Guest Portal' : 'Hidden') + '</span>';
+    return '<span class="badge badge-' + (v.guestPortal ? 'success' : 'neutral') + ' video-card__guest-badge">' + (v.guestPortal ? 'Guest Hub' : 'Hidden') + '</span>';
   }
 
   function render() {
@@ -155,7 +155,7 @@
         var ei = extra.findIndex(function (x) { return x.id === id; });
         if (ei !== -1) { extra[ei].guestPortal = gpToggle.checked; saveExtra(extra); }
       }
-      MM.showToast(gpToggle.checked ? 'Set as Guest Portal video' : 'Removed from Guest Portal');
+      MM.showToast(gpToggle.checked ? 'Set as Guest Hub video' : 'Removed from Guest Hub');
       render();
     }
   });

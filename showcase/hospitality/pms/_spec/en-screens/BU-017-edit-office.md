@@ -1,13 +1,13 @@
-# BU-017 — Edit Office
+# BU-017 — Edit Office Location
 
 **Type:** Full page
 
 **Route:** `BusinessUnitController::editOffice($id)` — default `/business-unit/edit-office/{id}` (id base64-encoded)
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
-A form for editing the information of an existing office — the same set of fields as BU-016 (Add Office), pre-populated with existing data.
+A form for editing the information of an existing office — the same set of fields as BU-016 (New Office Location), pre-populated with existing data.
 
 ## Detailed Description
 
@@ -27,5 +27,5 @@ A form for editing the information of an existing office — the same set of fie
 - **Cancel:** returns to BU-015 without saving.
 
 ## Navigation
-- Opened from: BU-015 (office list) — Edit icon on each row.
+- Opened from: BU-015 (Office Locations) — Edit icon on each row.
 - After saving: redirects back to BU-015.

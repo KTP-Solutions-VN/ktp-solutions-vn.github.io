@@ -1,10 +1,10 @@
-# CS-007-P1 — Add/Edit/Delete Location Type Popup
+# CS-007-P1 — Location Tag Form
 
 **Type:** Popup (opened from CS-007)
 
 **Route:** Bootstrap Modal (`#exampleModal`) within `location_types.ctp`; submits to the same action `CommonSettingController::locationTypes()`; duplicate name check via AJAX `checkLocation()` — `/common-setting/check-location`.
 
-**Module:** CS = Common Lookup Settings
+**Module:** CS = Reference Data
 
 ## Overview
 A shared popup for Adding/Editing/Deleting a villa Location Type.
@@ -22,5 +22,5 @@ A shared popup for Adding/Editing/Deleting a villa Location Type.
 - **Cancel:** closes the modal.
 
 ## Navigation
-- Opened from: CS-007 (Location Type list).
+- Opened from: CS-007 (Location Tags).
 - After submission: returns to CS-007 with a flash message.

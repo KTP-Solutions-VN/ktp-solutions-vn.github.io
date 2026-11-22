@@ -27,7 +27,7 @@
       (cust.membershipType !== 'None' ? cust.membershipType + ' Member · ' + cust.membershipStatus : 'No membership yet') +
       ' · CareJourney since ' + (cust.createdAt ? CJ.formatDate(cust.createdAt) : '—');
 
-    document.getElementById('stat-points').textContent = pointsBalance.toLocaleString('en-SG');
+    document.getElementById('stat-points').textContent = pointsBalance.toLocaleString('en-AU');
     document.getElementById('stat-total-orders').textContent = orders.length;
     document.getElementById('stat-in-progress').textContent = inProgress;
     document.getElementById('stat-membership').textContent = cust.membershipType !== 'None' ? cust.membershipType : 'None';

@@ -1,10 +1,10 @@
-# TXT-001-P1 — Add/Edit Text
+# TXT-001-P1 — Description Editor
 
 **Type:** Popup (opened from TXT-001)
 
 **Route:** Static modal within `index.ctp` (`#texts-editor-modal`); saves via AJAX `TextsController::saveText()` — `POST /texts/save-text`
 
-**Module:** Texts
+**Module:** Description Bank
 
 ## Overview
 A form for composing text content for a Content Element, applied either to a specific property/unit/residence (direct context) or as a reusable text (Shared/Profile) applied to multiple Business Units.

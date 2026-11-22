@@ -1,9 +1,9 @@
-# BOOK-067 — Villa Rate Update Status
+# BOOK-067 — Rate Plan Status
 
 **Type:** Full page
 **Route:** Booking/ratesStatus (default: `/booking/rates-status`)
 **Pretty route:** no dedicated route found in config/Routes.php (uses the default route)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Lookup page for the current rate status (Monthly/Daily/Yearly) of a villa by business unit: view an overview list of all villas currently on Monthly rates along with their next payment due date, or look up the rate-status change history of a specific villa.
@@ -34,7 +34,7 @@ The list is sorted ascending by `next_due_date`.
 |---|---|---|
 | 1 | Since | Date the status took effect |
 | 2 | Till | Date the status ended (blank if currently active) |
-| 3 | Status | Rate type (Monthly/Daily/Yearly); if Monthly, it is a link opening BOOK-076 (View Monthly Rate) |
+| 3 | Status | Rate type (Monthly/Daily/Yearly); if Monthly, it is a link opening BOOK-076 (Monthly Rent Terms) |
 | 4 | Note | Note (e.g., monthly rent amount or due date) |
 
 Above Table 2 are the following buttons:
@@ -49,4 +49,4 @@ Above Table 2 are the following buttons:
 
 ## Navigation
 - Opened from: BOOK-066 (Status button)
-- Navigates to: BOOK-069 (Edit/Payment/Finish Rate popup), BOOK-075 (Quick Villa Rate Change), BOOK-076 (View Monthly Rate)
+- Navigates to: BOOK-069 (Monthly Rent Action popup), BOOK-075 (Switch Rate Basis), BOOK-076 (Monthly Rent Terms)

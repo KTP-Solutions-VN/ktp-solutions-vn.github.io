@@ -1,4 +1,4 @@
-/* Entity: Email/Invoice Template (#22 Cấu hình email xác nhận & hóa đơn)
+/* Entity: Email/Invoice Template (Receipt & Email Templates — cấu hình email xác nhận & hóa đơn)
    Schema: id, name, appliesToType (Category|Business Unit|Campaign|All categories),
    appliesToValue, status (Active|Inactive), includeTerms, includeBranding, includeRefundPolicy */
 const DATA_EMAIL_TEMPLATES = [

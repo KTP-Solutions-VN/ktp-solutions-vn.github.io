@@ -1,13 +1,13 @@
-# BU-009 — Chat Platforms
+# BU-009 — Messaging Apps
 
 **Type:** Full page
 
 **Route:** `BusinessUnitController::chatPlatform()` — default `/business-unit/chat-platform`
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
-A list of chat platforms (Zalo, WhatsApp, Messenger, etc.) used to contact customers, which can be added, edited, or deleted directly on the page via a popup.
+A list of chat platforms (WeChat, WhatsApp, Messenger, etc.) used to contact customers, which can be added, edited, or deleted directly on the page via a popup.
 
 ## Detailed Description
 

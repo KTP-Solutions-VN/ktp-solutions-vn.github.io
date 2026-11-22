@@ -1,8 +1,8 @@
-# MNT-009-P2 — Sửa dịch vụ vườn
+# MNT-009-P2 — Sửa loại dịch vụ vườn (Edit Garden Service Type)
 
 **Loại:** Popup (mở từ MNT-009)
 **Route:** maintenance/editGardenService/:id
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Trang chỉnh sửa một dịch vụ vườn đã có: tên, ảnh minh họa, đơn vị kinh doanh áp dụng, trạng thái.
@@ -21,5 +21,5 @@ Trang chỉnh sửa một dịch vụ vườn đã có: tên, ảnh minh họa, 
 - **Cancel**: quay về MNT-009.
 
 ## Điều hướng
-- Vào từ: icon Sửa trên MNT-009 — Dịch vụ vườn.
+- Vào từ: icon Sửa trên MNT-009 — Loại dịch vụ vườn.
 - Đi tới: sau khi Save, quay về MNT-009.

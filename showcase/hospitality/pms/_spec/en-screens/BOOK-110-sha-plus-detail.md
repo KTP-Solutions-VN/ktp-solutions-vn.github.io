@@ -1,4 +1,4 @@
-# BOOK-110 — SHA Plus Detail (SHA Plus Edit)
+# BOOK-110 — Health Certification
 
 **Type:** Full page
 
@@ -6,11 +6,11 @@
 
 **Friendly route:** no dedicated route found in config/Routes.php
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 
-View booking information and update the SHA+ certification status (Amazing Thailand Safety and Health Administration) along with notes for a specific booking.
+View booking information and update the SHA+ certification status (Safety and Health Administration) along with notes for a specific booking.
 
 Note: the links leading to this screen (the "Edit" button in the SHA+ list and the "SHA Plus" menu item) are currently commented out/hidden in the source code (`sha_plus.ctp`, `left-sidebar.ctp`), so this screen can only be accessed directly via URL with a `booking_id`, with no active entry point in the current UI.
 
@@ -37,4 +37,4 @@ Note: the links leading to this screen (the "Edit" button in the SHA+ list and t
 ## Navigation
 
 - No active entry point currently exists in the UI (the corresponding menu item and "Edit" button are commented out); accessed directly via URL `/booking/sha-plus-edit/:booking_id`.
-- After saving, redirects to the `shaPlus` action (SHA+ list, currently not linked from any menu).
+- After saving, redirects to the `shaPlus` action (health certification list, currently not linked from any menu).

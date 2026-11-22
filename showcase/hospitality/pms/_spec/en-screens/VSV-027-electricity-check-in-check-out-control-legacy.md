@@ -1,10 +1,10 @@
-# VSV-027 — Electricity Check-in/Check-out Control (Legacy — Control)
+# VSV-027 — Meter Audit (Classic)
 
 **Type:** Full page
 
 **Route:** `VillaServicesController::control()` — defaults to `/villa-services/control`; date-navigation data loaded via AJAX `getElecricutyControlAjax`
 
-**Module:** Villa Services — Electricity
+**Module:** In-Stay Services — Metering
 
 ## Overview
 The legacy version of electricity check-in/check-out control, combined into a single page: lists villas checking out today that are still missing meter readings/payment (highlighted in red) and villas checking in today that are still missing an opening meter reading (highlighted in blue), with back/forward navigation between days via arrow/calendar controls. This functionality has been superseded by two more detailed screens, VSV-011 (`electricityCheckInControl`) and VSV-012 (`electricityCheckOutControl`), but the route/action still exists in the system.

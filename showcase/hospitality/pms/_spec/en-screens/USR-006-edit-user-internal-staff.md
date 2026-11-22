@@ -1,10 +1,10 @@
-# USR-006 — Edit User (Internal Staff)
+# USR-006 — Edit Team Member
 
 **Type:** Full page
 
 **Route:** `UserController::edit($tab, $id, $show_page, $bank_account_id)` — default `user/edit/:tab/:id/:show_page/:bank_account_id`
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 A full profile-editing form for a staff member, consisting of 4-5 tabs: Identification, Office (workplace/residence/attendance), Admin (work permit, documents, company-issued assets), Payroll, and Bank Account. This is the central screen for completing a staff profile after it is first created on USR-005, and is also where salary locking (`is_lock_sallery`), team leader assignment, and attendance configuration are handled.

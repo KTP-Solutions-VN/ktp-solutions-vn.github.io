@@ -1,10 +1,10 @@
-# OWN-008 — Owner Payment Detail List
+# OWN-008 — Owner Payout Accounts
 
 **Type:** Full page
 
 **Route:** `/Owner/payment/{owner_id}` (controller `Owner`, action `payment($owner_id)`)
 
-**Module:** Owner Management (Admin)
+**Module:** Owner Relations (Admin)
 
 ## Overview
 
@@ -27,13 +27,13 @@ A screen listing the payment accounts/details (bank) declared for a specific own
 
 ## Functions / Actions
 
-- **+ Payment Details**: opens OWN-008-P1 (Add Payment Details).
-- **Edit** (pencil icon, per row): opens OWN-008-P2 (Edit Payment Details).
+- **+ Payment Details**: opens OWN-008-P1 (New Owner Payout Account).
+- **Edit** (pencil icon, per row): opens OWN-008-P2 (Edit Owner Payout Account).
 - **Delete** (trash icon, per row): deletes the payment detail (action `deletePaymentDetail`, no dedicated UI).
 
 ## Navigation
 
 - Navigates to:
-  - OWN-008-P1 — Add Owner Payment Details
-  - OWN-008-P2 — Edit Owner Payment Details
+  - OWN-008-P1 — New Owner Payout Account
+  - OWN-008-P2 — Edit Owner Payout Account
 - Note: no direct entry point into this screen from the Admin OwnerController interface has been identified; further review with the development team is required to confirm whether this flow is still in use or has been superseded by the "Payment Details" tab in OWN-003.

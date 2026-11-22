@@ -1,10 +1,10 @@
-# BU-022-P3 — Popup: Add/Edit Channel Account
+# BU-022-P3 — Channel Account Form
 
 **Type:** Popup (opened from BU-022, Channel Account tab)
 
 **Route:** Static Bootstrap modal (`#chanelModal`) within `channels.ctp`; submits via POST to `BusinessUnitController::channels('accounts')`.
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A shared popup for adding and editing a channel account (`Chanel`) belonging to a specific Booking Platform, configuring ownership, management, applicable Business Units, and payment collection/disbursement terms.

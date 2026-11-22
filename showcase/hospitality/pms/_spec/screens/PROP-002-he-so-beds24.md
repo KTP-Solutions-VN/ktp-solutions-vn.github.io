@@ -1,7 +1,7 @@
-# PROP-002 — Hệ số giá Beds24 theo kênh OTA
+# PROP-002 — Hệ số giá theo kênh (Channel Rate Multiplier)
 **Loại:** Trang đầy đủ
 **Route:** property/beds24-coefficient
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Màn hình tra cứu hệ số (coefficient) giá áp dụng cho từng property khi đồng bộ với kênh OTA qua Beds24, lọc theo Đơn vị kinh doanh (Business Unit) và Kênh (Channel/Chanel). Hiển thị 2 bảng: bảng property đã có hệ số và bảng property đang kết nối kênh đó nhưng chưa có hệ số.
@@ -24,6 +24,6 @@ Màn hình tra cứu hệ số (coefficient) giá áp dụng cho từng property
 - Không có thao tác thêm/sửa/xóa trực tiếp trên trang này (chỉ tra cứu); việc set hệ số coefficient được thực hiện ở nơi khác (action `saveCoefficient`, không thuộc phạm vi PROP-001..016).
 
 ## Điều hướng
-- Mở từ: Menu quản lý Bất động sản, mục Quality/Beds24.
+- Mở từ: Menu Hồ sơ tài sản, mục Listing Quality / đồng bộ kênh.
 - Điều hướng tới: không có link điều hướng sang trang khác trong nội dung trang (breadcrumb link về `property/quality`, ngoài phạm vi phụ trách).
 - Popup con: không có.

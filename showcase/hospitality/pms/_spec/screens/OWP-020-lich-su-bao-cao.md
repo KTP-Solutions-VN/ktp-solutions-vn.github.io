@@ -1,10 +1,10 @@
-# OWP-020 — Lịch sử báo cáo
+# OWP-020 — Kho sao kê (Statement Archive)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `ExternalUserController::ReportHistory($villa_id)` — không có route đẹp riêng (mặc định `/external-user/report-history/{villa_id_base64}`)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 

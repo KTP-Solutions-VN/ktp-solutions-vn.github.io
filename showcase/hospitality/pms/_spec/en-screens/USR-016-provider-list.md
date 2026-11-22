@@ -1,10 +1,10 @@
-# USR-016 — Provider List
+# USR-016 — Contractors
 
 **Type:** Full page
 
 **Route:** `UserController::providers($tab)` — default `user/providers`
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 A list of `User` accounts belonging to external service providers (`employment = External`, `user_type = Employee`), for example personnel from cleaning or maintenance service companies. Allows filtering by business unit, and viewing/editing/deleting.
@@ -32,11 +32,11 @@ A list of `User` accounts belonging to external service providers (`employment =
 | 9 | Actions | — | View, Edit, Delete |
 
 ## Functions / Actions
-- **Add New:** opens USR-017 (Add Provider).
-- **View Details:** opens USR-019 (View Provider Details).
-- **Edit:** opens USR-018 (Edit Provider).
+- **Add New:** opens USR-017 (New Contractor).
+- **View Details:** opens USR-019 (Contractor Profile).
+- **Edit:** opens USR-018 (Edit Contractor).
 - **Delete:** confirmation popup, calls `user/delete/:base64(id)`.
 
 ## Navigation
-- Entry point: Settings/Users menu → Providers.
-- Navigates to: USR-017 (Add), USR-018 (Edit), USR-019 (View Details).
+- Entry point: Workforce menu → Contractors.
+- Navigates to: USR-017 (Add), USR-018 (Edit), USR-019 (Contractor Profile).

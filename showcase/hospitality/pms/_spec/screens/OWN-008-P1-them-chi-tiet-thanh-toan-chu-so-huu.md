@@ -1,14 +1,14 @@
-# OWN-008-P1 — Thêm chi tiết thanh toán chủ sở hữu
+# OWN-008-P1 — Thêm tài khoản nhận tiền (New Owner Payout Account)
 
 **Loại:** Popup (mở từ OWN-008)
 
 **Route:** `/Owner/addPaymentDetail/{owner_id}` (controller `Owner`, action `addPaymentDetail($owner_id)`)
 
-**Module:** Quản lý chủ sở hữu (Admin)
+**Module:** Quan hệ chủ nhà (Admin)
 
 ## Mô tả ngắn gọn
 
-Form thêm mới một tài khoản/chi tiết thanh toán (ngân hàng) cho một chủ sở hữu cụ thể. Mở từ nút "+ Payment Details" trên màn hình OWN-008 (Danh sách thanh toán của chủ sở hữu).
+Form thêm mới một tài khoản/chi tiết thanh toán (ngân hàng) cho một chủ sở hữu cụ thể. Mở từ nút "+ Payment Details" trên màn hình OWN-008 (Tài khoản nhận tiền của chủ nhà).
 
 ## Mô tả chi tiết
 
@@ -26,7 +26,7 @@ Form thêm mới một tài khoản/chi tiết thanh toán (ngân hàng) cho m�
 ## Chức năng/nút thao tác
 
 - **Save**: lưu bản ghi `OwnerBankAccount` mới cho owner; nếu đã có bản ghi cùng `payment_type` (prefered/other) thì ghi đè lên bản ghi đó; ghi log hoạt động; sau khi lưu chuyển hướng tới OWN-008 (`payment/{owner_id}`).
-- **Cancel**: quay lại OWN-001 (Danh sách chủ sở hữu).
+- **Cancel**: quay lại OWN-001 (Tài khoản chủ nhà).
 
 ## Điều hướng
 

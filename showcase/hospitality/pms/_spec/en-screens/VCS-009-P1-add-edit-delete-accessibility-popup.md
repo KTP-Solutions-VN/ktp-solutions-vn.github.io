@@ -1,8 +1,8 @@
-# VCS-009-P1 — Add/Edit/Delete Accessibility Popup
+# VCS-009-P1 — Access Feature Form
 
 **Type:** Popup/Modal (opened from VCS-009)
 **Route:** No dedicated route — uses a shared form that POSTs to `villa-common-setting/villa-accessible` (hidden `action`=`add`/`edit`/`delete`); duplicate-name check via AJAX `villa-common-setting/checkVillaAccessible`
-**Module:** VCS = Villa Common Settings
+**Module:** VCS = Property Attributes
 
 ## Overview
 A shared Bootstrap modal (`#exampleModal`) covering the three Add/Edit/Delete Villa Accessibility scenarios. In Delete mode, the input section is hidden.
@@ -20,5 +20,5 @@ A shared Bootstrap modal (`#exampleModal`) covering the three Add/Edit/Delete Vi
 - Validation: `name` is required, checked for duplicates via remote AJAX `checkVillaAccessible`.
 
 ## Navigation
-- Opened from: VCS-009 (Add new / Edit / Delete buttons on the Accessibility list table).
+- Opened from: VCS-009 (Add new / Edit / Delete buttons on the Access Features table).
 - Navigates to: no page change — after submission, VCS-009 is reloaded (redirect via `referer()`).

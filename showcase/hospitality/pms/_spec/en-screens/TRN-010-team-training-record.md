@@ -1,8 +1,8 @@
-# TRN-010 — Team Training Record
+# TRN-010 — Team Learning Progress
 
 **Type:** Full page
 **Route:** `TrainingController::myTeamRecord()` — `/training/my-team-record`
-**Module:** TRN = Training
+**Module:** TRN = Staff Academy
 
 ## Overview
 Screen intended to display the training history of the entire team/group managed by the user; currently not implemented, only showing a "feature coming soon" notice.
@@ -16,5 +16,5 @@ Screen intended to display the training history of the entire team/group managed
 - No action buttons (feature not yet implemented).
 
 ## Navigation
-- **Entered from:** main menu "Training" → "My Team Record".
+- **Entered from:** main menu "Staff Academy" → "Team Learning Progress".
 - **Leads to:** none.

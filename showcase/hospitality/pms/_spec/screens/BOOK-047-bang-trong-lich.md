@@ -1,9 +1,9 @@
-# BOOK-047 — Bảng trống lịch villa (Availability)
+# BOOK-047 — Lưới phòng trống (Availability Grid)
 
 **Loại:** Trang đầy đủ (có thể nhúng/chia sẻ cho đối tác — public widget theo `referer`/`bu`)
 **Route:** Booking/availability (mặc định: `/booking/availability`, hỗ trợ query `referer` hoặc `bu`, `district`, `villa_id`)
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php cho action này (dùng route mặc định)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Trang hiển thị lịch trống của các villa (dạng lưới villa x ngày), có thể lọc theo vị trí/quận (district), villa cụ thể, hoặc theo đối tác/agent (qua tham số `referer` để đổi logo thương hiệu hiển thị). Dùng để chia sẻ nhanh tình trạng phòng trống cho đối tác/khách hàng.
@@ -29,5 +29,5 @@ Lưới villa theo ngày thể hiện trạng thái trống/đã đặt, kèm gi
 - Nút **Download** — tải bảng trống lịch
 
 ## Điều hướng
-- Mở từ: Menu module Đặt phòng > Availability, hoặc link chia sẻ trực tiếp cho đối tác
+- Mở từ: Menu module Đặt chỗ > Availability Grid, hoặc link chia sẻ trực tiếp cho đối tác
 - Điều hướng tới: luồng đặt phòng (BOOK-036/OTA) khi bấm Book

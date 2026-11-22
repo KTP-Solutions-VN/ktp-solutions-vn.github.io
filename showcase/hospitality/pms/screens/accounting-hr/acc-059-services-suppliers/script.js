@@ -1,7 +1,7 @@
 (function () {
   'use strict';
   ACC.wireCrudScreen({
-    storageKey: 'mm_acc_services_suppliers', baseData: MM.ACC.SUPPLIERS_SERVICES, entityLabel: 'supplier', entityTitle: 'Supplier', nameField: 'name', colCount: 3,
+    storageKey: 'mm_acc_services_suppliers', baseData: MM.ACC.SUPPLIERS_SERVICES, entityLabel: 'vendor', entityTitle: 'Vendor', nameField: 'name', colCount: 3,
     fields: [{ id: 'f-name', key: 'name' }, { id: 'f-sub', key: 'category' }],
     rowHtml: function (s) {
       return '<tr><td class="cell-strong">' + s.name + '</td><td class="cell-sub">' + (s.category || '—') + '</td>' +

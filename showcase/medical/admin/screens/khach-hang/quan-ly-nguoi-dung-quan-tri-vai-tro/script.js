@@ -17,11 +17,11 @@
   }
   document.getElementById('tbSearch').addEventListener('input', function () { state.search = this.value; render(); });
   document.getElementById('roleFilter').addEventListener('change', function () { state.role = this.value; render(); });
-  document.getElementById('createBtn').addEventListener('click', function () { CJToast('Create Admin User form (demo only).'); });
+  document.getElementById('createBtn').addEventListener('click', function () { CJToast('Add Staff Account form (demo only).'); });
   render();
 
-  /* ---------------- #38 Create/Edit Role & Permissions drawer ------------- */
-  var MODULES = ["Order Management","Marketing & Promotions","Product & Service Data","Content (CMS)","Customers & Users","Reports & Analytics","System Administration"];
+  /* ---------------- Access Role Editor drawer ------------- */
+  var MODULES = ["Orders & Fulfillment","Campaigns & Offers","Catalog & Sessions","Site Content","People & Access","Business Insights","Platform Settings"];
   var LEVELS_BY_ROLE = {"Super Admin":["Full","Full","Full","Full","Full","Full","Full"],"Admin":["High","Full","Full","Full","High","Medium","None"],"Tech Support":["Limited","None","None","None","None","Medium","High"],"Finance":["High","Limited","None","None","Limited","High","None"],"Operations":["Medium","None","Medium","None","Limited","Limited","None"],"Vendor Partner":["Limited","None","None","None","None","None","None"]};
   var LEVEL_CLASS = {"Full":"perm-full","High":"perm-high","Medium":"perm-medium","Limited":"perm-limited","None":"perm-none"};
   var LEVELS = ['Full', 'High', 'Medium', 'Limited', 'None'];

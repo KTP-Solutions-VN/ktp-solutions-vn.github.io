@@ -1,10 +1,10 @@
-# ACC-064-P2 — Popup sửa yêu cầu thanh toán
+# ACC-064-P2 — Sửa yêu cầu thanh toán (Edit Payment Request)
 
 **Loại:** Popup (mở từ ACC-064)
 
 **Route:** `AccountController::editPaymentRequest($id)` (hiển thị form) + `AccountController::updatePaymentRequest()` (lưu, POST) — mặc định `/account/edit-payment-request/<id đã base64>`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Form dạng wizard cho phép chỉnh sửa một yêu cầu thanh toán đã tạo (thông tin chung, các dòng chi tiết Product/Service, hoá đơn), nạp lại toàn bộ dữ liệu hiện có từ `ExpensePaymentRequest` và `ExpensePaymentRequestSupplier`.
@@ -28,5 +28,5 @@ Toàn bộ Payment Lines được nạp sẵn từ `payment->expense_payment_req
 - Nếu không tìm thấy dữ liệu (`id` không hợp lệ): Flash lỗi "Data not found" và redirect về ACC-064.
 
 ## Điều hướng
-- Vào từ: ACC-064 (Danh sách yêu cầu thanh toán) — icon "Edit" trên từng dòng.
+- Vào từ: ACC-064 (Phê duyệt thanh toán) — icon "Edit" trên từng dòng.
 - Điều hướng đến: quay lại ACC-064 sau khi lưu hoặc khi dữ liệu không hợp lệ.

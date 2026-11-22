@@ -1,13 +1,13 @@
-# CMS-006 — Danh sách "Why Us" (lý do chọn chúng tôi)
+# CMS-006 — Lợi ích đặt trực tiếp (Book-Direct Benefits)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::whyUs($action, $id)` — mặc định `/cms/why-us/:action/:id`
 
-**Module:** CMS = Nội dung trang chủ villa
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
-Danh sách các mục "Why Us" (lý do khách nên chọn dịch vụ) hiển thị trên website. Không phân trang server-side (lấy toàn bộ `CmsWhyUs->find('all')`).
+Danh sách các mục "Book-Direct Benefits" (lý do khách nên chọn dịch vụ) hiển thị trên website. Không phân trang server-side (lấy toàn bộ `CmsWhyUs->find('all')`).
 
 ## Mô tả chi tiết
 
@@ -27,5 +27,5 @@ Không có filter/tìm kiếm server-side, không phân trang server-side.
 - **Delete:** gọi lại action này dạng `/cms/why-us/delete/:id` — xoá bản ghi `CmsWhyUs`, hiển thị flash message rồi redirect lại danh sách.
 
 ## Điều hướng
-- Vào từ: CMS-005 (Common Text, nút "Why Us") hoặc breadcrumb từ CMS-007/CMS-008.
+- Vào từ: CMS-005 (Khối nội dung dùng chung, nút "Book-Direct Benefits") hoặc breadcrumb từ CMS-007/CMS-008.
 - Điều hướng đến: CMS-007 (thêm), CMS-008 (sửa).

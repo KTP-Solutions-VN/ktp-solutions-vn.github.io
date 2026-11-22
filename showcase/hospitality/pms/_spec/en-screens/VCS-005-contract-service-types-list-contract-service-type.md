@@ -1,8 +1,8 @@
-# VCS-005 — Contract Service Types List (Contract Service Type)
+# VCS-005 — Service Bundles
 
 **Type:** Full page
 **Route:** villa-common-setting/contract-service-types (default DashedRoute: `/villa-common-setting/contract-service-types`)
-**Module:** VCS = Villa Common Settings
+**Module:** VCS = Property Attributes
 
 ## Overview
 Master data management screen for "Contract Service Type" — each type is a combination of multiple Services (see VCS-004) selected via checkboxes; the type's display name is automatically concatenated from the names of the selected services (joined by a `+` sign). Note: the navigation menu entry for this screen is currently commented out/hidden in the sidebar (`management-sidebar.ctp`), but the action and view still function when the URL is accessed directly.
@@ -26,4 +26,4 @@ No dedicated search/filter field.
 ## Navigation
 - Opened from: no link exists in the current menu (the menu item is commented out); previously, or currently, accessible directly via the URL `/villa-common-setting/contract-service-types`.
 - Navigates to: no navigation to another page.
-- Child popup: VCS-005-P1 (Add/Edit/Delete Contract Service Type).
+- Child popup: VCS-005-P1 (Service Bundle Form).

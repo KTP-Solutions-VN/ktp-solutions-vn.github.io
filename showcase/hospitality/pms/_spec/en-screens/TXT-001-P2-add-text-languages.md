@@ -1,10 +1,10 @@
-# TXT-001-P2 — Add Text Languages
+# TXT-001-P2 — Add Description Languages
 
 **Type:** Popup (opened from TXT-001, Languages tab)
 
 **Route:** Static modal within `index.ctp` (`#texts-language-modal`); saves via AJAX `TextsController::saveLanguages()` — `POST /texts/save-languages`
 
-**Module:** Texts
+**Module:** Description Bank
 
 ## Overview
 Allows enabling one or more additional guest languages available for a country with active properties, to support OTA content translation.

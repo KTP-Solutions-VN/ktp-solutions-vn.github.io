@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Family &amp; Session Details — CareJourney Kiosk</title>
+<meta name="theme-color" content="#4C5FFF">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgo=">
+<link rel="stylesheet" href="../../../../assets/css/global.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="kiosk-device" id="kioskDevice">
+
+    <div class="kiosk-topbar">
+      <div class="kiosk-brand">
+        <div class="kiosk-brand-mark" aria-hidden="true">CJ</div>
+        <div>
+          <div class="kiosk-brand-name">CareJourney</div>
+          <div class="kiosk-brand-sub">Birth &amp; Parenting Classes</div>
+        </div>
+      </div>
+      <div class="kiosk-topbar-right">
+        <div class="kiosk-idle-ring" id="idleRing" title="Session activity"></div>
+        <button type="button" class="kiosk-home-btn" id="homeBtn" aria-label="Cancel to Home" title="Cancel to Home">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9a1 1 0 0 0 1 1h4v-5h2v5h4a1 1 0 0 0 1-1v-9"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="kiosk-progress" data-step="3">
+      <div class="kiosk-progress-step is-done">
+        <div class="kiosk-progress-bar"><span></span></div>
+        <div class="kiosk-progress-label">1 · Pick a class</div>
+      </div>
+      <div class="kiosk-progress-step is-done">
+        <div class="kiosk-progress-bar"><span></span></div>
+        <div class="kiosk-progress-label">2 · Parent info</div>
+      </div>
+      <div class="kiosk-progress-step is-active">
+        <div class="kiosk-progress-bar"><span></span></div>
+        <div class="kiosk-progress-label">3 · Family &amp; session</div>
+      </div>
+      <div class="kiosk-progress-step">
+        <div class="kiosk-progress-bar"><span></span></div>
+        <div class="kiosk-progress-label">4 · Complete</div>
+      </div>
+    </div>
+
+    <div class="kiosk-content">
+      <div class="content-col">
+        <div>
+          <h1 style="font-size:24px;">Your family and preferred session</h1>
+          <p style="margin-top:6px;color:var(--gray-600);font-size:14px;line-height:1.5;">This helps us plan class sizes and prepare the right materials.</p>
+        </div>
+
+        <form id="qnaForm" novalidate>
+          <div style="display:flex;flex-direction:column;gap:var(--sp-5);">
+
+            <div class="field" id="fieldChildInfo">
+              <label for="inputChildInfo">Child's age, or your expected due date</label>
+              <input type="text" id="inputChildInfo" placeholder="e.g. Due 10 Nov 2026, or 3 months old">
+              <div class="field-error">Please share your child's age or due date</div>
+            </div>
+
+            <div class="field">
+              <label for="inputChildrenCount">Number of children (including this one)</label>
+              <input type="text" inputmode="numeric" id="inputChildrenCount" placeholder="e.g. 1" value="1">
+            </div>
+
+            <div class="field">
+              <label>Have you joined one of our parenting classes before?</label>
+              <div class="yesno-group" id="attendedGroup">
+                <button type="button" class="yesno-btn" data-value="no">No</button>
+                <button type="button" class="yesno-btn" data-value="yes">Yes</button>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Preferred session date &amp; time</label>
+              <div class="slot-grid" id="slotGrid"></div>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="kiosk-footer">
+      <button type="button" class="btn btn-outline btn-huge" id="backBtn">
+        <svg class="icon" viewBox="0 0 24 24"><path d="m14.5 5.5-6.5 6.5 6.5 6.5"/></svg>
+        Back
+      </button>
+      <button type="button" class="btn btn-primary btn-huge" id="continueBtn" disabled>
+        Continue
+        <svg class="icon" viewBox="0 0 24 24"><path d="M4.5 12h15"/><path d="m13.5 5.5 6.5 6.5-6.5 6.5"/></svg>
+      </button>
+    </div>
+
+    <button type="button" class="faq-fab" id="faqFab">
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.5 9.3a2.6 2.6 0 0 1 5 .9c0 1.7-2.4 2-2.4 3.6"/><circle cx="12" cy="17" r=".2" fill="currentColor"/></svg>
+      Need Help?
+    </button>
+    <div class="faq-overlay" id="faqOverlay">
+      <div class="faq-panel">
+        <div class="faq-panel-head">
+          <h2>Frequently asked questions</h2>
+          <button type="button" class="faq-close-btn" id="faqCloseBtn" aria-label="Close">
+            <svg class="icon" viewBox="0 0 24 24"><path d="m6 6 12 12"/><path d="m18 6-12 12"/></svg>
+          </button>
+        </div>
+        <div class="faq-panel-body"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../../../../assets/data/parenting-classes.js"></script>
+  <script src="../../../../assets/js/global.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

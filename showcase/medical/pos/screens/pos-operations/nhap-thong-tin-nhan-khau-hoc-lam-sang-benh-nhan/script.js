@@ -53,7 +53,7 @@
       if (invalid) ok = false;
     });
     const nric = document.getElementById('patientNric').value.trim();
-    if (nric && !/^[STFG]\d{7}[A-Z]$/i.test(nric)) {
+    if (nric && !/^(\d{4} ?\d{5} ?\d( ?[1-9])?|[A-Z]{0,2}\d{5,10})$/i.test(nric)) {
       document.getElementById('f_nric').classList.add('has-error');
       ok = false;
     }
@@ -111,7 +111,7 @@
   }
 
   function cancelFlow() {
-    if (confirm('Cancel prescription intake and return to Sales Screen? Unsaved info will be lost.')) {
+    if (confirm('Cancel prescription intake and return to Sales Terminal? Unsaved info will be lost.')) {
       POS.clearDraftRx();
       window.location.href = '../man-hinh-ban-hang-pos/index.html';
     }

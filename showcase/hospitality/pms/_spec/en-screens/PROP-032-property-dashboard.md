@@ -1,11 +1,11 @@
-# PROP-032 — Property Dashboard
+# PROP-032 — Portfolio Health
 
 **Type:** Full page
 **Route:** property/dashboard (default CakePHP DashedRoute: `/property/dashboard`)
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
-The overview dashboard page for the Property module, displaying 2 alert widgets by Business Unit: the number of properties without an assigned Concierge, and the number of staff without an assigned Leader, along with buttons to download the corresponding reports.
+The overview dashboard page for the Property Records module, displaying 2 alert widgets by Business Unit: the number of properties without an assigned Concierge, and the number of staff without an assigned Leader, along with buttons to download the corresponding reports.
 
 ## Detailed Description
 | # | Field Label | Field Code | Data Type / Input | Required | Notes |

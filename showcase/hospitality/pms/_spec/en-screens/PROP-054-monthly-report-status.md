@@ -1,8 +1,8 @@
-# PROP-054 — Monthly Report Status (Report Status)
+# PROP-054 — Report Dispatch Status
 
 **Type:** Full page
 **Route:** property/report-status
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Page for tracking the monthly report (Monthly Report) sending status for each Property by Business Unit: sent or not, allows marking a report as "Not Necessary" (creates a report record with `sent=True` without a file), deleting a report record, and sending the report/newsletter email to the owner.
@@ -36,6 +36,6 @@ Confirms deletion of a `MonthlyReport` record by `report_id`.
 - "Post"/send email button (`email_owner`) — sends the monthly report/newsletter email to the owner in the Owner's language (using `EmailTemplate` + `MonthlyNewsLetter`).
 
 ## Navigation
-- Opened from: Property/Reports menu (outside the scope of the current code).
-- Navigates to: No navigation to another page; related to PROP-018 (Monthly Newsletter), PROP-053 (BU Reports) data.
+- Opened from: owner reports menu (outside the scope of the current code).
+- Navigates to: No navigation to another page; related to PROP-018 (Owner Bulletins), PROP-053 (Owner Reports by Unit) data.
 - Child popup: Delete confirmation modal (no dedicated code, an inline supporting operation).

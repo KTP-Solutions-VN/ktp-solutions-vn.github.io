@@ -1,8 +1,8 @@
-# BOOK-056 — OTA Revenue/Commission Reconciliation (OTA Share)
+# BOOK-056 — Commission Review
 
 **Type:** Full page (opened from BOOK-054)
 **Route:** Booking/otaShare (default: `/booking/ota-share`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Reconciliation report of booking share, net revenue, and commission by OTA channel for a selected villa over a chosen date range, including a pie chart and a comparison table between the current period and the previous period.
@@ -28,4 +28,4 @@ Reconciliation report of booking share, net revenue, and commission by OTA chann
 - Quick date range navigation by month (left/right arrow buttons)
 
 ## Navigation
-- Opened from: BOOK-054 (OTA) > "Share" button
+- Opened from: BOOK-054 (Channel Toolkit) > "Share" button

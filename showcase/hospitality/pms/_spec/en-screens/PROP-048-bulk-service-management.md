@@ -1,8 +1,8 @@
-# PROP-048 — Bulk Service Management by Business Unit (Services)
+# PROP-048 — Bulk Service Import
 
 **Type:** Full page
 **Route:** property/services/:tab (dashed by default, also supports query `?tab=`, `?electricity_tab=`)
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Page for bulk-managing Internet, Pool, and Electricity (Provider/Guest) service configurations for all Properties in a Business Unit via Excel (.xlsx) file import. Also includes a "Portal Contract Recap" tab showing a summary table of portal contract assignment status for each Property (similar to the function in PROP-051 Guest Contract BU Recap).
@@ -42,6 +42,6 @@ Includes quick filter chips, a search box by Property name/ID, and 4 KPI metrics
 - Portal Contract tab: "Refresh" button (reload), "Export Excel" button (navigates to `guestContractBuRecap?export=1`), quick filter chips, search box.
 
 ## Navigation
-- Opened from: Property/Services menu (outside the scope of the current code).
-- Navigates to: PROP-051 (Guest Contract BU Recap) when clicking "Export Excel" on the Portal Contract tab.
+- Opened from: property services menu (outside the scope of the current code).
+- Navigates to: PROP-051 (Contract Readiness) when clicking "Export Excel" on the Portal Contract tab.
 - Child popup: None (upload results are displayed as a table directly on the page, not a modal).

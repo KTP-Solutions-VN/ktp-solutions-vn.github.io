@@ -1,10 +1,10 @@
-# INV-002 — Add Item to Inventory
+# INV-002 — New Stock Item
 
 **Type:** Full page
 
 **Route:** `InventoryController::add()` — `/inventory/add` (POST)
 
-**Module:** INV = Inventory
+**Module:** INV = Stock Control
 
 ## Overview
 A form for initializing a new stock record (`InventoryStock`) for a (Business Unit, Item) pair that does not yet exist in inventory.

@@ -1,8 +1,8 @@
-# BOOK-036 — Add New Booking
+# BOOK-036 — New Reservation
 
 **Type:** Full page
 **Route:** Booking/addBooking/:id? (default: `/booking/add-booking`; when an id is provided, it edits a manual booking)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Form for quickly creating a manual booking (manual booking) not made through an OTA channel: enter guest information, villa, check-in/check-out dates, booking channel, amount, and payment status.
@@ -27,8 +27,8 @@ Technical note: the source code contains actions `step3()`…`step8()` (views st
 
 ## Functions / Actions
 - **Save** button — creates a new manual booking, writing to the ManualBooking/Booking table
-- **View Manually Created Booking List** button — opens BOOK-036-P1
+- **Offline Reservations** button — opens BOOK-036-P1
 
 ## Navigation
-- Opened from: Booking module menu > Add Booking
-- Navigates to: BOOK-036-P1 (Manual Booking List)
+- Opened from: Reservations module menu > New Reservation
+- Navigates to: BOOK-036-P1 (Offline Reservations)

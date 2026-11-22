@@ -7,7 +7,7 @@
   var booking = BOOK.getBookingById(bookingId) || BOOK.getAllBookings()[0];
   var thread = BOOK.getChatThread(booking.id);
 
-  document.getElementById('pg-title').textContent = 'WhatsApp Chat — ' + booking.guest;
+  document.getElementById('pg-title').textContent = 'Chat Thread — ' + booking.guest;
   document.getElementById('chat-summary').innerHTML = [
     ['Villa', booking.property], ['Guest', booking.guest], ['Phone Number', (thread && thread.phone) || booking.mobile || '—'],
     ['WhatsApp Status', (thread && thread.whatsappStatus) || 'Not connected'], ['Access Code', (thread && thread.accessCode) || '—']

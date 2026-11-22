@@ -1,9 +1,9 @@
-# BOOK-059 — Edit Booking Confirmation Template
+# BOOK-059 — Edit Confirmation Layout
 
 **Type:** Popup/Page (opened from BOOK-057)
 **Route:** Booking/editConfirmationTemplate/:id (id is base64_encoded)
 **Friendly route:** `/booking/confirmation-template/edit/:id`
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Form for editing an existing booking confirmation template. Fields are identical to the "Add New" screen (BOOK-058), pre-populated with default values from the existing record.

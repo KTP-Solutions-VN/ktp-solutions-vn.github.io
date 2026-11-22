@@ -1,10 +1,10 @@
-# ACC-041 — Wage Periods
+# ACC-041 — Pay Periods
 
 **Type:** Full page
 
 **Route:** `AccountController::wagePeriods()` — default `/account/wage-periods`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 Manages the list of wage periods (`WagePeriod`) for a Business Unit by pay frequency (Bi-Monthly/Monthly): auto-generates the first wage period if none exists, auto-generates future periods in advance, allows editing the end date of the currently open period, and validates each period. If the Business Unit belongs to a "zone" that shares a common pay calendar, changes are automatically synced to the other BUs in that zone.
@@ -36,5 +36,5 @@ Filter:
 - **Zone sync:** if the BU belongs to a `BusinessUnitZone`, the system automatically creates/removes the corresponding `WagePeriod` records for each member BU (linked via `zone_row_id`) to keep the pay calendar consistent across the zone.
 
 ## Navigation
-- Entered from: Sidebar > Account & HR > Wage Periods (`active_menu = acc-wagePeriods`).
+- Entered from: Sidebar > Finance & Admin > Pay Periods (`active_menu = acc-wagePeriods`).
 - Navigates to: no sub-pages/popups; all actions are performed directly on the table.

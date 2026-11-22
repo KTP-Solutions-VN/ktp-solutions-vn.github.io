@@ -1,13 +1,13 @@
-# CMS-033 — Thêm/Sửa nhà hàng (Guest Portal)
+# CMS-033 — Trình sửa gợi ý ăn uống (Dining Pick Editor)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::restaurants($tab, $restaurant_id)` — mặc định `/cms/restaurants/:tab/:restaurant_id`
 
-**Module:** CMS = Nội dung trang chủ
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
-Form thêm mới hoặc chỉnh sửa 1 nhà hàng hiển thị trên Guest Portal, dùng chung 1 action cho cả Add (không truyền `restaurant_id`) và Edit (có `restaurant_id`). Màn hình có 2 tab: **Restaurant** (thông tin chung nhà hàng) và **Image** (ảnh scroll/banner nhà hàng). Tab Image chỉ mở được sau khi nhà hàng đã được lưu lần đầu (đã có `restaurant_id`).
+Form thêm mới hoặc chỉnh sửa 1 nhà hàng hiển thị trên Guest Hub, dùng chung 1 action cho cả Add (không truyền `restaurant_id`) và Edit (có `restaurant_id`). Màn hình có 2 tab: **Restaurant** (thông tin chung nhà hàng) và **Image** (ảnh scroll/banner nhà hàng). Tab Image chỉ mở được sau khi nhà hàng đã được lưu lần đầu (đã có `restaurant_id`).
 
 ## Mô tả chi tiết
 

@@ -1,10 +1,10 @@
-# FUND-001 — Investor List
+# FUND-001 — Investor Accounts
 
 **Type:** Full page
 
 **Route:** `FundController::investors()` — `/fund/investors` (GET, filtered via query string `id`, `show_investor`; POST used to assign a project or download an Excel report). No dedicated pretty route in `config/Routes.php`; falls back to DashedRoute. In the deployment environment, the application runs under the base path `/VM` (e.g., `/VM/fund/investors`).
 
-**Module:** FUND = Investment Fund
+**Module:** FUND = Investor Capital
 
 ## Overview
 A list of owners (Owner) flagged as fund investors, showing capital contributions, projected interest, and assigned projects; allows toggling "investor" status, assigning projects to investors, and exporting an Excel report.
@@ -38,5 +38,5 @@ A list of owners (Owner) flagged as fund investors, showing capital contribution
 - **Download**: exports an Excel report (`Investor-fund-report-<date>.xlsx`) based on the current filters — a file-download action with no dedicated screen.
 
 ## Navigation
-- Entry point: Investment Fund management menu ("Investors" item, `active_menu = 301`).
-- Navigates to: FUND-007 (Rates), FUND-002 (Statements), popup FUND-001-P1 (Assign Project).
+- Entry point: Investor Capital menu ("Investor Accounts" item, `active_menu = 301`).
+- Navigates to: FUND-007 (Investor Yield Rates), FUND-002 (Investor Ledger), popup FUND-001-P1 (Link Investor to Project).

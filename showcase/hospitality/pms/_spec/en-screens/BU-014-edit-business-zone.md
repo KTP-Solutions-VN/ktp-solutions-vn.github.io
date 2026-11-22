@@ -1,10 +1,10 @@
-# BU-014 — Edit Business Zone
+# BU-014 — Edit Reporting Zone
 
 **Type:** Full page
 
 **Route:** `BusinessUnitController::editZoning($id)` — default `/business-unit/edit-zoning/{id}` (id base64-encoded)
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A form for editing the custom name and the list of Business Units belonging to an existing zone. The zone code (`zone_name`) is read-only and cannot be edited.
@@ -22,5 +22,5 @@ A form for editing the custom name and the list of Business Units belonging to a
 - **Cancel:** returns to BU-012 without saving.
 
 ## Navigation
-- Opened from: BU-012 (business zone list) — Edit icon on each row.
+- Opened from: BU-012 (Reporting Zones) — Edit icon on each row.
 - After saving: redirects back to BU-012.

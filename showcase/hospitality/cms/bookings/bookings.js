@@ -4,14 +4,14 @@
   'use strict';
 
   var BOOKINGS = [
-    { id: 'RSV-1000', guest: 'Sophie Martin', property: 'Villa Andaman Breeze — Room 2', checkin: '2026-07-20', checkout: '2026-07-23', channel: 'Booking.com', status: 'confirmed', total: 960, lifecycle: 'in-stay' },
+    { id: 'RSV-1000', guest: 'Sophie Martin', property: 'Villa Ocean Breeze — Room 2', checkin: '2026-07-20', checkout: '2026-07-23', channel: 'Booking.com', status: 'confirmed', total: 960, lifecycle: 'in-stay' },
     { id: 'RSV-1001', guest: 'Diego Fernandez', property: 'Palm Grove Residence', checkin: '2026-07-22', checkout: '2026-07-26', channel: 'Airbnb', status: 'new', total: 1340, lifecycle: 'new' },
     { id: 'RSV-1002', guest: 'Emma Wilson', property: 'Sunset Cove Bungalow — Room 1', checkin: '2026-07-22', checkout: '2026-07-24', channel: 'Direct Booking', status: 'confirmed', total: 700, lifecycle: 'in-stay' },
     { id: 'RSV-1003', guest: 'Lucas Meyer', property: 'Aegean Sunset Villa', checkin: '2026-07-23', checkout: '2026-07-27', channel: 'Agoda', status: 'pending-payment', total: 1120, lifecycle: 'pending-payment' },
     { id: 'RSV-1004', guest: 'Anna Kowalski', property: 'Caribbean Blue Villa', checkin: '2026-07-15', checkout: '2026-07-19', channel: 'Booking.com', status: 'completed', total: 1580, lifecycle: 'completed' },
-    { id: 'RSV-1005', guest: 'James Carter', property: 'Villa Andaman Breeze — Room 4', checkin: '2026-07-10', checkout: '2026-07-14', channel: 'Airbnb', status: 'completed', total: 890, lifecycle: 'completed' },
+    { id: 'RSV-1005', guest: 'James Carter', property: 'Villa Ocean Breeze — Room 4', checkin: '2026-07-10', checkout: '2026-07-14', channel: 'Airbnb', status: 'completed', total: 890, lifecycle: 'completed' },
     { id: 'RSV-1006', guest: 'Priya Sharma', property: 'Sunshine Coast Bungalow', checkin: '2026-07-24', checkout: '2026-07-26', channel: 'Expedia', status: 'cancelled', total: 540, lifecycle: 'cancelled' },
-    { id: 'RSV-1007', guest: 'Noah Andersen', property: 'Villa Andaman Breeze — Room 1', checkin: '2026-07-25', checkout: '2026-07-29', channel: 'Direct Booking', status: 'new', total: 1460, lifecycle: 'new' },
+    { id: 'RSV-1007', guest: 'Noah Andersen', property: 'Villa Ocean Breeze — Room 1', checkin: '2026-07-25', checkout: '2026-07-29', channel: 'Direct Booking', status: 'new', total: 1460, lifecycle: 'new' },
     { id: 'RSV-1008', guest: 'Mia Papadopoulos', property: 'Aegean Sunset Villa', checkin: '2026-07-18', checkout: '2026-07-21', channel: 'Booking.com', status: 'completed', total: 1010, lifecycle: 'completed' },
     { id: 'RSV-1009', guest: 'Isabella Novak', property: 'Palm Grove Residence', checkin: '2026-07-26', checkout: '2026-07-30', channel: 'Agoda', status: 'pending-payment', total: 1670, lifecycle: 'pending-payment' },
     { id: 'RSV-1010', guest: 'Ethan Walsh', property: 'Sunset Cove Bungalow — Room 1', checkin: '2026-07-21', checkout: '2026-07-24', channel: 'Airbnb', status: 'confirmed', total: 780, lifecycle: 'in-stay' },

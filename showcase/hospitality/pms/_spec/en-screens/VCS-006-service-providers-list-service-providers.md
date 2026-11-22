@@ -1,14 +1,14 @@
-# VCS-006 — Service Providers List (Service Providers)
+# VCS-006 — Approved Vendors
 
 **Type:** Full page
 **Route:** villa-common-setting/service-providers/:tab (default CakePHP DashedRoute: `/villa-common-setting/service-providers`, `tab` parameter defaults to `service-providers`)
-**Module:** VCS = Villa Common Settings
+**Module:** VCS = Property Attributes
 
 ## Overview
-Screen for managing the "Service Provider" catalog, associated with Villa Services and Business Units. The page has 2 tabs: "Service Providers" (list of providers) and "Services" (list of villa service types, visible only to Superadmins). Add/Edit/Delete are performed via popup.
+Screen for managing the "Service Provider" catalog, associated with In-Stay Services and Business Units. The page has 2 tabs: "Approved Vendors" (list of providers) and "Service Catalog" (list of villa service types, visible only to Superadmins). Add/Edit/Delete are performed via popup.
 
 ## Detailed Description
-### "Service Providers" Tab (default)
+### "Approved Vendors" Tab (default)
 | # | Field Label | Field Code | Data Type / Input | Required | Notes |
 |---|---|---|---|---|---|
 | 1 | Filter Business Unit | `business_unit` | Select2 | No | Filters the list by the selected BU; changing the value reloads the table via AJAX and stores the business unit in a cookie |
@@ -20,7 +20,7 @@ Screen for managing the "Service Provider" catalog, associated with Villa Servic
 | Table column | By | — | Text | — | Creator (`created_user.usage_name`) |
 | Table column | Actions | — | Edit/Delete buttons | — | Opens the VCS-006-P1 popup |
 
-### "Services" Tab (visible only when the user is a Superadmin)
+### "Service Catalog" Tab (visible only when the user is a Superadmin)
 | # | Field Label | Field Code | Data Type / Input | Required | Notes |
 |---|---|---|---|---|---|
 | 1 | "+ Add new" button | — | Button | — | Opens the VCS-006-P2 popup |
@@ -31,7 +31,7 @@ Screen for managing the "Service Provider" catalog, associated with Villa Servic
 Both tables use client-side DataTable (`#zero_config1` for Service Providers, `#zero_config` for Services); no dedicated search field.
 
 ## Functions / Actions
-- Switch between "Service Providers" / "Services" tabs (Bootstrap nav-tabs, state maintained via the `tab` URL parameter).
+- Switch between "Approved Vendors" / "Service Catalog" tabs (Bootstrap nav-tabs, state maintained via the `tab` URL parameter).
 - Select "Business Unit" (Service Providers tab) → filters the list by BU, saving it in a cookie via `_setBusinessUnitCookie`.
 - "+ Add new" button (Service Providers tab, `.add_provider`) → opens the VCS-006-P1 popup in Add mode.
 - Edit icon (`.edit_provider`) → opens the VCS-006-P1 popup in Edit mode, populating all data (name, service types, business units, contact info, custom labels, etc.).
@@ -41,6 +41,6 @@ Both tables use client-side DataTable (`#zero_config1` for Service Providers, `#
 - Submitting the service popup form sends a `POST` with `action=add_service` (a value distinct from `add/edit/delete`) → the controller saves a record to the `ProviderService` table.
 
 ## Navigation
-- Opened from: "Users" menu > "Service Providers".
+- Opened from: "Workforce" menu > "Approved Vendors".
 - Navigates to: no navigation to another page (CRUD operations performed in place via popup + reload).
-- Child popups: VCS-006-P1 (Add/Edit/Delete Service Provider), VCS-006-P2 (Add Villa Service Type).
+- Child popups: VCS-006-P1 (Approved Vendor Form), VCS-006-P2 (Vendor Service Type Form).

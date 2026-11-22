@@ -1,8 +1,8 @@
-# MNT-002 — Add New Maintenance Log
+# MNT-002 — New Repair Request
 
 **Type:** Full page
 **Route:** maintenance/add
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Screen for creating a new maintenance log (Maintenance log/task): select villa, maintenance category (priority level is auto-assigned by category), enter an issue description, and attach supporting photos (multiple photos, dynamically added).
@@ -23,5 +23,5 @@ Screen for creating a new maintenance log (Maintenance log/task): select villa, 
 - **Cancel**: returns to MNT-001.
 
 ## Navigation
-- Entered from: "+" button on the MNT-001 — Maintenance Log List screen.
+- Entered from: "+" button on the MNT-001 — Repair Requests screen.
 - Navigates to: after Save, returns to MNT-001.

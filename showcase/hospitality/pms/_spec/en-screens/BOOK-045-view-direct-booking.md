@@ -1,8 +1,8 @@
-# BOOK-045 — View Direct Booking
+# BOOK-045 — Stay Request Details
 
 **Type:** Popup (opened from BOOK-042)
 **Route:** Booking/viewDirectBooking/:id (default: `/booking/view-direct-booking/:id`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Popup displaying (read-only) details of a direct booking request, including approval/rejection information.
@@ -27,5 +27,5 @@ Popup displaying (read-only) details of a direct booking request, including appr
 - View only, no editing
 
 ## Navigation
-- Opened from: BOOK-042 (Direct Booking List) — View button
+- Opened from: BOOK-042 (Direct Stay Requests) — View button
 - Closing the popup returns to BOOK-042

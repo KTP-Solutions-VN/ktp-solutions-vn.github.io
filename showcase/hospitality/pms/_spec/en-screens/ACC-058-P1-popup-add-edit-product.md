@@ -1,10 +1,10 @@
-# ACC-058-P1 — Popup: Add/Edit Product
+# ACC-058-P1 — Goods Item Form
 
 **Type:** Popup (opened from ACC-058)
 
 **Route:** `AccountController::addProduct($id)` — default `/account/add-product/<id>`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 Form for adding a new Product or editing an existing one, using a single shared action for both cases (presence of `id` = edit).
@@ -30,5 +30,5 @@ Form for adding a new Product or editing an existing one, using a single shared 
 - **Cancel:** returns to ACC-058 (`products`).
 
 ## Navigation
-- Entered from: ACC-058 (Products) — "Add new" button or the Edit button on each row.
+- Entered from: ACC-058 (Goods Catalog) — "Add new" button or the Edit button on each row.
 - Navigates to: returns to ACC-058 after saving or canceling.

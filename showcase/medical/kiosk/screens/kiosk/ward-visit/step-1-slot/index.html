@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Choose a Visit Slot — CareJourney Kiosk</title>
+<meta name="theme-color" content="#4C5FFF">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgo=">
+<link rel="stylesheet" href="../../../../assets/css/global.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="kiosk-device" id="kioskDevice">
+
+    <div class="kiosk-topbar">
+      <div class="kiosk-brand">
+        <div class="kiosk-brand-mark" aria-hidden="true">CJ</div>
+        <div>
+          <div class="kiosk-brand-name">CareJourney</div>
+          <div class="kiosk-brand-sub">Schedule a Visit</div>
+        </div>
+      </div>
+      <div class="kiosk-topbar-right">
+        <div class="kiosk-idle-ring" id="idleRing" title="Session activity"></div>
+        <button type="button" class="kiosk-home-btn" id="homeBtn" aria-label="Cancel to Home" title="Cancel to Home">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9a1 1 0 0 0 1 1h4v-5h2v5h4a1 1 0 0 0 1-1v-9"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="kiosk-progress" data-step="1">
+      <div class="kiosk-progress-step is-active">
+        <div class="kiosk-progress-bar"><span></span></div>
+        <div class="kiosk-progress-label">1 · Choose a slot</div>
+      </div>
+      <div class="kiosk-progress-step">
+        <div class="kiosk-progress-bar"><span></span></div>
+        <div class="kiosk-progress-label">2 · Visitor info</div>
+      </div>
+      <div class="kiosk-progress-step">
+        <div class="kiosk-progress-bar"><span></span></div>
+        <div class="kiosk-progress-label">3 · Complete</div>
+      </div>
+    </div>
+
+    <div class="kiosk-content">
+      <div class="wizard-layout">
+
+        <div class="wizard-side">
+          <div class="wizard-side-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg></div>
+          <h2>Guided Ward Tour</h2>
+          <p>A guided walk-through of our maternity ward, birthing suites and nursery — about 30 to 40 minutes.</p>
+          <div class="wizard-side-list">
+            <div class="wizard-side-list-item"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12.5 9.5 17 19 7"/></svg> Small groups led by a nurse clinician or our guest services team</div>
+            <div class="wizard-side-list-item"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12.5 9.5 17 19 7"/></svg> Bring your Medicare card or driver licence to register at the counter</div>
+            <div class="wizard-side-list-item"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12.5 9.5 17 19 7"/></svg> Free of charge, no obligation to book any package</div>
+          </div>
+        </div>
+
+        <div class="wizard-main">
+          <div>
+            <h1 style="font-size:24px;">Pick a date and time that suits you</h1>
+            <p style="margin-top:6px;color:var(--gray-600);font-size:14px;line-height:1.5;">Fully booked slots are greyed out — choose any open slot to continue.</p>
+          </div>
+          <div class="slot-grid" id="slotGrid"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="kiosk-footer footer-single">
+      <button type="button" class="btn btn-primary btn-huge" id="continueBtn" disabled>
+        Continue
+        <svg class="icon" viewBox="0 0 24 24"><path d="M4.5 12h15"/><path d="m13.5 5.5 6.5 6.5-6.5 6.5"/></svg>
+      </button>
+    </div>
+
+    <button type="button" class="faq-fab" id="faqFab">
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.5 9.3a2.6 2.6 0 0 1 5 .9c0 1.7-2.4 2-2.4 3.6"/><circle cx="12" cy="17" r=".2" fill="currentColor"/></svg>
+      Need Help?
+    </button>
+    <div class="faq-overlay" id="faqOverlay">
+      <div class="faq-panel">
+        <div class="faq-panel-head">
+          <h2>Frequently asked questions</h2>
+          <button type="button" class="faq-close-btn" id="faqCloseBtn" aria-label="Close">
+            <svg class="icon" viewBox="0 0 24 24"><path d="m6 6 12 12"/><path d="m18 6-12 12"/></svg>
+          </button>
+        </div>
+        <div class="faq-panel-body"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../../../../assets/data/tour-slots.js"></script>
+  <script src="../../../../assets/js/global.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,10 +1,10 @@
-# ACC-059 — Services Suppliers
+# ACC-059 — Service Vendors
 
 **Type:** Full page
 
 **Route:** `AccountController::servicesSupplier()` — default `/account/services-supplier`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 List of suppliers in the "Services" group (`Supplier.type = services`) — similar to ACC-057 but for the Services type.
@@ -30,5 +30,5 @@ List (`#zero_config` table):
 - **Delete (trash icon, on each row):** opens a confirmation popup; clicking Save navigates to `deleteServicesSupplier/<base64 id>`.
 
 ## Navigation
-- Entered from: Sidebar > "Services Supplier" item under Account Settings.
-- Navigates to: ACC-059-P1 (Add/Edit Services Supplier popup), ACC-060 (Services, same Settings area).
+- Entered from: Sidebar > "Service Vendors" item under Finance Preferences.
+- Navigates to: ACC-059-P1 (Service Vendor Form popup), ACC-060 (Billable Services, same Finance Preferences area).

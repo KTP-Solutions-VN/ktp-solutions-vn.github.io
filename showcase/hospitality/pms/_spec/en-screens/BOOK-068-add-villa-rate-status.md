@@ -1,9 +1,9 @@
-# BOOK-068 — Add Villa Rate Status
+# BOOK-068 — New Rate Plan Status
 
 **Type:** Full page (sub-page, navigated from BOOK-067 — not a popup/modal)
 **Route:** Booking/ratesStatusAdd (default: `/booking/rates-status-add`)
 **Pretty route:** no dedicated route found in config/Routes.php (uses the default route)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Form for adding a new rate-status record (`VillaRateStatus`) for a villa: select the rate type (Yearly/Monthly/Daily) and the effective date.

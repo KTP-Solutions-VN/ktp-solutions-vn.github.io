@@ -1,10 +1,10 @@
-# VSV-002 — Thiết lập điện villa (Electricity Set-up)
+# VSV-002 — Thiết lập đo điện (Metering Setup)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `VillaServicesController::propertySetup($tab = null)` — mặc định `/villa-services/property-setup/<tab>`; tab đọc thêm qua query string (`?tab=pricing|management&business_unit_id=...&villa_id=...`)
 
-**Module:** Dịch vụ villa — Điện
+**Module:** Dịch vụ lưu trú — Đo điện
 
 ## Mô tả ngắn gọn
 Màn hình thiết lập cấu hình điện cho từng villa: quản lý điện có/không, quy tắc giá (theo kWh / hạn mức miễn phí / giá cố định theo ngày), cấu hình giá theo từng kênh OTA, thông tin villa (loại, khu vực, chủ sở hữu). Có 2 tab chính: **Management** (bật/tắt quản lý điện cho villa) và **Pricing** (thiết lập giá điện theo villa/kênh đặt phòng).
@@ -43,5 +43,5 @@ Bộ lọc chung: Business Unit (`business_unit_id`, select, kèm option "All"),
 - Lọc theo Business Unit / Property / Pricing set / Price type (submit GET).
 
 ## Điều hướng
-- Vào từ: VSV-001 (tile "Electricity Set-up").
+- Vào từ: VSV-001 (tile "Metering Setup").
 - Điều hướng đến: không có màn hình con; lưu xong load lại chính trang này (`$this->redirect($this->referer())`).

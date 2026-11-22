@@ -1,10 +1,10 @@
-# CMS-030 — Arrival Content List (guest arrival guidance for villas)
+# CMS-030 — Getting-There Guides
 
 **Type:** Full page
 
 **Route:** `CmsController::arrival($action, $id)` — default `/cms/arrival` (list); delete uses `/cms/arrival/delete/:id`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 List of "Arrival" content records — a group of guidance/information content for guests arriving at a villa (airport, harbour/pier, car rental, other transfer methods, check-in, stay), displayed on the website. The same `arrival` action handles both displaying the list and deleting a record (when the parameters `$action = 'delete'` and `$id` are present).
@@ -27,5 +27,5 @@ Data is fetched in full (`find('all')`, no server-side filter/pagination conditi
 - **Delete (on each row):** links to `CmsController::arrival('delete', $id)` — deletes the `CmsArrival` record directly (no separate confirmation popup; deletion happens immediately on link click), then redirects back to the list with a success/failure Flash message.
 
 ## Navigation
-- Accessed from: the Settings/Common Texts menu (active_menu = 181).
-- Navigates to: CMS-031 (Arrival content add/edit form) when clicking "+ Arrival" or "Edit".
+- Accessed from: the Shared Content Blocks menu (active_menu = 181).
+- Navigates to: CMS-031 (Getting-There Guide Editor) when clicking "+ Arrival" or "Edit".

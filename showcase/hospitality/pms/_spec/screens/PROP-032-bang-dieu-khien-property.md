@@ -1,8 +1,8 @@
-# PROP-032 — Bảng điều khiển Property (Property Dashboard)
+# PROP-032 — Sức khỏe danh mục (Portfolio Health)
 
 **Loại:** Trang đầy đủ
 **Route:** property/dashboard (dashed mặc định CakePHP DashedRoute: `/property/dashboard`)
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang dashboard tổng quan của module Property, hiển thị 2 widget cảnh báo theo Business Unit: số property chưa gán Concierge và số nhân sự chưa gán Leader, kèm nút tải báo cáo tương ứng.

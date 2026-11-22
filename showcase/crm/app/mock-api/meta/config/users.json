@@ -1,5 +1,5 @@
 {
-  "_note": "Người dùng giả. team = teamspace mặc định khi đăng nhập; profile quyết định quyền trên module (profiles.json); groups dùng cho thành viên teamspace và sharing rule. seed=false: user thêm sau chỉ để demo bậc duyệt DoA, không làm người phụ trách trong dữ liệu mẫu (giữ dữ liệu sinh ra không đổi).",
+  "_note": "Người dùng giả. team = bộ phận mặc định khi đăng nhập; profile quyết định quyền trên module (profiles.json); groups dùng cho thành viên bộ phận và sharing rule. seed=false: user thêm sau chỉ để demo bậc duyệt DoA, không làm người phụ trách trong dữ liệu mẫu (giữ dữ liệu sinh ra không đổi).",
   "me": "u1",
   "users": [
     {
@@ -52,7 +52,7 @@
     },
     {
       "id": "u4",
-      "name": "Aisha R.",
+      "name": "Emma R.",
       "role": "AS Service Manager",
       "team": "aftersales",
       "tenants": [
@@ -81,7 +81,7 @@
     },
     {
       "id": "u6",
-      "name": "Priya S.",
+      "name": "Jess S.",
       "role": "Procurement Executive",
       "team": "admin",
       "tenants": [
@@ -97,7 +97,7 @@
     },
     {
       "id": "u7",
-      "name": "Wei J.",
+      "name": "Ben J.",
       "role": "Finance",
       "team": "admin",
       "tenants": [
@@ -133,7 +133,7 @@
     },
     {
       "id": "u9",
-      "name": "Ravi S.",
+      "name": "Rob S.",
       "role": "Sales Director",
       "team": "mgmt",
       "tenants": [
@@ -153,7 +153,7 @@
     },
     {
       "id": "u10",
-      "name": "Lim T.",
+      "name": "Mark T.",
       "role": "Operation Manager",
       "team": "admin",
       "tenants": [

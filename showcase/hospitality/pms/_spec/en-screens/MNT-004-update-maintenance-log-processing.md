@@ -1,8 +1,8 @@
-# MNT-004 — Update Maintenance Log Processing
+# MNT-004 — Repair Progress Update
 
 **Type:** Full page
 **Route:** maintenance/edit/:id (id base64)
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Screen for the technician who has accepted a task to update the processing progress of a maintenance log: change status, add comments/notes, manage supporting photos (remove old photos/add new photos). Accessible only to the assigned person or Admin/Superadmin/Team Leader (verified via `checkTechnician`).
@@ -22,5 +22,5 @@ Screen for the technician who has accepted a task to update the processing progr
 - If the user is not the assigned technician: displays an error "only the assigned technician may access this" and returns to the previous page.
 
 ## Navigation
-- Entered from: MNT-001 — Maintenance Log List (clicking on a task in progress).
+- Entered from: MNT-001 — Repair Requests (clicking on a task in progress).
 - Navigates to: after Update, returns to MNT-001.

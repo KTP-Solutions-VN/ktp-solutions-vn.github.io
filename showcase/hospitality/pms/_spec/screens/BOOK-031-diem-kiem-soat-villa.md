@@ -1,8 +1,8 @@
-# BOOK-031 — Điểm kiểm soát villa
+# BOOK-031 — Điểm kiểm tra (Audit Checkpoints)
 
 **Loại:** Trang đầy đủ
 **Route:** Booking/checkControlPoint (mặc định: `/booking/check-control-point`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Danh sách villa theo đơn vị kinh doanh, hiển thị số lượng điểm kiểm soát (control point) và số lượng nhắc việc (reminder) đã cấu hình cho từng villa. Là màn hình quản trị/cấu hình gốc cho quy trình kiểm soát nhận/trả phòng (BOOK-029, BOOK-030).
@@ -27,5 +27,5 @@ Danh sách villa theo đơn vị kinh doanh, hiển thị số lượng điểm 
 - Xem/quản lý điểm kiểm soát và nhắc việc theo từng villa
 
 ## Điều hướng
-- Mở từ: Menu module Đặt phòng > Check Control Point
+- Mở từ: Menu module Đặt chỗ > Audit Checkpoints
 - Điều hướng tới: cấu hình chi tiết control point/reminder theo villa (thuộc phạm vi module Villa)

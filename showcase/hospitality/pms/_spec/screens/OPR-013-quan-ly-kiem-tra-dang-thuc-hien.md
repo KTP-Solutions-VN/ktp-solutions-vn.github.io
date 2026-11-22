@@ -1,8 +1,8 @@
-# OPR-013 — Quản lý kiểm tra đang thực hiện
+# OPR-013 — Tiếp tục kiểm tra tình trạng (Resume Condition Check)
 
 **Loại:** Trang đầy đủ
 **Route:** operator/inspectionTaskView?id= + route đẹp dạng dashed: operator/inspection-task-view
-**Module:** OPR = Vận hành vườn/hồ bơi
+**Module:** OPR = Công việc bảo dưỡng
 
 ## Mô tả ngắn gọn
 Màn hình quản lý (manage) cho một lượt kiểm tra villa đang thực hiện/chưa hoàn thành: xem lại các điểm kiểm tra đã ghi nhận, tiếp tục nhập thêm điểm hoặc chỉnh sửa điểm đã có trước khi kết thúc lượt kiểm tra.
@@ -19,5 +19,5 @@ Màn hình quản lý (manage) cho một lượt kiểm tra villa đang thực h
 - **Tiếp tục kiểm tra**: điều hướng sang OPR-011 (`inspectionDetails`) để thêm điểm mới hoặc hoàn tất lượt kiểm tra.
 
 ## Điều hướng
-- Vào từ: icon "Manage" (bút sửa) tại OPR-010 — Danh sách kiểm tra villa (áp dụng cho bản ghi đang thực hiện/nháp).
-- Đi tới: OPR-011 — Thực hiện kiểm tra villa theo điểm (để tiếp tục/hoàn tất).
+- Vào từ: icon "Manage" (bút sửa) tại OPR-010 — Kiểm tra tình trạng (áp dụng cho bản ghi đang thực hiện/nháp).
+- Đi tới: OPR-011 — Thực hiện kiểm tra tình trạng (để tiếp tục/hoàn tất).

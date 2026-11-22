@@ -1,10 +1,10 @@
-# CMS-031 — Add/Edit Arrival Content
+# CMS-031 — Getting-There Guide Editor
 
 **Type:** Full page
 
 **Route:** `CmsController::cmsArrival($id)` — default `/cms/cms-arrival/:id`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 Form for adding a new or editing an existing Arrival content record, using a single shared action for both Add (no `id` passed) and Edit (`id` present). Each record consists of one title (not multilingual) and 6 multilingual text blocks (airport, harbour/pier, car rental, other transfer, check-in description, stay description).

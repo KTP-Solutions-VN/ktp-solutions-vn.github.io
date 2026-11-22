@@ -1,10 +1,10 @@
-# OWN-001-P1 — View Owner Details
+# OWN-001-P1 — Owner Account Snapshot
 
 **Type:** Popup (opened from OWN-001)
 
 **Route:** `/Owner/viewDetails/{id}` (controller `Owner`, action `viewDetails($id)`)
 
-**Module:** Owner Management (Admin)
+**Module:** Owner Relations (Admin)
 
 ## Overview
 

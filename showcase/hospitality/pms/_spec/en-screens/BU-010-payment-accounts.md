@@ -1,10 +1,10 @@
-# BU-010 — Payment & Accounts
+# BU-010 — Payment Setup
 
 **Type:** Full page (3 tabs)
 
 **Route:** `BusinessUnitController::paymentMethod($tab, $page_action, $id)` — default `/business-unit/payment-method/{tab}`
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A central configuration page for payment methods (Payment Means), receiving/disbursement accounts (Accounts), and the applicability matrix per business unit, consisting of 3 tabs: "Payment Methods" (`main-list`), "Accounts" (`accounts`), and "Business Unit List" (`business-unit-list`).
@@ -51,11 +51,11 @@ A read-only table summarizing payment routes per business unit:
 - **Edit payment method:** opens the BU-010-P1 popup in Edit mode.
 - **Delete payment method:** opens the BU-010-P2 delete confirmation popup.
 - **Toggle applicable business unit or account** directly on the row (chip toggle) — saved immediately via AJAX, no form submission required.
-- **Add new / Edit account (Accounts tab):** navigates to the BU-010-P3 sub-page (Add/Edit Account) — using the sub-route `accounts/add` or `accounts/edit/{id}`.
+- **Add new / Edit account (Accounts tab):** navigates to the BU-010-P3 sub-page (Bank Account Form) — using the sub-route `accounts/add` or `accounts/edit/{id}`.
 - **Delete account:** opens the BU-010-P4 delete confirmation popup.
 - **Open Statement / View Statement:** the "Open Statement" icon opens the BU-010-P5 popup to enter the Opening Date + Opening Balance (`openStatement` action); once opened, the icon links to `Account::statements`.
 - **Toggle accepted payment method by account** directly on the row (card toggle) — saved immediately via AJAX.
 
 ## Navigation
 - Accessed from: Settings menu; or from BU-011 ("Payment methods" button).
-- Navigates to: BU-010-P1, BU-010-P2, BU-010-P3, BU-010-P4, BU-010-P5, BU-011 (Payment method by Business Unit).
+- Navigates to: BU-010-P1, BU-010-P2, BU-010-P3, BU-010-P4, BU-010-P5, BU-011 (Payment Methods per Unit).

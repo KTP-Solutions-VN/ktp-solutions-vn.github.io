@@ -1,8 +1,8 @@
-# PROP-039 — Dịch vụ tiện ích bổ sung Property (Villa Extra)
+# PROP-039 — Dịch vụ thêm cho khách (Guest Extras)
 
 **Loại:** Trang đầy đủ
 **Route:** property/villa-extras/:villa_id (villa_id truyền dạng base64), mở từ PROP-021 (icon "Villa Extra")
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang khai báo các mô tả dịch vụ/tiện ích bổ sung cho khách của Property theo từng ngôn ngữ: dịch vụ cho trẻ em (kids), thuê xe (vehicle rental), đầu bếp (chef), bữa sáng (breakfast), giao hàng (deliveries), tour tham quan (excursions) và các tiện ích khác (other extras). Dữ liệu lưu bảng `VillaExtra`, mỗi field serialize theo mã ngôn ngữ.
@@ -24,6 +24,6 @@ Trang khai báo các mô tả dịch vụ/tiện ích bổ sung cho khách của
 - Đổi ngôn ngữ — cập nhật các textarea theo nội dung đã lưu cho ngôn ngữ đó (JS, không reload trang).
 
 ## Điều hướng
-- Mở từ: PROP-021 (Danh sách Property cần Onboarding thao tác) — icon "Villa Extra".
+- Mở từ: PROP-021 (Điểm chặn trước khi mở bán) — icon "Villa Extra".
 - Điều hướng tới: Không có (chỉ lưu tại chỗ và redirect về chính nó).
 - Popup con: Không có.

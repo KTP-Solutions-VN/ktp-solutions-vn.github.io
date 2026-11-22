@@ -1,10 +1,10 @@
-# OWP-007-P2 — Popup Chi tiết công việc làm vườn
+# OWP-007-P2 — Chi tiết lượt chăm vườn (Garden Visit Detail)
 
 **Loại:** Popup (mở từ OWP-007)
 
 **Route:** `ExternalUserController::gardenView($id)` — không có route đẹp riêng, mở từ OWP-007 (tab "Garden") trong tab mới (mặc định `/external-user/garden-view/{id}`)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 

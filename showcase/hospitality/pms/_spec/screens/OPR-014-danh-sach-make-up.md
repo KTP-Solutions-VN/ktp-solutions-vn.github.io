@@ -1,11 +1,11 @@
-# OPR-014 — Danh sách Make Up
+# OPR-014 — Lượt chuẩn bị cuối (Final Prep Rounds)
 
 **Loại:** Trang đầy đủ
 **Route:** operator/makeUp + route đẹp dạng dashed: operator/make-up
-**Module:** OPR = Vận hành vườn/hồ bơi
+**Module:** OPR = Công việc bảo dưỡng
 
 ## Mô tả ngắn gọn
-Màn hình cho nhân viên chọn đơn vị kinh doanh và villa để bắt đầu một lượt "Make Up" (dọn dẹp hoàn thiện/chuẩn bị villa). Cấu trúc và luồng tương tự OPR-007 (Cleaning) nhưng dành riêng cho quy trình make-up.
+Màn hình cho nhân viên chọn đơn vị kinh doanh và villa để bắt đầu một lượt "Make Up" (dọn dẹp hoàn thiện/chuẩn bị villa). Cấu trúc và luồng tương tự OPR-007 (Lượt dọn phòng) nhưng dành riêng cho quy trình make-up.
 
 ## Mô tả chi tiết
 
@@ -20,5 +20,5 @@ Màn hình cho nhân viên chọn đơn vị kinh doanh và villa để bắt đ
 - Đổi **Đơn vị kinh doanh**: nạp lại danh sách villa.
 
 ## Điều hướng
-- Vào từ: menu "Make Up" trong sidebar.
-- Đi tới: OPR-015 — Thực hiện Make Up theo điểm.
+- Vào từ: menu "Final Prep Rounds" trong sidebar.
+- Đi tới: OPR-015 — Danh mục chuẩn bị cuối.

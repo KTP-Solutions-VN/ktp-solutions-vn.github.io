@@ -1,8 +1,8 @@
-# TRN-002 — Danh sách Tutorial (Quản trị)
+# TRN-002 — Trình tạo bài học (Lesson Builder)
 
 **Loại:** Trang đầy đủ
 **Route:** `TrainingController::createTutorial()` — `/training/create-tutorial`
-**Module:** TRN = Đào tạo
+**Module:** TRN = Học viện nhân viên
 
 ## Mô tả ngắn gọn
 Danh sách toàn bộ tutorial (bài đào tạo) trong hệ thống dành cho quản trị viên tạo/sửa/xóa nội dung đào tạo.
@@ -27,5 +27,5 @@ Cột hiển thị:
 - **Xóa** (icon thùng rác): mở popup xác nhận **TRN-002-P1**; xác nhận sẽ gọi `deleteTutorial` (xóa cascade Tutorial, TutorialSlide, QuizQuestion liên quan) và tải lại danh sách này.
 
 ## Điều hướng
-- **Vào từ:** Menu chính "Training" → "Create Tutorial".
+- **Vào từ:** Menu chính "Staff Academy" → "Lesson Builder".
 - **Đi tới:** TRN-003 (thêm mới), TRN-004 (xem), TRN-005 (sửa), TRN-002-P1 (popup xóa).

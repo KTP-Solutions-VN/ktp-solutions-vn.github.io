@@ -111,7 +111,7 @@
       if (discountAmount > subtotal) discountAmount = subtotal;
     }
     var afterDiscount = subtotal - discountAmount;
-    var gst = afterDiscount * 0.09;
+    var gst = afterDiscount * 0.10;
     var total = afterDiscount + gst;
 
     document.getElementById('sum-subtotal').textContent = CJ.formatSGD(subtotal);

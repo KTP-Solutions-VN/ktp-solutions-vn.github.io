@@ -1,8 +1,8 @@
-# MNT-012 — Maintenance Service Matrix (Category / Subcategory / Issue)
+# MNT-012 — Issue Classification
 
 **Type:** Full page (contains multiple inline popups/modals for actions)
 **Route:** maintenance/maintenanceServices (+ ajax `maintenance/maintenanceMatrix` for pagination/search)
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Screen for managing the maintenance issue classification structure across 3 levels: **Category** (`GardenService.type = maintenance`) → **Subcategory** (`MaintenanceSubcategory`) → **Issue/Problem** (problem option, `MaintenanceProblemOption`, linked to a priority level). Supports drag-and-drop reordering of categories/subcategories, search/filtering, and add-edit-delete for all 3 levels directly on the page via modals.
@@ -62,7 +62,7 @@ Screen for managing the maintenance issue classification structure across 3 leve
 - **Search/Filter/Pagination**: calls `maintenanceMatrix` again (ajax, returns JSON).
 
 ## Navigation
-- Entered from: Settings/Maintenance menu in the sidebar.
+- Entered from: Repair Desk settings menu in the sidebar.
 - Navigates to: no navigation to other pages — all CRUD operations across the 3 levels are performed in-place via modal/ajax.
 
 ## Notes

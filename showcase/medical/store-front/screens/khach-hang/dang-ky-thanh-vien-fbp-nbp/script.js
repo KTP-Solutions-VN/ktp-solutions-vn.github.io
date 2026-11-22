@@ -7,7 +7,7 @@
       btn.disabled = true;
       btn.textContent = 'Submitting…';
       setTimeout(function () {
-        CJ.toast('Membership application submitted.', 'success');
+        CJ.toast('Enrollment submitted.', 'success');
         setTimeout(function () { window.location.href = ACCOUNT_URL; }, 500);
       }, 500);
     });

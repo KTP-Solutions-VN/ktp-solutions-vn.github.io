@@ -6,21 +6,21 @@
   var BU = window.MM.BU = window.MM.BU || {};
 
   BU.ZONES = [
-    { id: 'z1', name: 'Andaman Coast Zone', region: 'Phuket', businessUnits: 2 },
-    { id: 'z2', name: 'Southern Bali Zone', region: 'Bali', businessUnits: 1 },
-    { id: 'z3', name: 'Gulf Islands Zone', region: 'Koh Samui', businessUnits: 1 }
+    { id: 'z1', name: 'Sentosa Coast Zone', region: 'Sentosa', businessUnits: 2 },
+    { id: 'z2', name: 'Byron Coast Zone', region: 'Byron Bay', businessUnits: 1 },
+    { id: 'z3', name: 'Sunshine Coast Zone', region: 'Noosa', businessUnits: 1 }
   ];
 
   BU.OFFICES = [
-    { id: 'o1', name: 'Phuket Head Office', bu: 'Phuket Collection', address: '99 Cherng Talay Rd, Phuket 83110', phone: '+66 76 123 456' },
-    { id: 'o2', name: 'Bali Operations Office', bu: 'Bali Retreats', address: 'Jl. Petitenget No.8, Bali 80361', phone: '+62 361 987 654' },
-    { id: 'o3', name: 'Koh Samui Field Office', bu: 'Koh Samui Estates', address: '12 Bo Phut, Koh Samui 84320', phone: '+66 77 234 567' }
+    { id: 'o1', name: 'Sentosa Head Office', bu: 'Sentosa Collection', address: '99 Sentosa Gateway, Singapore 098374', phone: '+65 6612 3456' },
+    { id: 'o2', name: 'Byron Bay Operations Office', bu: 'Byron Bay Retreats', address: '8 Jonson Street, Byron Bay NSW 2481', phone: '+61 2 6685 7654' },
+    { id: 'o3', name: 'Noosa Field Office', bu: 'Noosa Estates', address: '12 Thomas Street, Noosaville QLD 4566', phone: '+61 7 5447 4567' }
   ];
 
   BU.BANKS = [
-    { id: 'b1', name: 'Bangkok Bank', country: 'Thailand', swift: 'BKKBTHBK' },
-    { id: 'b2', name: 'Krungsri Bank', country: 'Thailand', swift: 'AYUDTHBK' },
-    { id: 'b3', name: 'Bank Central Asia', country: 'Indonesia', swift: 'CENAIDJA' }
+    { id: 'b1', name: 'DBS Bank', country: 'Singapore', swift: 'DBSSSGSG' },
+    { id: 'b2', name: 'OCBC Bank', country: 'Singapore', swift: 'OCBCSGSG' },
+    { id: 'b3', name: 'Commonwealth Bank', country: 'Australia', swift: 'CTBAAU2S' }
   ];
 
   BU.PAYMENT_METHODS = [
@@ -30,8 +30,8 @@
   ];
 
   BU.ACCOUNTS = [
-    { id: 'ac1', bank: 'Bangkok Bank', accountName: 'Azura Stays Phuket Ops', accountNumber: '123-4-56789-0', currency: 'THB' },
-    { id: 'ac2', bank: 'Bank Central Asia', accountName: 'Azura Stays Bali Ops', accountNumber: '987-6-54321-0', currency: 'IDR' }
+    { id: 'ac1', bank: 'DBS Bank', accountName: 'Azura Stays Sentosa Ops', accountNumber: '123-456789-0', currency: 'SGD' },
+    { id: 'ac2', bank: 'Commonwealth Bank', accountName: 'Azura Stays Byron Bay Ops', accountNumber: '987-654321-0', currency: 'AUD' }
   ];
 
   /* Generic simple-list CRUD used by most BU sub-modules (name-only or

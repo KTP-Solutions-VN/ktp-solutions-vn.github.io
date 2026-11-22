@@ -1,10 +1,10 @@
-# BU-010-P5 — Popup Mở sổ quỹ tài khoản (Open Statement)
+# BU-010-P5 — Mở sổ tài khoản (Open Account Ledger)
 
 **Loại:** Popup (mở từ BU-010, tab Tài khoản)
 
 **Route:** Modal Bootstrap (`#openStatementModal`) trong element `business-unit/accounts.ctp`; submit POST tới `BusinessUnitController::openStatement()`.
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Popup nhập Ngày mở sổ và Số dư đầu kỳ để "mở sổ quỹ" (kích hoạt theo dõi giao dịch/sổ quỹ — statement) cho một tài khoản chưa mở sổ. Sau khi mở, hệ thống tự tạo một bút toán "Opening balance" (credit) làm số dư khởi điểm; icon trên danh sách chuyển từ "Open Account" sang "Statement" và dẫn thẳng sang `Account::statements`.

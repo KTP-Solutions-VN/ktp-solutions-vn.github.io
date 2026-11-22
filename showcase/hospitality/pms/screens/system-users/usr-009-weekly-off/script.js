@@ -2,14 +2,14 @@
   'use strict';
 
   var STAFF = [
-    { id: 'STF-01', name: 'Somchai Anuwat', dept: 'Management', dayOff: 'Sunday' },
-    { id: 'STF-02', name: 'Wayan Kertha', dept: 'Concierge', dayOff: 'Monday' },
-    { id: 'STF-03', name: 'Nok Pattaya', dept: 'Concierge', dayOff: 'Tuesday' },
-    { id: 'STF-04', name: 'Kanya Srisawat', dept: 'Housekeeping', dayOff: 'Sunday' },
-    { id: 'STF-05', name: 'Budi Santoso', dept: 'Maintenance', dayOff: 'Wednesday' },
+    { id: 'STF-01', name: 'Daniel Tan', dept: 'Management', dayOff: 'Sunday' },
+    { id: 'STF-02', name: 'Warren Kelly', dept: 'Concierge', dayOff: 'Monday' },
+    { id: 'STF-03', name: 'Nicole Parker', dept: 'Concierge', dayOff: 'Tuesday' },
+    { id: 'STF-04', name: 'Karen Seah', dept: 'Housekeeping', dayOff: 'Sunday' },
+    { id: 'STF-05', name: 'Ben Sullivan', dept: 'Maintenance', dayOff: 'Wednesday' },
     { id: 'STF-06', name: 'James Okoro', dept: 'Maintenance', dayOff: 'Thursday' },
-    { id: 'STF-07', name: 'Litda Souvannah', dept: 'Housekeeping', dayOff: 'Friday' },
-    { id: 'STF-08', name: 'Chalermchai Boonmee', dept: 'Management', dayOff: 'Saturday' }
+    { id: 'STF-07', name: 'Lorna Santos', dept: 'Housekeeping', dayOff: 'Friday' },
+    { id: 'STF-08', name: 'Colin Beh', dept: 'Management', dayOff: 'Saturday' }
   ];
   var DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 

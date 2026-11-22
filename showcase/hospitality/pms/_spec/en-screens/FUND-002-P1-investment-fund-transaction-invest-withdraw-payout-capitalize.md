@@ -1,10 +1,10 @@
-# FUND-002-P1 — Investment Fund Transaction (Invest / Withdraw / Payout / Capitalize)
+# FUND-002-P1 — Investor Transaction: Invest / Withdraw / Payout / Capitalize
 
 **Type:** Popup (opened from FUND-002)
 
 **Route:** Submits via POST to `FundController::statements()` (`/fund/statements`, field `action` = `invest` | `withdraw` | `payout` | `capitalize`). A single modal is shared across all 4 transaction types, showing/hiding fields based on type.
 
-**Module:** FUND = Investment Fund
+**Module:** FUND = Investor Capital
 
 ## Overview
 A modal for creating a new transaction for an investor: adding capital (Invest), withdrawing capital (Withdraw), paying out interest in cash (Payout), or rolling accrued interest into capital (Capitalize).

@@ -1,8 +1,8 @@
-# BOOK-029-P1 — Chi tiết điểm kiểm soát nhận phòng
+# BOOK-029-P1 — Chi tiết điểm kiểm tra khi đến (Arrival Checkpoint Details)
 
 **Loại:** Popup (mở từ BOOK-029)
 **Route:** Booking/viewCheckinDetail/:id/:booking_id
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Popup xem chi tiết một lượt kiểm soát nhận phòng: nhật ký thời gian/vị trí di chuyển và bảng so sánh kế hoạch (Planning) và thực tế (Actual) cho từng hạng mục kiểm soát.
@@ -19,5 +19,5 @@ Popup xem chi tiết một lượt kiểm soát nhận phòng: nhật ký thời
 - Xem đối chiếu Planning vs Actual cho các hạng mục nhận phòng
 
 ## Điều hướng
-- Mở từ: BOOK-029 (Kiểm soát nhận phòng) — click "Actions" trên một dòng villa
+- Mở từ: BOOK-029 (Kiểm tra khi khách đến) — click "Actions" trên một dòng villa
 - Đóng popup quay lại BOOK-029

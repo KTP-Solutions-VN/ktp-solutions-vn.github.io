@@ -1,8 +1,8 @@
-# MNT-012 — Ma trận dịch vụ bảo trì (Danh mục / Hạng mục / Vấn đề)
+# MNT-012 — Phân loại sự cố (Issue Classification)
 
 **Loại:** Trang đầy đủ (chứa nhiều popup/modal thao tác nội tuyến)
 **Route:** maintenance/maintenanceServices (+ ajax `maintenance/maintenanceMatrix` phân trang/tìm kiếm)
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Màn hình quản lý cấu trúc phân loại sự cố bảo trì theo 3 cấp: **Danh mục** (category, `GardenService.type = maintenance`) → **Hạng mục** (subcategory, `MaintenanceSubcategory`) → **Vấn đề/Lỗi** (problem option, `MaintenanceProblemOption`, gắn mức ưu tiên). Hỗ trợ kéo-thả sắp xếp thứ tự danh mục/hạng mục, tìm kiếm/lọc và thêm-sửa-xóa cả 3 cấp ngay trên trang qua modal.
@@ -62,7 +62,7 @@ Màn hình quản lý cấu trúc phân loại sự cố bảo trì theo 3 cấp
 - **Tìm kiếm/Lọc/Phân trang**: gọi lại `maintenanceMatrix` (ajax, trả JSON).
 
 ## Điều hướng
-- Vào từ: menu Settings/Maintenance trong sidebar.
+- Vào từ: menu cài đặt Repair Desk trong sidebar.
 - Đi tới: không điều hướng sang trang khác — toàn bộ thao tác CRUD 3 cấp thực hiện tại chỗ qua modal/ajax.
 
 ## Ghi chú

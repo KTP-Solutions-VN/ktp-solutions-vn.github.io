@@ -1,8 +1,8 @@
-# BOOK-035-P2 — Trả phòng — Bước 2: Kiểm tra điểm kiểm soát/hư hỏng
+# BOOK-035-P2 — Trả phòng tại chỗ · Bước 2: Kiểm tra hư hỏng (On-site Check-out · Step 2: Damage Check)
 
 **Loại:** Popup (bước 2 của quy trình trả phòng, mở từ BOOK-035)
 **Route:** Booking/checkOutStep2/:check_out_id (mặc định: `/booking/check-out-step2/:check_out_id`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Bước kiểm tra từng điểm kiểm soát villa khi trả phòng, ghi nhận hư hỏng (issue) phát sinh kèm mô tả, người chịu trách nhiệm, số tiền bồi thường và ảnh chụp hiện trạng.
@@ -27,5 +27,5 @@ Bước kiểm tra từng điểm kiểm soát villa khi trả phòng, ghi nhậ
 - Nút tiếp tục sang Bước 3
 
 ## Điều hướng
-- Mở từ: BOOK-035 (Trả phòng — Bước 1)
-- Điều hướng tới: BOOK-035-P3 (Bước 3: Đánh giá hài lòng)
+- Mở từ: BOOK-035 (Trả phòng tại chỗ)
+- Điều hướng tới: BOOK-035-P3 (Bước 3: Đánh giá của khách)

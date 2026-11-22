@@ -1,8 +1,8 @@
-# BOOK-037 — Edit Booking
+# BOOK-037 — Modify Reservation
 
 **Type:** Full page
 **Route:** Booking/edit/:id (default: `/booking/edit/:id`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Booking edit page consisting of 3 independent form blocks (each submitted separately via AJAX): guest/booking information (see the corresponding section in BOOK-028), check-in/check-out information, and notably the **Extra Services** block — where services requested by the guest are recorded. Includes a modal for assigning the responsible concierge.
@@ -27,7 +27,7 @@ Booking edit page consisting of 3 independent form blocks (each submitted separa
 | 13 | Contact Phone Number | `phone_number` | Text | No | |
 
 ### Booking Details, Guest Details, and Arrival/Departure Date-Time Blocks
-Layout and fields are similar to the corresponding block in BOOK-028 (Booking Details), but here the fields are **editable inputs** (not read-only), and each block has its own separate AJAX Submit button.
+Layout and fields are similar to the corresponding block in BOOK-028 (Reservation Record), but here the fields are **editable inputs** (not read-only), and each block has its own separate AJAX Submit button.
 
 ### Concierge Assignment Modal (`#exampleModalLabel1`)
 Popup for selecting/assigning the concierge staff member responsible for the booking.
@@ -41,5 +41,5 @@ List of images attached to the booking, which can be viewed/managed.
 - Manage images attached to the booking
 
 ## Navigation
-- Opened from: BOOK-002 (Booking List), BOOK-028 (Booking Details) — Edit button
+- Opened from: BOOK-002 (All Reservations), BOOK-028 (Reservation Record) — Edit button
 - Navigates to: back to BOOK-028/BOOK-002 after saving

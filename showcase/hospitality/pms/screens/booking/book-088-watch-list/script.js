@@ -45,7 +45,7 @@
   document.getElementById('watch-tbody').addEventListener('click', function (e) {
     var seenBtn = e.target.closest('[data-seen]');
     if (seenBtn) {
-      BOOK.markWatchSeen(seenBtn.getAttribute('data-seen'), 'Somchai Anuwat');
+      BOOK.markWatchSeen(seenBtn.getAttribute('data-seen'), 'Daniel Tan');
       MM.showToast('Marked as seen');
       render();
       return;

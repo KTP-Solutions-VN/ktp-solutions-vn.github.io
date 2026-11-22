@@ -1,13 +1,13 @@
-# ACC-031 — Cài đặt (Settings)
+# ACC-031 — Tùy chọn tài chính (Finance Preferences)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `AccountController::setting()` — mặc định `/account/setting` (không có tham số)
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
-Trang "Settings" của module Tài khoản & Nhân sự. Action chỉ set tiêu đề trang (`settings_text`) và `active_menu = 'acc-ota'`, không truy vấn hay set thêm biến dữ liệu nào khác.
+Trang "Finance Preferences" của module Tài chính & Hành chính. Action chỉ set tiêu đề trang (`settings_text`) và `active_menu = 'acc-ota'`, không truy vấn hay set thêm biến dữ liệu nào khác.
 
 ## Mô tả chi tiết
 
@@ -15,21 +15,21 @@ Trang "Settings" của module Tài khoản & Nhân sự. Action chỉ set tiêu 
 
 Vì vậy không có bảng field/cột nào để mô tả cho chính action `setting()`.
 
-Theo cấu trúc sidebar (`Element/side-bar/account-sidebar.ctp`), mục **Settings** ở nhóm menu trên cùng vừa là link tới `Account::setting`, vừa có khả năng dùng làm nút bật/tắt hiển thị nhóm menu con `.account-setting-menu` (submenu Settings, ẩn mặc định bằng CSS `display:none`) chứa các mục:
-- Supplies (Suppliers, Products)
-- Services (Suppliers, Services)
-- **Assets** (Vehicles — ACC-032, Phones, Computers, Sim Cards)
-- Nhân sự (Public Holidays, Wage Periods)
-- Chart of Accounts (chỉ Superadmin)
-- Approval Matrix (chỉ Superadmin)
-- Menu (quay lại ACC-029 — `Account::index`)
+Theo cấu trúc sidebar (`Element/side-bar/account-sidebar.ctp`), mục **Finance Preferences** ở nhóm menu trên cùng vừa là link tới `Account::setting`, vừa có khả năng dùng làm nút bật/tắt hiển thị nhóm menu con `.account-setting-menu` (submenu Finance Preferences, ẩn mặc định bằng CSS `display:none`) chứa các mục:
+- Supplies (Goods Vendors, Goods Catalog)
+- Services (Service Vendors, Billable Services)
+- **Assets** (Company Fleet — ACC-032, Mobile Devices, IT Equipment, Mobile Lines)
+- Nhân sự (Holiday Calendar, Pay Periods)
+- Account Structure (chỉ Superadmin)
+- Spending Limits (chỉ Superadmin)
+- Summary (quay lại ACC-029 — `Account::index`)
 
-Như vậy nội dung "Cài đặt" thực tế nằm rải rác ở các submenu con nêu trên chứ không nằm trực tiếp trên trang `setting()`.
+Như vậy nội dung "Finance Preferences" thực tế nằm rải rác ở các submenu con nêu trên chứ không nằm trực tiếp trên trang `setting()`.
 
 ## Chức năng/nút thao tác
 - Không có nút thao tác nào trên chính trang này (view rỗng).
-- Về mặt điều hướng, menu "Settings" ở sidebar dẫn tới các mục con liệt kê ở trên.
+- Về mặt điều hướng, menu "Finance Preferences" ở sidebar dẫn tới các mục con liệt kê ở trên.
 
 ## Điều hướng
-- Vào từ: Sidebar > Account & HR > **Settings** (mục top-level, có icon Setting-Icon.png).
-- Điều hướng đến: không có nội dung/liên kết nào phát sinh từ trang `setting()` — các màn hình cấu hình thực tế (Vehicles - ACC-032, Suppliers, Services, Public Holidays, Wage Periods, Chart of Accounts, Approval Matrix...) được truy cập trực tiếp từ submenu sidebar, không phải từ nội dung của trang này.
+- Vào từ: Sidebar > Finance & Admin > **Finance Preferences** (mục top-level, có icon Setting-Icon.png).
+- Điều hướng đến: không có nội dung/liên kết nào phát sinh từ trang `setting()` — các màn hình cấu hình thực tế (Company Fleet - ACC-032, Goods Vendors, Billable Services, Holiday Calendar, Pay Periods, Account Structure, Spending Limits...) được truy cập trực tiếp từ submenu sidebar, không phải từ nội dung của trang này.

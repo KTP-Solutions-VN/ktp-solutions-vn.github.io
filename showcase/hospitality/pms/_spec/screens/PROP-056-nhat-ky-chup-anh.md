@@ -1,8 +1,8 @@
-# PROP-056 — Nhật ký hoạt động Chụp ảnh (Photography Logs)
+# PROP-056 — Lịch sử buổi chụp (Shoot History)
 
 **Loại:** Trang đầy đủ
 **Route:** property/logs
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang tra cứu nhật ký (log) các hoạt động chụp ảnh (Photography) đã hoàn thành, lọc theo Business Unit, Cấp độ (Property/Residence/Unit), Residence/Unit/Property cụ thể. Hiển thị loại hoạt động, tên, ngày, nhận xét.
@@ -30,9 +30,9 @@ Trang tra cứu nhật ký (log) các hoạt động chụp ảnh (Photography) 
 
 ## Chức năng/nút thao tác
 - Đổi bộ lọc (Business Unit/Entry Level/Residence/Unit/Property) → tải lại danh sách log tương ứng.
-- Icon Actions trên từng dòng → xem chi tiết hoạt động chụp ảnh liên quan (liên hệ PROP-026 Kế hoạch chụp ảnh, PROP-028 Điểm chấm chất lượng ảnh).
+- Icon Actions trên từng dòng → xem chi tiết hoạt động chụp ảnh liên quan (liên hệ PROP-026 Bộ lập lịch chụp ảnh, PROP-028 Đánh giá chất lượng ảnh).
 
 ## Điều hướng
-- Mở từ: Menu Property/Photography (không thuộc phạm vi mã hiện tại).
+- Mở từ: Menu Shoots (không thuộc phạm vi mã hiện tại).
 - Điều hướng tới: Không điều hướng sang trang khác trong phạm vi file (chỉ lọc dữ liệu tại chỗ); liên hệ dữ liệu với PROP-026, PROP-027, PROP-028.
 - Popup con: Không có.

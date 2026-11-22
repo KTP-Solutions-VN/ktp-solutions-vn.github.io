@@ -1,8 +1,8 @@
-# BOOK-035-P3 — Check-out — Step 3: Satisfaction Rating
+# BOOK-035-P3 — On-site Check-out · Step 3: Guest Rating
 
 **Type:** Popup (step 3 of the check-out process, opened from BOOK-035-P2)
 **Route:** Booking/checkOutStep3/:check_out_id (default: `/booking/check-out-step3/:check_out_id`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 A step for recording the guest's satisfaction rating at check-out (star rating scale) along with a review, and confirming the GPS location where the task was performed.
@@ -22,5 +22,5 @@ A step for recording the guest's satisfaction rating at check-out (star rating s
 - Continue button to proceed to Step 4
 
 ## Navigation
-- Opened from: BOOK-035-P2 (Check-out — Step 2)
-- Navigates to: BOOK-035-P4 (Step 4: Completion Confirmation)
+- Opened from: BOOK-035-P2 (On-site Check-out · Step 2: Damage Check)
+- Navigates to: BOOK-035-P4 (Step 4: Wrap-up)

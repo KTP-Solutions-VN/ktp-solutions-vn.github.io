@@ -1,10 +1,10 @@
-# NOT-006 — Add Company News
+# NOT-006 — New Newsroom Post
 
 **Type:** Full page
 
 **Route:** `NoticeController::addCompanyNews()` — default `/notice/add-company-news`
 
-**Module:** Notices
+**Module:** Announcements
 
 ## Overview
 Form for posting a new internal news item, optionally with a PDF attachment, restricted in visibility to selected business units.
@@ -22,5 +22,5 @@ Form for posting a new internal news item, optionally with a PDF attachment, res
 - **Cancel:** returns to NOT-005.
 
 ## Navigation
-- Opened from: the "Add new" button on NOT-005 (Company News).
+- Opened from: the "Add new" button on NOT-005 (Newsroom).
 - After sending/canceling: redirects to NOT-005.

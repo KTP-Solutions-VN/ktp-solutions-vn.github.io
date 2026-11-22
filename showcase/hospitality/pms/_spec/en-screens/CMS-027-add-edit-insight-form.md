@@ -1,10 +1,10 @@
-# CMS-027 — Add/Edit Insight Form
+# CMS-027 — Journal Article Editor
 
 **Type:** Full page
 
 **Route:** `CmsController::insightsEdit($id)` — default `/cms/insights-edit/:id`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 Form for adding a new or editing an existing "Insight" article: title, content per language, an illustrative image, and a list of linked destinations (Global Destinations). No `$id` → add mode (page title "Add"); `$id` present → edit mode (page title "Edit").
@@ -35,4 +35,4 @@ When editing (`$id` is not null), existing data is loaded and the `text` and `gu
 ## Navigation
 - Accessed from: CMS-026 (the "Add New" button or the "Edit" link on each row).
 - Navigates to: returns to CMS-026 after Save (success or error).
-- Related: the breadcrumb on the page links back to Settings and Common Texts/Insights (CMS-026); Insight articles created/edited here are used as the selection source for the "Insights" tab in CMS-023 (villa collection tabs) and the AJAX action `updateInsightAjax()` — there is no direct back-and-forth navigation, but both share the same `GuestCollectionInsight` data table.
+- Related: the breadcrumb on the page links back to Settings and Shared Content Blocks/Travel Journal (CMS-026); Insight articles created/edited here are used as the selection source for the "Journal" tab in CMS-023 (villa collection tabs) and the AJAX action `updateInsightAjax()` — there is no direct back-and-forth navigation, but both share the same `GuestCollectionInsight` data table.

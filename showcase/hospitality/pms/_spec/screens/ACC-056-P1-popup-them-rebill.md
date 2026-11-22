@@ -1,10 +1,10 @@
-# ACC-056-P1 — Popup thêm Rebill
+# ACC-056-P1 — Thêm khoản tính lại (New Owner Recharge)
 
 **Loại:** Popup (mở từ ACC-056)
 
 **Route:** `AccountController::addRebill()` — mặc định `/account/add-rebill`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Form thêm mới một bản ghi Rebill cho một Property theo tháng Rebill/tháng chi phí, cho phép nhập nhiều dòng chi phí (loại chi phí, số tiền, mô tả).
@@ -28,5 +28,5 @@ Form thêm mới một bản ghi Rebill cho một Property theo tháng Rebill/th
 - **Cancel:** quay lại ACC-056 (`rebill`).
 
 ## Điều hướng
-- Vào từ: ACC-056 (Rebill) — nút "Add new".
+- Vào từ: ACC-056 (Khoản tính lại cho chủ nhà) — nút "Add new".
 - Điều hướng đến: quay lại ACC-056 sau khi lưu hoặc hủy.

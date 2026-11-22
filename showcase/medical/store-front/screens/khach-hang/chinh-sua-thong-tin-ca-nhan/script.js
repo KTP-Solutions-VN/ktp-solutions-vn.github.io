@@ -14,7 +14,7 @@
       btn.disabled = true;
       btn.textContent = 'Saving…';
       setTimeout(function () {
-        CJ.toast('Personal info updated.', 'success');
+        CJ.toast('Profile updated.', 'success');
         setTimeout(function () { window.location.href = ACCOUNT_URL; }, 500);
       }, 500);
     });

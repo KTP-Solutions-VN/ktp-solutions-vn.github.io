@@ -1,8 +1,8 @@
-# OPR-007 — Danh sách dọn dẹp (Cleaning)
+# OPR-007 — Lượt dọn phòng (Housekeeping Rounds)
 
 **Loại:** Trang đầy đủ
 **Route:** operator/cleaning + route đẹp dạng dashed: operator/cleaning
-**Module:** OPR = Vận hành vườn/hồ bơi
+**Module:** OPR = Công việc bảo dưỡng
 
 ## Mô tả ngắn gọn
 Màn hình cho nhân viên dọn dẹp (housekeeper) chọn đơn vị kinh doanh và villa để bắt đầu một lượt dọn dẹp (cleaning). Sau khi bấm Start, hệ thống tạo bản ghi `Cleaning` và điều hướng sang OPR-008 (thực hiện dọn dẹp theo từng điểm kiểm tra).
@@ -21,5 +21,5 @@ Màn hình cho nhân viên dọn dẹp (housekeeper) chọn đơn vị kinh doan
 - Bảng danh sách: xem/tiếp tục một lượt dọn dẹp dở dang bằng cách điều hướng `operator/cleaningDetails?id=` tương ứng.
 
 ## Điều hướng
-- Vào từ: menu "Cleaning" trong sidebar.
-- Đi tới: OPR-008 — Thực hiện dọn dẹp theo điểm kiểm tra.
+- Vào từ: menu "Housekeeping Rounds" trong sidebar.
+- Đi tới: OPR-008 — Danh mục kiểm dọn phòng.

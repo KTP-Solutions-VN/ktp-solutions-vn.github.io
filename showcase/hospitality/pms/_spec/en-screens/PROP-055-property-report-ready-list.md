@@ -1,8 +1,8 @@
-# PROP-055 — Property Report Ready List (Report Ready)
+# PROP-055 — Reports Ready to Run
 
 **Type:** Full page
 **Route:** property/report-ready?business_unit=...
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Page for checking the conditions for generating a monthly Owner Revenue Report for each Property: based on the booking status for the month to determine "READY" (conditions met) or "READY AND SECURED" (conditions met and past the safe cancellation window) status, allowing the report to be generated directly on the page.
@@ -27,6 +27,6 @@ Page for checking the conditions for generating a monthly Owner Revenue Report f
 - "Generate Report" button (file icon) — submits a form to `controller=Owner, action=generateReports` with `villa_id`, `business_unit`, `owner_id`, `date_range` (current month) to generate the revenue report for that Property (the action resides in OwnerController, outside the scope of PROP).
 
 ## Navigation
-- Opened from: Property/Reports menu (outside the scope of the current code).
-- Navigates to: `Owner/generateReports` (report generation action, outside the scope of PropertyController); related to PROP-054 (Report Status), PROP-018 (Monthly Newsletter), PROP-053 (BU Reports) data.
+- Opened from: owner reports menu (outside the scope of the current code).
+- Navigates to: `Owner/generateReports` (report generation action, outside the scope of PropertyController); related to PROP-054 (Report Dispatch Status), PROP-018 (Owner Bulletins), PROP-053 (Owner Reports by Unit) data.
 - Child popup: None.

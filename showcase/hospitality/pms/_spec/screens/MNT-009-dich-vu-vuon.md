@@ -1,8 +1,8 @@
-# MNT-009 — Dịch vụ vườn (Garden Services)
+# MNT-009 — Loại dịch vụ vườn (Garden Service Types)
 
 **Loại:** Trang đầy đủ
 **Route:** maintenance/gardenServices
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Màn hình danh sách danh mục dịch vụ vườn (`GardenService.type = garden`) dùng cho phân loại công việc vườn (garden job). Mỗi dịch vụ có tên, ảnh minh họa, đơn vị kinh doanh áp dụng, trạng thái.
@@ -22,10 +22,10 @@ Màn hình danh sách danh mục dịch vụ vườn (`GardenService.type = gard
 | 8 | Hành động | — | Sửa, Xóa |
 
 ## Chức năng/nút thao tác
-- **Add New**: mở MNT-009-P1 — Thêm dịch vụ vườn.
-- **Sửa** (icon): mở MNT-009-P2 — Sửa dịch vụ vườn.
+- **Add New**: mở MNT-009-P1 — Thêm loại dịch vụ vườn.
+- **Sửa** (icon): mở MNT-009-P2 — Sửa loại dịch vụ vườn.
 - **Xóa**: xóa `GardenService` tương ứng (`deleteGardenService`), reload danh sách.
 
 ## Điều hướng
-- Vào từ: menu Settings/Maintenance trong sidebar.
+- Vào từ: menu cài đặt Repair Desk trong sidebar.
 - Đi tới: MNT-009-P1 (Thêm), MNT-009-P2 (Sửa).

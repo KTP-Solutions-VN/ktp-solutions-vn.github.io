@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (id) {
         rows = rows.map(function (r) { return r.id === id ? Object.assign({}, r, { keyword: keyword }) : r; });
       } else {
-        rows.unshift({ id: MM.uid('EX'), keyword: keyword, addedBy: 'Somchai Anuwat', on: new Date().toISOString().slice(0, 10) });
+        rows.unshift({ id: MM.uid('EX'), keyword: keyword, addedBy: 'Daniel Tan', on: new Date().toISOString().slice(0, 10) });
       }
       MM.BOOK.saveExclusions(currentTab, rows);
       MM.closeModal('keyword-modal');

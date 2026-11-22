@@ -1,10 +1,10 @@
-# CS-004-P1 — Add/Edit/Delete Area Popup
+# CS-004-P1 — Area Form
 
 **Type:** Popup (opened from CS-004)
 
 **Route:** Bootstrap Modal (`#exampleModal`) within `areas.ctp`; submits to the same action `CommonSettingController::areas()`; duplicate name check via AJAX `checkArea()` — `/common-setting/check-area`; loads Region/District based on the selected parent via AJAX `getData()` — `/common-setting/get-data`.
 
-**Module:** CS = Common Lookup Settings
+**Module:** CS = Reference Data
 
 ## Overview
 A shared popup for Adding/Editing/Deleting an Area, with 3 cascading parent-selection dropdowns by hierarchy level (Country → Region → District) loaded via AJAX.
@@ -25,5 +25,5 @@ A shared popup for Adding/Editing/Deleting an Area, with 3 cascading parent-sele
 - **Cancel:** closes the modal.
 
 ## Navigation
-- Opened from: CS-004 (Area list).
+- Opened from: CS-004 (Area Setup).
 - After submission: returns to CS-004 with a flash message.

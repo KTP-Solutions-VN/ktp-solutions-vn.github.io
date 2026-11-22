@@ -1,7 +1,7 @@
-# BOOK-002-P1 — Booking Quick View
+# BOOK-002-P1 — Reservation Preview
 **Type:** Full page (NOTE: see the note at the end of this document — despite being named "Quick View," this is not a popup)
 **Route:** Booking/viewBooking/:id (default: `/booking/view-booking/:id`, id is base64_encoded)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 A page displaying the detailed (read-only) information of a booking: booking code, booking channel, booking date, status, check-in/check-out date and time, amount, OTA commission, net amount received, and guest information (language, number of guests, adults/children, phone number).
@@ -18,7 +18,7 @@ Field table displayed (entirely text/label, with no editable inputs):
 | 5 | Check-in date | `check_in_detail.check_in_date` + `check_in_time` | Text (readonly) | - | |
 | 6 | Check-out date | `check_in_detail.check_out_date` + `check_out_time` | Text (readonly) | - | |
 | 7 | Amount | `amount` | Number (readonly) | - | Rounded to 2 decimal places |
-| 8 | OTA commission | Calculated from `commission` | Number (readonly) | - | For Booking.com, an additional 7% VAT is added |
+| 8 | OTA commission | Calculated from `commission` | Number (readonly) | - | For Booking.com, an additional 7% GST is added |
 | 9 | Net amount | Calculated `net_amount` | Number (readonly) | - | = Gross amount minus OTA commission |
 | 10 | Guest language | `guest.language` | Text (readonly) | - | N/A if blank |
 | 11 | Total number of guests | `guest.guest_no` | Number (readonly) | - | |
@@ -30,7 +30,7 @@ Field table displayed (entirely text/label, with no editable inputs):
 - View-only; there are no edit/save buttons on this screen.
 
 ## Navigation
-- Opened from: BOOK-002 (Booking List — "View Details" button), BOOK-004 (Latest Bookings — "View Booking" button)
+- Opened from: BOOK-002 (All Reservations — "View Details" button), BOOK-004 (Recent Reservations — "View Booking" button)
 - Navigates to: none (this is the final screen of the flow, view-only)
 - Sub-popups: none
 

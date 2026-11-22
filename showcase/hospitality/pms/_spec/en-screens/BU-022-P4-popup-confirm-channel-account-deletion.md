@@ -1,10 +1,10 @@
-# BU-022-P4 — Popup: Confirm Channel Account Deletion
+# BU-022-P4 — Confirm Channel Account Deletion
 
 **Type:** Popup (opened from BU-022, Channel Account tab)
 
 **Route:** Static Bootstrap modal (`#deleteModal`) within `channels.ctp`; submits via POST to `BusinessUnitController::channels('accounts')` with `action=delete`.
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A confirmation popup shown before permanently deleting a channel account.

@@ -53,7 +53,7 @@
     document.getElementById('confirm-delete-btn').addEventListener('click', function () {
       TRN.deleteTutorial(deletingId);
       MM.closeModal('delete-modal');
-      MM.showToast('Tutorial deleted', { danger: true });
+      MM.showToast('Lesson deleted', { danger: true });
       render();
     });
   });

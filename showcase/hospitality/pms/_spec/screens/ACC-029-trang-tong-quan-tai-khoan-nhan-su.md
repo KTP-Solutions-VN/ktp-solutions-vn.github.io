@@ -1,13 +1,13 @@
-# ACC-029 — Trang tổng quan Tài khoản & Nhân sự
+# ACC-029 — Tóm tắt tài chính (Finance Summary)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `AccountController::index()` — mặc định `/account/index` (không có tham số)
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
-Trang "cửa vào" (landing page) của module Tài khoản & Nhân sự. Action chỉ set tiêu đề trang và `active_menu`, không truy vấn hay hiển thị dữ liệu nghiệp vụ nào — view chỉ hiện logo dashboard mặc định.
+Trang "cửa vào" (landing page) của module Tài chính & Hành chính. Action chỉ set tiêu đề trang và `active_menu`, không truy vấn hay hiển thị dữ liệu nghiệp vụ nào — view chỉ hiện logo dashboard mặc định.
 
 ## Mô tả chi tiết
 
@@ -26,6 +26,6 @@ Không có card thống kê, không có danh sách, không có filter. Về bả
 
 ## Điều hướng
 - Vào từ:
-  - Menu ngang trên cùng (header) — dropdown tài khoản người dùng, mục **"Accounting"** (`Element/header.ctp`, chỉ hiện khi `$currentController == 'Account'`) → `Account::index`.
-  - Sidebar > Account & HR > (trong submenu **Settings**, mục cuối cùng) **"Menu"** (`Element/side-bar/account-sidebar.ctp`) → `Account::index`.
-- Điều hướng đến: không có liên kết tiếp theo từ chính trang này ngoài breadcrumb Home; người dùng dùng sidebar bên trái để vào các màn hình nghiệp vụ khác của module (Statements — ACC-007, OTA — ACC-030, Settings — ACC-031, Vehicles — ACC-032, ...).
+  - Menu ngang trên cùng (header) — dropdown tài khoản người dùng, mục **"Finance"** (`Element/header.ctp`, chỉ hiện khi `$currentController == 'Account'`) → `Account::index`.
+  - Sidebar > Finance & Admin > (trong submenu **Finance Preferences**, mục cuối cùng) **"Summary"** (`Element/side-bar/account-sidebar.ctp`) → `Account::index`.
+- Điều hướng đến: không có liên kết tiếp theo từ chính trang này ngoài breadcrumb Home; người dùng dùng sidebar bên trái để vào các màn hình nghiệp vụ khác của module (Account Ledger — ACC-007, Channel Payout Matching — ACC-030, Finance Preferences — ACC-031, Company Fleet — ACC-032, ...).

@@ -1,10 +1,10 @@
-# USR-008-P1 — Change Password
+# USR-008-P1 — Update Password
 
 **Type:** Popup/Modal (opened from USR-008)
 
 **Route:** `UserController::changePassword()` — default `user/changePassword`
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 A popup allowing the currently logged-in user to change their own password, requiring the correct current password before a new one can be set. After a successful change, the system forces a logout so the user must log back in with the new password.
@@ -23,4 +23,4 @@ A popup allowing the currently logged-in user to change their own password, requ
 
 ## Navigation
 - Opened from: USR-008 (the "Change Password" link).
-- Navigates to: LOG-001 (Login) after a successful password change.
+- Navigates to: LOG-001 (Sign In) after a successful password change.

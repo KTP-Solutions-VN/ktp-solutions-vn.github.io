@@ -29,8 +29,8 @@
     {
       bookingId: 'BK-10231', guest: 'James Whitfield', property: 'Villa Sapphire Cliff',
       country: 'United Kingdom', referer: 'Booking.com', language: 'English',
-      accessCode: 'SC-7841', portalCode: 'PT-2231', tdacCode: 'TDAC-88213',
-      leader: 'James Whitfield', concierge: 'Somchai Anuwat', ownerManager: 'Richard Halstead',
+      accessCode: 'SC-7841', portalCode: 'PT-2231', tdacCode: 'SGAC-88213',
+      leader: 'James Whitfield', concierge: 'Daniel Tan', ownerManager: 'Richard Halstead',
       channel: 'Whatsapp AI', status: 'active', linkedBookingId: null,
       whatsappStatus: 'connected', phone: '+44 7700 900123', warnFakePhone: false,
       warnWhatsappBlocked: false, numberChanged: false,
@@ -39,8 +39,8 @@
     {
       bookingId: 'BK-10232', guest: 'Anna Kowalski', property: 'Villa Coral Horizon',
       country: 'Poland', referer: 'Airbnb', language: 'Polish',
-      accessCode: 'CH-3302', portalCode: 'PT-2232', tdacCode: 'TDAC-88214',
-      leader: '', concierge: 'Somchai Anuwat', ownerManager: 'Richard Halstead',
+      accessCode: 'CH-3302', portalCode: 'PT-2232', tdacCode: 'SGAC-88214',
+      leader: '', concierge: 'Daniel Tan', ownerManager: 'Richard Halstead',
       channel: null, status: 'new', linkedBookingId: null,
       whatsappStatus: null, phone: '+48 501 234 567', warnFakePhone: false,
       warnWhatsappBlocked: false, numberChanged: false,
@@ -49,8 +49,8 @@
     {
       bookingId: 'BK-10234', guest: 'Sophia Rossi', property: 'Villa Azure Ridge',
       country: 'Italy', referer: 'Direct', language: 'Italian',
-      accessCode: 'AR-5510', portalCode: 'PT-2234', tdacCode: 'TDAC-88216',
-      leader: 'Sophia Rossi', concierge: 'Wayan Kertha', ownerManager: 'David Chen',
+      accessCode: 'AR-5510', portalCode: 'PT-2234', tdacCode: 'SGAC-88216',
+      leader: 'Sophia Rossi', concierge: 'Warren Kelly', ownerManager: 'David Chen',
       channel: 'Whatsapp AI', status: 'archived', linkedBookingId: null,
       whatsappStatus: 'connected', phone: '+39 345 678 9012', warnFakePhone: false,
       warnWhatsappBlocked: false, numberChanged: false,
@@ -59,8 +59,8 @@
     {
       bookingId: 'BK-10236', guest: 'Klaus Richter', property: 'Villa Lotus Terrace',
       country: 'Germany', referer: 'Azura Website', language: 'German',
-      accessCode: 'LT-9012', portalCode: 'PT-2236', tdacCode: 'TDAC-88218',
-      leader: '', concierge: 'Nok Pattaya', ownerManager: 'Priya Nair',
+      accessCode: 'LT-9012', portalCode: 'PT-2236', tdacCode: 'SGAC-88218',
+      leader: '', concierge: 'Nicole Parker', ownerManager: 'Priya Nair',
       channel: null, status: 'new', linkedBookingId: null,
       whatsappStatus: null, phone: '+49 170 1234567', warnFakePhone: false,
       warnWhatsappBlocked: false, numberChanged: false,
@@ -69,8 +69,8 @@
     {
       bookingId: 'BK-10237', guest: 'Emma Johansson', property: 'Villa Silver Tide',
       country: 'Sweden', referer: 'Owner', language: 'Swedish',
-      accessCode: 'ST-4471', portalCode: 'PT-2237', tdacCode: 'TDAC-88219',
-      leader: '', concierge: 'Wayan Kertha', ownerManager: 'David Chen',
+      accessCode: 'ST-4471', portalCode: 'PT-2237', tdacCode: 'SGAC-88219',
+      leader: '', concierge: 'Warren Kelly', ownerManager: 'David Chen',
       channel: null, status: 'not-required', linkedBookingId: null,
       whatsappStatus: null, phone: '+46 70 123 4567', warnFakePhone: false,
       warnWhatsappBlocked: false, numberChanged: false,
@@ -79,8 +79,8 @@
     {
       bookingId: 'BK-10238', guest: "Liam O'Connor", property: 'Villa Golden Palm',
       country: 'Ireland', referer: 'Airbnb', language: 'English',
-      accessCode: 'GP-2290', portalCode: 'PT-2238', tdacCode: 'TDAC-88220',
-      leader: "Liam O'Connor", concierge: 'Nok Pattaya', ownerManager: 'Priya Nair',
+      accessCode: 'GP-2290', portalCode: 'PT-2238', tdacCode: 'SGAC-88220',
+      leader: "Liam O'Connor", concierge: 'Nicole Parker', ownerManager: 'Priya Nair',
       channel: 'Whatsapp AI', status: 'archived', linkedBookingId: null,
       whatsappStatus: 'connected', phone: '+353 85 123 4567', warnFakePhone: false,
       warnWhatsappBlocked: false, numberChanged: false,
@@ -89,8 +89,8 @@
     {
       bookingId: 'BK-10233', guest: 'Michael Tan', property: 'Villa Emerald Bay',
       country: 'Singapore', referer: 'Expedia', language: 'English',
-      accessCode: 'EB-6603', portalCode: 'PT-2233', tdacCode: 'TDAC-88215',
-      leader: 'Michael Tan', concierge: 'Wayan Kertha', ownerManager: 'Isabelle Moreau',
+      accessCode: 'EB-6603', portalCode: 'PT-2233', tdacCode: 'SGAC-88215',
+      leader: 'Michael Tan', concierge: 'Warren Kelly', ownerManager: 'Isabelle Moreau',
       channel: 'Whatsapp AI', status: 'archived', linkedBookingId: null,
       whatsappStatus: 'connected', phone: '+65 8123 4567', warnFakePhone: false,
       warnWhatsappBlocked: false, numberChanged: false,
@@ -99,8 +99,8 @@
     {
       bookingId: 'BK-10239', guest: 'Michael Tan', property: 'Villa Sapphire Cliff',
       country: 'Singapore', referer: 'Booking.com', language: 'English',
-      accessCode: 'EB-6603', portalCode: 'PT-2239', tdacCode: 'TDAC-88221',
-      leader: 'Michael Tan', concierge: 'Somchai Anuwat', ownerManager: 'Richard Halstead',
+      accessCode: 'EB-6603', portalCode: 'PT-2239', tdacCode: 'SGAC-88221',
+      leader: 'Michael Tan', concierge: 'Daniel Tan', ownerManager: 'Richard Halstead',
       channel: 'Whatsapp AI', status: 'link', linkedBookingId: 'BK-10233',
       whatsappStatus: 'connected', phone: '+65 8123 4567', warnFakePhone: false,
       warnWhatsappBlocked: false, numberChanged: false,
@@ -109,8 +109,8 @@
     {
       bookingId: 'BK-10240', guest: 'Sophia Rossi', property: 'Villa Emerald Bay',
       country: 'Italy', referer: 'Direct', language: 'Italian',
-      accessCode: 'EB-1187', portalCode: 'PT-2240', tdacCode: 'TDAC-88222',
-      leader: '', concierge: 'Wayan Kertha', ownerManager: 'Isabelle Moreau',
+      accessCode: 'EB-1187', portalCode: 'PT-2240', tdacCode: 'SGAC-88222',
+      leader: '', concierge: 'Warren Kelly', ownerManager: 'Isabelle Moreau',
       channel: null, status: 'to-open', linkedBookingId: null,
       whatsappStatus: 'waiting', phone: '+39 345 000 0000', warnFakePhone: true,
       warnWhatsappBlocked: true, numberChanged: false,
@@ -119,8 +119,8 @@
     {
       bookingId: 'BK-10241', guest: 'James Whitfield', property: 'Villa Coral Horizon',
       country: 'United Kingdom', referer: 'Azura Website', language: 'English',
-      accessCode: 'CH-8842', portalCode: 'PT-2241', tdacCode: 'TDAC-88223',
-      leader: 'James Whitfield', concierge: 'Somchai Anuwat', ownerManager: 'Richard Halstead',
+      accessCode: 'CH-8842', portalCode: 'PT-2241', tdacCode: 'SGAC-88223',
+      leader: 'James Whitfield', concierge: 'Daniel Tan', ownerManager: 'Richard Halstead',
       channel: 'Whatsapp AI', status: 'active', linkedBookingId: null,
       whatsappStatus: 'connected', phone: '+44 7700 900456', warnFakePhone: false,
       warnWhatsappBlocked: false, numberChanged: true,
@@ -198,8 +198,8 @@
   /* ---------------------------------------------------------------- */
   BOOK.CHAT_MESSAGES = {
     'BK-10231': [
-      { from: 'staff', text: "Hi James, welcome to Azura Stays! I'm Somchai, your concierge for Villa Sapphire Cliff. Is there anything you need before you arrive today?", time: '2026-08-31T09:02:00' },
-      { from: 'guest', text: 'Hi Somchai, thanks! What time can we check in, and is early check-in possible?', time: '2026-08-31T10:15:00' },
+      { from: 'staff', text: "Hi James, welcome to Azura Stays! I'm Daniel, your concierge for Villa Sapphire Cliff. Is there anything you need before you arrive today?", time: '2026-08-31T09:02:00' },
+      { from: 'guest', text: 'Hi Daniel, thanks! What time can we check in, and is early check-in possible?', time: '2026-08-31T10:15:00' },
       { from: 'staff', text: 'Standard check-in is 14:00. I can offer 12:00 today at no charge since the villa is ready early.', time: '2026-08-31T10:22:00' },
       { from: 'guest', text: 'That would be great, thank you. Also, could you arrange a baby cot for our daughter?', time: '2026-08-31T10:24:00' },
       { from: 'staff', text: 'Of course, a travel cot will be set up in the second bedroom before you arrive.', time: '2026-08-31T10:30:00' },

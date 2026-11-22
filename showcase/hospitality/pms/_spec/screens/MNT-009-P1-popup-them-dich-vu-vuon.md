@@ -1,8 +1,8 @@
-# MNT-009-P1 — Thêm dịch vụ vườn
+# MNT-009-P1 — Thêm loại dịch vụ vườn (New Garden Service Type)
 
 **Loại:** Popup (mở từ MNT-009)
 **Route:** maintenance/addGardenService
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Trang thêm mới một dịch vụ vườn: tên, ảnh minh họa (crop tỉ lệ 1:1), đơn vị kinh doanh áp dụng, trạng thái.
@@ -21,5 +21,5 @@ Trang thêm mới một dịch vụ vườn: tên, ảnh minh họa (crop tỉ l
 - **Cancel**: quay về MNT-009.
 
 ## Điều hướng
-- Vào từ: nút "Add New" trên MNT-009 — Dịch vụ vườn.
+- Vào từ: nút "Add New" trên MNT-009 — Loại dịch vụ vườn.
 - Đi tới: sau khi Save, quay về MNT-009.

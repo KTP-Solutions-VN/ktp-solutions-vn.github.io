@@ -1,8 +1,8 @@
-# VCS-001-P1 — Add/Edit/Delete Amenity Popup
+# VCS-001-P1 — Amenity Form
 
 **Type:** Popup/Modal (opened from VCS-001)
 **Route:** No dedicated route — uses a shared form that POSTs to `villa-common-setting/items` (hidden `action`=`add`/`edit`/`delete`); duplicate-name check via AJAX `villa-common-setting/check-item`
-**Module:** VCS = Villa Common Settings
+**Module:** VCS = Property Attributes
 
 ## Overview
 A shared Bootstrap modal (`#exampleModal`) covering the three Add/Edit/Delete Amenity scenarios. In Delete mode, the input section is hidden (`.modal-body { display:none }`), leaving only the confirmation title.
@@ -20,5 +20,5 @@ A shared Bootstrap modal (`#exampleModal`) covering the three Add/Edit/Delete Am
 - Validation: `name` is required, checked for duplicates via remote AJAX `checkItem`.
 
 ## Navigation
-- Opened from: VCS-001 (Add new / Edit / Delete buttons on the Amenities list table).
+- Opened from: VCS-001 (Add new / Edit / Delete buttons on the Amenity Catalog table).
 - Navigates to: no page change — after submission, VCS-001 is reloaded (redirect via `referer()`).

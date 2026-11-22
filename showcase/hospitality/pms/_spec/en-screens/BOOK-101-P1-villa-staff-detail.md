@@ -1,4 +1,4 @@
-# BOOK-101-P1 — Villa Staff Detail
+# BOOK-101-P1 — On-duty Staff Detail
 
 **Type:** Popup / sub-page (opened from BOOK-101)
 
@@ -6,7 +6,7 @@
 
 **Friendly route:** no dedicated route found in config/Routes.php
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 
@@ -35,12 +35,12 @@ Displays information about the staff assigned to checkout, cleaning, and additio
 ## Functions / Actions
 
 - View-only; no data entry form on this popup.
-- "Clean" button in the Cleaning block opens `/VM/villa-services/planning-teams-detail/:id/staff` (part of the Villa Services module, outside the scope of Booking).
-- "Clean" button in the Makeup block opens `/VM/villa-services/makeup-teams-detail/:id/staff` (part of the Villa Services module, outside the scope of Booking).
-- Close icon (close image) returns to BOOK-101 (Property Status).
+- "Clean" button in the Cleaning block opens `/VM/villa-services/planning-teams-detail/:id/staff` (part of the In-Stay Services module, outside the scope of Reservations).
+- "Clean" button in the Makeup block opens `/VM/villa-services/makeup-teams-detail/:id/staff` (part of the In-Stay Services module, outside the scope of Reservations).
+- Close icon (close image) returns to BOOK-101 (Live Status Board).
 
 ## Navigation
 
 - Opened from BOOK-101 ("Staff" icon on a villa row with a booking).
-- Navigates to Villa Services (planning-teams-detail / makeup-teams-detail) when the "Clean" button is clicked — outside the scope of this Booking documentation.
+- Navigates to In-Stay Services (planning-teams-detail / makeup-teams-detail) when the "Clean" button is clicked — outside the scope of this Reservations documentation.
 - Closing the popup returns to BOOK-101.

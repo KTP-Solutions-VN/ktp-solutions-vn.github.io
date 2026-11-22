@@ -1,10 +1,10 @@
-# VSV-003-P1 — Nhập chỉ số đồng hồ điện đầu kỳ (Start Meter)
+# VSV-003-P1 — Ghi chỉ số khi đến (Record Arrival Reading)
 
 **Loại:** Popup (mở từ VSV-003, dạng trang riêng — mở tab mới khi bấm "Enter")
 
 **Route:** Xem `VillaServicesController::startMeter($booking_id)` — `/villa-services/start-meter/<booking_id>`; lưu qua `VillaServicesController::saveMeter()` — `/villa-services/save-meter` (POST, không có view riêng, luôn redirect)
 
-**Module:** Dịch vụ villa — Điện
+**Module:** Dịch vụ lưu trú — Đo điện
 
 ## Mô tả ngắn gọn
 Form nhập chỉ số công tơ điện tại thời điểm khách check-in cho một booking cụ thể: chỉ số đồng hồ, ảnh khu vực công tơ, ảnh cận cảnh số công tơ, giờ ghi, và (tuỳ chọn) thu tiền đặt cọc điện ngay lúc check-in.
@@ -34,4 +34,4 @@ Thông tin chỉ đọc hiển thị kèm: tên khách, villa, ngày check-in/ch
 
 ## Điều hướng
 - Vào từ: VSV-003 — nút "Enter" trên từng dòng booking.
-- Điều hướng đến: quay lại VSV-003 (Check-in điện) sau khi lưu.
+- Điều hướng đến: quay lại VSV-003 (Chỉ số điện khi đến) sau khi lưu.

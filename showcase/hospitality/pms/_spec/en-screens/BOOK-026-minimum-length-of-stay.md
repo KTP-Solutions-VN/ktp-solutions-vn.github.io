@@ -1,7 +1,7 @@
-# BOOK-026 — Minimum Length of Stay
+# BOOK-026 — Minimum Nights
 **Type:** Full page
 **Route:** booking/minimum (base path `/VM` appears in the application's AJAX calls)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 A screen that allows managers to view and quickly update the minimum length of stay (minimum stay) applied to each villa, filtered by Business Unit/Zone.
@@ -25,6 +25,6 @@ A screen that allows managers to view and quickly update the minimum length of s
 - The table supports DataTable functionality (pagination, remembering rows-per-page via cookie).
 
 ## Navigation
-- Opened from: Booking menu.
+- Opened from: Reservations menu.
 - Navigates to: none (saving is performed in place via AJAX).
 - Sub-popups: none.

@@ -1,10 +1,10 @@
-# INV-005 — Yêu cầu hủy vật tư
+# INV-005 — Yêu cầu xóa sổ hàng (Write-off Requests)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `InventoryController::discard()` — `/inventory/discard`
 
-**Module:** INV = Kho vật tư
+**Module:** INV = Kiểm soát kho
 
 ## Mô tả ngắn gọn
 Danh sách các yêu cầu hủy/loại bỏ vật tư do hỏng (`InventoryDiscardRequest`) phát sinh tại villa, cho phép duyệt để trừ khỏi tồn kho villa.
@@ -29,5 +29,5 @@ Không có bộ lọc riêng.
 - **Duyệt (dấu tick)**: mở popup INV-005-P1 để xác nhận số lượng và duyệt hủy vật tư.
 
 ## Điều hướng
-- Vào từ: menu Kho vật tư (`active_menu = 153`).
+- Vào từ: menu Kiểm soát kho (`active_menu = 153`).
 - Điều hướng đến: popup INV-005-P1.

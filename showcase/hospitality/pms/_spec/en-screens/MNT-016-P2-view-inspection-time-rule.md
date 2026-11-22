@@ -1,8 +1,8 @@
-# MNT-016-P2 — View Inspection Time Rule
+# MNT-016-P2 — Inspection SLA Details
 
 **Type:** Popup (opened from MNT-016)
 **Route:** maintenance/viewInspection/:id (id base64)
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Page for viewing the details (read-only) of a villa inspection time rule set for a business unit.
@@ -21,5 +21,5 @@ Page for viewing the details (read-only) of a villa inspection time rule set for
 - View only, no editing actions available.
 
 ## Navigation
-- Entered from: View icon on MNT-016 — Inspection Time Rules.
+- Entered from: View icon on MNT-016 — Inspection SLAs.
 - Navigates to: may link to MNT-016-P1 (Edit).

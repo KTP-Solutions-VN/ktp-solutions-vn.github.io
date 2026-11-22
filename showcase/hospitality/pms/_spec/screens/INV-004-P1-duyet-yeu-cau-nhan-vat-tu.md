@@ -1,10 +1,10 @@
-# INV-004-P1 — Duyệt yêu cầu nhận vật tư
+# INV-004-P1 — Duyệt nhập hàng (Approve Incoming Stock)
 
 **Loại:** Popup (mở từ INV-004)
 
 **Route:** Submit POST tới `InventoryController::itemRequest()` (`/inventory/item-request`)
 
-**Module:** INV = Kho vật tư
+**Module:** INV = Kiểm soát kho
 
 ## Mô tả ngắn gọn
 Modal xác nhận duyệt một yêu cầu nhận vật tư của villa, thực hiện chuyển số lượng từ kho tổng của đơn vị kinh doanh xuống kho của villa.

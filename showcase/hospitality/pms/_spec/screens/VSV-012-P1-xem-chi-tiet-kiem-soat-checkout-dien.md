@@ -1,10 +1,10 @@
-# VSV-012-P1 — Xem chi tiết kiểm soát check-out điện
+# VSV-012-P1 — Chi tiết chỉ số khi đi (Departure Reading Detail)
 
 **Loại:** Popup (mở từ VSV-012, dạng trang riêng)
 
 **Route:** `VillaServicesController::viewCheckOutControl($id)` — `/villa-services/view-checkout-control/<booking_id>`
 
-**Module:** Dịch vụ villa — Điện
+**Module:** Dịch vụ lưu trú — Đo điện
 
 ## Mô tả ngắn gọn
 Trang chi tiết chỉ đọc, gộp thông tin điện của cả check-in lẫn check-out cho một booking: chỉ số đầu/cuối kỳ, ảnh đồng hồ, phương thức và số tiền thanh toán mỗi chiều, trạng thái xác nhận thu tiền.

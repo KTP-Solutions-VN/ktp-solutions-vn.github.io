@@ -1,10 +1,10 @@
-# ACC-009 — Statement Reconcile
+# ACC-009 — Bank Matching
 
 **Type:** Full page
 
 **Route:** `AccountController::statementReconcile()` — default `/account/statement-reconcile`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 Select an account (only accounts with `is_statement_open = open`), enter the opening/ending balance and reconciliation date, then select unreconciled entries to mark as reconciled (`is_reconcile = 1`) so that the Difference equals zero. If a difference remains after selecting everything, a manual adjustment entry (Manual Adjustment) may be added.
@@ -50,5 +50,5 @@ Adjustment popup (modal `#exampleModal`):
 - **Adjustment (shown only when everything is checked and Difference ≠ 0):** opens a popup for entering a manual adjustment; submits via POST to the `statementReconcile` action itself, the server automatically determines `payment_type` (debit if amount ≥ 0, otherwise credit), marks `is_manual_adjustment = 1`, generates a new `ref`, saves to `AccountStatement`, writes an access log, then returns to the previous page (`referer()`).
 
 ## Navigation
-- Entered from: Sidebar > "Statements" group > "Reconcile" (`filterSidebar($user, 'Account-statementReconcile') == 1`).
+- Entered from: Sidebar > "Ledgers" group > "Bank Matching" (`filterSidebar($user, 'Account-statementReconcile') == 1`).
 - Navigates to: no other page — all reconciliation and adjustment actions are handled via AJAX on the same page.

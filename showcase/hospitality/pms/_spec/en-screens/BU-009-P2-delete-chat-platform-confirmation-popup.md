@@ -1,10 +1,10 @@
-# BU-009-P2 — Delete Chat Platform Confirmation Popup
+# BU-009-P2 — Confirm App Deletion
 
 **Type:** Popup (opened from BU-009)
 
 **Route:** Static Bootstrap modal (`#exampleModal`, form section hidden) in `chat_platform.ctp`; submitted via POST to the same `BusinessUnitController::chatPlatform()` action with `action=delete`.
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A confirmation popup shown before permanently deleting a chat platform.
@@ -22,5 +22,5 @@ A confirmation popup shown before permanently deleting a chat platform.
 - **Cancel:** closes the modal without deleting.
 
 ## Navigation
-- Opened from: BU-009 (Chat platform list) — Delete icon on each row.
+- Opened from: BU-009 (Messaging Apps) — Delete icon on each row.
 - After submission: redirects back to BU-009 (`referer()`).

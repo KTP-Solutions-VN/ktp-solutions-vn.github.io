@@ -74,7 +74,7 @@
           tut.status = isReady ? 'active' : 'inactive';
           if (isReady && !tut.releaseDate) tut.releaseDate = new Date().toISOString().slice(0, 10);
         });
-        MM.showToast('Tutorial updated');
+        MM.showToast('Lesson updated');
         setTimeout(function () { window.location.href = '../trn-002-tutorial-list-admin/index.html'; }, 700);
       });
     });

@@ -1,8 +1,8 @@
-# OPR-006 — Báo cáo sự cố hồ bơi
+# OPR-006 — Ghi nhận sự cố hồ bơi (Log Pool Issue)
 
 **Loại:** Trang đầy đủ
 **Route:** operator/poolReport/:id + route đẹp dạng dashed: operator/pool-report/:id
-**Module:** OPR = Vận hành vườn/hồ bơi
+**Module:** OPR = Công việc bảo dưỡng
 
 ## Mô tả ngắn gọn
 Màn hình cho nhân viên hồ bơi báo cáo sự cố phát sinh trong công việc: mô tả vấn đề kèm ảnh minh chứng; hệ thống lưu `PoolCleaningProblem`, chuyển `PoolCleaning.status = Problem` và gửi email cảnh báo cho business unit phụ trách villa.

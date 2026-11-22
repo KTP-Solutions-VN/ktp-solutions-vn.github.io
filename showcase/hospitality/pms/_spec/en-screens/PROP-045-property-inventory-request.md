@@ -1,8 +1,8 @@
-# PROP-045 — Property Inventory Request
+# PROP-045 — Stock Requests
 
 **Type:** Full page
 **Route:** property/inventory-request/:villa_id
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Page listing all Inventory Item Requests submitted for a Property, allowing a request to be deleted (if not yet confirmed/returned) or confirmed as returned to the Azura warehouse (Return), automatically updating the related stock.
@@ -25,6 +25,6 @@ Page listing all Inventory Item Requests submitted for a Property, allowing a re
 - Return-to-warehouse icon (`return_inventory`, `fa-reply`) → opens a modal to enter the returned quantity, submits `action=return`: decreases `item_received` in `VillaInventory`, increases `available_stock` in `InventoryStock`, creates an `InventoryItemMovement` record (from villa back to warehouse), updates the request status to "Returned", records a log.
 
 ## Navigation
-- Opened from: PROP-044 (Property Inventory Management) — "All Request" button.
+- Opened from: PROP-044 (On-site Stock) — "All Request" button.
 - Navigates to: No navigation to another page (redirects back to the same page after processing).
 - Child popup: Delete/Return modal (no dedicated code, an inline supporting operation).

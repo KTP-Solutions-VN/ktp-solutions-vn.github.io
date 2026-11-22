@@ -1,10 +1,10 @@
-# ACC-007-P2 — Edit Statement Entry Popup
+# ACC-007-P2 — Edit Ledger Entry
 
 **Type:** Popup (opened from ACC-007)
 
 **Route:** `AccountController::editStatement($id)` — default `/account/edit-statement/<id>` (`id` passed as base64)
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 A form for editing an existing statement entry. If the entry has already been reconciled (`is_reconcile = 1`), all fields are locked (view-only, not editable).
@@ -31,5 +31,5 @@ Data is pre-loaded from `AccountStatement` by `id`; the Business Unit list is dr
 - If `id` is invalid: displays an "Invalid URL" error and returns to the previous page.
 
 ## Navigation
-- Entered from: ACC-007 (Account Statements) — Edit button on each row (shown only when the entry is not `is_opening_statement`).
+- Entered from: ACC-007 (Account Ledger) — Edit button on each row (shown only when the entry is not `is_opening_statement`).
 - Navigates to: back to ACC-007 after saving or canceling.

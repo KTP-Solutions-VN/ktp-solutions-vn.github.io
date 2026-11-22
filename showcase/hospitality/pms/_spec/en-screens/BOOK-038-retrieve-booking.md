@@ -1,11 +1,11 @@
-# BOOK-038 — Retrieve Booking
+# BOOK-038 — Reservation Lookup
 
 **Type:** Full page
 **Route:** Booking/retrieveBooking (default: `/booking/retrieve-booking`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
-Screen for retrieving all bookings by booking date/check-in date range and status (including cancelled statuses), used for looking up/retrieving booking information, together with a link to the guest Access Portal, TDAC declaration status, and the responsible person (Leader).
+Screen for retrieving all bookings by booking date/check-in date range and status (including cancelled statuses), used for looking up/retrieving booking information, together with a link to the guest Access Portal, SGAC declaration status, and the responsible person (Leader).
 
 ## Detailed Description
 
@@ -29,7 +29,7 @@ Screen for retrieving all bookings by booking date/check-in date range and statu
 | 6 | Nationality | Nationality |
 | 7 | OTA | Booking channel |
 | 8 | Access Portal | Link to access the guest information portal |
-| 9 | TDAC | TDAC (Thai Digital Arrival Card) declaration status |
+| 9 | SGAC | SGAC (SG Arrival Card) declaration status |
 | 10 | Leader | Person in charge |
 | 11 | Status | Booking status |
 | 12 | Actions | Actions |
@@ -37,8 +37,8 @@ Screen for retrieving all bookings by booking date/check-in date range and statu
 ## Functions / Actions
 - Filter by booking/check-in date range and status (including Cancelled)
 - View details / retrieve information for each booking
-- Quick access to the Access Portal, view TDAC status
+- Quick access to the Access Portal, view SGAC status
 
 ## Navigation
-- Opened from: Booking module menu > Retrieve Booking
-- Navigates to: BOOK-028 (Booking Details) when viewing details
+- Opened from: Reservations module menu > Reservation Lookup
+- Navigates to: BOOK-028 (Reservation Record) when viewing details

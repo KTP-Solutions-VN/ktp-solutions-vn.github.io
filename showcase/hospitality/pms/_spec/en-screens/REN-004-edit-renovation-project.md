@@ -1,11 +1,11 @@
-# REN-004 — Edit Renovation Project
+# REN-004 — Edit Refurbishment Project
 
 **Type:** Full page
 **Route:** renovation/edit/:renovation_id + dashed-style pretty route: renovation/edit/:renovation_id (id passed as base64)
-**Module:** REN = Renovation
+**Module:** REN = Refurbishment
 
 ## Overview
-Form for editing the initial information of a renovation project: business unit, villa, project title, planned start/completion dates, and the list of items/planned budget. The field structure is similar to REN-001 (Create New Renovation Project) but pre-populated with existing data; saving deletes all existing `RenovationItem` records and recreates them from the newly entered list.
+Form for editing the initial information of a renovation project: business unit, villa, project title, planned start/completion dates, and the list of items/planned budget. The field structure is similar to REN-001 (New Refurbishment Project) but pre-populated with existing data; saving deletes all existing `RenovationItem` records and recreates them from the newly entered list.
 
 ## Detailed Description
 
@@ -23,5 +23,5 @@ Form for editing the initial information of a renovation project: business unit,
 - **Add new item**: adds a new `item[]`/`budget[]` row.
 
 ## Navigation
-- Entered from: the "Edit" icon on REN-002 — Renovation Follow-up.
-- Leads to: after successfully saving, returns to REN-002 — Renovation Follow-up.
+- Entered from: the "Edit" icon on REN-002 — Refurbishment Tracker.
+- Leads to: after successfully saving, returns to REN-002 — Refurbishment Tracker.

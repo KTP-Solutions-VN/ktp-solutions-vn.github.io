@@ -1,10 +1,10 @@
-# TXT-001 — Text Library
+# TXT-001 — Description Bank
 
 **Type:** Full page
 
 **Route:** `TextsController::index()` — default `/texts`
 
-**Module:** Texts
+**Module:** Description Bank
 
 ## Overview
 The central hub for managing all descriptive text content used for OTA/listings of villas, organized into 6 tabs: Properties (Villa), Units, Residences, Shared Texts (reusable text), Profiles (OTA account profiles), and Languages. Table data is loaded dynamically via AJAX (`TextsController::data`), with no page reload when switching tabs/filters.
@@ -38,5 +38,5 @@ Languages tab: list of languages configured per country, count of listings/share
 - **Pagination:** navigates data pages via AJAX.
 
 ## Navigation
-- Accessed from: Setting menu → Texts.
-- Navigates to: TXT-001-P1 (Add/Edit text), TXT-001-P2 (Add language), TXT-001-P3 (Delete confirmation).
+- Accessed from: Web & Media → Description Bank.
+- Navigates to: TXT-001-P1 (Description Editor), TXT-001-P2 (Add language), TXT-001-P3 (Delete confirmation).

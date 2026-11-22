@@ -1,10 +1,10 @@
-# USR-011 — Gán ngày nghỉ phép cho nhân viên (Assign Leaves)
+# USR-011 — Cấp ngày nghỉ (Grant Time Off)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `UserController::assignLeaves($id, $role)` — mặc định `user/assignLeaves/:id/:role`
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Trang chi tiết cho phép cấp thêm một đợt nghỉ phép (ngày bắt đầu - kết thúc) cho một nhân viên cụ thể, đồng thời hiển thị lịch sử 2 lần nghỉ phép gần nhất và danh sách nhân viên khác cùng phòng ban có lịch nghỉ trùng khoảng thời gian (để tránh trùng lịch nghỉ trong cùng bộ phận).
@@ -26,4 +26,4 @@ Trang chi tiết cho phép cấp thêm một đợt nghỉ phép (ngày bắt đ
 
 ## Điều hướng
 - Mở từ: USR-010 (nút "Thêm ngày nghỉ phép" của từng nhân viên).
-- Điều hướng đến: USR-010 (Granted Leaves) sau khi lưu thành công.
+- Điều hướng đến: USR-010 (Leave History) sau khi lưu thành công.

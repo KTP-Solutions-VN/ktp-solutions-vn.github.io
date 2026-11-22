@@ -1,10 +1,10 @@
-# CS-003 — Regions
+# CS-003 — Region Setup
 
 **Type:** Full page
 
 **Route:** `CommonSettingController::regions()` — default `/common-setting/regions`
 
-**Module:** CS = Common Lookup Settings
+**Module:** CS = Reference Data
 
 ## Overview
 A list for managing the Region lookup data belonging to a Country, along with the number of active/inactive villas in that region.
@@ -27,5 +27,5 @@ List (DataTable `#zero_config`, sorted by `Country.name`, `Region.name`):
 - **Delete:** opens popup CS-003-P1 in delete-confirmation mode; deletion cascades to all `District` and `Area` records with the corresponding `region_id`.
 
 ## Navigation
-- Accessed from: System Settings menu > Common Lookup Settings > Regions.
-- Navigates to: CS-003-P1 (Add/Edit/Delete Region popup).
+- Accessed from: Configuration menu > Reference Data > Region Setup.
+- Navigates to: CS-003-P1 (Region Form popup).

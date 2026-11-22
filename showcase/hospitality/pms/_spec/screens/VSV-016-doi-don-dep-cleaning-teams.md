@@ -1,10 +1,10 @@
-# VSV-016 — Đội dọn dẹp (Cleaning Teams)
+# VSV-016 — Tổ dọn phòng (Housekeeping Crews)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `VillaServicesController::cleaningTeams()` — mặc định `/villa-services/cleaning-teams`; danh sách đội tải qua AJAX `cleaningTeamsAjax`, lưu qua `saveCleaningTeams`/`saveCleaningTeamsNew`, sửa qua `updateCleaningTeams`, xóa thành viên qua `deleteCleaningTeamMember` (đều không có view riêng)
 
-**Module:** Dịch vụ villa — Dọn dẹp
+**Module:** Dịch vụ lưu trú — Dọn phòng
 
 ## Mô tả ngắn gọn
 Màn hình tạo và quản lý các đội dọn dẹp (cleaning teams) theo ngày và theo đơn vị kinh doanh (Business Unit): gán nhân sự (cleaner) và phương tiện (vehicle) vào từng đội, xem danh sách đội đã tạo, sửa/xóa thành viên.
@@ -47,5 +47,5 @@ Nút: **Reset** (xóa form), **Save** (lưu đội mới qua AJAX).
 - Đổi Date/Business Unit → tự động load lại danh sách đội (AJAX `cleaningTeamsAjax`, `fetchCleanerTeamId`, `getCleanerTeamName`).
 
 ## Điều hướng
-- Vào từ: Menu chính (mục Cleaning/Teams).
+- Vào từ: Menu chính (mục Housekeeping Crews).
 - Điều hướng đến: không có trang con (thao tác qua modal tại chỗ).

@@ -1,15 +1,15 @@
-# TRN-005 — Sửa Tutorial
+# TRN-005 — Sửa bài học (Edit Lesson)
 
 **Loại:** Trang đầy đủ
 **Route:** `TrainingController::editTutorial($id)` — `/training/edit-tutorial/{id}`
-**Module:** TRN = Đào tạo
+**Module:** TRN = Học viện nhân viên
 
 ## Mô tả ngắn gọn
 Sửa thông tin chung của một Tutorial và quản lý danh sách Slide bên trong nó (xem/sửa/xóa từng slide, thêm slide mới).
 
 ## Mô tả chi tiết
 
-**Form sửa Tutorial**
+**Form sửa bài học**
 | # | Tên field | Field code | Loại dữ liệu/input | Bắt buộc | Ghi chú |
 |---|-----------|-----------|---------------------|----------|---------|
 | 1 | Đơn vị kinh doanh | `business_unit_id` | Select2 | Có | |

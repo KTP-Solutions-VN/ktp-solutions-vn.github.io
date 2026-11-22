@@ -1,10 +1,10 @@
-# OWP-017-P3 — View Direct Booking Request Detail Popup
+# OWP-017-P3 — Stay Request Details
 
 **Type:** Popup (opened from OWP-017)
 
 **Route:** `ExternalUserController::viewDirectBooking($id)` — no dedicated friendly route, opened from the eye icon on OWP-017 (default `/external-user/view-direct-booking/{id_base64}`)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 

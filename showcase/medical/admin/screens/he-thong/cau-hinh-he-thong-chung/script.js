@@ -7,5 +7,5 @@
       document.querySelector('.settings-panel[data-panel="' + btn.getAttribute('data-panel') + '"]').classList.add('active');
     });
   });
-  document.getElementById('saveBtn').addEventListener('click', function () { CJToast('System configuration saved. This change has been recorded in the Audit Log.'); });
+  document.getElementById('saveBtn').addEventListener('click', function () { CJToast('General settings saved. This change has been recorded in the Activity Trail.'); });
   

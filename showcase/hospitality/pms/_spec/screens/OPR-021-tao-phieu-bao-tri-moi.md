@@ -1,8 +1,8 @@
-# OPR-021 — Tạo phiếu bảo trì mới
+# OPR-021 — Báo sửa chữa hiện trường (Report Field Repair)
 
 **Loại:** Trang đầy đủ
 **Route:** operator/addMaintenanceTicket + route đẹp dạng dashed: operator/add-maintenance-ticket
-**Module:** OPR = Vận hành vườn/hồ bơi
+**Module:** OPR = Công việc bảo dưỡng
 
 ## Mô tả ngắn gọn
 Form nhiều bước tạo mới một phiếu báo bảo trì (maintenance ticket) cho một villa: chọn villa, tình trạng khách, người báo, phân loại vấn đề (category → subcategory → problem), các yếu tố ảnh hưởng mức độ khẩn cấp, mô tả, ảnh minh chứng, thông tin ra vào villa và hành động yêu cầu xử lý. Ticket được lưu ở trạng thái `draft` ngay khi mở form (theo `session_id`) và chuyển `publish` khi submit hoàn chỉnh.
@@ -35,5 +35,5 @@ Form nhiều bước tạo mới một phiếu báo bảo trì (maintenance tick
 - Chọn Reported by: ajax `getReporterList` nạp danh sách tên theo vai trò.
 
 ## Điều hướng
-- Vào từ: nút "+ New Ticket" tại OPR-020 — Danh sách phiếu bảo trì.
-- Đi tới: sau khi submit thành công, quay về OPR-020 — Danh sách phiếu bảo trì.
+- Vào từ: nút "+ New Ticket" tại OPR-020 — Báo cáo sửa chữa hiện trường.
+- Đi tới: sau khi submit thành công, quay về OPR-020 — Báo cáo sửa chữa hiện trường.

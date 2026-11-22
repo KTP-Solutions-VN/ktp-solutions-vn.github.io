@@ -1,7 +1,7 @@
 (function () {
   'use strict';
   var days = [
-    { label: 'Today \u2014 27 Aug 2026', status: 'assigned', team: 'Team 1', members: 3, vehicle: 'BKK-4821' },
+    { label: 'Today \u2014 27 Aug 2026', status: 'assigned', team: 'Team 1', members: 3, vehicle: 'SGX-4821' },
     { label: 'Tomorrow \u2014 28 Aug 2026', status: 'pending', team: null, members: null, vehicle: null }
   ];
   document.getElementById('roster-cards').innerHTML = days.map(function (d) {

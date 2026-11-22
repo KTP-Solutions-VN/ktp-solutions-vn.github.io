@@ -1,8 +1,8 @@
-# REN-002 — Renovation Follow-up
+# REN-002 — Refurbishment Tracker
 
 **Type:** Full page
 **Route:** renovation/followUp + dashed-style pretty route: renovation/follow-up
-**Module:** REN = Renovation
+**Module:** REN = Refurbishment
 
 ## Overview
 Overview list screen for renovation projects, filtered by business unit and villa, allowing the actual start/completion dates of a project to be marked, projects to be deleted, and navigation to related screens (detailed project follow-up, create new project, edit project).
@@ -25,12 +25,12 @@ Overview list screen for renovation projects, filtered by business unit and vill
 | 5 | Actions | — | Follow up project, Edit, Delete |
 
 ## Functions / Actions
-- **+ Create New Project**: navigates to REN-001 — Create New Renovation Project.
-- **Follow up project (view icon)**: opens REN-003 — Renovation Project Follow-up (`projectFollowUp`).
-- **Edit (pencil icon)**: opens REN-004 — Edit Renovation Project (`edit`).
+- **+ Create New Project**: navigates to REN-001 — New Refurbishment Project.
+- **Follow up project (view icon)**: opens REN-003 — Project Timeline (`projectFollowUp`).
+- **Edit (pencil icon)**: opens REN-004 — Edit Refurbishment Project (`edit`).
 - **Delete (trash icon)**: deletes the `Renovation` record along with all related `RenovationItem`, `RenovationReceipt`, `RenovationPhoto`, and `RenovationPayment` records.
 - **Mark actual start/completion date**: hidden `date_type` form (start/close) submits the selected date, updating `actual_start_date`/`actual_end_date` and the corresponding `status` (Under Progress/Completed).
 
 ## Navigation
-- Entered from: the "Renovation" menu in the sidebar.
-- Leads to: REN-001 (create new), REN-003 (project follow-up), REN-004 (edit project).
+- Entered from: the "Refurbishments" menu in the sidebar.
+- Leads to: REN-001 (create new), REN-003 (Project Timeline), REN-004 (edit project).

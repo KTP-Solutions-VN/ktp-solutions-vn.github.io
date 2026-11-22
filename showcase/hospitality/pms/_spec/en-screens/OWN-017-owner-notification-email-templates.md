@@ -1,10 +1,10 @@
-# OWN-017 — Owner Notification Email Templates
+# OWN-017 — Owner Email Alerts
 
 **Type:** Full page
 
 **Route:** `/Owner/emailAccessTemplate/{tab}/{selected_lang}` (controller `Owner`, action `emailAccessTemplate($tab, $selected_lang)`)
 
-**Module:** Owner Management (Admin)
+**Module:** Owner Relations (Admin)
 
 ## Overview
 
@@ -27,5 +27,5 @@ A screen for managing the content of 5 automated email templates related to owne
 
 ## Navigation
 
-- Opened from: Settings sidebar menu "Email Notifications" (`active_menu` 98).
+- Opened from: Settings sidebar menu "Owner Email Alerts" (`active_menu` 98).
 - Does not navigate to any other sub-screen — all actions are performed on the same page via tabs.

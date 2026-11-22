@@ -1,10 +1,10 @@
-# USR-008 — My Profile
+# USR-008 — My Account
 
 **Type:** Full page
 
 **Route:** `UserController::profile()` — default `user/profile`
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 A page allowing the currently logged-in user (internal staff or Agency Staff) to view and update their own personal information (administrative fields such as salary, business unit, and work permit cannot be edited — these are displayed for reference only). Includes a quick link to change password (USR-008-P1).
@@ -32,4 +32,4 @@ Display-only information (not editable): user type, role, current business unit,
 
 ## Navigation
 - Opened from: the personal account menu (avatar/user menu) available on every page after login.
-- Navigates to: USR-008-P1 (Change Password — child popup). After a successful password change, the system automatically logs the user out and returns to LOG-001.
+- Navigates to: USR-008-P1 (Update Password — child popup). After a successful password change, the system automatically logs the user out and returns to LOG-001.

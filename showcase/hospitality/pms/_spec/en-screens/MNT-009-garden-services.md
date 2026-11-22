@@ -1,8 +1,8 @@
-# MNT-009 — Garden Services
+# MNT-009 — Garden Service Types
 
 **Type:** Full page
 **Route:** maintenance/gardenServices
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Screen listing garden service categories (`GardenService.type = garden`) used to classify garden jobs. Each service has a name, illustrative image, applicable business unit(s), and status.
@@ -22,10 +22,10 @@ Screen listing garden service categories (`GardenService.type = garden`) used to
 | 8 | Actions | — | Edit, Delete |
 
 ## Functions / Actions
-- **Add New**: opens MNT-009-P1 — Add Garden Service.
-- **Edit** (icon): opens MNT-009-P2 — Edit Garden Service.
+- **Add New**: opens MNT-009-P1 — New Garden Service Type.
+- **Edit** (icon): opens MNT-009-P2 — Edit Garden Service Type.
 - **Delete**: deletes the corresponding `GardenService` (`deleteGardenService`), reloads the list.
 
 ## Navigation
-- Entered from: Settings/Maintenance menu in the sidebar.
+- Entered from: Repair Desk settings menu in the sidebar.
 - Navigates to: MNT-009-P1 (Add), MNT-009-P2 (Edit).

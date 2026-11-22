@@ -10,8 +10,8 @@
     'PV-104': 'Ridge Villa', 'PV-106': 'Garden Villa', 'PV-108': 'Grand Villa'
   };
   var VILLA_AREA = {
-    'PV-101': 'Bang Tao', 'PV-102': 'Kata', 'PV-103': 'Ubud',
-    'PV-104': 'Seminyak', 'PV-106': 'Bophut', 'PV-108': 'Seminyak'
+    'PV-101': 'Ocean Drive', 'PV-102': 'Siloso', 'PV-103': 'Bangalow',
+    'PV-104': 'Belongil', 'PV-106': 'Noosaville', 'PV-108': 'Belongil'
   };
 
   var BU_KEY = 'mm_cms_bu_filter';

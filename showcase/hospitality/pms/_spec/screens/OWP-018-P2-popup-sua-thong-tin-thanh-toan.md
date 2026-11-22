@@ -1,10 +1,10 @@
-# OWP-018-P2 — Popup Sửa thông tin thanh toán
+# OWP-018-P2 — Sửa tài khoản nhận tiền (Edit Payout Account)
 
 **Loại:** Popup (mở từ OWP-018)
 
 **Route:** `ExternalUserController::editPaymentDetail($id)` — không có route đẹp riêng, mở từ icon sửa trên OWP-018 (mặc định `/external-user/edit-payment-detail/{id}`)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 

@@ -1,11 +1,11 @@
-# VCS-009 — Accessibility List (Accessible)
+# VCS-009 — Access Features
 
 **Type:** Full page
 **Route:** villa-common-setting/villa-accessible (default CakePHP DashedRoute: `/villa-common-setting/villa-accessible`)
-**Module:** VCS = Villa Common Settings
+**Module:** VCS = Property Attributes
 
 ## Overview
-Master data management screen for villa "Accessibility" (e.g., close to the beach, far from downtown, etc.). Displayed as a list table, with Add/Edit/Delete supported through a single shared popup. Structure and behavior are identical to VCS-001 (Amenities), differing only in the underlying data model.
+Master data management screen for villa "Accessibility" (e.g., close to the beach, far from downtown, etc.). Displayed as a list table, with Add/Edit/Delete supported through a single shared popup. Structure and behavior are identical to VCS-001 (Amenity Catalog), differing only in the underlying data model.
 
 ## Detailed Description
 | # | Field Label | Field Code | Data Type / Input | Required | Notes |
@@ -24,6 +24,6 @@ No dedicated search/filter field (client-side DataTable `#zero_config`).
 - Submitting the popup form sends a `POST` to the `villaAccessible` action with `action=add|edit|delete`; the `VillaCommonSettingController::villaAccessible()` controller saves/deletes records in the `VillaAccessible` table, writes an Activity Log entry, displays a Flash message, and redirects via `referer()`.
 
 ## Navigation
-- Opened from: Settings menu > "Properties" > "Accessible" submenu.
+- Opened from: Portfolio Setup menu > "Property Attributes" > "Access Features" submenu.
 - Navigates to: no navigation to another page (CRUD operations performed in place via popup + reload).
-- Child popup: VCS-009-P1 (Add/Edit/Delete Accessibility).
+- Child popup: VCS-009-P1 (Access Feature Form).

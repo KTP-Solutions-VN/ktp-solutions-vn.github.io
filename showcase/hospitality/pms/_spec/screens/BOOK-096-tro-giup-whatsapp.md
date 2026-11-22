@@ -1,4 +1,4 @@
-# BOOK-096 — Trợ giúp / Trạng thái hệ thống WhatsApp
+# BOOK-096 — Tình trạng dịch vụ chat (Chat Service Health)
 
 **Loại:** Trang đầy đủ
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định)
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 
@@ -27,5 +27,5 @@ Trang kiểm tra/chẩn đoán tình trạng kết nối các dịch vụ nền 
 
 ## Điều hướng
 
-- Vào từ menu WhatsApp / liên kết trợ giúp trên BOOK-095 (WhatsApp Manager bản mới).
+- Vào từ menu Chat Inbox / liên kết trợ giúp trên BOOK-095 (Chat Inbox).
 - Không có điều hướng tiếp theo (trang tra cứu/chẩn đoán độc lập).

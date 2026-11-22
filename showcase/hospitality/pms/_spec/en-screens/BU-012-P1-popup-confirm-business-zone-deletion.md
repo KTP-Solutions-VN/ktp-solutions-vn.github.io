@@ -1,10 +1,10 @@
-# BU-012-P1 — Popup: Confirm Business Zone Deletion
+# BU-012-P1 — Confirm Zone Deletion
 
 **Type:** Popup (opened from BU-012)
 
 **Route:** Static Bootstrap modal (`#exampleModal`) within `zoning.ctp`; confirmation navigates to `BusinessUnitController::deleteZoning($id)` — `/business-unit/delete-zoning/{id}` (id base64-encoded).
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A confirmation popup shown before deleting (marking as hidden) a business zone.
@@ -20,5 +20,5 @@ A confirmation popup shown before deleting (marking as hidden) a business zone.
 - **Cancel:** closes the modal without deleting.
 
 ## Navigation
-- Opened from: BU-012 (business zone list) — Delete icon on each row.
+- Opened from: BU-012 (Reporting Zones) — Delete icon on each row.
 - After confirmation: redirects back to BU-012.

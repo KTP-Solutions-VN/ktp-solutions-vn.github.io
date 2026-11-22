@@ -1,10 +1,10 @@
-# USR-011 — Assign Leaves
+# USR-011 — Grant Time Off
 
 **Type:** Full page
 
 **Route:** `UserController::assignLeaves($id, $role)` — default `user/assignLeaves/:id/:role`
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 A detail page allowing an additional leave period (start date - end date) to be granted to a specific staff member, while also displaying the history of their two most recent leaves and a list of other staff in the same department whose leave schedules overlap with the selected period (to avoid overlapping leave within the same department).
@@ -26,4 +26,4 @@ A detail page allowing an additional leave period (start date - end date) to be 
 
 ## Navigation
 - Opened from: USR-010 (the "Add Leave" button for each staff member).
-- Navigates to: USR-010 (Granted Leaves) after a successful save.
+- Navigates to: USR-010 (Leave History) after a successful save.

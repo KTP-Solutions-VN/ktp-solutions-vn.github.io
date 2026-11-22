@@ -5,9 +5,9 @@
   var editingId = null;
 
   var AGENCIES_SEED = [
-    { id: 'ag1', name: 'Andaman Villas Group', shortName: 'AVG', country: 'Thailand', createdBy: 'Somchai Anuwat', startDate: '2024-03-12', status: 'Active', phone: '+66 76 123 456', website: 'andamanvillasgroup.example', email: 'contact@andamanvillasgroup.example', bu: 'Phuket Collection, Koh Samui Estates' },
-    { id: 'ag2', name: 'Aegean Retreats', shortName: 'AGR', country: 'Indonesia', createdBy: 'Somchai Anuwat', startDate: '2024-07-01', status: 'Active', phone: '+62 361 987 654', website: 'aegeanretreats.example', email: 'hello@aegeanretreats.example', bu: 'Bali Retreats' },
-    { id: 'ag3', name: 'Sunshine Coast Rentals', shortName: 'SCR', country: 'Thailand', createdBy: 'Kanya Srisawat', startDate: '2023-11-20', status: 'Inactive', phone: '+66 77 234 567', website: 'sunshinecoastrentals.example', email: 'info@sunshinecoastrentals.example', bu: 'Phuket Collection' }
+    { id: 'ag1', name: 'Coral Coast Villas Group', shortName: 'CCV', country: 'Singapore', createdBy: 'Daniel Tan', startDate: '2024-03-12', status: 'Active', phone: '+65 6612 3456', website: 'coralcoastvillasgroup.example', email: 'contact@coralcoastvillasgroup.example', bu: 'Sentosa Collection, Noosa Estates' },
+    { id: 'ag2', name: 'Aegean Retreats', shortName: 'AGR', country: 'Australia', createdBy: 'Daniel Tan', startDate: '2024-07-01', status: 'Active', phone: '+61 2 6685 7654', website: 'aegeanretreats.example', email: 'hello@aegeanretreats.example', bu: 'Byron Bay Retreats' },
+    { id: 'ag3', name: 'Sunshine Coast Rentals', shortName: 'SCR', country: 'Australia', createdBy: 'Karen Seah', startDate: '2023-11-20', status: 'Inactive', phone: '+61 7 5447 4567', website: 'sunshinecoastrentals.example', email: 'info@sunshinecoastrentals.example', bu: 'Sentosa Collection' }
   ];
 
   function currentData() {
@@ -88,7 +88,7 @@
         MM.showToast('Agency updated');
       } else {
         var stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-        stored.push({ id: MM.uid('ag'), name: name, shortName: name.slice(0, 3).toUpperCase(), country: country, createdBy: 'Somchai Anuwat', startDate: new Date().toISOString().slice(0, 10), status: 'Active', phone: '—', website: '—', email: email, bu: '—' });
+        stored.push({ id: MM.uid('ag'), name: name, shortName: name.slice(0, 3).toUpperCase(), country: country, createdBy: 'Daniel Tan', startDate: new Date().toISOString().slice(0, 10), status: 'Active', phone: '—', website: '—', email: email, bu: '—' });
         localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
         MM.showToast('Agency created');
       }

@@ -2,11 +2,11 @@
   'use strict';
 
   var SEED = [
-    { id: 'NOT-1001', subject: 'Villa Sapphire Cliff — pool maintenance overdue', from: 'Somchai A.', property: 'Villa Sapphire Cliff', status: 'in-progress' },
-    { id: 'NOT-1002', subject: 'Owner requested payout statement', from: 'Aroon P.', property: 'Villa Lotus Bay', status: 'pending-confirmation' },
-    { id: 'NOT-1003', subject: 'Guest complaint — AC not working', from: 'Nalin S.', property: 'Villa Amber Ridge', status: 'in-progress' },
-    { id: 'NOT-1004', subject: 'Monthly cleaning checklist confirmed', from: 'Somchai A.', property: 'Villa Coral Breeze', status: 'completed' },
-    { id: 'NOT-1005', subject: 'Renovation contractor site visit', from: 'Piti K.', property: 'Villa Jade Horizon', status: 'pending-confirmation' }
+    { id: 'NOT-1001', subject: 'Villa Sapphire Cliff — pool maintenance overdue', from: 'Daniel T.', property: 'Villa Sapphire Cliff', status: 'in-progress' },
+    { id: 'NOT-1002', subject: 'Owner requested payout statement', from: 'Adam P.', property: 'Villa Lotus Bay', status: 'pending-confirmation' },
+    { id: 'NOT-1003', subject: 'Guest complaint — AC not working', from: 'Natalie S.', property: 'Villa Amber Ridge', status: 'in-progress' },
+    { id: 'NOT-1004', subject: 'Monthly cleaning checklist confirmed', from: 'Daniel T.', property: 'Villa Coral Breeze', status: 'completed' },
+    { id: 'NOT-1005', subject: 'Renovation contractor site visit', from: 'Peter K.', property: 'Villa Jade Horizon', status: 'pending-confirmation' }
   ];
 
   function getHidden() { return JSON.parse(localStorage.getItem('mm_not_notices_hidden') || '[]'); }

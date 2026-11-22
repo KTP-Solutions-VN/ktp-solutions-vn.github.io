@@ -1,8 +1,8 @@
-# GST-010 — Featured Landmarks Near the Villa
+# GST-010 — Sights Nearby
 
 **Type:** Full page
 **Route:** `Guest::landmark($booking_id = null)` — default `/guest/landmark/:booking_id`; pretty route (DashedRoute fallback): `/guest/landmark`
-**Module:** Guest Portal
+**Module:** Guest Hub
 
 ## Overview
 Displays images of notable landmarks/destinations around the district where the guest's villa is located. If `booking_id` is empty, automatically redirects to GST-002.

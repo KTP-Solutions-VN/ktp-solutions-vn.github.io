@@ -1,13 +1,13 @@
-# VSV-010 — Transfer
+# VSV-010 — Guest Transfers
 
 **Type:** Full page
 
 **Route:** `VillaServicesController::transfer()` — defaults to `/villa-services/transfer`
 
-**Module:** Villa Services
+**Module:** In-Stay Services
 
 ## Overview
-A placeholder screen for the "Transfer" feature within the Villa Services group. The action only sets the page title; the view simply displays a "Exciting new feature available soon." message — no business logic has been implemented.
+A placeholder screen for the "Guest Transfers" feature within the In-Stay Services group. The action only sets the page title; the view simply displays a "Exciting new feature available soon." message — no business logic has been implemented.
 
 ## Detailed Description
 There are no fields/data tables — the page only displays a "coming soon" message.
@@ -16,5 +16,5 @@ There are no fields/data tables — the page only displays a "coming soon" messa
 - No functional buttons (not yet implemented).
 
 ## Navigation
-- Entered from: Main menu (Services/Transfer item).
+- Entered from: Main menu (Guest Transfers item).
 - Navigates to: none.

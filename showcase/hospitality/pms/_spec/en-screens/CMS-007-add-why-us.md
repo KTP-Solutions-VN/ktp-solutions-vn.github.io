@@ -1,10 +1,10 @@
-# CMS-007 — Add "Why Us"
+# CMS-007 — New Book-Direct Benefit
 
 **Type:** Full page
 
 **Route:** `CmsController::whyUsAdd()` — default `/cms/why-us-add`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 Form for adding a new "Why Us" item consisting of a title, an illustrative image, and a multilingual short description.

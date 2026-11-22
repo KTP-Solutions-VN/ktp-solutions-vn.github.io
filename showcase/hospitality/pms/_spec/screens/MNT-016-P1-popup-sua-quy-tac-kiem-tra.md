@@ -1,8 +1,8 @@
-# MNT-016-P1 — Sửa quy tắc thời gian kiểm tra
+# MNT-016-P1 — Sửa SLA kiểm tra (Edit Inspection SLA)
 
 **Loại:** Popup (mở từ MNT-016)
 **Route:** maintenance/editInspection/:id (id base64)
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Trang chỉnh sửa số ngày trưởng thành (maturity days) của một bộ quy tắc kiểm tra villa theo đơn vị kinh doanh.
@@ -22,5 +22,5 @@ Trang chỉnh sửa số ngày trưởng thành (maturity days) của một bộ
 - **Cancel**: quay lại MNT-016.
 
 ## Điều hướng
-- Vào từ: icon Sửa trên MNT-016 — Quy tắc thời gian kiểm tra.
+- Vào từ: icon Sửa trên MNT-016 — SLA kiểm tra.
 - Đi tới: sau khi Save, quay về MNT-016.

@@ -1,10 +1,10 @@
-# BU-020 — Thêm ngân hàng
+# BU-020 — Thêm ngân hàng (New Bank)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `BusinessUnitController::addBank()` — mặc định `/business-unit/add-bank`
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Biểu mẫu thêm mới một ngân hàng vào danh mục dùng chung, gồm thông tin định danh, quy tắc định dạng số tài khoản và logo.

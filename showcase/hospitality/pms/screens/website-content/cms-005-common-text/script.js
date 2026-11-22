@@ -16,17 +16,17 @@
   };
 
   var CARDS = [
-    { icon: 'star', title: 'Why Us', desc: 'Reasons guests should book direct, shown across the marketing site.', href: '../cms-006-why-us-list/index.html', count: function () { return (MM.CMS.WHY_US || []).length; } },
-    { icon: 'concierge', title: 'Concierge', desc: 'On-demand concierge service blocks (chef booking, spa, excursions).', href: '../cms-018-concierge-list/index.html', count: function () { return (MM.CMS.CONCIERGES || []).length; } },
-    { icon: 'logo', title: 'Partner Logos', desc: 'Press and partner logo strip shown in the website footer.', href: '../cms-009-partner-logo-list/index.html', count: function () { return (MM.CMS.PARTNER_LOGOS || []).length; } },
-    { icon: 'pin', title: 'Destination', desc: 'Per-villa destination introductions (district image galleries).', href: '../cms-012-destination-list/index.html', count: function () { return (MM.CMS.DESTINATIONS || []).length; } },
-    { icon: 'mail', title: 'Contact Form', desc: 'Recipient routing for the website\'s "Talk to us" enquiry forms.', href: '../cms-016-contact-form-list/index.html', count: function () { return (MM.CMS.CONTACT_FORMS || []).length; } },
-    { icon: 'services', title: 'Services', desc: 'Villa service content blocks (dining, wellness, transport).', href: '../cms-003-services-list/index.html', count: function () { return (MM.CMS.SERVICES || []).length; } },
-    { icon: 'wish', title: 'I Wish', desc: 'Bookable guest wish-list experiences shown on collection sites.', href: '../cms-028-i-wish-list/index.html', count: function () { return (MM.CMS.IWISH || []).length; } },
-    { icon: 'insights', title: 'Insights', desc: 'Editorial articles published on collection websites.', href: '../cms-026-insights-article-list/index.html', count: function () { return (MM.CMS.INSIGHTS || []).length; } },
-    { icon: 'globe', title: 'Destination Global', desc: 'Destination introductions for the aggregated Guest Collection site.', href: '../cms-014-destination-global-list/index.html', count: function () { return (MM.CMS.DESTINATIONS || []).length; } },
-    { icon: 'text', title: 'Common Texts (Collection)', desc: 'Shared hero and about copy for each collection sub-site.', href: '../cms-024-collection-website-common-text-list/index.html', count: function () { return (MM.CMS.COLLECTION_COMMON_TEXT || []).length; } },
-    { icon: 'arrival', title: 'Arrival', desc: 'Guest arrival guidance content shown before check-in.', href: '../cms-030-arrival-content-list/index.html', count: function () { return (MM.CMS.ARRIVALS || []).length; } }
+    { icon: 'star', title: 'Book-Direct Benefits', desc: 'Reasons guests should book direct, shown across the marketing site.', href: '../cms-006-why-us-list/index.html', count: function () { return (MM.CMS.WHY_US || []).length; } },
+    { icon: 'concierge', title: 'Concierge Showcase', desc: 'On-demand concierge service blocks (chef booking, spa, excursions).', href: '../cms-018-concierge-list/index.html', count: function () { return (MM.CMS.CONCIERGES || []).length; } },
+    { icon: 'logo', title: 'Partner Badges', desc: 'Press and partner logo strip shown in the website footer.', href: '../cms-009-partner-logo-list/index.html', count: function () { return (MM.CMS.PARTNER_LOGOS || []).length; } },
+    { icon: 'pin', title: 'Destination Guides', desc: 'Per-villa destination introductions (district image galleries).', href: '../cms-012-destination-list/index.html', count: function () { return (MM.CMS.DESTINATIONS || []).length; } },
+    { icon: 'mail', title: 'Enquiry Forms', desc: 'Recipient routing for the website\'s "Talk to us" enquiry forms.', href: '../cms-016-contact-form-list/index.html', count: function () { return (MM.CMS.CONTACT_FORMS || []).length; } },
+    { icon: 'services', title: 'Service Showcase', desc: 'Villa service content blocks (dining, wellness, transport).', href: '../cms-003-services-list/index.html', count: function () { return (MM.CMS.SERVICES || []).length; } },
+    { icon: 'wish', title: 'Experience Wishlist', desc: 'Bookable guest wish-list experiences shown on collection sites.', href: '../cms-028-i-wish-list/index.html', count: function () { return (MM.CMS.IWISH || []).length; } },
+    { icon: 'insights', title: 'Travel Journal', desc: 'Editorial articles published on collection websites.', href: '../cms-026-insights-article-list/index.html', count: function () { return (MM.CMS.INSIGHTS || []).length; } },
+    { icon: 'globe', title: 'Aggregator Destinations', desc: 'Destination introductions for the aggregated Guest Collection site.', href: '../cms-014-destination-global-list/index.html', count: function () { return (MM.CMS.DESTINATIONS || []).length; } },
+    { icon: 'text', title: 'Themed Site Snippets', desc: 'Shared hero and about copy for each collection sub-site.', href: '../cms-024-collection-website-common-text-list/index.html', count: function () { return (MM.CMS.COLLECTION_COMMON_TEXT || []).length; } },
+    { icon: 'arrival', title: 'Getting-There Guides', desc: 'Guest arrival guidance content shown before check-in.', href: '../cms-030-arrival-content-list/index.html', count: function () { return (MM.CMS.ARRIVALS || []).length; } }
   ];
 
   document.addEventListener('DOMContentLoaded', function () {

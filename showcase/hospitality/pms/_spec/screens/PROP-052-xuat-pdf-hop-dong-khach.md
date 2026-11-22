@@ -1,8 +1,8 @@
-# PROP-052 — Xuất PDF Hợp đồng khách (Guest Contract Assignment PDF)
+# PROP-052 — In hợp đồng khách (Print Guest Contracts)
 
 **Loại:** Trang đầy đủ (đầu ra là file PDF tải trực tiếp, không phải trang HTML tương tác)
 **Route:** property/guest-contract-assignment-pdf?villa_id=...&general_version_id=...&language_code=...&electricity_mode=...
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Action sinh và trả về file PDF hợp đồng khách (Guest Contract) hoàn chỉnh cho một Property, dựa trên phiên bản hợp đồng mẫu (`general_version_id`) đã gán, ngôn ngữ và chế độ tính điện (`electricity_mode`) được chọn. View `.ctp` chỉ là template HTML/CSS (khổ A4) dùng làm đầu vào cho thư viện Dompdf để render ra PDF, không phải màn hình tương tác.
@@ -24,6 +24,6 @@ Action sinh và trả về file PDF hợp đồng khách (Guest Contract) hoàn 
 - Tên file PDF được sinh tự động dạng `Guest-Contract-{TenProperty}-{CheDoDien}.pdf`.
 
 ## Điều hướng
-- Mở từ: PROP-051 (Tổng hợp gán Hợp đồng khách theo BU — nút Preview/Download), PROP-050 (tab Portal Contract).
+- Mở từ: PROP-051 (Mức sẵn sàng hợp đồng — nút Preview/Download), PROP-050 (tab Portal Contract).
 - Điều hướng tới: Không có (kết thúc bằng tải file PDF hoặc redirect lỗi về trang trước).
 - Popup con: Không có.

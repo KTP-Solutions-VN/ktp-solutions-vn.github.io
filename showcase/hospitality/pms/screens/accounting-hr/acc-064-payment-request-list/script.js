@@ -22,7 +22,7 @@
     if (!MM.validateForm(form)) return;
     MM.simulateSave(this, 'Submitting...', function () {
       var stored = JSON.parse(localStorage.getItem('mm_acc_payment_requests') || '[]');
-      stored.push({ id: MM.uid('preq'), description: document.getElementById('f-desc').value.trim(), requestedBy: 'Somchai Anuwat', amount: parseFloat(document.getElementById('f-amount').value) || 0, status: 'Pending' });
+      stored.push({ id: MM.uid('preq'), description: document.getElementById('f-desc').value.trim(), requestedBy: 'Daniel Tan', amount: parseFloat(document.getElementById('f-amount').value) || 0, status: 'Pending' });
       localStorage.setItem('mm_acc_payment_requests', JSON.stringify(stored));
       MM.closeModal('item-modal');
       MM.showToast('Payment request submitted');

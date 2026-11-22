@@ -1,10 +1,10 @@
-# VSV-003 — Check-in điện (danh sách)
+# VSV-003 — Chỉ số điện khi đến (Arrival Meter Reading)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `VillaServicesController::checkIn()` — mặc định `/villa-services/check-in`
 
-**Module:** Dịch vụ villa — Điện
+**Module:** Dịch vụ lưu trú — Đo điện
 
 ## Mô tả ngắn gọn
 Liệt kê các booking check-in trong ngày (theo villa có quản lý điện = yes) để nhân viên nhập chỉ số đồng hồ điện đầu kỳ (start meter) khi khách nhận phòng.
@@ -23,7 +23,7 @@ Bảng danh sách booking check-in ngày đã chọn:
 | 4 | Check-out | `check_out_date` | +1 ngày so với giá trị lưu |
 | 5 | Số đêm | `nights` | Tính runtime |
 | 6 | Người cập nhật cuối | `last_updated_by` | Từ `ElectricalBill.modified_by` |
-| 7 | Hành động | — | Nút "Enter" → mở VSV-003-P1 (Nhập chỉ số đồng hồ đầu kỳ), mở tab mới |
+| 7 | Hành động | — | Nút "Enter" → mở VSV-003-P1 (Ghi chỉ số khi đến), mở tab mới |
 
 Điều kiện lấy dữ liệu: `Booking.check_in_date = <ngày lọc>`, `status != Cancelled`, `Villa.status = Open`, villa phải có `VillaService.service_settings.electricity_management = yes`.
 
@@ -33,5 +33,5 @@ Bảng danh sách booking check-in ngày đã chọn:
 - Nếu chọn villa cụ thể và không có booking check-in trong ngày → chuyển thẳng sang VSV-003-P1 luôn (redirect tự động khi chỉ có đúng 1 booking khớp điều kiện lọc villa/ngày).
 
 ## Điều hướng
-- Vào từ: Menu chính (mục Electricity/Check-in) hoặc sau khi lưu VSV-003-P1/VSV-004-P1 (redirect quay lại).
-- Điều hướng đến: VSV-003-P1 (Nhập chỉ số đồng hồ đầu kỳ).
+- Vào từ: Menu chính (mục Arrival Meter Reading) hoặc sau khi lưu VSV-003-P1/VSV-004-P1 (redirect quay lại).
+- Điều hướng đến: VSV-003-P1 (Ghi chỉ số khi đến).

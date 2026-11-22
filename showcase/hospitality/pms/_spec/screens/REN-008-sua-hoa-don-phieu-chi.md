@@ -1,8 +1,8 @@
-# REN-008 — Sửa hóa đơn/phiếu chi
+# REN-008 — Sửa hóa đơn hoặc biên nhận (Edit Invoice or Receipt)
 
 **Loại:** Trang đầy đủ
 **Route:** renovation/editRenovationReceipt/:id + route đẹp dạng dashed: renovation/edit-renovation-receipt/:id (id truyền base64)
-**Module:** REN = Cải tạo
+**Module:** REN = Nâng cấp tài sản
 
 ## Mô tả ngắn gọn
 Form chỉnh sửa một phiếu chi đã lưu: cập nhật lại số tiền phân bổ cho từng hạng mục, người trả tiền và hình thức thanh toán. Khi lưu, hệ thống tính lại chênh lệch `real_amount` của từng hạng mục và ghi đè lại các bút toán sổ quỹ liên quan tới phiếu chi này.
@@ -22,5 +22,5 @@ Form chỉnh sửa một phiếu chi đã lưu: cập nhật lại số tiền p
 - **Update**: gộp các hạng mục trùng tên, tính lại chênh lệch `real_amount` so với số cũ, cập nhật `RenovationItem`; xóa toàn bộ `RenovationPayment` cũ gắn với phiếu chi này rồi ghi lại theo `paid_type` mới (tương tự logic ở REN-007).
 
 ## Điều hướng
-- Vào từ: icon "Sửa" tại bảng hóa đơn trong REN-003 — Theo dõi dự án cải tạo.
-- Đi tới: sau khi lưu thành công, quay về REN-003 — Theo dõi dự án cải tạo.
+- Vào từ: icon "Sửa" tại bảng hóa đơn trong REN-003 — Tiến trình dự án.
+- Đi tới: sau khi lưu thành công, quay về REN-003 — Tiến trình dự án.

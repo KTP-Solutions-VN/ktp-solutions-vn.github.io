@@ -1,10 +1,10 @@
-# OWP-004-P1 — Popup Đổi mật khẩu
+# OWP-004-P1 — Cập nhật mật khẩu (Update Password)
 
 **Loại:** Popup (mở từ OWP-004, dạng tab trong cùng trang)
 
 **Route:** `ExternalUserController::changePassword()` — không có route đẹp riêng, không có view riêng (form nằm trong tab `#change-password` của `profile.ctp`), submit POST tới action `changePassword`
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 

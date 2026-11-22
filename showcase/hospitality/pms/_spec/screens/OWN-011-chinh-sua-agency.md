@@ -1,10 +1,10 @@
-# OWN-011 — Chỉnh sửa Agency
+# OWN-011 — Sửa đại lý đối tác (Edit Partner Agency)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `/Owner/editAgency/{tab}/{id}/{show_page}/{payment_detail_id}` (controller `Owner`, action `editAgency($tab, $id, $show_page, $payment_detail_id)`)
 
-**Module:** Quản lý chủ sở hữu (Admin)
+**Module:** Quan hệ chủ nhà (Admin)
 
 ## Mô tả ngắn gọn
 
@@ -43,7 +43,7 @@ Form chỉnh sửa thông tin một Agency đã tồn tại, gồm 2 tab: "Agenc
 - **+ Payment Details**: mở form thêm chi tiết thanh toán (ngay trong tab, không có URL/action riêng).
 - **Sửa** (icon bút, từng dòng thanh toán): mở form sửa chi tiết thanh toán tương ứng.
 - **Xoá** (icon thùng rác, từng dòng thanh toán): xoá chi tiết thanh toán (action `deleteAgencyPaymentDetail`, không có giao diện riêng).
-- **Cancel**: quay lại OWN-009 (Danh sách Agency).
+- **Cancel**: quay lại OWN-009 (Đại lý đối tác).
 
 ## Điều hướng
 

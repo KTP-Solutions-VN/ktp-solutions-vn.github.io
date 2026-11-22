@@ -1,8 +1,8 @@
-# TRN-008 — My Training Record
+# TRN-008 — My Learning Progress
 
 **Type:** Full page
 **Route:** `TrainingController::myRecord()` — `/training/my-record`
-**Module:** TRN = Training
+**Module:** TRN = Staff Academy
 
 ## Overview
 A list of the Tutorials the current user has previously read, including the number of views, the most recent read date, and whether a re-read is due (based on the quiz frequency).
@@ -29,5 +29,5 @@ Displayed columns:
 - **Read** (book icon): → TRN-009 (readTutorial), starting a new reading session.
 
 ## Navigation
-- **Entered from:** main menu "Training" → "My Record"; also the destination after completing or stopping a reading session (TRN-009).
+- **Entered from:** main menu "Staff Academy" → "My Learning Progress"; also the destination after completing or stopping a reading session (TRN-009).
 - **Leads to:** TRN-009 (reading a lesson).

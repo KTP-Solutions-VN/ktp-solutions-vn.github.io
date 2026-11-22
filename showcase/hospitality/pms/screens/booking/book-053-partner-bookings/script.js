@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var id = btn.getAttribute('data-confirm');
         var p = allBookings().filter(function (x) { return x.id === id; })[0];
         MM.BOOK.confirmAction('Confirm partner booking ' + p.bookingNo + ' for ' + p.property + '? It will move into the partner payment pipeline.', function () {
-          var all = allBookings().map(function (x) { return x.id === id ? Object.assign({}, x, { status: 'confirmed', lastActionBy: 'Somchai Anuwat' }) : x; });
+          var all = allBookings().map(function (x) { return x.id === id ? Object.assign({}, x, { status: 'confirmed', lastActionBy: 'Daniel Tan' }) : x; });
           save(all);
           MM.showToast('Booking confirmed. It will now appear in Partner Payments.');
           render();
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var id = btn.getAttribute('data-reject');
         var p = allBookings().filter(function (x) { return x.id === id; })[0];
         MM.BOOK.confirmAction('Reject partner booking ' + p.bookingNo + ' for ' + p.property + '? The owner will need to resubmit if this was in error.', function () {
-          var all = allBookings().map(function (x) { return x.id === id ? Object.assign({}, x, { status: 'rejected', lastActionBy: 'Somchai Anuwat' }) : x; });
+          var all = allBookings().map(function (x) { return x.id === id ? Object.assign({}, x, { status: 'rejected', lastActionBy: 'Daniel Tan' }) : x; });
           save(all);
           MM.showToast('Booking rejected.', { danger: true });
           render();

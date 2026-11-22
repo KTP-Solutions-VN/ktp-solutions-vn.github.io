@@ -1,8 +1,8 @@
-# OPR-001 — Update Garden Job Completion
+# OPR-001 — Grounds & Pool Jobs
 
 **Type:** Full page
 **Route:** operator/gardenJobStatus (query `?id=`) + dashed-style pretty route: operator/garden-job-status
-**Module:** OPR = Garden/Pool Operations
+**Module:** OPR = Upkeep Jobs
 
 ## Overview
 Screen for garden staff (gardener) while performing a garden job: capture/upload photo evidence of completed work, then click Finish to record the GPS location, end time, and change the job status to "Cleaned"; or click Stop to halt the job midway.
@@ -18,9 +18,9 @@ Screen for garden staff (gardener) while performing a garden job: capture/upload
 
 ## Functions / Actions
 - **Camera/photo upload**: opens the Dropzone to select/capture evidence photos.
-- **Finish**: if no images are queued, sends an AJAX POST directly to `garden-job-status?id=` with `lat`, `lon`, `id`; if images are present, Dropzone automatically uploads the files (multipart) first. On success, updates `GardenCleaning.images`, `end_time`, `latlng_end`, `status = Cleaned`, and navigates back to OPR-002 (garden job list) filtered to the job's date.
+- **Finish**: if no images are queued, sends an AJAX POST directly to `garden-job-status?id=` with `lat`, `lon`, `id`; if images are present, Dropzone automatically uploads the files (multipart) first. On success, updates `GardenCleaning.images`, `end_time`, `latlng_end`, `status = Cleaned`, and navigates back to OPR-002 (Garden Rounds) filtered to the job's date.
 - **Stop** (link): calls the `stopStatus/:id` action, sets `GardenCleaning.status = Stopped`, then returns to OPR-002.
 
 ## Navigation
 - Entered from: the view/start job button in the garden job list OPR-002 (or the job-start flow on mobile).
-- Leads to: after Finish/Stop, returns to OPR-002 — Garden Job List (filtered by the job's date).
+- Leads to: after Finish/Stop, returns to OPR-002 — Garden Rounds (filtered by the job's date).

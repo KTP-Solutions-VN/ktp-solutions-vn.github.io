@@ -53,7 +53,7 @@
         leaderId: document.getElementById('leader_id').value || null,
         homeAddress: '', isClockIn: true, isTracker: false, isRemoteWork: false, timesPerWeek: '5',
         workPermitStatus: 'Pending', permitExpiry: '', visaExpiry: '', nextNotificationDate: '', processingAgency: '', drivingEligibility: 'Yes', ssn: '',
-        totalSalary: 0, firstHalf: 0, dailyAmount: null, currency: 'THB', isLockSalary: false,
+        totalSalary: 0, firstHalf: 0, dailyAmount: null, currency: 'SGD', isLockSalary: false,
         bankAccounts: []
       };
 

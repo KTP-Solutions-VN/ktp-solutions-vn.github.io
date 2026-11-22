@@ -1,4 +1,4 @@
-# BOOK-093 — Guest Chat Window (Legacy)
+# BOOK-093 — Guest Thread (Classic)
 
 **Type:** Full page (standalone, currently has no access point in the menu/UI)
 
@@ -6,7 +6,7 @@
 
 **Pretty route:** No dedicated route found in config/Routes.php (uses the default route)
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 
@@ -29,4 +29,4 @@ A legacy WhatsApp chat window for a specific booking: displays message history (
 ## Navigation
 
 - No link into this screen exists in the current UI (the functionality has been superseded); previously opened from the WhatsApp management list.
-- Current equivalent functionality: BOOK-094-P1 (WhatsApp Chat) and BOOK-095-P1 (WhatsApp Chat, new version).
+- Current equivalent functionality: BOOK-094-P1 (Chat Thread (Classic)) and BOOK-095-P1 (Chat Thread).

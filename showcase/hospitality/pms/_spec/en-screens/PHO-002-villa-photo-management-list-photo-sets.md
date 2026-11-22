@@ -1,13 +1,13 @@
-# PHO-002 — Villa Photo Management List (Photo Sets)
+# PHO-002 — Photo Albums
 
 **Type:** Full page
 
 **Route:** `PhotosController::index()` — default `/photos/index` (or `/photos/`)
 
-**Module:** Photos
+**Module:** Photo Library
 
 ## Overview
-The landing page of the Photos module: lists all villas according to Business Unit permissions, displays the existing photo set(s) for each villa, quality score, agent link status, allows quick search/filtering, and provides system-wide consolidated KPIs.
+The landing page of the Photo Library module: lists all villas according to Business Unit permissions, displays the existing photo set(s) for each villa, quality score, agent link status, allows quick search/filtering, and provides system-wide consolidated KPIs.
 
 ## Detailed Description
 
@@ -37,5 +37,5 @@ Filters/search:
 - **Quick upload**: opens PHO-006 scrolled to the upload area.
 
 ## Navigation
-- Accessed from: the Photography/Photos menu (active_menu = 185) — this is the root screen of the Photos module.
+- Accessed from: the Photo Library menu (active_menu = 185) — this is the root screen of the Photo Library module.
 - Navigates to: PHO-006 (property), PHO-007 (detail).

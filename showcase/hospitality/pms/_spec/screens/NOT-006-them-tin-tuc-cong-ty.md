@@ -1,10 +1,10 @@
-# NOT-006 — Thêm tin tức công ty (Add Company News)
+# NOT-006 — Thêm bài bản tin (New Newsroom Post)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `NoticeController::addCompanyNews()` — mặc định `/notice/add-company-news`
 
-**Module:** NOT = Thông báo
+**Module:** NOT = Thông báo nội bộ
 
 ## Mô tả ngắn gọn
 Form đăng một tin tức nội bộ mới, có thể đính kèm file PDF, giới hạn hiển thị theo các đơn vị kinh doanh được chọn.
@@ -22,5 +22,5 @@ Form đăng một tin tức nội bộ mới, có thể đính kèm file PDF, gi
 - **Hủy (Cancel):** quay lại NOT-005.
 
 ## Điều hướng
-- Mở từ: nút "Add new" trên NOT-005 (Tin tức công ty).
+- Mở từ: nút "Add new" trên NOT-005 (Bản tin nội bộ).
 - Sau khi gửi/hủy: chuyển tới NOT-005.

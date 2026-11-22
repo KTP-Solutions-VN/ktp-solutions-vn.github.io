@@ -1,8 +1,8 @@
-# PROP-024 — Báo cáo thanh toán hàng tháng cho Chủ nhà (Payment/Owner Report)
+# PROP-024 — Báo cáo chi trả chủ nhà (Owner Payout Reports)
 
 **Loại:** Trang đầy đủ
 **Route:** property/payment-report
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Màn hình tra cứu và tải về các báo cáo hàng tháng (Monthly Report) đã gửi cho chủ nhà của một Property cụ thể, lọc theo Business Unit và Property, hiển thị ngày thanh toán kế tiếp dự kiến.
@@ -34,6 +34,6 @@ Phía trên bảng hiển thị dòng thông báo "Your Next Payment is schedule
 - Nút "Download Report" trên từng dòng — tải file report tương ứng.
 
 ## Điều hướng
-- Mở từ: Menu Property Reports/Payment (không thuộc phạm vi mã hiện tại).
+- Mở từ: Menu báo cáo chủ nhà (không thuộc phạm vi mã hiện tại).
 - Điều hướng tới: file tải về `/files/monthly-report/{url}` (không phải điều hướng trang).
 - Popup con: Không có.

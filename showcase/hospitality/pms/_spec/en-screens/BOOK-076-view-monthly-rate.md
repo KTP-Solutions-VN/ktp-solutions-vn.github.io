@@ -1,9 +1,9 @@
-# BOOK-076 — View Monthly Rate
+# BOOK-076 — Monthly Rent Terms
 
 **Type:** Full page (sub-page, navigated from BOOK-067 — not a popup/modal)
 **Route:** Booking/rentalMonthView/:business_unit_id/:villa_id
 **Pretty route:** no dedicated route found in config/Routes.php (uses the default route, e.g. `/booking/rental-month-view/1/2`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Page for viewing details of the Monthly rental agreement currently applied to a villa: an overview of the agreement and the monthly rent payment history.

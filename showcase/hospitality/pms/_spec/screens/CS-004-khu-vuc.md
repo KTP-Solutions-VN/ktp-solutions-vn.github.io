@@ -1,10 +1,10 @@
-# CS-004 — Khu vực (Areas)
+# CS-004 — Thiết lập khu vực (Area Setup)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CommonSettingController::areas()` — mặc định `/common-setting/areas`
 
-**Module:** CS = Danh mục dùng chung
+**Module:** CS = Dữ liệu tham chiếu
 
 ## Mô tả ngắn gọn
 Danh sách quản lý danh mục Khu vực (Area) — cấp thấp hơn District, thuộc cây phân cấp địa lý Country > Region > District > Area.
@@ -29,5 +29,5 @@ Danh sách (DataTable `#zero_config`, sắp xếp theo Country > Region > Distri
 - **Xóa:** mở popup CS-004-P1 ở chế độ xác nhận xóa.
 
 ## Điều hướng
-- Vào từ: menu Cài đặt hệ thống > Danh mục dùng chung > Khu vực.
-- Điều hướng đến: CS-004-P1 (popup Thêm/Sửa/Xóa khu vực).
+- Vào từ: menu Cấu hình > Dữ liệu tham chiếu > Thiết lập khu vực.
+- Điều hướng đến: CS-004-P1 (popup Form khu vực).

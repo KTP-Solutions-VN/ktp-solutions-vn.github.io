@@ -1,10 +1,10 @@
-# ACC-023-P1 — View Accounting Account Details
+# ACC-023-P1 — Account Structure Details
 
 **Type:** Popup / detail view page (opened from ACC-023)
 
 **Route:** `AccountController::viewChartAccount($id)` — default `/account/view-chart-account/<id>` (`id` passed as base64)
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 View (read-only) all detail rows (`ChartAccountDetails`) belonging to a Chart of Account: rank, nature, category, sub-category, details, allocation.
@@ -31,5 +31,5 @@ If no detail rows exist: displays "No entry yet."
 - No AJAX; only a static breadcrumb is built on page load.
 
 ## Navigation
-- Entered from: ACC-023 (Chart of Accounts) — eye icon (See Content) on each row.
-- Navigates to: none (only a breadcrumb link back to the Chart of Accounts list via the menu name).
+- Entered from: ACC-023 (Account Structure) — eye icon (See Content) on each row.
+- Navigates to: none (only a breadcrumb link back to the Account Structure list via the menu name).

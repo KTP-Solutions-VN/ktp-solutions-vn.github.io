@@ -1,10 +1,10 @@
-# OWN-012 — Xem chi tiết Agency
+# OWN-012 — Hồ sơ đại lý đối tác (Partner Agency Profile)
 
 **Loại:** Popup (mở từ OWN-009)
 
 **Route:** `/Owner/viewAgencyDetails/{id}` (controller `Owner`, action `viewAgencyDetails($id)`)
 
-**Module:** Quản lý chủ sở hữu (Admin)
+**Module:** Quan hệ chủ nhà (Admin)
 
 ## Mô tả ngắn gọn
 

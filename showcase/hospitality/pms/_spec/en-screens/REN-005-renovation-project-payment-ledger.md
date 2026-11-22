@@ -1,8 +1,8 @@
-# REN-005 — Renovation Project Payment Ledger
+# REN-005 — Project Spend Ledger
 
 **Type:** Full page
 **Route:** renovation/paymentList/:renovation_id + dashed-style pretty route: renovation/payment-list/:renovation_id (id passed as base64)
-**Module:** REN = Renovation
+**Module:** REN = Refurbishment
 
 ## Overview
 A ledger recording all income/expense transactions (`RenovationPayment`) related to the renovation project: every invoice raised, every advance/reimbursement is recorded as one or more income/expense lines here.
@@ -22,8 +22,8 @@ A ledger recording all income/expense transactions (`RenovationPayment`) related
 | 8 | Balance | Running total | Calculated cumulatively across rows |
 
 ## Functions / Actions
-- **+ Payment**: opens REN-006 — Add Payment (`addPayment`).
+- **+ Payment**: opens REN-006 — Record Project Payment (`addPayment`).
 
 ## Navigation
-- Entered from: the "Wallet" icon on REN-003 — Renovation Project Follow-up.
-- Leads to: REN-006 — Add Payment.
+- Entered from: the "Wallet" icon on REN-003 — Project Timeline.
+- Leads to: REN-006 — Record Project Payment.

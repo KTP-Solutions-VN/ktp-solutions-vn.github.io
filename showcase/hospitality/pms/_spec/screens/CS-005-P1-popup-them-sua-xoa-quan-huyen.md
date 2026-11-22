@@ -1,10 +1,10 @@
-# CS-005-P1 — Popup Thêm/Sửa/Xóa Quận/Huyện
+# CS-005-P1 — Form quận/huyện (District Form)
 
 **Loại:** Popup (mở từ CS-005)
 
 **Route:** Modal Bootstrap (`#exampleModal`) trong `districts.ctp`; submit cùng action `CommonSettingController::districts()`; kiểm tra trùng tên qua AJAX `checkDistrict()` — `/common-setting/check-district`; nạp Vùng theo Quốc gia qua AJAX `getData()` — `/common-setting/get-data`.
 
-**Module:** CS = Danh mục dùng chung
+**Module:** CS = Dữ liệu tham chiếu
 
 ## Mô tả ngắn gọn
 Popup dùng chung cho Thêm mới/Sửa/Xóa một Quận/Huyện.
@@ -24,5 +24,5 @@ Popup dùng chung cho Thêm mới/Sửa/Xóa một Quận/Huyện.
 - **Cancel:** đóng modal.
 
 ## Điều hướng
-- Mở từ: CS-005 (danh sách Quận/Huyện).
+- Mở từ: CS-005 (Thiết lập quận/huyện).
 - Sau khi submit: quay lại CS-005 kèm flash message.

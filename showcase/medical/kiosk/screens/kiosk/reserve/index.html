@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Reserve &amp; Collect — CareJourney Kiosk</title>
+<meta name="theme-color" content="#4C5FFF">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgo=">
+<link rel="stylesheet" href="../../../assets/css/global.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="kiosk-device" id="kioskDevice">
+
+    <div class="kiosk-topbar">
+      <div class="kiosk-brand">
+        <div class="kiosk-brand-mark" aria-hidden="true">CJ</div>
+        <div>
+          <div class="kiosk-brand-name">CareJourney</div>
+          <div class="kiosk-brand-sub">Products &amp; Bundles</div>
+        </div>
+      </div>
+      <div class="kiosk-topbar-right">
+        <div class="kiosk-idle-ring" id="idleRing" title="Session activity"></div>
+        <button type="button" class="kiosk-home-btn" id="homeBtn" aria-label="Cancel to Home" title="Cancel to Home">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9a1 1 0 0 0 1 1h4v-5h2v5h4a1 1 0 0 0 1-1v-9"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="kiosk-progress" data-step="2">
+      <div class="kiosk-progress-step is-done">
+        <div class="kiosk-progress-bar"><span></span></div>
+        <div class="kiosk-progress-label">1 · Choose items</div>
+      </div>
+      <div class="kiosk-progress-step is-active">
+        <div class="kiosk-progress-bar"><span></span></div>
+        <div class="kiosk-progress-label">2 · Reserve</div>
+      </div>
+    </div>
+
+    <div class="kiosk-content">
+      <div class="content-col" id="mainContent">
+
+      <div id="reviewView">
+        <div style="margin-bottom:var(--sp-6);">
+          <h1 style="font-size:24px;">Check your reservation</h1>
+          <p style="margin-top:6px;color:var(--gray-600);font-size:14px;line-height:1.5;">
+            This is a reservation, not a payment — you won&#39;t be charged yet.
+          </p>
+        </div>
+
+        <div class="card" style="padding:var(--sp-4) var(--sp-4) var(--sp-2);margin-bottom:var(--sp-6);">
+          <div id="orderLines"></div>
+          <div class="order-total-row">
+            <span style="font-weight:700;color:var(--gray-700);">Estimated total</span>
+            <span id="orderTotal" style="font-family:var(--font-heading);font-weight:800;font-size:18px;color:var(--primary-dark);"></span>
+          </div>
+        </div>
+
+        <h2 style="font-size:16px;margin-bottom:var(--sp-3);">How would you like to proceed?</h2>
+        <div class="outcome-grid" id="outcomeGrid">
+
+          <div class="outcome-card outcome-counter" id="outcomeCounter" tabindex="0" role="button">
+            <div class="outcome-card-icon">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M4 9.5 5 4h14l1 5.5"/><path d="M4 9.5a2.3 2.3 0 0 0 4.4 1.1A2.3 2.3 0 0 0 12.8 10a2.3 2.3 0 0 0 4.4.6A2.3 2.3 0 0 0 20 9.5"/><path d="M5.5 11v8.5h13V11"/><path d="M10 19.5v-5h4v5"/></svg>
+            </div>
+            <div class="outcome-card-title">Pay at the counter now</div>
+            <div class="outcome-card-desc">A team member will take payment right away — no consultation needed, your items are already on their screen.</div>
+          </div>
+
+          <div class="outcome-card outcome-followup" id="outcomeFollowup" tabindex="0" role="button">
+            <div class="outcome-card-icon">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="3" y="13" width="4" height="6" rx="1.4"/><rect x="17" y="13" width="4" height="6" rx="1.4"/><path d="M20 19v.5a3 3 0 0 1-3 3h-3.2"/></svg>
+            </div>
+            <div class="outcome-card-title">Ask us to call you later</div>
+            <div class="outcome-card-desc">Not ready to decide today? Leave your details and our team will call or email you within 2 business days.</div>
+          </div>
+
+        </div>
+
+        <div id="followupForm" style="display:none;margin-top:var(--sp-4);">
+          <div class="card">
+            <h3 style="margin-bottom:var(--sp-3);">Your contact details</h3>
+            <div style="display:flex;flex-direction:column;gap:var(--sp-3);">
+              <div class="field" id="fieldName">
+                <label for="inputName">Full name</label>
+                <input type="text" id="inputName" placeholder="e.g. Ruby Lawson" autocomplete="name">
+                <div class="field-error">Please enter your name</div>
+              </div>
+              <div class="field" id="fieldContact">
+                <label for="inputContact">Mobile number or email</label>
+                <input type="text" id="inputContact" placeholder="e.g. 0494 162 208 or you@example.com">
+                <div class="field-error">Please enter a mobile number or email</div>
+              </div>
+              <div style="display:flex;gap:var(--sp-3);">
+                <button type="button" class="btn btn-outline" id="followupCancelBtn" style="width:auto;min-width:0;padding:0 var(--sp-4);">Back</button>
+                <button type="button" class="btn btn-primary" id="followupSubmitBtn" style="flex:1;">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="successView" style="display:none;"></div>
+
+      </div>
+    </div>
+
+    <div class="kiosk-footer" id="mainFooter">
+      <button type="button" class="btn btn-outline btn-huge" id="reviewBackBtn">
+        <svg class="icon" viewBox="0 0 24 24"><path d="m14.5 5.5-6.5 6.5 6.5 6.5"/></svg>
+        Back to catalog
+      </button>
+    </div>
+
+    <button type="button" class="faq-fab" id="faqFab">
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.5 9.3a2.6 2.6 0 0 1 5 .9c0 1.7-2.4 2-2.4 3.6"/><circle cx="12" cy="17" r=".2" fill="currentColor"/></svg>
+      Need Help?
+    </button>
+    <div class="faq-overlay" id="faqOverlay">
+      <div class="faq-panel">
+        <div class="faq-panel-head">
+          <h2>Frequently asked questions</h2>
+          <button type="button" class="faq-close-btn" id="faqCloseBtn" aria-label="Close">
+            <svg class="icon" viewBox="0 0 24 24"><path d="m6 6 12 12"/><path d="m18 6-12 12"/></svg>
+          </button>
+        </div>
+        <div class="faq-panel-body"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../../../assets/data/event-leads.js"></script>
+  <script src="../../../assets/data/catalog.js"></script>
+  <script src="../../../assets/js/global.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

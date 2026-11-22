@@ -1,8 +1,8 @@
-# REN-006 — Thêm khoản thanh toán
+# REN-006 — Ghi nhận thanh toán dự án (Record Project Payment)
 
 **Loại:** Trang đầy đủ
 **Route:** renovation/addPayment/:renovation_id + route đẹp dạng dashed: renovation/add-payment/:renovation_id (id truyền base64)
-**Module:** REN = Cải tạo
+**Module:** REN = Nâng cấp tài sản
 
 ## Mô tả ngắn gọn
 Form ghi nhận một khoản thanh toán độc lập (không gắn với hóa đơn cụ thể) vào sổ quỹ dự án cải tạo: tạm ứng (advance) hoặc hoàn ứng (reimbursement) giữa các bên liên quan.
@@ -21,5 +21,5 @@ Form ghi nhận một khoản thanh toán độc lập (không gắn với hóa 
 - **Save**: lưu `RenovationPayment` mới với ngày hiện tại.
 
 ## Điều hướng
-- Vào từ: nút "+ Payment" tại REN-005 — Sổ quỹ thanh toán dự án cải tạo.
-- Đi tới: sau khi lưu thành công, quay về REN-005 — Sổ quỹ thanh toán dự án cải tạo.
+- Vào từ: nút "+ Payment" tại REN-005 — Sổ chi tiêu dự án.
+- Đi tới: sau khi lưu thành công, quay về REN-005 — Sổ chi tiêu dự án.

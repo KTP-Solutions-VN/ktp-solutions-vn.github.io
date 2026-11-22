@@ -1,8 +1,8 @@
-# OPR-017 — Lập kế hoạch phân công công việc vườn (Garden Planning)
+# OPR-017 — Lập lịch lượt chăm vườn (Garden Round Planner)
 
 **Loại:** Trang đầy đủ
 **Route:** villa-services/gardenPlanning/:tab? + route đẹp dạng dashed: villa-services/garden-planning
-**Module:** OPR = Vận hành vườn/hồ bơi
+**Module:** OPR = Công việc bảo dưỡng
 
 > Lưu ý: file view `garden_planning.ctp` nằm trong thư mục theme `Operator` nhưng action thực thi thuộc `VillaServicesController::gardenPlanning()`, không phải `OperatorController`.
 
@@ -32,5 +32,5 @@ Bảng lập kế hoạch phân công công việc vườn theo ngày cho từng
 - **Chuyển tab đội (team-1, team-2, ..., Team-Total)**: xem lịch phân công riêng của từng đội hoặc tổng hợp.
 
 ## Điều hướng
-- Vào từ: menu "Garden Planning" trong sidebar (nhóm vận hành vườn).
-- Đi tới: không điều hướng sang trang khác; các gán/xóa slot xử lý ngay trên trang (ajax) và tạo dữ liệu hiển thị ở OPR-002 (Danh sách công việc vườn).
+- Vào từ: menu "Garden Round Planner" trong sidebar (nhóm công việc bảo dưỡng).
+- Đi tới: không điều hướng sang trang khác; các gán/xóa slot xử lý ngay trên trang (ajax) và tạo dữ liệu hiển thị ở OPR-002 (Lượt chăm vườn).

@@ -1,7 +1,7 @@
 (function () {
   'use strict';
   var BASE_DATA = [
-    { id: 'pd1', method: 'Bank Transfer', bank: 'Bangkok Bank', account: 'Richard Halstead' }
+    { id: 'pd1', method: 'Bank Transfer', bank: 'DBS Bank', account: 'Richard Halstead' }
   ];
   var editingId = null;
 

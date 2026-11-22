@@ -1,10 +1,10 @@
-# OWN-017 — Mẫu email thông báo cho chủ sở hữu
+# OWN-017 — Email thông báo cho chủ nhà (Owner Email Alerts)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `/Owner/emailAccessTemplate/{tab}/{selected_lang}` (controller `Owner`, action `emailAccessTemplate($tab, $selected_lang)`)
 
-**Module:** Quản lý chủ sở hữu (Admin)
+**Module:** Quan hệ chủ nhà (Admin)
 
 ## Mô tả ngắn gọn
 
@@ -27,5 +27,5 @@ Màn hình quản lý nội dung 5 mẫu email tự động gửi liên quan t�
 
 ## Điều hướng
 
-- Mở từ: Menu Settings sidebar "Email Notifications" (`active_menu` 98).
+- Mở từ: Menu Settings sidebar "Owner Email Alerts" (`active_menu` 98).
 - Không điều hướng tới màn hình con khác — toàn bộ thao tác thực hiện trong cùng trang qua các tab.

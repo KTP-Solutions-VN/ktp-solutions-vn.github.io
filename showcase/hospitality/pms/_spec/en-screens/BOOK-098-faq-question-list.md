@@ -1,4 +1,4 @@
-# BOOK-098 — FAQ Question List (Wiki)
+# BOOK-098 — Knowledge Articles
 
 **Type:** Full page
 
@@ -6,7 +6,7 @@
 
 **Friendly route:** no dedicated route found in config/Routes.php (uses the default route)
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 
@@ -42,7 +42,7 @@ A list of frequently asked questions (FAQ) used as an internal knowledge base, f
 
 ## Navigation
 
-- Accessed from the FAQ/Wiki menu.
+- Accessed from the Knowledge menu.
 - → BOOK-099 when adding a new question or editing.
 - → BOOK-100 when viewing details.
-- Displayed categories are sourced from BOOK-097 (FAQ Categories).
+- Displayed categories are sourced from BOOK-097 (Knowledge Topics).

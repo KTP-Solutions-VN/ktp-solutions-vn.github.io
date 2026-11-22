@@ -1,10 +1,10 @@
-# ACC-039 — Quản lý máy tính (Computers)
+# ACC-039 — Thiết bị CNTT (IT Equipment)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `AccountController::computers()` — mặc định `/account/computers`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Quản lý danh sách máy tính (tài sản công ty, bảng `Vehicle` với `assets_type = 'computer'`) theo từng Business Unit: xem danh sách, thêm mới, sửa, xóa qua modal trên cùng trang.
@@ -42,5 +42,5 @@ Bộ lọc:
 - Khi đổi Business Unit trong modal: AJAX `account/getBusinessUsers` để nạp lại danh sách nhân viên (Used By) theo BU.
 
 ## Điều hướng
-- Vào từ: Sidebar > Account & HR > Computers (`active_menu = 'acc-computers'`).
+- Vào từ: Sidebar > Finance & Admin > IT Equipment (`active_menu = 'acc-computers'`).
 - Không điều hướng sang trang khác — toàn bộ thao tác thêm/sửa/xóa thực hiện qua modal ngay trên trang này.

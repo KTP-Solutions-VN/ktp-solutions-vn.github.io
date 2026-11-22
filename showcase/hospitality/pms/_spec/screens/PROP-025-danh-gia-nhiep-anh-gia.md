@@ -1,8 +1,8 @@
-# PROP-025 — Đánh giá Nhiếp ảnh gia (Photographer Evaluation)
+# PROP-025 — Xếp hạng nhiếp ảnh gia (Photographer Ratings)
 
 **Loại:** Trang đầy đủ
 **Route:** property/photography/photographer-evaluation (route đẹp cấu hình riêng trong Routes.php, ứng với action `photographerEvaluation`)
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Bảng tổng hợp hiệu suất chụp ảnh theo từng nhiếp ảnh gia (photographer), tổng hợp điểm số các bộ ảnh (photo sets) đã chấm theo tiêu chí Angles/Colours/Composition, so sánh với điểm benchmark khu vực trong một khoảng thời gian (period) và khu vực (region) được chọn.
@@ -44,6 +44,6 @@ Hiển thị: Regional average, Best criterion (+điểm), Weakest criterion (+�
 - Nếu storage ảnh (`photoStorageReady()`) chưa sẵn sàng, hiển thị cảnh báo "Photo storage pending review".
 
 ## Điều hướng
-- Mở từ: PROP-026 (Photography Planning) — breadcrumb; PROP-028 (Photography Scores) — link tên nhiếp ảnh gia trên từng dòng điểm.
-- Điều hướng tới: `Property::photography` (breadcrumb "Photography Planning" — PROP-026).
+- Mở từ: PROP-026 (Shoot Scheduler) — breadcrumb; PROP-028 (Image Quality Review) — link tên nhiếp ảnh gia trên từng dòng điểm.
+- Điều hướng tới: `Property::photography` (breadcrumb "Shoot Scheduler" — PROP-026).
 - Popup con: Không có.

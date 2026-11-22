@@ -1,13 +1,13 @@
-# OPR-018 — Cấu hình đội nhóm làm vườn (Garden Teams)
+# OPR-018 — Thiết lập tổ chăm vườn (Garden Crew Setup)
 
 **Loại:** Trang đầy đủ
 **Route:** villa-services/gardenTeams + route đẹp dạng dashed: villa-services/garden-teams
-**Module:** OPR = Vận hành vườn/hồ bơi
+**Module:** OPR = Công việc bảo dưỡng
 
 > Lưu ý: file view `garden_teams.ctp` nằm trong thư mục theme `Operator` nhưng action thực thi thuộc `VillaServicesController::gardenTeams()`, không phải `OperatorController`.
 
 ## Mô tả ngắn gọn
-Màn hình khai báo các đội (team) làm vườn cho một ngày và đơn vị kinh doanh cụ thể: mỗi đội có khung giờ làm việc (start/end time) và danh sách thành viên (gardener) được thêm vào; dữ liệu này là đầu vào cho OPR-017 (Lập kế hoạch phân công vườn).
+Màn hình khai báo các đội (team) làm vườn cho một ngày và đơn vị kinh doanh cụ thể: mỗi đội có khung giờ làm việc (start/end time) và danh sách thành viên (gardener) được thêm vào; dữ liệu này là đầu vào cho OPR-017 (Lập lịch lượt chăm vườn).
 
 ## Mô tả chi tiết
 
@@ -26,5 +26,5 @@ Màn hình khai báo các đội (team) làm vườn cho một ngày và đơn v
 - **Save**: gửi ajax `saveGardenTeams` lưu toàn bộ cấu hình đội/khung giờ/thành viên cho ngày + BU đã chọn (bảng `GardenTeams`, cột `members` serialize).
 
 ## Điều hướng
-- Vào từ: menu "Garden Teams" trong sidebar (nhóm vận hành vườn).
-- Đi tới: không điều hướng sang trang khác; dữ liệu lưu tại đây được OPR-017 (Garden Planning) sử dụng để gán villa vào từng slot của đội.
+- Vào từ: menu "Garden Crew Setup" trong sidebar (nhóm công việc bảo dưỡng).
+- Đi tới: không điều hướng sang trang khác; dữ liệu lưu tại đây được OPR-017 (Lập lịch lượt chăm vườn) sử dụng để gán villa vào từng slot của đội.

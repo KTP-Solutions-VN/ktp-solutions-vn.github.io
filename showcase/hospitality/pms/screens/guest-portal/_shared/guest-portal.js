@@ -38,23 +38,23 @@
 
   var VILLAS = {
     'PV-101': {
-      id: 'PV-101', name: 'Villa Sapphire Cliff', bu: 'Phuket Collection', bedrooms: 5, maxGuests: 10,
-      concierge: 'Somchai Anuwat', conciergePhone: '+66 81 234 5678',
-      address: 'Soi Cape Sienna 8, Kamala, Kathu District, Phuket 83150, Thailand', district: 'Kamala',
-      mapUrl: 'https://www.google.com/maps/search/?api=1&query=Kamala+Beach+Phuket+Thailand',
+      id: 'PV-101', name: 'Villa Sapphire Cliff', bu: 'Sentosa Collection', bedrooms: 5, maxGuests: 10,
+      concierge: 'Daniel Tan', conciergePhone: '+65 9234 5678',
+      address: '8 Cove Drive, Sentosa Cove, Singapore 098297', district: 'Sentosa Cove',
+      mapUrl: 'https://www.google.com/maps/search/?api=1&query=Tanjong+Beach+Sentosa+Singapore',
       standardCheckIn: '15:00', standardCheckOut: '11:00',
       wifiSsid: 'SapphireCliff_Guest', wifiPassword: 'Ocean2026!',
-      description: 'Perched above the Andaman Sea, Villa Sapphire Cliff pairs five ocean-view suites with a 20-metre infinity pool, a private cinema and a full-time concierge team on call from the moment you land.',
+      description: 'Perched above the Singapore Strait, Villa Sapphire Cliff pairs five ocean-view suites with a 20-metre infinity pool, a private cinema and a full-time concierge team on call from the moment you land.',
       amenities: ['Private infinity pool', 'Full-time concierge', 'Daily housekeeping', 'Home theatre', 'Wine cellar', 'Gym & yoga deck', 'Complimentary airport transfer', 'High-speed Wi-Fi throughout']
     },
     'PV-105': {
-      id: 'PV-105', name: 'Villa Marble Cove', bu: 'Phuket Collection', bedrooms: 5, maxGuests: 9,
-      concierge: 'Somchai Anuwat', conciergePhone: '+66 81 234 5678',
-      address: '12 Marble Cove Lane, Kamala, Phuket 83150, Thailand', district: 'Kamala',
-      mapUrl: 'https://www.google.com/maps/search/?api=1&query=Kamala+Phuket+Thailand',
+      id: 'PV-105', name: 'Villa Marble Cove', bu: 'Sentosa Collection', bedrooms: 5, maxGuests: 9,
+      concierge: 'Daniel Tan', conciergePhone: '+65 9234 5678',
+      address: '12 Marble Cove Lane, Sentosa Cove, Singapore 098297', district: 'Sentosa Cove',
+      mapUrl: 'https://www.google.com/maps/search/?api=1&query=Sentosa+Cove+Singapore',
       standardCheckIn: '15:00', standardCheckOut: '11:00',
       wifiSsid: 'MarbleCove_Guest', wifiPassword: 'Cove2026!',
-      description: 'A cliffside retreat wrapped in tropical gardens, Villa Marble Cove looks out over a quiet cove just north of Kamala Beach.',
+      description: 'A cliffside retreat wrapped in tropical gardens, Villa Marble Cove looks out over a quiet cove just east of Tanjong Beach.',
       amenities: ['Private pool', 'Garden terrace', 'Daily housekeeping', 'BBQ pavilion']
     }
   };
@@ -177,12 +177,12 @@
   /* ---------------------------------------------------------------- */
 
   var RESTAURANTS = [
-    { id: 'RST-01', name: 'Baan Rim Pa', cuisine: 'Thai Fine Dining', rating: 4.8, address: '223 Kamala Beach Road, Kamala, Phuket 83150', phone: '+66 76 279 118', hours: '17:00 – 23:00 daily', distanceM: 140, description: 'Clifftop Thai fine dining with candlelit tables over the Andaman Sea and a live jazz band most evenings.', menuUrl: 'https://example.com/menus/baan-rim-pa', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Baan+Rim+Pa+Kamala' },
-    { id: 'RST-02', name: 'The Beach Club Kamala', cuisine: 'International, Beachfront', rating: 4.5, address: '5 Kamala Beach Walk, Kamala, Phuket 83150', phone: '+66 76 279 200', hours: '08:00 – 22:00 daily', distanceM: 90, description: 'Relaxed beachfront terrace serving all-day breakfast, wood-fired pizza and sunset cocktails, steps from the sand.', menuUrl: 'https://example.com/menus/beach-club-kamala', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Beach+Club+Kamala' },
-    { id: 'RST-03', name: 'Rock Salt Restaurant & Bar', cuisine: 'Seafood, Fine Dining', rating: 4.7, address: '18 Cape Sienna Road, Kamala, Phuket 83150', phone: '+66 76 358 888', hours: '12:00 – 22:30 daily', distanceM: 120, description: 'Elevated seafood tasting menus and an extensive wine list, set on a headland with panoramic ocean views.', menuUrl: 'https://example.com/menus/rock-salt', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Rock+Salt+Restaurant+Kamala' },
-    { id: 'RST-04', name: 'Silk Restaurant', cuisine: 'Thai & Pan-Asian', rating: 4.4, address: '9/12 Rim Hat Kamala Road, Kamala, Phuket 83150', phone: '+66 76 279 622', hours: '11:30 – 22:00 daily', distanceM: 165, description: 'Family-run garden restaurant known for its curries and fresh market seafood, a favourite with returning guests.', menuUrl: '', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Silk+Restaurant+Kamala' },
-    { id: 'RST-05', name: 'La Gaetana Kamala', cuisine: 'Italian', rating: 4.3, address: '38 Kamala Beach Road, Kamala, Phuket 83150', phone: '+66 76 279 340', hours: '17:30 – 22:30, closed Tuesdays', distanceM: 180, description: 'Handmade pasta and wood-fired pizza from a Neapolitan chef, in a candlelit courtyard just off the beach road.', menuUrl: 'https://example.com/menus/la-gaetana', mapUrl: 'https://www.google.com/maps/search/?api=1&query=La+Gaetana+Kamala' },
-    { id: 'RST-06', name: 'Sea.Fire.Salt', cuisine: 'Grill & Seafood', rating: 4.6, address: '2 Cape Sienna Road, Kamala, Phuket 83150', phone: '+66 76 358 900', hours: '17:00 – 23:00 daily', distanceM: 110, description: 'Open-flame grill house specialising in charcoal-fired seafood and prime cuts, best enjoyed at sunset.', menuUrl: 'https://example.com/menus/sea-fire-salt', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Sea+Fire+Salt+Kamala' }
+    { id: 'RST-01', name: 'The Cliff House', cuisine: 'Peranakan Fine Dining', rating: 4.8, address: '23 Tanjong Beach Walk, Sentosa, Singapore 098942', phone: '+65 6627 9118', hours: '17:00 – 23:00 daily', distanceM: 140, description: 'Clifftop Peranakan fine dining with candlelit tables over the Singapore Strait and a live jazz band most evenings.', menuUrl: 'https://example.com/menus/cliff-house', mapUrl: 'https://www.google.com/maps/search/?api=1&query=The+Cliff+House+Sentosa' },
+    { id: 'RST-02', name: 'The Beach Club Tanjong', cuisine: 'International, Beachfront', rating: 4.5, address: '5 Tanjong Beach Walk, Sentosa, Singapore 098942', phone: '+65 6627 9200', hours: '08:00 – 22:00 daily', distanceM: 90, description: 'Relaxed beachfront terrace serving all-day breakfast, wood-fired pizza and sunset cocktails, steps from the sand.', menuUrl: 'https://example.com/menus/beach-club-tanjong', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Beach+Club+Tanjong+Sentosa' },
+    { id: 'RST-03', name: 'Sea Salt Restaurant & Bar', cuisine: 'Seafood, Fine Dining', rating: 4.7, address: '18 Ocean Way, Sentosa Cove, Singapore 098375', phone: '+65 6635 8888', hours: '12:00 – 22:30 daily', distanceM: 120, description: 'Elevated seafood tasting menus and an extensive wine list, set on a headland with panoramic ocean views.', menuUrl: 'https://example.com/menus/sea-salt', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Sea+Salt+Restaurant+Sentosa' },
+    { id: 'RST-04', name: 'Orchid Garden Restaurant', cuisine: 'Singaporean & Pan-Asian', rating: 4.4, address: '12 Cove Way, Sentosa Cove, Singapore 098296', phone: '+65 6627 9622', hours: '11:30 – 22:00 daily', distanceM: 165, description: 'Family-run garden restaurant known for its curries and fresh market seafood, a favourite with returning guests.', menuUrl: '', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Orchid+Garden+Restaurant+Sentosa' },
+    { id: 'RST-05', name: 'Trattoria del Porto', cuisine: 'Italian', rating: 4.3, address: '38 Ocean Way, Sentosa Cove, Singapore 098375', phone: '+65 6627 9340', hours: '17:30 – 22:30, closed Tuesdays', distanceM: 180, description: 'Handmade pasta and wood-fired pizza from a Neapolitan chef, in a candlelit courtyard just off the beach road.', menuUrl: 'https://example.com/menus/trattoria-del-porto', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Trattoria+del+Porto+Sentosa' },
+    { id: 'RST-06', name: 'Ember & Tide', cuisine: 'Grill & Seafood', rating: 4.6, address: '2 Ocean Way, Sentosa Cove, Singapore 098375', phone: '+65 6635 8900', hours: '17:00 – 23:00 daily', distanceM: 110, description: 'Open-flame grill house specialising in charcoal-fired seafood and prime cuts, best enjoyed at sunset.', menuUrl: 'https://example.com/menus/ember-and-tide', mapUrl: 'https://www.google.com/maps/search/?api=1&query=Ember+and+Tide+Sentosa' }
   ];
   function getRestaurant(id) { return RESTAURANTS.filter(function (r) { return r.id === id; })[0] || null; }
 
@@ -195,11 +195,11 @@
   /* ---------------------------------------------------------------- */
 
   var LANDMARKS = [
-    { id: 'LM-01', name: 'Kamala Beach', blurb: 'A quieter stretch of sand than neighbouring Patong — calm water, sunset views and beachfront cafés a short stroll from the villa.' },
-    { id: 'LM-02', name: 'Phromthep Cape', blurb: 'One of Phuket’s most photographed viewpoints, especially at sunset — roughly a 40-minute drive south.' },
-    { id: 'LM-03', name: 'Big Buddha Phuket', blurb: 'A 45-metre marble statue on Nakkerd Hill with sweeping island views, about 30 minutes away.' },
-    { id: 'LM-04', name: 'Wat Chalong Temple', blurb: 'Phuket’s most revered Buddhist temple complex, rich in gold detail and local ceremony — bring modest dress.' },
-    { id: 'LM-05', name: 'Kamala Night Market', blurb: 'Local food stalls, handicrafts and live music every evening, a 5-minute walk from the villa gate.' }
+    { id: 'LM-01', name: 'Tanjong Beach', blurb: 'A quieter stretch of sand than neighbouring Palawan — calm water, sunset views and beachfront cafés a short stroll from the villa.' },
+    { id: 'LM-02', name: 'Fort Siloso Skywalk', blurb: 'One of Sentosa’s most photographed viewpoints, especially at sunset — roughly a 10-minute drive west.' },
+    { id: 'LM-03', name: 'Supertree Grove', blurb: 'Towering vertical gardens at Gardens by the Bay with sweeping skyline views, about 30 minutes away.' },
+    { id: 'LM-04', name: 'Buddha Tooth Relic Temple', blurb: 'Singapore’s most revered Buddhist temple complex, rich in gold detail and local ceremony — bring modest dress.' },
+    { id: 'LM-05', name: 'Quayside Isle', blurb: 'Waterfront dining, boutiques and live music every evening, a 5-minute walk from the villa gate.' }
   ];
 
   /* ---------------------------------------------------------------- */
@@ -207,18 +207,18 @@
   /* ---------------------------------------------------------------- */
 
   var ACTIVITY_LINKS = [
-    { id: 'fitness-wellness', label: 'Fitness & Wellness', url: 'https://www.azurastays.example/green-season-activities/fitness-wellness.html', blurb: 'Sunrise yoga decks, Muay Thai studios and spa retreats within easy reach of the villa.' },
-    { id: 'shopping-entertainment', label: 'Shopping & Entertainment', url: 'https://www.azurastays.example/green-season-activities/shopping-entertainment.html', blurb: 'Boutique markets, beach bars and live entertainment along the Kamala–Patong coast.' },
+    { id: 'fitness-wellness', label: 'Fitness & Wellness', url: 'https://www.azurastays.example/green-season-activities/fitness-wellness.html', blurb: 'Sunrise yoga decks, boxing studios and spa retreats within easy reach of the villa.' },
+    { id: 'shopping-entertainment', label: 'Shopping & Entertainment', url: 'https://www.azurastays.example/green-season-activities/shopping-entertainment.html', blurb: 'Boutique markets, beach bars and live entertainment along the Tanjong–Palawan coast.' },
     { id: 'indoor-outdoor-activities', label: 'Indoor & Outdoor Activities', url: 'https://www.azurastays.example/green-season-activities/indoor-outdoor-activities.html', blurb: 'From catamaran sunset cruises to cooking classes — things to do whatever the forecast.' }
   ];
 
   var ACTIVITY_SUGGESTIONS = [
-    { id: 'ACT-01', name: 'Sunset Catamaran Cruise', category: 'Outdoor', note: 'Half-day, departs Kamala Pier' },
-    { id: 'ACT-02', name: 'Thai Cooking Class', category: 'Indoor', note: '3 hours, small groups' },
-    { id: 'ACT-03', name: 'Muay Thai Introductory Session', category: 'Fitness', note: '90 minutes, all levels' },
-    { id: 'ACT-04', name: 'Elephant Sanctuary Visit', category: 'Outdoor', note: 'Ethical, no-riding sanctuary, half-day' },
-    { id: 'ACT-05', name: 'Big Buddha & Temple Tour', category: 'Outdoor', note: 'Half-day, private driver' },
-    { id: 'ACT-06', name: 'Kamala Water Sports', category: 'Outdoor', note: 'Kayaking & stand-up paddleboard rental' }
+    { id: 'ACT-01', name: 'Sunset Catamaran Cruise', category: 'Outdoor', note: 'Half-day, departs Sentosa Cove Marina' },
+    { id: 'ACT-02', name: 'Peranakan Cooking Class', category: 'Indoor', note: '3 hours, small groups' },
+    { id: 'ACT-03', name: 'Boxing Introductory Session', category: 'Fitness', note: '90 minutes, all levels' },
+    { id: 'ACT-04', name: 'Night Safari Visit', category: 'Outdoor', note: 'Wildlife park after dark, half-day' },
+    { id: 'ACT-05', name: 'Chinatown & Temple Tour', category: 'Outdoor', note: 'Half-day, private driver' },
+    { id: 'ACT-06', name: 'Tanjong Beach Water Sports', category: 'Outdoor', note: 'Kayaking & stand-up paddleboard rental' }
   ];
 
   /* ---------------------------------------------------------------- */

@@ -1,4 +1,4 @@
-/* Screen-specific overrides: My Account (#11) */
+/* Screen-specific overrides: Account Overview */
 @media (max-width: 900px) {
   .section[style*="grid-template-columns:2fr 1fr"] { grid-template-columns: 1fr !important; }
 }

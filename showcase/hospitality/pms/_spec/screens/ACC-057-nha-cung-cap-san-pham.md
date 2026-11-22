@@ -1,10 +1,10 @@
-# ACC-057 — Nhà cung cấp sản phẩm
+# ACC-057 — Đơn vị cung ứng hàng hóa (Goods Vendors)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `AccountController::suppliers()` — mặc định `/account/suppliers`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Danh sách nhà cung cấp thuộc nhóm "Sản phẩm" (`Supplier.type = product`), dùng để lựa chọn khi tạo Product Allocation hoặc Payment Request loại Product.
@@ -30,5 +30,5 @@ Danh sách (bảng `#zero_config`):
 - **Xoá (icon thùng rác, trên từng dòng):** mở popup xác nhận; bấm Save điều hướng tới `deleteProductSupplier/<base64 id>` để xoá nhà cung cấp.
 
 ## Điều hướng
-- Vào từ: Sidebar > mục "Suppliers" (nhóm Product) trong Account Settings.
-- Điều hướng đến: ACC-057-P1 (Popup thêm/sửa nhà cung cấp sản phẩm), ACC-058 (Sản phẩm, cùng khu vực Settings).
+- Vào từ: Sidebar > mục "Goods Vendors" (nhóm Goods) trong Finance Preferences.
+- Điều hướng đến: ACC-057-P1 (Form đơn vị cung ứng hàng hóa), ACC-058 (Danh mục hàng hóa, cùng khu vực Finance Preferences).

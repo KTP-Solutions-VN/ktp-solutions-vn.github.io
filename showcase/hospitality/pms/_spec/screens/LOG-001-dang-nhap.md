@@ -1,10 +1,10 @@
-# LOG-001 — Đăng nhập (Login)
+# LOG-001 — Đăng nhập (Sign In)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `LoginController::index()` — mặc định `login/index`; route đẹp: `/` (trang gốc của hệ thống)
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Màn hình đăng nhập vào hệ thống Azura Manager PMS, áp dụng cho mọi loại tài khoản (Superadmin, Admin, Business Unit Manager, nhân viên, đối tác/agency-staff, chủ villa dùng chung bảng User/AgencyStaff/Owner). Sau khi xác thực thành công, hệ thống tính toán quyền/role, business unit được gán và chuyển hướng tới dashboard phù hợp với loại tài khoản. Người dùng có thể chọn "Ghi nhớ đăng nhập" và có lối vào màn hình quên mật khẩu.
@@ -26,5 +26,5 @@ Xác thực đồng thời trên 3 nguồn (multi-auth CakePHP): bảng `User` (
 
 ## Điều hướng
 - Vào từ: truy cập gốc `/`, hoặc bị chuyển hướng tới khi phiên hết hạn / chưa đăng nhập / logout.
-- Điều hướng đến: LOG-001-P1 (Quên mật khẩu — popup con), USR-001 (Dashboard) hoặc trang danh sách booking tuỳ loại tài khoản sau khi đăng nhập thành công.
+- Điều hướng đến: LOG-001-P1 (Khôi phục mật khẩu — popup con), USR-001 (Overview) hoặc trang danh sách booking tuỳ loại tài khoản sau khi đăng nhập thành công.
 - Popup con: LOG-001-P1.

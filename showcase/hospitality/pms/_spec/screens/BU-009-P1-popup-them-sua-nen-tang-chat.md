@@ -1,10 +1,10 @@
-# BU-009-P1 — Popup Thêm/Sửa nền tảng chat
+# BU-009-P1 — Form ứng dụng nhắn tin (Messaging App Form)
 
 **Loại:** Popup (mở từ BU-009)
 
 **Route:** Modal Bootstrap (`#exampleModal`) tĩnh trong `chat_platform.ctp`; submit POST cùng action `BusinessUnitController::chatPlatform()`.
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Popup dùng chung cho Thêm mới và Sửa một nền tảng chat.

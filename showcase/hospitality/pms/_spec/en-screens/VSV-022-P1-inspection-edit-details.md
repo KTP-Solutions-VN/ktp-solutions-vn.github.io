@@ -1,10 +1,10 @@
-# VSV-022-P1 — Process Inspection Items in Detail (Inspection Edit Details)
+# VSV-022-P1 — Resolve Inspection Items
 
 **Type:** Popup (opened from VSV-021 or VSV-022, as a dedicated page)
 
 **Route:** `VillaServicesController::inspectionEditDetails()` — `/villa-services/inspectionEditDetails?id=<inspection_key>[&view=default|teamlead]`
 
-**Module:** Villa Services — Inspection
+**Module:** In-Stay Services — Inspections
 
 ## Overview
 A card-based (kanban-style) processing screen for each item flagged in an inspection report: each card shows "before/after" photos, a description of the issue, the related service/location, the person responsible for handling it, and buttons to change the processing status (start, pause, complete, request re-approval, etc.). The interface and permitted actions vary by user role (Admin/BU Manager see everything and assign work; Team Leader/handling staff see only the work assigned to them).

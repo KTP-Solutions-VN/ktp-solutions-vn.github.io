@@ -1,8 +1,8 @@
-# REN-001 — Tạo dự án cải tạo mới
+# REN-001 — Tạo dự án nâng cấp (New Refurbishment Project)
 
 **Loại:** Trang đầy đủ
 **Route:** renovation/new-project
-**Module:** REN = Cải tạo
+**Module:** REN = Nâng cấp tài sản
 
 ## Mô tả ngắn gọn
 Màn hình tạo mới một dự án cải tạo (renovation project) cho một villa: chọn đơn vị kinh doanh (business unit) và villa, nhập thông tin dự án (tiêu đề, ngày bắt đầu/kết thúc dự kiến) và khai báo danh sách hạng mục cải tạo cùng ngân sách dự kiến cho từng hạng mục.
@@ -24,11 +24,11 @@ Form tạo dự án (action `newProject`, POST về chính route này):
 | 9 | Tổng ngân sách | `total` | Text, readonly | — | Tự tính tổng các `budget[]` |
 
 ## Chức năng/nút thao tác
-- **Create**: submit form, lưu bản ghi `Renovation` + các `RenovationItem` (item/budget), sau đó chuyển hướng tới màn hình Theo dõi cải tạo (REN-002).
+- **Create**: submit form, lưu bản ghi `Renovation` + các `RenovationItem` (item/budget), sau đó chuyển hướng tới màn hình Theo dõi nâng cấp (REN-002).
 - **Thêm hạng mục mới (add-more)**: thêm một dòng `item[]`/`budget[]` mới vào bảng hạng mục.
 - Đổi **Đơn vị kinh doanh**: nạp lại danh sách villa tương ứng qua ajax.
 - Đổi **Villa**: kiểm tra villa đã có dự án cải tạo hay chưa qua ajax `getNewProjectData`.
 
 ## Điều hướng
-- Vào từ: nút "+ Tạo dự án mới" trên màn hình Theo dõi cải tạo (REN-002).
-- Đi tới: sau khi lưu thành công, chuyển tới REN-002 (Theo dõi cải tạo); nếu villa đã có dự án dở dang, có liên kết nhanh sang REN-003 (Theo dõi dự án cải tạo).
+- Vào từ: nút "+ Tạo dự án mới" trên màn hình Theo dõi nâng cấp (REN-002).
+- Đi tới: sau khi lưu thành công, chuyển tới REN-002 (Theo dõi nâng cấp); nếu villa đã có dự án dở dang, có liên kết nhanh sang REN-003 (Tiến trình dự án).

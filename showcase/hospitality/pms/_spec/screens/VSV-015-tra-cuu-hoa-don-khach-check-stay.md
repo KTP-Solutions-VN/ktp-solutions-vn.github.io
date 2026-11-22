@@ -1,10 +1,10 @@
-# VSV-015 — Tra cứu hóa đơn điện của khách (Check Stay)
+# VSV-015 — Phí điện của khách (Guest Power Charges)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `VillaServicesController::checkStay()` — mặc định `/villa-services/check-stay`; dữ liệu gợi ý bổ sung qua AJAX `getCheckStay` (không có view riêng)
 
-**Module:** Dịch vụ villa — Điện
+**Module:** Dịch vụ lưu trú — Đo điện
 
 ## Mô tả ngắn gọn
 Công cụ tra cứu nhanh dữ liệu điện của một villa theo khoảng ngày (chỉ số đầu/cuối kỳ, số tiền đã thu) hoặc theo ngày check-in cụ thể (chi tiết đầy đủ hóa đơn điện của một lượt lưu trú: số điện tiêu thụ, phí, giảm giá, số tiền đã thanh toán, phương thức thanh toán).
@@ -35,5 +35,5 @@ Kết quả hiển thị dạng cặp nhãn/giá trị: Check In Date/Meter, Che
 - **Search** (mỗi tab): submit POST tìm kiếm theo bộ lọc tương ứng.
 
 ## Điều hướng
-- Vào từ: Menu chính (mục Electricity/Check Stay).
+- Vào từ: Menu chính (mục Guest Power Charges).
 - Điều hướng đến: không có trang con.

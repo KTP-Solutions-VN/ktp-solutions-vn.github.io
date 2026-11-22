@@ -43,7 +43,7 @@
       return '<tr><td style="font-size:20px;">' + p.thumbnail + '</td>' +
         '<td class="cell-strong"><a href="../../../screens/san-pham-dich-vu/tao-chinh-sua-san-pham-dich-vu/index.html?id=' + p.id + '" class="openProductLink" data-id="' + p.id + '">' + p.name + '</a><div style="font-size:11.5px;color:var(--gray-500);font-weight:400;">' + p.category + '</div></td>' +
         '<td>' + p.type + '</td><td>' + p.bu + '</td>' +
-        '<td class="tabular-nums">SGD ' + priceLabel(p) + '</td>' +
+        '<td class="tabular-nums">AUD ' + priceLabel(p) + '</td>' +
         '<td class="tabular-nums">' + totalStock(p) + '</td>' +
         '<td>' + CJBadge(p.status, {"Draft":"neutral","Published":"success","Scheduled Unpublish":"warning","Unpublished":"error"}) + '</td>' +
         '<td class="row-actions">' +
@@ -71,7 +71,7 @@
   document.getElementById('sortSelect').addEventListener('change', function () { state.sort = this.value; render(); });
   document.getElementById('resetDemo').addEventListener('click', function () { CJStore.resetAll(STORE_KEY); CJToast('Demo data reset.'); render(); });
 
-  /* ---------------- #26 Create/Edit Product/Service drawer ---------------- */
+  /* ---------------- Catalog Item Editor drawer ---------------- */
   var editingProductId = null;
   var variantIdSeq = 0;
   CJDrawer.bind('productOverlay');
@@ -129,8 +129,8 @@
   function updatePreview() {
     var lp = parseFloat(document.getElementById('fListPrice').value) || 0;
     var sp = parseFloat(document.getElementById('fSalePrice').value) || 0;
-    document.getElementById('previewList').textContent = 'SGD ' + lp.toFixed(0);
-    document.getElementById('previewSale').textContent = 'SGD ' + (sp || lp).toFixed(0);
+    document.getElementById('previewList').textContent = 'AUD ' + lp.toFixed(0);
+    document.getElementById('previewSale').textContent = 'AUD ' + (sp || lp).toFixed(0);
   }
   document.getElementById('fListPrice').addEventListener('input', updatePreview);
   document.getElementById('fSalePrice').addEventListener('input', updatePreview);
@@ -148,7 +148,7 @@
   function openProductDrawer(id) {
     var p = id ? getData().find(function (x) { return x.id === id; }) : null;
     editingProductId = p ? p.id : null;
-    document.getElementById('pDrawerTitle').textContent = p ? 'Edit Product/Service' : 'Create Product/Service';
+    document.getElementById('pDrawerTitle').textContent = p ? 'Edit Catalog Item' : 'New Catalog Item';
     document.getElementById('fName').value = p ? p.name : '';
     document.getElementById('fType').value = p ? p.type : 'Service';
     document.getElementById('fCategory').value = p ? p.category : '';
@@ -197,7 +197,7 @@
       CJToast('"' + patch.name + '" updated.');
     } else {
       patch.id = 'PRD-NEW-' + Date.now().toString().slice(-4);
-      patch.currency = 'SGD';
+      patch.currency = 'AUD';
       patch.publishedAt = new Date().toISOString().slice(0, 10);
       patch.thumbnail = '✨';
       CJStore.addExtra(STORE_KEY, patch);

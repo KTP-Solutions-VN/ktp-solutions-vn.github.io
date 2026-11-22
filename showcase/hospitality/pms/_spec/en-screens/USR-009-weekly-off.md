@@ -1,10 +1,10 @@
-# USR-009 — Weekly Off
+# USR-009 — Weekly Rest Days
 
 **Type:** Full page
 
 **Route:** `UserController::weeklyOff()` — default `user/weeklyOff`
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 A screen for managing each staff member's fixed weekly day off (Sunday through Saturday), organized by department. The manager selects a department, the system loads the list of staff in that department (ajax `filterUser`), and allows selecting/changing each person's fixed day off (ajax `changeOff`).
@@ -29,5 +29,5 @@ A screen for managing each staff member's fixed weekly day off (Sunday through S
 - **Select Day-Off Radio:** saves immediately via ajax `changeOff`, displaying a success flash message.
 
 ## Navigation
-- Entry point: Users menu → Weekly Off, or from USR-004.
+- Entry point: Workforce menu → Weekly Rest Days, or from USR-004.
 - Navigates to: no child navigation (all actions are handled directly via ajax on this screen).

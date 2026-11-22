@@ -1,10 +1,10 @@
-# OWP-007-P1 — Popup Chi tiết công việc dọn dẹp
+# OWP-007-P1 — Chi tiết lượt dọn phòng (Housekeeping Visit Detail)
 
 **Loại:** Popup (mở từ OWP-007)
 
 **Route:** `ExternalUserController::planningTeamsDetail($id, $location)` — route dạng `.../planning-teams-detail/{villas_clean_id}/owner`, mở từ OWP-007 (tab "Cleaning") trong tab mới
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 

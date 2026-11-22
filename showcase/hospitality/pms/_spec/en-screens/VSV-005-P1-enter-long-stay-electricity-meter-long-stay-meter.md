@@ -1,10 +1,10 @@
-# VSV-005-P1 — Enter Long Stay Electricity Meter (Long Stay Meter)
+# VSV-005-P1 — Record Extended-Stay Reading
 
 **Type:** Popup (opened from VSV-005, as a separate page)
 
 **Route:** `VillaServicesController::addLongStayMeter($booking_id)` — `/villa-services/add-long-stay-meter/<booking_id>`; saved via `saveLongStayDiscount()` (POST, no dedicated view)
 
-**Module:** Villa Services — Electricity
+**Module:** In-Stay Services — Metering
 
 ## Overview
 A form for entering periodic electricity meter reading cycles for long-stay guests (`IntermediaryPayment` table, separate from the one-off `ElectricalBill` used in the short-stay flow). Each save creates a new reading period, with the previous period's end reading automatically becoming the start reading of the next.
@@ -35,4 +35,4 @@ A form for entering periodic electricity meter reading cycles for long-stay gues
 
 ## Navigation
 - Entered from: VSV-005 — "Enter" button.
-- Navigates to: back to VSV-005 (Long Stay Electricity Meter) after saving.
+- Navigates to: back to VSV-005 (Extended-Stay Metering) after saving.

@@ -1,17 +1,17 @@
-# ACC-053 — Ngày lễ (Public Holidays)
+# ACC-053 — Lịch ngày lễ (Holiday Calendar)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `AccountController::publicHolidays()` — mặc định `/account/public-holidays`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Quản lý danh sách ngày lễ công (`PublicHoliday`) theo quốc gia và năm — dữ liệu này dùng để tính hệ số lương làm thêm giờ (OT) và tác động định giá theo nhu cầu (demand-based pricing). Có lịch xem trước theo tháng với mã màu theo mức độ ảnh hưởng nhu cầu.
 
 ## Mô tả chi tiết
 
-Danh sách (DataTable `#zero_config`), sắp xếp theo `date` tăng dần, mặc định lọc theo tháng/năm hiện tại và quốc gia theo Business Unit của user (mặc định Thailand `id=18`):
+Danh sách (DataTable `#zero_config`), sắp xếp theo `date` tăng dần, mặc định lọc theo tháng/năm hiện tại và quốc gia theo Business Unit của user (mặc định Singapore `id=18`):
 
 | # | Tên cột | Field code | Ghi chú |
 |---|---|---|---|
@@ -25,7 +25,7 @@ Danh sách (DataTable `#zero_config`), sắp xếp theo `date` tăng dần, mặ
 | 8 | Actions | — | Edit, Delete |
 
 Filter:
-- **Country** (`country_id`): Thailand/France/Greece, mặc định theo BU của user.
+- **Country** (`country_id`): Singapore/France/Greece, mặc định theo BU của user.
 - **Year** (`year`): năm hiện tại tới +2 năm.
 - **Nature** (`nature` → `holiday_type`): Official/Observed/Special/Company, mặc định "All".
 - **Salary** (`salary` → `ot_multiplier`): 3.0×/2.0×/1.5×/None, mặc định "All".
@@ -43,5 +43,5 @@ Lịch xem trước (`vm-preview-calendar`): hiển thị theo `calendar_month`/
 - **Đổi Country (select2 change):** tự động submit form ngay khi chọn.
 
 ## Điều hướng
-- Vào từ: Sidebar > Account & HR > Public Holidays (`active_menu = acc-public-holidays`).
+- Vào từ: Sidebar > Finance & Admin > Holiday Calendar (`active_menu = acc-public-holidays`).
 - Điều hướng đến: ACC-053-P1 (Thêm ngày lễ), ACC-053-P2 (Sửa ngày lễ), thao tác Xóa (cùng trang, không có view riêng), thao tác Copy Public Holiday (action `copyPublicHoliday`, không có view riêng, redirect referer).

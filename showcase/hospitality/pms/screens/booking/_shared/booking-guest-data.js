@@ -89,13 +89,13 @@
      ================================================================== */
 
   BOOK.VIP_CRITERIA_DEFAULTS = {
-    'Phuket Collection': { vip: { price: 45000, link: 'OR', duration: 8 }, vip5: { price: 120000, link: 'AND', duration: 15 } },
-    'Bali Retreats': { vip: { price: 50000, link: 'AND', duration: 8 }, vip5: { price: 150000, link: 'AND', duration: 15 } },
-    'Koh Samui Estates': { vip: { price: 40000, link: 'OR', duration: 7 }, vip5: { price: 110000, link: 'AND', duration: 14 } }
+    'Sentosa Collection': { vip: { price: 1800, link: 'OR', duration: 8 }, vip5: { price: 4800, link: 'AND', duration: 15 } },
+    'Byron Bay Retreats': { vip: { price: 2000, link: 'AND', duration: 8 }, vip5: { price: 6000, link: 'AND', duration: 15 } },
+    'Noosa Estates': { vip: { price: 1600, link: 'OR', duration: 7 }, vip5: { price: 4400, link: 'AND', duration: 14 } }
   };
   BOOK.getVipCriteria = function (bu) {
     var saved = safeParse('mm_vip_criteria', {});
-    return saved[bu] || BOOK.VIP_CRITERIA_DEFAULTS[bu] || BOOK.VIP_CRITERIA_DEFAULTS['Phuket Collection'];
+    return saved[bu] || BOOK.VIP_CRITERIA_DEFAULTS[bu] || BOOK.VIP_CRITERIA_DEFAULTS['Sentosa Collection'];
   };
   BOOK.saveVipCriteria = function (bu, data) {
     var saved = safeParse('mm_vip_criteria', {});
@@ -104,15 +104,15 @@
   };
 
   BOOK.VIP_BOOKING_SEED = [
-    { bookingId: 'BK-10233', bu: 'Bali Retreats', vipStatus: 'VIP 5*', criteria: '$11,200 value · 7 nights', chat: 'green' },
-    { bookingId: 'BK-10237', bu: 'Bali Retreats', vipStatus: 'VIP', criteria: '$11,200 value · 7 nights', chat: 'blue' },
-    { bookingId: 'BK-10231', bu: 'Phuket Collection', vipStatus: 'VIP', criteria: '$8,400 value · 7 nights', chat: 'red' },
-    { bookingId: 'BK-10236', bu: 'Koh Samui Estates', vipStatus: 'VIP', criteria: '$6,300 value · 6 nights', chat: 'blue' },
-    { bookingId: 'BK-10239', bu: 'Phuket Collection', vipStatus: 'VIP', criteria: '$4,800 value (OR rule)', chat: 'green' }
+    { bookingId: 'BK-10233', bu: 'Byron Bay Retreats', vipStatus: 'VIP 5*', criteria: '$11,200 value · 7 nights', chat: 'green' },
+    { bookingId: 'BK-10237', bu: 'Byron Bay Retreats', vipStatus: 'VIP', criteria: '$11,200 value · 7 nights', chat: 'blue' },
+    { bookingId: 'BK-10231', bu: 'Sentosa Collection', vipStatus: 'VIP', criteria: '$8,400 value · 7 nights', chat: 'red' },
+    { bookingId: 'BK-10236', bu: 'Noosa Estates', vipStatus: 'VIP', criteria: '$6,300 value · 6 nights', chat: 'blue' },
+    { bookingId: 'BK-10239', bu: 'Sentosa Collection', vipStatus: 'VIP', criteria: '$4,800 value (OR rule)', chat: 'green' }
   ];
   BOOK.VIP_PREP_SEED = {
-    'BK-10233': [{ cleaning: 'Deep clean completed, all linens changed, pool serviced.', checkin: 'Welcome fruit basket and chilled champagne set up in the master suite.', author: 'Wayan Kertha', date: '2026-08-30T09:15:00' }],
-    'BK-10239': [{ cleaning: 'Standard turnover clean completed, AC units checked.', checkin: 'Villa manager briefed on guest preferences (anniversary trip).', author: 'Somchai Anuwat', date: '2026-08-26T08:40:00' }]
+    'BK-10233': [{ cleaning: 'Deep clean completed, all linens changed, pool serviced.', checkin: 'Welcome fruit basket and chilled champagne set up in the master suite.', author: 'Warren Kelly', date: '2026-08-30T09:15:00' }],
+    'BK-10239': [{ cleaning: 'Standard turnover clean completed, AC units checked.', checkin: 'Villa manager briefed on guest preferences (anniversary trip).', author: 'Daniel Tan', date: '2026-08-26T08:40:00' }]
   };
 
   BOOK.getVipBookings = function (bu) {
@@ -236,7 +236,7 @@
   };
   BOOK.saveRecommendationLog = function (villaId, comment, author) {
     var logs = safeParse('mm_recommendation_logs', {});
-    logs[villaId] = (logs[villaId] || []).concat([{ comment: comment, author: author || 'Somchai Anuwat', date: new Date().toISOString() }]);
+    logs[villaId] = (logs[villaId] || []).concat([{ comment: comment, author: author || 'Daniel Tan', date: new Date().toISOString() }]);
     safeSave('mm_recommendation_logs', logs);
   };
 
@@ -245,9 +245,9 @@
      ================================================================== */
 
   BOOK.WATCH_COUNTRIES_DEFAULT = {
-    'Phuket Collection': ['Germany', 'Sweden'],
-    'Bali Retreats': ['United Kingdom', 'Poland'],
-    'Koh Samui Estates': ['Ireland', 'Singapore']
+    'Sentosa Collection': ['Germany', 'Sweden'],
+    'Byron Bay Retreats': ['United Kingdom', 'Poland'],
+    'Noosa Estates': ['Ireland', 'Singapore']
   };
   BOOK.getWatchCountries = function (bu) {
     var saved = safeParse('mm_watch_countries', {});
@@ -280,7 +280,7 @@
   };
   BOOK.markWatchSeen = function (bookingId, byName) {
     var seenMap = safeParse('mm_watch_seen', {});
-    seenMap[bookingId] = { by: byName || 'Somchai Anuwat', at: new Date().toISOString() };
+    seenMap[bookingId] = { by: byName || 'Daniel Tan', at: new Date().toISOString() };
     safeSave('mm_watch_seen', seenMap);
   };
 

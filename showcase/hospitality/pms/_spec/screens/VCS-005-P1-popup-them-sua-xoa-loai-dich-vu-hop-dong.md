@@ -1,8 +1,8 @@
-# VCS-005-P1 — Popup Thêm/Sửa/Xóa Loại dịch vụ hợp đồng
+# VCS-005-P1 — Form gói dịch vụ (Service Bundle Form)
 
 **Loại:** Popup/Modal (mở từ VCS-005)
 **Route:** Không có route riêng — dùng chung form POST về `villa-common-setting/contract-service-types` (hidden `action`=`add`/`edit`/`delete`); kiểm tra trùng tổ hợp dịch vụ qua AJAX `villa-common-setting/check-contract-servicetype`
-**Module:** VCS = Cấu hình chung villa
+**Module:** VCS = Thuộc tính tài sản
 
 ## Mô tả ngắn gọn
 Modal Bootstrap dùng chung (`#exampleModal`) cho 3 kịch bản Thêm/Sửa/Xóa. Thay vì nhập tên, người dùng chọn 1 hoặc nhiều Dịch vụ (Service) qua checkbox — tên loại dịch vụ hợp đồng được hệ thống tự sinh từ danh sách dịch vụ đã chọn. Ở chế độ Xóa, phần nhập liệu bị ẩn.
@@ -23,5 +23,5 @@ Modal Bootstrap dùng chung (`#exampleModal`) cho 3 kịch bản Thêm/Sửa/Xó
 - Validate: bắt buộc chọn ít nhất 1 Service; kiểm tra tổ hợp dịch vụ đã tồn tại qua remote AJAX `checkContractServicetype`.
 
 ## Điều hướng
-- Mở từ: VCS-005 (nút Add new / Edit / Delete trên bảng danh sách Loại dịch vụ hợp đồng).
+- Mở từ: VCS-005 (nút Add new / Edit / Delete trên bảng Gói dịch vụ).
 - Điều hướng tới: không chuyển trang — submit xong reload lại VCS-005 (redirect `referer()`).

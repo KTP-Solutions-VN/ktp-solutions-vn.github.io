@@ -1,10 +1,10 @@
-# CMS-031 — Thêm/Sửa nội dung Arrival
+# CMS-031 — Trình sửa hướng dẫn đường đến (Getting-There Guide Editor)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::cmsArrival($id)` — mặc định `/cms/cms-arrival/:id`
 
-**Module:** CMS = Nội dung trang chủ
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Form thêm mới hoặc chỉnh sửa một bản ghi nội dung Arrival, dùng chung 1 action cho cả Add (không truyền `id`) và Edit (có `id`). Mỗi bản ghi gồm 1 tiêu đề (không đa ngôn ngữ) và 6 đoạn nội dung text đa ngôn ngữ (sân bay, bến tàu, thuê xe, di chuyển khác, mô tả check-in, mô tả lưu trú).

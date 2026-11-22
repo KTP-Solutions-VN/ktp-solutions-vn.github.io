@@ -1,8 +1,8 @@
-# VCS-004-P1 — Popup Thêm/Sửa/Xóa Dịch vụ
+# VCS-004-P1 — Form dịch vụ trong danh mục (Catalog Service Form)
 
 **Loại:** Popup/Modal (mở từ VCS-004)
 **Route:** Không có route riêng — dùng chung form POST về `villa-common-setting/services` (hidden `action`=`add`/`edit`/`delete`); kiểm tra trùng tên qua AJAX `villa-common-setting/checkservice`
-**Module:** VCS = Cấu hình chung villa
+**Module:** VCS = Thuộc tính tài sản
 
 ## Mô tả ngắn gọn
 Modal Bootstrap dùng chung (`#exampleModal`) cho 3 kịch bản Thêm/Sửa/Xóa Dịch vụ. Ở chế độ Xóa, phần nhập liệu bị ẩn.
@@ -20,5 +20,5 @@ Modal Bootstrap dùng chung (`#exampleModal`) cho 3 kịch bản Thêm/Sửa/Xó
 - Validate: `name` bắt buộc + kiểm tra trùng qua remote AJAX `checkservice`.
 
 ## Điều hướng
-- Mở từ: VCS-004 (nút Add new / Edit / Delete trên bảng danh sách Dịch vụ).
+- Mở từ: VCS-004 (nút Add new / Edit / Delete trên bảng Danh mục dịch vụ).
 - Điều hướng tới: không chuyển trang — submit xong reload lại VCS-004 (redirect `referer()`).

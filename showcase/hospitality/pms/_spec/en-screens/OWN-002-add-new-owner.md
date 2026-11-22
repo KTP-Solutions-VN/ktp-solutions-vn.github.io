@@ -1,14 +1,14 @@
-# OWN-002 — Add New Owner
+# OWN-002 — New Owner Account
 
 **Type:** Full page
 
 **Route:** `/Owner/add` (controller `Owner`, action `add($tab = null)`)
 
-**Module:** Owner Management (Admin)
+**Module:** Owner Relations (Admin)
 
 ## Overview
 
-A form for creating a new Owner in the system, including personal information, login account, role assignment, business unit in charge, avatar, and an option to send a password notification email. After saving, the system redirects to screen OWN-003 (Edit Owner) on the "Payment Details" tab.
+A form for creating a new Owner in the system, including personal information, login account, role assignment, business unit in charge, avatar, and an option to send a password notification email. After saving, the system redirects to screen OWN-003 (Edit Owner Account) on the "Payment Details" tab.
 
 ## Detailed Description
 
@@ -34,10 +34,10 @@ A form for creating a new Owner in the system, including personal information, l
 ## Functions / Actions
 
 - **Save**: saves the new owner, creating `Owner`, `UserBusinessUnit`, and `UserRole` records; sends a registration email if "Send Email" is checked; logs the activity; then redirects to OWN-003 on the "payment-details" tab.
-- **Cancel**: returns to OWN-001 (Owner List).
+- **Cancel**: returns to OWN-001 (Owner Accounts).
 
 ## Navigation
 
 - Opened from: OWN-001 ("+ Add New" button).
-- After a successful save: redirects to OWN-003 — Edit Owner (Payment Details tab, `show_page=list`).
+- After a successful save: redirects to OWN-003 — Edit Owner Account (Payment Details tab, `show_page=list`).
 - Cancel: returns to OWN-001.

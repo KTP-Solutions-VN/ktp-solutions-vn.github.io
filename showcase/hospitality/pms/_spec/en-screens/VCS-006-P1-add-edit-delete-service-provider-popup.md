@@ -1,8 +1,8 @@
-# VCS-006-P1 — Add/Edit/Delete Service Provider Popup
+# VCS-006-P1 — Approved Vendor Form
 
 **Type:** Popup/Modal (opened from VCS-006)
 **Route:** No dedicated route — uses a shared form that POSTs to `villa-common-setting/service-providers` (hidden `action`=`add`/`edit`/`delete`); duplicate-name check via AJAX `villa-common-setting/check-service-provider-name` (a custom pretty route configured in Routes.php)
-**Module:** VCS = Villa Common Settings
+**Module:** VCS = Property Attributes
 
 ## Overview
 A Bootstrap modal (`#providerModal`) covering the three Add/Edit/Delete Service Provider scenarios, comprising contact information, the type(s) of service provided (each type may carry its own display label), and the list of Business Units permitted to use the provider. In Delete mode, the input section is hidden.
@@ -33,5 +33,5 @@ A Bootstrap modal (`#providerModal`) covering the three Add/Edit/Delete Service 
 - Validation: required text/select fields; `name` is checked for duplicates via remote AJAX `checkServiceProviderName`; `business_units` requires at least 1 checkbox to be checked.
 
 ## Navigation
-- Opened from: VCS-006 ("Service Providers" tab) — Add new / Edit / Delete buttons on the list table.
+- Opened from: VCS-006 ("Approved Vendors" tab) — Add new / Edit / Delete buttons on the list table.
 - Navigates to: no page change — after submission, VCS-006 is reloaded (redirect via `referer()`).

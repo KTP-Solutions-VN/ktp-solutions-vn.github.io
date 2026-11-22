@@ -1,10 +1,10 @@
-# NOT-001 — Send Notice/Task (Notice Board)
+# NOT-001 — New Announcement
 
 **Type:** Full page
 
 **Route:** `NoticeController::noticeBoard()` — default `/notice/notice-board` (no dedicated pretty route declared in `config/Routes.php`; uses the DashedRoute fallback)
 
-**Module:** Notices
+**Module:** Announcements
 
 ## Overview
 Form allowing a user (Superadmin/Admin/Business Unit Manager, etc.) to create and send a notice/task to another staff member, associated with a business unit, a property (villa), and a service category (cleaning, gardening, maintenance, back-office, other...).
@@ -29,5 +29,5 @@ Form allowing a user (Superadmin/Admin/Business Unit Manager, etc.) to create an
 - Changes to any select field (BU, service category, assign_to, department) automatically trigger AJAX calls to reload the dependent options (no separate screen).
 
 ## Navigation
-- Accessed from: the "Assign Task" icon/button on NOT-002 (Notice List).
-- After successfully sending or canceling: redirects to NOT-002 (Notice List).
+- Accessed from: the "Assign Task" icon/button on NOT-002 (Announcements & Tasks).
+- After successfully sending or canceling: redirects to NOT-002 (Announcements & Tasks).

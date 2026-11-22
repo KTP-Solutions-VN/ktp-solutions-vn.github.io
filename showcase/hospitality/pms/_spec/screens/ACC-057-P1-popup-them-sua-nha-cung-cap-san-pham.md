@@ -1,10 +1,10 @@
-# ACC-057-P1 — Popup thêm/sửa nhà cung cấp sản phẩm
+# ACC-057-P1 — Form đơn vị cung ứng hàng hóa (Goods Vendor Form)
 
 **Loại:** Popup (mở từ ACC-057)
 
 **Route:** `AccountController::addSupplier($tab, $id, $show_page, $payment_detail_id)` — mặc định `/account/add-supplier/<tab>/<id>/<show_page>/<payment_detail_id>`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Form nhiều tab dùng chung cho cả thêm mới và sửa nhà cung cấp loại "Sản phẩm": thông tin nhà cung cấp, danh sách sản phẩm đã phân bổ (Product Allocation) và chi tiết tài khoản ngân hàng — chỉ hiện đủ 3 tab khi đã có `id` (đang sửa); khi thêm mới chỉ có tab "Suppliers".
@@ -27,7 +27,7 @@ Tab **Suppliers** (thông tin chính, element `account/suppliers`):
 | 10 | Email | `email` | Text | Có (`required`) | |
 | 11 | Messenger / Messenger ID | `messenger` / `messenger_id` | Text | Không | |
 | 12 | Currency | `currency` | Select2 | Không hiển thị bắt buộc rõ | |
-| 13 | VAT (%) | `vat` | Input number (0–100, step 0.01) | Không | |
+| 13 | GST (%) | `vat` | Input number (0–100, step 0.01) | Không | |
 | 14 | Status | `status` | Select: Active/Inactive | Có (`required`) | |
 | 15 | Business Units | `business_units[]` | Checkbox nhiều lựa chọn | Có (`required`, validate JS) | |
 
@@ -52,5 +52,5 @@ Tab **Bank Account Detail** (element `account/bank_account_detail`, chỉ hiện
 - **Cancel:** quay lại ACC-057.
 
 ## Điều hướng
-- Vào từ: ACC-057 (Nhà cung cấp sản phẩm) — nút "Add new" hoặc nút Sửa trên từng dòng.
+- Vào từ: ACC-057 (Đơn vị cung ứng hàng hóa) — nút "Add new" hoặc nút Sửa trên từng dòng.
 - Điều hướng đến: quay lại chính nó (tab `list`) sau khi lưu thành công, hoặc về ACC-057 khi Cancel.

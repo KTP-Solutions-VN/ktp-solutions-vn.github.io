@@ -1,8 +1,8 @@
-# COMP-001-P1 — Popup: Add/Edit/Delete Company or Legal Entity
+# COMP-001-P1 — Company / Branch Entity Form
 
 **Type:** Popup/Modal (opened from COMP-001)
 **Route:** No dedicated route — uses a shared POST form to `company/list` (hidden action `add`/`edit`/`delete`); duplicate-name checks via AJAX `company/checkCompany` and `company/checkSubsidiaryName`
-**Module:** COMP = Company
+**Module:** COMP = Legal Entities
 
 ## Overview
 A shared Bootstrap modal (`#exampleModal`) covering 4 scenarios: Add Company, Edit Company, Add Legal Entity (subsidiary), Edit Legal Entity, plus 1 delete-confirmation scenario shared by both types. The form content is dynamically shown/hidden via JS depending on the `data-button_name` of the triggering button (`company` or `company_subsidiary`).

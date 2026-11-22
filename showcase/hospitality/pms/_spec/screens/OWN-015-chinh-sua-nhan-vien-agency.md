@@ -1,10 +1,10 @@
-# OWN-015 — Chỉnh sửa nhân viên Agency
+# OWN-015 — Sửa người dùng đại lý (Edit Agency User)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `/Owner/editAgencyStaff/{id}` (controller `Owner`, action `editAgencyStaff($id)`)
 
-**Module:** Quản lý chủ sở hữu (Admin)
+**Module:** Quan hệ chủ nhà (Admin)
 
 ## Mô tả ngắn gọn
 
@@ -32,7 +32,7 @@ Form chỉnh sửa thông tin một tài khoản nhân viên Agency đã tồn t
 
 ## Chức năng/nút thao tác
 
-- **Save**: cập nhật `AgencyStaff`; xoá và ghi lại toàn bộ `UserBusinessUnit`/`UserRole` liên quan; ghi log hoạt động; sau đó chuyển hướng tới OWN-013 (Danh sách nhân viên Agency).
+- **Save**: cập nhật `AgencyStaff`; xoá và ghi lại toàn bộ `UserBusinessUnit`/`UserRole` liên quan; ghi log hoạt động; sau đó chuyển hướng tới OWN-013 (Người dùng của đại lý).
 - **Cancel**: quay lại OWN-013.
 
 ## Điều hướng

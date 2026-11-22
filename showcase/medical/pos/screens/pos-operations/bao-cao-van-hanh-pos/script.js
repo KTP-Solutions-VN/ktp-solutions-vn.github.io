@@ -1,7 +1,7 @@
 (function () {
   function money(n) { return POS.fmtCurrency(n); }
 
-  /* ---------------- Daily Sales Summary ---------------- */
+  /* ---------------- Day-End Sales ---------------- */
   function renderSummary() {
     const txns = POS.getTransactions();
     const completed = txns.filter(t => t.status === 'Completed');
@@ -9,7 +9,7 @@
     const avgBasket = completed.length ? totalSales / completed.length : 0;
     const overrideCount = completed.reduce((s, t) => s + t.items.filter(i => i.override).length, 0);
 
-    const byMethod = { Cash: 0, Card: 0, NETS: 0 };
+    const byMethod = { Cash: 0, Card: 0, EFTPOS: 0 };
     completed.forEach(t => { byMethod[t.paymentMethod] = (byMethod[t.paymentMethod] || 0) + t.total; });
     const maxMethod = Math.max(...Object.values(byMethod), 1);
 
@@ -34,7 +34,7 @@
     `;
   }
 
-  /* ---------------- Session Closing Reports ---------------- */
+  /* ---------------- Shift Close-Outs ---------------- */
   function renderSession() {
     const session = POS.getSession();
     const txns = POS.getTransactions().filter(t => t.status === 'Completed');
@@ -59,11 +59,11 @@
         </table>
       </div>
       <p class="text-caption text-muted mt-3">Expected cash in drawer for the current session: <b>${money(expected)}</b> (opening float ${money(session.openingFloat)} + cash sales ${money(cashSales)}).
-      ${session.status !== 'closed' ? ' <a href="../dong-ca-thu-ngan/index.html" style="color:var(--primary);font-weight:600;">Go to Cashier Session Closing →</a>' : ''}</p>
+      ${session.status !== 'closed' ? ' <a href="../dong-ca-thu-ngan/index.html" style="color:var(--primary);font-weight:600;">Go to Shift Close-Out →</a>' : ''}</p>
     `;
   }
 
-  /* ---------------- Detailed Transactions ---------------- */
+  /* ---------------- Transaction Log ---------------- */
   let txnSearch = '';
   let txnMethodFilter = 'All';
   function renderTransactions() {
@@ -78,7 +78,7 @@
           <button class="chip is-selected" data-method="All">All</button>
           <button class="chip" data-method="Cash">Cash</button>
           <button class="chip" data-method="Card">Card</button>
-          <button class="chip" data-method="NETS">NETS</button>
+          <button class="chip" data-method="EFTPOS">EFTPOS</button>
         </div>
       </div>
       <div class="table-wrap"><table class="data-table">
@@ -99,7 +99,7 @@
         if (t.status === 'Voided') flags.push('<span class="badge badge-error">Voided</span>');
         if (t.items.some(i => i.override)) flags.push('<span class="badge badge-override">Override</span>');
         if (t.linkedPrescriptionId) flags.push('<span class="badge badge-info">Rx</span>');
-        if (t.loyaltyPointsRedeemed) flags.push('<span class="badge badge-success">⭐ ' + t.loyaltyPointsRedeemed.toLocaleString('en-SG') + ' pts</span>');
+        if (t.loyaltyPointsRedeemed) flags.push('<span class="badge badge-success">⭐ ' + t.loyaltyPointsRedeemed.toLocaleString('en-AU') + ' pts</span>');
         if (t.promoCode) flags.push('<span class="badge badge-neutral">' + t.promoCode + '</span>');
         return `<tr>
           <td class="cell-strong">${t.transactionNo}</td>
@@ -122,7 +122,7 @@
     paint();
   }
 
-  /* ---------------- Patient & Medication Trends ---------------- */
+  /* ---------------- Dispensing Trends ---------------- */
   function renderPatients() {
     const rx = POS.getPrescriptions();
     const trend = {};
@@ -171,12 +171,12 @@
       'Partially Dispensed': 'badge-warning',
       'Fully Dispensed': 'badge-info',
       'Counseling Documented': 'badge-info',
-      'NEHR Submitted': 'badge-success',
+      'Record Submitted': 'badge-success',
     };
     return `<span class="badge ${map[status] || 'badge-neutral'}">${status}</span>`;
   }
 
-  /* ---------------- NEHR Submission Log ---------------- */
+  /* ---------------- Health Record Uploads ---------------- */
   let nehrFilter = 'All';
   function renderNehr() {
     const panel = document.getElementById('panel-nehr');
@@ -187,7 +187,7 @@
         <button class="chip" data-nehr="Pending">Pending</button>
       </div>
       <div class="table-wrap"><table class="data-table">
-        <thead><tr><th>Prescription</th><th>Patient</th><th>Medication</th><th>Status</th><th>Submitted At</th><th>NEHR Reference</th></tr></thead>
+        <thead><tr><th>Prescription</th><th>Patient</th><th>Medication</th><th>Status</th><th>Submitted At</th><th>Health Record Ref.</th></tr></thead>
         <tbody id="nehrTableBody"></tbody>
       </table></div>
     `;

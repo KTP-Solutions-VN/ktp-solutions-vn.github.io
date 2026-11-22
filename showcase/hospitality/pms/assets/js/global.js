@@ -261,14 +261,14 @@
   /* ---------------------------------------------------------------- */
 
   window.MM.MOCK_PROPERTIES = [
-    { id: 'PV-101', name: 'Villa Sapphire Cliff', bu: 'Phuket Collection', concierge: 'Somchai A.', photosComplete: true, onboarding: 'live', bedrooms: 5, status: 'active' },
-    { id: 'PV-102', name: 'Villa Coral Horizon', bu: 'Phuket Collection', concierge: 'Somchai A.', photosComplete: true, onboarding: 'live', bedrooms: 4, status: 'active' },
-    { id: 'PV-103', name: 'Villa Emerald Bay', bu: 'Bali Retreats', concierge: null, photosComplete: true, onboarding: 'live', bedrooms: 6, status: 'active' },
-    { id: 'PV-104', name: 'Villa Azure Ridge', bu: 'Bali Retreats', concierge: 'Wayan K.', photosComplete: false, onboarding: 'live', bedrooms: 3, status: 'active' },
-    { id: 'PV-105', name: 'Villa Marble Cove', bu: 'Phuket Collection', concierge: 'Somchai A.', photosComplete: false, onboarding: 'onboarding', bedrooms: 5, status: 'onboarding' },
-    { id: 'PV-106', name: 'Villa Lotus Terrace', bu: 'Koh Samui Estates', concierge: 'Nok P.', photosComplete: true, onboarding: 'live', bedrooms: 4, status: 'active' },
-    { id: 'PV-107', name: 'Villa Golden Palm', bu: 'Koh Samui Estates', concierge: null, photosComplete: false, onboarding: 'onboarding', bedrooms: 3, status: 'onboarding' },
-    { id: 'PV-108', name: 'Villa Silver Tide', bu: 'Bali Retreats', concierge: 'Wayan K.', photosComplete: true, onboarding: 'live', bedrooms: 7, status: 'active' }
+    { id: 'PV-101', name: 'Villa Sapphire Cliff', bu: 'Sentosa Collection', concierge: 'Daniel T.', photosComplete: true, onboarding: 'live', bedrooms: 5, status: 'active' },
+    { id: 'PV-102', name: 'Villa Coral Horizon', bu: 'Sentosa Collection', concierge: 'Daniel T.', photosComplete: true, onboarding: 'live', bedrooms: 4, status: 'active' },
+    { id: 'PV-103', name: 'Villa Emerald Bay', bu: 'Byron Bay Retreats', concierge: null, photosComplete: true, onboarding: 'live', bedrooms: 6, status: 'active' },
+    { id: 'PV-104', name: 'Villa Azure Ridge', bu: 'Byron Bay Retreats', concierge: 'Warren K.', photosComplete: false, onboarding: 'live', bedrooms: 3, status: 'active' },
+    { id: 'PV-105', name: 'Villa Marble Cove', bu: 'Sentosa Collection', concierge: 'Daniel T.', photosComplete: false, onboarding: 'onboarding', bedrooms: 5, status: 'onboarding' },
+    { id: 'PV-106', name: 'Villa Lotus Terrace', bu: 'Noosa Estates', concierge: 'Nicole P.', photosComplete: true, onboarding: 'live', bedrooms: 4, status: 'active' },
+    { id: 'PV-107', name: 'Villa Golden Palm', bu: 'Noosa Estates', concierge: null, photosComplete: false, onboarding: 'onboarding', bedrooms: 3, status: 'onboarding' },
+    { id: 'PV-108', name: 'Villa Silver Tide', bu: 'Byron Bay Retreats', concierge: 'Warren K.', photosComplete: true, onboarding: 'live', bedrooms: 7, status: 'active' }
   ];
 
   window.MM.MOCK_OWNERS = [
@@ -286,11 +286,11 @@
   ];
 
   window.MM.MOCK_STAFF = [
-    { id: 'STF-01', name: 'Somchai Anuwat', role: 'Concierge', team: 'Phuket Collection' },
-    { id: 'STF-02', name: 'Wayan Kertha', role: 'Concierge', team: 'Bali Retreats' },
-    { id: 'STF-03', name: 'Nok Pattaya', role: 'Concierge', team: 'Koh Samui Estates' },
-    { id: 'STF-04', name: 'Kanya Srisawat', role: 'Housekeeping Lead', team: 'Phuket Collection' },
-    { id: 'STF-05', name: 'Budi Santoso', role: 'Maintenance Technician', team: 'Bali Retreats' }
+    { id: 'STF-01', name: 'Daniel Tan', role: 'Concierge', team: 'Sentosa Collection' },
+    { id: 'STF-02', name: 'Warren Kelly', role: 'Concierge', team: 'Byron Bay Retreats' },
+    { id: 'STF-03', name: 'Nicole Parker', role: 'Concierge', team: 'Noosa Estates' },
+    { id: 'STF-04', name: 'Karen Seah', role: 'Housekeeping Lead', team: 'Sentosa Collection' },
+    { id: 'STF-05', name: 'Ben Sullivan', role: 'Maintenance Technician', team: 'Byron Bay Retreats' }
   ];
 
   window.MM.MOCK_BOOKINGS = [
@@ -302,9 +302,9 @@
   ];
 
   window.MM.MOCK_VENDORS = [
-    { id: 'VND-01', name: 'Andaman Pool Services', category: 'Maintenance', status: 'active' },
-    { id: 'VND-02', name: 'Bali Bloom Gardens', category: 'Garden/Pool', status: 'active' },
-    { id: 'VND-03', name: 'Phuket Frame Photography', category: 'Photography', status: 'active' },
-    { id: 'VND-04', name: 'Siam Linen Supply', category: 'Housekeeping', status: 'inactive' }
+    { id: 'VND-01', name: 'Coral Pool Services', category: 'Maintenance', status: 'active' },
+    { id: 'VND-02', name: 'Byron Bloom Gardens', category: 'Garden/Pool', status: 'active' },
+    { id: 'VND-03', name: 'Sentosa Frame Photography', category: 'Photography', status: 'active' },
+    { id: 'VND-04', name: 'Straits Linen Supply', category: 'Housekeeping', status: 'inactive' }
   ];
 })();

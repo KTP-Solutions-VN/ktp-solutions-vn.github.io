@@ -1,10 +1,10 @@
-# BU-008-P1 — Popup Nhập/Cập nhật tỷ giá
+# BU-008-P1 — Nhập tỷ giá (FX Rate Entry)
 
 **Loại:** Popup (mở từ BU-008)
 
 **Route:** Modal Bootstrap (`#exampleModal`) tĩnh trong `rates.ctp`; submit POST cùng action `BusinessUnitController::rates()`.
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Popup nhập giá trị quy đổi của một tiền tệ so với tiền tệ tham chiếu, cho kỳ (tháng) cụ thể hoặc cho dự báo (forecast) của tháng hiện tại.

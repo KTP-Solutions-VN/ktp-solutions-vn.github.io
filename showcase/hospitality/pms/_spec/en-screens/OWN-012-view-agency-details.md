@@ -1,10 +1,10 @@
-# OWN-012 — View Agency Details
+# OWN-012 — Partner Agency Profile
 
 **Type:** Popup (opened from OWN-009)
 
 **Route:** `/Owner/viewAgencyDetails/{id}` (controller `Owner`, action `viewAgencyDetails($id)`)
 
-**Module:** Owner Management (Admin)
+**Module:** Owner Relations (Admin)
 
 ## Overview
 

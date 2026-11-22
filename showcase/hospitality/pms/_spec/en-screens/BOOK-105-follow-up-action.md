@@ -1,4 +1,4 @@
-# BOOK-105 — Follow Up Action
+# BOOK-105 — Adjustment Follow-up
 
 **Type:** Full page (opened from BOOK-103)
 
@@ -6,7 +6,7 @@
 
 **Friendly route:** no dedicated route found in config/Routes.php
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 

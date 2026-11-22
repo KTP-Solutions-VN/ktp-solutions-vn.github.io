@@ -1,11 +1,11 @@
-# PROP-019 — Add New Photo Shoot Schedule
+# PROP-019 — Schedule a Shoot
 
 **Type:** Full page
 **Route:** property/new-shooting
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
-Form for creating a new photo shoot schedule (Photography) for a Property/Residence/Unit, selecting a photographer (Service Provider of the photography type), the shoot date, and notes. This is the legacy version of the feature, independent from the new "Photography Planning" workflow (PROP-026).
+Form for creating a new photo shoot schedule (Photography) for a Property/Residence/Unit, selecting a photographer (Service Provider of the photography type), the shoot date, and notes. This is the legacy version of the feature, independent from the new "Shoot Scheduler" workflow (PROP-026).
 
 ## Detailed Description
 | # | Field Label | Field Code | Data Type / Input | Required | Notes |
@@ -26,6 +26,6 @@ Form for creating a new photo shoot schedule (Photography) for a Property/Reside
 - Changing Business Unit automatically triggers 3 AJAX calls: `common/getBusinessUnitVilla`, `property/getResidence`, `common/getUnits`, `property/getPhotographer` to reload the dependent dropdowns.
 
 ## Navigation
-- Opened from: PROP-026 (Photography Planning) — "New Photo Shoot" button; can also be opened directly from the legacy Photography menu.
+- Opened from: PROP-026 (Shoot Scheduler) — "New Photo Shoot" button; can also be opened directly from the legacy Shoots menu.
 - Navigates to: `Property::shootings` (photo shoot schedule list — outside the scope of the current spec) after saving.
 - Child popup: none.

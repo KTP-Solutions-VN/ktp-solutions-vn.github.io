@@ -1,10 +1,10 @@
-# LOG-002 — Reset Password
+# LOG-002 — Set New Password
 
 **Type:** Full page
 
 **Route:** `LoginController::resetPassword($token)` — default `login/resetPassword/:token`; friendly route: `/reset-password/:token`
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 A page allowing users to set a new password after clicking the link in the forgot-password email (LOG-001-P1). The token is valid for 1 day from the time of the request; if the token has expired or is invalid, the form is not displayed and only an error message is shown.
@@ -22,4 +22,4 @@ A page allowing users to set a new password after clicking the link in the forgo
 
 ## Navigation
 - Entry point: link in the forgot-password email (originating from LOG-001-P1).
-- Navigates to: LOG-001 (Login) after the password has been successfully reset.
+- Navigates to: LOG-001 (Sign In) after the password has been successfully reset.

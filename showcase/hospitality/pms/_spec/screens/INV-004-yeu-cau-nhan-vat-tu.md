@@ -1,10 +1,10 @@
-# INV-004 — Yêu cầu nhận vật tư
+# INV-004 — Yêu cầu nhập hàng (Incoming Stock Requests)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `InventoryController::itemRequest()` — `/inventory/item-request`
 
-**Module:** INV = Kho vật tư
+**Module:** INV = Kiểm soát kho
 
 ## Mô tả ngắn gọn
 Danh sách các yêu cầu nhận vật tư từ Villa (`InventoryItemRequest`), cho phép duyệt để chuyển vật tư từ kho tổng của đơn vị kinh doanh xuống villa.
@@ -29,5 +29,5 @@ Không có bộ lọc riêng.
 - **Duyệt (dấu tick)**: mở popup INV-004-P1 để xác nhận số lượng và duyệt chuyển kho.
 
 ## Điều hướng
-- Vào từ: menu Kho vật tư (`active_menu = 152`).
+- Vào từ: menu Kiểm soát kho (`active_menu = 152`).
 - Điều hướng đến: popup INV-004-P1.

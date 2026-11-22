@@ -1,4 +1,4 @@
-/* Screen-specific overrides: Product Detail (#4) */
+/* Screen-specific overrides: Item Details */
 @media (max-width: 900px) {
   #pdp-root { grid-template-columns: 1fr !important; }
 }

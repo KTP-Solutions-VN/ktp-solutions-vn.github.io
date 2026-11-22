@@ -4,8 +4,8 @@
   var DELETE_KEY = 'mm_cms_collections_deleted';
 
   var MOCK = [
-    { id: 'GCW-01', title: 'Andaman Beachfront Collection', url: 'https://azurastays.example/themes/andaman-beachfront', created: '2026-04-02 09:15' },
-    { id: 'GCW-02', title: 'Bali Rice Terrace Retreats', url: 'https://azurastays.example/themes/bali-rice-terrace', created: '2026-05-18 14:40' },
+    { id: 'GCW-01', title: 'Coral Beachfront Collection', url: 'https://azurastays.example/themes/coral-beachfront', created: '2026-04-02 09:15' },
+    { id: 'GCW-02', title: 'Byron Hinterland Retreats', url: 'https://azurastays.example/themes/byron-hinterland', created: '2026-05-18 14:40' },
     { id: 'GCW-03', title: 'Family-Friendly Villas', url: 'https://azurastays.example/themes/family-friendly', created: '2026-06-10 11:22' },
     { id: 'GCW-04', title: 'Wedding & Celebration Villas', url: 'https://azurastays.example/themes/wedding-celebration', created: '2026-07-05 16:05' },
     { id: 'GCW-05', title: 'Pet-Friendly Escapes', url: 'https://azurastays.example/themes/pet-friendly', created: '2026-08-01 10:30' }
@@ -81,7 +81,7 @@
 
   function openDrawer(record) {
     editingRecord = record || null;
-    document.getElementById('collection-drawer-title').textContent = record ? 'Edit Collection Website' : 'Add Collection Website';
+    document.getElementById('collection-drawer-title').textContent = record ? 'Edit Themed Site' : 'Add Themed Site';
     document.getElementById('save-btn').textContent = record ? 'Save Changes' : 'Save';
     document.getElementById('collection-form').reset();
     if (record) {

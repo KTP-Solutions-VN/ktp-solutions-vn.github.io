@@ -1,10 +1,10 @@
-# CS-006 — Residence (Khu residence)
+# CS-006 — Thiết lập khu căn hộ (Residence Setup)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CommonSettingController::residences()` — mặc định `/common-setting/residences`
 
-**Module:** CS = Danh mục dùng chung
+**Module:** CS = Dữ liệu tham chiếu
 
 ## Mô tả ngắn gọn
 Danh sách quản lý danh mục Residence (khu/cụm bất động sản) — cấp con của Area, có ảnh đại diện, thông tin liên hệ và mã riêng, dùng làm cha cho danh mục Unit (CS-008).
@@ -32,5 +32,5 @@ Danh sách (DataTable `#zero_config`, sắp xếp theo Country > Region > Distri
 - Kiểm tra trùng lặp: khi Thêm/Sửa, hệ thống kiểm tra server-side tổ hợp (`country_id`,`region_id`,`district_id`,`area_id`,`name`) đã tồn tại chưa (`checkResidence`), nếu trùng sẽ báo lỗi và không lưu.
 
 ## Điều hướng
-- Vào từ: menu Cài đặt hệ thống > Danh mục dùng chung > Residence.
-- Điều hướng đến: CS-006-P1 (popup Thêm/Sửa/Xóa residence); dữ liệu Residence được dùng làm dropdown cha ở CS-008 (Unit).
+- Vào từ: menu Cấu hình > Dữ liệu tham chiếu > Residence Setup.
+- Điều hướng đến: CS-006-P1 (popup Form khu căn hộ); dữ liệu Residence được dùng làm dropdown cha ở CS-008 (Thiết lập căn).

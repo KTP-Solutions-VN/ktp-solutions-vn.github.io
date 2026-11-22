@@ -1,8 +1,8 @@
-# BOOK-032 — Check-in
+# BOOK-032 — On-site Check-in
 
 **Type:** Full page
 **Route:** Booking/checkIn (default: `/booking/check-in`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 A list of villas/bookings pending check-in for the day, allowing staff to select one to begin the on-site check-in process (confirming GPS location before proceeding to the detailed workflow).
@@ -17,8 +17,8 @@ A list of villas/bookings pending check-in for the day, allowing staff to select
 Hidden fields: `lat`, `lon` (device GPS coordinates), `date` — submitted along with the request when starting the process.
 
 ## Functions / Actions
-- Select a villa to begin the check-in process (GPS confirmation) → navigates to BOOK-033 (Check-in Progress)
+- Select a villa to begin the check-in process (GPS confirmation) → navigates to BOOK-033 (Check-in Tracker)
 
 ## Navigation
-- Opened from: Booking module menu > Check-in (for on-site staff/concierge)
-- Navigates to: BOOK-033 (Check-in Progress)
+- Opened from: Reservations module menu > On-site Check-in (for on-site staff/concierge)
+- Navigates to: BOOK-033 (Check-in Tracker)

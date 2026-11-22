@@ -1,10 +1,10 @@
-# CS-007 — Loại địa điểm (Location Types)
+# CS-007 — Thẻ vị trí (Location Tags)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CommonSettingController::locationTypes()` — mặc định `/common-setting/location-types`
 
-**Module:** CS = Danh mục dùng chung
+**Module:** CS = Dữ liệu tham chiếu
 
 ## Mô tả ngắn gọn
 Danh sách quản lý danh mục Loại địa điểm villa (`VillaLocationType`) — ví dụ: Beachfront, Hillside, City center...
@@ -26,5 +26,5 @@ Danh sách (DataTable `#zero_config`, sắp xếp theo `name` giảm dần):
 - **Xóa:** mở popup CS-007-P1 ở chế độ xác nhận xóa.
 
 ## Điều hướng
-- Vào từ: menu Cài đặt hệ thống > Danh mục dùng chung > Loại địa điểm.
-- Điều hướng đến: CS-007-P1 (popup Thêm/Sửa/Xóa loại địa điểm).
+- Vào từ: menu Cấu hình > Dữ liệu tham chiếu > Thẻ vị trí.
+- Điều hướng đến: CS-007-P1 (popup Form thẻ vị trí).

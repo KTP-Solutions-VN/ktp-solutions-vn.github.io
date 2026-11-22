@@ -1,10 +1,10 @@
-# BU-019-P1 — Popup: Confirm Bank Deletion
+# BU-019-P1 — Confirm Bank Deletion
 
 **Type:** Popup (opened from BU-019)
 
 **Route:** Static Bootstrap modal (`#exampleModal`) within `banks.ctp`; confirmation navigates to `BusinessUnitController::deleteBank($id)` — `/business-unit/delete-bank/{id}` (id base64-encoded).
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A confirmation popup shown before permanently deleting a bank.
@@ -20,5 +20,5 @@ A confirmation popup shown before permanently deleting a bank.
 - **Cancel:** closes the modal without deleting.
 
 ## Navigation
-- Opened from: BU-019 (bank list) — Delete icon on each row.
+- Opened from: BU-019 (Bank Directory) — Delete icon on each row.
 - After confirmation: redirects back to BU-019.

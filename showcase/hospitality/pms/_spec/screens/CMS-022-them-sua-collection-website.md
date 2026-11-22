@@ -1,10 +1,10 @@
-# CMS-022 — Thêm/Sửa Collection Website
+# CMS-022 — Trình sửa trang chủ đề (Themed Site Editor)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::collectionWebsiteEdit($id)` — mặc định `/cms/collection-website-edit/:id`
 
-**Module:** CMS = Nội dung trang chủ
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Form thêm mới hoặc chỉnh sửa một Collection Website (`GuestCollectionWebsite`), gồm tên hiển thị và URL công khai của trang bộ sưu tập villa.
@@ -31,5 +31,5 @@ Khi không có `id` (chế độ Thêm mới): form trống, `url` hiển thị 
 - **Reset:** đưa form về trạng thái mặc định (HTML reset, không gọi server).
 
 ## Điều hướng
-- Vào từ: CMS-021 (danh sách Collection Website) — nút "Add Collection" (thêm mới, không kèm `id`) hoặc link "Edit" trên từng dòng (kèm `id`).
-- Điều hướng đến: sau khi Save (thành công hoặc lỗi) đều quay lại CMS-021 (danh sách Collection Website).
+- Vào từ: CMS-021 (Trang chủ đề) — nút "Add Collection" (thêm mới, không kèm `id`) hoặc link "Edit" trên từng dòng (kèm `id`).
+- Điều hướng đến: sau khi Save (thành công hoặc lỗi) đều quay lại CMS-021 (Trang chủ đề).

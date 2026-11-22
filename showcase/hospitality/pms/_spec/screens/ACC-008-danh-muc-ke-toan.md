@@ -1,10 +1,10 @@
-# ACC-008 — Danh mục kế toán (Accounting Categories)
+# ACC-008 — Nhóm bút toán (Entry Categories)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `AccountController::accountingCategories()` — mặc định `/account/accounting-categories`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Quản lý danh mục "Accounting Category" dùng để phân loại các bút toán sao kê (`AccountStatement.category_id`). Chỉ Superadmin thấy mục này trong menu. Thêm/Sửa/Xóa qua một popup dùng chung trên cùng trang.
@@ -34,5 +34,5 @@ Popup thêm/sửa/xóa (modal `#exampleModal`):
 - Validate ẩn: action `checkAccountingCategory()` — AJAX kiểm tra tên danh mục đã tồn tại (qua `_checkFields` khi thêm mới, `_checkExistingFields` khi sửa).
 
 ## Điều hướng
-- Vào từ: Sidebar > nhóm "Statements" > "Accounting Categories" (chỉ hiển thị khi `user_type = Superadmin` và `filterSidebar($user, 'Account-accountCategory') == 1`).
+- Vào từ: Sidebar > nhóm "Ledgers" > "Entry Categories" (chỉ hiển thị khi `user_type = Superadmin` và `filterSidebar($user, 'Account-accountCategory') == 1`).
 - Điều hướng đến: không điều hướng sang trang khác — toàn bộ thao tác Thêm/Sửa/Xóa xử lý ngay trên trang qua popup.

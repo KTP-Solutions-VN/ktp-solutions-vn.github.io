@@ -1,10 +1,10 @@
-# EMT-003 — Sửa mẫu email (Edit Email Template)
+# EMT-003 — Trình sửa mẫu email (Email Template Editor)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `EmailTemplateController::edit($id)` — mặc định `/email-template/edit/:id` (id mã hóa base64)
 
-**Module:** EMT = Mẫu email
+**Module:** EMT = Thư viện email
 
 ## Mô tả ngắn gọn
 Form chỉnh sửa tiêu đề và nội dung một mẫu email đã tồn tại. Mục đích sử dụng (Template For) và Ngôn ngữ chỉ hiển thị, không cho sửa.
@@ -23,5 +23,5 @@ Form chỉnh sửa tiêu đề và nội dung một mẫu email đã tồn tại
 - **Cancel (reset):** khôi phục giá trị ban đầu trên form (reset, không điều hướng).
 
 ## Điều hướng
-- Mở từ: icon Edit trên EMT-001 (Danh sách mẫu email).
+- Mở từ: icon Edit trên EMT-001 (Thư viện email).
 - Sau khi lưu: chuyển tới EMT-001. Nếu id không hợp lệ: quay lại trang trước (`referer`).

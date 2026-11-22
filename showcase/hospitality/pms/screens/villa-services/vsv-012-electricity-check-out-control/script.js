@@ -8,13 +8,13 @@
   MM.MOCK_PROPERTIES.forEach(function (p) { nameToId[p.name] = p.id; });
 
   var ROWS = [
-    { id: 'BK-50601', property: 'Villa Sapphire Cliff', guest: 'James Whitfield', channel: 'Direct', checkIn: '2026-08-26', checkInStatus: 'done', checkOut: TODAY, concierge: 'Somchai Anuwat', status: 'collected', meter: 4210, amount: 2635, discount: false, discountApproved: false, confirmed: true },
-    { id: 'BK-50602', property: 'Villa Coral Horizon', guest: 'Anna Kowalski', channel: 'Booking.com', checkIn: '2026-08-29', checkInStatus: 'done', checkOut: TODAY, concierge: 'Somchai Anuwat', status: 'pending', meter: 3860, amount: 2080, discount: false, discountApproved: false, confirmed: false },
-    { id: 'BK-50603', property: 'Villa Emerald Bay', guest: 'Michael Tan', channel: 'Airbnb', checkIn: '2026-08-30', checkInStatus: 'done', checkOut: TODAY, concierge: 'Wayan Kertha', status: 'pending', meter: 5120, amount: 2024, discount: true, discountApproved: false, confirmed: false },
-    { id: 'BK-50604', property: 'Villa Marble Cove', guest: 'Sophia Rossi', channel: 'Direct', checkIn: '2026-08-25', checkInStatus: 'not-done', checkOut: TODAY, concierge: 'Somchai Anuwat', status: 'blocked', meter: null, amount: null, discount: false, discountApproved: false, confirmed: false },
-    { id: 'BK-50605', property: 'Villa Lotus Terrace', guest: 'David Chen', channel: 'Agoda', checkIn: '2026-08-28', checkInStatus: 'done', checkOut: '2026-09-01', concierge: 'Nok Pattaya', status: 'done-late', meter: 2990, amount: 2076, discount: false, discountApproved: false, confirmed: true },
-    { id: 'BK-50606', property: 'Villa Golden Palm', guest: 'Priya Nair', channel: 'Direct', checkIn: '2026-08-31', checkInStatus: 'done-late', checkOut: TODAY, concierge: 'Nok Pattaya', status: 'collected', meter: 1780, amount: 600, discount: true, discountApproved: true, confirmed: true },
-    { id: 'BK-50607', property: 'Villa Silver Tide', guest: 'Isabelle Moreau', channel: 'Direct', checkIn: '2026-08-24', checkInStatus: 'done', checkOut: TODAY, concierge: 'Wayan Kertha', status: 'pending', meter: 6040, amount: 900, discount: false, discountApproved: false, confirmed: false }
+    { id: 'BK-50601', property: 'Villa Sapphire Cliff', guest: 'James Whitfield', channel: 'Direct', checkIn: '2026-08-26', checkInStatus: 'done', checkOut: TODAY, concierge: 'Daniel Tan', status: 'collected', meter: 4210, amount: 105, discount: false, discountApproved: false, confirmed: true },
+    { id: 'BK-50602', property: 'Villa Coral Horizon', guest: 'Anna Kowalski', channel: 'Booking.com', checkIn: '2026-08-29', checkInStatus: 'done', checkOut: TODAY, concierge: 'Daniel Tan', status: 'pending', meter: 3860, amount: 83, discount: false, discountApproved: false, confirmed: false },
+    { id: 'BK-50603', property: 'Villa Emerald Bay', guest: 'Michael Tan', channel: 'Airbnb', checkIn: '2026-08-30', checkInStatus: 'done', checkOut: TODAY, concierge: 'Warren Kelly', status: 'pending', meter: 5120, amount: 88, discount: true, discountApproved: false, confirmed: false },
+    { id: 'BK-50604', property: 'Villa Marble Cove', guest: 'Sophia Rossi', channel: 'Direct', checkIn: '2026-08-25', checkInStatus: 'not-done', checkOut: TODAY, concierge: 'Daniel Tan', status: 'blocked', meter: null, amount: null, discount: false, discountApproved: false, confirmed: false },
+    { id: 'BK-50605', property: 'Villa Lotus Terrace', guest: 'David Chen', channel: 'Agoda', checkIn: '2026-08-28', checkInStatus: 'done', checkOut: '2026-09-01', concierge: 'Nicole Parker', status: 'done-late', meter: 2990, amount: 90, discount: false, discountApproved: false, confirmed: true },
+    { id: 'BK-50606', property: 'Villa Golden Palm', guest: 'Priya Nair', channel: 'Direct', checkIn: '2026-08-31', checkInStatus: 'done-late', checkOut: TODAY, concierge: 'Nicole Parker', status: 'collected', meter: 1780, amount: 26, discount: true, discountApproved: true, confirmed: true },
+    { id: 'BK-50607', property: 'Villa Silver Tide', guest: 'Isabelle Moreau', channel: 'Direct', checkIn: '2026-08-24', checkInStatus: 'done', checkOut: TODAY, concierge: 'Warren Kelly', status: 'pending', meter: 6040, amount: 39, discount: false, discountApproved: false, confirmed: false }
   ];
 
   function loadOverrides() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch (e) { return {}; } }
@@ -66,7 +66,7 @@
     document.getElementById('kpi-pending').textContent = pending;
     document.getElementById('kpi-discounts').textContent = discounts;
     document.getElementById('kpi-collected').textContent = collected;
-    document.getElementById('kpi-amount').textContent = VSV.fmtMoney(amount, 'THB');
+    document.getElementById('kpi-amount').textContent = VSV.fmtMoney(amount, 'SGD');
   }
 
   function actionButtons(entry) {

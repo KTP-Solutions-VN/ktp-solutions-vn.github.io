@@ -1,10 +1,10 @@
-# OWP-017-P2 — Edit Direct Booking Request Popup
+# OWP-017-P2 — Edit Stay Request
 
 **Type:** Popup (opened from OWP-017)
 
 **Route:** `ExternalUserController::editDirectBooking($id)` — no dedicated friendly route, opened from the edit icon on OWP-017 (default `/external-user/edit-direct-booking/{id_base64}`)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 

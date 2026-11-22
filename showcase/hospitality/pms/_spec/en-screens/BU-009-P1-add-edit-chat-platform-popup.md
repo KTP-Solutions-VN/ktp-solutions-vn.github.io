@@ -1,10 +1,10 @@
-# BU-009-P1 — Add/Edit Chat Platform Popup
+# BU-009-P1 — Messaging App Form
 
 **Type:** Popup (opened from BU-009)
 
 **Route:** Static Bootstrap modal (`#exampleModal`) in `chat_platform.ctp`; submitted via POST to the same `BusinessUnitController::chatPlatform()` action.
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A shared popup for adding a new chat platform or editing an existing one.
@@ -23,5 +23,5 @@ A shared popup for adding a new chat platform or editing an existing one.
 - **Cancel:** closes the modal without saving.
 
 ## Navigation
-- Opened from: BU-009 (Chat platform list) — "Add new" button, Edit icon on each row.
+- Opened from: BU-009 (Messaging Apps) — "Add new" button, Edit icon on each row.
 - After submission: redirects back to BU-009 (`referer()`).

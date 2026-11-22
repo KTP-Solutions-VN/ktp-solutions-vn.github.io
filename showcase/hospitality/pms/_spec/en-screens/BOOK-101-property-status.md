@@ -1,4 +1,4 @@
-# BOOK-101 — Property Status
+# BOOK-101 — Live Status Board
 
 **Type:** Full page
 
@@ -6,7 +6,7 @@
 
 **Friendly route:** no dedicated route found in config/Routes.php (uses the default route)
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 
@@ -34,9 +34,9 @@ Real-time dashboard tracking the cleaning (housekeeping/makeup) status and guest
 
 - Changing the Business Unit or cleaning scope reloads the table via AJAX (`fetchpropertystatus`).
 - Quick updates to cleaning/guest/makeup status via AJAX calls `updateCleaningstatus`, `updateGueststatus`, `updateMakeupstatus` (performed directly on the table, without navigating away).
-- Clicking a villa row opens popup BOOK-101-P1 (Villa Staff Detail).
+- Clicking a villa row opens popup BOOK-101-P1 (On-duty Staff Detail).
 
 ## Navigation
 
-- Accessed from the operations/villa management menu.
-- Navigates to BOOK-101-P1 (Villa Staff Detail) when a villa row is clicked.
+- Accessed from the Live Status Board menu.
+- Navigates to BOOK-101-P1 (On-duty Staff Detail) when a villa row is clicked.

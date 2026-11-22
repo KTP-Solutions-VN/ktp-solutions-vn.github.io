@@ -39,7 +39,7 @@
       title: 'Pool Deck Resurfacing',
       status: 'Under Progress',
       leaderId: 'STF-01',
-      leaderName: 'Somchai Anuwat',
+      leaderName: 'Daniel Tan',
       startDate: '2026-07-01',
       endDate: '2026-08-15',
       actualStartDate: '2026-07-03',
@@ -50,16 +50,16 @@
         { id: 'ITM-3', name: 'Outdoor deck furniture', budget: 2000, realAmount: 0, hasDocument: false }
       ],
       receipts: [
-        { id: 'RCT-1', receiptName: 'Villa-Sapphire-Cliff-Renovation-20260710-01.pdf', date: '2026-07-10', totalAmount: 6200, paidBy: 'Somchai Anuwat', paidType: 'company', paymentMethod: 'Bank Transfer', items: [{ name: 'Pool deck non-slip tiling', amount: 6200 }] },
-        { id: 'RCT-2', receiptName: 'Villa-Sapphire-Cliff-Renovation-20260722-02.pdf', date: '2026-07-22', totalAmount: 3500, paidBy: 'Budi Santoso', paidType: 'staff', paymentMethod: '', items: [{ name: 'Pool pump upgrade', amount: 3500 }] }
+        { id: 'RCT-1', receiptName: 'Villa-Sapphire-Cliff-Renovation-20260710-01.pdf', date: '2026-07-10', totalAmount: 6200, paidBy: 'Daniel Tan', paidType: 'company', paymentMethod: 'Bank Transfer', items: [{ name: 'Pool deck non-slip tiling', amount: 6200 }] },
+        { id: 'RCT-2', receiptName: 'Villa-Sapphire-Cliff-Renovation-20260722-02.pdf', date: '2026-07-22', totalAmount: 3500, paidBy: 'Ben Sullivan', paidType: 'staff', paymentMethod: '', items: [{ name: 'Pool pump upgrade', amount: 3500 }] }
       ],
       photos: [
-        { id: 'PHT-1', tone: 1, caption: 'Old deck tiles removed', createdBy: 'Budi Santoso', createdAt: '2026-07-05' },
-        { id: 'PHT-2', tone: 2, caption: 'New non-slip tiling, 60% laid', createdBy: 'Budi Santoso', createdAt: '2026-07-28' }
+        { id: 'PHT-1', tone: 1, caption: 'Old deck tiles removed', createdBy: 'Ben Sullivan', createdAt: '2026-07-05' },
+        { id: 'PHT-2', tone: 2, caption: 'New non-slip tiling, 60% laid', createdBy: 'Ben Sullivan', createdAt: '2026-07-28' }
       ],
       payments: [
-        { id: 'PAY-1', date: '2026-07-10', post: 'Villa-Sapphire-Cliff-Renovation-20260710-01.pdf', paidBy: 'Company', paidTo: 'Andaman Pool Services', paymentMethod: 'Bank Transfer', credit: 0, debit: 6200 },
-        { id: 'PAY-2', date: '2026-07-22', post: 'Villa-Sapphire-Cliff-Renovation-20260722-02.pdf', paidBy: 'Budi Santoso', paidTo: 'Andaman Pool Services', paymentMethod: '', credit: 0, debit: 3500 }
+        { id: 'PAY-1', date: '2026-07-10', post: 'Villa-Sapphire-Cliff-Renovation-20260710-01.pdf', paidBy: 'Company', paidTo: 'Coral Pool Services', paymentMethod: 'Bank Transfer', credit: 0, debit: 6200 },
+        { id: 'PAY-2', date: '2026-07-22', post: 'Villa-Sapphire-Cliff-Renovation-20260722-02.pdf', paidBy: 'Ben Sullivan', paidTo: 'Coral Pool Services', paymentMethod: '', credit: 0, debit: 3500 }
       ]
     },
     {
@@ -70,7 +70,7 @@
       title: 'Master Bathroom Renovation',
       status: 'Completed',
       leaderId: 'STF-01',
-      leaderName: 'Somchai Anuwat',
+      leaderName: 'Daniel Tan',
       startDate: '2026-05-01',
       endDate: '2026-06-01',
       actualStartDate: '2026-05-01',
@@ -81,13 +81,13 @@
         { id: 'ITM-3', name: 'Waterproofing & retiling', budget: 3600, realAmount: 3600, hasDocument: true }
       ],
       receipts: [
-        { id: 'RCT-1', receiptName: 'Villa-Coral-Horizon-Renovation-20260518-01.pdf', date: '2026-05-18', totalAmount: 6100, paidBy: 'Somchai Anuwat', paidType: 'company', paymentMethod: 'Bank Transfer', items: [{ name: 'Marble vanity & countertop', amount: 4350 }, { name: 'Rain shower fitting', amount: 1750 }] },
-        { id: 'RCT-2', receiptName: 'Villa-Coral-Horizon-Renovation-20260602-02.pdf', date: '2026-06-02', totalAmount: 3600, paidBy: 'Somchai Anuwat', paidType: 'company', paymentMethod: 'Company Card', items: [{ name: 'Waterproofing & retiling', amount: 3600 }] }
+        { id: 'RCT-1', receiptName: 'Villa-Coral-Horizon-Renovation-20260518-01.pdf', date: '2026-05-18', totalAmount: 6100, paidBy: 'Daniel Tan', paidType: 'company', paymentMethod: 'Bank Transfer', items: [{ name: 'Marble vanity & countertop', amount: 4350 }, { name: 'Rain shower fitting', amount: 1750 }] },
+        { id: 'RCT-2', receiptName: 'Villa-Coral-Horizon-Renovation-20260602-02.pdf', date: '2026-06-02', totalAmount: 3600, paidBy: 'Daniel Tan', paidType: 'company', paymentMethod: 'Company Card', items: [{ name: 'Waterproofing & retiling', amount: 3600 }] }
       ],
       photos: [
-        { id: 'PHT-1', tone: 3, caption: 'Demolition complete', createdBy: 'Somchai Anuwat', createdAt: '2026-05-04' },
-        { id: 'PHT-2', tone: 4, caption: 'New marble vanity installed', createdBy: 'Somchai Anuwat', createdAt: '2026-05-25' },
-        { id: 'PHT-3', tone: 1, caption: 'Finished bathroom, ready for guests', createdBy: 'Somchai Anuwat', createdAt: '2026-06-05' }
+        { id: 'PHT-1', tone: 3, caption: 'Demolition complete', createdBy: 'Daniel Tan', createdAt: '2026-05-04' },
+        { id: 'PHT-2', tone: 4, caption: 'New marble vanity installed', createdBy: 'Daniel Tan', createdAt: '2026-05-25' },
+        { id: 'PHT-3', tone: 1, caption: 'Finished bathroom, ready for guests', createdBy: 'Daniel Tan', createdAt: '2026-06-05' }
       ],
       payments: [
         { id: 'PAY-1', date: '2026-05-18', post: 'Villa-Coral-Horizon-Renovation-20260518-01.pdf', paidBy: 'Company', paidTo: 'Local Supplier', paymentMethod: 'Bank Transfer', credit: 0, debit: 6100 },
@@ -102,7 +102,7 @@
       title: 'Kitchen & Guest Wing Upgrade',
       status: 'Not Started',
       leaderId: 'STF-01',
-      leaderName: 'Somchai Anuwat',
+      leaderName: 'Daniel Tan',
       startDate: '2026-09-15',
       endDate: '2026-11-01',
       actualStartDate: null,
@@ -124,7 +124,7 @@
       title: 'Exterior Repainting & Garden Wall',
       status: 'Under Progress',
       leaderId: 'STF-02',
-      leaderName: 'Wayan Kertha',
+      leaderName: 'Warren Kelly',
       startDate: '2026-08-01',
       endDate: '2026-08-30',
       actualStartDate: '2026-08-04',
@@ -134,14 +134,14 @@
         { id: 'ITM-2', name: 'Garden boundary wall repair', budget: 2100, realAmount: 1400, hasDocument: true }
       ],
       receipts: [
-        { id: 'RCT-1', receiptName: 'Villa-Azure-Ridge-Renovation-20260812-01.pdf', date: '2026-08-12', totalAmount: 3900, paidBy: 'Wayan Kertha', paidType: 'staff', paymentMethod: '', items: [{ name: 'Exterior repainting', amount: 3900 }] },
-        { id: 'RCT-2', receiptName: 'Villa-Azure-Ridge-Renovation-20260820-02.pdf', date: '2026-08-20', totalAmount: 1400, paidBy: 'Wayan Kertha', paidType: 'company', paymentMethod: 'Cash', items: [{ name: 'Garden boundary wall repair', amount: 1400 }] }
+        { id: 'RCT-1', receiptName: 'Villa-Azure-Ridge-Renovation-20260812-01.pdf', date: '2026-08-12', totalAmount: 3900, paidBy: 'Warren Kelly', paidType: 'staff', paymentMethod: '', items: [{ name: 'Exterior repainting', amount: 3900 }] },
+        { id: 'RCT-2', receiptName: 'Villa-Azure-Ridge-Renovation-20260820-02.pdf', date: '2026-08-20', totalAmount: 1400, paidBy: 'Warren Kelly', paidType: 'company', paymentMethod: 'Cash', items: [{ name: 'Garden boundary wall repair', amount: 1400 }] }
       ],
       photos: [
-        { id: 'PHT-1', tone: 2, caption: 'Scaffolding up, prep sanding done', createdBy: 'Wayan Kertha', createdAt: '2026-08-06' }
+        { id: 'PHT-1', tone: 2, caption: 'Scaffolding up, prep sanding done', createdBy: 'Warren Kelly', createdAt: '2026-08-06' }
       ],
       payments: [
-        { id: 'PAY-1', date: '2026-08-12', post: 'Villa-Azure-Ridge-Renovation-20260812-01.pdf', paidBy: 'Wayan Kertha', paidTo: 'Contractor', paymentMethod: '', credit: 0, debit: 3900 },
+        { id: 'PAY-1', date: '2026-08-12', post: 'Villa-Azure-Ridge-Renovation-20260812-01.pdf', paidBy: 'Warren Kelly', paidTo: 'Contractor', paymentMethod: '', credit: 0, debit: 3900 },
         { id: 'PAY-2', date: '2026-08-20', post: 'Villa-Azure-Ridge-Renovation-20260820-02.pdf', paidBy: 'Company', paidTo: 'Contractor', paymentMethod: 'Cash', credit: 0, debit: 1400 }
       ]
     },
@@ -153,7 +153,7 @@
       title: 'Roof Waterproofing',
       status: 'Completed',
       leaderId: 'STF-01',
-      leaderName: 'Somchai Anuwat',
+      leaderName: 'Daniel Tan',
       startDate: '2026-04-01',
       endDate: '2026-04-20',
       actualStartDate: '2026-04-01',
@@ -162,10 +162,10 @@
         { id: 'ITM-1', name: 'Roof membrane replacement', budget: 5000, realAmount: 4650, hasDocument: true }
       ],
       receipts: [
-        { id: 'RCT-1', receiptName: 'Villa-Marble-Cove-Renovation-20260416-01.pdf', date: '2026-04-16', totalAmount: 4650, paidBy: 'Somchai Anuwat', paidType: 'company', paymentMethod: 'Bank Transfer', items: [{ name: 'Roof membrane replacement', amount: 4650 }] }
+        { id: 'RCT-1', receiptName: 'Villa-Marble-Cove-Renovation-20260416-01.pdf', date: '2026-04-16', totalAmount: 4650, paidBy: 'Daniel Tan', paidType: 'company', paymentMethod: 'Bank Transfer', items: [{ name: 'Roof membrane replacement', amount: 4650 }] }
       ],
       photos: [
-        { id: 'PHT-1', tone: 4, caption: 'Waterproofing complete, no leaks after test', createdBy: 'Somchai Anuwat', createdAt: '2026-04-17' }
+        { id: 'PHT-1', tone: 4, caption: 'Waterproofing complete, no leaks after test', createdBy: 'Daniel Tan', createdAt: '2026-04-17' }
       ],
       payments: [
         { id: 'PAY-1', date: '2026-04-16', post: 'Villa-Marble-Cove-Renovation-20260416-01.pdf', paidBy: 'Company', paidTo: 'Roofing Contractor', paymentMethod: 'Bank Transfer', credit: 0, debit: 4650 }

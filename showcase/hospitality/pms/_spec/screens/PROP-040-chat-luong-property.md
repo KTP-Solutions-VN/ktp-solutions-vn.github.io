@@ -1,8 +1,8 @@
-# PROP-040 — Chất lượng Property (Quality)
+# PROP-040 — Chất lượng listing (Listing Quality)
 
 **Loại:** Trang đầy đủ
 **Route:** property/quality
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang theo dõi chất lượng niêm yết (listing) và đánh giá (reviews) của Property trên các kênh OTA, cùng theo dõi chất lượng cải tạo nhà (Home Improvement) và trạng thái yêu cầu làm lại listing (Redo). Có thể lọc theo Business Unit/Entry level (Property, Residence, Unit)/Property/kênh OTA, ghi log điểm số/nhận xét theo từng OTA, và tạo công việc To Do nhắc nhở xử lý.
@@ -77,6 +77,6 @@ Hiển thị trạng thái/ lịch sử yêu cầu làm lại listing, cho phép
 - Xem log (nếu có) của một yêu cầu Redo (liên kết PROP-031/redoLog).
 
 ## Điều hướng
-- Mở từ: Menu Property/Quality (không thuộc phạm vi mã hiện tại).
-- Điều hướng tới: Không điều hướng sang trang khác (toàn bộ thao tác qua modal AJAX tại chỗ); có liên hệ dữ liệu với PROP-031 (Yêu cầu làm lại Listing OTA).
+- Mở từ: Menu Listing Quality (không thuộc phạm vi mã hiện tại).
+- Điều hướng tới: Không điều hướng sang trang khác (toàn bộ thao tác qua modal AJAX tại chỗ); có liên hệ dữ liệu với PROP-031 (Yêu cầu làm mới listing).
 - Popup con: Modal thêm/sửa Listing-Review, Modal xác nhận xóa, Modal thêm To Do, Modal "Be Redone" (không tách mã riêng do là thao tác phụ trợ tại chỗ).

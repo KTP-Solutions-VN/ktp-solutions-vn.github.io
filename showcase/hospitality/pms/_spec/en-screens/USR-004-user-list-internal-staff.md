@@ -1,10 +1,10 @@
-# USR-004 — User List (Internal Staff)
+# USR-004 — Team Directory
 
 **Type:** Full page
 
 **Route:** `UserController::list($tab)` — default `user/list/:tab`
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 A list of all internal staff (`User.employment = Internal`) in the system, allowing filtering by geographic location/business unit, department, status, salary type, nationality, company, and branch, among others. Used by Superadmin/Admin/Business Unit Manager to manage personnel, view alerts for work permits nearing or past expiry, and serves as the entry point for adding, editing, deleting, and viewing user details.
@@ -42,14 +42,14 @@ A list of all internal staff (`User.employment = Internal`) in the system, allow
 | 12 | Export Staff List | `is_download_staff_list` | Checkbox | Triggers the download action `user/downloadUserReport` (outside the scope of this screen's documentation) |
 
 ## Functions / Actions
-- **Add New:** opens USR-005 (Add User).
-- **View Details:** opens USR-007 (View Details).
-- **Edit:** opens USR-006 (Edit User).
+- **Add New:** opens USR-005 (New Team Member).
+- **View Details:** opens USR-007 (Team Member Profile).
+- **Edit:** opens USR-006 (Edit Team Member).
 - **Delete:** calls `user/delete/:id`, with a confirmation prompt before deletion (deletes related data as well: UserBusinessUnit, UserRole, UserLanguage, UserPayroll).
 - **Filter/Search:** submits the filter to reload the list.
 - **Export HR Report:** triggers the file download action `user/downloadUserReport` when the export flag is enabled (a download action, with no dedicated screen).
 - Work permit alerts: color-coded (red/orange/green) based on the number of days remaining until the next notification deadline.
 
 ## Navigation
-- Entry point: main menu "Users"/"Staff".
-- Navigates to: USR-005 (Add), USR-006 (Edit), USR-007 (View Details).
+- Entry point: main menu "Team Directory".
+- Navigates to: USR-005 (Add), USR-006 (Edit), USR-007 (Team Member Profile).

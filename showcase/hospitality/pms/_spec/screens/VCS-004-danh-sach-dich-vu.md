@@ -1,8 +1,8 @@
-# VCS-004 — Danh sách Dịch vụ (Service)
+# VCS-004 — Danh mục dịch vụ (Service Catalog)
 
 **Loại:** Trang đầy đủ
 **Route:** villa-common-setting/services (dashed mặc định: `/villa-common-setting/services`)
-**Module:** VCS = Cấu hình chung villa
+**Module:** VCS = Thuộc tính tài sản
 
 ## Mô tả ngắn gọn
 Màn hình quản lý dữ liệu chủ "Dịch vụ" (Service) — danh mục dịch vụ dùng làm thành phần cấu hình cho Loại dịch vụ hợp đồng (Contract Service Type, xem VCS-005). Hiển thị dạng bảng danh sách, cho phép Thêm/Sửa/Xóa qua 1 popup dùng chung.
@@ -24,6 +24,6 @@ Không có ô tìm kiếm/lọc riêng.
 - Submit form popup gửi `POST` về chính action `services`; lưu/xóa bảng `Service`, ghi Activity Log, hiển thị Flash message, redirect về trang trước.
 
 ## Điều hướng
-- Mở từ: Menu Settings > "Properties" (Cấu hình chung villa) > submenu "Services".
+- Mở từ: Menu Portfolio Setup > "Property Attributes" (Thuộc tính tài sản) > submenu "Service Catalog".
 - Điều hướng tới: không điều hướng sang trang khác.
-- Popup con: VCS-004-P1 (Thêm/Sửa/Xóa Dịch vụ).
+- Popup con: VCS-004-P1 (Form dịch vụ trong danh mục).

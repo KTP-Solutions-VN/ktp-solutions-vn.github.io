@@ -1,8 +1,8 @@
-# PROP-018 — Monthly Newsletter for Property Owners
+# PROP-018 — Owner Bulletins
 
 **Type:** Full page
 **Route:** property/monthly-report
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Screen for managing monthly newsletters sent to Business Units, organized by month/year and language. Supports adding, copying, editing, and deleting newsletters; a single newsletter can be assigned to multiple Business Units at once (each Business Unit may use only one newsletter per period + language combination).
@@ -36,6 +36,6 @@ Screen for managing monthly newsletters sent to Business Units, organized by mon
 - Delete submit (`delete`): deletes records per `all_ids`.
 
 ## Navigation
-- Opened from: the Property menu (outside the scope of the current spec).
+- Opened from: the Property Records menu (outside the scope of the current spec).
 - Navigates to: no navigation — all CRUD actions occur in place, redirecting back to `monthlyReport` after saving.
 - Child popup: Add modal (`#exampleModal1`), Edit modal (`#exampleModal3`), Delete confirmation modal (`#exampleModal`) — all shared modals within the same file, not documented as separate codes per the defined scope (only PROP-030 has a separately coded child popup).

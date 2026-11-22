@@ -1,4 +1,4 @@
-# BOOK-095-P1 — WhatsApp Chat (New Version)
+# BOOK-095-P1 — Chat Thread
 
 **Type:** Full page (opened from BOOK-095, opens in a new tab)
 
@@ -6,7 +6,7 @@
 
 **Pretty route:** `/VM/booking/whatsapp-chat-new/:booking_id` (used directly in the link in the view; not declared in config/Routes.php)
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 
@@ -31,5 +31,5 @@ An upgraded version of BOOK-094-P1: a WhatsApp chat window with the guest, addin
 
 ## Navigation
 
-- Opened from: BOOK-095 (WhatsApp Manager, new version) via the Chat button, opening in a new browser tab.
+- Opened from: BOOK-095 (Chat Inbox) via the Chat button, opening in a new browser tab.
 - No further navigation; close the tab to return to BOOK-095.

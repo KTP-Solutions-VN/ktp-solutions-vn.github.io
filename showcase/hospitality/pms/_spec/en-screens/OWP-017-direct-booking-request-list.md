@@ -1,10 +1,10 @@
-# OWP-017 — Direct Booking Request List
+# OWP-017 — Stay Requests
 
 **Type:** Full page
 
 **Route:** `ExternalUserController::directBookingList()` — no dedicated friendly route (default `/external-user/direct-booking-list`)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 
@@ -41,7 +41,7 @@ List — displayed columns (both tables: pending and processed):
 
 ## Navigation
 
-- Accessed from the main menu (Direct Booking)
-- "Request New Booking" button → OWP-017-P1 (add direct booking popup)
+- Accessed from the main menu (Stay Requests)
+- "Request New Booking" button → OWP-017-P1 (New Stay Request popup)
 - View icon → OWP-017-P3 (view detail popup)
-- Edit icon → OWP-017-P2 (edit direct booking popup)
+- Edit icon → OWP-017-P2 (Edit Stay Request popup)

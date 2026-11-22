@@ -12,7 +12,7 @@
       storageKey: 'mm_mnt_renovation_services',
       baseData: MNT.RENOVATION_SERVICES,
       entityLabel: 'service',
-      entityTitle: 'Renovation Service',
+      entityTitle: 'Refurbishment Type',
       tbodyId: 'list-tbody',
       allBu: false
     });

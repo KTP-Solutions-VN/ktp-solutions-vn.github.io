@@ -1,10 +1,10 @@
-# BU-012 — Vùng kinh doanh (Zoning)
+# BU-012 — Vùng báo cáo (Reporting Zones)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `BusinessUnitController::zoning()` — mặc định `/business-unit/zoning`
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Danh sách các "vùng" (zone) do người dùng hiện tại tạo, dùng để nhóm nhiều Đơn vị kinh doanh lại với nhau theo khu vực địa lý/quản lý tùy chỉnh.
@@ -22,8 +22,8 @@ Danh sách (DataTable `#zero_config0`):
 | 5 | Hành động | — | Sửa, Xóa |
 
 ## Chức năng/nút thao tác
-- **Add new:** điều hướng sang BU-013 (Thêm vùng kinh doanh).
-- **Sửa (icon bút):** điều hướng sang BU-014 (Sửa vùng kinh doanh).
+- **Add new:** điều hướng sang BU-013 (Thêm vùng báo cáo).
+- **Sửa (icon bút):** điều hướng sang BU-014 (Sửa vùng báo cáo).
 - **Xóa (icon thùng rác):** mở popup BU-012-P1 xác nhận xóa (đánh dấu `is_deleted=1`, không xóa cứng — số vùng có thể tái sử dụng khi tạo vùng mới, tối đa 99 vùng/người dùng).
 
 ## Điều hướng

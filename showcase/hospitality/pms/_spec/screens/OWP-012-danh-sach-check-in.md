@@ -1,10 +1,10 @@
-# OWP-012 — Danh sách Check-in
+# OWP-012 — Khách sắp đến (Upcoming Arrivals)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `ExternalUserController::checkIn()` — không có route đẹp riêng (mặc định `/external-user/check-in`)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 
@@ -42,5 +42,5 @@ Danh sách — cột hiển thị:
 
 ## Điều hướng
 
-- Truy cập từ menu chính (Check-in)
+- Truy cập từ menu chính (Upcoming Arrivals)
 - Không có điều hướng chi tiết riêng (là danh sách tổng hợp)

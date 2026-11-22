@@ -1,10 +1,10 @@
-# NOT-004 — Nhờ người khác hỗ trợ (Help Other User)
+# NOT-004 — Làm thay đồng nghiệp (Cover for Colleague)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `NoticeController::helpOtheruser($id)` — mặc định `/notice/help-otheruser/:id`
 
-**Module:** NOT = Thông báo
+**Module:** NOT = Thông báo nội bộ
 
 ## Mô tả ngắn gọn
 Cho phép người nhận một công việc chuyển tiếp/nhờ một nhân sự khác cùng hỗ trợ xử lý công việc đó (thêm một `NoticeBoardDetail` mới gắn với cùng `NoticeBoard`).
@@ -23,5 +23,5 @@ Cho phép người nhận một công việc chuyển tiếp/nhờ một nhân s
 - **Hủy (Cancel):** quay lại NOT-002.
 
 ## Điều hướng
-- Mở từ: NOT-003 (Chi tiết thông báo) — liên kết "Get Help" (hiện đã comment trong code, chỉ còn truy cập qua route trực tiếp).
-- Sau khi gửi/hủy: chuyển tới NOT-002 (Danh sách thông báo).
+- Mở từ: NOT-003 (Xem thông báo) — liên kết "Get Help" (hiện đã comment trong code, chỉ còn truy cập qua route trực tiếp).
+- Sau khi gửi/hủy: chuyển tới NOT-002 (Thông báo & công việc).

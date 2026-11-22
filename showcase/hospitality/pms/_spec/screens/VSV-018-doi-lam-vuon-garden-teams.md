@@ -1,10 +1,10 @@
-# VSV-018 — Đội làm vườn (Garden Teams)
+# VSV-018 — Tổ chăm vườn (Garden Crews)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `VillaServicesController::gardenTeams()` — mặc định `/villa-services/garden-teams`; lưu qua AJAX `saveGardenTeams`
 
-**Module:** Dịch vụ villa — Vườn
+**Module:** Dịch vụ lưu trú — Chăm vườn
 
 ## Mô tả ngắn gọn
 Màn hình thiết lập ca làm việc và thành viên cho các đội làm vườn theo ngày và theo đơn vị kinh doanh: mỗi đội có giờ bắt đầu/kết thúc/giờ nghỉ và danh sách nhân sự được gán.
@@ -39,5 +39,5 @@ Màn hình thiết lập ca làm việc và thành viên cho các đội làm v�
 - Đổi Date/Business Unit → tải lại dữ liệu đội của ngày/BU tương ứng.
 
 ## Điều hướng
-- Vào từ: Menu chính (mục Garden/Teams) hoặc liên quan tab "Team" trong VSV-017.
+- Vào từ: Menu chính (mục Garden Crews) hoặc liên quan tab "Team" trong VSV-017.
 - Điều hướng đến: không có trang con (thao tác qua modal tại chỗ).

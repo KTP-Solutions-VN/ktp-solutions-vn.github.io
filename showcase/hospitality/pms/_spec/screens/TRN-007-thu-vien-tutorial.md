@@ -1,8 +1,8 @@
-# TRN-007 — Thư viện Tutorial
+# TRN-007 — Danh mục bài học (Lesson Catalog)
 
 **Loại:** Trang đầy đủ
 **Route:** `TrainingController::library()` — `/training/library`
-**Module:** TRN = Đào tạo
+**Module:** TRN = Học viện nhân viên
 
 ## Mô tả ngắn gọn
 Danh sách các Tutorial đã phát hành (active) mà người dùng hiện tại được phép xem, dùng để tra cứu và bắt đầu học/đọc bài.
@@ -34,5 +34,5 @@ Dữ liệu tự động lọc theo `user_type` (Employee chỉ thấy access_le
 - **Ẩn/Hiện** (icon con mắt gạch): gọi `trainingStatus` đổi trạng thái active/inactive, tải lại trang này.
 
 ## Điều hướng
-- **Vào từ:** Menu chính "Training" → "Library".
+- **Vào từ:** Menu chính "Staff Academy" → "Lesson Catalog".
 - **Đi tới:** TRN-009 (đọc bài).

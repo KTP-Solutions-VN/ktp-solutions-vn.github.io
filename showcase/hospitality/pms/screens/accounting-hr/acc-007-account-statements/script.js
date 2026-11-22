@@ -4,27 +4,27 @@
   var LS_KEY = 'mm_acc_statements';
 
   var ACCOUNTS = [
-    { id: 'acc1', name: 'Operations \u2013 THB', currency: 'THB', sign: '\u0e3f' },
-    { id: 'acc2', name: 'Owner Payouts \u2013 THB', currency: 'THB', sign: '\u0e3f' },
-    { id: 'acc3', name: 'Petty Cash \u2013 THB', currency: 'THB', sign: '\u0e3f' },
+    { id: 'acc1', name: 'Operations \u2013 SGD', currency: 'SGD', sign: 'S$' },
+    { id: 'acc2', name: 'Owner Payouts \u2013 SGD', currency: 'SGD', sign: 'S$' },
+    { id: 'acc3', name: 'Petty Cash \u2013 SGD', currency: 'SGD', sign: 'S$' },
     { id: 'acc4', name: 'Marketing \u2013 EUR', currency: 'EUR', sign: '\u20ac' }
   ];
 
   var MOCK_ENTRIES = [
-    { id: 'st1', account_id: 'acc1', date: '2026-08-01', ref: 'Ops-THB-00001', bu: 'Phuket Collection', category: 'Manual Adjustment', description: 'Opening balance', property: '', payee: 'N/A', type: 'credit', amount: 120000, created_at: '2026-08-01 09:00:00', is_opening: true, is_reconcile: true },
-    { id: 'st2', account_id: 'acc1', date: '2026-08-14', ref: 'Ops-THB-00002', bu: 'Phuket Collection', category: 'Booking Payout', description: 'Booking.com payout for BK-10231', property: 'Villa Sapphire Cliff', payee: 'N/A', type: 'credit', amount: 38400, created_at: '2026-08-14 10:12:04', is_opening: false, is_reconcile: true },
-    { id: 'st3', account_id: 'acc1', date: '2026-08-18', ref: 'Ops-THB-00003', bu: 'Phuket Collection', category: 'Pool/Garden Maintenance', description: 'Monthly pool service \u2014 Andaman Pool Services', property: 'Villa Coral Horizon', payee: 'N/A', type: 'debit', amount: 6200, created_at: '2026-08-18 14:40:11', is_opening: false, is_reconcile: true },
-    { id: 'st4', account_id: 'acc1', date: '2026-08-22', ref: 'Ops-THB-00004', bu: 'Bali Retreats', category: 'Staff Expenses', description: 'Housekeeping supplies reimbursement', property: '', payee: 'Kanya Srisawat', type: 'debit', amount: 2450, created_at: '2026-08-22 08:05:44', is_opening: false, is_reconcile: false },
-    { id: 'st5', account_id: 'acc1', date: '2026-08-25', ref: 'Ops-THB-00005', bu: 'Bali Retreats', category: 'Booking Payout', description: 'Booking.com payout for BK-10233', property: 'Villa Emerald Bay', payee: 'N/A', type: 'credit', amount: 51900, created_at: '2026-08-25 11:22:31', is_opening: false, is_reconcile: false },
-    { id: 'st6', account_id: 'acc1', date: '2026-08-29', ref: 'Ops-THB-00006', bu: 'Koh Samui Estates', category: 'Utilities', description: 'Electricity \u2014 Villa Lotus Terrace', property: 'Villa Lotus Terrace', payee: 'N/A', type: 'debit', amount: 4100, created_at: '2026-08-29 09:50:02', is_opening: false, is_reconcile: false },
+    { id: 'st1', account_id: 'acc1', date: '2026-08-01', ref: 'Ops-SGD-00001', bu: 'Sentosa Collection', category: 'Manual Adjustment', description: 'Opening balance', property: '', payee: 'N/A', type: 'credit', amount: 4800, created_at: '2026-08-01 09:00:00', is_opening: true, is_reconcile: true },
+    { id: 'st2', account_id: 'acc1', date: '2026-08-14', ref: 'Ops-SGD-00002', bu: 'Sentosa Collection', category: 'Booking Payout', description: 'Booking.com payout for BK-10231', property: 'Villa Sapphire Cliff', payee: 'N/A', type: 'credit', amount: 1540, created_at: '2026-08-14 10:12:04', is_opening: false, is_reconcile: true },
+    { id: 'st3', account_id: 'acc1', date: '2026-08-18', ref: 'Ops-SGD-00003', bu: 'Sentosa Collection', category: 'Pool/Garden Maintenance', description: 'Monthly pool service \u2014 Coral Pool Services', property: 'Villa Coral Horizon', payee: 'N/A', type: 'debit', amount: 250, created_at: '2026-08-18 14:40:11', is_opening: false, is_reconcile: true },
+    { id: 'st4', account_id: 'acc1', date: '2026-08-22', ref: 'Ops-SGD-00004', bu: 'Byron Bay Retreats', category: 'Staff Expenses', description: 'Housekeeping supplies reimbursement', property: '', payee: 'Karen Seah', type: 'debit', amount: 100, created_at: '2026-08-22 08:05:44', is_opening: false, is_reconcile: false },
+    { id: 'st5', account_id: 'acc1', date: '2026-08-25', ref: 'Ops-SGD-00005', bu: 'Byron Bay Retreats', category: 'Booking Payout', description: 'Booking.com payout for BK-10233', property: 'Villa Emerald Bay', payee: 'N/A', type: 'credit', amount: 2080, created_at: '2026-08-25 11:22:31', is_opening: false, is_reconcile: false },
+    { id: 'st6', account_id: 'acc1', date: '2026-08-29', ref: 'Ops-SGD-00006', bu: 'Noosa Estates', category: 'Utilities', description: 'Electricity \u2014 Villa Lotus Terrace', property: 'Villa Lotus Terrace', payee: 'N/A', type: 'debit', amount: 165, created_at: '2026-08-29 09:50:02', is_opening: false, is_reconcile: false },
 
-    { id: 'st10', account_id: 'acc2', date: '2026-08-05', ref: 'Owner-THB-00001', bu: 'Bali Retreats', category: 'Manual Adjustment', description: 'Opening balance', property: '', payee: 'N/A', type: 'credit', amount: 260000, created_at: '2026-08-05 09:00:00', is_opening: true, is_reconcile: true },
-    { id: 'st11', account_id: 'acc2', date: '2026-08-20', ref: 'Owner-THB-00002', bu: 'Bali Retreats', category: 'Owner Payout', description: 'Monthly payout \u2014 Isabelle Moreau', property: 'Villa Emerald Bay', payee: 'N/A', type: 'debit', amount: 88500, created_at: '2026-08-20 16:10:00', is_opening: false, is_reconcile: false },
+    { id: 'st10', account_id: 'acc2', date: '2026-08-05', ref: 'Owner-SGD-00001', bu: 'Byron Bay Retreats', category: 'Manual Adjustment', description: 'Opening balance', property: '', payee: 'N/A', type: 'credit', amount: 10400, created_at: '2026-08-05 09:00:00', is_opening: true, is_reconcile: true },
+    { id: 'st11', account_id: 'acc2', date: '2026-08-20', ref: 'Owner-SGD-00002', bu: 'Byron Bay Retreats', category: 'Owner Payout', description: 'Monthly payout \u2014 Isabelle Moreau', property: 'Villa Emerald Bay', payee: 'N/A', type: 'debit', amount: 3540, created_at: '2026-08-20 16:10:00', is_opening: false, is_reconcile: false },
 
-    { id: 'st20', account_id: 'acc3', date: '2026-08-02', ref: 'Petty-THB-00001', bu: 'Phuket Collection', category: 'Manual Adjustment', description: 'Opening balance', property: '', payee: 'N/A', type: 'credit', amount: 15000, created_at: '2026-08-02 09:00:00', is_opening: true, is_reconcile: true },
-    { id: 'st21', account_id: 'acc3', date: '2026-08-19', ref: 'Petty-THB-00002', bu: 'Phuket Collection', category: 'Staff Expenses', description: 'Fuel reimbursement \u2014 field team', property: '', payee: 'Somchai Anuwat', type: 'debit', amount: 1300, created_at: '2026-08-19 13:00:00', is_opening: false, is_reconcile: false },
+    { id: 'st20', account_id: 'acc3', date: '2026-08-02', ref: 'Petty-SGD-00001', bu: 'Sentosa Collection', category: 'Manual Adjustment', description: 'Opening balance', property: '', payee: 'N/A', type: 'credit', amount: 600, created_at: '2026-08-02 09:00:00', is_opening: true, is_reconcile: true },
+    { id: 'st21', account_id: 'acc3', date: '2026-08-19', ref: 'Petty-SGD-00002', bu: 'Sentosa Collection', category: 'Staff Expenses', description: 'Fuel reimbursement \u2014 field team', property: '', payee: 'Daniel Tan', type: 'debit', amount: 52, created_at: '2026-08-19 13:00:00', is_opening: false, is_reconcile: false },
 
-    { id: 'st30', account_id: 'acc4', date: '2026-08-03', ref: 'Mktg-EUR-00001', bu: 'Koh Samui Estates', category: 'Manual Adjustment', description: 'Opening balance', property: '', payee: 'N/A', type: 'credit', amount: 8000, created_at: '2026-08-03 09:00:00', is_opening: true, is_reconcile: false }
+    { id: 'st30', account_id: 'acc4', date: '2026-08-03', ref: 'Mktg-EUR-00001', bu: 'Noosa Estates', category: 'Manual Adjustment', description: 'Opening balance', property: '', payee: 'N/A', type: 'credit', amount: 8000, created_at: '2026-08-03 09:00:00', is_opening: true, is_reconcile: false }
   ];
 
   function load() {

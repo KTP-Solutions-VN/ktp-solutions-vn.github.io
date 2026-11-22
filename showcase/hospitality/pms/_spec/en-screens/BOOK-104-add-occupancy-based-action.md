@@ -1,4 +1,4 @@
-# BOOK-104 — Add Occupancy-Based Action (Add Action)
+# BOOK-104 — New Pricing Adjustment
 
 **Type:** Full page (opened from BOOK-103)
 
@@ -6,7 +6,7 @@
 
 **Friendly route:** no dedicated route found in config/Routes.php
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 

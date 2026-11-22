@@ -1,8 +1,8 @@
-# PROP-026 — Photography Planning
+# PROP-026 — Shoot Scheduler
 
 **Type:** Full page
 **Route:** property/photography/:shootId/:guidelineId (default dashed-format route; `$shootId` also doubles as a special "sub-action" value: `guidelines`, `download-guideline`, `delete-guideline` to branch into photography guideline management actions)
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 The central page for managing Photo Shoot Planning for Properties/Residences/Units by Business Unit: creating/editing shoot schedules, tracking post-shoot follow-ups, and confirming completed photo sets. This action renders the `Photos/planning.ctp` template (not `photography.ctp` directly — `photography.ctp` is a legacy/simplified template, while the main dashboard lives in the `planning` view).
@@ -30,6 +30,6 @@ The main table data (`planningData`) includes the list of shoot schedules (statu
 - Special sub-routes: `photography/guidelines/{guidelineId}` (manage photography guideline templates in PDF), `photography/download-guideline/{guidelineId}` (download a guideline), `photography/delete-guideline/{guidelineId}` (delete a guideline).
 
 ## Navigation
-- Opened from: the main Photography menu; PROP-027 ("Plan Photo Shoot" button); PROP-019 (breadcrumb).
+- Opened from: the main Shoots menu; PROP-027 ("Plan Photo Shoot" button); PROP-019 (breadcrumb).
 - Navigates to: `newShooting` (PROP-019), `photographyScores` (PROP-028), `photographyMissingPhotos` (PROP-027), `photographerEvaluation` (PROP-025), `Photos::property` (view/upload photos, outside this scope).
 - Child popup: none (the main view lives in `Photos/planning.ctp`, not `photography.ctp`).

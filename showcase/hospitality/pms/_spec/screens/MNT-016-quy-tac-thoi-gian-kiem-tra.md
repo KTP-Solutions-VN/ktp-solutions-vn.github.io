@@ -1,8 +1,8 @@
-# MNT-016 — Quy tắc thời gian kiểm tra (Inspection Time Rules)
+# MNT-016 — SLA kiểm tra (Inspection SLAs)
 
 **Loại:** Trang đầy đủ
 **Route:** maintenance/inspection
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Màn hình cấu hình số ngày trưởng thành (maturity days) cho quy trình kiểm tra villa (inspection) theo từng đơn vị kinh doanh — áp dụng cho 3 trạng thái vấn đề: New (mới phát hiện), Seen (đã xem), OK (đã xử lý xong). Mỗi đơn vị kinh doanh chỉ được cấu hình một bộ quy tắc.
@@ -34,5 +34,5 @@ Màn hình cấu hình số ngày trưởng thành (maturity days) cho quy trìn
 - **Xem** (icon): mở MNT-016-P2 — Xem quy tắc.
 
 ## Điều hướng
-- Vào từ: menu Settings/Maintenance trong sidebar.
+- Vào từ: menu cài đặt Repair Desk trong sidebar.
 - Đi tới: MNT-016-P1 (Sửa), MNT-016-P2 (Xem).

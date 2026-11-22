@@ -5,12 +5,12 @@
   var TODAY = '2026-09-03';
 
   var JOBS = [
-    { id: 'OJ-01', villaId: 'PV-101', operator: 'Prasert Wongsa', service: 'Lawn mowing & hedge trim', slotStart: '08:00', slotEnd: '10:00' },
-    { id: 'OJ-02', villaId: 'PV-102', operator: 'Anurak Boonchu', service: 'Pest control spray', slotStart: '08:30', slotEnd: '09:30' },
-    { id: 'OJ-03', villaId: 'PV-105', operator: 'Prasert Wongsa', service: 'Tropical planting refresh', slotStart: '10:30', slotEnd: '12:30' },
-    { id: 'OJ-04', villaId: 'PV-108', operator: 'Wayan Suta', service: 'Irrigation check', slotStart: '09:00', slotEnd: '10:00' },
-    { id: 'OJ-05', villaId: 'PV-106', operator: 'Somjai Phonsri', service: 'Lawn mowing & hedge trim', slotStart: '08:00', slotEnd: '09:30' },
-    { id: 'OJ-06', villaId: 'PV-107', operator: 'Somjai Phonsri', service: 'Palm tree trimming', slotStart: '13:00', slotEnd: '15:00' }
+    { id: 'OJ-01', villaId: 'PV-101', operator: 'Patrick Woo', service: 'Lawn mowing & hedge trim', slotStart: '08:00', slotEnd: '10:00' },
+    { id: 'OJ-02', villaId: 'PV-102', operator: 'Aaron Boey', service: 'Pest control spray', slotStart: '08:30', slotEnd: '09:30' },
+    { id: 'OJ-03', villaId: 'PV-105', operator: 'Patrick Woo', service: 'Tropical planting refresh', slotStart: '10:30', slotEnd: '12:30' },
+    { id: 'OJ-04', villaId: 'PV-108', operator: 'Wade Simmons', service: 'Irrigation check', slotStart: '09:00', slotEnd: '10:00' },
+    { id: 'OJ-05', villaId: 'PV-106', operator: 'Shane Porter', service: 'Lawn mowing & hedge trim', slotStart: '08:00', slotEnd: '09:30' },
+    { id: 'OJ-06', villaId: 'PV-107', operator: 'Shane Porter', service: 'Palm tree trimming', slotStart: '13:00', slotEnd: '15:00' }
   ];
 
   function loadOverrides() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch (e) { return {}; } }

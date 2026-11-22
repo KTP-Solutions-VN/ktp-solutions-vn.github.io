@@ -1,10 +1,10 @@
-# NOT-001 — Gửi thông báo/công việc (Notice Board)
+# NOT-001 — Tạo thông báo (New Announcement)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `NoticeController::noticeBoard()` — mặc định `/notice/notice-board` (route đẹp không được khai báo riêng trong `config/Routes.php`, dùng fallback DashedRoute)
 
-**Module:** NOT = Thông báo
+**Module:** NOT = Thông báo nội bộ
 
 ## Mô tả ngắn gọn
 Form cho phép người dùng (Superadmin/Admin/Business Unit Manager...) tạo và gửi một thông báo/công việc (task) tới một nhân sự khác, gắn với một đơn vị kinh doanh (business unit), một property (villa) và một hạng mục dịch vụ (dọn dẹp, vườn, bảo trì, back-office, khác...).
@@ -29,5 +29,5 @@ Form cho phép người dùng (Superadmin/Admin/Business Unit Manager...) tạo 
 - Các thay đổi trên select (BU, service category, assign_to, department) tự động gọi AJAX để nạp lại các lựa chọn phụ thuộc (không có màn hình riêng).
 
 ## Điều hướng
-- Vào từ: nút "Assign Task" (icon) trên màn hình NOT-002 (Danh sách thông báo).
-- Sau khi gửi thành công hoặc hủy: chuyển tới NOT-002 (Danh sách thông báo).
+- Vào từ: nút "Assign Task" (icon) trên màn hình NOT-002 (Thông báo & công việc).
+- Sau khi gửi thành công hoặc hủy: chuyển tới NOT-002 (Thông báo & công việc).

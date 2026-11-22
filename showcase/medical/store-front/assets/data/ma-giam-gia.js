@@ -5,7 +5,7 @@
      code         string
      description  string
      type         string   "percentage" | "fixed"
-     value        number   percentage (0-100) or fixed SGD amount
+     value        number   percentage (0-100) or fixed AUD amount
      minSpend     number
      appliesTo    string   category/segment scope description
      startDate    string   ISO date
@@ -33,7 +33,7 @@ const DATA_MA_GIAM_GIA = [
   },
   {
     code: "PREGFEST26",
-    description: "S$50 off maternity packages — Baby Expo 2026 event exclusive",
+    description: "A$50 off maternity packages — Baby Expo 2026 event exclusive",
     type: "fixed",
     value: 50,
     minSpend: 300,

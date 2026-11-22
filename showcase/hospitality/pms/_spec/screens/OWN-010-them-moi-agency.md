@@ -1,10 +1,10 @@
-# OWN-010 — Thêm mới Agency
+# OWN-010 — Thêm đại lý đối tác (New Partner Agency)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `/Owner/agency` (controller `Owner`, action `agency($tab = null, $agency_id = null, $show_page = null, $payment_detail_id = null)`, khi không truyền `agency_id`)
 
-**Module:** Quản lý chủ sở hữu (Admin)
+**Module:** Quan hệ chủ nhà (Admin)
 
 ## Mô tả ngắn gọn
 
@@ -28,12 +28,12 @@ Form tạo mới một Agency (đại lý) trong hệ thống, gồm 2 tab: "Age
 
 ## Chức năng/nút thao tác
 
-- **Save** (tab Agency Details): lưu bản ghi `Agency`, `UserBusinessUnit`; ghi log hoạt động; sau khi lưu chuyển sang OWN-011 (Chỉnh sửa Agency) ở tab "agency_payment_details", `show_page=agencyList`.
-- **Cancel**: quay lại OWN-009 (Danh sách Agency).
+- **Save** (tab Agency Details): lưu bản ghi `Agency`, `UserBusinessUnit`; ghi log hoạt động; sau khi lưu chuyển sang OWN-011 (Sửa đại lý đối tác) ở tab "agency_payment_details", `show_page=agencyList`.
+- **Cancel**: quay lại OWN-009 (Đại lý đối tác).
 - Tab "Payment Details": chưa dùng được ở màn hình Thêm mới (cần `agency_id`, chỉ hoạt động sau khi đã lưu và chuyển sang OWN-011).
 
 ## Điều hướng
 
 - Mở từ: OWN-009 (nút "+ Add New").
-- Sau khi lưu thành công: chuyển tới OWN-011 — Chỉnh sửa Agency (tab Payment Details).
+- Sau khi lưu thành công: chuyển tới OWN-011 — Sửa đại lý đối tác (tab Payment Details).
 - Cancel: quay về OWN-009.

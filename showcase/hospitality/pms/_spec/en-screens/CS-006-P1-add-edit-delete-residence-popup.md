@@ -1,10 +1,10 @@
-# CS-006-P1 — Add/Edit/Delete Residence Popup
+# CS-006-P1 — Residence Form
 
 **Type:** Popup (opened from CS-006)
 
 **Route:** Bootstrap Modal (`#exampleModal`, `multipart/form-data` form) within `residences.ctp`; submits to the same action `CommonSettingController::residences()`; loads Region/District/Area based on the parent level via AJAX `getData()` — `/common-setting/get-data`.
 
-**Module:** CS = Common Lookup Settings
+**Module:** CS = Reference Data
 
 ## Overview
 A shared popup for Adding/Editing/Deleting a Residence, comprising 4 cascading geographic selection levels, contact information, and a cover image upload.
@@ -32,5 +32,5 @@ A shared popup for Adding/Editing/Deleting a Residence, comprising 4 cascading g
 - **Cancel:** closes the modal.
 
 ## Navigation
-- Opened from: CS-006 (Residence list).
+- Opened from: CS-006 (Residence Setup).
 - After submission: returns to CS-006 with a flash message.

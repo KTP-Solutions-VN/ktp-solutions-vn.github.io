@@ -1,8 +1,8 @@
-# VCS-007-P1 — Popup Thêm/Sửa/Xóa Công năng sử dụng
+# VCS-007-P1 — Form loại hình sử dụng (Usage Type Form)
 
 **Loại:** Popup/Modal (mở từ VCS-007)
 **Route:** Không có route riêng — dùng chung form POST về `villa-common-setting/villa-usage` (hidden `action`=`add`/`edit`/`delete`); kiểm tra trùng tên qua AJAX `villa-common-setting/checkVillaUsage`
-**Module:** VCS = Cấu hình chung villa
+**Module:** VCS = Thuộc tính tài sản
 
 ## Mô tả ngắn gọn
 Modal Bootstrap dùng chung (`#exampleModal`) cho 3 kịch bản Thêm/Sửa/Xóa Công năng sử dụng villa. Ở chế độ Xóa, phần nhập liệu bị ẩn.
@@ -20,5 +20,5 @@ Modal Bootstrap dùng chung (`#exampleModal`) cho 3 kịch bản Thêm/Sửa/Xó
 - Validate: `name` bắt buộc, kiểm tra trùng tên qua remote AJAX `checkVillaUsage`.
 
 ## Điều hướng
-- Mở từ: VCS-007 (nút Add new / Edit / Delete trên bảng danh sách Công năng sử dụng).
+- Mở từ: VCS-007 (nút Add new / Edit / Delete trên bảng Loại hình sử dụng).
 - Điều hướng tới: không chuyển trang — submit xong reload lại VCS-007 (redirect `referer()`).

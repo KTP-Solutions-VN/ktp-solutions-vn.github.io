@@ -1,10 +1,10 @@
-# ACC-042 — Lương theo ngày (Daily Wages)
+# ACC-042 — Thu nhập theo ngày (Daily Earnings)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `AccountController::dailyWages()` — mặc định `/account/daily-wages`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Tính và thanh toán lương theo ngày công (daily wage) cho nhân viên có `salary_type = daily` trong một kỳ lương (`WagePeriod`) cụ thể, dựa trên dữ liệu chấm công (`UserClockIn`); sau khi tính, xác nhận thanh toán để lưu snapshot vào `UserSalary` và cho phép xuất Excel.
@@ -48,5 +48,5 @@ Cột trạng thái ngày công (`working_status`, mã màu):
 - **Download** (chỉ hiện ở trạng thái B): submit form `export_form` → server xuất file Excel `.xlsx` (thư viện PHPExcel, tên file `WAGE-<mã BU>-<ngày kết thúc kỳ>.xlsx`), dùng hàm phụ trợ `getExcelColumnName()` để tính tên cột Excel.
 
 ## Điều hướng
-- Vào từ: Sidebar > Account & HR > Daily Wages (`active_menu = acc-daily-wages`).
+- Vào từ: Sidebar > Finance & Admin > Daily Earnings (`active_menu = acc-daily-wages`).
 - Điều hướng đến: không có trang con/popup; toàn bộ thao tác (Calculate, To Pay, Download) xử lý bằng AJAX/submit ngay trên trang.

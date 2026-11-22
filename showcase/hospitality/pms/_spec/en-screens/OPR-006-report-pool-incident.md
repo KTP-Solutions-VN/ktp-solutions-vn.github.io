@@ -1,8 +1,8 @@
-# OPR-006 — Report Pool Incident
+# OPR-006 — Log Pool Issue
 
 **Type:** Full page
 **Route:** operator/poolReport/:id + dashed-style pretty route: operator/pool-report/:id
-**Module:** OPR = Garden/Pool Operations
+**Module:** OPR = Upkeep Jobs
 
 ## Overview
 Screen for pool staff to report an incident that occurred during a job: description of the issue with evidence photos; the system saves a `PoolCleaningProblem` record, changes `PoolCleaning.status = Problem`, and sends a warning email to the business unit responsible for the villa.

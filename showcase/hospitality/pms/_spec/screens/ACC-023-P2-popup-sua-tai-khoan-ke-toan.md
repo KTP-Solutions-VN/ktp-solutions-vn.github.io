@@ -1,10 +1,10 @@
-# ACC-023-P2 — Sửa chi tiết tài khoản kế toán
+# ACC-023-P2 — Sửa cấu trúc tài khoản (Edit Account Structure)
 
 **Loại:** Popup/Trang chỉnh sửa (mở từ ACC-023)
 
 **Route:** `AccountController::editChartAccount($id)` — mặc định `/account/edit-chart-account/<id>` (`id` truyền dạng base64)
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Sửa toàn bộ danh sách dòng chi tiết (`ChartAccountDetails`) của một Chart of Account: thêm dòng mới động, xóa dòng, sửa các trường rank/nature/category/sub_category/details/allocation, rồi lưu hàng loạt.
@@ -33,5 +33,5 @@ Bảng chi tiết dạng form động (mỗi dòng là 1 bản ghi `ChartAccount
 - **Save:** submit POST toàn bộ mảng `data[]` về chính action `editChartAccount`. Server: xóa các `ChartAccountDetails` cũ không còn xuất hiện trong `data[]` gửi lên (hàm `deleteSeletedRow`), sau đó `_saveData('ChartAccountDetails', ...)` cho từng dòng còn lại (update nếu có `chart_account_detail_id`, insert nếu không); ghi nhận thành công/thất bại và redirect về trang gọi (`referer()`).
 
 ## Điều hướng
-- Vào từ: ACC-023 (Sơ đồ tài khoản kế toán) — icon file (Edit Content) trên từng dòng.
+- Vào từ: ACC-023 (Cấu trúc tài khoản) — icon file (Edit Content) trên từng dòng.
 - Điều hướng đến: không điều hướng sang trang khác — lưu xong quay lại trang trước đó (`referer()`), thường là ACC-023.

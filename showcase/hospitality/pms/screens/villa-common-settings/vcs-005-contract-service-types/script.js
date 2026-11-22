@@ -20,7 +20,7 @@
 
   var state = MM.VCS.renderSimpleList({
     storageKey: STORAGE_KEY, baseData: MM.VCS.CONTRACT_SERVICE_TYPES, tbodyId: 'list-tbody', emptyId: 'list-empty',
-    searchId: 'search-input', countId: 'result-count', entityLabel: 'contract service type', rowHtml: rowHtml
+    searchId: 'search-input', countId: 'result-count', entityLabel: 'service bundle', rowHtml: rowHtml
   });
 
   function renderCheckboxes(checkedIds) {
@@ -52,7 +52,7 @@
 
   document.getElementById('add-btn').addEventListener('click', function () {
     editingId = null;
-    document.getElementById('modal-title').textContent = 'Add Contract Service Type';
+    document.getElementById('modal-title').textContent = 'Add Service Bundle';
     renderCheckboxes([]);
     MM.openModal('item-modal');
   });
@@ -63,7 +63,7 @@
       var item = state.data.find(function (d) { return d.id === editBtn.dataset.edit; });
       if (!item) return;
       editingId = item.id;
-      document.getElementById('modal-title').textContent = 'Edit Contract Service Type';
+      document.getElementById('modal-title').textContent = 'Edit Service Bundle';
       renderCheckboxes(item.serviceIds || []);
       MM.openModal('item-modal');
     }

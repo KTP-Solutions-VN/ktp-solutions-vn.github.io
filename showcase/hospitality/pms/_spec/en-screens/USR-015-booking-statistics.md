@@ -1,10 +1,10 @@
-# USR-015 — Booking Statistics
+# USR-015 — Reservation Analytics
 
 **Type:** Full page
 
 **Route:** `UserController::statistics()` — default `user/statistics`
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 A consolidated reporting/statistics page for bookings, filterable by date range, business unit, and sales channel: total bookings, total nights, average length of stay, average lead time, distribution by lead time, distribution by day of month/week, and a report by guest nationality.
@@ -37,5 +37,5 @@ A consolidated reporting/statistics page for bookings, filterable by date range,
 - **Filter (submit form via GET/POST):** recalculates all figures based on the selected filters.
 
 ## Navigation
-- Entry point: Users menu → Statistics.
+- Entry point: Workforce menu → Reservation Analytics.
 - No further navigation to other screens.

@@ -15,8 +15,8 @@
   renderPlatforms();
 
   document.getElementById('accounts-tbody').innerHTML = [
-    { platform: 'Booking.com', account: 'reservations@azurastays.example', bu: 'Phuket Collection' },
-    { platform: 'Airbnb', account: 'reservations@azurastays.example', bu: 'Bali Retreats' }
+    { platform: 'Booking.com', account: 'reservations@azurastays.example', bu: 'Sentosa Collection' },
+    { platform: 'Airbnb', account: 'reservations@azurastays.example', bu: 'Byron Bay Retreats' }
   ].map(function (a) { return '<tr><td class="cell-strong">' + a.platform + '</td><td>' + a.account + '</td><td class="cell-sub">' + a.bu + '</td></tr>'; }).join('');
 
   document.getElementById('content-tbody').innerHTML = [

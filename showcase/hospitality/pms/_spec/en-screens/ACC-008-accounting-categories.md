@@ -1,10 +1,10 @@
-# ACC-008 — Accounting Categories
+# ACC-008 — Entry Categories
 
 **Type:** Full page
 
 **Route:** `AccountController::accountingCategories()` — default `/account/accounting-categories`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 Manages the "Accounting Category" list used to classify statement entries (`AccountStatement.category_id`). Visible only to Superadmin in the menu. Add/Edit/Delete are handled through a shared popup on the same page.
@@ -34,5 +34,5 @@ Add/Edit/Delete popup (modal `#exampleModal`):
 - Hidden validation: the `checkAccountingCategory()` action — AJAX check for whether the category name already exists (via `_checkFields` when adding, `_checkExistingFields` when editing).
 
 ## Navigation
-- Entered from: Sidebar > "Statements" group > "Accounting Categories" (shown only when `user_type = Superadmin` and `filterSidebar($user, 'Account-accountCategory') == 1`).
+- Entered from: Sidebar > "Ledgers" group > "Entry Categories" (shown only when `user_type = Superadmin` and `filterSidebar($user, 'Account-accountCategory') == 1`).
 - Navigates to: no other page — all Add/Edit/Delete actions are handled on the same page via popup.

@@ -1,9 +1,9 @@
-# BOOK-074 — Seasonal Rate Log
+# BOOK-074 — Season Price Audit
 
 **Type:** Full page (has 2 display modes within the same view)
 **Route:** Booking/seasonPriceLogs (default: `/booking/season-price-logs`)
 **Pretty route:** no dedicated route found in config/Routes.php (uses the default route)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Page for reconciling villa selling prices in the internal system (VM/PMS) against the prices listed on the OTA channel (Beds24) for each season, detecting discrepancies/sync gaps; it also allows viewing detailed revenue/price fluctuation information for a specific season ("Season Revenue" mode).
@@ -35,7 +35,7 @@ Next to the table are a **Validation** icon (checkmark, confirms the price) and 
 
 ### Mode 2 — Season Revenue Detail (shown when `season_id` is present in the query string)
 - Season title bar with navigation arrows to the preceding/following season (`getPriceLogDataAjax` AJAX call)
-- 4 groups of KPI cards (3 cards per group: Last year / Current / Future): **Occupancy** (%), **Price** (new price, ฿), **Revenue** (% change), **Advance** (days remaining until the end of the season)
+- 4 groups of KPI cards (3 cards per group: Last year / Current / Future): **Occupancy** (%), **Price** (new price, S$), **Revenue** (% change), **Advance** (days remaining until the end of the season)
 - **Occupancy over time** chart (canvas, with left/right arrows to view a different period)
 - **Price Change History** chart within the season (by date)
 - **Average Price by Year** chart for this season (comparing from 2022 to the present)

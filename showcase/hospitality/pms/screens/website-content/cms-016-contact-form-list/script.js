@@ -73,7 +73,7 @@
 
     function openDrawer(item) {
       editingId = item ? item.id : null;
-      document.getElementById('contact-form-drawer-title').textContent = item ? 'Edit Contact Form' : 'Add Contact Form';
+      document.getElementById('contact-form-drawer-title').textContent = item ? 'Edit Enquiry Form' : 'Add Enquiry Form';
       document.getElementById('save-btn').textContent = item ? 'Save Changes' : 'Save';
       var form = document.getElementById('contact-form-form');
       form.reset();

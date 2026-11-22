@@ -1,10 +1,10 @@
-# VSV-008 — Cân đối thu/chi điện (Monthly Balance)
+# VSV-008 — Thu hồi chi phí điện (Power Cost Recovery)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `VillaServicesController::monthlyBalance()` — mặc định `/villa-services/monthly-balance` (POST cùng action để tìm kiếm)
 
-**Module:** Dịch vụ villa — Điện
+**Module:** Dịch vụ lưu trú — Đo điện
 
 ## Mô tả ngắn gọn
 Trang đối chiếu số tiền điện thu được từ khách (lúc check-out) so với số tiền điện phải trả nhà cung cấp/hóa đơn hàng tháng, trong một khoảng thời gian, theo villa hoặc theo toàn bộ danh sách villa.
@@ -42,5 +42,5 @@ Trang đối chiếu số tiền điện thu được từ khách (lúc check-ou
 - Không có nút thêm/sửa/xóa — đây là màn hình báo cáo/đối chiếu chỉ đọc.
 
 ## Điều hướng
-- Vào từ: Menu chính (mục Electricity/Monthly Balance).
+- Vào từ: Menu chính (mục Power Cost Recovery).
 - Điều hướng đến: không có trang con.

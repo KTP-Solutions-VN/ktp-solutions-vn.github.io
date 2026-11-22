@@ -8,13 +8,13 @@
   MM.MOCK_PROPERTIES.forEach(function (p) { nameToId[p.name] = p.id; });
 
   var ROWS = [
-    { id: 'BK-40501', property: 'Villa Sapphire Cliff', guest: 'James Whitfield', channel: 'Direct', checkIn: TODAY, checkOut: '2026-09-09', concierge: 'Somchai Anuwat', status: 'done', meter: 4210, photo: true, doneOn: '2026-09-02 13:05', paymentAmount: null, confirmed: false },
-    { id: 'BK-40502', property: 'Villa Coral Horizon', guest: 'Anna Kowalski', channel: 'Booking.com', checkIn: TODAY, checkOut: '2026-09-06', concierge: 'Somchai Anuwat', status: 'done', meter: 3860, photo: true, doneOn: '2026-09-02 14:20', paymentAmount: 450, confirmed: false },
-    { id: 'BK-40503', property: 'Villa Emerald Bay', guest: 'Michael Tan', channel: 'Airbnb', checkIn: TODAY, checkOut: '2026-09-05', concierge: 'Wayan Kertha', status: 'pending', meter: null, photo: false, doneOn: null, paymentAmount: null, confirmed: false },
-    { id: 'BK-40504', property: 'Villa Marble Cove', guest: 'Sophia Rossi', channel: 'Direct', checkIn: '2026-09-01', checkOut: '2026-09-05', concierge: 'Somchai Anuwat', status: 'done-late', meter: 2510, photo: true, doneOn: '2026-09-02 09:10', paymentAmount: null, confirmed: false },
-    { id: 'BK-40505', property: 'Villa Lotus Terrace', guest: 'David Chen', channel: 'Agoda', checkIn: '2026-09-01', checkOut: '2026-09-04', concierge: 'Nok Pattaya', status: 'not-done', meter: null, photo: false, doneOn: null, paymentAmount: null, confirmed: false },
-    { id: 'BK-40506', property: 'Villa Golden Palm', guest: 'Priya Nair', channel: 'Direct', checkIn: TODAY, checkOut: '2026-09-08', concierge: 'Nok Pattaya', status: 'done', meter: 1780, photo: true, doneOn: '2026-09-02 11:45', paymentAmount: 600, confirmed: true },
-    { id: 'BK-40507', property: 'Villa Silver Tide', guest: 'Isabelle Moreau', channel: 'Direct', checkIn: TODAY, checkOut: '2026-09-10', concierge: 'Wayan Kertha', status: 'done', meter: 6040, photo: true, doneOn: '2026-09-02 10:00', paymentAmount: 900, confirmed: false }
+    { id: 'BK-40501', property: 'Villa Sapphire Cliff', guest: 'James Whitfield', channel: 'Direct', checkIn: TODAY, checkOut: '2026-09-09', concierge: 'Daniel Tan', status: 'done', meter: 4210, photo: true, doneOn: '2026-09-02 13:05', paymentAmount: null, confirmed: false },
+    { id: 'BK-40502', property: 'Villa Coral Horizon', guest: 'Anna Kowalski', channel: 'Booking.com', checkIn: TODAY, checkOut: '2026-09-06', concierge: 'Daniel Tan', status: 'done', meter: 3860, photo: true, doneOn: '2026-09-02 14:20', paymentAmount: 18, confirmed: false },
+    { id: 'BK-40503', property: 'Villa Emerald Bay', guest: 'Michael Tan', channel: 'Airbnb', checkIn: TODAY, checkOut: '2026-09-05', concierge: 'Warren Kelly', status: 'pending', meter: null, photo: false, doneOn: null, paymentAmount: null, confirmed: false },
+    { id: 'BK-40504', property: 'Villa Marble Cove', guest: 'Sophia Rossi', channel: 'Direct', checkIn: '2026-09-01', checkOut: '2026-09-05', concierge: 'Daniel Tan', status: 'done-late', meter: 2510, photo: true, doneOn: '2026-09-02 09:10', paymentAmount: null, confirmed: false },
+    { id: 'BK-40505', property: 'Villa Lotus Terrace', guest: 'David Chen', channel: 'Agoda', checkIn: '2026-09-01', checkOut: '2026-09-04', concierge: 'Nicole Parker', status: 'not-done', meter: null, photo: false, doneOn: null, paymentAmount: null, confirmed: false },
+    { id: 'BK-40506', property: 'Villa Golden Palm', guest: 'Priya Nair', channel: 'Direct', checkIn: TODAY, checkOut: '2026-09-08', concierge: 'Nicole Parker', status: 'done', meter: 1780, photo: true, doneOn: '2026-09-02 11:45', paymentAmount: 26, confirmed: true },
+    { id: 'BK-40507', property: 'Villa Silver Tide', guest: 'Isabelle Moreau', channel: 'Direct', checkIn: TODAY, checkOut: '2026-09-10', concierge: 'Warren Kelly', status: 'done', meter: 6040, photo: true, doneOn: '2026-09-02 10:00', paymentAmount: 39, confirmed: false }
   ];
 
   function loadOverrides() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch (e) { return {}; } }
@@ -67,7 +67,7 @@
     document.getElementById('kpi-pending').textContent = pending;
     document.getElementById('kpi-late').textContent = late;
     document.getElementById('kpi-done').textContent = done;
-    document.getElementById('kpi-fixed').textContent = VSV.fmtMoney(fixedCollected, 'THB');
+    document.getElementById('kpi-fixed').textContent = VSV.fmtMoney(fixedCollected, 'SGD');
     document.getElementById('kpi-recorded').textContent = recorded;
   }
 

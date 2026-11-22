@@ -1,8 +1,8 @@
-# PROP-044 — Property Inventory Management
+# PROP-044 — On-site Stock
 
 **Type:** Full page
 **Route:** property/inventories/:villa_id
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Page listing the inventory/supplies currently held at a Property: initial stock, available stock, and received quantity. Allows reporting damage/loss (creating a request to discard supplies sent to admin) or removing an item from the Property.
@@ -28,11 +28,11 @@ Page listing the inventory/supplies currently held at a Property: initial stock,
 | 4 | Id (hidden) | `id` | Hidden | — | VillaInventory record Id |
 
 ## Functions / Actions
-- "All Request" button → navigates to PROP-045 (Inventory Request) at `inventory-request/:villa_id`.
+- "All Request" button → navigates to PROP-045 (Stock Requests) at `inventory-request/:villa_id`.
 - Delete icon (`delete_inventory`) → opens a confirmation modal, submits `action=delete`: deletes the `VillaInventory` record, records an Activity Log and Inventory Log.
 - Report Damage icon (`damaged`) → opens a modal to enter quantity and reason, submits `action=damaged`: creates an `InventoryDiscardRequest` record sending a discard request to admin, records a log.
 
 ## Navigation
-- Opened from: PROP-035 (View Property Details) or the Property inventory management menu.
-- Navigates to: PROP-045 (Inventory Request — All Request).
+- Opened from: PROP-035 (Property Profile) or the On-site Stock menu.
+- Navigates to: PROP-045 (Stock Requests — All Request).
 - Child popup: Item action modal (Delete/Damaged) — no dedicated code, an inline supporting operation.

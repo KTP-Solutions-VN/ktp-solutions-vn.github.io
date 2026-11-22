@@ -1,8 +1,8 @@
-# PROP-047 — Xem chi tiết Dự án/Chung cư (View Residence Enquiry)
+# PROP-047 — Hồ sơ khu căn hộ (Residence Profile)
 
 **Loại:** Trang đầy đủ
 **Route:** property/view-residence-enquiry/:residence_id/:business_unit_id
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang xem chi tiết một Dự án/Chung cư (Residence): tên nội bộ/tên chính thức, vị trí (Country-Region-District-Area), danh sách toàn bộ Property thuộc Residence, và danh sách chủ nhà (Owner)/quản lý (Manager) cùng thông tin liên hệ, gom nhóm theo từng Owner.
@@ -22,6 +22,6 @@ Trang xem chi tiết một Dự án/Chung cư (Residence): tên nội bộ/tên 
 - Nếu `residence_id` không hợp lệ hoặc không tìm thấy dữ liệu → Flash lỗi và redirect về PROP-046.
 
 ## Điều hướng
-- Mở từ: PROP-046 (Danh sách Dự án/Chung cư) — icon "Xem".
+- Mở từ: PROP-046 (Khu căn hộ & dự án) — icon "Xem".
 - Điều hướng tới: Không có (trang chỉ xem).
 - Popup con: Không có.

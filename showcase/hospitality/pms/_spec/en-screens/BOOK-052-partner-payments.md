@@ -1,8 +1,8 @@
-# BOOK-052 — Partner Payments
+# BOOK-052 — Partner Payouts
 
 **Type:** Full page
 **Route:** Booking/partnerPayments (default: `/booking/partner-payments`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Hub page for the invoicing/payment management area for villa owners under a partnership model, providing 3 entry points by payment status.
@@ -16,5 +16,5 @@ The page has no data of its own; it only displays 3 navigation buttons.
 - **Paid** button — opens BOOK-051
 
 ## Navigation
-- Opened from: Booking module menu > Partner Payments
+- Opened from: Reservations module menu > Partner Payouts
 - Navigates to: BOOK-049, BOOK-050, BOOK-051

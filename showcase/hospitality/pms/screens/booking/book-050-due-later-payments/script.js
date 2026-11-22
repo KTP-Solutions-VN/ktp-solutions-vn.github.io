@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Deterministic fake bank details for the demo — no real financial data.
   function bankDetails(ownerName) {
-    var banks = ['Bangkok Bank', 'Kasikorn Bank', 'Siam Commercial Bank', 'Krungsri'];
+    var banks = ['DBS Bank', 'UOB', 'Standard Chartered', 'OCBC'];
     var h = 0; for (var i = 0; i < ownerName.length; i++) h = (h * 31 + ownerName.charCodeAt(i)) >>> 0;
     var bank = banks[h % banks.length];
     var last4 = String(1000 + (h % 8999));

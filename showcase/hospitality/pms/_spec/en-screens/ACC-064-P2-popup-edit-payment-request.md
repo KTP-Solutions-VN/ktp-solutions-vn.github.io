@@ -1,10 +1,10 @@
-# ACC-064-P2 — Popup: Edit Payment Request
+# ACC-064-P2 — Edit Payment Request
 
 **Type:** Popup (opened from ACC-064)
 
 **Route:** `AccountController::editPaymentRequest($id)` (displays the form) + `AccountController::updatePaymentRequest()` (saves, POST) — default `/account/edit-payment-request/<base64 id>`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 A wizard-style form for editing an existing payment request (general information, Product/Service detail lines, invoice), pre-loading all existing data from `ExpensePaymentRequest` and `ExpensePaymentRequestSupplier`.
@@ -28,5 +28,5 @@ All Payment Lines are pre-loaded from `payment->expense_payment_request_supplier
 - If no data is found (invalid `id`): shows a "Data not found" flash error and redirects to ACC-064.
 
 ## Navigation
-- Entered from: ACC-064 (Payment Request List) — "Edit" icon on each row.
+- Entered from: ACC-064 (Payment Approvals) — "Edit" icon on each row.
 - Navigates to: returns to ACC-064 after saving or when the data is invalid.

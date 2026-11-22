@@ -23,7 +23,7 @@ const API = (() => {
 
   return {
     init(cfg) { if (cfg && cfg.apiBase) base = cfg.apiBase; },
-    /* GET /meta/app: phần sinh từ Legacy CRM (app.json) + cấu hình sửa tay (meta/config/*.json) */
+    /* GET /meta/app: phần sinh tự động (app.json) + cấu hình sửa tay (meta/config/*.json) */
     async app() {
       const parts = await Promise.all(["meta/app.json", ...["tenants", "users", "teams", "profiles", "menu", "approval_rules", "tour"].map(n => `meta/config/${n}.json`)].map(getJSON));
       return Object.assign({}, ...parts);

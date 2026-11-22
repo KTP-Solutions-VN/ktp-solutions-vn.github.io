@@ -1,8 +1,8 @@
-# BOOK-034 — Kiểm soát chất lượng nhận phòng
+# BOOK-034 — Xác minh nhận phòng (Check-in Verification)
 
 **Loại:** Trang đầy đủ (mở tiếp theo từ BOOK-029/BOOK-029-P1)
 **Route:** Booking/qualityControl/:checkin_detail_id/:date/:villa_id (mặc định: `/booking/quality-control/...`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Màn hình đối chiếu chất lượng thực hiện nhận phòng: so sánh nhân viên thực hiện với nhân viên được phân công (concierge), so sánh vị trí GPS thực tế với vị trí villa (cùng vị trí hay lệch), và so sánh giờ nhận phòng dự kiến (planned) với giờ thực tế (actual).
@@ -21,5 +21,5 @@ Màn hình đối chiếu chất lượng thực hiện nhận phòng: so sánh 
 - Đối chiếu tự động, không có thao tác chỉnh sửa — dùng để giám sát chất lượng thực hiện
 
 ## Điều hướng
-- Mở từ: BOOK-029 (Kiểm soát nhận phòng) / BOOK-029-P1
+- Mở từ: BOOK-029 (Kiểm tra khi khách đến) / BOOK-029-P1
 - Không điều hướng tiếp — màn hình xem kết quả cuối

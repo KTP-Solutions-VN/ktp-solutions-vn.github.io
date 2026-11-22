@@ -1,8 +1,8 @@
-# BOOK-030 — Check-out Control
+# BOOK-030 — Departure Audit
 
 **Type:** Full page
 **Route:** Booking/checkOutControl (default: `/booking/check-out-control`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 A list of villa control points to be performed at check-out, including recorded damage (Damage) and guest satisfaction (Satisfaction), similar to BOOK-029 but for the check-out process.
@@ -24,5 +24,5 @@ A list of villa control points to be performed at check-out, including recorded 
 - View the details of each check-out control point (opens BOOK-030-P1)
 
 ## Navigation
-- Opened from: Booking module menu > Check-out Control
-- Navigates to: BOOK-030-P1 (Check-out Control Point Details)
+- Opened from: Reservations module menu > Departure Audit
+- Navigates to: BOOK-030-P1 (Departure Checkpoint Details)

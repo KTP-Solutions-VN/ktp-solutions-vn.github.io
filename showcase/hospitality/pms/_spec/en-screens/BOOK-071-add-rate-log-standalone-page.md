@@ -1,9 +1,9 @@
-# BOOK-071 — Add Rate Log (Standalone Page)
+# BOOK-071 — New Price Note
 
 **Type:** Full page (independent sub-page — not a popup/modal)
 **Route:** Booking/ratesLogAdd (default: `/booking/rates-log-add`)
 **Pretty route:** no dedicated route found in config/Routes.php (uses the default route)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Form for adding a new rate log record (`VillaRateLog`) at the villa level, including business unit, villa, and note content.

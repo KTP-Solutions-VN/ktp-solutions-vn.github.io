@@ -1,8 +1,8 @@
-# PROP-028 — Photography Scores
+# PROP-028 — Image Quality Review
 
 **Type:** Full page
 **Route:** property/photography/scores (a custom route configured in Routes.php, mapped to the `photographyScores` action)
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 A table for scoring the quality of each photo set against 3 criteria — Angles/Colours/Composition (1-3 star scale) — allowing inline scoring (via AJAX) and displaying the average score, sortable by lowest/highest score.
@@ -44,6 +44,6 @@ Paginated 25 rows per page.
 - Previous/Next pagination navigation.
 
 ## Navigation
-- Opened from: PROP-026 (Photography Planning) — breadcrumb/menu.
+- Opened from: PROP-026 (Shoot Scheduler) — breadcrumb/menu.
 - Navigates to: PROP-025 (photographer name link), `Photos::detail` (outside this scope).
 - Child popup: none.

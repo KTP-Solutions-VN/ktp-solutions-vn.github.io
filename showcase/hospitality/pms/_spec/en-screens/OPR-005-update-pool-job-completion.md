@@ -1,8 +1,8 @@
-# OPR-005 — Update Pool Job Completion
+# OPR-005 — Close Pool Round
 
 **Type:** Full page
 **Route:** operator/poolJob/:id + dashed-style pretty route: operator/pool-job/:id
-**Module:** OPR = Garden/Pool Operations
+**Module:** OPR = Upkeep Jobs
 
 ## Overview
 Screen for pool staff while performing a job: capture/upload completion evidence photos, then submit to record the GPS location and end time, and change the status to `PoolCleaning.status = Cleaned`. Functionally similar to OPR-001 (garden job) but applied to pools.
@@ -22,4 +22,4 @@ Screen for pool staff while performing a job: capture/upload completion evidence
 
 ## Navigation
 - Entered from: the pool job start flow (mobile/villa-services) when staff accept a job.
-- Leads to: after a successful submit, redirects to OPR-003 — Pool Job List.
+- Leads to: after a successful submit, redirects to OPR-003 — Pool Rounds.

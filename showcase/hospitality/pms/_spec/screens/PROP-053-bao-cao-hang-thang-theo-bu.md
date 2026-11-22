@@ -1,8 +1,8 @@
-# PROP-053 — Báo cáo hàng tháng theo Business Unit (BU Reports)
+# PROP-053 — Báo cáo chủ nhà theo đơn vị (Owner Reports by Unit)
 
 **Loại:** Trang đầy đủ
 **Route:** property/bu-reports
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang tra cứu danh sách bản tin/báo cáo hàng tháng (Monthly Report) đã gửi cho chủ nhà, lọc theo Business Unit và Tháng. Dữ liệu lấy từ bảng `MonthlyReport` (contain Villa, Owner).
@@ -31,6 +31,6 @@ Trang tra cứu danh sách bản tin/báo cáo hàng tháng (Monthly Report) đ�
 - Icon Action trên từng dòng → xem/tải file báo cáo tương ứng (liên quan PROP-018 Monthly Report, PROP-024 Payment Report).
 
 ## Điều hướng
-- Mở từ: Menu Property/Reports (không thuộc phạm vi mã hiện tại).
-- Điều hướng tới: Không điều hướng sang trang khác (chỉ lọc dữ liệu tại chỗ); có liên hệ dữ liệu với PROP-018 (Bản tin hàng tháng).
+- Mở từ: Menu báo cáo chủ nhà (không thuộc phạm vi mã hiện tại).
+- Điều hướng tới: Không điều hướng sang trang khác (chỉ lọc dữ liệu tại chỗ); có liên hệ dữ liệu với PROP-018 (Bản tin chủ nhà).
 - Popup con: Không có.

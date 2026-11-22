@@ -11,9 +11,9 @@
      comboItems       array    [{ name, note }] — only when isCombo
      hasVariants      bool
      variants         array    [{ id, label, stock }] — empty if hasVariants=false
-     listPrice        number   original list price (SGD)
+     listPrice        number   original list price (AUD)
      specialPrice     number|null  discounted display price if on promotion, else null
-     bookingRequired  bool     true if this service routes through Choose Slot (#5)
+     bookingRequired  bool     true if this service routes through Select a Time Slot
      rating           number
      reviewCount      number
      tags             array    e.g. ["Best Seller","New","Recommended"]
@@ -22,7 +22,7 @@
      description       string
      icon             string   key used to pick a placeholder illustration in the UI
      image            string|null  verified real photo URL (Pexels CDN) used on Home carousel
-                                    cards and Product Listing/Detail — falls back to the icon
+                                    cards and the catalog list/detail pages — falls back to the icon
                                     glyph when absent
      imageAlt         string|null  descriptive alt text for `image`, required whenever `image`
                                     is set
@@ -138,7 +138,7 @@ const DATA_SAN_PHAM_DICH_VU = [
     isCombo: true,
     comboItems: [
       { name: "Doona Baby Hamper", note: "Premium newborn essentials hamper" },
-      { name: "Confinement Meal Voucher (S$100)", note: "Redeemable with Meridian Nutri" },
+      { name: "Confinement Meal Voucher (A$100)", note: "Redeemable with Meridian Nutri" },
       { name: "Trial Meal Tasting Session", note: "1x in-clinic tasting for 2 pax" }
     ],
     hasVariants: false,
@@ -455,7 +455,7 @@ const DATA_SAN_PHAM_DICH_VU = [
     tags: ["New"],
     status: "published",
     shortDescription: "Private preview of our VIP delivery and postnatal suites, fee redeemable on booking.",
-    description: "A private, appointment-only preview of the VIP delivery and postnatal suites. The S$20 preview fee is fully redeemable against a confirmed VIP suite booking.",
+    description: "A private, appointment-only preview of the VIP delivery and postnatal suites. The A$20 preview fee is fully redeemable against a confirmed VIP suite booking.",
     icon: "building",
     image: "https://images.pexels.com/photos/11660582/pexels-photo-11660582.jpeg?auto=compress&cs=tinysrgb&w=800",
     imageAlt: "Bright modern hospital corridor lined with empty beds"

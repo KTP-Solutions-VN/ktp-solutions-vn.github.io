@@ -502,7 +502,7 @@ button.cb:hover{border-color:var(--ok);background:var(--ok-soft)}
 .bv{white-space:nowrap;font-size:12px;color:var(--ink);overflow:hidden;text-overflow:ellipsis}
 .warn-t{color:var(--warn)}
 .modal .box.drawer.wide{max-width:min(940px,92vw)} /* xem nhanh yêu cầu duyệt: đủ rộng để thấy hết các cột dòng hàng */
-/* tooltip hiện ngay khi rê chuột (thay title mặc định của trình duyệt, dễ bị bỏ qua) — dùng cho giải thích quy định, VD PDPA */
+/* tooltip hiện ngay khi rê chuột (thay title mặc định của trình duyệt, dễ bị bỏ qua) — dùng cho giải thích quy định, VD Privacy Act (dữ liệu cá nhân) */
 .tip{cursor:help}
 #tipbox{position:fixed;z-index:100;display:none;max-width:320px;background:#1f2937;color:#fff;font-size:12px;line-height:1.45;padding:8px 10px;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.2);pointer-events:none}
 #tipbox.show{display:block}

@@ -1,8 +1,8 @@
-# BOOK-056 — Đối soát doanh thu/hoa hồng OTA (OTA Share)
+# BOOK-056 — Rà soát hoa hồng (Commission Review)
 
 **Loại:** Trang đầy đủ (mở từ BOOK-054)
 **Route:** Booking/otaShare (mặc định: `/booking/ota-share`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Báo cáo đối soát tỷ trọng đặt phòng, doanh thu ròng (net) và hoa hồng (commission) theo từng kênh OTA cho một villa trong khoảng thời gian chọn, có biểu đồ tròn (pie chart) và bảng so sánh kỳ hiện tại/kỳ trước.
@@ -28,4 +28,4 @@ Báo cáo đối soát tỷ trọng đặt phòng, doanh thu ròng (net) và hoa
 - Điều hướng nhanh khoảng ngày theo tháng (nút mũi tên trái/phải)
 
 ## Điều hướng
-- Mở từ: BOOK-054 (OTA) > nút "Share"
+- Mở từ: BOOK-054 (Bộ công cụ kênh) > nút "Share"

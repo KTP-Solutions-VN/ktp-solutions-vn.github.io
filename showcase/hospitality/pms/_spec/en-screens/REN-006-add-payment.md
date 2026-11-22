@@ -1,8 +1,8 @@
-# REN-006 — Add Payment
+# REN-006 — Record Project Payment
 
 **Type:** Full page
 **Route:** renovation/addPayment/:renovation_id + dashed-style pretty route: renovation/add-payment/:renovation_id (id passed as base64)
-**Module:** REN = Renovation
+**Module:** REN = Refurbishment
 
 ## Overview
 Form for recording an independent payment (not tied to a specific invoice) into the renovation project's ledger: an advance or reimbursement between the parties involved.
@@ -21,5 +21,5 @@ Form for recording an independent payment (not tied to a specific invoice) into 
 - **Save**: saves a new `RenovationPayment` record with the current date.
 
 ## Navigation
-- Entered from: the "+ Payment" button on REN-005 — Renovation Project Payment Ledger.
-- Leads to: after successfully saving, returns to REN-005 — Renovation Project Payment Ledger.
+- Entered from: the "+ Payment" button on REN-005 — Project Spend Ledger.
+- Leads to: after successfully saving, returns to REN-005 — Project Spend Ledger.

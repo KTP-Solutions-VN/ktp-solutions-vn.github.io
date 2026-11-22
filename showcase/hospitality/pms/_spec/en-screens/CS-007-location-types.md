@@ -1,10 +1,10 @@
-# CS-007 — Location Types
+# CS-007 — Location Tags
 
 **Type:** Full page
 
 **Route:** `CommonSettingController::locationTypes()` — default `/common-setting/location-types`
 
-**Module:** CS = Common Lookup Settings
+**Module:** CS = Reference Data
 
 ## Overview
 A list for managing the Villa Location Type lookup data (`VillaLocationType`) — for example: Beachfront, Hillside, City center, etc.
@@ -26,5 +26,5 @@ List (DataTable `#zero_config`, sorted by `name` descending):
 - **Delete:** opens popup CS-007-P1 in delete-confirmation mode.
 
 ## Navigation
-- Accessed from: System Settings menu > Common Lookup Settings > Location Types.
-- Navigates to: CS-007-P1 (Add/Edit/Delete Location Type popup).
+- Accessed from: Configuration menu > Reference Data > Location Tags.
+- Navigates to: CS-007-P1 (Location Tag Form popup).

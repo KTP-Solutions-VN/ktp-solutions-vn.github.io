@@ -1,10 +1,10 @@
-# USR-014 — Sửa Cộng tác viên (Edit Agent)
+# USR-014 — Sửa đại lý bán hàng (Edit Sales Agent)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `UserController::editAgents($id)` — mặc định `user/editAgents/:id`
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Form chỉnh sửa thông tin của một Cộng tác viên đã tồn tại, các field giống USR-013 nhưng được nạp sẵn giá trị hiện có.
@@ -36,4 +36,4 @@ Form chỉnh sửa thông tin của một Cộng tác viên đã tồn tại, c�
 
 ## Điều hướng
 - Mở từ: USR-012 (icon Sửa).
-- Điều hướng đến: USR-012 (Danh sách Cộng tác viên) sau khi lưu thành công.
+- Điều hướng đến: USR-012 (Đại lý bán hàng) sau khi lưu thành công.

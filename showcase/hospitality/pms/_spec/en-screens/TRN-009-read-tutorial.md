@@ -1,8 +1,8 @@
-# TRN-009 — Read Tutorial
+# TRN-009 — Lesson Reader
 
 **Type:** Full page
 **Route:** `TrainingController::readTutorial($tutorial_id, $reading_id = null)` — `/training/read-tutorial/{tutorial_id}/{reading_id}`
-**Module:** TRN = Training
+**Module:** TRN = Staff Academy
 
 ## Overview
 A slideshow presentation of a Tutorial's Slides, letting the user page through each slide (image/video + text) using the left/right arrows, automatically recording the reading session.
@@ -22,5 +22,5 @@ Note: the reading interface currently does not display a slide's Quiz question (
 - **Stop → "End"** (once the final "The End" slide is reached): submits the form, marks `is_complete_read=1` on the UserTraining record, returns to TRN-008.
 
 ## Navigation
-- **Entered from:** TRN-007 (Library) or TRN-008 (My Record), via the "Read" icon.
+- **Entered from:** TRN-007 (Lesson Catalog) or TRN-008 (My Learning Progress), via the "Read" icon.
 - **Leads to:** TRN-008 (upon Stop or completing the reading session).

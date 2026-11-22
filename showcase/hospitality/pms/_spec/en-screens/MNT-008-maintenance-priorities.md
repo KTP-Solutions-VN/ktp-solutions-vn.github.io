@@ -1,8 +1,8 @@
-# MNT-008 — Maintenance Priorities
+# MNT-008 — Urgency Levels
 
 **Type:** Full page
 **Route:** maintenance/priorities
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Screen managing maintenance priority levels (`MaintenancePriority`): list, add/edit via modal, delete. Each priority level has a response time and a display color.
@@ -33,5 +33,5 @@ Screen managing maintenance priority levels (`MaintenancePriority`): list, add/e
 - **Delete**: deletes the priority level (`action=delete`).
 
 ## Navigation
-- Entered from: Settings/Maintenance menu in the sidebar.
+- Entered from: Repair Desk settings menu in the sidebar.
 - Navigates to: no navigation to other pages (in-place actions via modal).

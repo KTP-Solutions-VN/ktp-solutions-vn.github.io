@@ -1,10 +1,10 @@
-# OWP-015 — Hiệu suất kinh doanh biệt thự (Performance)
+# OWP-015 — Xu hướng hiệu quả (Performance Trends)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `ExternalUserController::performance()` — không có route đẹp riêng (mặc định `/external-user/performance`)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 
@@ -38,5 +38,5 @@ Khối "Chỉ số tài chính" (Financial Ratios): Tỷ suất hoàn vốn đ�
 
 ## Điều hướng
 
-- Truy cập từ menu chính (Performance)
+- Truy cập từ menu chính (Performance Trends)
 - Không điều hướng sang màn hình khác

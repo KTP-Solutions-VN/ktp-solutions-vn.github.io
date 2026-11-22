@@ -1,10 +1,10 @@
-# VSV-021 — Villa Inspection List
+# VSV-021 — Inspection Reports
 
 **Type:** Full page
 
 **Route:** `VillaServicesController::inspection()` — defaults to `/villa-services/inspection`; table data loaded via AJAX `inspectionAjax`/`inspectionDetailAjax`
 
-**Module:** Villa Services — Inspection
+**Module:** In-Stay Services — Inspections
 
 ## Overview
 A list of villa inspection reports by Business Unit/villa, allowing users to view/edit/continue a report, grant owner viewing access, archive, or delete a report.
@@ -42,5 +42,5 @@ Each row can be expanded to show a nested table by inspection service (Service /
 - **Delete** (`delete-inspection`): confirms then calls AJAX to delete the report (`deleteInspectionreport`/`deleteInspection`).
 
 ## Navigation
-- Entered from: Main menu (Inspection item).
+- Entered from: Main menu (Inspection Reports item).
 - Navigates to: VSV-021-P1 (View inspection details), VSV-022 (Edit inspection setup), VSV-022-P1 (Perform/edit inspection progress).

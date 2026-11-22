@@ -1,10 +1,10 @@
-# ACC-007 — Account Statements
+# ACC-007 — Account Ledger
 
 **Type:** Full page
 
 **Route:** `AccountController::statements($account_id)` — default `/account/statements/<account_id>` (`account_id` passed as base64 in the URL)
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 View the statement of a specific Account: lists all credit/debit entries recorded, calculating a running balance in entry order. Each account that is currently "open for statements" appears as its own entry in the Statements menu.
@@ -37,5 +37,5 @@ Only entries with `AccountStatement.account_id = <account_id>` and `is_deleted =
 - No filters on the page; each account is its own page via the `account_id` parameter.
 
 ## Navigation
-- Entered from: Sidebar > "Statements" group > entry named after each account currently open for statements (`filterSidebar($user, 'Account-statements')`, list `$open_statements`).
-- Navigates to: ACC-007-P1 (Add Statement Entry), ACC-007-P2 (Edit Statement Entry), Delete action (`deleteStatement` action, no dedicated view).
+- Entered from: Sidebar > "Ledgers" group > entry named after each account currently open for statements (`filterSidebar($user, 'Account-statements')`, list `$open_statements`).
+- Navigates to: ACC-007-P1 (New Ledger Entry), ACC-007-P2 (Edit Ledger Entry), Delete action (`deleteStatement` action, no dedicated view).

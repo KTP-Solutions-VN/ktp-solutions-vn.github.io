@@ -1,10 +1,10 @@
-# BU-015-P1 — Popup Xác nhận xóa văn phòng
+# BU-015-P1 — Xác nhận xóa văn phòng (Confirm Office Deletion)
 
 **Loại:** Popup (mở từ BU-015)
 
 **Route:** Modal Bootstrap (`#exampleModal`) tĩnh trong `offices.ctp`; xác nhận điều hướng tới `BusinessUnitController::deleteOffice($id)` — `/business-unit/delete-office/{id}` (id mã hoá base64).
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Popup xác nhận trước khi xóa vĩnh viễn một văn phòng.

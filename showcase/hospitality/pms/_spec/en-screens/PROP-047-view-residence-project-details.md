@@ -1,8 +1,8 @@
-# PROP-047 — View Residence/Project Details (View Residence Enquiry)
+# PROP-047 — Residence Profile
 
 **Type:** Full page
 **Route:** property/view-residence-enquiry/:residence_id/:business_unit_id
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Page showing detailed information for a Residence/Project: internal/official name, location (Country-Region-District-Area), the full list of Properties belonging to the Residence, and the list of Owners/Managers with contact information, grouped by each Owner.
@@ -22,6 +22,6 @@ Page showing detailed information for a Residence/Project: internal/official nam
 - If `residence_id` is invalid or no data is found → error flash message and redirect back to PROP-046.
 
 ## Navigation
-- Opened from: PROP-046 (Residence/Project List) — "View" icon.
+- Opened from: PROP-046 (Residences & Projects) — "View" icon.
 - Navigates to: None (view-only page).
 - Child popup: None.

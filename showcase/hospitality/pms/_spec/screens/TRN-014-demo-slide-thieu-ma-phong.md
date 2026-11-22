@@ -1,8 +1,8 @@
-# TRN-014 — Demo slide "Missing Room IDs"
+# TRN-014 — Demo slide bài học (Lesson Slide Demo)
 
 **Loại:** Trang đầy đủ
 **Route:** `TrainingController::slide2()` — `/training/slide2`
-**Module:** TRN = Đào tạo
+**Module:** TRN = Học viện nhân viên
 
 ## Mô tả ngắn gọn
 Trang tĩnh hiển thị hình ảnh minh họa mẫu với tiêu đề "Missing Room IDS", không có dữ liệu động và không có xử lý nghiệp vụ. Có dấu hiệu là màn hình demo/thử nghiệm còn sót lại trong module.

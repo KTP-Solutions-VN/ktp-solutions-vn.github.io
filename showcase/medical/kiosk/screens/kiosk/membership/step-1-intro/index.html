@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Choose a Member Programme — CareJourney Kiosk</title>
+<meta name="theme-color" content="#4C5FFF">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgo=">
+<link rel="stylesheet" href="../../../../assets/css/global.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="kiosk-device" id="kioskDevice">
+
+    <div class="kiosk-topbar">
+      <div class="kiosk-brand">
+        <div class="kiosk-brand-mark" aria-hidden="true">CJ</div>
+        <div>
+          <div class="kiosk-brand-name">CareJourney</div>
+          <div class="kiosk-brand-sub">Member Enrollment</div>
+        </div>
+      </div>
+      <div class="kiosk-topbar-right">
+        <div class="kiosk-idle-ring" id="idleRing" title="Session activity"></div>
+        <button type="button" class="kiosk-home-btn" id="homeBtn" aria-label="Cancel to Home" title="Cancel to Home">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9a1 1 0 0 0 1 1h4v-5h2v5h4a1 1 0 0 0 1-1v-9"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="kiosk-progress" data-step="1">
+      <div class="kiosk-progress-step is-active">
+        <div class="kiosk-progress-bar"><span></span></div>
+        <div class="kiosk-progress-label">1 · Select programme</div>
+      </div>
+      <div class="kiosk-progress-step">
+        <div class="kiosk-progress-bar"><span></span></div>
+        <div class="kiosk-progress-label">2 · Member info</div>
+      </div>
+      <div class="kiosk-progress-step">
+        <div class="kiosk-progress-bar"><span></span></div>
+        <div class="kiosk-progress-label">3 · Complete</div>
+      </div>
+    </div>
+
+    <div class="kiosk-content">
+      <div class="content-col">
+        <div>
+          <h1 style="font-size:24px;">Enroll in the FBP/NBP Programme</h1>
+          <p style="margin-top:6px;color:var(--gray-600);font-size:14px;line-height:1.5;">FBP and NBP members get member pricing across Meridian Specialists, Meridian Nutri, parenting classes and maternity packages. Choose the one that fits your family.</p>
+        </div>
+
+        <div class="option-card-group" id="optionGroup">
+          <label class="option-card" data-value="FBP">
+            <input type="radio" name="programType" value="FBP">
+            <div class="option-card-icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5"/><path d="m8.5 13.5-1.6 6.5L12 18l5.1 2-1.6-6.5"/></svg></div>
+            <div class="option-card-body">
+              <div class="option-card-title">First Baby Programme (FBP)</div>
+              <div class="option-card-desc">For families welcoming their first child at Meridian Health — member pricing from day one.</div>
+            </div>
+            <div class="option-card-check"><svg viewBox="0 0 24 24"><path d="M5 12.5 9.5 17 19 7"/></svg></div>
+          </label>
+
+          <label class="option-card" data-value="NBP">
+            <input type="radio" name="programType" value="NBP">
+            <div class="option-card-icon"><svg class="icon" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M15.5 6a3 3 0 0 1 0 5.8"/><path d="M16.5 14.3A5.5 5.5 0 0 1 20.5 20"/></svg></div>
+            <div class="option-card-body">
+              <div class="option-card-title">Next Baby Programme (NBP)</div>
+              <div class="option-card-desc">For growing families who have been with us before — bigger savings with each new arrival.</div>
+            </div>
+            <div class="option-card-check"><svg viewBox="0 0 24 24"><path d="M5 12.5 9.5 17 19 7"/></svg></div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="kiosk-footer footer-single">
+      <button type="button" class="btn btn-primary btn-huge" id="continueBtn" disabled>
+        Continue
+        <svg class="icon" viewBox="0 0 24 24"><path d="M4.5 12h15"/><path d="m13.5 5.5 6.5 6.5-6.5 6.5"/></svg>
+      </button>
+    </div>
+
+    <button type="button" class="faq-fab" id="faqFab">
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.5 9.3a2.6 2.6 0 0 1 5 .9c0 1.7-2.4 2-2.4 3.6"/><circle cx="12" cy="17" r=".2" fill="currentColor"/></svg>
+      Need Help?
+    </button>
+    <div class="faq-overlay" id="faqOverlay">
+      <div class="faq-panel">
+        <div class="faq-panel-head">
+          <h2>Frequently asked questions</h2>
+          <button type="button" class="faq-close-btn" id="faqCloseBtn" aria-label="Close">
+            <svg class="icon" viewBox="0 0 24 24"><path d="m6 6 12 12"/><path d="m18 6-12 12"/></svg>
+          </button>
+        </div>
+        <div class="faq-panel-body"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../../../../assets/data/memberships.js"></script>
+  <script src="../../../../assets/js/global.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

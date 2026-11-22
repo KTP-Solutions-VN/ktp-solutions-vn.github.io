@@ -1,10 +1,10 @@
-# CMS-025 — Thêm/Sửa text chung Collection Website
+# CMS-025 — Trình sửa đoạn văn trang chủ đề (Themed Site Snippet Editor)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::editCollectionCommonText($id)` — mặc định `/cms/edit-collection-common-text/:id`
 
-**Module:** CMS = Nội dung trang chủ
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Form thêm mới hoặc chỉnh sửa 1 bản ghi text chung (`CollectionTranslation`) dùng chung cho action Add (không truyền `id`, tiêu đề "Add") và Edit (có `id`, tiêu đề "Edit"). Mỗi bản ghi gắn với 1 `type` cố định và 1 ngôn ngữ cụ thể — **có đa ngôn ngữ nhưng theo kiểu mỗi bản ghi = 1 ngôn ngữ** (khác với các tab khác của CMS-023 lưu dạng serialize nhiều ngôn ngữ trong 1 field); muốn có bản dịch cho ngôn ngữ khác phải tạo thêm 1 bản ghi mới cùng `type`, `title` nhưng khác `language`.

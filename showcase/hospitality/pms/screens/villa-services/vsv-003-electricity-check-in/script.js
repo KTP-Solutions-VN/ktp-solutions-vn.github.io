@@ -3,7 +3,7 @@
   var VSV = MM.VSV;
   var STORAGE_KEY = 'mm_vsv_checkin_meters';
   var TODAY = '2026-09-02';
-  var CURRENT_USER = 'Somchai Anuwat';
+  var CURRENT_USER = 'Daniel Tan';
 
   var nameToId = {};
   MM.MOCK_PROPERTIES.forEach(function (p) { nameToId[p.name] = p.id; });
@@ -22,7 +22,7 @@
   function seedIfEmpty() {
     if (localStorage.getItem(STORAGE_KEY)) return;
     var seed = {};
-    seed['BK-10241'] = { startMeter: 4820, startDate: '2026-09-02', meterTime: '13:10', comment: '', paymentCollection: 'no', enteredBy: 'Somchai Anuwat', enteredAt: '2026-09-02 13:12' };
+    seed['BK-10241'] = { startMeter: 4820, startDate: '2026-09-02', meterTime: '13:10', comment: '', paymentCollection: 'no', enteredBy: 'Daniel Tan', enteredAt: '2026-09-02 13:12' };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(seed));
   }
   seedIfEmpty();

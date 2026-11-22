@@ -1,8 +1,8 @@
-# VCS-001 — Danh sách Vật dụng (Item)
+# VCS-001 — Danh mục tiện nghi (Amenity Catalog)
 
 **Loại:** Trang đầy đủ
 **Route:** villa-common-setting/items (dashed mặc định CakePHP DashedRoute: `/villa-common-setting/items`)
-**Module:** VCS = Cấu hình chung villa
+**Module:** VCS = Thuộc tính tài sản
 
 ## Mô tả ngắn gọn
 Màn hình quản lý dữ liệu chủ "Vật dụng" (Item) — danh mục dùng để gắn vào Kho vật dụng (Inventory) của villa. Hiển thị dạng bảng danh sách, cho phép Thêm/Sửa/Xóa qua 1 popup dùng chung.
@@ -24,6 +24,6 @@ Không có ô tìm kiếm/lọc riêng (DataTable client-side `#zero_config`).
 - Submit form popup gửi `POST` về chính action `items` với `action=add|edit|delete`; controller `VillaCommonSettingController::items()` lưu/xóa bảng `Item`, ghi Activity Log, hiển thị Flash message, sau đó redirect về trang trước (`referer()`).
 
 ## Điều hướng
-- Mở từ: Menu Settings > "Inventories" (Kho vật dụng) > submenu "Items".
+- Mở từ: Menu Portfolio Setup > "Property Attributes" (Thuộc tính tài sản) > submenu "Amenity Catalog".
 - Điều hướng tới: không điều hướng sang trang khác (thao tác CRUD tại chỗ qua popup + reload).
-- Popup con: VCS-001-P1 (Thêm/Sửa/Xóa Vật dụng).
+- Popup con: VCS-001-P1 (Form tiện nghi).

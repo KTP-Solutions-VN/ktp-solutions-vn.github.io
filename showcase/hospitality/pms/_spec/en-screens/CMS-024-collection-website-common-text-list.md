@@ -1,10 +1,10 @@
-# CMS-024 — Collection Website Common Text List
+# CMS-024 — Themed Site Snippets
 
 **Type:** Full page
 
 **Route:** `CmsController::collectionCommonText($action, $id)` — default `/cms/collection-common-text/:action/:id`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 List of shared text snippets (translations by `type`) applied across collection websites — data from the `CollectionTranslation` table. This is the source text repository for the 5 dropdowns on the **Footer** tab of CMS-023 (Book with confidence, Terms & Condition, Personal data policy, Why work with us, Guarantee). The same `collectionCommonText` action handles both displaying the list and deleting a record (when `$action`/`$id` are passed).
@@ -29,5 +29,5 @@ Filter: `language` dropdown (`Language` category) + Search button (`language_fil
 - **Delete:** calls back into this same action with `$action` + `$id` (route `/cms/collection-common-text/<action>/<id>`) → deletes the `CollectionTranslation` record by `id`, then redirects back to the list (no parameters passed) with a success/error flash message.
 
 ## Navigation
-- Accessed from: can be accessed independently within the CMS module (Settings/CMS menu); referenced as the source data repository from the Footer tab of CMS-023.
+- Accessed from: can be accessed independently within the CMS module (Web Publishing menu); referenced as the source data repository from the Footer tab of CMS-023.
 - Navigates to: CMS-025 (form to add/edit a single common text record).

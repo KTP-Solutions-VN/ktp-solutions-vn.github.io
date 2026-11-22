@@ -7,18 +7,18 @@
   var FOLLOWUPS_DELETED_KEY = 'mm_prop_photo_followups_deleted';
 
   var MOCK_SHOOTS = [
-    { id: 'SH-01', property: 'Villa Marble Cove', bu: 'Phuket Collection', scope: 'Property', objective: 'Initial listing', date: '2026-09-03', status: 'scheduled', notes: '' },
-    { id: 'SH-02', property: 'Villa Golden Palm', bu: 'Koh Samui Estates', scope: 'Property', objective: 'Catch-up shoot', date: '2026-09-08', status: 'confirmed', notes: 'Photographer to bring drone for exterior shots.' },
-    { id: 'SH-03', property: 'Villa Turquoise Reef', bu: 'Phuket Collection', scope: 'Property', objective: 'Seasonal refresh', date: '2026-08-14', status: 'completed', notes: '' },
-    { id: 'SH-04', property: 'Villa Sapphire Cliff', bu: 'Phuket Collection', scope: 'Property', objective: 'Seasonal refresh', date: '2026-10-02', status: 'scheduled', notes: '' },
-    { id: 'SH-05', property: 'Villa Palm Residence — Unit 3', bu: 'Bali Retreats', scope: 'Unit', objective: 'Initial listing', date: '2026-09-19', status: 'confirmed', notes: '' },
-    { id: 'SH-06', property: 'Villa Orchid Rise', bu: 'Bali Retreats', scope: 'Property', objective: 'Renovation update', date: '2026-07-30', status: 'completed', notes: '' }
+    { id: 'SH-01', property: 'Villa Marble Cove', bu: 'Sentosa Collection', scope: 'Property', objective: 'Initial listing', date: '2026-09-03', status: 'scheduled', notes: '' },
+    { id: 'SH-02', property: 'Villa Golden Palm', bu: 'Noosa Estates', scope: 'Property', objective: 'Catch-up shoot', date: '2026-09-08', status: 'confirmed', notes: 'Photographer to bring drone for exterior shots.' },
+    { id: 'SH-03', property: 'Villa Turquoise Reef', bu: 'Sentosa Collection', scope: 'Property', objective: 'Seasonal refresh', date: '2026-08-14', status: 'completed', notes: '' },
+    { id: 'SH-04', property: 'Villa Sapphire Cliff', bu: 'Sentosa Collection', scope: 'Property', objective: 'Seasonal refresh', date: '2026-10-02', status: 'scheduled', notes: '' },
+    { id: 'SH-05', property: 'Villa Palm Residence — Unit 3', bu: 'Byron Bay Retreats', scope: 'Unit', objective: 'Initial listing', date: '2026-09-19', status: 'confirmed', notes: '' },
+    { id: 'SH-06', property: 'Villa Orchid Rise', bu: 'Byron Bay Retreats', scope: 'Property', objective: 'Renovation update', date: '2026-07-30', status: 'completed', notes: '' }
   ];
 
   var MOCK_FOLLOWUPS = [
-    { id: 'FU-01', property: 'Villa Azure Ridge', bu: 'Bali Retreats', note: 'Re-shoot the living room — natural light was too dim.', due: '2026-09-05', status: 'open' },
-    { id: 'FU-02', property: 'Villa Amber Cove', bu: 'Koh Samui Estates', note: 'Add missing garden/exterior angle to the set.', due: '2026-09-10', status: 'open' },
-    { id: 'FU-03', property: 'Villa Turquoise Reef', bu: 'Phuket Collection', note: 'Confirm final edited set with owner before publishing.', due: '2026-08-28', status: 'open' }
+    { id: 'FU-01', property: 'Villa Azure Ridge', bu: 'Byron Bay Retreats', note: 'Re-shoot the living room — natural light was too dim.', due: '2026-09-05', status: 'open' },
+    { id: 'FU-02', property: 'Villa Amber Cove', bu: 'Noosa Estates', note: 'Add missing garden/exterior angle to the set.', due: '2026-09-10', status: 'open' },
+    { id: 'FU-03', property: 'Villa Turquoise Reef', bu: 'Sentosa Collection', note: 'Confirm final edited set with owner before publishing.', due: '2026-08-28', status: 'open' }
   ];
 
   function loadList(mockList, storageKey, deletedKey) {

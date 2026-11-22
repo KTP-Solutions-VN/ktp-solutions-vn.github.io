@@ -1,10 +1,10 @@
-# OWP-004-P1 — Change Password Popup
+# OWP-004-P1 — Update Password
 
 **Type:** Popup (opened from OWP-004, as a tab on the same page)
 
 **Route:** `ExternalUserController::changePassword()` — no dedicated friendly route, no dedicated view (the form lives in the `#change-password` tab of `profile.ctp`), submitted via POST to the `changePassword` action
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 

@@ -32,7 +32,7 @@
         loginMessage.hidden = false;
         return;
       }
-      localStorage.setItem('mm_current_user', JSON.stringify({ username: username, name: 'Somchai Anuwat', role: 'Business Unit Manager' }));
+      localStorage.setItem('mm_current_user', JSON.stringify({ username: username, name: 'Daniel Tan', role: 'Business Unit Manager' }));
       window.location.href = '../../dashboard/index.html';
     });
   });

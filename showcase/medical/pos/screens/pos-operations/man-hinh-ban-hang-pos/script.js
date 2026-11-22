@@ -1,6 +1,6 @@
 (function () {
-  const TAX_RATE = 0.08;
-  const LOYALTY_POINTS_PER_DOLLAR = 100; // established rate, same as Storefront checkout (1 point = S$0.01)
+  const TAX_RATE = 0.10;
+  const LOYALTY_POINTS_PER_DOLLAR = 100; // established rate, same as Storefront checkout (1 point = A$0.01)
 
   const ICONS = {
     vitamin: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20.5 3.5 13.5a5 5 0 0 1 7-7l7 7a5 5 0 0 1-7 7Z"/><path d="m8.5 8.5 7 7"/></svg>',
@@ -68,7 +68,7 @@
     const tax = +(taxable * TAX_RATE).toFixed(2);
     const total = +(taxable + tax).toFixed(2);
 
-    // keep the cart's persisted fields in sync so the Rx sub-flow (#55-58), which finalizes
+    // keep the cart's persisted fields in sync so the Rx sub-flow (popup screens), which finalizes
     // the sale via the shared POS.completeSale() in global.js, carries the same discount through.
     cart.promoDiscountAmount = promoResult.amount;
     cart.loyaltyDiscountAmount = loyaltyDiscount;
@@ -154,7 +154,7 @@
     const loyaltyRow = document.getElementById('sumLoyaltyRow');
     if (totals.loyaltyDiscount > 0) {
       loyaltyRow.style.display = 'flex';
-      document.getElementById('sumLoyaltyLabel').textContent = 'Loyalty redeemed (' + totals.redeemedPoints.toLocaleString('en-SG') + ' pts)';
+      document.getElementById('sumLoyaltyLabel').textContent = 'Loyalty redeemed (' + totals.redeemedPoints.toLocaleString('en-AU') + ' pts)';
       document.getElementById('sumLoyalty').textContent = '– ' + money(totals.loyaltyDiscount);
     } else {
       loyaltyRow.style.display = 'none';
@@ -261,7 +261,7 @@
           <input type="number" class="input" id="redeemPointsInput" min="0" step="10" value="${cart.loyaltyRedeemPoints || 0}">
           <button class="btn btn-outline" id="redeemAllBtn">Use Max</button>
         </div>
-        <div class="redeem-hint">${LOYALTY_POINTS_PER_DOLLAR} pts = S$1.00 · up to ${cart.customer.loyaltyPointsBalance.toLocaleString('en-SG')} pts available</div>
+        <div class="redeem-hint">${LOYALTY_POINTS_PER_DOLLAR} pts = A$1.00 · up to ${cart.customer.loyaltyPointsBalance.toLocaleString('en-AU')} pts available</div>
         <div class="redeem-error" id="redeemError"></div>
       </div>`;
   }
@@ -295,7 +295,7 @@
           </div>
           <div class="customer-card__points">
             <span class="points-star">${STAR_ICON}</span>
-            <span><b>${c.loyaltyPointsBalance.toLocaleString('en-SG')}</b> points available</span>
+            <span><b>${c.loyaltyPointsBalance.toLocaleString('en-AU')}</b> points available</span>
           </div>
           ${c.loyaltyPointsBalance > 0 ? redeemBlockHTML() : ''}
         </div>
@@ -345,7 +345,7 @@
         const errorEl = document.getElementById('redeemError');
         if (val > max) {
           val = max;
-          if (errorEl) { errorEl.textContent = 'Capped at ' + max.toLocaleString('en-SG') + ' pts — can\'t exceed balance or sale total.'; errorEl.classList.add('is-visible'); }
+          if (errorEl) { errorEl.textContent = 'Capped at ' + max.toLocaleString('en-AU') + ' pts — can\'t exceed balance or sale total.'; errorEl.classList.add('is-visible'); }
         } else if (errorEl) {
           errorEl.classList.remove('is-visible');
         }
@@ -396,7 +396,7 @@
   }
 
   /* ---------------- Customer lookup modal (touch keypad) ---------------- */
-  function normalizeLookup(v) { return (v || '').toString().replace(/[\s\-]/g, '').toUpperCase(); }
+  function normalizeLookup(v) { return (v || '').toString().replace(/[\s\-]/g, '').toUpperCase().replace(/^\+61/, '0'); }
 
   function renderCustomerQuickPicks() {
     const wrap = document.getElementById('customerQuickPicks');
@@ -442,7 +442,7 @@
     closeCustomerModal();
     renderRewardsPanel();
     renderTotals();
-    POS.toast(match.name + ' attached — ' + match.loyaltyPointsBalance.toLocaleString('en-SG') + ' pts available.', 'success');
+    POS.toast(match.name + ' attached — ' + match.loyaltyPointsBalance.toLocaleString('en-AU') + ' pts available.', 'success');
   }
 
   /* ---------------- Supervisor override modal ---------------- */
@@ -476,12 +476,12 @@
     const line = cart.items.find(i => i.sku === overrideTargetSku);
     const originalPrice = line.override ? line.override.originalPrice : line.unitPrice;
     const authorizedAt = new Date().toISOString();
-    line.override = { originalPrice, newPrice, reason, authorizedBy: 'Supervisor — Grace Lim', authorizedAt };
+    line.override = { originalPrice, newPrice, reason, authorizedBy: 'Supervisor — Natalie Cooper', authorizedAt };
     line.lineTotal = +(line.qty * newPrice).toFixed(2);
     POS.saveCart(cart);
     POS.addAuditEntry({
       type: 'price_override', sku: line.sku, itemName: line.name,
-      originalPrice, newPrice, reason, authorizedBy: 'Supervisor — Grace Lim',
+      originalPrice, newPrice, reason, authorizedBy: 'Supervisor — Natalie Cooper',
       cashier: POS.getSession().cashierName, at: authorizedAt,
     });
     closeOverrideModal();

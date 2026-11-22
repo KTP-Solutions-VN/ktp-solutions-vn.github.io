@@ -3,7 +3,7 @@
 Nguồn (thư mục source/):
   - legacy_layouts_ape.txt       layout → section → field (sandbox APE, chỉ cấu hình)
   - Entity List của BA1     field: nhãn, kiểu, bắt buộc, lookup, giá trị picklist
-  - build_om_states_perms.py   blueprint, role, quyền (TruongNQ)
+  - build_om_states_perms.py   blueprint, role, quyền (SA)
   - feature_list_v0.4.json     module / feature (DEMO-7)
 Dữ liệu bản ghi là dữ liệu GIẢ, sinh ngẫu nhiên có seed. Picklist có thể chứa tên người được thay bằng tên giả.
 
@@ -50,6 +50,133 @@ TYPEMAP = {"Text": "text", "Text dài": "textarea", "Picklist": "picklist", "Mul
            "Integer (lớn)": "int", "Số thập phân": "decimal", "Tiền": "currency", "Công thức": "formula", "Email": "email",
            "Phone": "phone", "URL": "url", "Auto number": "autonumber", "Ảnh": "image", "File": "file", "Subform": "subform",
            "Multi lookup (n-n)": "multilookup", "%": "percent", "Liên kết đa module (hệ thống)": "lookup", "Thuế theo dòng": "currency"}
+
+# ---------------------------------------------------------------- bối cảnh vùng: Úc (+ pháp nhân ở Singapore)
+# Dữ liệu giả đặt ở Úc (không theo nước của hệ thống gốc): địa điểm, điện thoại, biển số, hậu tố công ty, tên người, cách gọi
+# cơ quan / chứng nhận. Các hàm dưới rút số ngẫu nhiên đúng số lần như bản trước (theo nước của hệ thống gốc) nên mọi dữ liệu khác giữ nguyên.
+# Nước / tiền tệ / GST của từng pháp nhân ở meta/config/tenants.json: pháp nhân country = SG (BH) sinh như Úc rồi đổi sang Singapore ở bước cuối (to_sg).
+SITES = [  # (suburb + bang, mã bưu chính, mã vùng, chữ số đầu số bàn): khu công nghiệp; bản ghi thứ i dùng SITES[i % 7]
+    ("Wetherill Park NSW", "2164", "2", "9"), ("Smithfield NSW", "2164", "2", "9"), ("Dandenong South VIC", "3175", "3", "9"),
+    ("Laverton North VIC", "3026", "3", "9"), ("Eagle Farm QLD", "4009", "7", "3"), ("Kewdale WA", "6105", "8", "9"), ("Yatala QLD", "4207", "7", "3")]
+MOBILE_RX = r"Mobile|Driver|Contact_Person"  # field số di động; field điện thoại còn lại là số bàn
+PLATE_AZ = "ABCDEFGHJKLMNPQRSTUVWXYZ"
+
+
+def site(i):  # City / mã bưu chính / mã vùng của cùng 1 bản ghi khớp nhau (cùng i)
+    return SITES[i % len(SITES)]
+
+
+def au_postcode(i):
+    rnd.randint(10000, 99999)  # giữ lượt rút của mã bưu chính 6 số trước đây
+    return site(i)[1]
+
+
+def au_phone(api, i):  # số giả, che 3 số: di động "+61 4xx xxx 213", số bàn "+61 2 9xxx 1213" (mã vùng theo bang của bản ghi)
+    rnd.choice("89")  # giữ lượt rút của đầu số trước đây
+    n = rnd.randint(1000, 9999)
+    if re.search(MOBILE_RX, api):
+        return f"+61 4xx xxx {n % 1000:03d}"
+    s = site(i)
+    return f"+61 {s[2]} {s[3]}xxx {n}"
+
+
+def au_plate(p, l1, n, l2):  # biển xe tải kiểu Úc "XA 34 XN"; n: số 4 chữ số
+    return f"{p}{l1} {n % 100:02d} {l2}{PLATE_AZ[n // 100 % len(PLATE_AZ)]}"
+
+
+def rand_plate():
+    return au_plate("X", chr(65 + rnd.randint(0, 25)), rnd.randint(1000, 9999), chr(65 + rnd.randint(0, 25)))
+
+
+def gst_rate(tn):  # GST theo pháp nhân (tenants.json: gst %) — Úc 10%, Singapore 9%
+    return TENANT_CFG[tn]["gst"] / 100
+
+
+def apply_gst(rec, fields):  # tính lại thuế & tổng của bản ghi theo GST của pháp nhân (bản nhân bản sang pháp nhân khác); giá trước thuế giữ nguyên
+    rate = gst_rate(rec["_tenant"])
+    for api, fd in fields.items():
+        rows = rec.get(api)
+        if fd["type"] != "subform" or not isinstance(rows, list):
+            continue
+        for row in rows:
+            if "Total" in row:
+                row["Net_Total"] = round(row["Total"] * (1 + rate), 2)
+        subtotal = sum(row.get("Total", 0) for row in rows)
+        if subtotal and "Sub_Total" in fields:
+            rec["Sub_Total"] = round(subtotal, 2)
+            for tx in ("Total_Tax", "Tax", "Total_Tax_GST"):
+                if tx in fields:
+                    rec[tx] = round(subtotal * rate, 2)
+            rec["Grand_Total"] = round(subtotal * (1 + rate), 2)
+            rec["Discount"] = 0
+            rec["Adjustment"] = 0
+
+
+SG_SITES = [  # pháp nhân ở Singapore: địa điểm tương ứng với SITES (cùng vị trí) — (khu công nghiệp, mã bưu chính); 2 suburb NSW cùng mã 2164 → cùng Tuas
+    ("Tuas", "639544"), ("Tuas", "639544"), ("Woodlands", "738372"), ("Jurong", "619104"), ("Ubi", "408935"), ("Jurong", "628140"), ("Woodlands", "757450")]
+SG_CITY = {s[0]: g[0] for s, g in zip(SITES, SG_SITES)}
+SG_POST = {s[1]: g[1] for s, g in zip(SITES, SG_SITES)}
+
+
+def to_sg(v, f=""):  # giá trị của bản ghi thuộc pháp nhân ở Singapore, suy từ giá trị Úc đã sinh (giữ các chữ số; f = tên field / cột)
+    if isinstance(v, list):
+        return [to_sg(x, f) for x in v]
+    if isinstance(v, dict):  # lookup {id, name}: name theo field chứa nó; dòng subform: theo tên cột
+        return {k: to_sg(x, f if k == "name" and "id" in v else k) for k, x in v.items()}
+    if not isinstance(v, str) or f in ("id", "_tenant"):
+        return v
+    if "City" in f and v in SG_CITY:
+        return SG_CITY[v]
+    if re.search(r"Postal|Zip|_Code$", f) and v in SG_POST:
+        return SG_POST[v]
+    if v == "Australia":
+        return "Singapore"
+    m = re.fullmatch(r"\+61 \d \dxxx (\d{4})", v)  # số bàn
+    if m:
+        return f"+65 6xxx {m.group(1)}"
+    m = re.fullmatch(r"\+61 4xx xxx (\d{3})", v)  # di động
+    if m:
+        return f"+65 9xxx x{m.group(1)}"
+    m = re.fullmatch(r"[XH]([A-Z]) (\d\d) ([A-Z])([A-Z])", v)  # biển số → kiểu Singapore "GBA1234X"
+    if m:
+        return f"GB{m.group(1)}{PLATE_AZ.index(m.group(4)) * 100 + int(m.group(2)) or 100}{m.group(3)}"
+    return v.replace(" Pty Ltd", " Pte Ltd")
+
+
+REGION_OPT = {  # giá trị picklist (Entity List của hệ thống cũ) mang tên cơ quan / chứng nhận / mã thuế của nước gốc → cách gọi ở Úc, giữ vị trí
+    "LM Certification & Load Test": "Plant Registration & Load Test", "LG Certication Renewal": "Lifting Gear Inspection Renewal",
+    "LM Certification Renewal": "Plant Registration Renewal", "LM & LG Certification Renewal": "Plant Rego & Lifting Gear Renewal",
+    "NEA Certification Renewal": "EPA Licence Renewal", "LM & NEA Certification Renewal": "Plant Rego & EPA Licence Renewal",
+    "LG Certification & Load Test": "Lifting Gear Inspection & Load Test", "LM Certification, Che": "Plant Registration, Check",
+    "Certification (NEA/LM/LG)": "Certification (EPA/Plant/Lifting Gear)", "WIP - VITAS": "WIP - NHVR Approval",
+    **{f"0{n} LM Cert": f"0{n} Plant Rego" for n in range(1, 8)}, "01 LM Cert for first 6 Months": "01 Plant Rego for first 6 Months",
+    "CERTIFICATE OF ENTITLEMENT (COE)": "REGISTRATION & CTP (REGO)", "Certifications (LM)": "Certifications (Plant Rego)",
+    "ZR - 0.0 %": "GST-free - 0.0 %", "GST - 9.0 %": "GST - 10.0 %", "GST - 8.0 %": "SG GST - 9.0 %",  # mã thuế hàng hoá: GST Úc 10%, GST Singapore 9% (BH)
+}
+REGION_RX = [(r"^Ex-Works \([^)]+\)", "Ex-Works (Sydney)")]  # nơi giao trong điều khoản Ex-Works
+PERSON_OPT = {"Testing": ["Brodie", "M Lowe", "Callum Hart", "Kyle"]}  # picklist chứa tên người của hệ thống cũ → tên giả theo vị trí (không ghi tên gốc ở đây)
+
+
+def region_opts(api, opts):
+    if api in PERSON_OPT:
+        return [PERSON_OPT[api][k] if k < len(PERSON_OPT[api]) else f"Tester {k + 1}" for k in range(len(opts))]
+    out = []
+    for v in opts:
+        v = REGION_OPT.get(v, v)
+        for rx, rep in REGION_RX:
+            v = re.sub(rx, rep, v)
+        out.append(v)
+    return out
+
+
+REGION_LABEL = {  # nhãn field theo bối cảnh Úc (áp cùng FIELD_LABEL ở cuối)
+    ("orders", "Equipment_s_Additional_Registration_Fee_ARF"): "Equipment's Rego & Stamp Duty", ("quotes", "Equipment_s_Additional_Registration_Fee_ARF"): "Equipment's Rego & Stamp Duty",
+    ("orders", "LTA_Documents"): "NHVR Documents", ("install", "VITAS_Billing"): "NHVR Approval Billing",
+    ("orders", "LM_Expiry_Date"): "Plant Registration Expiry", ("quotes", "LM_Expiry_Date"): "Plant Registration Expiry", ("vehicles", "LM_Expiry_Date"): "Plant Registration Expiry",
+    ("orders", "LM_Certifications"): "Plant Registrations", ("quotes", "LM_Certifications"): "Plant Registrations", ("vehicles", "LG_Expiry_Date"): "Lifting Gear Inspection Expiry",
+    ("vehicles", "NEA_Expiry_Date"): "EPA Licence Expiry", ("orders", "NEA_Expiry_Date"): "EPA Licence Expiry", ("quotes", "NEA_Expiry_Date"): "EPA Licence Expiry",
+}
+
 FIELDS = {}  # api entity -> {api: {...}}
 wb = openpyxl.load_workbook(ENTITY_LIST, read_only=True, data_only=True)
 for r in wb["Fields"].iter_rows(min_row=2, values_only=True):
@@ -65,7 +192,7 @@ for r in wb["Fields"].iter_rows(min_row=2, values_only=True):
         t = "currency"
     elif t == "formula" and "Quantity" in str(r[3]):
         t = "int"
-    FIELDS.setdefault(ent, {})[api] = {"label": r[2], "type": t, "required": r[6] == "Có", "lookup": r[8] or None, "options": opts}
+    FIELDS.setdefault(ent, {})[api] = {"label": r[2], "type": t, "required": r[6] == "Có", "lookup": r[8] or None, "options": region_opts(api, opts)}
 
 # Picklist có thể chứa tên nhân viên / người liên hệ của KH → không dùng giá trị thật
 PERSON_FIELDS = {"Sales_Person", "Requestor", "Requestor_Name", "Issuer_Name", "Prepared_By", "Handled_By", "Technicians_Involved",
@@ -76,23 +203,24 @@ PERSON_FIELDS = {"Sales_Person", "Requestor", "Requestor_Name", "Issuer_Name", "
 # ---------------------------------------------------------------- người dùng & tổ chức (giả)
 CONF = os.path.join(OUT, "mock-api", "meta", "config")  # cấu hình sửa tay (frontend đọc trực tiếp)
 TENANTS = json.load(open(os.path.join(CONF, "tenants.json"), encoding="utf-8"))["tenants"]
+TENANT_CFG = {t["code"]: t for t in TENANTS}  # nước / tiền tệ / GST của pháp nhân (gst_rate, to_sg)
 USERS = json.load(open(os.path.join(CONF, "users.json"), encoding="utf-8"))["users"]
 STAFF = [u["name"] for u in USERS if u.get("seed", True)]  # user seed=false (người duyệt thêm sau) không làm owner dữ liệu mẫu
 TECHS = ["Tech 1", "Tech 2", "Tech 3", "Tech 4"]
-COMPANIES = ["Alpha Construction Pte Ltd", "Bravo Logistics Pte Ltd", "Citra Waste Services", "Delta Movers Pte Ltd",
-             "Echo Marine Engineering", "Foxtrot Landscape Pte Ltd", "Gamma Civil Works", "Harbour Recycling Pte Ltd",
-             "Indigo Freight Services", "Jade Builders Pte Ltd", "Kestrel Environmental", "Lumen Cold Chain Pte Ltd"]
-VENDORS = ["Vendor Alpha Pte Ltd", "Vendor Bravo GmbH", "Vendor Citra Sdn Bhd", "Vendor Delta Hydraulics", "Vendor Echo Parts",
+COMPANIES = ["Alpha Construction Pty Ltd", "Bravo Logistics Pty Ltd", "Citra Waste Services", "Delta Movers Pty Ltd",
+             "Echo Marine Engineering", "Foxtrot Landscape Pty Ltd", "Gamma Civil Works", "Harbour Recycling Pty Ltd",
+             "Indigo Freight Services", "Jade Builders Pty Ltd", "Kestrel Environmental", "Lumen Cold Chain Pty Ltd"]
+VENDORS = ["Vendor Alpha Pty Ltd", "Vendor Bravo GmbH", "Vendor Citra Pty Ltd", "Vendor Delta Hydraulics", "Vendor Echo Parts",
            "Vendor Foxtrot Trading", "Vendor Gamma Steel", "Vendor Hydro Supply"]
-FIRST = ["Tan", "Lim", "Kumar", "Ong", "Wong", "Lee", "Raj", "Chua", "Goh", "Ng", "Teo", "Ali", "Koh", "Yeo"]
-LAST = ["Wei", "Hui", "R.", "J.", "Mei", "Seng", "P.", "Boon", "Ling", "Kai", "Hock", "F.", "Jun", "Xin"]
+FIRST = ["Jack", "Olivia", "Liam", "Chloe", "Noah", "Mia", "Lachlan", "Sophie", "Nick", "Emily", "Josh", "Ruby", "Tom", "Isla"]  # tên người liên hệ (Úc)
+LAST = ["Mitchell", "Taylor", "R.", "J.", "Murphy", "Kelly", "P.", "Brown", "Walsh", "Russo", "Campbell", "F.", "Costa", "Haddad"]
 SENTENCES = ["Oil leak at lift cylinder", "Customer requests express service", "Check hydraulic pressure after repair",
              "Replace worn seal kit", "Awaiting customer confirmation", "Pressure hose cracked, replaced", "Test run OK",
              "Parts to be collected from store", "Inspection passed with minor remarks", "Follow up on payment"]
 PRODUCTS = [("CR-10T", "Crane 10T knuckle boom", 120000), ("CR-8T", "Crane 8T knuckle boom", 98000), ("TG-1500", "Tailgate 1500kg", 11500),
             ("TG-2000", "Tailgate 2000kg", 14200), ("HL-20", "Hooklift 20T", 68000), ("HL-15", "Hooklift 15T", 56000),
             ("OTC-20", "Open top container 20m3", 9800), ("PTO-H", "PTO kit", 6500), ("P-HOSE-12", "Hydraulic hose 1/2\"", 45),
-            ("P-SEAL-10", "Seal kit", 120), ("P-FILTER", "Hydraulic filter", 85), ("SV-LM", "LM certification", 450),
+            ("P-SEAL-10", "Seal kit", 120), ("P-FILTER", "Hydraulic filter", 85), ("SV-PLANT", "Plant registration", 450),
             ("SV-SERVICE", "Annual service", 680), ("P-REMOTE", "Radio remote control", 3200)]
 
 # ---------------------------------------------------------------- entity trong prototype
@@ -121,17 +249,17 @@ ENT = {
 # field luôn có giá trị trong dữ liệu mẫu (cột danh sách cũ) — tách khỏi cột danh sách để đổi cột không làm đổi dữ liệu giả
 FILL = {"tasks": ["Due_Date", "Priority", "Status", "Owner"], "vehicles": ["Account_Name", "Equipment_Type", "Brand", "LM_Expiry_Date", "NEA_Expiry_Date", "Warr_Expiry_Date"], "contacts": ["Account_Name", "Title", "Mobile", "Email", "Owner"], "leads": ["Company", "Lead_Source", "Equipment_Type", "Lead_Status", "Owner"], "install": ["Account_Name", "Equipment_Type", "Status", "Delivery_Date", "Owner"], "invoices": ["Account_Name", "Invoice_Date", "Grand_Total", "Status"], "partsreq": ["Service_Repairs_Certs", "Date", "Owner"], "orders": ["Account_Name", "Division_Billing", "Grand_Total", "Status", "Delivery_Date"], "quotes": ["Subject", "Account_Name", "Equipment_Type", "Grand_Total", "Quote_Stage", "Owner"], "products": ["Product_Code", "Product_Category", "Unit_Price", "Qty_in_Stock", "Location_Store_Rack_Shelf"], "vendors": ["Vendor_Code", "Category", "Credit_Terms", "Phone", "Email"], "jobs": ["Account", "Vehicle_Number", "Service_Type", "Priority", "Status", "Owner"], "accounts": ["Debtor_Code", "Credit_Term", "Region", "Phone", "Owner"], "nea": ["Account_Name", "Vehicle_License_Number", "Hooklift_Brand", "Owner"], "pr": ["Vendor", "Requestor_Name", "Date_of_Request", "Form_Status", "Owner"], "si": ["Requestor_Name", "Account_Name", "Request_Date", "Status"], "deals": ["Account_Name", "New_After_Sales", "Amount", "Stage", "Closing_Date", "Owner"], "tickets": ["Account_Name", "Case_Type", "Priority", "Status", "Owner"]}
 SYS_COLS = ("Created_Time", "Modified_Time", "Tag")  # cột hệ thống Legacy CRM có trong list view; prototype lấy từ _created / _tags
-ENT_LABEL = {
-    "leads": ("Lead", "Leads"), "accounts": ("Khách hàng", "Customers"), "contacts": ("Người liên hệ", "Contacts"),
-    "deals": ("Cơ hội (Deal)", "Deals"), "quotes": ("Báo giá", "Quotations"), "orders": ("Sales Order", "Sales Orders"),
-    "invoices": ("Hoá đơn", "Invoices"), "products": ("Sản phẩm / phụ tùng", "Products / parts"),
-    "jobs": ("Phiếu sửa chữa (Job card)", "Service jobs"), "vehicles": ("Xe / thiết bị", "Vehicles / equipment"),
-    "install": ("Dự án lắp đặt", "Installation projects"), "si": ("Phiếu xuất phụ tùng (SI)", "Shipping instructions"),
-    "partsreq": ("Yêu cầu phụ tùng", "Parts requisitions"), "nea": ("Kiểm tra NEA", "NEA inspections"),
-    "tickets": ("Ticket & bảo trì", "Tickets & maintenance"), "pr": ("Đề nghị mua", "Purchase requisitions"),
-    "vendors": ("Nhà cung cấp", "Vendors"), "tasks": ("Công việc", "Tasks"),
+ENT_LABEL = {  # tên module hiển thị (vi, en) của CRM mới, đặt lại khác cách gọi của hệ thống cũ
+    "leads": ("Khách hàng tiềm năng", "Prospects"), "accounts": ("Khách hàng doanh nghiệp", "Clients"), "contacts": ("Đầu mối liên hệ", "Client contacts"),
+    "deals": ("Cơ hội kinh doanh", "Opportunities"), "quotes": ("Chào giá", "Proposals"), "orders": ("Đơn đặt hàng", "Customer orders"),
+    "invoices": ("Hoá đơn bán ra", "Customer invoices"), "products": ("Danh mục hàng hoá", "Item catalogue"),
+    "jobs": ("Lệnh dịch vụ", "Service orders"), "vehicles": ("Hồ sơ thiết bị", "Installed base"),
+    "install": ("Dự án đóng mới", "Fit-out projects"), "si": ("Phiếu xuất kho", "Goods issues"),
+    "partsreq": ("Yêu cầu vật tư", "Material requests"), "nea": ("Kiểm định môi trường", "Environmental checks"),
+    "tickets": ("Hỗ trợ khách hàng", "Customer support"), "pr": ("Yêu cầu mua sắm", "Purchase requests"),
+    "vendors": ("Đối tác cung ứng", "Suppliers"), "tasks": ("Đầu việc", "To-dos"),
 }
-# Ticket (M19): Legacy CRM đang tắt Cases → model mới do HBG đề xuất
+# Ticket (M19): hệ thống hiện tại chưa dùng module này → model mới đề xuất bổ sung
 FIELDS["Cases"] = {
     "Subject": {"label": "Subject", "type": "text", "required": True, "lookup": None, "options": []},
     "Account_Name": {"label": "Account Name", "type": "lookup", "required": True, "lookup": "Accounts", "options": []},
@@ -169,18 +297,18 @@ FEAT = {
 }
 # Thao tác bổ sung (ngoài chuyển trạng thái)
 ACTIONS = {
-    "leads": [("convert", "Convert → Khách hàng + Liên hệ + Deal", "Convert → Customer + Contact + Deal", True)],
-    "accounts": [("merge", "Gộp bản ghi trùng", "Merge duplicates", False), ("create_deal", "Tạo Deal", "New deal", True)],
-    "contacts": [("consent", "Cập nhật đồng ý nhận tin (PDPA)", "Update consent (PDPA)", False)],
-    "deals": [("create_quote", "Tạo báo giá", "Create quotation", False)],
+    "leads": [("convert", "Chuyển thành Khách hàng + Đầu mối + Cơ hội", "Convert → Client + Contact + Opportunity", True)],
+    "accounts": [("merge", "Gộp bản ghi trùng", "Merge duplicates", False), ("create_deal", "Tạo cơ hội", "New opportunity", True)],
+    "contacts": [("consent", "Cập nhật đồng ý nhận tin (Privacy Act)", "Update consent (Privacy Act)", False)],
+    "deals": [("create_quote", "Tạo chào giá", "Create proposal", False)],
     "quotes": [("pdf", "Xem / in PDF", "View / print PDF", False), ("esign", "Gửi ký điện tử", "Send for e-signature", False),
-               ("versions", "Báo giá lại", "Revise quotation", False), ("convert", "Chuyển → Sales Order / Dự án lắp đặt", "Convert → Sales Order / Installation", False)],
-    "orders": [("sync", "Đẩy sang kế toán", "Push to accounting", True), ("pdf", "In Sales Order", "Print Sales Order", False)],
+               ("versions", "Chào giá lại", "Revise proposal", False), ("convert", "Chuyển → Đơn đặt hàng / Dự án đóng mới", "Convert → Customer order / Fit-out project", False)],
+    "orders": [("sync", "Đẩy sang kế toán", "Push to accounting", True), ("pdf", "In đơn đặt hàng", "Print order", False)],
     "products": [("sync", "Đồng bộ từ kế toán", "Sync from accounting", False), ("price", "Bảng giá nhiều mức", "Price tiers", False)],
-    "jobs": [("quote", "Tạo báo giá hậu mãi", "Create after-sales quotation", False), ("print", "In phiếu job / QR", "Print job card / QR", False)],
-    "vehicles": [("create_job", "Mở job dịch vụ", "Open service job", True), ("remind", "Gửi nhắc SMS / WhatsApp", "Send SMS / WhatsApp reminder", False)],
-    "install": [("vo", "Variation order", "Variation order", False), ("deliver", "Giao xe & tạo sổ xe", "Deliver & register vehicle", False)],
-    "tickets": [("create_job", "Mở job từ ticket", "Open job from ticket", True), ("renew", "Tạo cơ hội gia hạn", "Create renewal deal", False)],
+    "jobs": [("quote", "Tạo chào giá dịch vụ", "Create service proposal", False), ("print", "In lệnh dịch vụ / QR", "Print service order / QR", False)],
+    "vehicles": [("create_job", "Mở lệnh dịch vụ", "Open service order", True), ("remind", "Gửi nhắc SMS / WhatsApp", "Send SMS / WhatsApp reminder", False)],
+    "install": [("vo", "Variation order", "Variation order", False), ("deliver", "Giao xe & tạo hồ sơ thiết bị", "Deliver & add to installed base", False)],
+    "tickets": [("create_job", "Mở lệnh dịch vụ từ yêu cầu", "Open service order from request", True), ("renew", "Tạo cơ hội gia hạn hợp đồng", "Create renewal opportunity", False)],
     "pr": [("po", "Chuyển PO sang kế toán", "Send PO to accounting", False)],
 }
 
@@ -304,23 +432,25 @@ def pick_ref(key):
     return {"id": r["id"], "name": r["_title"]}
 
 
-TEXT_RULES = [
-    (r"Serial", lambda i: f"SN-{rnd.randint(10000, 99999)}"), (r"Model", lambda i: rnd.choice(["10T", "8T", "1500", "20T", "15T", "M-200"])),
-    (r"Phone|Mobile|Contact$|_Contact$", lambda i: f"+65 {rnd.choice('89')}xxx {rnd.randint(1000, 9999)}"),
-    (r"Street|Address", lambda i: f"{rnd.randint(1, 99)} Example Road"), (r"City", lambda i: "Singapore"),
-    (r"Country|Origin", lambda i: rnd.choice(["Singapore", "Malaysia", "Germany", "Japan"])), (r"Postal|Zip|_Code$", lambda i: f"6{rnd.randint(10000, 99999)}"),
-    (r"Remark|Note|Description|Diagnostic|Problem|Work_Done|Scope|Follow|Instruction|Agenda", lambda i: rnd.choice(SENTENCES)),
-    (r"Registration|License|Vehicle_No$", lambda i: f"GB{chr(65 + rnd.randint(0, 25))}{rnd.randint(1000, 9999)}{chr(65 + rnd.randint(0, 25))}"),
-    (r"Project_Number|Project_No", lambda i: f"{rnd.choice(['EI', 'EW', 'AZ', 'AW'])}-{rnd.randint(1000, 1999)}"),
-    (r"Debtor", lambda i: f"D{3001 + i}"), (r"Website", lambda i: "www.example.com"),
-    (r"Number|_No$|No_|Doc", lambda i: f"{rnd.randint(1000, 9999)}"),
+TEXT_RULES = [  # (regex tên field, hàm(i = chỉ số bản ghi, a = tên field)); địa chỉ / điện thoại / biển số theo bối cảnh Úc ở đầu file
+    (r"Serial", lambda i, a: f"SN-{rnd.randint(10000, 99999)}"), (r"Model", lambda i, a: rnd.choice(["10T", "8T", "1500", "20T", "15T", "M-200"])),
+    (r"Phone|Mobile|Contact$|_Contact$", lambda i, a: au_phone(a, i)),
+    (r"Street|Address", lambda i, a: f"{rnd.randint(1, 99)} Example Road"), (r"City", lambda i, a: site(i)[0]),
+    (r"Country|Origin", lambda i, a: rnd.choice(["Australia", "Australia", "Germany", "Japan"])),  # 4 lựa chọn như cũ; pháp nhân ở Singapore: Australia → Singapore (to_sg)
+    (r"Postal|Zip|_Code$", lambda i, a: au_postcode(i)),
+    (r"Remark|Note|Description|Diagnostic|Problem|Work_Done|Scope|Follow|Instruction|Agenda", lambda i, a: rnd.choice(SENTENCES)),
+    (r"Registration|License|Vehicle_No$", lambda i, a: rand_plate()),
+    (r"Project_Number|Project_No", lambda i, a: f"{rnd.choice(['EI', 'EW', 'AZ', 'AW'])}-{rnd.randint(1000, 1999)}"),
+    (r"Debtor", lambda i, a: f"D{3001 + i}"), (r"Website", lambda i, a: "www.example.com"),
+    (r"Number|_No$|No_|Doc", lambda i, a: f"{rnd.randint(1000, 9999)}"),
 ]
 
 
 SPECIAL = {
-    "Postal_Code": lambda i: f"6{rnd.randint(10000, 99999)}", "Zip_Code": lambda i: f"6{rnd.randint(10000, 99999)}",
-    "Debtor_Code": lambda i: f"D{3001 + rnd.randint(0, 11)}", "Billing_Country": lambda i: "Singapore", "Shipping_Country": lambda i: "Singapore",
-    "Vehicle_No": lambda i: f"GB{chr(65 + rnd.randint(0, 25))}{rnd.randint(1000, 9999)}{chr(65 + rnd.randint(0, 25))}",
+    "Postal_Code": au_postcode, "Zip_Code": au_postcode,
+    "Product_Code": lambda i: f"6{rnd.randint(10000, 99999)}",  # mã hàng ở dòng yêu cầu mua sắm (không phải mã bưu chính)
+    "Debtor_Code": lambda i: f"D{3001 + rnd.randint(0, 11)}", "Billing_Country": lambda i: "Australia", "Shipping_Country": lambda i: "Australia",
+    "Vehicle_No": lambda i: rand_plate(),
     "Mileage_Hour": lambda i: f"{rnd.randint(20, 180) * 1000:,} km / {rnd.randint(500, 4000):,} h",
     "Man_Hours": lambda i: str(rnd.choice([2, 4, 6.5, 8, 12])),
 }
@@ -357,7 +487,7 @@ def gen_value(key, api, fd, i):
     if t == "email":
         return f"contact{i + 1}@example.com"
     if t == "phone":
-        return f"+65 {rnd.choice('89')}xxx {rnd.randint(1000, 9999)}"
+        return au_phone(api, i)
     if t == "url":
         return "https://www.example.com"
     if t == "lookup":
@@ -367,7 +497,7 @@ def gen_value(key, api, fd, i):
         return None
     for rx, fn in TEXT_RULES:
         if re.search(rx, api):
-            return fn(i)
+            return fn(i, api)
     return None
 
 
@@ -378,6 +508,7 @@ def make(key, i, fixed):
     m = meta_entities[key]
     rec = {"id": f"{key[:2]}{i + 1}", "_tenant": rnd.choice(TENANT_W) if i > 1 else "APE",
            "_layout": rnd.choice(m["layouts"])["name"] if m["layouts"] else None}
+    rate = gst_rate(rec["_tenant"])  # GST của pháp nhân (Úc 10%, Singapore 9%)
     for api, fd in m["fields"].items():
         if api in fixed:
             continue
@@ -421,7 +552,7 @@ def make(key, i, fixed):
                 p = row.get("List_Price")
                 if p is not None:
                     row["Total"] = round(q * p, 2)
-                    row["Net_Total"] = round(q * p * 1.09, 2)
+                    row["Net_Total"] = round(q * p * (1 + rate), 2)
                 row.pop("_price", None)
                 rows.append(row)
             rec[api] = rows
@@ -430,8 +561,8 @@ def make(key, i, fixed):
                 rec["Sub_Total"] = round(subtotal, 2)
                 for tx in ("Total_Tax", "Tax", "Total_Tax_GST"):
                     if tx in m["fields"]:
-                        rec[tx] = round(subtotal * 0.09, 2)
-                rec["Grand_Total"] = round(subtotal * 1.09, 2)
+                        rec[tx] = round(subtotal * rate, 2)
+                rec["Grand_Total"] = round(subtotal * (1 + rate), 2)
                 rec["Discount"] = 0
                 rec["Adjustment"] = 0
     rec["_title"] = " ".join(str(rec.get(f) or "") for f in m["title"]).strip() or rec["id"]
@@ -466,10 +597,10 @@ for key in ORDER:
         elif key in ("contacts", "leads"):
             fx = {"First_Name": FIRST[i % len(FIRST)], "Last_Name": LAST[(i * 3) % len(LAST)]}
             if key == "leads":
-                fx["Company"] = COMPANIES[(i + 5) % len(COMPANIES)].replace(" Pte Ltd", "")
+                fx["Company"] = COMPANIES[(i + 5) % len(COMPANIES)].replace(" Pty Ltd", "")
                 fx["Lead_Source"] = rnd.choice(["Phone", "WhatsApp", "Email", "Web form", "Walk-in", "Exhibition"])
         elif key == "vehicles":
-            fx = {"Name": f"GB{'ABCDEFGHJKLMNP'[i]}{1234 + i * 111}{'XKMPZ'[i % 5]}"}
+            fx = {"Name": au_plate("X", 'ABCDEFGHJKLMNP'[i], 1234 + i * 111, 'XKMPZ'[i % 5])}
             if i < 3:
                 fx["LM_Expiry_Date"] = (TODAY + timedelta(days=[16, 24, 34][i])).isoformat()
         elif key == "deals":
@@ -479,7 +610,7 @@ for key in ORDER:
         elif key == "quotes":
             acc = DATA["accounts"][i % 12]
             fx = {"Sales_Agreement_No": f"APE26-{788 + i:04d}", "Account_Name": {"id": acc["id"], "name": acc["_title"]},
-                  "Subject": rnd.choice(["Crane 10T knuckle boom", "Tailgate 1500kg x3", "Hooklift 20T + OTC", "After-sales repair", "LM certification"])}
+                  "Subject": rnd.choice(["Crane 10T knuckle boom", "Tailgate 1500kg x3", "Hooklift 20T + OTC", "After-sales repair", "Plant registration"])}
         elif key == "orders":
             acc = DATA["accounts"][i % 12]
             fx = {"Sales_Order_Number": f"APE-SO-26-{41 + i:04d}", "Account_Name": {"id": acc["id"], "name": acc["_title"]},
@@ -488,7 +619,7 @@ for key in ORDER:
             fx = {"Invoice_Number": f"INV-26-{912 + i * 17:04d}", "Subject": "Deposit invoice" if i % 2 else "Final invoice"}
         elif key == "jobs":
             v = DATA["vehicles"][i % 14]
-            fx = {"Document_Number1": f"AS-26-{1201 + i}", "Name": rnd.choice(["Troubleshoot & repair", "LM certification", "Annual service", "Breakdown recovery"]),
+            fx = {"Document_Number1": f"AS-26-{1201 + i}", "Name": rnd.choice(["Troubleshoot & repair", "Plant registration", "Annual service", "Breakdown recovery"]),
                   "Vehicle_Number": {"id": v["id"], "name": v["_title"]}, "Account": v.get("Account_Name") or pick_ref("accounts")}
         elif key == "install":
             fx = {"Name": f"NI-26-{331 + i:04d}", "Subject": rnd.choice(["Crane installation", "Hook lift installation", "Tail lift installation", "Variation order"])}
@@ -499,12 +630,12 @@ for key in ORDER:
         elif key == "pr":
             fx = {"Name": f"PR-26-{182 + i:04d}", "Vendor": pick_ref("vendors")}
         elif key == "nea":
-            fx = {"Name": f"NEA-{12 + i:04d}"}
+            fx = {"Name": f"EPA-{12 + i:04d}"}
         elif key == "tickets":
             fx = {"Subject": rnd.choice(["Tailgate noisy when lifting", "Hydraulic leak after service", "12-month maintenance contract", "Warranty claim for remote"]),
                   "Account_Name": pick_ref("accounts")}
         elif key == "tasks":
-            fx = {"Subject": ["Approve quotation", "Call back customer", "QA/QC check", "Send LM reminders", "Collect deposit", "Site visit"][i % 6],
+            fx = {"Subject": ["Approve quotation", "Call back customer", "QA/QC check", "Send plant rego reminders", "Collect deposit", "Site visit"][i % 6],
                   "Due_Date": (TODAY + timedelta(days=rnd.randint(-2, 6))).isoformat()}
         rec = make(key, i, fx)
         if m["status"]:
@@ -595,14 +726,14 @@ for r in DATA["contacts"]:
 
 # M22.01 / M22.02 hồ sơ duyệt theo DoA (giả): giá trị PR, % chiết khấu, biên LN, lý do gửi, ngày gửi, bước hiện tại, lịch sử các bước đã duyệt.
 # Bậc duyệt lấy từ meta/config/approval_rules.json; step = số bậc đã duyệt xong.
-APPR_REASONS = {"quotes": ["Existing customer, competing with Hydrax on price", "Fleet deal for 3 trucks, closing this month", "Customer needs delivery before CNY"],
+APPR_REASONS = {"quotes": ["Existing customer, competing with Hydrax on price", "Fleet deal for 3 trucks, closing this month", "Customer needs delivery before EOFY"],
                 "pr": ["Parts urgently needed for a job in progress", "Only supplier with stock on hand", "Restock fast-moving spare parts"]}
 APPR = {  # id: (trạng thái chờ duyệt, step, % CK, biên LN %, ngày gửi, giá trị PR)
     "qu2": (0, 6.0, 21.5, "2026-10-26", None), "qu3": (2, 4.0, 19.0, "2026-10-23", None), "qu4": (0, 12.0, 14.5, "2026-10-24", None),
     "qu11": (1, 8.0, 18.0, "2026-10-22", None),
     "pr3": (0, None, None, "2026-10-26", 3200), "pr7": (0, None, None, "2026-10-27", 1850), "pr8": (1, None, None, "2026-10-21", 12400),
 }
-APPR_BY = {"Sales Manager": "Minh N.", "Sales Director": "Ravi S.", "General Manager": "Hana M.", "Operation Manager": "Lim T."}
+APPR_BY = {"Sales Manager": "Minh N.", "Sales Director": "Rob S.", "General Manager": "Hana M.", "Operation Manager": "Mark T."}
 RULES = json.load(open(os.path.join(CONF, "approval_rules.json"), encoding="utf-8"))["approval_rules"]
 for key, field, pending in (("quotes", "Quote_Stage", "Waiting For Approval"), ("pr", "Form_Status", "Pending Approval")):
     for r in DATA[key]:
@@ -640,16 +771,17 @@ for key in ORDER:
             for k in ("_approval", "_quote", "Quote_for_SO", "Quotation_No"):
                 r.pop(k, None)
             r.update(id=f"{key[:2]}{n}", _tenant=tn, Owner=rt.choice(OWNERS[tn]))
+            apply_gst(r, m["fields"])  # thuế theo GST của pháp nhân mới
             for f in m["title"]:  # số chứng từ: đổi tiền tố pháp nhân và số thứ tự
                 if isinstance(r.get(f), str) and re.search(r"\d", r[f]):
                     r[f] = re.sub(r"\d+$", lambda x: str(int(x.group()) + 200 * ti + c).zfill(len(x.group())), r[f].replace("APE", tn))
             if key == "accounts":
                 r["Account_Name"] = COMPANIES[(n + ti) % len(COMPANIES)]
-                r["Debtor_Code"] = f"{tn[0]}{3100 + n}"
+                r["Debtor_Code"] = f"{tn[0]}{3100 + n}"  # chữ cái đầu mã pháp nhân: Apex → A, Forgeline → F, Blue Harbor → B
             elif key in ("contacts", "leads"):
                 r["First_Name"], r["Last_Name"] = FIRST[(n * 5) % len(FIRST)], LAST[(n * 7) % len(LAST)]
             elif key == "vehicles":
-                r["Name"] = f"{'GB' if tn != 'BH' else 'W'}{'ABCDEFGHJKLMNP'[n % 14]}{2000 + n * 37}{'XKMPZ'[n % 5]}"
+                r["Name"] = au_plate("X", 'ABCDEFGHJKLMNP'[n % 14], 2000 + n * 37, 'XKMPZ'[n % 5])  # pháp nhân ở Singapore: đổi sang biển Singapore ở bước 4
             r["_title"] = " ".join(str(r.get(f) or "") for f in m["title"]).strip() or r["id"]
             DATA[key].append(r)
 
@@ -720,6 +852,13 @@ for key in ORDER:
         if key == "invoices" and rec.get("Invoice_Date") and rec.get("Due_Date"):
             rec["Due_Date"] = (date.fromisoformat(rec["Invoice_Date"]) + timedelta(days=30)).isoformat()
 
+# 4) pháp nhân ở Singapore (tenants.json: country = SG): điện thoại, khu công nghiệp, mã bưu chính, biển số, "Pte Ltd" theo Singapore
+SG_TENANTS = {c for c, t in TENANT_CFG.items() if t.get("country") == "SG"}
+for key in ORDER:
+    for rec in DATA[key]:
+        if rec["_tenant"] in SG_TENANTS:
+            rec.update({f: to_sg(v, f) for f, v in rec.items()})
+
 # ---------------------------------------------------------------- app meta
 FEATURES ={k: {"n": v["n"], "p": v["p"]} for k, v in FL["features"].items()}
 APP = {  # phần sinh tự động; cấu hình sửa tay nằm ở mock-api/meta/config/*.json
@@ -729,16 +868,111 @@ APP = {  # phần sinh tự động; cấu hình sửa tay nằm ở mock-api/me
         "profiles": om_ns["PROFILES"], "groups": om_ns["GROUPS"],
         "default_perm": [{"entity": e, "module": m, "level": lv} for e, _, m, lv in om_ns["DEFAULT"]],
         "sharing": [dict(zip(["entity", "module", "from", "to", "perm", "superiors"], l.split("|"))) for l in om_ns["SHARING"].splitlines()],
-        "territories": ["Forgeline Engineering Pte Ltd"],
+        "territories": ["Forgeline Engineering Pty Ltd"],
     },
     "blueprints": [dict(zip(["name", "entity", "api", "module", "layout", "field", "status"], b),
                         crm="std" if b[0] == JOB_BP_STD or (b[0] in ENT_BP.values()) else "merged" if b[0] in JOB_BP.values() else "off")
                    for b in om_ns["BLUEPRINTS"]],
     "features": FEATURES,
-    "counts_legacy": {"Accounts": 5000, "Contacts": 3500, "Leads": 150, "Deals": 1200, "Quotes": "10,000+", "Sales Orders": "10,000+",
-                    "Products": 10000, "Vehicle Numbers": 5000, "Services/Repairs/Certs": "10,000+", "New Installation Projects": 400,
-                    "Vendors": 700, "Purchase Requisitions": 200},
+    "counts_legacy": {"accounts": 5000, "contacts": 3500, "leads": 150, "deals": 1200, "quotes": "10,000+", "orders": "10,000+",  # theo key module; app hiện tên module
+                      "products": 10000, "vehicles": 5000, "jobs": "10,000+", "install": 400, "vendors": 700, "pr": 200},
 }
+
+# >>> tên hiển thị CRM mới
+# Nguồn (layout, blueprint, Entity List, feature list) giữ tên cấu hình của hệ thống cũ. Prototype đặt lại tên module / màn / quy trình /
+# loại biểu mẫu theo cách gọi của CRM mới (cùng nghĩa). Áp sau cùng: phần sinh dữ liệu ở trên không đổi, chỉ đổi giá trị hiển thị.
+MODULE_NAME = {  # module_name (hiện sau mã feature ở bản VI)
+    "M05": "Khách hàng doanh nghiệp", "M06": "Đầu mối liên hệ", "M07": "Khách hàng tiềm năng", "M08": "Cơ hội kinh doanh",
+    "M09": "Danh mục hàng hoá, vật tư, dịch vụ", "M10": "Chào giá / hợp đồng mua bán", "M11": "Đơn đặt hàng",
+    "M12": "Hoá đơn bán ra, thanh toán (đồng bộ từ kế toán)", "M14": "Lệnh dịch vụ", "M15": "Hồ sơ thiết bị (xe, thiết bị của khách)",
+    "M16": "Dự án đóng mới, lắp thiết bị lên xe", "M17": "Vật tư cho lệnh dịch vụ", "M18": "Kiểm định môi trường",
+    "M19": "Hỗ trợ khách hàng, hợp đồng bảo trì", "M20": "Yêu cầu mua sắm", "M21": "Đối tác cung ứng", "M24": "Ghi chú, tệp, đầu việc",
+}
+FEATURE_NAME = {  # tên feature (tooltip mã feature ở bản VI)
+    "M02.05": "Menu & thành viên theo bộ phận", "M03.05": "Quy tắc biểu mẫu, kiểm tra dữ liệu, picklist phụ thuộc",
+    "M04.01": "Nhật ký thao tác ≥ 7 năm", "M04.02": "Tra cứu, xuất nhật ký thao tác", "M04.04": "Bản ghi đã xoá (khôi phục được)",
+    "M05.01": "Quản lý khách hàng doanh nghiệp", "M05.05": "Khách hàng cha – con", "M06.01": "Quản lý đầu mối liên hệ", "M06.02": "Đồng ý nhận tin (Privacy Act)",
+    "M07.01": "Quản lý khách hàng tiềm năng", "M07.02": "Chuyển đổi khách hàng tiềm năng", "M07.03": "Nhập khách hàng tiềm năng từ web form / Excel",
+    "M08.01": "Quản lý cơ hội theo giai đoạn", "M08.04": "Bước bắt buộc khi chuyển giai đoạn",
+    "M10.01": "Tạo chào giá nhiều dòng hàng", "M10.06": "Duyệt chào giá / chiết khấu", "M10.08": "Chuyển chào giá → đơn đặt hàng / dự án đóng mới",
+    "M10.09": "Gửi chào giá qua email", "M10.10": "Chào giá lại / phiên bản", "M10.11": "Ký điện tử hợp đồng mua bán",
+    "M11.01": "Tạo đơn đặt hàng từ chào giá", "M11.04": "In PDF đơn đặt hàng", "M12.01": "Xem hoá đơn bán ra và trạng thái thanh toán",
+    "M14.01": "Tiếp nhận lệnh dịch vụ", "M14.03": "Biểu mẫu theo loại lệnh dịch vụ", "M14.07": "Mã dự án của lệnh dịch vụ",
+    "M14.08": "Chào giá dịch vụ từ lệnh", "M14.13": "Kanban lệnh dịch vụ theo trạng thái", "M14.14": "In lệnh dịch vụ, QR code",
+    "M15.01": "Hồ sơ thiết bị / xe", "M16.01": "Tạo dự án đóng mới từ chào giá / đơn hàng", "M16.05": "Bảo hành, đăng ký xe, phê duyệt NHVR, ngày dự kiến xuất hoá đơn", "M17.01": "Yêu cầu vật tư cho lệnh dịch vụ",
+    "M17.02": "Phiếu xuất kho", "M18.01": "Checklist kiểm định môi trường", "M19.01": "Yêu cầu hỗ trợ: khiếu nại / bảo hành",
+    "M20.01": "Tạo yêu cầu mua sắm", "M21.01": "Danh mục đối tác cung ứng", "M22.01": "Chuỗi phê duyệt theo DoA", "M22.02": "Hộp phê duyệt của tôi",
+    "M23.04": "Chuyển đổi tự động hoá đang chạy trên hệ thống hiện tại", "M23.05": "Quy tắc phân công tự động",
+    "M24.02": "Đầu việc, lịch hẹn, cuộc gọi", "M27.01": "Trang tổng quan cá nhân", "M27.06": "Trang tổng quan theo vai trò",
+    "M27.08": "Bảng điều phối việc", "M28.02": "Đẩy đơn đặt hàng / yêu cầu xuất hoá đơn sang kế toán",
+    "M29.01": "Chuyển dữ liệu từ hệ thống hiện tại", "M31.03": "Biểu mẫu tạo / sửa theo loại biểu mẫu",
+}
+LAYOUT_NAME = {  # loại biểu mẫu (layout), cả trong _layout của dữ liệu mẫu
+    "After-Sales": "General service", "Breakdown Service": "Breakdown call-out", "Fleet Vehicle Layout": "Fleet servicing", "Service V2": "Equipment service",
+    "After Sales Template": "Service & repair", "Crane Template": "Crane supply", "Hooklift/OTC Template": "Hooklift & container", "Tailgate Template": "Tail lift supply",
+    "Crane": "Crane fit-out", "Hook Lift": "Hooklift fit-out", "Tail Lift": "Tail lift fit-out", "Other Jobs/ Variation Order": "Other work & variations",
+    "Standard Layout": "Standard",
+}
+SECTION_NAME = {
+    "Account Information": "Client Details", "Contact Information": "Contact Details", "Deal Information": "Opportunity Details",
+    "Invoices Information": "Invoice Details", "Lead Information": "Prospect Details", "New Installation Project Information": "Fit-out Project Details",
+    "Parts Requisition Information": "Material Request Details", "Product Information": "Item Details", "Purchase Requisition Information": "Purchase Request Details",
+    "Quote Information": "Proposal Details", "Sales Order Information": "Order Details", "Shipping Instruction Information": "Goods Issue Details",
+    "Task Information": "To-do Details", "Case Information": "Request Details", "Vendor Information": "Supplier Details",
+}
+FLOW_NAME = {  # tên quy trình (blueprint)
+    "Deals Follow Up": "Opportunity pipeline", "After Sales Service": "Standard service", "Breakdown Service": "Breakdown call-out",
+    "Fleet Vehicle Blueprint": "Fleet servicing", "Service V2": "Equipment service", "Purchase Form Status": "Purchase request approval",
+    "SI Chit Status": "Goods issue", "Quote Stage": "Proposal stages", "Lead nurturing process": "Prospect nurturing", "Task Process Management": "To-do tracking",
+}
+STATUS_FIELD = {"Form_Status": "Form Status", "Quote_Stage": "Quote Stage", "Lead_Status": "Lead Status"}  # cột "Field trạng thái" (nhãn, không dùng tên API)
+FIELD_LABEL = {  # field có tên module cũ trong nhãn; field Owner của mọi module → "Owner"
+    ("orders", "Account_Owner"): "Client Owner", ("accounts", "Account_In_Accounting"): "Account in Accounting", ("products", "Product_in_Accounting"): "Product in Accounting", ("jobs", "Vehicle_Numbers"): "Plate Numbers", ("install", "Name"): "Fit-out Project Number", ("install", "New_installation_Project_Number"): "For Fit-out Project Number",
+    ("orders", "New_Installation_Project_Number"): "Fit-out Project Number", ("si", "New_Installation_Number"): "Fit-out Project Number",
+    ("partsreq", "Name"): "Material Request Name", ("partsreq", "Service_Repairs_Certs"): "Service Order", ("pr", "Name"): "Purchase Request Number",
+    ("si", "Name"): "Goods Issue No.", ("si", "Service_Repair_Reference"): "Service Order Reference", ("invoices", "Service_Repair_Lookup"): "Service Order",
+    ("orders", "Service_Repair_Lookup"): "Service Order", ("nea", "Name"): "Environmental Check No.",
+}
+FIELD_LABEL.update(REGION_LABEL)  # nhãn theo bối cảnh Úc (khối "bối cảnh vùng" ở đầu file)
+OTHER_TYPES = {  # loại bản ghi ngoài prototype ở bảng quyền mặc định, theo (module, mức quyền)
+    ("X04", "Private"): "Purchase orders", ("X01", "Private"): "Split invoicing", ("X02", "Private"): "Parts salvage", ("M25", "Private"): "Email log",
+    ("X03", "Private"): "Marketing campaigns", ("M24", "Private"): "To-dos / calls / meetings", ("M25", "Public read/write"): "Emails",
+}
+for key, m in meta_entities.items():
+    m["module_name"] = MODULE_NAME.get(m["module"], m["module_name"])
+    for lay in m["layouts"]:
+        lay["name"] = LAYOUT_NAME.get(lay["name"], lay["name"])
+        for s in lay["sections"]:
+            s["name"] = SECTION_NAME.get(s["name"], s["name"])
+    m["bp_by_layout"] = {LAYOUT_NAME.get(a, a): FLOW_NAME.get(b, b) for a, b in m["bp_by_layout"].items()}
+    for t in m["transitions"]:
+        t["bp"] = FLOW_NAME.get(t["bp"], t["bp"])
+    for api, fd in m["fields"].items():
+        fd["label"] = FIELD_LABEL.get((key, api), "Owner" if api == "Owner" else fd["label"])
+for rows in DATA.values():
+    for r in rows:
+        if r.get("_layout") in LAYOUT_NAME:
+            r["_layout"] = LAYOUT_NAME[r["_layout"]]
+for code, n in FEATURE_NAME.items():
+    if code in FEATURES:
+        FEATURES[code]["n"] = n
+for b in APP["blueprints"]:
+    k = API2KEY.get(b["api"])
+    b.update(name=FLOW_NAME.get(b["name"], b["name"]), entity=ENT_LABEL[k][1] if k else b["entity"],
+             layout=LAYOUT_NAME.get(b["layout"], b["layout"]), field=STATUS_FIELD.get(b["field"], b["field"]))
+    if k:
+        b["key"] = k  # app hiện tên module theo ngôn ngữ đang chọn
+for x, (e, api, mod, lv) in zip(APP["org"]["default_perm"], om_ns["DEFAULT"]):
+    k = API2KEY.get(api)
+    x["entity"] = ENT_LABEL[k][1] if k else OTHER_TYPES.get((mod, lv), e)
+    if k:
+        x["key"] = k
+MOD2KEY = {v[1]: k for k, v in ENT.items() if k != "si"}  # M17 dùng chung: bảng chia sẻ chỉ có module khác M17
+for x in APP["org"]["sharing"]:
+    k = MOD2KEY.get(x["module"])
+    if k:
+        x.update(entity=ENT_LABEL[k][1], key=k)
+# <<< tên hiển thị CRM mới
 
 
 

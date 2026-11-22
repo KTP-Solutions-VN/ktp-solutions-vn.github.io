@@ -23,14 +23,14 @@
 
   /* ---------------------------------------------------------------- */
   /* Business units + country mapping. The source spec assumes a      */
-  /* Thailand/Greece/France portfolio; this prototype's mock cast only */
-  /* has Thailand- and Indonesia-based business units, so BOOK-106/108 */
+  /* Singapore/Greece/France portfolio; this prototype's mock cast only */
+  /* has Singapore- and Australia-based business units, so BOOK-106/108 */
   /* country filters are adapted to the countries that actually exist  */
   /* in BOOK.VILLAS rather than inventing BUs with no underlying data. */
   /* ---------------------------------------------------------------- */
   BOOK.BUSINESS_UNITS = Array.from(new Set(BOOK.VILLAS.map(function (v) { return v.bu; })));
-  BOOK.BU_COUNTRY = { 'Phuket Collection': 'Thailand', 'Koh Samui Estates': 'Thailand', 'Bali Retreats': 'Indonesia' };
-  BOOK.buCountry = function (bu) { return BOOK.BU_COUNTRY[bu] || 'Thailand'; };
+  BOOK.BU_COUNTRY = { 'Sentosa Collection': 'Singapore', 'Noosa Estates': 'Australia', 'Byron Bay Retreats': 'Australia' };
+  BOOK.buCountry = function (bu) { return BOOK.BU_COUNTRY[bu] || 'Singapore'; };
 
   var TYPE_MAP = {
     'PV-101': 'Hillside Villa', 'PV-102': 'Beachfront Villa', 'PV-103': 'Beachfront Villa',
@@ -50,7 +50,7 @@
     { id: 'FC-03', name: 'Payments & Refunds', createdAt: '2025-11-04T10:20:00' },
     { id: 'FC-04', name: 'Check-in / Check-out', createdAt: '2025-11-06T14:10:00' },
     { id: 'FC-05', name: 'Property Amenities', createdAt: '2025-12-01T11:30:00' },
-    { id: 'FC-06', name: 'Villa Services', createdAt: '2025-12-10T08:45:00' },
+    { id: 'FC-06', name: 'In-Stay Services', createdAt: '2025-12-10T08:45:00' },
     { id: 'FC-07', name: 'Transportation', createdAt: '2026-01-15T13:00:00' }
   ];
   BOOK.getFaqCategories = function () {
@@ -72,18 +72,18 @@
     safeSave('mm_faq_categories_deleted', deleted);
   };
 
-  BOOK.FAQ_LANGUAGES = ['English', 'Thai', 'French', 'German'];
+  BOOK.FAQ_LANGUAGES = ['English', 'Malay', 'French', 'German'];
 
   BOOK.FAQ_QUESTIONS_BASE = [
     { id: 'FQ-01', categoryId: 'FC-02', language: 'English', question: 'What is the minimum stay for a villa booking?', answer: 'Minimum stay varies by villa and season, typically 2-5 nights. Peak season (Christmas/New Year) usually requires a 7-night minimum. The exact minimum stay for each villa is shown on the availability calendar.', businessUnits: [], createdAt: '2025-11-03T10:00:00' },
-    { id: 'FQ-02', categoryId: 'FC-03', language: 'English', question: 'When is the security deposit released?', answer: 'The security deposit is released within 5-7 business days after check-out, once the villa inspection confirms no damage or missing items.', businessUnits: ['Phuket Collection', 'Koh Samui Estates'], createdAt: '2025-11-05T09:30:00' },
+    { id: 'FQ-02', categoryId: 'FC-03', language: 'English', question: 'When is the security deposit released?', answer: 'The security deposit is released within 5-7 business days after check-out, once the villa inspection confirms no damage or missing items.', businessUnits: ['Sentosa Collection', 'Noosa Estates'], createdAt: '2025-11-05T09:30:00' },
     { id: 'FQ-03', categoryId: 'FC-04', language: 'English', question: 'What time is standard check-in and check-out?', answer: 'Standard check-in is 14:00 and check-out is 11:00, unless a different standard time has been configured for the business unit. Early check-in and late check-out can be requested subject to availability.', businessUnits: [], createdAt: '2025-11-07T15:00:00' },
-    { id: 'FQ-04', categoryId: 'FC-05', language: 'English', question: 'Is a private chef included with the villa rental?', answer: 'A private chef is not included by default but can be arranged through Villa Services for an additional fee. Some premium villas include a complimentary breakfast service prepared by villa staff.', businessUnits: ['Bali Retreats'], createdAt: '2025-12-02T08:00:00' },
-    { id: 'FQ-05', categoryId: 'FC-06', language: 'English', question: 'How do I request extra cleaning during my stay?', answer: 'Guests can request extra cleaning at any time through the Guest Portal or by contacting their assigned concierge directly. Standard mid-stay cleaning is already included for stays of 7 nights or more.', businessUnits: [], createdAt: '2025-12-11T09:15:00' },
+    { id: 'FQ-04', categoryId: 'FC-05', language: 'English', question: 'Is a private chef included with the villa rental?', answer: 'A private chef is not included by default but can be arranged through In-Stay Services for an additional fee. Some premium villas include a complimentary breakfast service prepared by villa staff.', businessUnits: ['Byron Bay Retreats'], createdAt: '2025-12-02T08:00:00' },
+    { id: 'FQ-05', categoryId: 'FC-06', language: 'English', question: 'How do I request extra cleaning during my stay?', answer: 'Guests can request extra cleaning at any time through the Guest Hub or by contacting their assigned concierge directly. Standard mid-stay cleaning is already included for stays of 7 nights or more.', businessUnits: [], createdAt: '2025-12-11T09:15:00' },
     { id: 'FQ-06', categoryId: 'FC-07', language: 'English', question: 'Is airport transfer included in the booking?', answer: 'Airport transfer is not included by default. It can be added as a paid extra during booking or arranged afterwards through your concierge, subject to vehicle availability.', businessUnits: [], createdAt: '2026-01-16T11:00:00' },
     { id: 'FQ-07', categoryId: 'FC-01', language: 'English', question: 'Can I bring pets to the villa?', answer: 'Pet policy varies by villa. Most villas do not allow pets due to landscaping and pool safety considerations. A small number of pet-friendly villas are marked accordingly in the property listing.', businessUnits: [], createdAt: '2026-01-20T10:00:00' },
-    { id: 'FQ-08', categoryId: 'FC-03', language: 'French', question: 'Quand le dépôt de garantie est-il remboursé ?', answer: 'Le dépôt de garantie est remboursé dans un délai de 5 à 7 jours ouvrés après le départ, une fois l’inspection de la villa confirmée sans dommage.', businessUnits: ['Bali Retreats'], createdAt: '2026-02-01T09:00:00' },
-    { id: 'FQ-09', categoryId: 'FC-04', language: 'Thai', question: 'เวลาเช็คอินและเช็คเอาท์มาตรฐานคือเวลาใด', answer: 'เช็คอินมาตรฐานเวลา 14:00 น. และเช็คเอาท์เวลา 11:00 น. สามารถขอเช็คอินก่อนเวลาหรือเช็คเอาท์ล่าช้าได้ตามความพร้อมของวิลล่า', businessUnits: ['Phuket Collection'], createdAt: '2026-02-10T13:30:00' }
+    { id: 'FQ-08', categoryId: 'FC-03', language: 'French', question: 'Quand le dépôt de garantie est-il remboursé ?', answer: 'Le dépôt de garantie est remboursé dans un délai de 5 à 7 jours ouvrés après le départ, une fois l’inspection de la villa confirmée sans dommage.', businessUnits: ['Byron Bay Retreats'], createdAt: '2026-02-01T09:00:00' },
+    { id: 'FQ-09', categoryId: 'FC-04', language: 'Malay', question: 'Bilakah waktu daftar masuk dan daftar keluar standard?', answer: 'Daftar masuk standard pada jam 14:00 dan daftar keluar pada jam 11:00. Daftar masuk awal atau daftar keluar lewat boleh dipohon tertakluk kepada ketersediaan vila.', businessUnits: ['Sentosa Collection'], createdAt: '2026-02-10T13:30:00' }
   ];
   BOOK.getFaqQuestions = function () {
     return BOOK.loadMerged('mm_faq_questions', BOOK.FAQ_QUESTIONS_BASE.slice()).filter(function (q) {
@@ -119,14 +119,14 @@
   ];
 
   var PROPERTY_STATUS_SEED = {
-    'PV-101': { guestStatus: 'in-house', cleaningStatus: 'clean', makeupStatus: 'clean', bookingId: 'BK-10231', checkoutStaff: 'Somchai Anuwat', cleaningStaff: 'Kanya Srisawat', makeupStaff: 'Kanya Srisawat' },
-    'PV-102': { guestStatus: 'checking-out', cleaningStatus: 'to-be-cleaned', makeupStatus: 'to-be-cleaned', bookingId: 'BK-10241', checkoutStaff: 'Somchai Anuwat', cleaningStaff: null, makeupStaff: null },
-    'PV-103': { guestStatus: 'vacant', cleaningStatus: 'clean', makeupStatus: 'clean', bookingId: null, checkoutStaff: null, cleaningStaff: 'Budi Santoso', makeupStaff: 'Budi Santoso' },
-    'PV-104': { guestStatus: 'checked-out', cleaningStatus: 'cleaning-in-progress', makeupStatus: 'to-be-cleaned', bookingId: 'BK-10234', checkoutStaff: 'Wayan Kertha', cleaningStaff: 'Budi Santoso', makeupStaff: null },
+    'PV-101': { guestStatus: 'in-house', cleaningStatus: 'clean', makeupStatus: 'clean', bookingId: 'BK-10231', checkoutStaff: 'Daniel Tan', cleaningStaff: 'Karen Seah', makeupStaff: 'Karen Seah' },
+    'PV-102': { guestStatus: 'checking-out', cleaningStatus: 'to-be-cleaned', makeupStatus: 'to-be-cleaned', bookingId: 'BK-10241', checkoutStaff: 'Daniel Tan', cleaningStaff: null, makeupStaff: null },
+    'PV-103': { guestStatus: 'vacant', cleaningStatus: 'clean', makeupStatus: 'clean', bookingId: null, checkoutStaff: null, cleaningStaff: 'Ben Sullivan', makeupStaff: 'Ben Sullivan' },
+    'PV-104': { guestStatus: 'checked-out', cleaningStatus: 'cleaning-in-progress', makeupStatus: 'to-be-cleaned', bookingId: 'BK-10234', checkoutStaff: 'Warren Kelly', cleaningStaff: 'Ben Sullivan', makeupStaff: null },
     'PV-105': { guestStatus: 'vacant', cleaningStatus: 'to-be-cleaned', makeupStatus: 'to-be-cleaned', bookingId: null, checkoutStaff: null, cleaningStaff: null, makeupStaff: null },
-    'PV-106': { guestStatus: 'arriving-today', cleaningStatus: 'clean', makeupStatus: 'clean', bookingId: 'BK-10236', checkoutStaff: null, cleaningStaff: 'Nok Pattaya', makeupStaff: 'Nok Pattaya' },
-    'PV-107': { guestStatus: 'vacant', cleaningStatus: 'clean', makeupStatus: 'clean', bookingId: null, checkoutStaff: null, cleaningStaff: 'Nok Pattaya', makeupStaff: 'Nok Pattaya' },
-    'PV-108': { guestStatus: 'in-house', cleaningStatus: 'clean', makeupStatus: 'to-be-cleaned', bookingId: 'BK-10237', checkoutStaff: null, cleaningStaff: 'Kanya Srisawat', makeupStaff: null }
+    'PV-106': { guestStatus: 'arriving-today', cleaningStatus: 'clean', makeupStatus: 'clean', bookingId: 'BK-10236', checkoutStaff: null, cleaningStaff: 'Nicole Parker', makeupStaff: 'Nicole Parker' },
+    'PV-107': { guestStatus: 'vacant', cleaningStatus: 'clean', makeupStatus: 'clean', bookingId: null, checkoutStaff: null, cleaningStaff: 'Nicole Parker', makeupStaff: 'Nicole Parker' },
+    'PV-108': { guestStatus: 'in-house', cleaningStatus: 'clean', makeupStatus: 'to-be-cleaned', bookingId: 'BK-10237', checkoutStaff: null, cleaningStaff: 'Karen Seah', makeupStaff: null }
   };
   BOOK.GUEST_STATUS_META = {
     'in-house': { cls: 'info', label: 'In-house' },
@@ -157,11 +157,11 @@
   };
 
   var STAFF_DETAIL_SEED = {
-    'PV-101': { checkoutStart: '10:12', checkoutStartLoc: 'Villa Sapphire Cliff', checkoutStartDist: '0.0 km', checkoutEnd: '10:38', checkoutEndLoc: 'Office — Phuket Collection', checkoutEndDist: '6.4 km', cleanDate: '2026-09-01', makeupDate: '2026-09-01', lat: 7.881, lng: 98.392 },
-    'PV-102': { checkoutStart: '—', checkoutStartLoc: '—', checkoutStartDist: '—', checkoutEnd: '—', checkoutEndLoc: '—', checkoutEndDist: '—', cleanDate: null, makeupDate: null, lat: 7.901, lng: 98.301 },
-    'PV-104': { checkoutStart: '11:05', checkoutStartLoc: 'Villa Azure Ridge', checkoutStartDist: '0.0 km', checkoutEnd: '11:30', checkoutEndLoc: 'Villa Marble Cove', checkoutEndDist: '3.1 km', cleanDate: '2026-08-25', makeupDate: null, lat: -8.69, lng: 115.173 },
-    'PV-106': { checkoutStart: '—', checkoutStartLoc: '—', checkoutStartDist: '—', checkoutEnd: '—', checkoutEndLoc: '—', checkoutEndDist: '—', cleanDate: '2026-09-12', makeupDate: '2026-09-12', lat: 9.512, lng: 100.014 },
-    'PV-108': { checkoutStart: '—', checkoutStartLoc: '—', checkoutStartDist: '—', checkoutEnd: '—', checkoutEndLoc: '—', checkoutEndDist: '—', cleanDate: '2026-09-13', makeupDate: null, lat: 8.02, lng: 98.32 }
+    'PV-101': { checkoutStart: '10:12', checkoutStartLoc: 'Villa Sapphire Cliff', checkoutStartDist: '0.0 km', checkoutEnd: '10:38', checkoutEndLoc: 'Office — Sentosa Collection', checkoutEndDist: '6.4 km', cleanDate: '2026-09-01', makeupDate: '2026-09-01', lat: 1.244, lng: 103.842 },
+    'PV-102': { checkoutStart: '—', checkoutStartLoc: '—', checkoutStartDist: '—', checkoutEnd: '—', checkoutEndLoc: '—', checkoutEndDist: '—', cleanDate: null, makeupDate: null, lat: 1.247, lng: 103.839 },
+    'PV-104': { checkoutStart: '11:05', checkoutStartLoc: 'Villa Azure Ridge', checkoutStartDist: '0.0 km', checkoutEnd: '11:30', checkoutEndLoc: 'Villa Marble Cove', checkoutEndDist: '3.1 km', cleanDate: '2026-08-25', makeupDate: null, lat: -28.65, lng: 153.612 },
+    'PV-106': { checkoutStart: '—', checkoutStartLoc: '—', checkoutStartDist: '—', checkoutEnd: '—', checkoutEndLoc: '—', checkoutEndDist: '—', cleanDate: '2026-09-12', makeupDate: '2026-09-12', lat: -26.392, lng: 153.091 },
+    'PV-108': { checkoutStart: '—', checkoutStartLoc: '—', checkoutStartDist: '—', checkoutEnd: '—', checkoutEndLoc: '—', checkoutEndDist: '—', cleanDate: '2026-09-13', makeupDate: null, lat: -28.64, lng: 153.62 }
   };
   BOOK.getVillaStaffDetail = function (villaId) {
     var v = BOOK.villaById(villaId);
@@ -175,10 +175,10 @@
      ================================================================== */
 
   var TIMESHEET_SEED = [
-    { staffId: 'STF-01', clockIn: '08:02', clockInManual: false, clockInLoc: '7.8804,98.3923', clockOut: '17:10', clockOutLoc: '7.8801,98.3919', sickLeave: false, dayOff: false, createdAt: '08:02', tracker: true },
-    { staffId: 'STF-02', clockIn: '08:15', clockInManual: false, clockInLoc: '-8.6905,115.1729', clockOut: null, clockOutLoc: null, sickLeave: false, dayOff: false, createdAt: '08:15', tracker: true },
+    { staffId: 'STF-01', clockIn: '08:02', clockInManual: false, clockInLoc: '1.2441,103.8419', clockOut: '17:10', clockOutLoc: '1.2438,103.8415', sickLeave: false, dayOff: false, createdAt: '08:02', tracker: true },
+    { staffId: 'STF-02', clockIn: '08:15', clockInManual: false, clockInLoc: '-28.6474,153.6120', clockOut: null, clockOutLoc: null, sickLeave: false, dayOff: false, createdAt: '08:15', tracker: true },
     { staffId: 'STF-03', clockIn: null, clockInManual: false, clockInLoc: null, clockOut: null, clockOutLoc: null, sickLeave: true, certificate: true, dayOff: false, createdAt: '—', tracker: false },
-    { staffId: 'STF-04', clockIn: '07:58', clockInManual: true, clockInLoc: '7.8955,98.3011', clockOut: '16:45', clockOutLoc: '7.8951,98.3005', sickLeave: false, dayOff: false, createdAt: '08:20 (Updated by Somchai Anuwat)', tracker: true, validated: true, validatedBy: 'Somchai Anuwat', validatedOn: '2026-09-02T18:00:00' },
+    { staffId: 'STF-04', clockIn: '07:58', clockInManual: true, clockInLoc: '1.2460,103.8372', clockOut: '16:45', clockOutLoc: '1.2457,103.8368', sickLeave: false, dayOff: false, createdAt: '08:20 (Updated by Daniel Tan)', tracker: true, validated: true, validatedBy: 'Daniel Tan', validatedOn: '2026-09-02T18:00:00' },
     { staffId: 'STF-05', clockIn: null, clockInManual: false, clockInLoc: null, clockOut: null, clockOutLoc: null, sickLeave: false, dayOff: true, createdAt: '—', tracker: false }
   ];
   BOOK.getTimesheetRows = function (dateStr) {
@@ -203,8 +203,8 @@
 
   BOOK.OCCUPANCY_ACTIONS_BASE = [
     {
-      id: 'VA-1004', businessUnit: 'Phuket Collection', startDate: '2026-09-01', endDate: '2026-09-30',
-      villaType: '', createdBy: 'Somchai Anuwat', createdAt: '2026-08-20T09:00:00',
+      id: 'VA-1004', businessUnit: 'Sentosa Collection', startDate: '2026-09-01', endDate: '2026-09-30',
+      villaType: '', createdBy: 'Daniel Tan', createdAt: '2026-08-20T09:00:00',
       numberOfDays: 30, numberOfProperties: 3, occupancyPercent: 48, propertyLowOccupancy: 1, propertyHighOccupancy: 1,
       highPercent: 74, lowPercent: 24,
       villas: [
@@ -214,8 +214,8 @@
       ]
     },
     {
-      id: 'VA-1003', businessUnit: 'Bali Retreats', startDate: '2026-08-01', endDate: '2026-08-31',
-      villaType: 'Beachfront Villa', createdBy: 'Wayan Kertha', createdAt: '2026-07-22T11:30:00',
+      id: 'VA-1003', businessUnit: 'Byron Bay Retreats', startDate: '2026-08-01', endDate: '2026-08-31',
+      villaType: 'Beachfront Villa', createdBy: 'Warren Kelly', createdAt: '2026-07-22T11:30:00',
       numberOfDays: 31, numberOfProperties: 2, occupancyPercent: 55, propertyLowOccupancy: 0, propertyHighOccupancy: 1,
       highPercent: 77, lowPercent: 27,
       villas: [
@@ -224,8 +224,8 @@
       ]
     },
     {
-      id: 'VA-1002', businessUnit: 'Koh Samui Estates', startDate: '2026-07-01', endDate: '2026-07-31',
-      villaType: '', createdBy: 'Nok Pattaya', createdAt: '2026-06-18T08:45:00',
+      id: 'VA-1002', businessUnit: 'Noosa Estates', startDate: '2026-07-01', endDate: '2026-07-31',
+      villaType: '', createdBy: 'Nicole Parker', createdAt: '2026-06-18T08:45:00',
       numberOfDays: 31, numberOfProperties: 2, occupancyPercent: 33, propertyLowOccupancy: 2, propertyHighOccupancy: 0,
       highPercent: 66, lowPercent: 16,
       villas: [
@@ -234,8 +234,8 @@
       ]
     },
     {
-      id: 'VA-1001', businessUnit: 'Phuket Collection', startDate: '2026-06-01', endDate: '2026-06-30',
-      villaType: 'Hillside Villa', createdBy: 'Somchai Anuwat', createdAt: '2026-05-20T10:00:00',
+      id: 'VA-1001', businessUnit: 'Sentosa Collection', startDate: '2026-06-01', endDate: '2026-06-30',
+      villaType: 'Hillside Villa', createdBy: 'Daniel Tan', createdAt: '2026-05-20T10:00:00',
       numberOfDays: 30, numberOfProperties: 2, occupancyPercent: 60, propertyLowOccupancy: 0, propertyHighOccupancy: 1,
       highPercent: 80, lowPercent: 30,
       villas: [
@@ -319,9 +319,9 @@
   BOOK.ALL_NATIONALITIES = Array.from(new Set(BOOK.ALL_GUESTS.map(function (g) { return g.country; }))).sort();
 
   BOOK.NATIONALITY_GROUPS_BASE = [
-    { id: 'NG-01', country: 'Thailand', name: 'European Guests', nationalityIds: ['United Kingdom', 'Poland', 'Germany', 'Sweden', 'Ireland', 'Italy'], behaviour: 'Generally book well in advance, expect detailed pre-arrival communication and value quiet, private settings. Respond well to early-bird offers.' },
-    { id: 'NG-02', country: 'Thailand', name: 'Asia-Pacific Guests', nationalityIds: ['Singapore'], behaviour: 'Frequently book shorter last-minute stays, prefer WhatsApp/Line communication, and place high value on responsive concierge service.' },
-    { id: 'NG-03', country: 'Indonesia', name: 'European Guests — Bali', nationalityIds: ['Italy'], behaviour: 'Longer average stays (7+ nights), high interest in private chef and wellness add-ons.' }
+    { id: 'NG-01', country: 'Singapore', name: 'European Guests', nationalityIds: ['United Kingdom', 'Poland', 'Germany', 'Sweden', 'Ireland', 'Italy'], behaviour: 'Generally book well in advance, expect detailed pre-arrival communication and value quiet, private settings. Respond well to early-bird offers.' },
+    { id: 'NG-02', country: 'Singapore', name: 'Asia-Pacific Guests', nationalityIds: ['Singapore'], behaviour: 'Frequently book shorter last-minute stays, prefer WhatsApp/WeChat communication, and place high value on responsive concierge service.' },
+    { id: 'NG-03', country: 'Australia', name: 'European Guests — Byron Bay', nationalityIds: ['Italy'], behaviour: 'Longer average stays (7+ nights), high interest in private chef and wellness add-ons.' }
   ];
   BOOK.getNationalityGroups = function () {
     return BOOK.loadMerged('mm_nationality_groups', BOOK.NATIONALITY_GROUPS_BASE.map(function (g) { return Object.assign({}, g); })).filter(function (g) {
@@ -347,9 +347,9 @@
      ================================================================== */
 
   BOOK.STANDARD_TIMES_BASE = [
-    { id: 'ST-01', businessUnitId: 'Phuket Collection', checkInTime: '14:00', checkOutTime: '11:00' },
-    { id: 'ST-02', businessUnitId: 'Bali Retreats', checkInTime: '15:00', checkOutTime: '12:00' }
-    // Koh Samui Estates intentionally not yet configured (00:00:00 => hidden from the list), per spec.
+    { id: 'ST-01', businessUnitId: 'Sentosa Collection', checkInTime: '14:00', checkOutTime: '11:00' },
+    { id: 'ST-02', businessUnitId: 'Byron Bay Retreats', checkInTime: '15:00', checkOutTime: '12:00' }
+    // Noosa Estates intentionally not yet configured (00:00:00 => hidden from the list), per spec.
   ];
   BOOK.getStandardTimes = function () {
     return BOOK.loadMerged('mm_standard_times', BOOK.STANDARD_TIMES_BASE.map(function (s) { return Object.assign({}, s); })).filter(function (s) {
@@ -375,8 +375,8 @@
      ================================================================== */
 
   BOOK.DEADLINE_GROUPS_BASE = [
-    { id: 'DL-01', days: 3, businessUnits: ['Phuket Collection'], updatedBy: 'Somchai Anuwat', updatedAt: '2026-08-10T09:00:00' },
-    { id: 'DL-02', days: 7, businessUnits: ['Bali Retreats', 'Koh Samui Estates'], updatedBy: 'Wayan Kertha', updatedAt: '2026-08-14T11:20:00' }
+    { id: 'DL-01', days: 3, businessUnits: ['Sentosa Collection'], updatedBy: 'Daniel Tan', updatedAt: '2026-08-10T09:00:00' },
+    { id: 'DL-02', days: 7, businessUnits: ['Byron Bay Retreats', 'Noosa Estates'], updatedBy: 'Warren Kelly', updatedAt: '2026-08-14T11:20:00' }
   ];
   BOOK.getDeadlineGroups = function () {
     var saved = safeParse('mm_checkin_deadline_groups', null);
@@ -390,8 +390,8 @@
      BOOK-109 — Revenue Report
      ================================================================== */
 
-  BOOK.CURRENCIES = ['USD', 'THB', 'EUR'];
-  BOOK.CURRENCY_RATES = { USD: 1, THB: 36.2, EUR: 0.92 };
+  BOOK.CURRENCIES = ['USD', 'SGD', 'AUD', 'EUR'];
+  BOOK.CURRENCY_RATES = { USD: 1, SGD: 1.34, AUD: 1.52, EUR: 0.92 };
   BOOK.convertCurrency = function (amountUsd, code) {
     var rate = BOOK.CURRENCY_RATES[code] || 1;
     return amountUsd * rate;

@@ -1,10 +1,10 @@
-# BU-007 — Currency List
+# BU-007 — Currency Setup
 
 **Type:** Full page
 
 **Route:** `BusinessUnitController::currency()` — default `/business-unit/currency`
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A list of currencies configured in the system, used as the basis for exchange rates (BU-008) and for business units/accounts. Allows adding, editing, and deleting directly on the page via a popup.
@@ -24,11 +24,11 @@ List (DataTable `#zero_config`):
 | 7 | Actions | — | Edit, Delete |
 
 ## Functions / Actions
-- **Rates:** navigates to BU-008 (Exchange Rates).
+- **Rates:** navigates to BU-008 (FX Rates).
 - **Add new** (visible only to `Superadmin` users): opens the BU-007-P1 popup in Add mode.
 - **Edit (pencil icon):** opens the BU-007-P1 popup in Edit mode, pre-populated with the selected row's data.
 - **Delete (trash icon):** opens the BU-007-P2 delete confirmation popup.
 
 ## Navigation
 - Accessed from: Settings menu.
-- Navigates to: BU-008 (Exchange Rates), BU-007-P1 (add/edit popup), BU-007-P2 (delete confirmation popup).
+- Navigates to: BU-008 (FX Rates), BU-007-P1 (add/edit popup), BU-007-P2 (delete confirmation popup).

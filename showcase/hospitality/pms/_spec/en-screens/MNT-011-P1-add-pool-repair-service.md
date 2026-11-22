@@ -1,8 +1,8 @@
-# MNT-011-P1 — Add Pool Repair Service
+# MNT-011-P1 — New Pool Repair Type
 
 **Type:** Popup (opened from MNT-011)
 **Route:** maintenance/addPoolRepair
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Page for adding a new pool repair service: name, illustrative image (1:1 crop), applicable business unit(s), status.
@@ -21,5 +21,5 @@ Page for adding a new pool repair service: name, illustrative image (1:1 crop), 
 - **Cancel**: returns to MNT-011.
 
 ## Navigation
-- Entered from: "Add New" button on MNT-011 — Pool Repair.
+- Entered from: "Add New" button on MNT-011 — Pool Repair Types.
 - Navigates to: after Save, returns to MNT-011.

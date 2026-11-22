@@ -1,10 +1,10 @@
-# VID-001-P3 — View Video (Video Player)
+# VID-001-P3 — Video Guide Player
 
 **Type:** Popup (opened from VID-001)
 
 **Route:** Static modal within `index.ctp` (`#video-player-modal`); content is played via `VideosController::play($id)` — `GET /videos/play/:id` (streams the file, with access-permission checks by Business Unit/country scope)
 
-**Module:** Videos
+**Module:** Video Guides
 
 ## Overview
 A popup that plays the selected video directly (HTML5 video player) without leaving the list page.

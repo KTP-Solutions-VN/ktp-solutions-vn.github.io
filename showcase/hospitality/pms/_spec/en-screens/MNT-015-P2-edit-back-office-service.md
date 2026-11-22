@@ -1,8 +1,8 @@
-# MNT-015-P2 — Edit Back Office Service
+# MNT-015-P2 — Edit Admin Service Type
 
 **Type:** Popup (opened from MNT-015)
 **Route:** maintenance/editBackOfficeServices/:id
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Page for editing an existing back-office service: name, illustrative image, applicable business unit(s), status.
@@ -21,5 +21,5 @@ Page for editing an existing back-office service: name, illustrative image, appl
 - **Cancel**: returns to MNT-015.
 
 ## Navigation
-- Entered from: Edit icon on MNT-015 — Back Office Services.
+- Entered from: Edit icon on MNT-015 — Admin Service Types.
 - Navigates to: after Save, returns to MNT-015.

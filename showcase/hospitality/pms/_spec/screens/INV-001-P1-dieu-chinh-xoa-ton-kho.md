@@ -1,10 +1,10 @@
-# INV-001-P1 — Điều chỉnh / xóa tồn kho
+# INV-001-P1 — Điều chỉnh hoặc gỡ tồn kho (Adjust or Remove Stock)
 
 **Loại:** Popup (mở từ INV-001)
 
 **Route:** Submit POST tới `InventoryController::list()` (`/inventory/list`, field `action` = `add-more` | `sub-more` | `delete`). Dùng chung một modal cho cả 3 thao tác.
 
-**Module:** INV = Kho vật tư
+**Module:** INV = Kiểm soát kho
 
 ## Mô tả ngắn gọn
 Modal điều chỉnh tăng/giảm số lượng tồn kho hoặc xóa hẳn một dòng tồn kho (`InventoryStock`), mở từ các nút (+)/(-)/Xóa trên INV-001.

@@ -1,4 +1,4 @@
-<!-- Partial trang chủ: việc cần làm — 5 việc gấp nhất của người đăng nhập, lấy từ Bảng công việc (task tự tạo + việc hệ thống nhắc). Dữ liệu: tasks[{id,subject,due,over,priority,status,auto,src}], taskHead -->
+<!-- Partial trang tổng quan: việc cần làm — 5 việc gấp nhất của người đăng nhập, lấy từ Bảng điều phối việc (đầu việc tự tạo + việc hệ thống nhắc). Dữ liệu: tasks[{id,subject,due,over,priority,status,auto,src}], taskHead -->
 <div class="card np"{{fa "M27.08"}}><div class="card-h"><h3>{{t "home.todo"}}</h3><span class="faint sm">{{taskHead}}</span><span class="sp"></span><a class="sm" href="/p/work"><b>{{t "home.openWork"}}</b></a></div>
   <div class="card-b" style="padding-top:4px;padding-bottom:4px">
     {{#each tasks}}<div class="task"><button class="cb" title="{{t "home.markDone"}}" onclick="doneTask('{{id}}')"></button><div><div class="t"><a href="{{#if src}}{{src}}{{else}}/e/tasks/{{id}}{{/if}}">{{subject}}</a></div><div class="s"><span class="{{#if over}}bad-t{{/if}}">{{due}}{{#if over}} · {{over}}{{/if}}</span> · {{priority}} · {{status}}</div></div></div>

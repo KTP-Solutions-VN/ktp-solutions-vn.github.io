@@ -1,14 +1,14 @@
-# OWN-009 — Danh sách Agency
+# OWN-009 — Đại lý đối tác (Partner Agencies)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `/Owner/agencyList` (controller `Owner`, action `agencyList()`)
 
-**Module:** Quản lý chủ sở hữu (Admin)
+**Module:** Quan hệ chủ nhà (Admin)
 
 ## Mô tả ngắn gọn
 
-Màn hình liệt kê toàn bộ Agency (đại lý) trong hệ thống. Superadmin thấy tất cả Agency; các user khác chỉ thấy Agency thuộc business unit mà mình được phân quyền. Đây là menu cấp 1 trong sidebar (mục "Agencies"), song được cài đặt trong `OwnerController` cùng với module chủ sở hữu.
+Màn hình liệt kê toàn bộ Agency (đại lý) trong hệ thống. Superadmin thấy tất cả Agency; các user khác chỉ thấy Agency thuộc business unit mà mình được phân quyền. Đây là menu cấp 1 trong sidebar (mục "Partner Agencies"), song được cài đặt trong `OwnerController` cùng với module chủ sở hữu.
 
 ## Mô tả chi tiết
 
@@ -23,16 +23,16 @@ Màn hình liệt kê toàn bộ Agency (đại lý) trong hệ thống. Superad
 
 ## Chức năng/nút thao tác
 
-- **+ Add New**: mở OWN-010 (Thêm mới Agency).
-- **Xem** (icon con mắt): mở OWN-012 (Xem chi tiết Agency).
-- **Thanh toán** (icon đô la): mở OWN-011 (Chỉnh sửa Agency) ở tab "Payment Details", danh sách chi tiết thanh toán.
-- **Sửa** (icon bút): mở OWN-011 (Chỉnh sửa Agency) ở tab "Agency Details".
+- **+ Add New**: mở OWN-010 (Thêm đại lý đối tác).
+- **Xem** (icon con mắt): mở OWN-012 (Hồ sơ đại lý đối tác).
+- **Thanh toán** (icon đô la): mở OWN-011 (Sửa đại lý đối tác) ở tab "Payment Details", danh sách chi tiết thanh toán.
+- **Sửa** (icon bút): mở OWN-011 (Sửa đại lý đối tác) ở tab "Agency Details".
 - **Xoá** (icon thùng rác): xác nhận qua popup modal, sau đó gọi `deleteAgency/{id}` (không có giao diện riêng).
 
 ## Điều hướng
 
-- Mở từ: Menu sidebar "Agencies" (`active_menu` 9/91).
+- Mở từ: Menu sidebar "Partner Agencies" (`active_menu` 9/91).
 - Đi tới:
-  - OWN-010 — Thêm mới Agency
-  - OWN-011 — Chỉnh sửa Agency
-  - OWN-012 — Xem chi tiết Agency
+  - OWN-010 — Thêm đại lý đối tác
+  - OWN-011 — Sửa đại lý đối tác
+  - OWN-012 — Hồ sơ đại lý đối tác

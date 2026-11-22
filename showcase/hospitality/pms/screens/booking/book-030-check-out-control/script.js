@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('[data-view]').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var r = DATA.filter(function (x) { return x.id === btn.getAttribute('data-view'); })[0];
-      document.getElementById('dm-title').textContent = r.property + ' — Check-out Control';
+      document.getElementById('dm-title').textContent = r.property + ' — Departure Audit';
       function field(label, value) { return '<div><div class="detail-field__label">' + label + '</div><div class="detail-field__value">' + value + '</div></div>'; }
       document.getElementById('dm-grid').innerHTML = [
         field('Property', r.property),

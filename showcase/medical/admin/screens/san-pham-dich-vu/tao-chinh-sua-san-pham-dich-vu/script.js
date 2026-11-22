@@ -10,8 +10,8 @@
   function updatePreview() {
     var lp = parseFloat(document.getElementById('fListPrice').value) || 0;
     var sp = parseFloat(document.getElementById('fSalePrice').value) || 0;
-    document.getElementById('previewList').textContent = 'SGD ' + lp.toFixed(0);
-    document.getElementById('previewSale').textContent = 'SGD ' + (sp || lp).toFixed(0);
+    document.getElementById('previewList').textContent = 'AUD ' + lp.toFixed(0);
+    document.getElementById('previewSale').textContent = 'AUD ' + (sp || lp).toFixed(0);
   }
   document.getElementById('fListPrice').addEventListener('input', updatePreview);
   document.getElementById('fSalePrice').addEventListener('input', updatePreview);
@@ -41,7 +41,7 @@
         variants: [{ id: 'V1', name: 'Standard', sku: 'NEW-STD', stock: 20, price: parseFloat(document.getElementById('fSalePrice').value) || 0 }],
         listPrice: parseFloat(document.getElementById('fListPrice').value) || 0,
         salePrice: parseFloat(document.getElementById('fSalePrice').value) || null,
-        currency: 'SGD', location: '', doctor: null, leadTimeDays: 2, bookingWindowDays: 30, blackoutDates: [],
+        currency: 'AUD', location: '', doctor: null, leadTimeDays: 2, bookingWindowDays: 30, blackoutDates: [],
         publishedAt: new Date().toISOString().slice(0, 10), thumbnail: '✨'
       };
       CJStore.addExtra('admin_products', newProduct);

@@ -149,10 +149,10 @@
 
   /* Sample cross-screen mock dataset (vendors), used by multiple pages */
   window.CM.MOCK_VENDORS = [
-    { id: 'v1', name: 'Andaman Villas Group', plan: 'Subscription', properties: 18, status: 'active', provider: ['Channex', 'Beds24'] },
+    { id: 'v1', name: 'Coral Coast Villas Group', plan: 'Subscription', properties: 18, status: 'active', provider: ['Channex', 'Beds24'] },
     { id: 'v2', name: 'Aegean Retreats', plan: 'Per-Property', properties: 9, status: 'active', provider: ['Channex'] },
     { id: 'v3', name: 'Sunshine Coast Rentals', plan: 'Performance-based', properties: 24, status: 'active', provider: ['Beds24'] },
     { id: 'v4', name: 'Caribbean Palms Collection', plan: 'Subscription', properties: 6, status: 'onboarding', provider: ['Channex'] },
-    { id: 'v5', name: 'Phuket Hillside Estates', plan: 'Subscription', properties: 12, status: 'suspended', provider: ['Channex', 'Beds24'] }
+    { id: 'v5', name: 'Sentosa Hillside Estates', plan: 'Subscription', properties: 12, status: 'suspended', provider: ['Channex', 'Beds24'] }
   ];
 })();

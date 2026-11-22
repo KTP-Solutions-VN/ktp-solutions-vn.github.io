@@ -1,10 +1,10 @@
-# PHO-002 — Danh sách villa quản lý ảnh (Photo Sets)
+# PHO-002 — Album ảnh (Photo Albums)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `PhotosController::index()` — mặc định `/photos/index` (hoặc `/photos/`)
 
-**Module:** PHO = Hình ảnh
+**Module:** PHO = Thư viện ảnh
 
 ## Mô tả ngắn gọn
 Trang chủ (landing page) của module Photos: liệt kê tất cả villa theo phân quyền Business Unit, hiển thị bộ ảnh (photo set) hiện có của từng villa, điểm chất lượng (score), trạng thái agent link, cho phép tìm kiếm/lọc nhanh và có KPI tổng hợp toàn hệ thống.
@@ -37,5 +37,5 @@ Filter/tìm kiếm:
 - **Upload nhanh**: mở PHO-006 với neo cuộn tới khu upload.
 
 ## Điều hướng
-- Vào từ: menu Photography/Photos (active_menu = 185) — đây là màn hình gốc của module Photos.
+- Vào từ: menu Photo Library (active_menu = 185) — đây là màn hình gốc của module Photo Library.
 - Điều hướng đến: PHO-006 (property), PHO-007 (detail).

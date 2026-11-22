@@ -1,10 +1,10 @@
-# BU-015 — Danh sách văn phòng (Offices)
+# BU-015 — Địa điểm văn phòng (Office Locations)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `BusinessUnitController::offices()` — mặc định `/business-unit/offices`
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Danh sách các văn phòng vật lý gắn với từng Đơn vị kinh doanh, kèm phòng ban trực thuộc.
@@ -22,9 +22,9 @@ Danh sách (DataTable `#zero_config`):
 | 5 | Hành động | — | Xem, Sửa, Xóa |
 
 ## Chức năng/nút thao tác
-- **Add new:** điều hướng sang BU-016 (Thêm văn phòng).
-- **Xem (icon mắt):** điều hướng sang BU-018 (Xem chi tiết văn phòng).
-- **Sửa (icon bút):** điều hướng sang BU-017 (Sửa văn phòng).
+- **Add new:** điều hướng sang BU-016 (Thêm địa điểm văn phòng).
+- **Xem (icon mắt):** điều hướng sang BU-018 (Hồ sơ văn phòng).
+- **Sửa (icon bút):** điều hướng sang BU-017 (Sửa địa điểm văn phòng).
 - **Xóa (icon thùng rác):** mở popup BU-015-P1 xác nhận xóa; xác nhận điều hướng tới `delete-office/{id}` (id mã hoá base64 qua JS `btoa`).
 
 ## Điều hướng

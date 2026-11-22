@@ -1,8 +1,8 @@
-# OPR-021 — Create New Maintenance Ticket
+# OPR-021 — Report Field Repair
 
 **Type:** Full page
 **Route:** operator/addMaintenanceTicket + dashed-style pretty route: operator/add-maintenance-ticket
-**Module:** OPR = Garden/Pool Operations
+**Module:** OPR = Upkeep Jobs
 
 ## Overview
 Multi-step form for creating a new maintenance ticket for a villa: select the villa, guest status, reporter, issue classification (category → subcategory → problem), urgency-affecting factors, description, evidence photos, villa access information, and the requested course of action. The ticket is saved as `draft` as soon as the form is opened (keyed by `session_id`) and changes to `publish` upon complete submission.
@@ -35,5 +35,5 @@ Multi-step form for creating a new maintenance ticket for a villa: select the vi
 - Selecting Reported by: AJAX `getReporterList` loads the list of names by role.
 
 ## Navigation
-- Entered from: the "+ New Ticket" button on OPR-020 — Maintenance Ticket List.
-- Leads to: after a successful submit, returns to OPR-020 — Maintenance Ticket List.
+- Entered from: the "+ New Ticket" button on OPR-020 — Field Repair Reports.
+- Leads to: after a successful submit, returns to OPR-020 — Field Repair Reports.

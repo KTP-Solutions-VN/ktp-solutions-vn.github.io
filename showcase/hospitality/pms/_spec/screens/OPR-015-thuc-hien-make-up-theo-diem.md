@@ -1,11 +1,11 @@
-# OPR-015 — Thực hiện Make Up theo điểm
+# OPR-015 — Danh mục chuẩn bị cuối (Final Prep Checklist)
 
 **Loại:** Trang đầy đủ
 **Route:** operator/makeupDetails?id=&last_id= + route đẹp dạng dashed: operator/makeup-details
-**Module:** OPR = Vận hành vườn/hồ bơi
+**Module:** OPR = Công việc bảo dưỡng
 
 ## Mô tả ngắn gọn
-Màn hình wizard từng bước (point-by-point) cho nhân viên thực hiện các hạng mục make-up: mỗi điểm yêu cầu chụp ảnh minh chứng, có thể Next/Back/Reset/Update từng điểm, Finish để kết thúc toàn bộ lượt make-up. Cấu trúc/hành vi tương tự OPR-008 (Cleaning Details).
+Màn hình wizard từng bước (point-by-point) cho nhân viên thực hiện các hạng mục make-up: mỗi điểm yêu cầu chụp ảnh minh chứng, có thể Next/Back/Reset/Update từng điểm, Finish để kết thúc toàn bộ lượt make-up. Cấu trúc/hành vi tương tự OPR-008 (Danh mục kiểm dọn phòng).
 
 ## Mô tả chi tiết
 
@@ -26,4 +26,4 @@ Màn hình wizard từng bước (point-by-point) cho nhân viên thực hiện 
 
 ## Điều hướng
 - Vào từ: OPR-014 (bấm Start) hoặc tiếp tục lượt make-up dở dang.
-- Đi tới: sau khi Finish, quay về OPR-014 — Danh sách Make Up.
+- Đi tới: sau khi Finish, quay về OPR-014 — Lượt chuẩn bị cuối.

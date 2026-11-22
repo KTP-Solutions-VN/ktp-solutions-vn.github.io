@@ -1,10 +1,10 @@
-# ACC-061 — Approval Matrix
+# ACC-061 — Spending Limits
 
 **Type:** Full page
 
 **Route:** `AccountController::approvalMatrix()` — default `/account/approval-matrix`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 Configures the list of users with approval authority per Business Unit — each row links one User to the list of Business Units that person is allowed to approve.
@@ -37,5 +37,5 @@ Add/Edit popup (`#exampleModal` modal, a single form shared by add/edit/delete):
 - **Save (button in the popup):** submits POST to the `approvalMatrix` action itself; the server processes `add`/`edit`/`delete` on the `ApprovalMatrix` table, shows a flash message, then `redirect($this->referer())`.
 
 ## Navigation
-- Entered from: Sidebar > "Approval Matrix" item under Account Settings.
+- Entered from: Sidebar > "Spending Limits" item under Finance Preferences.
 - Navigates to: no navigation to other pages — all actions are handled in the popup on the same page.

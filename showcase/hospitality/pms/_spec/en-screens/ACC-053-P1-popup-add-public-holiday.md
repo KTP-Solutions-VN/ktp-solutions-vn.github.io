@@ -1,10 +1,10 @@
-# ACC-053-P1 — Popup: Add Public Holiday
+# ACC-053-P1 — New Holiday
 
 **Type:** Popup (opened from ACC-053)
 
 **Route:** `AccountController::addPublicHoliday()` — default `/account/add-public-holiday`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 Form for adding a new public holiday for a specific country: enter the description, set HR rules (holiday type, OT multiplier, whether it counts toward salary/leave), and its demand-based pricing impact.
@@ -13,7 +13,7 @@ Form for adding a new public holiday for a specific country: enter the descripti
 
 | # | Field Label | Field Code | Data Type / Input | Required | Notes |
 |---|---|---|---|---|---|
-| 1 | Country | `country_id` | Select2 (Thailand/France/Greece) | Yes (`required`) | |
+| 1 | Country | `country_id` | Select2 (Singapore/France/Greece) | Yes (`required`) | |
 | 2 | Date | `date` | Text + datepicker (`dd MM, yyyy`), `startDate` = today | Yes (`required`) | Validated via remote AJAX `checkUniqueDate` — prevents duplicate dates for the same country |
 | 3 | Description | `description` | Textarea | Yes (class `required`) | |
 | 4 | Comment | `comment` | Textarea | Yes (class `required`) | |
@@ -30,5 +30,5 @@ Form for adding a new public holiday for a specific country: enter the descripti
 - **checkUniqueDate (background AJAX, not a button):** POST `/account/checkUniqueDate` runs when Country or Date is changed to check whether that date already exists for the selected country (action `checkUniqueDate`, no dedicated view, returns `true`/`false`).
 
 ## Navigation
-- Entered from: ACC-053 (Public Holidays) — "Add new" button.
+- Entered from: ACC-053 (Holiday Calendar) — "Add new" button.
 - Navigates to: returns to ACC-053 after saving or canceling.

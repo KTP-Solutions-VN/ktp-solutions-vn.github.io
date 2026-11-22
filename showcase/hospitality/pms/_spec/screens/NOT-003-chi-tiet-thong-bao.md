@@ -1,10 +1,10 @@
-# NOT-003 — Chi tiết thông báo (View Detail)
+# NOT-003 — Xem thông báo (Announcement View)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `NoticeController::viewDetail($id)` — mặc định `/notice/view-detail/:id`
 
-**Module:** NOT = Thông báo
+**Module:** NOT = Thông báo nội bộ
 
 ## Mô tả ngắn gọn
 Xem chi tiết đầy đủ của một thông báo/công việc: người gửi, người nhận, nội dung, ngày gửi, trạng thái, hạn hoàn thành (tô đỏ nếu quá hạn), ngày hoàn thành.
@@ -27,5 +27,5 @@ Xem chi tiết đầy đủ của một thông báo/công việc: người gửi
 - (Đã comment, không còn active trên UI): Reminder, Done notice, Get Help — các link cũ trỏ sang `remindernotice`, `statusUser`, `helpOtheruser`.
 
 ## Điều hướng
-- Mở từ: NOT-002 (Danh sách thông báo) khi xem chi tiết một dòng.
+- Mở từ: NOT-002 (Thông báo & công việc) khi xem chi tiết một dòng.
 - Điều hướng đến: NOT-002 (khi bấm Close), NOT-003-P1 (khi bấm Delete).

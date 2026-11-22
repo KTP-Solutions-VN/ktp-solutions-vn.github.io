@@ -1,4 +1,4 @@
-# BOOK-104 — Thêm hành động theo tỷ lệ lấp đầy (Add Action)
+# BOOK-104 — Tạo điều chỉnh giá (New Pricing Adjustment)
 
 **Loại:** Trang đầy đủ (mở từ BOOK-103)
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 

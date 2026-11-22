@@ -1,10 +1,10 @@
-# VSV-017 — Garden — Overview Page
+# VSV-017 — Garden Care Hub
 
 **Type:** Full page (tabbed)
 
 **Route:** `VillaServicesController::garden($tab, $sub_tab)` — defaults to `/villa-services/garden/<tab>/<sub_tab>` (tab: `reports` | `team` | `planning`)
 
-**Module:** Villa Services — Garden
+**Module:** In-Stay Services — Garden Care
 
 ## Overview
 An overview page for managing the garden care service, consisting of 3 tabs: **Reports** (records of completed garden visits, viewable by date/by villa), **Team** (garden team list/roster), **Planning** (planning garden team assignments for villas due for care).
@@ -53,5 +53,5 @@ An overview page for managing the garden care service, consisting of 3 tabs: **R
 - **Save team members** (Team tab): saved via AJAX `saveGardenTeams`.
 
 ## Navigation
-- Entered from: Main menu (Garden item).
+- Entered from: Main menu (Garden Care Hub item).
 - Navigates to: VSV-017-P1 (View garden job details).

@@ -1,8 +1,8 @@
-# MNT-008 — Mức độ ưu tiên bảo trì (Priorities)
+# MNT-008 — Mức độ khẩn (Urgency Levels)
 
 **Loại:** Trang đầy đủ
 **Route:** maintenance/priorities
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Màn hình quản lý các mức độ ưu tiên bảo trì (`MaintenancePriority`): danh sách, thêm/sửa qua modal, xóa. Mỗi mức ưu tiên có thời gian phản hồi (response time) và màu hiển thị.
@@ -33,5 +33,5 @@ Màn hình quản lý các mức độ ưu tiên bảo trì (`MaintenancePriorit
 - **Xóa**: xóa mức ưu tiên (`action=delete`).
 
 ## Điều hướng
-- Vào từ: menu Settings/Maintenance trong sidebar.
+- Vào từ: menu cài đặt Repair Desk trong sidebar.
 - Đi tới: không điều hướng trang khác (thao tác tại chỗ qua modal).

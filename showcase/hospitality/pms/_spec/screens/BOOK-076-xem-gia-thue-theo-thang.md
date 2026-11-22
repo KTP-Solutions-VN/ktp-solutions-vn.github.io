@@ -1,9 +1,9 @@
-# BOOK-076 — Xem giá thuê theo tháng
+# BOOK-076 — Điều khoản thuê tháng (Monthly Rent Terms)
 
 **Loại:** Trang đầy đủ (trang con, điều hướng từ BOOK-067 — không phải popup/modal)
 **Route:** Booking/rentalMonthView/:business_unit_id/:villa_id
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định, ví dụ `/booking/rental-month-view/1/2`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Trang xem chi tiết hợp đồng thuê tháng (Monthly) đang áp dụng cho villa: thông tin tổng quan hợp đồng và lịch sử thanh toán tiền thuê theo từng tháng.

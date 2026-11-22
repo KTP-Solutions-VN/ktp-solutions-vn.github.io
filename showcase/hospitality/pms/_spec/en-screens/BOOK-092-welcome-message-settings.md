@@ -1,4 +1,4 @@
-# BOOK-092 — Welcome Message Settings
+# BOOK-092 — Greeting Templates
 
 **Type:** Full page
 
@@ -6,7 +6,7 @@
 
 **Pretty route:** No dedicated route found in config/Routes.php (uses the default route)
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 
@@ -30,5 +30,5 @@ Manages welcome message templates sent to guests when a chat is opened, which ca
 
 ## Navigation
 
-- Accessed from: chat/wiki management menu.
-- Welcome messages are used when activating a chat at BOOK-089-P1 (Activate/Edit Chat).
+- Accessed from: conversations & knowledge menu.
+- Welcome messages are used when activating a chat at BOOK-089-P1 (Open Guest Thread).

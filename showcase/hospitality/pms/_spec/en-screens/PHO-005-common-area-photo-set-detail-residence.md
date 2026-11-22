@@ -1,10 +1,10 @@
-# PHO-005 — Common Area Photo Set Detail (Residence)
+# PHO-005 — Shared Space Album
 
 **Type:** Full page
 
 **Route:** `PhotosController::residenceDetail($residenceId, $setType = 'ota')` — clean route `/photos/residence/:id/:set_type` (explicitly declared); shares the `detail.ctp` view with PHO-007 but is called explicitly via `$this->render('detail')` with `$isResidence = true` (hides some panels, e.g. Quality Score/Completeness, compared to PHO-007).
 
-**Module:** Photos
+**Module:** Photo Library
 
 ## Overview
 Displays the detail of a photo set (by `set_type`, e.g. OTA/High Res) belonging to the common area of a residence: photo grid, flags (Essential/Bird view/AI/Night), uploading more photos to the set, and viewing/downloading/deleting individual photos.
@@ -29,4 +29,4 @@ No Quality Score / Completeness Against Standard panel (this applies only to vil
 
 ## Navigation
 - Accessed from: PHO-004 (selecting a set) or PHO-003 (quick-open set button).
-- Navigates to: PHO-004 (Residence Page), PHO-003 (Common Areas).
+- Navigates to: PHO-004 (Residence Shared Spaces), PHO-003 (Shared Space Albums).

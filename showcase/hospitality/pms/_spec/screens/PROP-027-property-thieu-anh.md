@@ -1,8 +1,8 @@
-# PROP-027 — Danh sách Property thiếu ảnh (Properties Missing Photos)
+# PROP-027 — Thiếu hụt ảnh (Photo Coverage Gaps)
 
 **Loại:** Trang đầy đủ
 **Route:** property/photography/missing-photos (route đẹp cấu hình riêng trong Routes.php, ứng với action `photographyMissingPhotos`)
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Màn hình liệt kê các Property chưa có bộ ảnh sử dụng được hoặc thiếu ảnh các khu vực chuẩn (bedroom, living room...), phân loại theo mức độ ưu tiên, hỗ trợ lập kế hoạch chụp bù nhanh.
@@ -45,6 +45,6 @@ Phân trang 25 dòng/trang (`pagination`).
 - Điều hướng phân trang Previous/Next.
 
 ## Điều hướng
-- Mở từ: PROP-026 (Photography Planning) — breadcrumb/menu.
+- Mở từ: PROP-026 (Shoot Scheduler) — breadcrumb/menu.
 - Điều hướng tới: `Property::photography` (PROP-026), `Photos::property`, `Photos::detail` (ngoài phạm vi).
 - Popup con: Không có.

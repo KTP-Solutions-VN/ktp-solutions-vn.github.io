@@ -1,10 +1,10 @@
-# USR-008-P1 — Đổi mật khẩu (Change Password)
+# USR-008-P1 — Cập nhật mật khẩu (Update Password)
 
 **Loại:** Popup/Modal (mở từ USR-008)
 
 **Route:** `UserController::changePassword()` — mặc định `user/changePassword`
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Popup cho phép người dùng đang đăng nhập tự đổi mật khẩu, yêu cầu nhập đúng mật khẩu hiện tại trước khi đặt mật khẩu mới. Sau khi đổi thành công, hệ thống buộc đăng xuất để đăng nhập lại bằng mật khẩu mới.

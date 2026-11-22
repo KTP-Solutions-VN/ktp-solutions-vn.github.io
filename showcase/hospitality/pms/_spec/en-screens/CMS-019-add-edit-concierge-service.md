@@ -1,10 +1,10 @@
-# CMS-019 — Add/Edit Concierge Service
+# CMS-019 — Concierge Service Editor
 
 **Type:** Full page
 
 **Route:** `CmsController::editConcierges($id)` — default `/cms/edit-concierges/:id`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 Form for adding a new or editing an existing "Concierge" item (a concierge service displayed on the homepage/mini-website). Each Concierge consists of a title (`title`) and a list of illustrative images that can be dynamically added/removed, with each image having a caption (`legend`) entered/displayed per the currently selected language.
@@ -37,5 +37,5 @@ When `id` is absent (Add mode): the form is empty, with no pre-existing images; 
 - **Reset:** returns the form to its default state (HTML reset, no server call).
 
 ## Navigation
-- Accessed from: CMS-018 (Concierge list, action `concierges`) — "Add New" button (adds new, without `id`) or "Edit" link on a given row (with `id`).
-- Navigates to: after Save (whether successful or in error) always returns to CMS-018 (Concierge list, action `concierges`), except that an error in Edit/Add mode may remain on the CMS-019 screen itself.
+- Accessed from: CMS-018 (Concierge Showcase, action `concierges`) — "Add New" button (adds new, without `id`) or "Edit" link on a given row (with `id`).
+- Navigates to: after Save (whether successful or in error) always returns to CMS-018 (Concierge Showcase, action `concierges`), except that an error in Edit/Add mode may remain on the CMS-019 screen itself.

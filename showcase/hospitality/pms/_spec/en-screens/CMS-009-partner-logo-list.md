@@ -1,10 +1,10 @@
-# CMS-009 — Partner Logo List
+# CMS-009 — Press & Partner Badges
 
 **Type:** Full page
 
 **Route:** `CmsController::logos($action, $id)` — default `/cms/logos/:action/:id`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 List of partner/affiliate logos displayed on the website. No server-side pagination (retrieves the entire result set via `CmsLogo->find('all')`).
@@ -28,5 +28,5 @@ No server-side filter/search, no server-side pagination.
 - **Delete:** calls back into this action in the form `/cms/logos/delete/:id` — deletes the `CmsLogo` record, shows a flash message, then redirects back to the list.
 
 ## Navigation
-- Accessed from: CMS-005 (Common Text, "Logo" button) or breadcrumb from CMS-010/CMS-011.
+- Accessed from: CMS-005 (Shared Content Blocks, "Partner Badges" button) or breadcrumb from CMS-010/CMS-011.
 - Navigates to: CMS-010 (add), CMS-011 (edit).

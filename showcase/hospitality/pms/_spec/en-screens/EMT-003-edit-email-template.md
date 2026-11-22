@@ -1,10 +1,10 @@
-# EMT-003 — Edit Email Template
+# EMT-003 — Email Template Editor
 
 **Type:** Full page
 
 **Route:** `EmailTemplateController::edit($id)` — default `/email-template/edit/:id` (id base64-encoded)
 
-**Module:** Email Templates
+**Module:** Email Library
 
 ## Overview
 Form for editing the title and content of an existing email template. Template For (purpose of use) and Language are display-only and cannot be edited.
@@ -23,5 +23,5 @@ Form for editing the title and content of an existing email template. Template F
 - **Cancel (reset):** restores the original values on the form (reset, no navigation).
 
 ## Navigation
-- Opened from: the Edit icon on EMT-001 (Email Template List).
+- Opened from: the Edit icon on EMT-001 (Email Library).
 - After saving: redirects to EMT-001. If the id is invalid: returns to the previous page (`referer`).

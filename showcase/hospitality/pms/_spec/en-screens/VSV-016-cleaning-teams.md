@@ -1,10 +1,10 @@
-# VSV-016 — Cleaning Teams
+# VSV-016 — Housekeeping Crews
 
 **Type:** Full page
 
 **Route:** `VillaServicesController::cleaningTeams()` — defaults to `/villa-services/cleaning-teams`; team list loaded via AJAX `cleaningTeamsAjax`, saved via `saveCleaningTeams`/`saveCleaningTeamsNew`, edited via `updateCleaningTeams`, member deletion via `deleteCleaningTeamMember` (none have a dedicated view)
 
-**Module:** Villa Services — Cleaning
+**Module:** In-Stay Services — Housekeeping
 
 ## Overview
 A screen for creating and managing cleaning teams by date and by Business Unit: assigning staff (cleaners) and vehicles to each team, viewing the list of created teams, and editing/removing members.
@@ -47,5 +47,5 @@ Buttons: **Reset** (clears the form), **Save** (saves the new team via AJAX).
 - Changing Date/Business Unit → automatically reloads the team list (AJAX `cleaningTeamsAjax`, `fetchCleanerTeamId`, `getCleanerTeamName`).
 
 ## Navigation
-- Entered from: Main menu (Cleaning/Teams item).
+- Entered from: Main menu (Housekeeping Crews item).
 - Navigates to: no child page (actions performed via in-place modals).

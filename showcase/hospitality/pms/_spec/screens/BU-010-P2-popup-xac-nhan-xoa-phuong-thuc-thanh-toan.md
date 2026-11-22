@@ -1,10 +1,10 @@
-# BU-010-P2 — Popup Xác nhận xóa phương thức thanh toán
+# BU-010-P2 — Xác nhận xóa phương thức (Confirm Method Deletion)
 
 **Loại:** Popup (mở từ BU-010, tab Phương thức thanh toán)
 
 **Route:** Modal Bootstrap (`#exampleModalDeletePM`) trong element `business-unit/main_list.ctp`; submit AJAX tới action `BusinessUnitController::paymentMethod()` với `action=delete`.
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Popup xác nhận trước khi xóa vĩnh viễn một phương thức thanh toán.

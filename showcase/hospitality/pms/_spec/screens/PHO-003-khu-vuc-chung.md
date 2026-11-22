@@ -1,10 +1,10 @@
-# PHO-003 — Ảnh khu vực chung (Common Areas)
+# PHO-003 — Album khu vực chung (Shared Space Albums)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `PhotosController::commonAreas()` — route đẹp `/photos/common-areas` (khai báo tường minh trong `config/Routes.php`)
 
-**Module:** PHO = Hình ảnh
+**Module:** PHO = Thư viện ảnh
 
 ## Mô tả ngắn gọn
 Danh sách các residence có bộ ảnh khu vực chung (common area — ảnh dùng chung cho nhiều villa/unit trong cùng khu residence), tương tự PHO-002 nhưng ở cấp Residence thay vì Villa.
@@ -31,5 +31,5 @@ Cảnh báo: nếu bảng lưu trữ common-area chưa migrate (`storageReady = 
 - **Upload nhanh**: mở PHO-004 với neo tới khu upload.
 
 ## Điều hướng
-- Vào từ: menu Photos (tab "Common Areas" trong thanh tab điều hướng nội bộ module, cùng cấp với PHO-002 "Photo Sets" và PHO-008 "Settings").
+- Vào từ: menu Photo Library (tab "Shared Spaces" trong thanh tab điều hướng nội bộ module, cùng cấp với PHO-002 "Photo Albums" và PHO-008 "Requirements").
 - Điều hướng đến: PHO-004 (residence), PHO-005 (residenceDetail).

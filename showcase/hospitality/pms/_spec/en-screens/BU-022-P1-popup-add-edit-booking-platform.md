@@ -1,10 +1,10 @@
-# BU-022-P1 — Popup: Add/Edit Booking Platform
+# BU-022-P1 — Booking Platform Form
 
 **Type:** Popup (opened from BU-022, Booking Platform tab)
 
 **Route:** Static Bootstrap modal (`#platformModal`) within `channels.ctp`; submits via POST to `BusinessUnitController::channels('platforms')`.
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A shared popup for adding and editing a Booking Platform, including name, illustrative image, and logo.

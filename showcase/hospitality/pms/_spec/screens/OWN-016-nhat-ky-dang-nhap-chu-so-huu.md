@@ -1,10 +1,10 @@
-# OWN-016 — Nhật ký đăng nhập chủ sở hữu
+# OWN-016 — Lịch sử truy cập của chủ nhà (Owner Access History)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `/Owner/loginLog` (controller `Owner`, action `loginLog()`)
 
-**Module:** Quản lý chủ sở hữu (Admin)
+**Module:** Quan hệ chủ nhà (Admin)
 
 ## Mô tả ngắn gọn
 
@@ -33,5 +33,5 @@ Màn hình theo dõi lịch sử đăng nhập của các chủ sở hữu vào 
 
 ## Điều hướng
 
-- Mở từ: OWN-001 (nút "Login Log").
+- Mở từ: OWN-001 (nút "Access History").
 - Không điều hướng sang trang khác — chi tiết lịch sử đăng nhập được xem trực tiếp qua drawer trong cùng trang, không có URL riêng.

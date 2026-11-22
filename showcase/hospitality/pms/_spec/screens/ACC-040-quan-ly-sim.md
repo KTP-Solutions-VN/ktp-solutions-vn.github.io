@@ -1,10 +1,10 @@
-# ACC-040 — Quản lý SIM (SIM Cards)
+# ACC-040 — Thuê bao di động (Mobile Lines)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `AccountController::simCards()` — mặc định `/account/sim-cards`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Quản lý danh sách SIM điện thoại (tài sản công ty, bảng `Vehicle` với `assets_type = 'sim_card'`) theo từng Business Unit: xem danh sách, thêm mới, sửa, xóa qua modal trên cùng trang.
@@ -41,5 +41,5 @@ Bộ lọc:
 - Khi đổi Business Unit trong modal: AJAX `account/getBusinessUsers` để nạp lại danh sách nhân viên (Used By) theo BU.
 
 ## Điều hướng
-- Vào từ: Sidebar > Account & HR > SIM Cards (`active_menu = 'acc-simCards'`).
+- Vào từ: Sidebar > Finance & Admin > Mobile Lines (`active_menu = 'acc-simCards'`).
 - Không điều hướng sang trang khác — toàn bộ thao tác thêm/sửa/xóa thực hiện qua modal ngay trên trang này.

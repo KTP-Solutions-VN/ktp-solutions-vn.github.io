@@ -1,10 +1,10 @@
-# CS-006-P1 — Popup Thêm/Sửa/Xóa Residence
+# CS-006-P1 — Form khu căn hộ (Residence Form)
 
 **Loại:** Popup (mở từ CS-006)
 
 **Route:** Modal Bootstrap (`#exampleModal`, form `multipart/form-data`) trong `residences.ctp`; submit cùng action `CommonSettingController::residences()`; nạp Region/District/Area theo cấp cha qua AJAX `getData()` — `/common-setting/get-data`.
 
-**Module:** CS = Danh mục dùng chung
+**Module:** CS = Dữ liệu tham chiếu
 
 ## Mô tả ngắn gọn
 Popup dùng chung cho Thêm mới/Sửa/Xóa một Residence, gồm 4 cấp chọn địa lý cascade, thông tin liên hệ và upload ảnh đại diện.
@@ -32,5 +32,5 @@ Popup dùng chung cho Thêm mới/Sửa/Xóa một Residence, gồm 4 cấp ch�
 - **Cancel:** đóng modal.
 
 ## Điều hướng
-- Mở từ: CS-006 (danh sách Residence).
+- Mở từ: CS-006 (Thiết lập khu căn hộ).
 - Sau khi submit: quay lại CS-006 kèm flash message.

@@ -7,7 +7,7 @@
 
   document.querySelectorAll('.settings-panels .btn-primary').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      window.CM.showToast('Settings saved.');
+      window.CM.showToast('Configuration saved.');
     });
   });
 

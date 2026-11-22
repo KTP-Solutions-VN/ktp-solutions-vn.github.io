@@ -1,10 +1,10 @@
-# CS-008-P1 — Popup Thêm/Sửa/Xóa Unit
+# CS-008-P1 — Form căn (Unit Form)
 
 **Loại:** Popup (mở từ CS-008)
 
 **Route:** Modal Bootstrap (`#exampleModal`) trong `units.ctp`; submit cùng action `CommonSettingController::units()`; kiểm tra trùng tên qua AJAX `checkUnit()` — `/common-setting/check-unit`; nạp Region/District/Area/Residence theo cấp cha qua AJAX `getData()` — `/common-setting/get-data`.
 
-**Module:** CS = Danh mục dùng chung
+**Module:** CS = Dữ liệu tham chiếu
 
 ## Mô tả ngắn gọn
 Popup dùng chung cho Thêm mới (hỗ trợ nhập nhiều Unit cùng lúc), Sửa (1 Unit) và Xóa Unit — có 5 cấp chọn cha cascade (Quốc gia → Vùng → Quận/Huyện → Khu vực → Residence).
@@ -30,5 +30,5 @@ Popup dùng chung cho Thêm mới (hỗ trợ nhập nhiều Unit cùng lúc), S
 - **Cancel:** đóng modal.
 
 ## Điều hướng
-- Mở từ: CS-008 (danh sách Unit).
+- Mở từ: CS-008 (Thiết lập căn).
 - Sau khi submit: quay lại CS-008 kèm flash message.

@@ -1,10 +1,10 @@
-# VID-001-P2 — Edit Video
+# VID-001-P2 — Edit Video Guide
 
 **Type:** Popup (opened from VID-001)
 
 **Route:** Static modal within `index.ctp` (`#video-edit-modal`); saves via `VideosController::edit($id)` — `POST /videos/edit/:id` (multipart/form-data)
 
-**Module:** Videos
+**Module:** Video Guides
 
 ## Overview
 Edits the metadata of an existing video in the library and optionally replaces the video file; the category/property/video type assigned initially (Property video) cannot be changed, but the list of countries (Country video) can be edited.

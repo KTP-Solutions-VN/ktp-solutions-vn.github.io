@@ -1,4 +1,4 @@
-# BOOK-094 — WhatsApp Manager (Legacy)
+# BOOK-094 — Chat Inbox (Classic)
 
 **Type:** Full page
 
@@ -6,7 +6,7 @@
 
 **Pretty route:** No dedicated route found in config/Routes.php (uses the default route)
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 
@@ -36,6 +36,6 @@ A list of bookings with an active WhatsApp chat channel (chat_platform_id = 14),
 
 ## Navigation
 
-- Accessed from: WhatsApp menu.
-- → BOOK-094-P1 (WhatsApp Chat) when clicking the Chat button on each row.
-- Current replacement version: BOOK-095 (WhatsApp Manager, new version, which adds a Notifications tab).
+- Accessed from: Chat Inbox menu.
+- → BOOK-094-P1 (Chat Thread (Classic)) when clicking the Chat button on each row.
+- Current replacement version: BOOK-095 (Chat Inbox, which adds a Notifications tab).

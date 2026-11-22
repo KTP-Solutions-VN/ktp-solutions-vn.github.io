@@ -1,10 +1,10 @@
-# PHO-008 — Cài đặt tiêu chuẩn ảnh (Photo Settings)
+# PHO-008 — Yêu cầu ảnh (Photo Requirements)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `PhotosController::settings()` — route mặc định `/photos/settings`
 
-**Module:** PHO = Hình ảnh
+**Module:** PHO = Thư viện ảnh
 
 ## Mô tả ngắn gọn
 Cấu hình số lượng ảnh yêu cầu cho từng khu vực (area/flag) theo từng loại villa (Property Type) và số phòng ngủ (1–8 BR). Dữ liệu này là nguồn tham chiếu cho bảng "Completeness Against Standard" ở PHO-007.
@@ -28,8 +28,8 @@ Bảng tiêu chuẩn (`standardAreas`), mỗi dòng là một khu vực:
 - **Xoá một khu vực tự thêm**: chỉ áp dụng cho khu vực không thuộc danh sách chuẩn.
 - **Reset**: tải lại trang, huỷ thay đổi chưa lưu.
 - **Save Photo Standard**: lưu toàn bộ bảng qua AJAX (`settings`, submit POST); hiển thị thông báo thành công/lỗi tại chỗ, không rời trang.
-- **Tab điều hướng**: Photo Sets (PHO-002), Common Areas (PHO-003), Settings (đang ở đây).
+- **Tab điều hướng**: Photo Albums (PHO-002), Shared Spaces (PHO-003), Requirements (đang ở đây).
 
 ## Điều hướng
-- Vào từ: PHO-002 / PHO-003 / PHO-004 / PHO-006 / PHO-007 (tab "Settings" trên thanh điều hướng chung của module Hình ảnh).
+- Vào từ: PHO-002 / PHO-003 / PHO-004 / PHO-006 / PHO-007 (tab "Settings" trên thanh điều hướng chung của module Thư viện ảnh).
 - Điều hướng đến: không có điều hướng tiếp theo (màn hình cấu hình độc lập); dữ liệu lưu tại đây được PHO-007 sử dụng để tính Completeness Against Standard.

@@ -1,8 +1,8 @@
-# PROP-049 — Cài đặt Dịch vụ & Tiện ích Property (Service Setting)
+# PROP-049 — Thiết lập tiện ích (Utilities Setup)
 
 **Loại:** Trang đầy đủ
 **Route:** property/service-setting/:tab/:villa_id (villa_id truyền dạng base64), cũng được nhúng làm tab "Service and Utilities" trong màn hình Villa Detail (PROP-050)
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang tổng hợp cài đặt các dịch vụ/tiện ích vận hành cho một Property qua 10 tab: Concierge, Common Area, Electricity, Cleaning, Water, Internet, Television, Pool, Garden, Pest Control. Mỗi tab lưu vào bảng dữ liệu riêng tương ứng (qua các hàm `_saveXxxSetting`), một số tab chỉ khả dụng khi đã chọn Property (`villa_id`). Nội dung này được dùng chung (element `property/*`) với tab "Service and Utilities" trong màn hình Villa Detail (PROP-050).
@@ -129,6 +129,6 @@ Trang tổng hợp cài đặt các dịch vụ/tiện ích vận hành cho mộ
 - Nút "Save" trên mỗi tab — submit form của tab đó, gọi hàm lưu tương ứng phía Controller (`_saveConciergeSetting`, `_saveCommonAreaSetting`, `_saveElecticitySetting`, `_saveCleaningMakeUp`, `_saveWaterSetting`, `_saveInternetSetting`, `_saveTelevisionSetting`, `_savePoolSetting`, `_saveGardenSetting`, `_savePestControlSetting`), hiện Flash message rồi redirect lại tab hiện tại.
 
 ## Điều hướng
-- Mở từ: PROP-041 (Danh sách thanh toán dịch vụ Property — nút "Add Settings"), hoặc từ tab "Service and Utilities" của PROP-050 (Villa Detail).
+- Mở từ: PROP-041 (Sổ phí dịch vụ — nút "Add Settings"), hoặc từ tab "Service and Utilities" của PROP-050 (Trình chỉnh sửa tài sản).
 - Điều hướng tới: Không điều hướng sang trang khác (chỉ đổi tab và lưu tại chỗ).
 - Popup con: Không có.

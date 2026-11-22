@@ -1,10 +1,10 @@
-# CS-002-P1 — Popup Thêm/Sửa/Xóa Ngôn ngữ
+# CS-002-P1 — Form ngôn ngữ (Language Form)
 
 **Loại:** Popup (mở từ CS-002)
 
 **Route:** Modal Bootstrap (`#exampleModal`) trong `languages.ctp`; submit cùng action `CommonSettingController::languages()`; kiểm tra trùng tên qua AJAX `checkLanguage()` — `/common-setting/check-language`; lấy dữ liệu để sửa qua AJAX `getLanguageById()` — `/common-setting/get-language-by-id`.
 
-**Module:** CS = Danh mục dùng chung
+**Module:** CS = Dữ liệu tham chiếu
 
 ## Mô tả ngắn gọn
 Popup dùng chung cho Thêm mới/Sửa/Xóa một ngôn ngữ và danh sách quốc gia áp dụng ngôn ngữ đó.
@@ -25,5 +25,5 @@ Popup dùng chung cho Thêm mới/Sửa/Xóa một ngôn ngữ và danh sách qu
 - **Cancel:** đóng modal.
 
 ## Điều hướng
-- Mở từ: CS-002 (danh sách Ngôn ngữ).
+- Mở từ: CS-002 (Thiết lập ngôn ngữ).
 - Sau khi submit: redirect quay lại CS-002 kèm flash message.

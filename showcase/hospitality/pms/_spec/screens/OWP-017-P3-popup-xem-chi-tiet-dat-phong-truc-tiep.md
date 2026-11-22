@@ -1,10 +1,10 @@
-# OWP-017-P3 — Popup Xem chi tiết đặt phòng trực tiếp
+# OWP-017-P3 — Chi tiết yêu cầu lưu trú (Stay Request Details)
 
 **Loại:** Popup (mở từ OWP-017)
 
 **Route:** `ExternalUserController::viewDirectBooking($id)` — không có route đẹp riêng, mở từ icon mắt trên OWP-017 (mặc định `/external-user/view-direct-booking/{id_base64}`)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 

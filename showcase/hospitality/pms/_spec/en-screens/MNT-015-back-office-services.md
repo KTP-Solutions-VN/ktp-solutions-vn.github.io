@@ -1,8 +1,8 @@
-# MNT-015 — Back Office Services
+# MNT-015 — Admin Service Types
 
 **Type:** Full page
 **Route:** maintenance/backOfficeServices
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Screen listing back-office service categories (`GardenService.type = back-office`). Each service has a name, illustrative image, and status; it is applied by default to all business units when created.
@@ -22,10 +22,10 @@ Screen listing back-office service categories (`GardenService.type = back-office
 | 8 | Actions | — | Edit, Delete |
 
 ## Functions / Actions
-- **Add New**: opens MNT-015-P1 — Add Back Office Service.
-- **Edit** (icon): opens MNT-015-P2 — Edit Back Office Service.
+- **Add New**: opens MNT-015-P1 — New Admin Service Type.
+- **Edit** (icon): opens MNT-015-P2 — Edit Admin Service Type.
 - **Delete**: deletes the corresponding `GardenService` (`deleteBackOfficeService`).
 
 ## Navigation
-- Entered from: Settings/Maintenance menu in the sidebar.
+- Entered from: Repair Desk settings menu in the sidebar.
 - Navigates to: MNT-015-P1 (Add), MNT-015-P2 (Edit).

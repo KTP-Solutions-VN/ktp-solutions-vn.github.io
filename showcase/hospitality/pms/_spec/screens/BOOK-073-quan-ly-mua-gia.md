@@ -1,9 +1,9 @@
-# BOOK-073 — Quản lý mùa giá
+# BOOK-073 — Lịch mùa (Season Calendar)
 
 **Loại:** Trang đầy đủ (các popup thêm/sửa/xoá/copy nằm chung trong cùng 1 view, không tách file riêng)
 **Route:** Booking/seasons (mặc định: `/booking/seasons`)
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Trang khai báo và quản lý các mùa giá (Season: Low/Mid/High/Peak...) theo từng vùng (Region) — mỗi vùng có một bộ mùa giá riêng dùng chung cho tất cả villa thuộc vùng đó. Hỗ trợ khai báo thủ công qua bảng, kéo-thả trực quan trên timeline, nhập nhanh bằng text ("Smart Season Input"), và sao chép bộ mùa giá từ vùng khác sang.

@@ -1,10 +1,10 @@
-# VSV-023 — Pool
+# VSV-023 — Pool Care Visits
 
 **Type:** Full page
 
 **Route:** `VillaServicesController::pool()` — defaults to `/villa-services/pool`; quotation upload/approval via pretty routes `/villa-services/pool/upload-quotation`, `/villa-services/pool/update-quotation-status/:id/:status`, `/villa-services/pool/delete-quotation/:id` (all AJAX, no dedicated view)
 
-**Module:** Villa Services — Pool
+**Module:** In-Stay Services — Pool Care
 
 ## Overview
 A list of pool cleaning/inspection visits, allowing users to track status (cleaned/has issue), verify whether the operator's GPS location matches the villa, view report details, download PDF records, and process the repair quotation workflow when a pool issue requires remediation (external vendor submits a quotation, internal staff approve/reject).
@@ -41,5 +41,5 @@ A list of pool cleaning/inspection visits, allowing users to track status (clean
 - **Approve/Reject quotation** (Internal, when a quotation has been submitted): pretty route `/villa-services/pool/update-quotation-status/:id/:status` (`repair_approved`/`quotation_rejected`).
 
 ## Navigation
-- Entered from: Main menu (Pool item).
+- Entered from: Main menu (Pool Care Visits item).
 - Navigates to: no dedicated-route child page (actions performed via in-place modals/AJAX).

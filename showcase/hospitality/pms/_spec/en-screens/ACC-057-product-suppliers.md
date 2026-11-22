@@ -1,10 +1,10 @@
-# ACC-057 — Product Suppliers
+# ACC-057 — Goods Vendors
 
 **Type:** Full page
 
 **Route:** `AccountController::suppliers()` — default `/account/suppliers`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 List of suppliers in the "Product" group (`Supplier.type = product`), used for selection when creating a Product Allocation or a Payment Request of type Product.
@@ -30,5 +30,5 @@ List (`#zero_config` table):
 - **Delete (trash icon, on each row):** opens a confirmation popup; clicking Save navigates to `deleteProductSupplier/<base64 id>` to delete the supplier.
 
 ## Navigation
-- Entered from: Sidebar > "Suppliers" item (Product group) under Account Settings.
-- Navigates to: ACC-057-P1 (Add/Edit Product Supplier popup), ACC-058 (Products, same Settings area).
+- Entered from: Sidebar > "Goods Vendors" item (Goods group) under Finance Preferences.
+- Navigates to: ACC-057-P1 (Goods Vendor Form popup), ACC-058 (Goods Catalog, same Finance Preferences area).

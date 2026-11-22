@@ -1,13 +1,13 @@
-# CMS-033 — Add/Edit Restaurant (Guest Portal)
+# CMS-033 — Dining Pick Editor
 
 **Type:** Full page
 
 **Route:** `CmsController::restaurants($tab, $restaurant_id)` — default `/cms/restaurants/:tab/:restaurant_id`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
-Form for adding a new or editing an existing restaurant displayed on the Guest Portal, using a single shared action for both Add (no `restaurant_id` passed) and Edit (`restaurant_id` present). The screen has 2 tabs: **Restaurant** (general restaurant information) and **Image** (restaurant scroll/banner images). The Image tab is only accessible once the restaurant has been saved for the first time (i.e., once `restaurant_id` exists).
+Form for adding a new or editing an existing restaurant displayed on the Guest Hub, using a single shared action for both Add (no `restaurant_id` passed) and Edit (`restaurant_id` present). The screen has 2 tabs: **Restaurant** (general restaurant information) and **Image** (restaurant scroll/banner images). The Image tab is only accessible once the restaurant has been saved for the first time (i.e., once `restaurant_id` exists).
 
 ## Detailed Description
 
@@ -43,7 +43,7 @@ Note: the Image tab operates entirely via AJAX (fileinput plugin), and does not 
 - **Switch tab (Restaurant / Image):** switches tabs via JS (no page reload), also updating the URL (`history.replaceState`) to reflect the selected tab; the Image tab is locked if the restaurant has not yet been saved for the first time.
 - **Select/change Logo:** upon selecting an image, JS checks and automatically square-crops it to 1:1 if needed before submission.
 - **Save (Restaurant tab):** submits the entire form (multipart) back to the `restaurants` action with `tab = restaurant`. If a cropped image (`cropped_logo`) is present it is saved; otherwise the raw uploaded `logo` file is used; if no new image is selected, the existing logo is kept unchanged. On completion, a success/failure Flash message is shown and the page redirects back to CMS-033 itself with the newly saved `restaurant_id` (keeping the same tab).
-- **Cancel (Restaurant tab):** returns to CMS-032 (restaurant list) without saving.
+- **Cancel (Restaurant tab):** returns to CMS-032 (Dining Picks) without saving.
 - **Upload scroll image (Image tab):** each selected image is automatically submitted via AJAX POST to `CmsController::saveRestaurantBannerImage()` (no dedicated clean route, no separate screen) — the image file is saved under `files/restaurants/`, a `RestaurantImage` record is created and linked to the `restaurant_id`, and JSON is returned so the fileinput plugin can update the thumbnail list.
 - **Delete scroll image (X button on each thumbnail, Image tab):** AJAX POST to `CmsController::deleteRestaurantBannerImage($id)` (no dedicated clean route, no separate screen) — deletes the `RestaurantImage` record and its corresponding physical file.
 

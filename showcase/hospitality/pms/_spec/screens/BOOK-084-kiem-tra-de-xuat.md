@@ -1,9 +1,9 @@
-# BOOK-084 — Kiểm tra đề xuất villa (Recommendation Check)
+# BOOK-084 — Chạy kiểm tra giá (Run Pricing Check)
 
 **Loại:** Trang đầy đủ
 **Route:** Booking/recommendationCheck
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Màn hình phân tích tỷ lệ lấp đầy (occupancy) của các villa theo một bộ tiêu chí (Criteria) đã cấu hình ở BOOK-080/081/082, giúp nhận diện villa cần đẩy giá/khuyến mãi (đỏ = lấp đầy thấp, xanh = lấp đầy cao) theo từng mốc thời gian Last Minute/Regular/Early Bird. Cho phép ghi log nhận xét cho từng villa.
@@ -33,7 +33,7 @@ Màn hình phân tích tỷ lệ lấp đầy (occupancy) của các villa theo 
 - Nút **Save** trong modal — gọi AJAX `saveRecommendationLog` để lưu ghi chú (nối vào lịch sử `log` của `RecommendationCheck`), sau đó tải lại bảng kết quả
 
 ## Điều hướng
-- Mở từ: BOOK-083 (Danh sách đề xuất villa) — nút "Check"
+- Mở từ: BOOK-083 (Tín hiệu điều chỉnh giá) — nút "Check"
 - Điều hướng tới: không có trang con; thao tác ghi log qua modal trong cùng trang
 
 **Ghi chú:** `getRecommondationCheck()` (~16505) và `saveRecommendationLog()` (~16638) là các action AJAX trả JSON hỗ trợ trực tiếp cho màn hình này, không có view riêng nên không tách file.

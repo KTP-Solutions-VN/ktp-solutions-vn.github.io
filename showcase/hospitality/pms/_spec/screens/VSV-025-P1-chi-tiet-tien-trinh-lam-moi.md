@@ -1,10 +1,10 @@
-# VSV-025-P1 — Chi tiết tiến trình làm mới phòng (Makeup Detail View)
+# VSV-025-P1 — Chi tiết tiến độ làm mới (Refresh Progress Detail)
 
 **Loại:** Popup (mở từ VSV-025, dạng trang riêng)
 
 **Route:** `VillaServicesController::makeupTeamsDetail($id, $location)` — `/villa-services/makeup-teams-detail/<villa_clean_id>/makeup`
 
-**Module:** Dịch vụ villa — Dọn dẹp (Make-up)
+**Module:** Dịch vụ lưu trú — Dọn phòng (làm mới phòng)
 
 ## Mô tả ngắn gọn
 Trang xem chi tiết (chỉ đọc) một lượt làm mới phòng cụ thể: hành trình bắt đầu/kết thúc, người thực hiện, và bộ ảnh + ghi chú đã ghi nhận — cấu trúc tương tự VSV-026-P1 nhưng áp dụng cho nghiệp vụ Make-up.

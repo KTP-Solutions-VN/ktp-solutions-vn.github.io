@@ -1,8 +1,8 @@
-# PROP-026 — Kế hoạch chụp ảnh (Photography Planning)
+# PROP-026 — Bộ lập lịch chụp ảnh (Shoot Scheduler)
 
 **Loại:** Trang đầy đủ
 **Route:** property/photography/:shootId/:guidelineId (route mặc định dạng dashed; `$shootId` cũng được dùng làm "sub-action" đặc biệt: `guidelines`, `download-guideline`, `delete-guideline` để rẽ nhánh sang các thao tác quản lý hướng dẫn chụp ảnh)
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang trung tâm quản lý kế hoạch chụp ảnh (Photo Shoot Planning) cho các Property/Residence/Unit theo Business Unit: tạo/sửa lịch chụp, theo dõi follow-up sau chụp, xác nhận hoàn tất bộ ảnh. Action này render template `Photos/planning.ctp` (không dùng `photography.ctp` trực tiếp — file `photography.ctp` là template cũ/lược giản, còn dashboard chính nằm ở view `planning`).
@@ -30,6 +30,6 @@ Dữ liệu bảng chính (`planningData`) gồm danh sách lịch chụp (statu
 - Sub-route đặc biệt: `photography/guidelines/{guidelineId}` (quản lý hướng dẫn chụp ảnh - PDF mẫu), `photography/download-guideline/{guidelineId}` (tải guideline), `photography/delete-guideline/{guidelineId}` (xóa guideline).
 
 ## Điều hướng
-- Mở từ: Menu Photography chính; PROP-027 (nút "Plan Photo Shoot"); PROP-019 (breadcrumb).
+- Mở từ: Menu Shoots chính; PROP-027 (nút "Plan Photo Shoot"); PROP-019 (breadcrumb).
 - Điều hướng tới: `newShooting` (PROP-019), `photographyScores` (PROP-028), `photographyMissingPhotos` (PROP-027), `photographerEvaluation` (PROP-025), `Photos::property` (xem/upload ảnh, ngoài phạm vi).
 - Popup con: Không có (view chính nằm ở `Photos/planning.ctp`, không phải `photography.ctp`).

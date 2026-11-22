@@ -1,8 +1,8 @@
-# VCS-008-P1 — Add/Edit/Delete Property Activity Popup
+# VCS-008-P1 — Guest Activity Form
 
 **Type:** Popup/Modal (opened from VCS-008)
 **Route:** No dedicated route — uses a shared form that POSTs to `villa-common-setting/villa-activity` (hidden `action`=`add`/`edit`/`delete`); duplicate-name check via AJAX `villa-common-setting/checkVillaActivity`
-**Module:** VCS = Villa Common Settings
+**Module:** VCS = Property Attributes
 
 ## Overview
 A shared Bootstrap modal (`#exampleModal`) covering the three Add/Edit/Delete Property Activity scenarios. In Delete mode, the input section is hidden.
@@ -20,5 +20,5 @@ A shared Bootstrap modal (`#exampleModal`) covering the three Add/Edit/Delete Pr
 - Validation: `name` is required, checked for duplicates via remote AJAX `checkVillaActivity`.
 
 ## Navigation
-- Opened from: VCS-008 (Add new / Edit / Delete buttons on the Property Activities list table).
+- Opened from: VCS-008 (Add new / Edit / Delete buttons on the Guest Activities table).
 - Navigates to: no page change — after submission, VCS-008 is reloaded (redirect via `referer()`).

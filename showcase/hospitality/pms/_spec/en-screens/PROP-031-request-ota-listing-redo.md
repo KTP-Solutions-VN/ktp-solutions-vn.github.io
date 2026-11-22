@@ -1,8 +1,8 @@
-# PROP-031 — Request OTA Listing Redo
+# PROP-031 — Listing Refresh Request
 
 **Type:** Full page
 **Route:** property/redo/:villa_id/:chanel_id
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Form for submitting a "redo" request for a property's OTA listing to an assigned staff member, along with a deadline. On submission, the system creates a `VillaCoefficient` record (type `redo_list`) and a `NoticeBoard` (task notification) assigned to the recipient.

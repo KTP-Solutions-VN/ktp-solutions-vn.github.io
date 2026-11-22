@@ -1,10 +1,10 @@
-# TXT-001 — Thư viện văn bản (Text Library)
+# TXT-001 — Kho mô tả (Description Bank)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `TextsController::index()` — mặc định `/texts`
 
-**Module:** TXT = Văn bản
+**Module:** TXT = Kho mô tả
 
 ## Mô tả ngắn gọn
 Trung tâm quản lý toàn bộ nội dung văn bản (text) mô tả dùng cho OTA/listing của villa, tổ chức theo 6 tab: Properties (Villa), Units, Residences, Shared Texts (văn bản dùng chung), Profiles (hồ sơ tài khoản OTA) và Languages (ngôn ngữ). Dữ liệu bảng được tải động qua AJAX (`TextsController::data`), không reload trang khi đổi tab/filter.
@@ -29,7 +29,7 @@ Tab Languages: danh sách ngôn ngữ đã cấu hình cho từng quốc gia, s�
 
 ## Chức năng/nút thao tác
 - **Chuyển tab:** Properties/Units/Residences/Shared Texts/Profiles/Languages — tải lại dữ liệu qua AJAX `data`.
-- **New text:** mở popup TXT-001-P1 (Thêm văn bản) — chỉ hiện ở các tab dữ liệu (ẩn ở tab Languages).
+- **New text:** mở popup TXT-001-P1 (Trình sửa mô tả) — chỉ hiện ở các tab dữ liệu (ẩn ở tab Languages).
 - **Sửa một dòng/nội dung:** mở popup TXT-001-P1 ở chế độ sửa.
 - **Xóa văn bản dùng lại (Shared/Profiles):** mở popup TXT-001-P3 xác nhận, gọi AJAX `deleteText`.
 - **Add language (tab Languages):** mở popup TXT-001-P2.
@@ -38,5 +38,5 @@ Tab Languages: danh sách ngôn ngữ đã cấu hình cho từng quốc gia, s�
 - **Phân trang:** điều hướng trang dữ liệu qua AJAX.
 
 ## Điều hướng
-- Vào từ: menu Setting (Cài đặt) → Texts.
-- Điều hướng đến: TXT-001-P1 (Thêm/sửa văn bản), TXT-001-P2 (Thêm ngôn ngữ), TXT-001-P3 (Xác nhận xóa).
+- Vào từ: menu Web & Media → Description Bank.
+- Điều hướng đến: TXT-001-P1 (Trình sửa mô tả), TXT-001-P2 (Thêm ngôn ngữ), TXT-001-P3 (Xác nhận xóa).

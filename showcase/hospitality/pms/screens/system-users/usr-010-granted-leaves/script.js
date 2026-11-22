@@ -2,14 +2,14 @@
   'use strict';
 
   var STAFF = [
-    { id: 'STF-01', name: 'Somchai Anuwat', dept: 'Management' },
-    { id: 'STF-02', name: 'Wayan Kertha', dept: 'Concierge' },
-    { id: 'STF-03', name: 'Nok Pattaya', dept: 'Concierge' },
-    { id: 'STF-04', name: 'Kanya Srisawat', dept: 'Housekeeping' },
-    { id: 'STF-05', name: 'Budi Santoso', dept: 'Maintenance' },
+    { id: 'STF-01', name: 'Daniel Tan', dept: 'Management' },
+    { id: 'STF-02', name: 'Warren Kelly', dept: 'Concierge' },
+    { id: 'STF-03', name: 'Nicole Parker', dept: 'Concierge' },
+    { id: 'STF-04', name: 'Karen Seah', dept: 'Housekeeping' },
+    { id: 'STF-05', name: 'Ben Sullivan', dept: 'Maintenance' },
     { id: 'STF-06', name: 'James Okoro', dept: 'Maintenance' },
-    { id: 'STF-07', name: 'Litda Souvannah', dept: 'Housekeeping' },
-    { id: 'STF-08', name: 'Chalermchai Boonmee', dept: 'Management' }
+    { id: 'STF-07', name: 'Lorna Santos', dept: 'Housekeeping' },
+    { id: 'STF-08', name: 'Colin Beh', dept: 'Management' }
   ];
 
   var BASE_LEAVES = [

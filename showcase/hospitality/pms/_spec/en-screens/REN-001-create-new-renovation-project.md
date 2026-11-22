@@ -1,8 +1,8 @@
-# REN-001 — Create New Renovation Project
+# REN-001 — New Refurbishment Project
 
 **Type:** Full page
 **Route:** renovation/new-project
-**Module:** REN = Renovation
+**Module:** REN = Refurbishment
 
 ## Overview
 Screen for creating a new renovation project for a villa: select the business unit and villa, enter project information (title, planned start/end dates), and declare the list of renovation items along with the planned budget for each item.
@@ -24,11 +24,11 @@ Project creation form (action `newProject`, POST to this same route):
 | 9 | Total budget | `total` | Text, readonly | — | Automatically sums all `budget[]` values |
 
 ## Functions / Actions
-- **Create**: submits the form, saves the `Renovation` record plus the `RenovationItem` records (item/budget), then redirects to the Renovation Follow-up screen (REN-002).
+- **Create**: submits the form, saves the `Renovation` record plus the `RenovationItem` records (item/budget), then redirects to the Refurbishment Tracker screen (REN-002).
 - **Add new item (add-more)**: adds a new `item[]`/`budget[]` row to the item table.
 - Changing **Business unit**: reloads the corresponding villa list via AJAX.
 - Changing **Villa**: checks whether the villa already has a renovation project via AJAX `getNewProjectData`.
 
 ## Navigation
-- Entered from: the "+ Create New Project" button on the Renovation Follow-up screen (REN-002).
-- Leads to: after successfully saving, redirects to REN-002 (Renovation Follow-up); if the villa already has an in-progress project, a quick link to REN-003 (Renovation Project Follow-up) is provided.
+- Entered from: the "+ Create New Project" button on the Refurbishment Tracker screen (REN-002).
+- Leads to: after successfully saving, redirects to REN-002 (Refurbishment Tracker); if the villa already has an in-progress project, a quick link to REN-003 (Project Timeline) is provided.

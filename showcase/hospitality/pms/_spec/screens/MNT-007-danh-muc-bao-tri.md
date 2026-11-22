@@ -1,8 +1,8 @@
-# MNT-007 — Danh mục bảo trì (Categories)
+# MNT-007 — Nhóm sự cố (Issue Categories)
 
 **Loại:** Trang đầy đủ
 **Route:** maintenance/categories
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Màn hình quản lý danh mục bảo trì cũ (`MaintenanceCategory`): danh sách, thêm/sửa qua modal, xóa. Mỗi danh mục gắn với một mức ưu tiên mặc định. (Đây là màn hình quản trị danh mục kiểu cũ, trước khi có ma trận danh mục/hạng mục ở MNT-013.)
@@ -32,5 +32,5 @@ Màn hình quản lý danh mục bảo trì cũ (`MaintenanceCategory`): danh s�
 - **Xóa**: xóa danh mục (`action=delete`, chỉ gửi `id`).
 
 ## Điều hướng
-- Vào từ: menu Settings/Maintenance trong sidebar.
+- Vào từ: menu cài đặt Repair Desk trong sidebar.
 - Đi tới: không điều hướng trang khác (thao tác tại chỗ qua modal, reload lại danh sách).

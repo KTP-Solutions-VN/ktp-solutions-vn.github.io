@@ -13,8 +13,8 @@
 
   FUND.PROJECTS = [
     { id: 'fp1', name: 'Villa Sapphire Cliff — Renovation Fund', target: 300000, raised: 300000, status: 'fully-funded', investors: 3 },
-    { id: 'fp2', name: 'Bang Tao Beach Cluster — Expansion', target: 500000, raised: 340000, status: 'open', investors: 2 },
-    { id: 'fp3', name: 'Koh Samui Estates — New Acquisition', target: 750000, raised: 120000, status: 'open', investors: 1 },
+    { id: 'fp2', name: 'Ocean Drive Beach Cluster — Expansion', target: 500000, raised: 340000, status: 'open', investors: 2 },
+    { id: 'fp3', name: 'Noosa Estates — New Acquisition', target: 750000, raised: 120000, status: 'open', investors: 1 },
     { id: 'fp4', name: 'Villa Marble Cove — Pool Upgrade', target: 90000, raised: 90000, status: 'closed', investors: 2 }
   ];
 
@@ -36,17 +36,17 @@
   ];
 
   INV.REQUESTS_RECEIPT = [
-    { id: 'rr1', item: 'Bed Sheet Set (King)', qty: 60, requestedBy: 'Kanya Srisawat', property: 'Villa Sapphire Cliff', status: 'pending', date: '2026-08-24' },
-    { id: 'rr2', item: 'Welcome Amenity Kit', qty: 40, requestedBy: 'Nok Pattaya', property: 'Villa Lotus Terrace', status: 'approved', date: '2026-08-20' }
+    { id: 'rr1', item: 'Bed Sheet Set (King)', qty: 60, requestedBy: 'Karen Seah', property: 'Villa Sapphire Cliff', status: 'pending', date: '2026-08-24' },
+    { id: 'rr2', item: 'Welcome Amenity Kit', qty: 40, requestedBy: 'Nicole Parker', property: 'Villa Lotus Terrace', status: 'approved', date: '2026-08-20' }
   ];
 
   INV.REQUESTS_DISCARD = [
-    { id: 'rd1', item: 'Air-Con Filter (Universal)', qty: 12, reason: 'Damaged in storage', requestedBy: 'Budi Santoso', status: 'pending', date: '2026-08-22' }
+    { id: 'rd1', item: 'Air-Con Filter (Universal)', qty: 12, reason: 'Damaged in storage', requestedBy: 'Ben Sullivan', status: 'pending', date: '2026-08-22' }
   ];
 
   INV.LOG = [
-    { id: 'lg1', item: 'Bed Sheet Set (King)', action: 'Stock added', qty: '+60', by: 'Kanya Srisawat', date: '2026-08-25 09:12' },
-    { id: 'lg2', item: 'Pool Chlorine Tablets (5kg)', action: 'Stock deducted', qty: '-4', by: 'Budi Santoso', date: '2026-08-24 14:03' },
-    { id: 'lg3', item: 'Welcome Amenity Kit', action: 'Receipt approved', qty: '+40', by: 'Somchai Anuwat', date: '2026-08-20 11:40' }
+    { id: 'lg1', item: 'Bed Sheet Set (King)', action: 'Stock added', qty: '+60', by: 'Karen Seah', date: '2026-08-25 09:12' },
+    { id: 'lg2', item: 'Pool Chlorine Tablets (5kg)', action: 'Stock deducted', qty: '-4', by: 'Ben Sullivan', date: '2026-08-24 14:03' },
+    { id: 'lg3', item: 'Welcome Amenity Kit', action: 'Receipt approved', qty: '+40', by: 'Daniel Tan', date: '2026-08-20 11:40' }
   ];
 })();

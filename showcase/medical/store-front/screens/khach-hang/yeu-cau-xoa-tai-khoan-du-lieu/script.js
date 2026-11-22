@@ -12,7 +12,7 @@
       btn.disabled = true;
       btn.textContent = 'Submitting…';
       setTimeout(function () {
-        CJ.toast('Deletion request submitted. Our team will process this per PDPA.', 'warning');
+        CJ.toast('Account closure request submitted. Our team will process this per the Privacy Act 1988.', 'warning');
         setTimeout(function () { window.location.href = ACCOUNT_URL; }, 700);
       }, 500);
     });

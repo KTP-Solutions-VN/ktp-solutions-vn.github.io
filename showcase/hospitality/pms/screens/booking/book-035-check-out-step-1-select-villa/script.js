@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function startWizard(coId) {
     var co = MM.BOOK.CHECKOUT_CONTROLS.filter(function (c) { return c.id === coId; })[0];
     if (!co) return;
-    wiz = { coId: coId, property: co.property, step: 2, points: freshPointState(), rating: 5, review: '', lat: (7.8 + Math.random() * 0.3).toFixed(4), lon: (98.3 + Math.random() * 0.3).toFixed(4) };
+    wiz = { coId: coId, property: co.property, step: 2, points: freshPointState(), rating: 5, review: '', lat: (1.24 + Math.random() * 0.02).toFixed(4), lon: (103.82 + Math.random() * 0.03).toFixed(4) };
     document.getElementById('wizard-villa-name').textContent = co.property;
     document.getElementById('gps-coords-3').textContent = wiz.lat + ', ' + wiz.lon;
     document.getElementById('gps-coords-4').textContent = wiz.lat + ', ' + wiz.lon;

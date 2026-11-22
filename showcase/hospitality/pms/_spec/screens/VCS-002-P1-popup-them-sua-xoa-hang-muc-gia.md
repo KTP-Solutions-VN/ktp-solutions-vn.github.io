@@ -1,8 +1,8 @@
-# VCS-002-P1 — Popup Thêm/Sửa/Xóa Hạng mục giá
+# VCS-002-P1 — Form bậc giá (Rate Tier Form)
 
 **Loại:** Popup/Modal (mở từ VCS-002)
 **Route:** Không có route riêng — dùng chung form POST về `villa-common-setting/price-categories` (hidden `action`=`add`/`edit`/`delete`); kiểm tra trùng tên qua AJAX `villa-common-setting/checkpricecategory`
-**Module:** VCS = Cấu hình chung villa
+**Module:** VCS = Thuộc tính tài sản
 
 ## Mô tả ngắn gọn
 Modal Bootstrap dùng chung (`#exampleModal`) cho 3 kịch bản Thêm/Sửa/Xóa Hạng mục giá, gồm 2 field nhập liệu Tên và Mô tả. Ở chế độ Xóa, phần nhập liệu bị ẩn.
@@ -21,5 +21,5 @@ Modal Bootstrap dùng chung (`#exampleModal`) cho 3 kịch bản Thêm/Sửa/Xó
 - Validate: `name` và `description` bắt buộc, `name` kiểm tra trùng qua remote AJAX `checkpricecategory`.
 
 ## Điều hướng
-- Mở từ: VCS-002 (nút Add new / Edit / Delete trên bảng danh sách Hạng mục giá).
+- Mở từ: VCS-002 (nút Add new / Edit / Delete trên bảng Bậc giá).
 - Điều hướng tới: không chuyển trang — submit xong reload lại VCS-002 (redirect `referer()`).

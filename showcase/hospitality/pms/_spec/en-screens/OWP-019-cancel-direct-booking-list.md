@@ -1,10 +1,10 @@
-# OWP-019 — Cancel Direct Booking List
+# OWP-019 — Cancelled Stay Requests
 
 **Type:** Full page
 
 **Route:** `ExternalUserController::cancelDirectBookingList()` — no dedicated friendly route (default `/external-user/cancel-direct-booking-list`)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 
@@ -35,5 +35,5 @@ List — displayed columns:
 
 ## Navigation
 
-- Accessed from OWP-017 (the "Delete Booking" link — currently hidden in the UI) or the main menu
+- Accessed from OWP-017 (the "Delete Request" link — currently hidden in the UI) or the main menu
 - After submitting a cancellation request → returns to OWP-019

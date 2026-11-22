@@ -1,10 +1,10 @@
-# NOT-005 — Tin tức công ty (Company News)
+# NOT-005 — Bản tin nội bộ (Newsroom)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `NoticeController::companyNews()` — mặc định `/notice/company-news`
 
-**Module:** NOT = Thông báo
+**Module:** NOT = Thông báo nội bộ
 
 ## Mô tả ngắn gọn
 Danh sách tin tức nội bộ công ty đã đăng, được lọc theo đơn vị kinh doanh (business unit) mà người dùng hiện tại thuộc về.
@@ -22,10 +22,10 @@ Danh sách tin tức nội bộ công ty đã đăng, được lọc theo đơn 
 Không có filter tìm kiếm riêng ngoài phân trang DataTable mặc định.
 
 ## Chức năng/nút thao tác
-- **Add new:** mở NOT-006 (Thêm tin tức công ty) — chỉ hiện với Superadmin/Admin/Business Unit Manager hoặc Team Leader thuộc phòng Content/Marketing.
+- **Add new:** mở NOT-006 (Thêm bài bản tin) — chỉ hiện với Superadmin/Admin/Business Unit Manager hoặc Team Leader thuộc phòng Content/Marketing.
 - **Download:** tải file đính kèm (PDF) từ thư mục `company-news-attachment`.
 - **Delete:** mở popup xác nhận NOT-005-P1, sau đó gọi `notice/delete-company-news/:id`.
 
 ## Điều hướng
-- Vào từ: menu chính (Company News) hoặc từ NOT-002.
+- Vào từ: menu chính (Newsroom) hoặc từ NOT-002.
 - Điều hướng đến: NOT-006 (Thêm mới), NOT-005-P1 (xác nhận xóa).

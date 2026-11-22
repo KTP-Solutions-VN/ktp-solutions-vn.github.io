@@ -1,10 +1,10 @@
-# VSV-011-P1 — View Electricity Check-in Control Detail
+# VSV-011-P1 — Arrival Reading Detail
 
 **Type:** Popup (opened from VSV-011, as a separate page)
 
 **Route:** `VillaServicesController::viewCheckinControl($id)` — `/villa-services/view-checkin-control/<booking_id>`
 
-**Module:** Villa Services — Electricity
+**Module:** In-Stay Services — Metering
 
 ## Overview
 A read-only detail page showing the full meter reading/photo, payment method, and check-in payment status for a specific booking, used by staff for reconciliation control purposes.

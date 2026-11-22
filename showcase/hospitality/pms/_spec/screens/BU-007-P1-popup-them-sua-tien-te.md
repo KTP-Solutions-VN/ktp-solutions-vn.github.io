@@ -1,10 +1,10 @@
-# BU-007-P1 — Popup Thêm/Sửa tiền tệ
+# BU-007-P1 — Form tiền tệ (Currency Form)
 
 **Loại:** Popup (mở từ BU-007)
 
 **Route:** Modal Bootstrap (`#exampleModal`) tĩnh trong `currency.ctp`; submit POST cùng action `BusinessUnitController::currency()`.
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Popup dùng chung cho Thêm mới và Sửa một loại tiền tệ.

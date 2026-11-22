@@ -1,8 +1,8 @@
-# VCS-011-P1 — Popup Thêm/Sửa/Xóa Nhắc nhở
+# VCS-011-P1 — Form nhắc việc (Staff Reminder Form)
 
 **Loại:** Popup/Modal (mở từ VCS-011)
 **Route:** Không có route riêng — dùng chung form POST về `villa-common-setting/reminders` (hidden `action`=`add`/`edit`/`delete`); kiểm tra trùng tên qua AJAX `villa-common-setting/checkReminder`
-**Module:** VCS = Cấu hình chung villa
+**Module:** VCS = Thuộc tính tài sản
 
 ## Mô tả ngắn gọn
 Modal Bootstrap dùng chung (`#exampleModal`) cho 3 kịch bản Thêm/Sửa/Xóa Nhắc nhở. Ở chế độ Xóa, phần nhập liệu bị ẩn.
@@ -21,5 +21,5 @@ Modal Bootstrap dùng chung (`#exampleModal`) cho 3 kịch bản Thêm/Sửa/Xó
 - Lưu ý: modal này không có field điều chỉnh thứ tự — việc đổi thứ tự thực hiện trực tiếp trên bảng VCS-011 qua icon mũi tên Lên/Xuống (AJAX `changeReminderOrder`), không qua popup.
 
 ## Điều hướng
-- Mở từ: VCS-011 (nút Add new / Edit / Delete trên bảng danh sách Nhắc nhở).
+- Mở từ: VCS-011 (nút Add new / Edit / Delete trên bảng Nhắc việc cho nhân viên).
 - Điều hướng tới: không chuyển trang — submit xong reload lại VCS-011 (redirect `referer()`).

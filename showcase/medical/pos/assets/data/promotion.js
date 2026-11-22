@@ -1,13 +1,12 @@
 /* DATA_PROMOTION — Promotion/Discount codes applicable at POS.
-Module: Marketing & Discounts Module — same Discount/Promotion entity used by Storefront
-(configured centrally at Admin Portal #23-24), reused here for in-store redemption per
-screen-specifications.md #54's business rule ("mã khuyến mãi dùng chung Discount/Promotion
-entity với Storefront"). Shape mirrors the Storefront prototype's DATA_MA_GIAM_GIA.
+Module: Campaigns & Offers — same Discount/Promotion entity used by Storefront
+(configured centrally in the Admin back office under Vouchers & Codes), reused here for
+in-store redemption (one promotion entity shared across channels). Shape mirrors the Storefront prototype's DATA_MA_GIAM_GIA.
 Schema:
   code         string
   description  string
   type         string   "percentage" | "fixed"
-  value        number   percentage (0-100) or fixed SGD amount
+  value        number   percentage (0-100) or fixed AUD amount
   minSpend     number
   appliesTo    string   category/segment scope description
   startDate    string   ISO date
@@ -34,7 +33,7 @@ const DATA_PROMOTION = [
   },
   {
     code: 'PHARMACY5',
-    description: 'S$5 off pharmacy counter purchases',
+    description: 'A$5 off pharmacy counter purchases',
     type: 'fixed',
     value: 5,
     minSpend: 30,
@@ -48,7 +47,7 @@ const DATA_PROMOTION = [
   },
   {
     code: 'BIGCART50',
-    description: 'S$50 off orders of S$200 or more',
+    description: 'A$50 off orders of A$200 or more',
     type: 'fixed',
     value: 50,
     minSpend: 200,

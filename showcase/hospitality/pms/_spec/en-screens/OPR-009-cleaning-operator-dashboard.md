@@ -1,8 +1,8 @@
-# OPR-009 — Cleaning Operator Dashboard
+# OPR-009 — Housekeeping Console
 
 **Type:** Full page
 **Route:** operator/cleaningOperator + dashed-style pretty route: operator/cleaning-operator
-**Module:** OPR = Garden/Pool Operations
+**Module:** OPR = Upkeep Jobs
 
 ## Overview
 Cleaning management dashboard for operations managers: tracks cleaning rounds that are in-progress and completed for a day/period, via 2 tabs "By Date" and "By Property"; allows quality rating, approving/handing over to the owner (release to owner), and deleting cleaning rounds/cleaning points.
@@ -33,5 +33,5 @@ Cleaning management dashboard for operations managers: tracks cleaning rounds th
 - **View cleaning points/team**: AJAX `getCleaningPointData`, `getStandardData`, `getTeam` load detailed data into the panels/blocks on the dashboard.
 
 ## Navigation
-- Entered from: the "Cleaning Operator" menu (for managers) in the sidebar.
+- Entered from: the "Housekeeping Console" menu (for managers) in the sidebar.
 - Leads to: no fixed navigation to another page; status/rating update actions are handled via AJAX directly on the page.

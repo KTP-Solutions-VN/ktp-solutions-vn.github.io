@@ -1,10 +1,10 @@
-# BU-008-P1 — Enter/Update Exchange Rate Popup
+# BU-008-P1 — FX Rate Entry
 
 **Type:** Popup (opened from BU-008)
 
 **Route:** Static Bootstrap modal (`#exampleModal`) in `rates.ctp`; submitted via POST to the same `BusinessUnitController::rates()` action.
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A popup for entering the exchange value of a currency relative to the reference currency, for a specific period (month) or for the current month's forecast.

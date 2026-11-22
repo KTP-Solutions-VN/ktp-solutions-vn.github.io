@@ -1,10 +1,10 @@
-# OTA-001-P1 — Select Content Element for OTA Listing
+# OTA-001-P1 — Pick Listing Elements
 
 **Type:** Popup (opened from OTA-001)
 
 **Route:** Static modal within `listing.ctp`; saves the selection via AJAX `OtaContentController::assignElements($platformId)` — `POST /ota-content/assign-elements/:platformId`
 
-**Module:** Website Content (CMS) = OTA Content
+**Module:** Web Publishing = Channel Content
 
 ## Overview
 A dialog that lists all Content Elements currently available ("Available for") to the current OTA, grouped by scope, allowing the user to check items to add them to (or remove them from) the listing section.

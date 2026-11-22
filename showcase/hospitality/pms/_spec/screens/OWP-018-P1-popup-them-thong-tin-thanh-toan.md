@@ -1,10 +1,10 @@
-# OWP-018-P1 — Popup Thêm thông tin thanh toán
+# OWP-018-P1 — Thêm tài khoản nhận tiền (New Payout Account)
 
 **Loại:** Popup (mở từ OWP-018)
 
 **Route:** `ExternalUserController::addPaymentDetail()` — không có route đẹp riêng, mở từ nút "+" trên OWP-018 (mặc định `/external-user/add-payment-detail`)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 

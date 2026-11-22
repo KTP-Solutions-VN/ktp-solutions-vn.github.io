@@ -1,10 +1,10 @@
-# OWP-013 — Check-out List
+# OWP-013 — Upcoming Departures
 
 **Type:** Full page
 
 **Route:** `ExternalUserController::checkOut()` — no dedicated friendly route (default `/external-user/check-out`)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 
@@ -39,5 +39,5 @@ List — displayed columns:
 
 ## Navigation
 
-- Accessed from the main menu (Check-out)
+- Accessed from the main menu (Upcoming Departures)
 - No dedicated detail navigation (this is a consolidated list)

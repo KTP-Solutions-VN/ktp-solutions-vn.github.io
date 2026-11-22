@@ -1,10 +1,10 @@
-# CS-001 — Countries
+# CS-001 — Country Setup
 
 **Type:** Full page
 
 **Route:** `CommonSettingController::countries()` — default `/common-setting/countries` (no dedicated friendly route; the route `/countries/list` in `config/Routes.php` line 140 is currently commented out)
 
-**Module:** CS = Common Lookup Settings
+**Module:** CS = Reference Data
 
 ## Overview
 A list for managing the Country lookup data shared across the entire system (Region, District, Area, Residence, etc. all reference Country). Allows adding/editing/deleting countries via a shared popup.
@@ -27,5 +27,5 @@ List (DataTable `#zero_config`, no dedicated filter, sorted by `name` descending
 - Activity logging (`_generateAccessLogs`) is recorded for all three actions: add/edit/delete.
 
 ## Navigation
-- Accessed from: System Settings menu > Common Lookup Settings > Countries.
-- Navigates to: CS-001-P1 (Add/Edit/Delete Country popup).
+- Accessed from: Configuration menu > Reference Data > Country Setup.
+- Navigates to: CS-001-P1 (Country Form popup).

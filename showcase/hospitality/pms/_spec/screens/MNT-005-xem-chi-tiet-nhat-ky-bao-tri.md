@@ -1,8 +1,8 @@
-# MNT-005 — Xem chi tiết nhật ký bảo trì
+# MNT-005 — Hồ sơ yêu cầu sửa chữa (Repair Request Record)
 
 **Loại:** Trang đầy đủ
 **Route:** maintenance/view/:id
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Màn hình xem chi tiết (readonly) một nhật ký bảo trì: thông tin villa, danh mục, mô tả, mức ưu tiên, trạng thái, ảnh minh chứng và lịch sử xử lý (log).
@@ -24,5 +24,5 @@ Màn hình xem chi tiết (readonly) một nhật ký bảo trì: thông tin vil
 - Chỉ xem, không có thao tác chỉnh sửa trên màn hình này (điều hướng qua Sửa/Cập nhật ở MNT-004 nếu cần).
 
 ## Điều hướng
-- Vào từ: MNT-001 — Danh sách nhật ký bảo trì (icon xem).
-- Đi tới: có thể có liên kết sang MNT-004 (Cập nhật xử lý) hoặc MNT-006 (Chi phí bảo trì).
+- Vào từ: MNT-001 — Yêu cầu sửa chữa (icon xem).
+- Đi tới: có thể có liên kết sang MNT-004 (Cập nhật xử lý) hoặc MNT-006 (Chi phí sửa chữa).

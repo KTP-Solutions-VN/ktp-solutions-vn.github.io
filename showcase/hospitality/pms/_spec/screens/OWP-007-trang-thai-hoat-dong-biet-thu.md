@@ -1,10 +1,10 @@
-# OWP-007 — Trạng thái hoạt động biệt thự
+# OWP-007 — Theo dõi hoạt động (Activity Tracker)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `ExternalUserController::status($tab, $villa_id)` — không có route đẹp riêng, mở từ OWP-005 (icon "Xem hoạt động"), dạng `.../status/rental/{villa_id_base64}`
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 

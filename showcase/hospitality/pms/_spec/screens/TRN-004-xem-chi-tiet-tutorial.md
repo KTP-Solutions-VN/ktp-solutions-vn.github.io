@@ -1,8 +1,8 @@
-# TRN-004 — Xem chi tiết Tutorial
+# TRN-004 — Tổng quan bài học (Lesson Overview)
 
 **Loại:** Trang đầy đủ
 **Route:** `TrainingController::viewTutorial($id)` — `/training/view-tutorial/{id}`
-**Module:** TRN = Đào tạo
+**Module:** TRN = Học viện nhân viên
 
 ## Mô tả ngắn gọn
 Trang chỉ đọc, hiển thị toàn bộ thông tin của một Tutorial cùng danh sách Slide và câu hỏi Quiz (nếu có) bên trong.

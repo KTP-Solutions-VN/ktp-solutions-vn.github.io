@@ -3,8 +3,8 @@
 
   var URL_STORAGE_KEY = 'mm_set_owner_portal_urls';
   var BASE_URLS = [
-    { id: 'opu1', title: 'Default Owner Portal', url: 'https://owners.azurastays.example', scope: 'All regions (default)', updatedAt: '2026-06-01', updatedBy: 'Somchai Anuwat', isDefault: true },
-    { id: 'opu2', title: 'Bali Owner Portal', url: 'https://owners.azurastays.example/bali', scope: 'Indonesia — Bali', updatedAt: '2026-07-14', updatedBy: 'Somchai Anuwat', isDefault: false }
+    { id: 'opu1', title: 'Default Owner Hub', url: 'https://owners.azurastays.example', scope: 'All regions (default)', updatedAt: '2026-06-01', updatedBy: 'Daniel Tan', isDefault: true },
+    { id: 'opu2', title: 'Byron Bay Owner Hub', url: 'https://owners.azurastays.example/byron-bay', scope: 'Australia — Byron Bay', updatedAt: '2026-07-14', updatedBy: 'Daniel Tan', isDefault: false }
   ];
   var editingUrlId = null;
 
@@ -48,7 +48,7 @@
 
   document.getElementById('add-url-btn').addEventListener('click', function () {
     editingUrlId = null;
-    document.getElementById('url-modal-title').textContent = 'Add Owner Portal URL';
+    document.getElementById('url-modal-title').textContent = 'Add Owner Hub URL';
     document.getElementById('url-form').reset();
     MM.openModal('url-modal');
   });
@@ -58,7 +58,7 @@
     var editBtn = e.target.closest('[data-edit-url]');
     if (editBtn) {
       editingUrlId = editBtn.dataset.editUrl;
-      document.getElementById('url-modal-title').textContent = 'Edit Owner Portal URL';
+      document.getElementById('url-modal-title').textContent = 'Edit Owner Hub URL';
       MM.openModal('url-modal');
     }
     if (delBtn) {
@@ -80,12 +80,12 @@
         url: document.getElementById('f-url-value').value.trim(),
         scope: checked.length ? checked.join(', ') : 'No regions selected',
         updatedAt: new Date().toISOString().slice(0, 10),
-        updatedBy: 'Somchai Anuwat',
+        updatedBy: 'Daniel Tan',
         isDefault: false
       });
       localStorage.setItem(URL_STORAGE_KEY, JSON.stringify(stored));
       MM.closeModal('url-modal');
-      MM.showToast('Owner Portal URL saved');
+      MM.showToast('Owner Hub URL saved');
       renderUrls();
     });
   });
@@ -96,7 +96,7 @@
     var hidden = JSON.parse(localStorage.getItem(URL_STORAGE_KEY + '_hidden') || '[]');
     if (BASE_URLS.some(function (u) { return u.id === editingUrlId; })) { hidden.push(editingUrlId); localStorage.setItem(URL_STORAGE_KEY + '_hidden', JSON.stringify(hidden)); }
     MM.closeModal('delete-url-modal');
-    MM.showToast('Owner Portal URL deleted', { danger: true });
+    MM.showToast('Owner Hub URL deleted', { danger: true });
     renderUrls();
   });
 })();

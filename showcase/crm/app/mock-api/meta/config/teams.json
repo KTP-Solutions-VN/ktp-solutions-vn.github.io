@@ -1,11 +1,11 @@
 {
-  "_note": "entities: module của teamspace, theo đúng thứ tự Legacy CRM (BA, sandbox APE). proposed: module/teamspace do HBLAB đề xuất thêm, chưa có trên Legacy CRM ('*' = cả teamspace). members: thành viên teamspace theo users / roles / profiles / groups (dữ liệu giả); user chỉ thấy teamspace mình là thành viên.",
+  "_note": "entities: module của từng bộ phận, theo thứ tự trên menu của hệ thống hiện tại (sandbox APE). proposed: module / bộ phận đề xuất bổ sung, chưa có trong cấu hình hiện tại ('*' = cả bộ phận). members: thành viên bộ phận theo users / roles / profiles / groups (dữ liệu giả); user chỉ thấy bộ phận mình là thành viên.",
   "teams": [
     {
       "id": "crm",
       "name": {
-        "vi": "CRM Teamspace",
-        "en": "CRM Teamspace"
+        "en": "Company-wide",
+        "vi": "Toàn công ty"
       },
       "entities": "*",
       "members": {
@@ -17,8 +17,8 @@
     {
       "id": "sales",
       "name": {
-        "vi": "Sales Team",
-        "en": "Sales Team"
+        "en": "Commercial team",
+        "vi": "Nhóm kinh doanh"
       },
       "entities": [
         "leads",
@@ -46,8 +46,8 @@
     {
       "id": "aftersales",
       "name": {
-        "vi": "After Sales",
-        "en": "After Sales"
+        "en": "Service team",
+        "vi": "Nhóm dịch vụ kỹ thuật"
       },
       "entities": [
         "accounts",
@@ -78,8 +78,8 @@
     {
       "id": "admin",
       "name": {
-        "vi": "Admin & mua hàng",
-        "en": "Admin & purchasing"
+        "en": "Back office & procurement",
+        "vi": "Hành chính & thu mua"
       },
       "entities": [
         "accounts",

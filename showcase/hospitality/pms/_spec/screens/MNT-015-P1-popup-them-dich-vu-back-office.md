@@ -1,8 +1,8 @@
-# MNT-015-P1 — Thêm dịch vụ Back Office
+# MNT-015-P1 — Thêm loại dịch vụ hành chính (New Admin Service Type)
 
 **Loại:** Popup (mở từ MNT-015)
 **Route:** maintenance/addBackOfficeService
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Trang thêm mới một dịch vụ back-office: tên, ảnh minh họa (crop 1:1), trạng thái. Không cho chọn tay đơn vị kinh doanh — hệ thống tự áp dụng cho toàn bộ BU đang hoạt động.
@@ -20,5 +20,5 @@ Trang thêm mới một dịch vụ back-office: tên, ảnh minh họa (crop 1:
 - **Cancel**: quay về MNT-015.
 
 ## Điều hướng
-- Vào từ: nút "Add New" trên MNT-015 — Dịch vụ Back Office.
+- Vào từ: nút "Add New" trên MNT-015 — Loại dịch vụ hành chính.
 - Đi tới: sau khi Save, quay về MNT-015.

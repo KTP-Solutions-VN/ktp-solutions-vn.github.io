@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  document.getElementById('res-location').textContent = 'Thailand — Phuket — Cherng Talay — Laguna';
+  document.getElementById('res-location').textContent = 'Singapore — Sentosa — Sentosa Cove — Cove Drive';
   document.getElementById('props-tbody').innerHTML = MM.MOCK_PROPERTIES.slice(0, 3).map(function (p) {
     return '<tr><td class="cell-strong">' + p.name + '</td><td class="cell-num">' + p.bedrooms + '</td></tr>';
   }).join('');

@@ -22,7 +22,7 @@
 
   var DEFAULTS = {
     en: {
-      hero_title: 'Villas That Feel Like Home', hero_subtitle: 'Hand-picked luxury villas across Thailand and Bali.',
+      hero_title: 'Villas That Feel Like Home', hero_subtitle: 'Hand-picked luxury villas across Singapore and Australia.',
       nav_properties: 'Properties', nav_contact: 'Contact Us', footer_copyright: '© Azura Stays. All rights reserved.',
       welcome_message: 'Welcome back', checkin_instructions: 'Your check-in guide', wifi_label: 'Wi-Fi Details', concierge_label: 'Your Concierge',
       dashboard_greeting: 'Good morning', dashboard_revenue_label: 'Revenue this month', statements_title: 'Owner Statements', statements_empty: 'No statements yet', bookings_title: 'Upcoming Bookings',

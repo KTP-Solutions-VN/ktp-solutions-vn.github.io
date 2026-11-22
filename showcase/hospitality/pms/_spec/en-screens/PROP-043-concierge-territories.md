@@ -1,8 +1,8 @@
-# PROP-043 — Concierge Territories
+# PROP-043 — Concierge Coverage
 
 **Type:** Full page
 **Route:** property/territories/:id
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Page listing Properties (Open status) grouped by Area, showing the assigned Concierge and allowing quick assignment/reassignment of Concierge for each Property. Filterable by Business Unit and by assigned Concierge, sortable by Area/Property/Concierge. Includes a CSV export button for the list.
@@ -30,6 +30,6 @@ Page listing Properties (Open status) grouped by Area, showing the assigned Conc
 - Download button (icon) → downloads a CSV file via `downloadConciergeTerritories/:id/:sort_by/:show_concierge`.
 
 ## Navigation
-- Opened from: Property/Concierge menu (outside the scope of the current code).
+- Opened from: Concierge Coverage menu (outside the scope of the current code).
 - Navigates to: No other page navigation (Concierge assignment is handled via AJAX in place); downloads a CSV file via `downloadConciergeTerritories`.
 - Child popup: Inline Concierge assignment dropdown (no dedicated code, a small inline operation).

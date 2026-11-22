@@ -1,10 +1,10 @@
-# SET-004-P1 — Add/Edit Hostex Account Form
+# SET-004-P1 — Channel Account Mapping Form
 
 **Type:** Popup (in practice an inline form that opens/closes below each channel table in SET-004, not a Bootstrap modal)
 
 **Route:** Rendered dynamically within `SettingController::hostexSetup()` (`hostex_setup.ctp`); submits via AJAX POST to `saveHostexAccount()` — `/setting/save-hostex-account`; duplicate email check within the same channel via AJAX `checkHostexEmail()` — `/setting/check-hostex-email` (jQuery Validate `remote`).
 
-**Module:** SET = System Settings
+**Module:** SET = Platform Settings
 
 ## Overview
 A form for adding a new or editing an existing Hostex account (OTA account) belonging to a specific distribution channel, including the account email/name, the linked OTA Account, and the account owner (Azura Stays or Agency).

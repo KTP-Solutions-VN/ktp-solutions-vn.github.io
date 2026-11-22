@@ -3,9 +3,9 @@
   var STORAGE_KEY = 'mm_usr_payroll_rules';
 
   var RULES_BASE = [
-    { id: 'rule1', legalEntity: 'Azura Stays Thailand Ltd.', nationality: 'Thai', minSeniority: 0, dailyWage: 18 },
-    { id: 'rule2', legalEntity: 'Azura Stays Thailand Ltd.', nationality: 'Thai', minSeniority: 12, dailyWage: 22 },
-    { id: 'rule3', legalEntity: 'Azura Stays Indonesia PT.', nationality: 'Indonesian', minSeniority: 0, dailyWage: 15 }
+    { id: 'rule1', legalEntity: 'Azura Stays Singapore Pte. Ltd.', nationality: 'Singaporean', minSeniority: 0, dailyWage: 18 },
+    { id: 'rule2', legalEntity: 'Azura Stays Singapore Pte. Ltd.', nationality: 'Singaporean', minSeniority: 12, dailyWage: 22 },
+    { id: 'rule3', legalEntity: 'Azura Stays Australia Pty Ltd', nationality: 'Australian', minSeniority: 0, dailyWage: 15 }
   ];
 
   function loadRules() {

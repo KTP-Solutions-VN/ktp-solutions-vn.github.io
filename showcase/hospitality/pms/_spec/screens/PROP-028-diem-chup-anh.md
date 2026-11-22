@@ -1,8 +1,8 @@
-# PROP-028 — Điểm chấm chất lượng ảnh (Photography Scores)
+# PROP-028 — Đánh giá chất lượng ảnh (Image Quality Review)
 
 **Loại:** Trang đầy đủ
 **Route:** property/photography/scores (route đẹp cấu hình riêng trong Routes.php, ứng với action `photographyScores`)
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Bảng chấm điểm chất lượng từng bộ ảnh (photo set) theo 3 tiêu chí Angles/Colours/Composition (thang 1-3 sao), cho phép chấm điểm trực tiếp tại chỗ (AJAX) và xem điểm trung bình, sắp xếp theo điểm thấp/cao nhất.
@@ -44,6 +44,6 @@ Phân trang 25 dòng/trang.
 - Điều hướng phân trang Previous/Next.
 
 ## Điều hướng
-- Mở từ: PROP-026 (Photography Planning) — breadcrumb/menu.
+- Mở từ: PROP-026 (Shoot Scheduler) — breadcrumb/menu.
 - Điều hướng tới: PROP-025 (link tên nhiếp ảnh gia), `Photos::detail` (ngoài phạm vi).
 - Popup con: Không có.

@@ -1,8 +1,8 @@
-# REN-011 — Báo cáo tiến độ & chi phí dự án
+# REN-011 — Ngân sách so với tiến độ (Budget vs. Progress)
 
 **Loại:** Trang đầy đủ
 **Route:** renovation/report/:id + route đẹp dạng dashed: renovation/report/:id (id truyền base64)
-**Module:** REN = Cải tạo
+**Module:** REN = Nâng cấp tài sản
 
 ## Mô tả ngắn gọn
 Màn hình chỉ xem (read-only) báo cáo tổng hợp so sánh kế hoạch (plan) và thực tế (actual) của một dự án cải tạo trên 4 tiêu chí: ngày bắt đầu, ngày hoàn thành, thời lượng thi công và tổng chi phí, kèm độ lệch (variation).
@@ -21,5 +21,5 @@ Màn hình chỉ xem (read-only) báo cáo tổng hợp so sánh kế hoạch (p
 - Chỉ xem; không có thao tác chỉnh sửa trên màn hình này.
 
 ## Điều hướng
-- Vào từ: REN-003 — Theo dõi dự án cải tạo.
+- Vào từ: REN-003 — Tiến trình dự án.
 - Đi tới: không có điều hướng tiếp; quay lại REN-003 bằng nút back trình duyệt.

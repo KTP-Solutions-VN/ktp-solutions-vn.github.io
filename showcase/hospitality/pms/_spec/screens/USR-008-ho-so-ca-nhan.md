@@ -1,10 +1,10 @@
-# USR-008 — Hồ sơ cá nhân (My Profile)
+# USR-008 — Tài khoản của tôi (My Account)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `UserController::profile()` — mặc định `user/profile`
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Trang cho phép người dùng đang đăng nhập (nhân viên nội bộ hoặc nhân viên đại lý — Agency Staff) tự xem và cập nhật thông tin cá nhân của chính mình (không sửa được các field quản trị như lương, business unit, work permit — các field đó chỉ hiển thị). Có link nhanh tới đổi mật khẩu (USR-008-P1).
@@ -32,4 +32,4 @@ Thông tin chỉ hiển thị (không sửa): loại người dùng, vai trò, b
 
 ## Điều hướng
 - Mở từ: menu tài khoản cá nhân (avatar/user menu) ở mọi trang sau khi đăng nhập.
-- Điều hướng đến: USR-008-P1 (Đổi mật khẩu — popup con). Sau khi đổi mật khẩu thành công, hệ thống tự đăng xuất và quay về LOG-001.
+- Điều hướng đến: USR-008-P1 (Cập nhật mật khẩu — popup con). Sau khi đổi mật khẩu thành công, hệ thống tự đăng xuất và quay về LOG-001.

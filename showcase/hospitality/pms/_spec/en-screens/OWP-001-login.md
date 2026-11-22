@@ -1,14 +1,14 @@
-# OWP-001 — Login
+# OWP-001 — Owner Hub Login
 
 **Type:** Full page
 
 **Route:** `ExternalUserController::index()` — friendly route: `/Owner`, `/Owners` (config/Routes.php lines 104-105)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 
-Login page for Owners and authorized Agency Staff to access the Owner Portal. Supports authentication against 2 data tables (Owner, AgencyStaff). After a successful login, the system logs the access (IP, device, geolocation) and redirects to the property list (OWP-005).
+Login page for Owners and authorized Agency Staff to access the Owner Hub. Supports authentication against 2 data tables (Owner, AgencyStaff). After a successful login, the system logs the access (IP, device, geolocation) and redirects to the property list (OWP-005).
 
 ## Detailed Description
 
@@ -25,10 +25,10 @@ Field table (login form):
 - Login (submit form to the `index` action, POST method)
 - Forgot Password (opens popup OWP-001-P1)
 - Error notification on incorrect username/password (flash message)
-- Automatic redirect to OWP-005 (Property List) if already logged in
+- Automatic redirect to OWP-005 (My Portfolio) if already logged in
 
 ## Navigation
 
-- Successful login → OWP-005 Property List (property/list)
+- Successful login → OWP-005 My Portfolio (property/list)
 - Click "Forgot Password" → opens OWP-001-P1 (popup, same page)
-- Password reset link via email → OWP-003 Reset Password
+- Password reset link via email → OWP-003 New Password

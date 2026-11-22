@@ -1,4 +1,4 @@
-/* Screen-specific overrides: Login/Register (#2) — split-panel, per screen-generation-guide.md */
+/* Screen-specific overrides: Sign In / Create Account — split-panel */
 .auth-split { min-height: calc(100vh - 68px); display: grid; grid-template-columns: 1fr 1fr; }
 .auth-split__promo {
   background: linear-gradient(150deg, var(--primary-dark) 0%, var(--primary) 100%);

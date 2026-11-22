@@ -17,7 +17,7 @@
   }
   searchEl.addEventListener('input', render);
 
-  /* ---------------- #32 Content Editor drawer ------------------------------ */
+  /* ---------------- Page Composer drawer ------------------------------ */
   var editingContentId = null;
   CJDrawer.bind('contentEditorOverlay');
 

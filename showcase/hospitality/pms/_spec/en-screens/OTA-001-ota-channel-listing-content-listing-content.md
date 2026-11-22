@@ -1,10 +1,10 @@
-# OTA-001 — OTA Channel Listing Content (Listing Content)
+# OTA-001 — Channel Listing Copy
 
 **Type:** Full page
 
 **Route:** `OtaContentController::listing($platformId)` — default `/ota-content/listing/:platformId`
 
-**Module:** Website Content (CMS) = OTA Content
+**Module:** Web Publishing = Channel Content
 
 ## Overview
 Manages the "Content Elements" (standardized descriptive text snippets) assigned to the listing section of a specific OTA channel (Booking Platform), grouped by scope: Property, Unit, Residence, Shared, Account. Accessible to Superadmin only.
@@ -31,4 +31,4 @@ No search filter; data is organized into 5 fixed scope blocks.
 
 ## Navigation
 - Accessed from: the "Platforms" tab on the Channels screen (`BusinessUnit::channels`) — outside the scope of the assigned module.
-- Navigates to: OTA-001-P1 (Select Content Element), OTA-001-P2 (Confirm Deletion).
+- Navigates to: OTA-001-P1 (Pick Listing Elements), OTA-001-P2 (Confirm Deletion).

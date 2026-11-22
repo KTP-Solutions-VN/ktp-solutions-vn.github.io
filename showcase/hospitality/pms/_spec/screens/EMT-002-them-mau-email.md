@@ -1,10 +1,10 @@
-# EMT-002 — Thêm mẫu email (Add Email Template)
+# EMT-002 — Thêm mẫu email (New Email Template)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `EmailTemplateController::add()` — mặc định `/email-template/add`
 
-**Module:** EMT = Mẫu email
+**Module:** EMT = Thư viện email
 
 ## Mô tả ngắn gọn
 Form tạo mới một mẫu nội dung email theo mục đích sử dụng (template for) và ngôn ngữ, nội dung soạn bằng trình soạn thảo TinyMCE, hỗ trợ các placeholder động (`##OWNER_NAME##`, `##NEWS_LETTER##`, `##VILLA_NAME##`, `##START_DATE##`, `##END_DATE##`).
@@ -23,5 +23,5 @@ Form tạo mới một mẫu nội dung email theo mục đích sử dụng (tem
 - **Cancel (reset):** xóa nội dung đã nhập trên form (reset, không điều hướng).
 
 ## Điều hướng
-- Mở từ: nút "Add new" trên EMT-001 (Danh sách mẫu email).
+- Mở từ: nút "Add new" trên EMT-001 (Thư viện email).
 - Sau khi lưu: chuyển tới EMT-001.

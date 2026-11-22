@@ -1,8 +1,8 @@
-# GST-009 — Restaurant Details
+# GST-009 — Restaurant Profile
 
 **Type:** Full page
 **Route:** `Guest::restaurant($restaurant_id = null)` — default `/guest/restaurant/:restaurant_id`; pretty route (DashedRoute fallback): `/guest/restaurant`
-**Module:** Guest Portal
+**Module:** Guest Hub
 
 ## Overview
 The detail page for a single restaurant: images, address, map, rating, description, menu, opening hours, and contact phone number. Opened from the restaurant list GST-008 via a full-page link (not a popup/modal).

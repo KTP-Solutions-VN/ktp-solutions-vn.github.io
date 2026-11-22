@@ -1,8 +1,8 @@
-# BOOK-055 — Villa Listing by OTA Channel (OTA Listing)
+# BOOK-055 — Listing Sync Check
 
 **Type:** Full page (opened from BOOK-054)
 **Route:** Booking/otaListing (default: `/booking/ota-listing`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Checks which villas have NOT been linked to a specific OTA channel, based on the villa's OTA link configuration (`VillaOtaManagement`). Used to identify villas that are still missing synchronization configuration with a sales channel.
@@ -24,5 +24,5 @@ Checks which villas have NOT been linked to a specific OTA channel, based on the
 - Select the BU and OTA channel, then click **Check** to view the list of villas not yet linked
 
 ## Navigation
-- Opened from: BOOK-054 (OTA) > "Listing" button
-- Navigates to: none (the OTA linking action is performed on the villa configuration screen, outside the Booking module)
+- Opened from: BOOK-054 (Channel Toolkit) > "Listing" button
+- Navigates to: none (the OTA linking action is performed on the villa configuration screen, outside the Reservations module)

@@ -1,8 +1,8 @@
-# MNT-006 — Maintenance Cost
+# MNT-006 — Repair Expenses
 
 **Type:** Full page
 **Route:** maintenance/cost/:id (id base64)
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Screen for declaring costs incurred for a maintenance log: a list of expense items (reimbursable materials, labor, available materials), each item having a type, material/labor name, cost, and attached invoice; total cost is calculated automatically.
@@ -23,5 +23,5 @@ Screen for declaring costs incurred for a maintenance log: a list of expense ite
 - **Save** (submits `cost_form`): saves/updates the `MaintenanceCost` record (data serialized by 3 type groups), logs the activity, returns to the previous page.
 
 ## Navigation
-- Entered from: MNT-005 — View Maintenance Log Details (or directly from MNT-001).
+- Entered from: MNT-005 — Repair Request Record (or directly from MNT-001).
 - Navigates to: after Save, returns to the referring page (referer).

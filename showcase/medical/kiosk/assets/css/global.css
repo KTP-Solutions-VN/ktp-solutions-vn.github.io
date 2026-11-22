@@ -1,0 +1,874 @@
+/* ==========================================================================
+   CareJourney — Self-Service Kiosk
+   Shared design system (kiosk mode — no sidebar/nav chrome)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Brand — CareJourney palette, shared by every CareJourney prototype.
+     White is the base surface everywhere; Primary/Secondary are accents
+     only (CTAs, active states, progress, signature-moment stat). */
+  --primary: #4C5FFF;
+  --primary-light: #9DA7FF;
+  --primary-lightest: #EEF0FF;
+  --primary-gradient-from: #6777FF;
+  --primary-gradient-to: #3141C0;
+  /* var name kept so existing rules below don't need renaming —
+     now holds the deeper accent tone (gradient-to), used only for small
+     brand-colored UI moments (icons/text on light tint), never headings */
+  --primary-dark: #3141C0;
+  --primary-50: #EEF0FF;
+  --primary-100: #DCE0FF;
+  --primary-rgb: 76, 95, 255;
+  --primary-dark-rgb: 49, 65, 192;
+
+  --secondary: #019770;
+  --secondary-lightest: #EBF7F4;
+  /* var name kept — now holds Secondary (brand teal), used for the
+     visitors-served counter stat + "counter" success/outcome states */
+  --accent: #019770;
+  --accent-dark: #016B52;
+  --accent-50: #EBF7F4;
+  --accent-100: #D1ECE5;
+
+  --tertiary: #3E413D;
+  --tertiary-light: #696A74;
+  --tertiary-lighter: #A2A3AC;
+  --tertiary-lightest: #DCDCDC;
+
+  /* Neutral gray — 9-step */
+  --gray-50:  #F9FAFB;
+  --gray-100: #F3F4F6;
+  --gray-200: #E5E7EB;
+  --gray-300: #D1D5DB;
+  --gray-400: #687080; /* darkened from #9CA3AF: used for captions/placeholders, AA 4.5:1 */
+  --gray-500: #646B78; /* kept darker than gray-400 */
+  --gray-600: #4B5563;
+  --gray-700: #374151;
+  --gray-800: #1F2937;
+  --gray-900: #111827;
+
+  /* Semantic — red reserved for genuine clinical emergencies only (unused
+     in this app); ordinary form validation uses warning/amber, never red */
+  --success: #15803D; /* AA on white and on --success-bg */
+  --success-bg: #EAF7EF;
+  --warning: #B45309; /* AA on white and on --warning-bg (field errors) */
+  --warning-bg: #FDF3E2;
+  --error: #B52836;
+  --error-bg: #FBECED;
+
+  /* Typography */
+  --font-heading: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --fs-h1: 30px;
+  --fs-h2: 23px;
+  --fs-h3: 19px;
+  --fs-body: 16px;
+  --fs-body-lg: 18px;
+  --fs-caption: 13px;
+
+  /* Spacing scale — 4px grid */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px; /* was referenced below but never defined */
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-12: 48px;
+
+  /* Radius — Modern mood, cận trên baseline */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+  --radius-device: 34px;
+
+  /* Elevation — 3 cấp + flat, nhuốm sắc Primary-dark */
+  --shadow-0: none;
+  --shadow-1: 0 2px 8px rgba(var(--primary-dark-rgb), 0.08);
+  --shadow-2: 0 8px 24px rgba(var(--primary-dark-rgb), 0.14);
+  --shadow-3: 0 20px 48px rgba(var(--primary-dark-rgb), 0.28);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --dur-feedback: 140ms;
+  --dur-transition: 260ms;
+  --dur-sequence: 480ms;
+
+  /* Touch targets */
+  --touch-min: 56px;
+  --touch-huge: 64px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  color: var(--gray-800);
+  line-height: 1.5;
+  background: radial-gradient(circle at 30% 10%, var(--primary-lightest) 0%, var(--secondary-lightest) 55%, #FFFFFF 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-8) var(--sp-4);
+}
+
+h1, h2, h3 { font-family: var(--font-heading); color: var(--tertiary); margin: 0; }
+h1 { font-size: var(--fs-h1); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: var(--fs-h2); font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: var(--fs-h3); font-weight: 600; }
+p { margin: 0; }
+
+svg.icon { width: 1em; height: 1em; stroke: currentColor; stroke-width: 1.75; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+/* ==========================================================================
+   Browser-chrome theming
+   ========================================================================== */
+::selection { background: var(--primary-100); color: var(--primary-dark); }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: var(--radius-pill); }
+::-webkit-scrollbar-thumb:hover { background: var(--gray-400); }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: var(--radius-sm); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+
+/* ==========================================================================
+   Kiosk device shell — LANDSCAPE fixed-device tablet viewport
+   v3 IA rebuild (2026-09-17): reflowed from a portrait 440x900 phone-QR
+   shell to a landscape tablet shell sized for 1280x800-1920x1080 event
+   kiosks/tablets. Width/height stay fluid via min() so the shell still
+   composes well in a normal browser window while reading as "designed for"
+   the 1280-1920 landscape range (never stretched edge-to-edge, never
+   cramped down to a phone card).
+   ========================================================================== */
+.kiosk-device {
+  position: relative;
+  width: min(1680px, 96vw);
+  height: min(960px, 92vh);
+  min-height: 640px;
+  background: #fff;
+  border-radius: var(--radius-device);
+  box-shadow: var(--shadow-3), 0 0 0 10px #FFFFFF, 0 0 0 11px var(--tertiary-lightest);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.kiosk-topbar {
+  position: relative;
+  flex-shrink: 0;
+  padding: var(--sp-4) var(--sp-8) var(--sp-3);
+  background: #FFFFFF;
+  color: var(--tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kiosk-brand { display: flex; align-items: center; gap: var(--sp-2); }
+
+.kiosk-brand-mark {
+  width: 38px; height: 38px; border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-gradient-to) 100%);
+  border: none;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  font-family: var(--font-heading); font-weight: 800; font-size: 14px; letter-spacing: 0.02em;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-1);
+}
+.kiosk-brand-mark svg { width: 20px; height: 20px; }
+
+.kiosk-brand-name { font-family: var(--font-heading); font-weight: 700; font-size: 17px; letter-spacing: -0.01em; color: var(--tertiary); }
+.kiosk-brand-sub { font-size: 11px; color: var(--tertiary-light); margin-top: -2px; }
+
+.kiosk-topbar-right { display: flex; align-items: center; gap: var(--sp-2); flex-shrink: 0; }
+
+.kiosk-idle-ring {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: conic-gradient(var(--primary) var(--idle-pct, 100%), var(--tertiary-lightest) 0);
+  transition: background 1s linear;
+  flex-shrink: 0;
+}
+.kiosk-idle-ring::after {
+  content: ""; width: 22px; height: 22px; border-radius: 50%;
+  background: #fff;
+}
+
+.kiosk-home-btn {
+  /* v3: bumped from 38px to a real touch target — this "Cancel to Home"
+     control is now used on every step of every flow (5x more traffic than
+     the old single 3-screen flow), not just an occasional reset icon. */
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  border: 1px solid var(--tertiary-lightest);
+  background: #FFFFFF;
+  color: var(--tertiary);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background var(--dur-feedback) var(--ease-out);
+  flex-shrink: 0;
+}
+.kiosk-home-btn:hover { background: var(--gray-100); }
+.kiosk-home-btn svg { width: 22px; height: 22px; }
+
+/* Progress indicator — step 1/2/3, real sequential meaning (guided flow).
+   Primary is the clear accent for the active step; nav chrome stays white
+   with a hairline border separating it from the content area. */
+.kiosk-progress { display: flex; gap: var(--sp-2); padding: 0 var(--sp-6) var(--sp-4); background: #FFFFFF; border-bottom: 1px solid var(--tertiary-lightest); flex-shrink: 0; }
+.kiosk-progress-step { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.kiosk-progress-bar { height: 4px; border-radius: var(--radius-pill); background: var(--tertiary-lightest); overflow: hidden; }
+.kiosk-progress-bar > span { display: block; height: 100%; width: 0%; background: var(--tertiary-lighter); border-radius: var(--radius-pill); transition: width var(--dur-sequence) var(--ease-out); }
+.kiosk-progress-step.is-done .kiosk-progress-bar > span,
+.kiosk-progress-step.is-active .kiosk-progress-bar > span { width: 100%; }
+.kiosk-progress-step.is-active .kiosk-progress-bar > span { background: var(--primary); }
+.kiosk-progress-label { font-size: 11px; color: var(--gray-500); font-weight: 600; letter-spacing: 0.02em; }
+.kiosk-progress-step.is-active .kiosk-progress-label,
+.kiosk-progress-step.is-done .kiosk-progress-label { color: var(--tertiary); }
+
+.kiosk-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--sp-8);
+  background: var(--gray-50);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+}
+
+/* Centers step/flow content to a comfortable reading width on wide landscape
+   screens instead of letting form fields stretch edge-to-edge; Home uses its
+   own full-width tile layout instead of this wrapper. */
+.content-col {
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+}
+.content-col-wide { max-width: 1160px; }
+
+.kiosk-footer {
+  flex-shrink: 0;
+  padding: var(--sp-5) var(--sp-8);
+  padding-bottom: max(var(--sp-5), env(safe-area-inset-bottom));
+  background: #fff;
+  border-top: 1px solid var(--gray-200);
+  box-shadow: 0 -6px 18px rgba(var(--primary-dark-rgb), 0.06);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+}
+.kiosk-footer > .btn { width: auto; min-width: 220px; }
+.kiosk-footer-note { font-size: 13px; color: var(--gray-500); font-weight: 600; }
+.kiosk-footer.footer-single { justify-content: flex-end; }
+/* keep footer actions clear of the persistent Need help? button (bottom-right corner) */
+.kiosk-footer { padding-right: 216px; }
+.kiosk-footer.footer-single > .btn { min-width: 320px; }
+
+/* ==========================================================================
+   Idle "Still there?" banner
+   ========================================================================== */
+.idle-banner {
+  position: absolute;
+  left: var(--sp-4); right: var(--sp-4); top: 92px;
+  z-index: 20;
+  background: var(--tertiary);
+  color: #fff;
+  border-radius: var(--radius-md);
+  padding: var(--sp-3) var(--sp-4);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  box-shadow: var(--shadow-3);
+  transform: translateY(-12px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform var(--dur-transition) var(--ease-out), opacity var(--dur-transition) var(--ease-out);
+}
+.idle-banner.is-visible { transform: translateY(0); opacity: 1; pointer-events: auto; }
+.idle-banner p { font-size: var(--fs-caption); line-height: 1.4; flex: 1; }
+.idle-banner button {
+  background: #fff; color: var(--gray-900); border: none; border-radius: var(--radius-pill);
+  padding: var(--sp-2) var(--sp-3); font-weight: 700; font-size: 13px; cursor: pointer;
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--fs-body-lg);
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  min-height: var(--touch-min);
+  padding: 0 var(--sp-6);
+  transition: transform var(--dur-feedback) var(--ease-out), box-shadow var(--dur-feedback) var(--ease-out), background var(--dur-feedback) var(--ease-out), opacity var(--dur-feedback) var(--ease-out);
+  width: 100%;
+}
+.btn svg { width: 22px; height: 22px; }
+.btn:active { transform: translateY(1px) scale(0.99); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+.btn-huge { min-height: var(--touch-huge); font-size: 19px; }
+a.btn { text-decoration: none; }
+
+.btn-primary { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: #fff; box-shadow: var(--shadow-2); }
+.btn-primary:not(:disabled):hover { box-shadow: var(--shadow-3); }
+
+.btn-accent { background: var(--accent); color: #fff; box-shadow: var(--shadow-2); }
+.btn-accent:not(:disabled):hover { background: var(--accent-dark); }
+
+.btn-outline { background: #fff; color: var(--tertiary); border: 2px solid var(--tertiary-lightest); }
+.btn-outline:not(:disabled):hover { border-color: var(--primary); color: var(--primary-dark); }
+
+.btn-ghost { background: transparent; color: var(--gray-600); box-shadow: none; font-weight: 600; }
+.btn-ghost:not(:disabled):hover { color: var(--primary-dark); background: var(--gray-100); }
+
+/* ==========================================================================
+   Cards & surfaces
+   ========================================================================== */
+.card {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+  padding: var(--sp-6);
+}
+
+.stat-pill {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  background: var(--accent-50);
+  border: 1px solid var(--accent-100);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-3) var(--sp-4);
+}
+.stat-pill-icon {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--accent); color: #fff;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.stat-pill-icon svg { width: 20px; height: 20px; }
+.stat-pill-text { font-size: 14px; color: var(--gray-700); line-height: 1.35; }
+.stat-pill-text strong { color: var(--accent-dark); font-family: var(--font-heading); font-size: 16px; }
+
+/* ==========================================================================
+   Badges / tags
+   ========================================================================== */
+.badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: var(--radius-pill); font-size: 12px; font-weight: 700; }
+.badge-accent { background: var(--accent-50); color: var(--accent-dark); }
+.badge-primary { background: var(--primary-100); color: var(--primary-dark); }
+.badge-warning { background: var(--warning-bg); color: var(--warning); }
+.badge-success { background: var(--success-bg); color: var(--success); }
+.badge-neutral { background: var(--gray-100); color: var(--gray-600); }
+
+/* ==========================================================================
+   Forms
+   ========================================================================== */
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-family: var(--font-heading); font-size: 14px; font-weight: 600; color: var(--gray-800); }
+.field-hint { font-size: 12px; color: var(--gray-500); }
+.field-error { font-size: 12px; color: var(--warning); font-weight: 600; display: none; align-items: center; gap: 4px; }
+.field.has-error .field-error { display: flex; }
+.field.has-error input { border-color: var(--warning); background: var(--warning-bg); }
+
+input[type="text"], input[type="tel"], input[type="email"] {
+  min-height: var(--touch-min);
+  border-radius: var(--radius-md);
+  border: 2px solid var(--gray-200);
+  padding: 0 var(--sp-4);
+  font-size: 16px;
+  font-family: var(--font-body);
+  color: var(--gray-900);
+  background: #fff;
+  transition: border-color var(--dur-feedback) var(--ease-out);
+  width: 100%;
+}
+input::placeholder { color: var(--gray-400); }
+input:focus { border-color: var(--primary); outline: none; }
+
+/* Interest chips — multi-select checkbox group */
+.chip-group { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.chip {
+  display: inline-flex; align-items: center; gap: 7px;
+  min-height: 48px;
+  padding: 0 var(--sp-3);
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--gray-200);
+  background: #fff;
+  color: var(--gray-700);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+  transition: all var(--dur-feedback) var(--ease-out);
+}
+.chip svg { width: 18px; height: 18px; }
+.chip input { position: absolute; opacity: 0; pointer-events: none; }
+.chip.is-selected { background: var(--primary-50); border-color: var(--primary); color: var(--primary-dark); }
+.chip-check { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--gray-300); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.chip.is-selected .chip-check { background: var(--primary); border-color: var(--primary); color: #fff; }
+.chip.is-selected .chip-check svg { width: 12px; height: 12px; }
+
+/* Consent line */
+.consent-text { font-size: 12px; color: var(--gray-500); line-height: 1.5; }
+
+/* ==========================================================================
+   Catalog / search
+   ========================================================================== */
+.search-box { position: relative; }
+.search-box svg { position: absolute; left: var(--sp-4); top: 50%; transform: translateY(-50%); color: var(--gray-400); width: 20px; height: 20px; }
+.search-box input { padding-left: 46px; }
+
+.category-scroller { display: flex; gap: var(--sp-2); overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+.category-scroller::-webkit-scrollbar { display: none; }
+.category-chip {
+  flex-shrink: 0;
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 44px;
+  padding: 0 var(--sp-3);
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--gray-200);
+  background: #fff;
+  color: var(--gray-600);
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all var(--dur-feedback) var(--ease-out);
+}
+.category-chip svg { width: 16px; height: 16px; }
+.category-chip.is-active { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+.catalog-card {
+  display: flex;
+  gap: var(--sp-3);
+  background: #fff;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--gray-100);
+  box-shadow: var(--shadow-1);
+  padding: var(--sp-4);
+  transition: border-color var(--dur-feedback) var(--ease-out), box-shadow var(--dur-feedback) var(--ease-out);
+}
+.catalog-card.is-selected { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-50); }
+.catalog-icon {
+  width: 52px; height: 52px; border-radius: var(--radius-md); flex-shrink: 0;
+  background: var(--primary-50); color: var(--primary-dark);
+  display: flex; align-items: center; justify-content: center;
+}
+.catalog-icon svg { width: 26px; height: 26px; }
+.catalog-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.catalog-top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--sp-2); }
+.catalog-name { font-family: var(--font-heading); font-weight: 700; font-size: 15px; color: var(--gray-900); line-height: 1.3; }
+.catalog-desc { font-size: 13px; color: var(--gray-500); line-height: 1.45; }
+.catalog-bundle-includes { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+.catalog-bundle-includes span { color: var(--gray-700); font-weight: 600; }
+.catalog-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; gap: var(--sp-2); }
+.catalog-price { font-family: var(--font-heading); font-weight: 800; color: var(--primary-dark); font-size: 16px; }
+.catalog-price-original { font-size: 12px; color: var(--gray-400); text-decoration: line-through; font-weight: 600; margin-right: 4px; }
+.catalog-price-free { color: var(--accent-dark); }
+
+.select-btn {
+  min-height: var(--touch-min);
+  padding: 0 var(--sp-3);
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--gray-200);
+  background: #fff;
+  color: var(--gray-700);
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: all var(--dur-feedback) var(--ease-out);
+  white-space: nowrap;
+}
+.select-btn svg { width: 16px; height: 16px; }
+.select-btn.is-selected { background: var(--accent-dark); border-color: var(--accent-dark); color: #fff; }
+
+.empty-state { text-align: center; padding: var(--sp-12) var(--sp-4); color: var(--gray-500); display: flex; flex-direction: column; align-items: center; gap: var(--sp-2); }
+.empty-state svg { width: 40px; height: 40px; color: var(--gray-300); }
+
+/* Landscape catalog grid (Flow A Product Catalog) — replaces the old portrait
+   single-column stacked list now that there's room for 2-3 columns. */
+.catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: var(--sp-4); align-content: start; }
+
+/* Landscape outcome grid (Flow A Reserve & Collect) — the two outcome cards sit
+   side by side instead of stacked, now that width allows it. */
+.outcome-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); }
+@media (max-width: 900px) { .outcome-grid { grid-template-columns: 1fr; } }
+
+/* ==========================================================================
+   Order summary (screen #63)
+   ========================================================================== */
+.order-line { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-3) 0; border-bottom: 1px solid var(--gray-100); }
+.order-line:last-child { border-bottom: none; }
+.order-line-icon { width: 40px; height: 40px; border-radius: var(--radius-sm); background: var(--primary-50); color: var(--primary-dark); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.order-line-icon svg { width: 20px; height: 20px; }
+.order-line-body { flex: 1; min-width: 0; }
+.order-line-name { font-weight: 700; font-size: 14px; color: var(--gray-900); }
+.order-line-sub { font-size: 12px; color: var(--gray-500); }
+.order-line-price { font-family: var(--font-heading); font-weight: 700; color: var(--primary-dark); font-size: 14px; white-space: nowrap; }
+
+.order-total-row { display: flex; align-items: center; justify-content: space-between; padding-top: var(--sp-3); margin-top: var(--sp-1); border-top: 2px dashed var(--gray-200); }
+
+.outcome-card {
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--gray-200);
+  padding: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  cursor: pointer;
+  background: #fff;
+  transition: all var(--dur-feedback) var(--ease-out);
+}
+.outcome-card:hover { border-color: var(--primary); box-shadow: var(--shadow-1); }
+.outcome-card-icon { width: 44px; height: 44px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; }
+.outcome-card.outcome-counter .outcome-card-icon { background: var(--accent-50); color: var(--accent-dark); }
+.outcome-card.outcome-followup .outcome-card-icon { background: var(--primary-50); color: var(--primary-dark); }
+.outcome-card-icon svg { width: 22px; height: 22px; }
+.outcome-card-title { font-family: var(--font-heading); font-weight: 700; font-size: 15px; color: var(--gray-900); }
+.outcome-card-desc { font-size: 13px; color: var(--gray-500); line-height: 1.4; }
+
+/* ==========================================================================
+   Success states
+   ========================================================================== */
+.success-panel { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--sp-3); padding: var(--sp-4) 0; animation: successIn var(--dur-sequence) var(--ease-out); }
+@keyframes successIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.success-icon { width: 76px; height: 76px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.success-icon svg { width: 38px; height: 38px; }
+.success-panel.type-counter .success-icon { background: var(--accent-50); color: var(--accent-dark); }
+.success-panel.type-followup .success-icon { background: var(--primary-50); color: var(--primary-dark); }
+.success-code { font-family: var(--font-heading); font-weight: 800; font-size: 22px; letter-spacing: 0.04em; color: var(--primary-dark); background: var(--primary-50); border: 1px dashed var(--primary-100); border-radius: var(--radius-md); padding: var(--sp-2) var(--sp-4); }
+.success-desc { font-size: 14px; color: var(--gray-600); line-height: 1.5; max-width: 320px; }
+
+/* ==========================================================================
+   Loading state on buttons
+   ========================================================================== */
+.btn.is-loading { pointer-events: none; }
+.spinner { width: 18px; height: 18px; border-radius: 50%; border: 2.5px solid rgba(255,255,255,0.4); border-top-color: #fff; animation: spin 700ms linear infinite; }
+.btn-outline .spinner { border-color: rgba(var(--primary-dark-rgb),0.25); border-top-color: var(--primary-dark); }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ==========================================================================
+   Home screen — 5 tiles + persistent FAQ fab (v3 IA rebuild)
+   ========================================================================== */
+.home-hero { text-align: left; max-width: 720px; }
+.home-hero p { margin-top: var(--sp-2); color: var(--gray-600); font-size: var(--fs-body-lg); line-height: 1.5; }
+
+.home-stat-band {
+  display: inline-flex;
+  align-self: flex-start;
+}
+
+.home-tiles-row {
+  display: flex;
+  gap: var(--sp-5);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.home-tile {
+  flex: 1 1 300px;
+  max-width: 340px;
+  min-height: 250px;
+  background: #fff;
+  border: 2px solid var(--gray-100);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+  padding: var(--sp-6);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+  transition: transform var(--dur-feedback) var(--ease-out), box-shadow var(--dur-feedback) var(--ease-out), border-color var(--dur-feedback) var(--ease-out);
+}
+.home-tile:hover { transform: translateY(-3px); box-shadow: var(--shadow-2); border-color: var(--primary-light); }
+.home-tile-icon {
+  width: 64px; height: 64px; border-radius: var(--radius-md);
+  background: var(--primary-lightest); color: var(--primary-dark);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.home-tile-icon svg { width: 32px; height: 32px; }
+.home-tile:nth-child(even) .home-tile-icon,
+.home-tiles-row.row-secondary .home-tile:last-child .home-tile-icon { background: var(--secondary-lightest); color: var(--secondary); }
+.home-tile-title { font-family: var(--font-heading); font-size: 19px; font-weight: 700; color: var(--tertiary); }
+.home-tile-desc { font-size: 14px; color: var(--gray-600); line-height: 1.45; flex: 1; }
+.home-tile-cta { display: flex; align-items: center; gap: 6px; font-weight: 700; font-size: 14px; color: var(--primary-dark); margin-top: auto; }
+.home-tile-cta svg, .option-card-check svg, .empty-state svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.home-tile-cta svg { width: 18px; height: 18px; transition: transform var(--dur-feedback) var(--ease-out); }
+.home-tile:hover .home-tile-cta svg { transform: translateX(3px); }
+
+/* Persistent Need Help/FAQ corner button — fixed to the device shell, not
+   the viewport, so it survives scroll but stays scoped to this "device". */
+.faq-fab {
+  position: absolute;
+  right: var(--sp-6);
+  bottom: var(--sp-5);
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: var(--touch-huge);
+  padding: 0 var(--sp-5);
+  border-radius: var(--radius-pill);
+  border: none;
+  background: var(--tertiary);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: var(--shadow-2);
+  transition: transform var(--dur-feedback) var(--ease-out), box-shadow var(--dur-feedback) var(--ease-out);
+}
+.faq-fab svg { width: 22px; height: 22px; }
+.faq-fab:hover { transform: translateY(-2px); box-shadow: var(--shadow-3); }
+
+.faq-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  background: rgba(20, 16, 22, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-8);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-transition) var(--ease-out);
+}
+.faq-overlay.is-open { opacity: 1; pointer-events: auto; }
+.faq-panel {
+  width: min(760px, 100%);
+  max-height: 100%;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: translateY(14px);
+  transition: transform var(--dur-transition) var(--ease-out);
+}
+.faq-overlay.is-open .faq-panel { transform: translateY(0); }
+.faq-panel-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: var(--sp-5) var(--sp-6);
+  border-bottom: 1px solid var(--gray-100);
+  flex-shrink: 0;
+}
+.faq-panel-body { padding: var(--sp-4) var(--sp-6) var(--sp-6); overflow-y: auto; display: flex; flex-direction: column; gap: var(--sp-2); }
+.faq-close-btn {
+  width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--gray-200);
+  background: #fff; color: var(--gray-600); display: flex; align-items: center; justify-content: center; cursor: pointer;
+  flex-shrink: 0;
+}
+.faq-close-btn svg { width: 20px; height: 20px; }
+
+.faq-item { border-bottom: 1px solid var(--gray-100); }
+.faq-item:last-child { border-bottom: none; }
+.faq-question {
+  width: 100%; text-align: left; background: none; border: none; cursor: pointer;
+  min-height: var(--touch-min);
+  padding: var(--sp-3) 0;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3);
+  font-family: var(--font-heading); font-weight: 700; font-size: 15px; color: var(--tertiary);
+}
+.faq-question svg { width: 20px; height: 20px; color: var(--gray-400); flex-shrink: 0; transition: transform var(--dur-transition) var(--ease-out); }
+.faq-item.is-open .faq-question svg { transform: rotate(180deg); color: var(--primary); }
+.faq-answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--dur-transition) var(--ease-out); }
+.faq-answer-inner { overflow: hidden; }
+.faq-item.is-open .faq-answer { grid-template-rows: 1fr; }
+.faq-answer p { font-size: 14px; color: var(--gray-600); line-height: 1.55; padding-bottom: var(--sp-4); }
+.faq-staff-note {
+  margin-top: var(--sp-2);
+  display: flex; align-items: center; gap: var(--sp-3);
+  background: var(--primary-lightest);
+  border-radius: var(--radius-md);
+  padding: var(--sp-4);
+  flex-shrink: 0;
+}
+.faq-staff-note svg { width: 24px; height: 24px; color: var(--primary-dark); flex-shrink: 0; }
+.faq-staff-note p { font-size: 13.5px; color: var(--tertiary); line-height: 1.5; }
+.faq-staff-note strong { color: var(--primary-dark); }
+
+/* ==========================================================================
+   Wizard steps — two-column layout (side context panel + form panel),
+   reused by Schedule a Visit / Maternity Package Sign-up / Birth & Parenting Classes / Member Enrollment
+   ========================================================================== */
+.wizard-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: var(--sp-6);
+  align-items: start;
+}
+.wizard-side {
+  background: var(--primary-lightest);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  position: sticky;
+  top: 0;
+}
+.wizard-side-icon {
+  width: 56px; height: 56px; border-radius: var(--radius-md);
+  background: #fff; color: var(--primary-dark);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-1);
+}
+.wizard-side-icon svg { width: 28px; height: 28px; }
+.wizard-side h2 { font-size: 18px; }
+.wizard-side p { font-size: 13.5px; color: var(--tertiary-light); line-height: 1.55; }
+.wizard-side-list { display: flex; flex-direction: column; gap: var(--sp-2); margin-top: var(--sp-2); }
+.wizard-side-list-item { display: flex; align-items: center; gap: var(--sp-2); font-size: 13px; color: var(--tertiary); }
+.wizard-side-list-item svg { width: 16px; height: 16px; color: var(--secondary); flex-shrink: 0; }
+.wizard-main { display: flex; flex-direction: column; gap: var(--sp-5); min-width: 0; }
+
+/* Option cards — Flow C/D/E step 1 "choose a path" selection */
+.option-card-group { display: flex; flex-direction: column; gap: var(--sp-3); }
+.option-card {
+  position: relative;
+  display: flex;
+  gap: var(--sp-4);
+  align-items: flex-start;
+  background: #fff;
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-5);
+  cursor: pointer;
+  transition: all var(--dur-feedback) var(--ease-out);
+}
+.option-card:hover { border-color: var(--primary-light); }
+.option-card.is-selected { border-color: var(--primary); background: var(--primary-lightest); }
+.option-card input { position: absolute; opacity: 0; pointer-events: none; }
+.option-card-icon { width: 48px; height: 48px; border-radius: var(--radius-md); background: var(--primary-lightest); color: var(--primary-dark); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.option-card.is-selected .option-card-icon { background: var(--primary); color: #fff; }
+.option-card-icon svg { width: 24px; height: 24px; }
+.option-card-body { flex: 1; }
+.option-card-title { font-family: var(--font-heading); font-weight: 700; font-size: 16px; color: var(--tertiary); }
+.option-card-desc { font-size: 13.5px; color: var(--gray-600); margin-top: 4px; line-height: 1.5; }
+.option-card-check { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--gray-300); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.option-card-check svg { width: 14px; height: 14px; color: #fff; }
+.option-card.is-selected .option-card-check { background: var(--primary); border-color: var(--primary); }
+
+/* Slot picker — ward visit / parenting class session date+time grid */
+.slot-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: var(--sp-3); }
+.slot-chip {
+  min-height: var(--touch-huge);
+  border-radius: var(--radius-md);
+  border: 2px solid var(--gray-200);
+  background: #fff;
+  padding: var(--sp-3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all var(--dur-feedback) var(--ease-out);
+  text-align: center;
+}
+.slot-chip:hover:not(.is-full) { border-color: var(--primary-light); }
+.slot-chip.is-selected { border-color: var(--primary); background: var(--primary-lightest); box-shadow: 0 0 0 3px var(--primary-100); }
+.slot-chip.is-full { opacity: 0.45; cursor: not-allowed; }
+.slot-chip-date { font-family: var(--font-heading); font-weight: 700; font-size: 14px; color: var(--tertiary); }
+.slot-chip-time { font-size: 13px; color: var(--gray-600); }
+.slot-chip-cap { font-size: 11px; color: var(--gray-400); font-weight: 600; }
+.slot-chip.is-selected .slot-chip-cap { color: var(--primary-dark); }
+
+/* Yes/No toggle group (QnA steps) */
+.yesno-group { display: flex; gap: var(--sp-3); }
+.yesno-btn {
+  flex: 1;
+  min-height: var(--touch-min);
+  border-radius: var(--radius-md);
+  border: 2px solid var(--gray-200);
+  background: #fff;
+  color: var(--gray-700);
+  font-weight: 700;
+  font-family: var(--font-heading);
+  cursor: pointer;
+  transition: all var(--dur-feedback) var(--ease-out);
+}
+.yesno-btn.is-selected { border-color: var(--primary); background: var(--primary-lightest); color: var(--primary-dark); }
+
+.info-note {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  background: var(--secondary-lightest);
+  border-radius: var(--radius-md);
+  padding: var(--sp-4);
+}
+.info-note svg { width: 20px; height: 20px; color: var(--secondary); flex-shrink: 0; margin-top: 1px; }
+.info-note p { font-size: 13.5px; color: var(--tertiary); line-height: 1.5; }
+.info-note strong { color: var(--accent-dark); }
+
+/* Cross-sell card — confirmation steps linking to another flow */
+.crosssell-card {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  background: var(--primary-lightest);
+  border: 1px dashed var(--primary-light);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-4) var(--sp-5);
+  width: 100%;
+}
+.crosssell-icon { width: 48px; height: 48px; border-radius: var(--radius-md); background: #fff; color: var(--primary-dark); display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: var(--shadow-1); }
+.crosssell-icon svg { width: 24px; height: 24px; }
+.crosssell-body { flex: 1; text-align: left; }
+.crosssell-title { font-family: var(--font-heading); font-weight: 700; font-size: 14.5px; color: var(--tertiary); }
+.crosssell-desc { font-size: 12.5px; color: var(--gray-600); margin-top: 2px; }
+
+/* Recap list — confirmation step detail rows */
+.recap-list { width: 100%; text-align: left; background: var(--gray-50); border-radius: var(--radius-md); padding: var(--sp-4) var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-2); }
+.recap-row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-3); padding: 6px 0; border-bottom: 1px solid var(--gray-200); }
+.recap-row:last-child { border-bottom: none; }
+.recap-label { font-size: 13px; color: var(--gray-500); font-weight: 600; }
+.recap-value { font-size: 14px; color: var(--tertiary); font-weight: 700; text-align: right; }
+
+/* ==========================================================================
+   Responsive fallback — below the 1280px landscape-tablet floor (e.g. a
+   reviewer's laptop window narrower than the target kiosk device); the
+   two-column wizard/side-panel layout collapses to a single column and the
+   home tile rows wrap naturally via flex-wrap already set above.
+   ========================================================================== */
+@media (max-width: 900px) {
+  .kiosk-device { width: 100%; height: 100vh; border-radius: 0; box-shadow: none; }
+  .wizard-layout { grid-template-columns: 1fr; }
+  .wizard-side { position: static; }
+  .kiosk-footer { flex-wrap: wrap; padding-right: var(--sp-4); padding-left: var(--sp-4); }
+  .kiosk-footer > .btn, .kiosk-footer.footer-single > .btn { min-width: 0; flex: 1 1 auto; }
+  /* phone-width review: on screens with footer actions the help button becomes an icon in the top bar
+     (the decorative idle ring makes room for it) */
+  .kiosk-idle-ring { display: none; }
+  .kiosk-footer ~ .faq-fab { bottom: auto; top: 20px; right: 76px; width: 44px; min-height: 44px; padding: 0; justify-content: center; gap: 0; font-size: 0; }
+  .kiosk-device:not(:has(.kiosk-home-btn)) .kiosk-footer ~ .faq-fab { top: 13px; right: var(--sp-4); }
+  .kiosk-topbar { padding-left: var(--sp-4); padding-right: var(--sp-4); }
+}

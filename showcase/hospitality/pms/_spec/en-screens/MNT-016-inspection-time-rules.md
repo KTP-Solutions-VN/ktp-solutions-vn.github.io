@@ -1,8 +1,8 @@
-# MNT-016 — Inspection Time Rules
+# MNT-016 — Inspection SLAs
 
 **Type:** Full page
 **Route:** maintenance/inspection
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Screen for configuring maturity days for the villa inspection process, per business unit — applied to 3 issue statuses: New (newly detected), Seen (reviewed), OK (fully resolved). Each business unit can have only one rule set configured.
@@ -34,5 +34,5 @@ Screen for configuring maturity days for the villa inspection process, per busin
 - **View** (icon): opens MNT-016-P2 — View Rule.
 
 ## Navigation
-- Entered from: Settings/Maintenance menu in the sidebar.
+- Entered from: Repair Desk settings menu in the sidebar.
 - Navigates to: MNT-016-P1 (Edit), MNT-016-P2 (View).

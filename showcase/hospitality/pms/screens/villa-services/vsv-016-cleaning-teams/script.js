@@ -11,8 +11,8 @@
     if (localStorage.getItem(STORAGE_KEY)) return;
     var seed = {};
     seed[TODAY] = [
-      { id: 'CT-01', bu: 'Phuket Collection', teamName: 'Phuket Team A', cleaners: ['CLN-01', 'CLN-02'], vehicle: 'Truck 01 (Phuket)' },
-      { id: 'CT-02', bu: 'Bali Retreats', teamName: 'Bali Team A', cleaners: ['CLN-03'], vehicle: 'Van 01 (Bali)' }
+      { id: 'CT-01', bu: 'Sentosa Collection', teamName: 'Sentosa Team A', cleaners: ['CLN-01', 'CLN-02'], vehicle: 'Truck 01 (Sentosa)' },
+      { id: 'CT-02', bu: 'Byron Bay Retreats', teamName: 'Byron Bay Team A', cleaners: ['CLN-03'], vehicle: 'Van 01 (Byron Bay)' }
     ];
     saveAll(seed);
   }

@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     return;
   }
 
-  document.getElementById('bk-title').textContent = 'Edit Booking ' + b.id;
+  document.getElementById('bk-title').textContent = 'Modify Reservation ' + b.id;
   document.getElementById('bk-subtitle').textContent = b.property + ' · ' + b.guest;
   document.getElementById('details-link').href = '../book-028-booking-details-full/index.html?id=' + encodeURIComponent(b.id);
 

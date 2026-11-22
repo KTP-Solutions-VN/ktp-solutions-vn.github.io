@@ -1,10 +1,10 @@
-# BU-010-P2 — Delete Payment Method Confirmation Popup
+# BU-010-P2 — Confirm Method Deletion
 
 **Type:** Popup (opened from BU-010, Payment Methods tab)
 
 **Route:** Bootstrap modal (`#exampleModalDeletePM`) in the `business-unit/main_list.ctp` element; submitted via AJAX to the `BusinessUnitController::paymentMethod()` action with `action=delete`.
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A confirmation popup shown before permanently deleting a payment method.

@@ -61,7 +61,7 @@
         var seenDays = parseInt(document.getElementById('add-seen').value, 10) || 0;
         var okDays = parseInt(document.getElementById('add-ok').value, 10) || 0;
         checked.forEach(function (bu) {
-          list.push({ id: MM.uid('insr'), businessUnit: bu, properties: villasForBu(bu), newDays: newDays, seenDays: seenDays, okDays: okDays, createdBy: 'Somchai A.', updatedAt: new Date().toISOString().slice(0, 10) });
+          list.push({ id: MM.uid('insr'), businessUnit: bu, properties: villasForBu(bu), newDays: newDays, seenDays: seenDays, okDays: okDays, createdBy: 'Daniel T.', updatedAt: new Date().toISOString().slice(0, 10) });
         });
         MNT.saveInspectionRules(list);
         MM.closeModal('add-modal');

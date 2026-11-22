@@ -1,10 +1,10 @@
-# CS-005-P1 — Add/Edit/Delete District Popup
+# CS-005-P1 — District Form
 
 **Type:** Popup (opened from CS-005)
 
 **Route:** Bootstrap Modal (`#exampleModal`) within `districts.ctp`; submits to the same action `CommonSettingController::districts()`; duplicate name check via AJAX `checkDistrict()` — `/common-setting/check-district`; loads Region based on Country via AJAX `getData()` — `/common-setting/get-data`.
 
-**Module:** CS = Common Lookup Settings
+**Module:** CS = Reference Data
 
 ## Overview
 A shared popup for Adding/Editing/Deleting a District.
@@ -24,5 +24,5 @@ A shared popup for Adding/Editing/Deleting a District.
 - **Cancel:** closes the modal.
 
 ## Navigation
-- Opened from: CS-005 (District list).
+- Opened from: CS-005 (District Setup).
 - After submission: returns to CS-005 with a flash message.

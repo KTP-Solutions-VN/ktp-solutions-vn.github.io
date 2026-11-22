@@ -1,8 +1,8 @@
-# MNT-013-P1 — Thêm dịch vụ cải tạo
+# MNT-013-P1 — Thêm loại nâng cấp (New Refurbishment Type)
 
 **Loại:** Popup (mở từ MNT-013)
 **Route:** maintenance/addRenovationService
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Trang thêm mới một dịch vụ cải tạo: tên, ảnh minh họa (crop 1:1), đơn vị kinh doanh áp dụng, trạng thái.
@@ -21,5 +21,5 @@ Trang thêm mới một dịch vụ cải tạo: tên, ảnh minh họa (crop 1:
 - **Cancel**: quay về MNT-013.
 
 ## Điều hướng
-- Vào từ: nút "Add New" trên MNT-013 — Dịch vụ cải tạo.
+- Vào từ: nút "Add New" trên MNT-013 — Loại hạng mục nâng cấp.
 - Đi tới: sau khi Save, quay về MNT-013.

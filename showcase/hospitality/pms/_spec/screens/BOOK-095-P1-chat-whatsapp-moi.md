@@ -1,4 +1,4 @@
-# BOOK-095-P1 — Chat WhatsApp (bản mới)
+# BOOK-095-P1 — Luồng chat (Chat Thread)
 
 **Loại:** Trang đầy đủ (mở từ BOOK-095, mở tab mới)
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** `/VM/booking/whatsapp-chat-new/:booking_id` (dùng trực tiếp trong link tại view, không khai báo trong config/Routes.php)
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 
@@ -31,5 +31,5 @@ Bản nâng cấp của BOOK-094-P1: cửa sổ chat WhatsApp với khách, có 
 
 ## Điều hướng
 
-- Mở từ BOOK-095 (WhatsApp Manager bản mới) bằng nút Chat, mở trong tab trình duyệt mới.
+- Mở từ BOOK-095 (Chat Inbox) bằng nút Chat, mở trong tab trình duyệt mới.
 - Không có điều hướng tiếp; đóng tab để quay lại BOOK-095.

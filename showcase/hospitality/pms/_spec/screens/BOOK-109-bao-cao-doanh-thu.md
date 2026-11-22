@@ -1,4 +1,4 @@
-# BOOK-109 — Báo cáo doanh thu (Revenue Report)
+# BOOK-109 — Phân tích doanh thu (Revenue Breakdown)
 
 **Loại:** Trang đầy đủ
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 
@@ -26,7 +26,7 @@ Báo cáo doanh thu hàng tháng tổng hợp theo Công ty (Company) → Chi nh
 
 Nút "Calculate" submit form để tải lại báo cáo theo bộ lọc (GET).
 
-Nếu các tháng đã chọn chưa có bảng giá (`Rate`) tương ứng → hiển thị cảnh báo thiếu giá và có thể trỏ tới BOOK-027 (Villa thiếu giá thuê) / BOOK-... (Missing Rate Setting).
+Nếu các tháng đã chọn chưa có bảng giá (`Rate`) tương ứng → hiển thị cảnh báo thiếu giá và có thể trỏ tới BOOK-027 (Tài sản chưa có giá) / BOOK-... (Unpriced Alert Threshold).
 
 **Bảng báo cáo (nhóm theo Company/Subsidiary, có thể mở rộng xem theo từng Villa):**
 

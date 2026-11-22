@@ -1,8 +1,8 @@
-# OPR-012 — Xem kết quả kiểm tra đã hoàn thành
+# OPR-012 — Kết quả kiểm tra tình trạng (Condition Check Results)
 
 **Loại:** Trang đầy đủ
 **Route:** operator/inspectionView?id= + route đẹp dạng dashed: operator/inspection-view
-**Module:** OPR = Vận hành vườn/hồ bơi
+**Module:** OPR = Công việc bảo dưỡng
 
 ## Mô tả ngắn gọn
 Màn hình chỉ xem (read-only) toàn bộ kết quả của một lượt kiểm tra villa đã hoàn thành: danh sách các điểm kiểm tra kèm ảnh minh chứng, hạng mục, khu vực và mô tả.
@@ -18,5 +18,5 @@ Màn hình chỉ xem (read-only) toàn bộ kết quả của một lượt ki�
 - Chỉ xem; không có hành động chỉnh sửa dữ liệu trên màn hình này (dùng để xem lại lịch sử/tải báo cáo).
 
 ## Điều hướng
-- Vào từ: icon "Xem" (mắt) tại OPR-010 — Danh sách kiểm tra villa (áp dụng cho bản ghi đã hoàn thành).
+- Vào từ: icon "Xem" (mắt) tại OPR-010 — Kiểm tra tình trạng (áp dụng cho bản ghi đã hoàn thành).
 - Đi tới: không có điều hướng tiếp; quay lại OPR-010 bằng nút back trình duyệt.

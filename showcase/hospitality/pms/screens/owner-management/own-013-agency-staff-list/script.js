@@ -5,7 +5,7 @@
   var editingId = null;
 
   var STAFF_SEED = [
-    { id: 'as1', name: 'Ananya Suksawat', agency: 'Andaman Villas Group', role: 'Property Manager', email: 'ananya@andamanvillas.example.com' },
+    { id: 'as1', name: 'Annabel Soh', agency: 'Coral Coast Villas Group', role: 'Property Manager', email: 'annabel@coralcoastvillas.example.com' },
     { id: 'as2', name: 'Nikos Papadakis', agency: 'Aegean Retreats', role: 'Reservations Lead', email: 'nikos@aegeanretreats.example.com' }
   ];
 
@@ -28,7 +28,7 @@
 
   function openDrawer(staff) {
     editingId = staff ? staff.id : null;
-    document.getElementById('staff-drawer-title').textContent = staff ? 'Edit Agency Staff' : 'Add New Agency Staff';
+    document.getElementById('staff-drawer-title').textContent = staff ? 'Edit Agency User' : 'Add Agency User';
     document.getElementById('staff-save-btn').textContent = staff ? 'Save Changes' : 'Create Staff Account';
     document.getElementById('staff-form').reset();
     if (staff) {

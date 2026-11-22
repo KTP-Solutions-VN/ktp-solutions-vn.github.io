@@ -1,10 +1,10 @@
-# USR-003 — System Settings
+# USR-003 — Site & SEO Settings
 
 **Type:** Full page
 
 **Route:** `UserController` inherits `LoginController::settings()` — default `user/settings` (no dedicated friendly route; already commented out in `config/Routes.php`)
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 Shares the same logic and the same `settings()` method as LOG-003, but is accessed via the `User` controller and therefore renders its own template (`Template/User/settings.ctp`). Used to configure general system information (site title, SEO, admin email, etc.).

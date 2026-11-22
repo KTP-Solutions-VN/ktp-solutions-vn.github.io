@@ -1,10 +1,10 @@
-# INV-001-P1 — Adjust / Delete Stock
+# INV-001-P1 — Adjust or Remove Stock
 
 **Type:** Popup (opened from INV-001)
 
 **Route:** Submits via POST to `InventoryController::list()` (`/inventory/list`, field `action` = `add-more` | `sub-more` | `delete`). A single modal is shared across all 3 actions.
 
-**Module:** INV = Inventory
+**Module:** INV = Stock Control
 
 ## Overview
 A modal for increasing/decreasing a stock quantity or permanently deleting a stock record (`InventoryStock`), opened from the (+)/(-)/Delete buttons on INV-001.

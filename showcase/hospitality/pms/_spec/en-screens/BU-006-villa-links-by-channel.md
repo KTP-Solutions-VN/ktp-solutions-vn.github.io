@@ -1,10 +1,10 @@
-# BU-006 — Villa Links by Channel
+# BU-006 — Channel Listing Links
 
 **Type:** Full page
 
 **Route:** `BusinessUnitController::channelVilla($channel_id)` — default `/business-unit/channel-villa/{channel_id}`
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A grid (card) view listing the villas of a business unit, together with the OTA link (ota_link) corresponding to the currently selected channel — used for quickly cross-checking villa links on the OTA channel. Opened in a new tab from BU-005/BU-007.

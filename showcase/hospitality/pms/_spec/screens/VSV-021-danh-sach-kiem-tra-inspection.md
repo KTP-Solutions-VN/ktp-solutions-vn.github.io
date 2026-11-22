@@ -1,10 +1,10 @@
-# VSV-021 — Danh sách kiểm tra villa (Inspection)
+# VSV-021 — Báo cáo kiểm tra (Inspection Reports)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `VillaServicesController::inspection()` — mặc định `/villa-services/inspection`; dữ liệu bảng tải qua AJAX `inspectionAjax`/`inspectionDetailAjax`
 
-**Module:** Dịch vụ villa — Kiểm tra (Inspection)
+**Module:** Dịch vụ lưu trú — Kiểm tra
 
 ## Mô tả ngắn gọn
 Danh sách các báo cáo kiểm tra (inspection) villa theo đơn vị kinh doanh/villa, cho phép xem/sửa/ tiếp tục thực hiện báo cáo, cấp quyền xem cho chủ nhà, lưu trữ (archive) hoặc xóa báo cáo.
@@ -42,5 +42,5 @@ Mỗi dòng có thể mở rộng (expand) hiển thị bảng con theo từng d
 - **Delete** (`delete-inspection`): xác nhận rồi gọi AJAX xóa báo cáo (`deleteInspectionreport`/`deleteInspection`).
 
 ## Điều hướng
-- Vào từ: Menu chính (mục Inspection).
+- Vào từ: Menu chính (mục Inspection Reports).
 - Điều hướng đến: VSV-021-P1 (Xem chi tiết kiểm tra), VSV-022 (Sửa thiết lập kiểm tra), VSV-022-P1 (Thực hiện/sửa tiến trình kiểm tra).

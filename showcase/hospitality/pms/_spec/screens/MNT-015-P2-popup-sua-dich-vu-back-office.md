@@ -1,8 +1,8 @@
-# MNT-015-P2 — Sửa dịch vụ Back Office
+# MNT-015-P2 — Sửa loại dịch vụ hành chính (Edit Admin Service Type)
 
 **Loại:** Popup (mở từ MNT-015)
 **Route:** maintenance/editBackOfficeServices/:id
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Trang chỉnh sửa một dịch vụ back-office đã có: tên, ảnh minh họa, đơn vị kinh doanh áp dụng, trạng thái.
@@ -21,5 +21,5 @@ Trang chỉnh sửa một dịch vụ back-office đã có: tên, ảnh minh h�
 - **Cancel**: quay về MNT-015.
 
 ## Điều hướng
-- Vào từ: icon Sửa trên MNT-015 — Dịch vụ Back Office.
+- Vào từ: icon Sửa trên MNT-015 — Loại dịch vụ hành chính.
 - Đi tới: sau khi Save, quay về MNT-015.

@@ -1,10 +1,10 @@
-# CMS-029 — Add/Edit I Wish Form
+# CMS-029 — Wishlist Item Editor
 
 **Type:** Full page
 
 **Route:** `CmsController::iWishEdit($id)` — default `/cms/i-wish-edit/:id`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 Form for adding a new or editing an existing "I Wish" item: title, two content sections per language, and up to 3 illustrative images. No `$id` → add mode (page title "Add"); `$id` present → edit mode (page title "Edit").
@@ -39,4 +39,4 @@ When editing (`$id` is not null), existing data is loaded and the `text_1` and `
 ## Navigation
 - Accessed from: CMS-028 (the "Add New" button or the "Edit" link on each row).
 - Navigates to: returns to CMS-028 after Save (success or error).
-- Related: the breadcrumb on the page links back to Settings and Common Texts/I Wish (CMS-028); I Wish items created/edited here are used as the source for the On/Off toggle list on the "I Wish" tab of CMS-023 (villa collection tabs) and the AJAX action `addIwish()` — there is no direct back-and-forth navigation, but both share the same `GuestCollectionIwish` data table.
+- Related: the breadcrumb on the page links back to Settings and Shared Content Blocks/Experience Wishlist (CMS-028); I Wish items created/edited here are used as the source for the On/Off toggle list on the "Wishlist" tab of CMS-023 (villa collection tabs) and the AJAX action `addIwish()` — there is no direct back-and-forth navigation, but both share the same `GuestCollectionIwish` data table.

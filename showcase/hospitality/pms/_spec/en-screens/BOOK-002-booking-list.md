@@ -1,7 +1,7 @@
-# BOOK-002 — Booking List
+# BOOK-002 — All Reservations
 **Type:** Full page
 **Route:** Booking/bookingList (default: `/booking/booking-list`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 A screen for looking up/searching the list of bookings by check-in date, allowing filtering by business unit, villa, and guest name. Results are displayed in a table grouped by villa/business unit, with quick action buttons: edit, view details, download booking PDF.
@@ -37,6 +37,6 @@ A screen for looking up/searching the list of bookings by check-in date, allowin
 - Download the booking information PDF file (`downloadBookingPdf` action, with no dedicated screen — simply a file download action)
 
 ## Navigation
-- Opened from: Booking module menu ("Booking List")
-- Navigates to: BOOK-010 (Edit Booking — Edit button), BOOK-002-P1 (Booking Quick View — View Details button)
+- Opened from: Reservations module menu ("All Reservations")
+- Navigates to: BOOK-010 (Modify Reservation — Edit button), BOOK-002-P1 (Reservation Preview — View Details button)
 - Sub-popups: none (viewBooking opens as a standalone page — see the note in BOOK-002-P1)

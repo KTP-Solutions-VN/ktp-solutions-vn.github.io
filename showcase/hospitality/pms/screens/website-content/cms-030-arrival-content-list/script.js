@@ -4,7 +4,7 @@
   var ADDED_KEY = 'mm_cms_arrivals_added';
   var EDITS_KEY = 'mm_cms_arrivals_edits';
   var DELETED_KEY = 'mm_cms_arrivals_deleted';
-  var LANGS = [{ code: 'en', name: 'English' }, { code: 'fr', name: 'French' }, { code: 'th', name: 'Thai' }];
+  var LANGS = [{ code: 'en', name: 'English' }, { code: 'fr', name: 'French' }, { code: 'zh', name: 'Chinese' }];
   var FIELD_MAP = [
     ['airport_text', 'field-airport'],
     ['pier_text', 'field-pier'],
@@ -127,7 +127,7 @@
     function openDrawer(item) {
       editingId = item ? item.id : null;
       editingItem = item || null;
-      document.getElementById('arrival-drawer-title').textContent = item ? 'Edit Arrival Content' : 'Add Arrival Content';
+      document.getElementById('arrival-drawer-title').textContent = item ? 'Edit Getting-There Guide' : 'Add Getting-There Guide';
       document.getElementById('save-btn').textContent = item ? 'Save Changes' : 'Save';
       document.getElementById('arrival-form').reset();
 

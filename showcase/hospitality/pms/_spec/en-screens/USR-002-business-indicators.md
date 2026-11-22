@@ -1,10 +1,10 @@
-# USR-002 — Business Indicators
+# USR-002 — Revenue Scorecard
 
 **Type:** Full page
 
 **Route:** `UserController::indicators()` — default `user/indicators`
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 A revenue reporting/chart screen (past and future) segmented by business unit, sales channel, revenue type, and date range, for Superadmin/Admin/Business Unit Manager to track villa business performance. Data is aggregated from bookings and converted using the reference currency.
@@ -28,5 +28,5 @@ Results are displayed as a monthly chart/table: past revenue (`past_amount`), fu
 - No add/edit/delete functionality — this is a read-only report screen.
 
 ## Navigation
-- Entry point: main menu (Indicators item), after login.
+- Entry point: main menu (Revenue Scorecard item), after login.
 - Navigates to: no child navigation.

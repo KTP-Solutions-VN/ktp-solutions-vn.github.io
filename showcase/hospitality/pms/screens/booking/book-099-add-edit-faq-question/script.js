@@ -24,10 +24,10 @@
   var existing = editId ? BOOK.getFaqQuestionById(editId) : null;
 
   if (existing) {
-    document.getElementById('page-title').textContent = 'Edit FAQ Question';
-    document.getElementById('crumb-current').textContent = 'Edit FAQ Question';
+    document.getElementById('page-title').textContent = 'Edit Knowledge Article';
+    document.getElementById('crumb-current').textContent = 'Edit Knowledge Article';
     document.getElementById('page-subtitle').textContent = 'Update the question, its answer, and applicable business units.';
-    document.title = 'Edit FAQ Question — Azura Manager';
+    document.title = 'Edit Knowledge Article — Azura Manager';
     document.getElementById('f-id').value = existing.id;
     catSelect.value = existing.categoryId || '';
     langSelect.value = existing.language || '';

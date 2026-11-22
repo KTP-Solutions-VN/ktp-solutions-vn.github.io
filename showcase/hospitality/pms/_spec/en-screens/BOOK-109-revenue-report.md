@@ -1,4 +1,4 @@
-# BOOK-109 — Revenue Report
+# BOOK-109 — Revenue Breakdown
 
 **Type:** Full page
 
@@ -6,7 +6,7 @@
 
 **Friendly route:** no dedicated route found in config/Routes.php
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 
@@ -26,7 +26,7 @@ Monthly revenue report aggregated by Company → Subsidiary → Villa, based on 
 
 The "Calculate" button submits the form to reload the report based on the filters (GET).
 
-If the selected months do not yet have a corresponding rate configured (`Rate`), a missing-rate warning is displayed, which may link to BOOK-027 (Villas Missing Rental Rates) / BOOK-... (Missing Rate Setting).
+If the selected months do not yet have a corresponding rate configured (`Rate`), a missing-rate warning is displayed, which may link to BOOK-027 (Unpriced Properties) / BOOK-... (Unpriced Alert Threshold).
 
 **Report Table (grouped by Company/Subsidiary, expandable to view by Villa):**
 

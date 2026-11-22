@@ -1,8 +1,8 @@
-# OPR-008 — Thực hiện dọn dẹp theo điểm kiểm tra
+# OPR-008 — Danh mục kiểm dọn phòng (Housekeeping Checklist)
 
 **Loại:** Trang đầy đủ
 **Route:** operator/cleaningDetails?id=&last_id= + route đẹp dạng dashed: operator/cleaning-details
-**Module:** OPR = Vận hành vườn/hồ bơi
+**Module:** OPR = Công việc bảo dưỡng
 
 ## Mô tả ngắn gọn
 Màn hình wizard từng bước (point-by-point) cho nhân viên dọn dẹp thực hiện các hạng mục vệ sinh của một lượt `Cleaning`: mỗi điểm kiểm tra yêu cầu chụp ảnh minh chứng, có thể Next sang điểm kế tiếp, Back về điểm trước, Reset lại điểm hiện tại, hoặc Finish để kết thúc toàn bộ lượt dọn dẹp.
@@ -26,4 +26,4 @@ Màn hình wizard từng bước (point-by-point) cho nhân viên dọn dẹp th
 
 ## Điều hướng
 - Vào từ: OPR-007 (bấm Start) hoặc tiếp tục một lượt dọn dẹp dở dang từ danh sách.
-- Đi tới: sau khi Finish, quay về OPR-007 — Danh sách dọn dẹp.
+- Đi tới: sau khi Finish, quay về OPR-007 — Lượt dọn phòng.

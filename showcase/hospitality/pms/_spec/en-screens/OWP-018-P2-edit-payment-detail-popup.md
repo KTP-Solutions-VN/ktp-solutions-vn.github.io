@@ -1,10 +1,10 @@
-# OWP-018-P2 — Edit Payment Detail Popup
+# OWP-018-P2 — Edit Payout Account
 
 **Type:** Popup (opened from OWP-018)
 
 **Route:** `ExternalUserController::editPaymentDetail($id)` — no dedicated friendly route, opened from the edit icon on OWP-018 (default `/external-user/edit-payment-detail/{id}`)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 

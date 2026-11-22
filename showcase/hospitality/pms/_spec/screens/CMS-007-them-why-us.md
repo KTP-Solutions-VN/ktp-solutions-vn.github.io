@@ -1,10 +1,10 @@
-# CMS-007 — Thêm "Why Us"
+# CMS-007 — Thêm lợi ích đặt trực tiếp (New Book-Direct Benefit)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::whyUsAdd()` — mặc định `/cms/why-us-add`
 
-**Module:** CMS = Nội dung trang chủ villa
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Form thêm mới một mục "Why Us" gồm tiêu đề, ảnh minh hoạ và đoạn mô tả ngắn đa ngôn ngữ.

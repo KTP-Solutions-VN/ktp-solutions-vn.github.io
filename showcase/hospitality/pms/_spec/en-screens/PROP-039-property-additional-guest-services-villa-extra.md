@@ -1,8 +1,8 @@
-# PROP-039 — Property Additional Guest Services (Villa Extra)
+# PROP-039 — Guest Extras
 
 **Type:** Full page
 **Route:** property/villa-extras/:villa_id (villa_id passed base64-encoded), opened from PROP-021 ("Villa Extra" icon)
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Page for declaring descriptions of additional guest services/amenities for a property, by language: kids' services, vehicle rental, chef, breakfast, deliveries, excursions, and other extras. Data is stored in the `VillaExtra` table, with each field serialized by language code.
@@ -24,6 +24,6 @@ Page for declaring descriptions of additional guest services/amenities for a pro
 - Changing the language — updates the textareas with the content saved for that language (JS, no page reload).
 
 ## Navigation
-- Opened from: PROP-021 (Properties Pending Onboarding Action List) — "Villa Extra" icon.
+- Opened from: PROP-021 (Go-Live Blockers) — "Villa Extra" icon.
 - Navigates to: none (saves in place and redirects back to itself).
 - Child popup: none.

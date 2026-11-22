@@ -4,9 +4,9 @@
   var LS_KEY = 'mm_bu_currencies';
 
   var MOCK_CURRENCIES = [
-    { id: 'cur1', name: 'Thai Baht', country: 'Thailand', code: 'THB', sign: '฿', created_at: '2020-11-01', is_reference: true },
+    { id: 'cur1', name: 'Singapore Dollar', country: 'Singapore', code: 'SGD', sign: 'S$', created_at: '2020-11-01', is_reference: true },
     { id: 'cur2', name: 'US Dollar', country: 'United States', code: 'USD', sign: '$', created_at: '2020-11-01', is_reference: false },
-    { id: 'cur3', name: 'Indonesian Rupiah', country: 'Indonesia', code: 'IDR', sign: 'Rp', created_at: '2021-06-01', is_reference: false },
+    { id: 'cur3', name: 'Australian Dollar', country: 'Australia', code: 'AUD', sign: 'A$', created_at: '2021-06-01', is_reference: false },
     { id: 'cur4', name: 'Euro', country: 'Eurozone', code: 'EUR', sign: '€', created_at: '2022-01-15', is_reference: false }
   ];
 

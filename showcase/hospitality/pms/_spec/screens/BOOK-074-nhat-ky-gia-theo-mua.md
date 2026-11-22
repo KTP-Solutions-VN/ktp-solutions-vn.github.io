@@ -1,9 +1,9 @@
-# BOOK-074 — Nhật ký giá theo mùa
+# BOOK-074 — Đối chiếu giá theo mùa (Season Price Audit)
 
 **Loại:** Trang đầy đủ (có 2 chế độ hiển thị trên cùng 1 view)
 **Route:** Booking/seasonPriceLogs (mặc định: `/booking/season-price-logs`)
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Trang đối chiếu giá bán villa trên hệ thống nội bộ (VM/PMS) với giá đang niêm yết trên kênh OTA (Beds24) theo từng mùa giá, phát hiện chênh lệch/thiếu đồng bộ; đồng thời cho phép xem chi tiết doanh thu/biến động giá của một mùa giá cụ thể (chế độ "Season Revenue").
@@ -35,7 +35,7 @@ Bên cạnh bảng có icon **Validation** (dấu tích, xác nhận giá) và i
 
 ### Chế độ 2 — Chi tiết doanh thu theo mùa ("Season Revenue", hiển thị khi có `season_id` trên query string)
 - Thanh tiêu đề mùa giá kèm mũi tên điều hướng sang mùa liền trước/liền sau (ajax `getPriceLogDataAjax`)
-- 4 nhóm thẻ KPI (mỗi nhóm 3 thẻ: Last year / Current / Future): **Occupancy** (%), **Price** (giá mới, ฿), **Revenue** (% biến động), **Advance** (số ngày còn lại đến hết mùa)
+- 4 nhóm thẻ KPI (mỗi nhóm 3 thẻ: Last year / Current / Future): **Occupancy** (%), **Price** (giá mới, S$), **Revenue** (% biến động), **Advance** (số ngày còn lại đến hết mùa)
 - Biểu đồ **Occupancy theo thời gian** (canvas, có mũi tên trái/phải để xem giai đoạn khác)
 - Biểu đồ **Lịch sử thay đổi giá** trong mùa (theo ngày)
 - Biểu đồ **Giá trung bình theo năm** của mùa này (so sánh từ năm 2022 tới hiện tại)

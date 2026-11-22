@@ -1,10 +1,10 @@
-# OWP-017 — Danh sách đặt phòng trực tiếp (Direct Booking Request)
+# OWP-017 — Yêu cầu lưu trú (Stay Requests)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `ExternalUserController::directBookingList()` — không có route đẹp riêng (mặc định `/external-user/direct-booking-list`)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 
@@ -41,7 +41,7 @@ Danh sách — cột hiển thị (cả 2 bảng: đang chờ và đã xử lý)
 
 ## Điều hướng
 
-- Truy cập từ menu chính (Direct Booking)
-- Nút "Request New Booking" → OWP-017-P1 (popup thêm đặt phòng trực tiếp)
+- Truy cập từ menu chính (Stay Requests)
+- Nút "Request New Booking" → OWP-017-P1 (popup tạo yêu cầu lưu trú)
 - Icon xem → OWP-017-P3 (popup xem chi tiết)
-- Icon sửa → OWP-017-P2 (popup sửa đặt phòng trực tiếp)
+- Icon sửa → OWP-017-P2 (popup sửa yêu cầu lưu trú)

@@ -1,10 +1,10 @@
-# OWP-017-P2 — Popup Sửa đặt phòng trực tiếp
+# OWP-017-P2 — Sửa yêu cầu lưu trú (Edit Stay Request)
 
 **Loại:** Popup (mở từ OWP-017)
 
 **Route:** `ExternalUserController::editDirectBooking($id)` — không có route đẹp riêng, mở từ icon sửa trên OWP-017 (mặc định `/external-user/edit-direct-booking/{id_base64}`)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 

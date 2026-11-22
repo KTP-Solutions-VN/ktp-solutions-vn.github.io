@@ -1,8 +1,8 @@
-# TRN-005-P1 — Popup xác nhận xóa Slide
+# TRN-005-P1 — Xác nhận xóa slide (Confirm Slide Deletion)
 
 **Loại:** Popup (mở từ TRN-005)
 **Route:** Modal Bootstrap trong `edit_tutorial.ctp`; hành động xóa gọi `TrainingController::deleteSlide($id)` — `/training/delete-slide/{id_base64}`
-**Module:** TRN = Đào tạo
+**Module:** TRN = Học viện nhân viên
 
 ## Mô tả ngắn gọn
 Hộp thoại xác nhận trước khi xóa một Slide (và câu hỏi Quiz gắn với slide đó nếu có).

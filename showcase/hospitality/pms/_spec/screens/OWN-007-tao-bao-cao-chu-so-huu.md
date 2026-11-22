@@ -1,10 +1,10 @@
-# OWN-007 — Tạo báo cáo chủ sở hữu
+# OWN-007 — Trình tạo sao kê chủ nhà (Owner Statement Builder)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `/Owner/generateReports` (controller `Owner`, action `generateReports()`)
 
-**Module:** Quản lý chủ sở hữu (Admin)
+**Module:** Quan hệ chủ nhà (Admin)
 
 ## Mô tả ngắn gọn
 
@@ -33,7 +33,7 @@ Màn hình tạo báo cáo doanh thu/thanh toán (payout report) cho chủ sở 
 | 3 | Khách hàng | `customer` | Text | |
 | 4 | Doanh thu gộp | `gross` | Số | |
 | 5 | Hoa hồng OTA | `ota_commission` | Số | |
-| 6 | VAT (%) | `vat` | Số | Chỉ hiển thị nếu áp dụng VAT theo % |
+| 6 | GST (%) | `vat` | Số | Chỉ hiển thị nếu áp dụng GST theo % |
 | 7 | Doanh thu ròng | `net` | Số | |
 | 8 | Doanh thu ròng theo ngày | `daily_net` | Số | |
 | 9 | Các dịch vụ (động) | `services_array` | Số/% | Cột phát sinh theo danh mục dịch vụ villa |
@@ -53,5 +53,5 @@ Màn hình tạo báo cáo doanh thu/thanh toán (payout report) cho chủ sở 
 
 ## Điều hướng
 
-- Vào từ: menu chính (sidebar) mục "Generate Report"; cũng được liên kết từ trang Property (report_ready.ctp).
+- Vào từ: menu chính (sidebar) mục "Owner Statement Builder"; cũng được liên kết từ trang Property (report_ready.ctp).
 - Không có popup con dạng trang riêng biệt; modal xoá kỳ báo cáo là modal thao tác nội bộ trên cùng trang.

@@ -4,7 +4,7 @@
   var ADDED_KEY = 'mm_cms_iwish_added';
   var EDITS_KEY = 'mm_cms_iwish_edits';
   var DELETED_KEY = 'mm_cms_iwish_deleted';
-  var LANGS = [{ code: 'en', name: 'English' }, { code: 'fr', name: 'French' }, { code: 'th', name: 'Thai' }];
+  var LANGS = [{ code: 'en', name: 'English' }, { code: 'fr', name: 'French' }, { code: 'zh', name: 'Chinese' }];
   var editingId = null;
   var editingItem = null;
 
@@ -68,7 +68,7 @@
       deleted.push(pendingId);
       localStorage.setItem(DELETED_KEY, JSON.stringify(deleted));
       MM.closeModal('delete-modal');
-      MM.showToast('"I Wish" item deleted.');
+      MM.showToast('Wishlist item deleted.');
       pendingId = null;
       render();
     });
@@ -111,7 +111,7 @@
     function openDrawer(item) {
       editingId = item ? item.id : null;
       editingItem = item || null;
-      document.getElementById('iwish-drawer-title').textContent = item ? 'Edit I Wish Item' : 'Add I Wish Item';
+      document.getElementById('iwish-drawer-title').textContent = item ? 'Edit Wishlist Item' : 'Add Wishlist Item';
       document.getElementById('save-btn').textContent = item ? 'Save Changes' : 'Save';
       document.getElementById('iwish-form').reset();
 

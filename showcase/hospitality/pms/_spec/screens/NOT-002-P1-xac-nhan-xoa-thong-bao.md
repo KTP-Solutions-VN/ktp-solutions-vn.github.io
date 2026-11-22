@@ -1,10 +1,10 @@
-# NOT-002-P1 — Xác nhận xóa thông báo
+# NOT-002-P1 — Xác nhận xóa thông báo (Confirm Announcement Deletion)
 
 **Loại:** Popup (mở từ NOT-002)
 
 **Route:** Modal tĩnh trong `notice_list.ctp`; hành động xóa gọi `NoticeController::delete($id)` qua `GET /notice/delete/:id` (base64 id) khi bấm nút xác nhận trong modal.
 
-**Module:** NOT = Thông báo
+**Module:** NOT = Thông báo nội bộ
 
 ## Mô tả ngắn gọn
 Hộp thoại xác nhận trước khi xóa một thông báo/công việc khỏi hệ thống.
@@ -17,5 +17,5 @@ Không có field nhập liệu, chỉ hiển thị thông điệp xác nhận (`
 - **Hủy (Cancel):** đóng modal.
 
 ## Điều hướng
-- Mở từ: NOT-002 (Danh sách thông báo).
+- Mở từ: NOT-002 (Thông báo & công việc).
 - Sau khi xác nhận: reload/redirect về trang gọi (`referer`), thường là NOT-002.

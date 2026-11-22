@@ -1,8 +1,8 @@
-# PROP-050 — Thêm/Sửa chi tiết Property (Villa Detail)
+# PROP-050 — Trình chỉnh sửa tài sản (Property Editor)
 
 **Loại:** Trang đầy đủ
 **Route:** property/villa/:tab/:villa_id (dashed mặc định; `$villa_id` rỗng khi thêm mới)
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Màn hình trung tâm để tạo mới/chỉnh sửa toàn bộ thông tin của một Property (Villa), tổ chức theo 11 tab lớn: Identification (Thông tin định danh), Business Situation (Tình trạng kinh doanh), Location (Vị trí), Property Type (Loại hình BĐS), OTA Management (Quản lý kênh OTA), Service and Utilities (Dịch vụ & Tiện ích — nhúng lại nội dung PROP-049), Document (Tài liệu), Language Management (Quản lý ngôn ngữ), Control (Điểm kiểm soát/Nhắc nhở khi Check-out), Finance (Tài chính), Portal Contract (Hợp đồng cổng thông tin khách). Mỗi tab có form lưu riêng, dữ liệu tổng hợp từ nhiều bảng liên quan tới Villa.
@@ -24,7 +24,7 @@ Màn hình trung tâm để tạo mới/chỉnh sửa toàn bộ thông tin củ
 | 10 | Price Category | `price_category_id` | Select2 | Không | |
 | 11 | Price 1 / Price 2 | `price_1`/`price_2` | Number | Không | |
 | 12 | Reference Currency | `reference_currency` | Select2 | Không | |
-| 13 | Room ID 1-4 | `room_id_1..4` | Text | Không | Liên kết PROP-017 (Missing Room ID) |
+| 13 | Room ID 1-4 | `room_id_1..4` | Text | Không | Liên kết PROP-017 (Mã phòng chưa ánh xạ) |
 | 14 | Beds24 Villa ID (chính, phụ, thứ 2) | `beds_24_villa_id`/`additional_beds_24_id`/`secondary_beds_24_villa_id_1` | Text | Không | Kiểm tra trùng qua AJAX `checkVillaBeds24Id` |
 | 15 | Hostex Villa ID | `hostex_villa_id` | Text | Không | |
 | 16 | Channel Manager | `channel_manager` | Select | Không | |
@@ -76,12 +76,12 @@ Màn hình trung tâm để tạo mới/chỉnh sửa toàn bộ thông tin củ
 | 2 | Listing ID | `listing_id` | Text (readonly, có thể sinh tự động) | Có | |
 | 3 | Link | `link` | Text | Có | Link listing trên kênh OTA |
 | 4 | OTA ID | `ota_id` | Text | Không | |
-| 5 | VAT | `vat` | Text | Không | |
+| 5 | GST | `vat` | Text | Không | |
 
 Danh sách các link OTA đã gán hiển thị dạng bảng, có nút Thêm/Sửa/Xóa (modal `addOtaModal`).
 
 ### Tab Service and Utilities (Dịch vụ & Tiện ích)
-Nhúng lại toàn bộ 10 tab con Concierge/Common Area/Electricity/Cleaning/Water/Internet/Television/Pool/Garden/Pest Control — xem chi tiết tại **PROP-049 (Cài đặt Dịch vụ & Tiện ích Property)**, dùng chung element `property/*`.
+Nhúng lại toàn bộ 10 tab con Concierge/Common Area/Electricity/Cleaning/Water/Internet/Television/Pool/Garden/Pest Control — xem chi tiết tại **PROP-049 (Thiết lập tiện ích)**, dùng chung element `property/*`.
 
 ### Tab Document (Tài liệu)
 | # | Tên field | Field code | Loại dữ liệu/input | Bắt buộc | Ghi chú |
@@ -123,7 +123,7 @@ Danh sách tài liệu đã tải lên hiển thị dạng bảng, cho phép xem
 | 2 | Contract Language | `contract_language` | Select2 (multi) | Không | |
 | 3 | Contract Electricity Mode | `contract_electricity_mode` | Select | Không | |
 
-Lưu qua hàm `_saveGuestContractAssignment`/`_savePortalContract`; liên quan tới PROP-051/052 (Guest Contract Recap/PDF).
+Lưu qua hàm `_saveGuestContractAssignment`/`_savePortalContract`; liên quan tới PROP-051/052 (Mức sẵn sàng hợp đồng / In hợp đồng khách).
 
 ## Chức năng/nút thao tác
 - Chuyển tab (URL param `$tab`, giữ nguyên `$villa_id`).
@@ -135,6 +135,6 @@ Lưu qua hàm `_saveGuestContractAssignment`/`_savePortalContract`; liên quan t
 - Xóa Property (nút Delete, gọi action `delete`).
 
 ## Điều hướng
-- Mở từ: PROP-033 (Danh sách Property — thêm mới/sửa), PROP-032 (Dashboard), PROP-042 (Booking Restriction — icon Edit mở tab OTA Management).
-- Điều hướng tới: PROP-049 (Service and Utilities — cùng nội dung nhúng), PROP-017 (Missing Room ID, liên kết dữ liệu Room ID), PROP-046/047 (Residence liên kết dữ liệu Location), PROP-051/052 (Guest Contract Recap/PDF liên kết dữ liệu tab Portal Contract).
+- Mở từ: PROP-033 (Sổ đăng ký tài sản — thêm mới/sửa), PROP-032 (Sức khỏe danh mục), PROP-042 (Cài đặt đặt ngay — icon Edit mở tab OTA Management).
+- Điều hướng tới: PROP-049 (Service and Utilities — cùng nội dung nhúng), PROP-017 (Mã phòng chưa ánh xạ, liên kết dữ liệu Room ID), PROP-046/047 (Residence liên kết dữ liệu Location), PROP-051/052 (Mức sẵn sàng hợp đồng / In hợp đồng khách liên kết dữ liệu tab Portal Contract).
 - Popup con: Modal thêm/sửa OTA Link (không tách mã riêng vì là thao tác phụ trợ trong tab OTA Management).

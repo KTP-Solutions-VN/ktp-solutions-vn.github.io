@@ -1,10 +1,10 @@
-# FUND-002-P1 — Giao dịch quỹ đầu tư (Đầu tư / Rút vốn / Chi trả lãi / Vốn hóa lãi)
+# FUND-002-P1 — Giao dịch nhà đầu tư: Đầu tư / Rút / Chi trả / Vốn hóa (Investor Transaction: Invest / Withdraw / Payout / Capitalize)
 
 **Loại:** Popup (mở từ FUND-002)
 
 **Route:** Submit POST tới `FundController::statements()` (`/fund/statements`, field `action` = `invest` | `withdraw` | `payout` | `capitalize`). Dùng chung một modal cho cả 4 loại giao dịch, ẩn/hiện field theo loại.
 
-**Module:** FUND = Quỹ đầu tư
+**Module:** FUND = Vốn nhà đầu tư
 
 ## Mô tả ngắn gọn
 Modal tạo giao dịch mới cho một nhà đầu tư: nạp thêm vốn (Invest), rút vốn (Withdraw), chi trả lãi bằng tiền mặt (Payout), hoặc cộng dồn lãi vào vốn góp (Capitalize).

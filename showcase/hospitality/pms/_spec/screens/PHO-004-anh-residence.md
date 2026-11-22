@@ -1,10 +1,10 @@
-# PHO-004 — Ảnh khu vực chung theo Residence
+# PHO-004 — Khu vực chung theo khu căn hộ (Residence Shared Spaces)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `PhotosController::residence($residenceId)` — route đẹp `/photos/residence/:id` (khai báo tường minh trong `config/Routes.php`)
 
-**Module:** PHO = Hình ảnh
+**Module:** PHO = Thư viện ảnh
 
 ## Mô tả ngắn gọn
 Trang chi tiết một residence: hiển thị các bộ ảnh khu vực chung hiện có (OTA/High Res/Extras/Raw-Temporary) và form upload thêm ảnh mới cho residence đó.

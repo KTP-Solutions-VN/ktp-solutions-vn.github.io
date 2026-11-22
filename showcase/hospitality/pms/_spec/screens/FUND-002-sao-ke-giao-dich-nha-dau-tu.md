@@ -1,10 +1,10 @@
-# FUND-002 — Sao kê giao dịch nhà đầu tư
+# FUND-002 — Sổ giao dịch nhà đầu tư (Investor Ledger)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `FundController::statements($in_id = null)` — `/fund/statements` hoặc `/fund/statements/:in_id` (tham số truyền khi đi từ FUND-001; ngoài ra lọc qua query `id` = business unit, `investors` = investor/fund id).
 
-**Module:** FUND = Quỹ đầu tư
+**Module:** FUND = Vốn nhà đầu tư
 
 ## Mô tả ngắn gọn
 Xem lịch sử giao dịch (đầu tư, rút vốn, chi trả lãi, vốn hóa lãi) của một nhà đầu tư cụ thể, số dư lũy kế theo từng khoản đầu tư, và khởi tạo giao dịch mới.

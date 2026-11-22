@@ -71,7 +71,7 @@
       deleted.push(pendingId);
       localStorage.setItem(DELETED_KEY, JSON.stringify(deleted));
       MM.closeModal('delete-modal');
-      MM.showToast('"Why Us" item deleted.');
+      MM.showToast('Benefit deleted.');
       pendingId = null;
       render();
     });
@@ -89,7 +89,7 @@
         sessionLangText[item.language] = item.description;
       }
 
-      document.getElementById('whyus-drawer-title').textContent = item ? 'Edit "Why Us" Item' : 'Add "Why Us" Item';
+      document.getElementById('whyus-drawer-title').textContent = item ? 'Edit Book-Direct Benefit' : 'Add Book-Direct Benefit';
       document.getElementById('save-btn').textContent = item ? 'Save Changes' : 'Save';
 
       var form = document.getElementById('whyus-form');

@@ -1,4 +1,4 @@
-# BOOK-107 — Giờ chuẩn nhận/trả phòng (Standard Time)
+# BOOK-107 — Giờ lưu trú mặc định (Default Stay Times)
 
 **Loại:** Trang đầy đủ
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 

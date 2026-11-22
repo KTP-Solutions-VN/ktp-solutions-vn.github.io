@@ -1,10 +1,10 @@
-# BU-007-P2 — Popup Xác nhận xóa tiền tệ
+# BU-007-P2 — Xác nhận xóa tiền tệ (Confirm Currency Deletion)
 
 **Loại:** Popup (mở từ BU-007)
 
 **Route:** Modal Bootstrap (`#exampleModal`, chế độ ẩn phần form) tĩnh trong `currency.ctp`; submit POST cùng action `BusinessUnitController::currency()` với `action=delete`.
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Popup xác nhận trước khi xóa vĩnh viễn một loại tiền tệ khỏi hệ thống.

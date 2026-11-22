@@ -1,13 +1,13 @@
-# BU-017 — Sửa văn phòng
+# BU-017 — Sửa địa điểm văn phòng (Edit Office Location)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `BusinessUnitController::editOffice($id)` — mặc định `/business-unit/edit-office/{id}` (id mã hoá base64)
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
-Biểu mẫu chỉnh sửa thông tin một văn phòng đã tồn tại — cùng bộ field với BU-016 (Thêm văn phòng), nạp sẵn dữ liệu hiện có.
+Biểu mẫu chỉnh sửa thông tin một văn phòng đã tồn tại — cùng bộ field với BU-016 (Thêm địa điểm văn phòng), nạp sẵn dữ liệu hiện có.
 
 ## Mô tả chi tiết
 

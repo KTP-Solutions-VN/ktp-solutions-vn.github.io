@@ -1,10 +1,10 @@
-# LOG-001-P1 — Forgot Password
+# LOG-001-P1 — Password Recovery
 
 **Type:** Popup/Modal (opened from LOG-001)
 
 **Route:** `LoginController::forgotPassword()` — default `login/forgotPassword`; friendly route: `/forgot-password`
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 The "Forgot Password" panel is shown/hidden (via a JS toggle) directly on the LOG-001 login screen, allowing users to enter their email to receive a password reset link. The server-side action does not render its own view (autoRender=false); it only sends the email and redirects back to the previous page with a flash message.
@@ -20,4 +20,4 @@ The "Forgot Password" panel is shown/hidden (via a JS toggle) directly on the LO
 
 ## Navigation
 - Opened from: LOG-001, via the "Forgot password?" link.
-- Navigates to: after submission, returns to LOG-001 (flash message); the received email links to LOG-002 (Reset Password) with the token included.
+- Navigates to: after submission, returns to LOG-001 (flash message); the received email links to LOG-002 (Set New Password) with the token included.

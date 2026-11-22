@@ -1,8 +1,8 @@
-# VCS-011-P1 — Add/Edit/Delete Reminder Popup
+# VCS-011-P1 — Staff Reminder Form
 
 **Type:** Popup/Modal (opened from VCS-011)
 **Route:** No dedicated route — uses a shared form that POSTs to `villa-common-setting/reminders` (hidden `action`=`add`/`edit`/`delete`); duplicate-name check via AJAX `villa-common-setting/checkReminder`
-**Module:** VCS = Villa Common Settings
+**Module:** VCS = Property Attributes
 
 ## Overview
 A shared Bootstrap modal (`#exampleModal`) covering the three Add/Edit/Delete Reminder scenarios. In Delete mode, the input section is hidden.
@@ -21,5 +21,5 @@ A shared Bootstrap modal (`#exampleModal`) covering the three Add/Edit/Delete Re
 - Note: this modal has no field for adjusting display order — reordering is performed directly on the VCS-011 table via the Up/Down arrow icons (AJAX `changeReminderOrder`), not through the popup.
 
 ## Navigation
-- Opened from: VCS-011 (Add new / Edit / Delete buttons on the Reminders list table).
+- Opened from: VCS-011 (Add new / Edit / Delete buttons on the Staff Reminders table).
 - Navigates to: no page change — after submission, VCS-011 is reloaded (redirect via `referer()`).

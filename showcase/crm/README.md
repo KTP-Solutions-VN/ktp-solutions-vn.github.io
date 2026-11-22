@@ -1,6 +1,6 @@
 # DEMO CRM Prototype
 
-Prototype CRM (thay Legacy CRM) cho Apex Industrial. File tĩnh trong `app/`, dữ liệu là dữ liệu giả.
+Prototype CRM (thay hệ thống CRM hiện tại) cho Apex Industrial. File tĩnh trong `app/`, dữ liệu là dữ liệu giả.
 
 ## Chạy ở local
 URL dạng gọn (`/home`, `/jobs`, `/jobs/jo3`, `/approvals`, `/board`, `/reports/r10`, `/settings/tenant`) nên server phải trả `index.html` cho đường dẫn không phải file. Chọn 1 cách:
@@ -22,15 +22,16 @@ Sửa trong `app/`, lưu file rồi Ctrl + Shift + R là thấy (không cần ch
 | Muốn sửa | File |
 |---|---|
 | Chữ trên giao diện (menu, nút, tiêu đề, thông báo) | `app/i18n/vi.json`, `app/i18n/en.json` |
-| Màu từng pháp nhân | `app/mock-api/meta/config/tenants.json` (`color`) |
+| Màu, nước, tiền tệ, GST, năm tài chính của từng pháp nhân | `app/mock-api/meta/config/tenants.json` (`color`, `country`, `currency`, `gst`, `fy`) |
 | Kiểu dáng chung (khoảng cách, cỡ chữ, màu trạng thái) | `app/css/app.css` |
-| Bố cục một màn | `app/templates/<màn>.html` — VD `home`, `kanban`, `list`, `detail`, `myjobs` (Chờ duyệt), `work` (Bảng công việc), `reports` |
-| Menu trái, teamspace | `app/mock-api/meta/config/menu.json`, `teams.json` |
+| Bố cục một màn | `app/templates/<màn>.html` — VD `home`, `kanban`, `list`, `detail`, `myjobs` (Phê duyệt của tôi), `work` (Bảng điều phối việc), `reports` (Phân tích) |
+| Menu trái, bộ phận (menu theo bộ phận) | `app/mock-api/meta/config/menu.json`, `teams.json` |
 | User mẫu, quyền theo profile | `app/mock-api/meta/config/users.json`, `profiles.json` |
 | Quy tắc duyệt DoA | `app/mock-api/meta/config/approval_rules.json` |
 | Kịch bản demo | `app/mock-api/meta/config/tour.json` |
-| Field, layout, cột danh sách, trạng thái của module | `app/mock-api/meta/entities/<module>.json` * |
+| Field, loại biểu mẫu (layout), cột danh sách, trạng thái của module | `app/mock-api/meta/entities/<module>.json` * |
 | Dữ liệu mẫu | `app/mock-api/data/<module>.json` * |
+| Bối cảnh vùng của dữ liệu mẫu: APE, APA, APL, FLE ở Úc (A$ / AUD, GST 10%, `Pty Ltd`, khu công nghiệp NSW / VIC / QLD / WA, điện thoại +61, biển số kiểu `XA 34 XN`, plant registration / EPA / NHVR / Privacy Act); BH ở Singapore (S$ / SGD, GST 9%, `Pte Ltd`, Tuas / Jurong / Woodlands / Ubi, điện thoại +65, biển số kiểu `GBL488Z`) | khối "bối cảnh vùng" đầu `_src/build_model.py` * (BH: `to_sg`); ký hiệu tiền theo pháp nhân ở `money()` trong `app/js/app.js`; ngày lễ, tỷ giá ở trang Cài đặt (`viewSetting` trong `app/js/app.js`) |
 | Logic màn hình (view mặc định, tab lọc, thẻ Kanban, danh sách báo cáo, luật tự tạo task…) | `app/js/app.js` — tìm hằng `DEFAULT_VIEW`, `PRESET_VIEWS`, `LEGACY_VIEWS`, `KB_CARD`, `KB_QUICK`, `REPORTS`, `HIGHLIGHT`, `AUTO_RULES` |
 
 \* Sinh tự động bằng `_src/build_model.py`: sửa tay được, nhưng chạy lại script sẽ ghi đè — muốn sửa lâu dài thì sửa trong script.
@@ -42,5 +43,5 @@ mkdir -p /tmp/out/mock-api/meta && cp -r app/mock-api/meta/config /tmp/out/mock-
 python3 _src/build_model.py /tmp/out [đường_dẫn_Entity_List.xlsx]
 diff -rq /tmp/out/mock-api app/mock-api   # kiểm tra rồi mới copy file cần đổi vào app/mock-api
 ```
-Cấu hình sửa tay (không cần chạy script, F5 là thấy): `app/mock-api/meta/config/*.json` (pháp nhân, user, teamspace, quyền, menu, quy tắc duyệt, kịch bản demo).
-`_src/source/` chứa cấu hình Legacy CRM của khách — chỉ dùng nội bộ.
+Cấu hình sửa tay (không cần chạy script, F5 là thấy): `app/mock-api/meta/config/*.json` (pháp nhân, user, bộ phận, quyền, menu, quy tắc duyệt, kịch bản demo).
+`_src/source/` chứa cấu hình hệ thống cũ của khách — chỉ dùng nội bộ. Tên module / màn / quy trình hiển thị trong prototype đặt lại ở `_src/build_model.py` (`ENT_LABEL`, `ACTIONS`, khối "tên hiển thị CRM mới") và `app/i18n/*.json`.

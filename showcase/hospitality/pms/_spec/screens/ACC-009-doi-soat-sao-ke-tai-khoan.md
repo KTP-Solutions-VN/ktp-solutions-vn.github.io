@@ -1,10 +1,10 @@
-# ACC-009 — Đối soát sao kê tài khoản (Statement Reconcile)
+# ACC-009 — Khớp số dư ngân hàng (Bank Matching)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `AccountController::statementReconcile()` — mặc định `/account/statement-reconcile`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Chọn một tài khoản (chỉ những account đang `is_statement_open = open`), nhập số dư đầu kỳ/ số dư cuối kỳ và ngày đối soát, sau đó chọn các bút toán chưa đối soát để đánh dấu là đã đối soát (`is_reconcile = 1`) sao cho chênh lệch (Difference) bằng 0. Nếu vẫn còn chênh lệch sau khi chọn hết, cho phép thêm bút toán điều chỉnh thủ công (Manual Adjustment).
@@ -50,5 +50,5 @@ Popup Adjustment (modal `#exampleModal`):
 - **Adjustment (chỉ hiện khi đã tick hết mà Difference ≠ 0):** mở popup nhập bút toán điều chỉnh thủ công; submit POST về chính action `statementReconcile`, server tự tính `payment_type` (debit nếu amount ≥ 0, ngược lại credit), đánh dấu `is_manual_adjustment = 1`, sinh `ref` mới, lưu vào `AccountStatement`, ghi access log, rồi quay lại trang trước (`referer()`).
 
 ## Điều hướng
-- Vào từ: Sidebar > nhóm "Statements" > "Reconcile" (`filterSidebar($user, 'Account-statementReconcile') == 1`).
+- Vào từ: Sidebar > nhóm "Ledgers" > "Bank Matching" (`filterSidebar($user, 'Account-statementReconcile') == 1`).
 - Điều hướng đến: không điều hướng sang trang khác — toàn bộ thao tác đối soát và điều chỉnh xử lý AJAX ngay trên trang.

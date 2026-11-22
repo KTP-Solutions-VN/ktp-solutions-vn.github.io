@@ -16,8 +16,8 @@
   var thread = BOOK.getChatThread(bookingId);
   var isEdit = mode === 'edit' || !!(thread && thread.channel);
 
-  document.getElementById('pg-title').textContent = isEdit ? 'Edit Guest Chat' : 'Activate Guest Chat';
-  document.getElementById('pg-crumb').textContent = isEdit ? 'Edit Guest Chat' : 'Activate Guest Chat';
+  document.getElementById('pg-title').textContent = isEdit ? 'Edit Guest Thread' : 'Open Guest Thread';
+  document.getElementById('pg-crumb').textContent = isEdit ? 'Edit Guest Thread' : 'Open Guest Thread';
   document.getElementById('pg-subtitle').textContent = isEdit
     ? 'Update the chat leader, concierge team, or contact details for this booking.'
     : 'Assign the chat leader and concierge team, then activate the messaging channel for this booking.';
@@ -53,7 +53,7 @@
   if (isEdit) {
     document.getElementById('f-openedby-row').hidden = false;
     document.getElementById('f-openeddate-row').hidden = false;
-    document.getElementById('f-openedby').value = (thread && thread.concierge) || 'Somchai Anuwat';
+    document.getElementById('f-openedby').value = (thread && thread.concierge) || 'Daniel Tan';
     document.getElementById('f-openeddate').value = (thread && thread.lastMessageTime) ? thread.lastMessageTime.slice(0, 10) : new Date().toISOString().slice(0, 10);
   }
 

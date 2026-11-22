@@ -1,10 +1,10 @@
-# VSV-019 — Garden Planning
+# VSV-019 — Garden Visit Planner
 
 **Type:** Full page
 
 **Route:** `VillaServicesController::gardenPlanning($tab)` — defaults to `/villa-services/garden-planning/<tab>` (tab: `team-<n>` or `team-total`); data saved via AJAX `saveGardenPlanning`, loaded via `getPlanningAjax`
 
-**Module:** Villa Services — Garden
+**Module:** In-Stay Services — Garden Care
 
 ## Overview
 A planning page for assigning villas requiring garden care into time slots for each garden team, by date and Business Unit — a dedicated-page version of the "Planning" tab in VSV-017.
@@ -42,5 +42,5 @@ A planning page for assigning villas requiring garden care into time slots for e
 - Changing Date/Business Unit → reloads the entire schedule and the list of villas due for care.
 
 ## Navigation
-- Entered from: Main menu (Garden/Planning item), or related to the "Planning" tab in VSV-017.
+- Entered from: Main menu (Garden Visit Planner item), or related to the "Planning" tab in VSV-017.
 - Navigates to: no child page.

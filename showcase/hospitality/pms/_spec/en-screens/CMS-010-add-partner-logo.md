@@ -1,10 +1,10 @@
-# CMS-010 — Add Partner Logo
+# CMS-010 — New Partner Badge
 
 **Type:** Full page
 
 **Route:** `CmsController::logoAdd()` — default `/cms/logo-add`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 Form for adding a new partner logo consisting of a title, a logo image, and a link URL. No multilingual element.

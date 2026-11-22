@@ -1,10 +1,10 @@
-# OWN-003 — Edit Owner
+# OWN-003 — Edit Owner Account
 
 **Type:** Full page
 
 **Route:** `/Owner/edit/{tab}/{id}/{show_page}/{payment_detail_id}` (controller `Owner`, action `edit($tab, $id, $show_page, $payment_detail_id)`)
 
-**Module:** Owner Management (Admin)
+**Module:** Owner Relations (Admin)
 
 ## Overview
 
@@ -14,7 +14,7 @@ A comprehensive management screen for an existing owner, organized into tabs on 
 
 ### Tab "Owner Details" (`owner-details`)
 
-Identical field set to OWN-002 (Add New Owner), but pre-populated with data for editing, and with the "Send Password Email" field hidden.
+Identical field set to OWN-002 (New Owner Account), but pre-populated with data for editing, and with the "Send Password Email" field hidden.
 
 | # | Field Label | Field Code | Data Type / Input | Required | Notes |
 |---|---|---|---|---|---|
@@ -92,7 +92,7 @@ Field structure identical to the primary owner's "Payment Details" tab (list/add
 ## Functions / Actions
 
 - **Save** (each tab has its own Save button): saves the data for the corresponding tab, logs the activity, and redirects back to the tab that was just saved.
-- **Cancel**: returns to OWN-001 (Owner List).
+- **Cancel**: returns to OWN-001 (Owner Accounts).
 - **+ Add Business Unit**: adds a business unit selection row in the Owner Details tab.
 - **+ Add Co-owner**: adds a new co-owner form (Owner Details tab).
 - **+ Payment Details / Edit / Delete** (in the Payment Details and Co-owner Payment Details tabs): switches between the list and the add/edit form on the same screen (via the `show_page` parameter).

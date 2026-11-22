@@ -36,19 +36,19 @@ DOMAINS = [
      "title": {"vi": "Phần mềm CRM doanh nghiệp B2B, công nghiệp: bán hàng, báo giá, hậu mãi", "en": "B2B & industrial CRM software: sales, quotations, after-sales"},
      "desc": {"vi": "Demo phần mềm CRM doanh nghiệp B2B do KTP Solutions xây dựng cho tập đoàn thiết bị công nghiệp: quản lý khách hàng, cơ hội bán hàng, báo giá, đơn hàng, hoá đơn, dịch vụ hậu mãi, lắp đặt, mua hàng và phê duyệt theo hạn mức.",
               "en": "B2B CRM software demo by KTP Solutions for an industrial equipment group: customers, deals, quotations, sales orders, invoices, after-sales service, installation, purchasing and delegation-of-authority approvals."},
-     "intro": {"vi": "CRM đa pháp nhân cho doanh nghiệp phân phối thiết bị công nghiệp: quản lý khách hàng và liên hệ, cơ hội bán hàng (pipeline), báo giá, đơn hàng, hoá đơn, phiếu sửa chữa và dịch vụ hậu mãi, dự án lắp đặt, yêu cầu mua hàng, phê duyệt theo hạn mức (DoA), tích hợp phần mềm kế toán.",
-               "en": "Multi-entity CRM for industrial equipment distributors: customers and contacts, sales pipeline, quotations, sales orders, invoices, service jobs and after-sales, installation projects, purchase requisitions, delegation-of-authority (DoA) approvals and accounting integration."},
+     "intro": {"vi": "CRM đa pháp nhân cho doanh nghiệp phân phối thiết bị công nghiệp: quản lý khách hàng và liên hệ, cơ hội bán hàng (pipeline), báo giá, đơn hàng, hoá đơn, lệnh dịch vụ và hậu mãi, dự án đóng mới, yêu cầu mua sắm, hạn mức phê duyệt (DoA), đồng bộ phần mềm kế toán.",
+               "en": "Multi-entity CRM for industrial equipment distributors: customers and contacts, sales pipeline, quotations, sales orders, invoices, service orders and after-sales, fit-out projects, purchase requests, delegation-of-authority (DoA) approval limits and accounting sync."},
      "keywords": ["phần mềm CRM", "CRM doanh nghiệp", "CRM B2B", "phần mềm quản lý bán hàng", "phần mềm quản lý báo giá",
                   "quản lý dịch vụ hậu mãi", "CRM công nghiệp", "B2B CRM", "industrial CRM", "sales CRM software"]},
     {"slug": "healthcare", "name": {"vi": "Y tế", "en": "Healthcare"}, "short": {"vi": "Y tế", "en": "Healthcare"},
-     "h": {"vi": "Phần mềm y tế: website bán hàng, quản trị & POS nhà thuốc", "en": "Healthcare software: e-commerce, back-office & pharmacy POS"},
+     "h": {"vi": "Phần mềm y tế: website bán hàng, quản trị, POS nhà thuốc & kiosk", "en": "Healthcare software: e-commerce, back-office, pharmacy POS & kiosk"},
      "title": {"vi": "Phần mềm y tế: website bán hàng bệnh viện, phòng khám, POS nhà thuốc", "en": "Healthcare software: hospital e-commerce, clinic booking, pharmacy POS"},
-     "desc": {"vi": "Demo phần mềm y tế do KTP Solutions xây dựng cho bệnh viện, phòng khám, chuỗi nhà thuốc: website bán sản phẩm và dịch vụ y tế, đặt lịch, hội viên, trang quản trị đơn hàng, khuyến mãi, báo cáo và phần mềm POS nhà thuốc.",
-              "en": "Healthcare software demos by KTP Solutions for hospitals, clinics and pharmacy chains: a medical e-commerce storefront with bookings and membership, an admin back-office for orders, promotions and reports, and a pharmacy POS."},
-     "intro": {"vi": "Bộ giải pháp thương mại điện tử y tế cho bệnh viện, phòng khám, chuỗi nhà thuốc: website bán sản phẩm và gói dịch vụ y tế, đặt lịch khám, hội viên và điểm thưởng, trang quản trị đơn hàng, hoàn tiền, khuyến mãi, nội dung và báo cáo, phần mềm POS bán hàng tại quầy thuốc.",
-               "en": "Healthcare e-commerce suite for hospitals, clinics and pharmacy chains: storefront for medical products and service packages, appointment booking, membership and loyalty points, back-office for orders, refunds, promotions, content and reports, and a pharmacy counter POS."},
+     "desc": {"vi": "Demo phần mềm y tế do KTP Solutions xây dựng cho bệnh viện, phòng khám, chuỗi nhà thuốc: website bán sản phẩm và dịch vụ y tế, đặt lịch, hội viên, trang quản trị đơn hàng, khuyến mãi, báo cáo, phần mềm POS nhà thuốc và kiosk tự phục vụ.",
+              "en": "Healthcare software demos by KTP Solutions for hospitals, clinics and pharmacy chains: a medical e-commerce storefront with bookings and membership, an admin back-office for orders, promotions and reports, a pharmacy POS and a self-service kiosk."},
+     "intro": {"vi": "Bộ giải pháp thương mại điện tử y tế cho bệnh viện, phòng khám, chuỗi nhà thuốc: website bán sản phẩm và gói dịch vụ y tế, đặt lịch khám, hội viên và điểm thưởng, trang quản trị đơn hàng, hoàn tiền, khuyến mãi, nội dung và báo cáo, phần mềm POS bán hàng tại quầy thuốc, kiosk tự phục vụ tại sự kiện và sảnh bệnh viện.",
+               "en": "Healthcare e-commerce suite for hospitals, clinics and pharmacy chains: storefront for medical products and service packages, appointment booking, membership and loyalty points, back-office for orders, refunds, promotions, content and reports, a pharmacy counter POS and a self-service kiosk for events and hospital lobbies."},
      "keywords": ["phần mềm quản lý bệnh viện", "phần mềm quản lý phòng khám", "phần mềm quản lý nhà thuốc", "phần mềm POS nhà thuốc",
-                  "website bán hàng y tế", "thương mại điện tử y tế", "healthcare e-commerce", "pharmacy POS software", "clinic booking system"]},
+                  "website bán hàng y tế", "thương mại điện tử y tế", "healthcare e-commerce", "pharmacy POS software", "clinic booking system", "kiosk tự phục vụ bệnh viện", "hospital self-service kiosk"]},
 ]
 
 # Thứ tự hiển thị trong playground. dom: slug lĩnh vực; short: tên ngắn ("Khách sạn · PMS"); seo: tiêu đề / mô tả trang ?app=<id>.
@@ -61,8 +61,8 @@ PRODUCTS = [
      "dir": "hospitality/pms", "hub": "index.html", "heading": r'<h2 class="idx-section__title">', "zip": "hospitality/pms.zip", "accent": "#4C5FFF"},
     {"id": "cms", "dom": "hospitality", "short": "Channel Manager", "name": "Azura Stays Channel Manager",
      "seo": {"vi": "Channel Manager khách sạn: đồng bộ OTA Booking.com, Agoda, Airbnb", "en": "Hotel channel manager: OTA sync for Booking.com, Agoda, Airbnb"},
-     "desc": {"vi": "Channel Manager cho khách sạn, villa: đồng bộ giá phòng, phòng trống và đặt phòng lên Booking.com, Agoda, Airbnb, Expedia (qua Channex / Beds24), hộp thư khách chung, báo cáo doanh thu.",
-              "en": "Channel manager for hotels and villas: rates, availability and reservations synced to Booking.com, Agoda, Airbnb, Expedia (via Channex / Beds24), unified guest inbox and revenue reports."},
+     "desc": {"vi": "Channel Manager cho khách sạn, villa: đồng bộ giá phòng, phòng trống và đặt phòng lên Booking.com, Agoda, Airbnb, Expedia (qua Channex / Beds24), tin nhắn khách gom về một nơi, báo cáo doanh thu.",
+              "en": "Channel manager for hotels and villas: rates, availability and reservations synced to Booking.com, Agoda, Airbnb, Expedia (via Channex / Beds24), guest messages in one place and revenue reports."},
      "dir": "hospitality/cms", "zip": "hospitality/cms.zip", "accent": "#019770"},
     {"id": "crm", "dom": "industrial", "short": "CRM", "name": "Apex Industrial CRM",
      "seo": {"vi": "Phần mềm CRM doanh nghiệp B2B, công nghiệp", "en": "B2B industrial CRM software"},
@@ -84,6 +84,11 @@ PRODUCTS = [
      "desc": {"vi": "Phần mềm POS bán hàng tại quầy thuốc, nhà thuốc bệnh viện: bán hàng, ghi nhận đơn thuốc, tư vấn, can thiệp dược, chốt ca.",
               "en": "Pharmacy point-of-sale software for hospital pharmacies: sales, prescription recording, counselling, interventions, shift close."},
      "dir": "medical/pos", "hub": "index.html", "zip": "medical/pos.zip", "accent": "#F04438"},
+    {"id": "kiosk", "dom": "healthcare", "short": "Kiosk", "name": "CareJourney Kiosk",
+     "seo": {"vi": "Kiosk tự phục vụ bệnh viện, phòng khám: đặt lịch, đăng ký tại chỗ", "en": "Hospital & clinic self-service kiosk: on-site booking & sign-up"},
+     "desc": {"vi": "Kiosk cảm ứng tự phục vụ cho bệnh viện, phòng khám tại sự kiện và sảnh tiếp đón: xem và đặt trước sản phẩm, combo, đặt lịch tham quan khoa sản, đăng ký gói thai sản, lớp học tiền sản – chăm sóc bé và hội viên, không cần tài khoản.",
+              "en": "Touch-screen self-service kiosk for hospitals and clinics at events and in visitor areas: browse and reserve products and bundles, book maternity ward tours, sign up for maternity packages, birth & parenting classes and membership, no account needed."},
+     "dir": "medical/kiosk", "hub": "index.html", "heading": r'<h2[^>]*>(?:<svg.*?</svg>)?', "zip": "medical/kiosk.zip", "accent": "#0E7490"},
 ]
 DOM = {d["slug"]: d for d in DOMAINS}
 
@@ -165,7 +170,7 @@ def crm_title(url, ents):
         return tr("page.s-" + seg[1])
     if seg[0] == "reports" and len(seg) > 1:
         r = tr("page.reports")
-        return {"vi": r["vi"] + " · Dự báo doanh số", "en": r["en"] + " · Sales forecast"}
+        return {"vi": r["vi"] + " · Dự báo doanh thu", "en": r["en"] + " · Revenue forecast"}
     f = CRM_FIXED[seg[0]]
     return tr(f) if isinstance(f, str) else {"vi": f[0], "en": f[1]}
 

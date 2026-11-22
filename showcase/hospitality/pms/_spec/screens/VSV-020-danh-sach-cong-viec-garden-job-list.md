@@ -1,10 +1,10 @@
-# VSV-020 — Danh sách công việc vận hành (Garden Job List)
+# VSV-020 — Việc chăm vườn hôm nay (Today's Garden Jobs)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `VillaServicesController::gardenJobList()` — mặc định `/villa-services/garden-job-list`
 
-**Module:** Dịch vụ villa — Vườn
+**Module:** Dịch vụ lưu trú — Chăm vườn
 
 ## Mô tả ngắn gọn
 Màn hình ở dạng bản mẫu (mockup/wireframe) chưa hoàn thiện: action chỉ set tiêu đề trang (tiêu đề lấy nhầm từ `pool_text` — có thể là lỗi copy-paste chưa sửa), view chứa toàn bộ dữ liệu tĩnh (hard-code), không gắn với model/dữ liệu thật. Nội dung mô phỏng một màn hình "Pool Operator" cho nhân viên vận hành chọn villa và bắt đầu ca làm việc.
@@ -22,5 +22,5 @@ Ngoài ra file view còn chứa (ở dạng comment HTML, không hiển thị) m
 - Không có tích hợp AJAX/submit nào trong action hiện tại.
 
 ## Điều hướng
-- Vào từ: Menu chính (mục Garden — đường dẫn tồn tại nhưng chưa được liên kết từ UI chính thức nào khác trong module).
+- Vào từ: Menu chính (mục Garden Care Hub — đường dẫn tồn tại nhưng chưa được liên kết từ UI chính thức nào khác trong module).
 - Điều hướng đến: VSV-020-P1 (mockup trạng thái công việc, nhúng cùng trang).

@@ -1,4 +1,4 @@
-# BOOK-106 — Nhóm quốc tịch (Nationalities)
+# BOOK-106 — Nguồn gốc khách (Guest Origins)
 
 **Loại:** Trang đầy đủ
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 
@@ -18,7 +18,7 @@ Quản lý các "nhóm quốc tịch" (mega-nationality group) — gom nhiều q
 
 | # | Tên field | Field code | Loại dữ liệu/input | Bắt buộc | Ghi chú |
 |---|---|---|---|---|---|
-| 1 | Quốc gia | country_id (country_filter) | Select | Không | Danh sách cố định theo thứ tự Thailand, Greece, France; mặc định theo quốc gia của user |
+| 1 | Quốc gia | country_id (country_filter) | Select | Không | Danh sách cố định theo thứ tự Singapore, Greece, France; mặc định theo quốc gia của user |
 
 **Danh sách nhóm quốc tịch (thẻ/card):**
 

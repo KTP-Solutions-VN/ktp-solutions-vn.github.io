@@ -24,7 +24,7 @@
 
   function openDrawer(zone) {
     editingId = zone ? zone.id : null;
-    document.getElementById('zone-drawer-title').textContent = zone ? 'Edit Business Zone' : 'Add Business Zone';
+    document.getElementById('zone-drawer-title').textContent = zone ? 'Edit Reporting Zone' : 'Add Reporting Zone';
     document.getElementById('zone-save-btn').textContent = zone ? 'Save Changes' : 'Create Zone';
     document.getElementById('zone-form').reset();
     if (zone) {

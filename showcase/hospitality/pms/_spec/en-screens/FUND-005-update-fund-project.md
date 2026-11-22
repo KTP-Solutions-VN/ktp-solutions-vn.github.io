@@ -1,10 +1,10 @@
-# FUND-005 — Update Fund Project
+# FUND-005 — Edit Funded Project
 
 **Type:** Full page
 
 **Route:** `FundController::updateProject($id)` — `/fund/update-project/:id` (POST)
 
-**Module:** FUND = Investment Fund
+**Module:** FUND = Investor Capital
 
 ## Overview
 A form for adding a "progress update" (`ProjectLog` entry) to an open fund project — rather than directly editing the project's original information, it adds a new update entry with images and comments.

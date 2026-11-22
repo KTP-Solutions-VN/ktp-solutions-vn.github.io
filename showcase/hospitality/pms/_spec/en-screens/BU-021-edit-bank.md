@@ -1,13 +1,13 @@
-# BU-021 — Edit Bank
+# BU-021 — Edit Bank Record
 
 **Type:** Full page
 
 **Route:** `BusinessUnitController::editBank($id)` — default `/business-unit/edit-bank/{id}` (id base64-encoded)
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
-A form for editing the information of an existing bank — the same set of fields as BU-020 (Add Bank), pre-populated with existing data.
+A form for editing the information of an existing bank — the same set of fields as BU-020 (New Bank), pre-populated with existing data.
 
 ## Detailed Description
 
@@ -26,5 +26,5 @@ A form for editing the information of an existing bank — the same set of field
 - **Cancel:** returns to BU-019 without saving.
 
 ## Navigation
-- Opened from: BU-019 (bank list) — Edit icon on each row.
+- Opened from: BU-019 (Bank Directory) — Edit icon on each row.
 - After saving: redirects back to BU-019.

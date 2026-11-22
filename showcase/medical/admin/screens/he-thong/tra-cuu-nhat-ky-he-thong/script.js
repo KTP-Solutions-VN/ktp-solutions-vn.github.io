@@ -15,6 +15,6 @@
   }
   document.getElementById('tbSearch').addEventListener('input', function () { state.search = this.value; render(); });
   document.getElementById('sevFilter').addEventListener('change', function () { state.sev = this.value; render(); });
-  document.getElementById('exportBtn').addEventListener('click', function () { CJToast('Audit log exported (demo).'); });
+  document.getElementById('exportBtn').addEventListener('click', function () { CJToast('Activity trail exported (demo).'); });
   render();
   

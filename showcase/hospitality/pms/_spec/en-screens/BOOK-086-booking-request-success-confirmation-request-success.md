@@ -1,9 +1,9 @@
-# BOOK-086 — Booking Request Success Confirmation (Request Success)
+# BOOK-086 — Enquiry Received
 
 **Type:** Sub-page (opened from BOOK-085, a post-submission confirmation page rather than a popup)
 **Route:** Booking/requestSuccess/:array
 **Pretty route:** No dedicated route found in config/Routes.php
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 A confirmation page displayed after the guest successfully submits a booking request from BOOK-085, summarizing the guest's name, the villa, and the requested date range, and notifying the guest that they will subsequently receive a booking confirmation email.
@@ -21,5 +21,5 @@ No data entry form — only displays information that has been encoded (serializ
 - **Back** button — returns to BOOK-085 (`bookingEnquiry`) with the corresponding `villa_id`
 
 ## Navigation
-- Opened from: BOOK-085 (Booking Enquiry Form) — automatically navigated to after a successful submission
+- Opened from: BOOK-085 (Stay Enquiry) — automatically navigated to after a successful submission
 - Navigates to: BOOK-085 when clicking Back

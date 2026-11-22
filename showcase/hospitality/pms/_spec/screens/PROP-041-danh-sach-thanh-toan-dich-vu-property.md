@@ -1,8 +1,8 @@
-# PROP-041 — Danh sách thanh toán dịch vụ/phí Property (Service Fee)
+# PROP-041 — Sổ phí dịch vụ (Service Fee Ledger)
 
 **Loại:** Trang đầy đủ
 **Route:** property/service-fee/:villa_id (villa_id truyền dạng base64)
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang liệt kê toàn bộ bản ghi thanh toán phí dịch vụ (payment record) đã lưu cho một Property (bảng `VillaPaymentRecord`, contain `Villa`, `VillaService`), cho phép xem chứng từ thanh toán, sửa/xóa bản ghi và mở nhanh sang trang thêm bản ghi thanh toán mới hoặc trang cài đặt dịch vụ/tiện ích.
@@ -22,13 +22,13 @@ Trang liệt kê toàn bộ bản ghi thanh toán phí dịch vụ (payment reco
 | 8 | Action | — | Icon-button | — | Xem chứng từ (nếu có `payment_document`), Sửa, Xóa |
 
 ## Chức năng/nút thao tác
-- Nút "Add Payment Record" → mở PROP-022 (Thêm Tài khoản ngân hàng/Payment Record) tại `payment-record/{base64(villa_id)}`.
+- Nút "Add Payment Record" → mở PROP-022 (Thông tin ngân hàng của tài sản) tại `payment-record/{base64(villa_id)}`.
 - Nút "Add Settings" (ẩn/comment trong code hiện tại) → liên kết tới `service-setting/common-area/{base64(villa_id)}`.
 - Icon xem chứng từ (`fa-eye`) → mở file `/files/villas/{payment_document}` ở tab mới.
-- Icon Sửa (`fa-edit`) → mở PROP-023 (Sửa bản ghi thanh toán) tại `payment-record-edit/{base64(villa_id)}/{base64(id)}`.
+- Icon Sửa (`fa-edit`) → mở PROP-023 (Sửa bút toán phí dịch vụ) tại `payment-record-edit/{base64(villa_id)}/{base64(id)}`.
 - Icon Xóa (`fa-trash`) → gọi `paymentRecordDelete` (AJAX xác nhận xóa).
 
 ## Điều hướng
-- Mở từ: PROP-035 (Xem chi tiết Property) hoặc menu quản lý dịch vụ Property.
-- Điều hướng tới: PROP-022 (Payment Record — thêm mới), PROP-023 (Payment Record Edit — sửa), file chứng từ thanh toán.
+- Mở từ: PROP-035 (Hồ sơ tài sản) hoặc menu dịch vụ tài sản.
+- Điều hướng tới: PROP-022 (Payment Record — thêm mới), PROP-023 (Sửa bút toán phí dịch vụ), file chứng từ thanh toán.
 - Popup con: Không có (xóa xử lý qua confirm JS, không phải modal riêng biệt trong file này).

@@ -1,10 +1,10 @@
-# OTA-001-P2 — Confirm Removal of Content Element from Listing
+# OTA-001-P2 — Confirm Element Removal
 
 **Type:** Popup (opened from OTA-001)
 
 **Route:** Static modal within `listing.ctp`; confirmation calls AJAX `OtaContentController::removeAssignment()` — `POST /ota-content/remove-assignment`
 
-**Module:** Website Content (CMS) = OTA Content
+**Module:** Web Publishing = Channel Content
 
 ## Overview
 A confirmation dialog shown before removing a Content Element from the listing section of the current OTA (this does not delete the Content Element from the system, only unassigns it).

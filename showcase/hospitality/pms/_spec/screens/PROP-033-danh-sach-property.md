@@ -1,8 +1,8 @@
-# PROP-033 — Danh sách Property
+# PROP-033 — Sổ đăng ký tài sản (Property Register)
 
 **Loại:** Trang đầy đủ
 **Route:** property/list/:id (dashed mặc định CakePHP DashedRoute: `/property/list`, tham số `id` là business unit id, cũng nhận qua query string `?id=`)
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang danh sách chính (entry point) của module Property — liệt kê toàn bộ villa/property theo Business Unit đang chọn, kèm bộ lọc, các nút thao tác thêm/sửa/xóa/nhân bản/xem chi tiết/xem kho vật dụng và tải guest contract. Đây là trang trung tâm điều hướng sang các trang khác của module (villa, view_details, inventories...).
@@ -27,9 +27,9 @@ Bảng dùng DataTable client-side `#zero_config`. Không có ô search riêng n
 - Nút "Territories" (`.residencesBtn`/link `territories`) → điều hướng sang trang Territories (ngoài phạm vi 3 action được giao); bị disable (`grey_button`) nếu `is_concierge` = false.
 - Nút toggle "Show Active"/"Show Inactive" → submit form POST cùng trang, đổi field `paused_stop_show`.
 - Nút "Residences" (link `residenceEnquiry`) → điều hướng trang Residence Enquiry.
-- Nút "Reports" (link `propertyReports/contract`) → điều hướng PROP-029 (Property Reports).
+- Nút "Reports" (link `propertyReports/contract`) → điều hướng PROP-029 (Contract Reports).
 - Icon "Copy Code" (`.copy_text`) trên từng dòng → copy `short_name` villa vào clipboard (JS, không gọi server).
-- Icon "View Details" (mắt, class `btn-success`) → điều hướng sang **PROP-035 — Xem chi tiết Property** (`action=viewDetails, $id`). Chỉ hiện với role phù hợp (Superadmin/Admin/Business Unit Manager, hoặc Employee/Team Leader có role Concierge/Planner).
+- Icon "View Details" (mắt, class `btn-success`) → điều hướng sang **PROP-035 — Hồ sơ tài sản** (`action=viewDetails, $id`). Chỉ hiện với role phù hợp (Superadmin/Admin/Business Unit Manager, hoặc Employee/Team Leader có role Concierge/Planner).
 - Icon "Download Guest Contract" (`.guest-contract-download`) → mở popup con `#guestContractDownloadModal` (chọn Language + Electricity payment option qua AJAX `guestContractDownloadOptions`, validate qua `guestContractAssignmentValidation`, tải PDF qua `guestContractAssignmentPdf`). Chỉ hiện với Superadmin hoặc Employee/Team Leader có role Concierge.
 - Icon "Duplicate" (`.btn-warning`, hàm `copyProperty()`) → mở popup con `#exampleModal1` "Duplicate Property" (chọn villa nguồn + nhập tên mới), kiểm tra trùng tên qua AJAX `checkVillaName`, submit AJAX `duplicateProperty`, sau đó reload trang.
 - Icon "View Inventory" (`ti-layout-grid3-alt`) → điều hướng action `inventories/$id` (ngoài phạm vi 3 action được giao).
@@ -40,6 +40,6 @@ Bảng dùng DataTable client-side `#zero_config`. Không có ô search riêng n
 - Với `external_user == 'agency-staff'`: icon Edit riêng điều hướng `villa/business situation/$id`, bị disable nếu hợp đồng villa không ở trạng thái `open`.
 
 ## Điều hướng
-- Mở từ: Menu chính (mục Property/Properties, `active_menu = '7'`).
-- Điều hướng tới: PROP-034 (trang Thêm/Sửa Property, các bước identification/service and utilities/business situation), PROP-035 (Xem chi tiết Property), PROP-029 (Property Reports), action `territories`, `residenceEnquiry`, `inventories`, `delete`, `downloadPropertyData` (các action ngoài phạm vi được giao).
+- Mở từ: Menu chính (mục Property Register, `active_menu = '7'`).
+- Điều hướng tới: PROP-034 (trang Thêm/Sửa Property, các bước identification/service and utilities/business situation), PROP-035 (Hồ sơ tài sản), PROP-029 (Contract Reports), action `territories`, `residenceEnquiry`, `inventories`, `delete`, `downloadPropertyData` (các action ngoài phạm vi được giao).
 - Popup con: Popup xác nhận Delete (`#exampleModal`), Popup Duplicate Property (`#exampleModal1`), Popup Download Guest Contract (`#guestContractDownloadModal`).

@@ -1,9 +1,9 @@
-# BOOK-047 — Villa Availability Calendar
+# BOOK-047 — Availability Grid
 
 **Type:** Full page (can be embedded/shared with partners — public widget based on `referer`/`bu`)
 **Route:** Booking/availability (default: `/booking/availability`, supports `referer` or `bu`, `district`, `villa_id` query parameters)
 **Friendly route:** no dedicated route was found in config/Routes.php for this action (uses the default route)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Page displaying the availability calendar of villas (in a villa x date grid format), which can be filtered by location/district, specific villa, or by partner/agent (via the `referer` parameter to change the displayed brand logo). Used to quickly share room availability status with partners/customers.
@@ -29,5 +29,5 @@ A villa-by-date grid showing available/booked status, along with the price (`pri
 - **Download** button — downloads the availability calendar
 
 ## Navigation
-- Opened from: Booking module menu > Availability, or a link shared directly with partners
+- Opened from: Reservations module menu > Availability Grid, or a link shared directly with partners
 - Navigates to: the booking flow (BOOK-036/OTA) when clicking Book

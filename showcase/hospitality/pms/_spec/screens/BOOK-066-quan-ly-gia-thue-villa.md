@@ -1,9 +1,9 @@
-# BOOK-066 — Quản lý giá thuê villa (trang tổng quan)
+# BOOK-066 — Trung tâm giá (Pricing Hub)
 
 **Loại:** Trang đầy đủ
 **Route:** Booking/rates (mặc định: `/booking/rates`)
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Trang trung tâm điều hướng của nhóm chức năng "Giá thuê & mùa giá": không có bảng dữ liệu hay bộ lọc riêng, chỉ gồm các nút bấm dẫn tới các màn hình con quản lý giá (trạng thái giá, nhật ký giá, mùa giá, nhật ký giá theo mùa...).
@@ -20,12 +20,12 @@ Trang không có form nhập liệu hay bảng dữ liệu. Nội dung chỉ g�
 | 5 | Season Logs | action `seasonPriceLogs` | BOOK-074 |
 
 ## Chức năng/nút thao tác
-- Nút **Status** — mở BOOK-067 (Trạng thái cập nhật giá villa)
+- Nút **Status** — mở BOOK-067 (Trạng thái gói giá)
 - Nút **Recommendations** — mở màn hình gợi ý giá (ngoài phạm vi tài liệu này)
-- Nút **Logs** — mở BOOK-070 (Nhật ký thay đổi giá)
-- Nút **Seasons** — mở BOOK-073 (Quản lý mùa giá)
-- Nút **Season Logs** — mở BOOK-074 (Nhật ký giá theo mùa)
+- Nút **Logs** — mở BOOK-070 (Ghi chú thay đổi giá)
+- Nút **Seasons** — mở BOOK-073 (Lịch mùa)
+- Nút **Season Logs** — mở BOOK-074 (Đối chiếu giá theo mùa)
 
 ## Điều hướng
-- Mở từ: Menu module Đặt phòng > Rates
+- Mở từ: Menu module Đặt chỗ > Pricing Hub
 - Điều hướng tới: BOOK-067, BOOK-070, BOOK-073, BOOK-074 (và màn hình Recommendations ngoài phạm vi nhóm này)

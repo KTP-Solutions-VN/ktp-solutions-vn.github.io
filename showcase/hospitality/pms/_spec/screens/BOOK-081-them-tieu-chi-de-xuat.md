@@ -1,9 +1,9 @@
-# BOOK-081 — Thêm tiêu chí đề xuất villa (Add Criteria)
+# BOOK-081 — Thêm ngưỡng công suất (New Occupancy Threshold)
 
 **Loại:** Popup (mở từ BOOK-080)
 **Route:** Booking/addCriteria
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Form thêm mới một bộ tiêu chí đánh giá tỷ lệ lấp đầy villa theo 3 mốc thời gian cố định: Last Minute (cận ngày), Regular (khoảng giữa), Early Bird (đặt sớm), mỗi mốc có ngưỡng "dưới"/"trên" để tô màu đỏ/xanh khi kiểm tra.
@@ -32,5 +32,5 @@ Ba dòng Last Minute/Regular/Early Bird có các cột "Horizon" (tên mốc) v�
 - Nút **Cancel** (reset) — xoá dữ liệu đang nhập
 
 ## Điều hướng
-- Mở từ: BOOK-080 (Tiêu chí đề xuất villa) — nút "Add new"
+- Mở từ: BOOK-080 (Ngưỡng công suất) — nút "Add new"
 - Điều hướng tới: quay lại BOOK-080 sau khi lưu

@@ -1,8 +1,8 @@
-# OPR-017 — Garden Job Planning (Garden Planning)
+# OPR-017 — Garden Round Planner
 
 **Type:** Full page
 **Route:** villa-services/gardenPlanning/:tab? + dashed-style pretty route: villa-services/garden-planning
-**Module:** OPR = Garden/Pool Operations
+**Module:** OPR = Upkeep Jobs
 
 > Note: the view file `garden_planning.ctp` resides in the `Operator` theme folder, but the action that executes it belongs to `VillaServicesController::gardenPlanning()`, not `OperatorController`.
 
@@ -32,5 +32,5 @@ A planning board for assigning garden jobs by day to each team configured in OPR
 - **Switch team tabs (team-1, team-2, ..., Team-Total)**: view the assignment schedule for each team individually or in aggregate.
 
 ## Navigation
-- Entered from: the "Garden Planning" menu in the sidebar (garden operations group).
-- Leads to: no navigation to another page; slot assignment/removal is handled directly on the page (AJAX) and generates the data displayed in OPR-002 (Garden Job List).
+- Entered from: the "Garden Round Planner" menu in the sidebar (upkeep jobs group).
+- Leads to: no navigation to another page; slot assignment/removal is handled directly on the page (AJAX) and generates the data displayed in OPR-002 (Garden Rounds).

@@ -19,6 +19,6 @@
     }).join('');
   }
   sel.addEventListener('change', render);
-  document.getElementById('exportBtn').addEventListener('click', function () { CJToast('Attendee list exported (demo).'); });
+  document.getElementById('exportBtn').addEventListener('click', function () { CJToast('Check-in list exported (demo).'); });
   render();
   

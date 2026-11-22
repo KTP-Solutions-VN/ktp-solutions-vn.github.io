@@ -1,4 +1,4 @@
-# BOOK-090 — Link Chat to Another Booking
+# BOOK-090 — Merge Conversation
 
 **Type:** Full page (opened from BOOK-089)
 
@@ -6,7 +6,7 @@
 
 **Pretty route:** No dedicated route found in config/Routes.php (uses the default route)
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 
@@ -36,4 +36,4 @@ Allows linking (merging) the chat of a new booking into an already-open chat gro
 
 - Opened from: BOOK-089 (Link button on rows with status "New").
 - After a successful link → returns to BOOK-089.
-- Once linked, the booking's link relationship can be reviewed at BOOK-091 (View Linked Chat).
+- Once linked, the booking's link relationship can be reviewed at BOOK-091 (Merged Conversation).

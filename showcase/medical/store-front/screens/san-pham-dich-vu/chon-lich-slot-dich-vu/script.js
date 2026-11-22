@@ -12,7 +12,7 @@
   function render() {
     var p = getProduct();
     var pending = CJ.storage.get('tj_pending_selection', null);
-    document.getElementById('pdp-name').textContent = 'Choose a Date & Time — ' + p.name;
+    document.getElementById('pdp-name').textContent = 'Select a Time Slot — ' + p.name;
     document.getElementById('pdp-sub').textContent = pending && pending.variant ? 'Option: ' + pending.variant + '. Select an available slot — capacity is checked in real time.' : 'Select an available slot — capacity is checked in real time to avoid overbooking.';
 
     var slots = DATA_LICH_DAT_DICH_VU.filter(function (s) { return s.productId === p.id; });

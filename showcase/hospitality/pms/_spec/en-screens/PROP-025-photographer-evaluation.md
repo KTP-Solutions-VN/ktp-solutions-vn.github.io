@@ -1,8 +1,8 @@
-# PROP-025 — Photographer Evaluation
+# PROP-025 — Photographer Ratings
 
 **Type:** Full page
 **Route:** property/photography/photographer-evaluation (a custom route configured in Routes.php, mapped to the `photographerEvaluation` action)
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 A dashboard summarizing photography performance by photographer, aggregating the scores of photo sets rated against the Angles/Colours/Composition criteria, compared against the regional benchmark score for a selected period and region.
@@ -44,6 +44,6 @@ Displays: Regional average, Best criterion (with score), Weakest criterion (with
 - If photo storage (`photoStorageReady()`) is not ready, a "Photo storage pending review" warning is displayed.
 
 ## Navigation
-- Opened from: PROP-026 (Photography Planning) — breadcrumb; PROP-028 (Photography Scores) — photographer name link on each score row.
-- Navigates to: `Property::photography` (breadcrumb "Photography Planning" — PROP-026).
+- Opened from: PROP-026 (Shoot Scheduler) — breadcrumb; PROP-028 (Image Quality Review) — photographer name link on each score row.
+- Navigates to: `Property::photography` (breadcrumb "Shoot Scheduler" — PROP-026).
 - Child popup: none.

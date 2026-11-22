@@ -61,7 +61,7 @@
   /* --- Occupancy by property horizontal bars --- */
 
   var OCCUPANCY = [
-    { label: 'Villa Andaman Breeze', value: 88 },
+    { label: 'Villa Ocean Breeze', value: 88 },
     { label: 'Aegean Sunset Villa', value: 74 },
     { label: 'Sunset Cove Bungalow', value: 69 },
     { label: 'Palm Grove Residence', value: 81 },

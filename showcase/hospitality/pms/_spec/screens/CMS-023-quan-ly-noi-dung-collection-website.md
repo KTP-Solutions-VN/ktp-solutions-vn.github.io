@@ -1,10 +1,10 @@
-# CMS-023 — Quản lý nội dung Collection Website (5 tab con)
+# CMS-023 — Nội dung trang chủ đề (Themed Site Content)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::collectionTabs($tab, $id)` — mặc định `/cms/collection-tabs/:tab/:id`
 
-**Module:** CMS = Nội dung trang chủ
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Màn hình quản lý toàn bộ nội dung chi tiết của **một** "collection website" (website tổng hợp nhiều villa theo khu vực, dùng để giới thiệu bộ sưu tập villa cho khách). Giao diện dạng tab, gồm 5 tab con: **I Wish**, **Properties**, **Insights**, **Id Card**, **Footer**. `$id` là id của bản ghi `GuestCollectionWebsite` (được chọn từ CMS-021); `$tab` xác định tab đang active trên URL (mặc định `i-wish` khi rỗng). Khi chưa có `$id` (chưa chọn/tạo website), 4 tab Properties/Insights/Id Card/Footer bị khoá (class `disabled`), chỉ tab I Wish thao tác được.
@@ -13,7 +13,7 @@ Chuyển tab thực hiện bằng JS (thay đổi URL qua `history.replaceState`
 
 ## Mô tả chi tiết
 
-### Tab: I Wish (`tab=i-wish`, mặc định)
+### Tab: Wishlist (`tab=i-wish`, mặc định)
 Danh sách toàn bộ hạng mục "I Wish" (nhu cầu/sở thích khách, ví dụ: Beach, Golf, Spa...) lấy từ danh mục dùng chung `GuestCollectionIwish`, cho phép bật/tắt (toggle on/off) hạng mục nào áp dụng cho collection website hiện tại.
 
 | # | Tên cột | Field code | Ghi chú |
@@ -37,7 +37,7 @@ Dữ liệu lưu vào `GuestProperty.data` (serialize PHP), cấu trúc `data[gu
 
 Model liên quan: `GuestProperty` (guest_collection_website_id, data), `District` (contain `Country`), `Villa` (contain `Owner`, `VillaLocation`), `GuestCollectionIwish`/`GuestIwish` (để biết I Wish nào đang "on" cho website này — dùng lại kết quả từ tab I Wish).
 
-### Tab: Insights (`tab=insights`, chỉ dùng được khi đã có `$id`)
+### Tab: Journal (`tab=insights`, chỉ dùng được khi đã có `$id`)
 Danh sách các "Insight" (bài viết/thông tin gợi ý cho khách) gắn với collection website, mỗi dòng có thể gán vào 1 loại Insight thuộc danh mục dùng chung.
 
 | # | Tên cột | Field code | Loại | Ghi chú |
@@ -101,11 +101,11 @@ Model liên quan: `GuestFooter` (id, guest_collection_website_id, websites, book
 
 ## Chức năng/nút thao tác
 - **Chuyển tab (nav-link):** đổi URL bằng JS, không reload (riêng tab Properties sẽ `location.reload()`).
-- **Tab I Wish — toggle icon:** bật/tắt trực tiếp, gọi AJAX `POST /VM/cms/addIwish` (action `addIwish()`, không có route đẹp, không mở trang riêng). Payload: `collection_id`, `wish_id`, `status` (`On`/`Off`). `status=On` → tạo/cập nhật bản ghi `GuestIwish`; `status=Off` → xác nhận qua `confirm()` rồi xoá (`deleteAll`) bản ghi `GuestIwish` tương ứng. Trả JSON `{response, message}`, cập nhật khối thông báo `#message-board` bằng JS, không reload trang.
+- **Tab Wishlist — toggle icon:** bật/tắt trực tiếp, gọi AJAX `POST /VM/cms/addIwish` (action `addIwish()`, không có route đẹp, không mở trang riêng). Payload: `collection_id`, `wish_id`, `status` (`On`/`Off`). `status=On` → tạo/cập nhật bản ghi `GuestIwish`; `status=Off` → xác nhận qua `confirm()` rồi xoá (`deleteAll`) bản ghi `GuestIwish` tương ứng. Trả JSON `{response, message}`, cập nhật khối thông báo `#message-board` bằng JS, không reload trang.
 - **Tab Properties — Save (`property_form`):** lưu ma trận villa/khu vực/I Wish vào `GuestProperty`; nếu không tick I Wish nào sẽ báo lỗi "Please select the desired I Wish corrosponding to property." Reset trả form về mặc định (client-side).
-- **Tab Insights — Add New (modal):** submit `action=insight_new_form` → tạo `GuestInsight` mới.
-- **Tab Insights — đổi dropdown Insight từng dòng:** gọi AJAX `POST /VM/cms/updateInsightAjax` (action `updateInsightAjax()`, không route đẹp) ngay khi `change`, payload `guest_insight_id`, `value` → cập nhật `GuestInsight.guest_collection_insight_id` tức thời, không cần Save/redirect.
-- **Tab Insights — Delete (modal xác nhận):** submit `collection_insight_delete=delete` + `collection_insight_id` → xoá `GuestInsight`.
+- **Tab Journal — Add New (modal):** submit `action=insight_new_form` → tạo `GuestInsight` mới.
+- **Tab Journal — đổi dropdown Insight từng dòng:** gọi AJAX `POST /VM/cms/updateInsightAjax` (action `updateInsightAjax()`, không route đẹp) ngay khi `change`, payload `guest_insight_id`, `value` → cập nhật `GuestInsight.guest_collection_insight_id` tức thời, không cần Save/redirect.
+- **Tab Journal — Delete (modal xác nhận):** submit `collection_insight_delete=delete` + `collection_insight_id` → xoá `GuestInsight`.
 - **Tab Id Card — Save (`collection_id_card_form`):** lưu/khởi tạo `GuestIdCard`; ảnh chỉ ghi đè khi có file/ảnh crop mới, ngược lại giữ ảnh cũ.
 - **Tab Footer — Save (link) (`footer_form_1`):** lưu danh sách website link vào `GuestFooter.websites`.
 - **Tab Footer — Search (lọc ngôn ngữ):** load lại nội dung 5 dropdown Form 2 theo ngôn ngữ chọn (không lưu dữ liệu).
@@ -115,6 +115,6 @@ Model liên quan: `GuestFooter` (id, guest_collection_website_id, websites, book
 Ghi chú kỹ thuật: biến `$villas` (danh sách toàn bộ villa) được controller truyền ra view nhưng không thấy sử dụng trong 5 element tab (`i_wish.ctp`, `properties.ctp`, `insights.ctp`, `id_card.ctp`, `footer.ctp`) — có thể là biến dư thừa/không dùng.
 
 ## Điều hướng
-- Vào từ: CMS-021 (danh sách Collection Website — chọn 1 website để vào quản lý nội dung chi tiết); breadcrumb JS trên trang cũng có link quay lại CMS-021 (`controller=cms, action=collectionWebsites`, label "Collections Website").
+- Vào từ: CMS-021 (Trang chủ đề — chọn 1 website để vào quản lý nội dung chi tiết); breadcrumb JS trên trang cũng có link quay lại CMS-021 (`controller=cms, action=collectionWebsites`, label "Themed Sites").
 - Điều hướng đến: các popup nội bộ (Add Insight, Delete Insight) đều nằm trong cùng trang, không điều hướng sang URL khác. Sau khi Save mỗi tab (trừ Footer form 2), trang tự redirect lại chính nó (`collectionTabs/<tab>/<id>`) để hiển thị flash message.
 - Liên quan (không mô tả sâu, do đồng nghiệp phụ trách): CMS-022 (`collectionWebsiteEdit` — sửa thông tin cơ bản của website, tách riêng khỏi màn hình này); danh mục nguồn cho tab I Wish/Insights được quản lý ở CMS-028/CMS-029 (`iWish`/`iWishEdit`) và CMS-026/CMS-027 (`insights`/`insightsEdit`); danh mục text dùng cho tab Footer được quản lý ở CMS-024 (`collectionCommonText`) và CMS-025 (`editCollectionCommonText`).

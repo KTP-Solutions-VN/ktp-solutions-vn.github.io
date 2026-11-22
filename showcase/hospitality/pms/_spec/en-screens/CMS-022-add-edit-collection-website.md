@@ -1,10 +1,10 @@
-# CMS-022 — Add/Edit Collection Website
+# CMS-022 — Themed Site Editor
 
 **Type:** Full page
 
 **Route:** `CmsController::collectionWebsiteEdit($id)` — default `/cms/collection-website-edit/:id`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 Form for adding a new or editing an existing Collection Website (`GuestCollectionWebsite`), consisting of a display name and the public URL of the villa collection page.
@@ -31,5 +31,5 @@ When `id` is absent (Add mode): the form is empty, with `url` showing the defaul
 - **Reset:** returns the form to its default state (HTML reset, no server call).
 
 ## Navigation
-- Accessed from: CMS-021 (Collection Website list) — "Add Collection" button (add new, no `id`) or "Edit" link on a given row (with `id`).
-- Navigates to: after Save (whether successful or in error), always returns to CMS-021 (Collection Website list).
+- Accessed from: CMS-021 (Themed Sites) — "Add Collection" button (add new, no `id`) or "Edit" link on a given row (with `id`).
+- Navigates to: after Save (whether successful or in error), always returns to CMS-021 (Themed Sites).

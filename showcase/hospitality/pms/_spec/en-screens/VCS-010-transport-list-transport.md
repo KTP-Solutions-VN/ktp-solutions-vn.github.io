@@ -1,11 +1,11 @@
-# VCS-010 — Transport List (Transport)
+# VCS-010 — Transport Options
 
 **Type:** Full page
 **Route:** villa-common-setting/villa-transport (default CakePHP DashedRoute: `/villa-common-setting/villa-transport`)
-**Module:** VCS = Villa Common Settings
+**Module:** VCS = Property Attributes
 
 ## Overview
-Master data management screen for "Transport" related to a villa (e.g., motorbike, car, boat, etc.). Displayed as a list table, with Add/Edit/Delete supported through a single shared popup. Structure and behavior are identical to VCS-001 (Amenities), differing only in the underlying data model.
+Master data management screen for "Transport" related to a villa (e.g., motorbike, car, boat, etc.). Displayed as a list table, with Add/Edit/Delete supported through a single shared popup. Structure and behavior are identical to VCS-001 (Amenity Catalog), differing only in the underlying data model.
 
 ## Detailed Description
 | # | Field Label | Field Code | Data Type / Input | Required | Notes |
@@ -24,6 +24,6 @@ No dedicated search/filter field (client-side DataTable `#zero_config`).
 - Submitting the popup form sends a `POST` to the `villaTransport` action with `action=add|edit|delete`; the `VillaCommonSettingController::villaTransport()` controller saves/deletes records in the `VillaTransport` table, writes an Activity Log entry, displays a Flash message, and redirects via `referer()`.
 
 ## Navigation
-- Opened from: Settings menu > "Properties" > "Transport" submenu.
+- Opened from: Portfolio Setup menu > "Property Attributes" > "Transport Options" submenu.
 - Navigates to: no navigation to another page (CRUD operations performed in place via popup + reload).
-- Child popup: VCS-010-P1 (Add/Edit/Delete Transport).
+- Child popup: VCS-010-P1 (Transport Option Form).

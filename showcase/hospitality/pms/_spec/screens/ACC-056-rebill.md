@@ -1,10 +1,10 @@
-# ACC-056 — Rebill
+# ACC-056 — Khoản tính lại cho chủ nhà (Owner Recharges)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `AccountController::rebill()` — mặc định `/account/rebill`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Danh sách các bản ghi Rebill (chi phí phát sinh của Property cần lập lại hoá đơn/tính lại cho tháng cụ thể), cho phép thêm mới, sửa và xoá.
@@ -30,5 +30,5 @@ Popup xác nhận Xoá (modal `#exampleModal`):
 - **Xoá (icon thùng rác, trên từng dòng):** mở popup xác nhận; bấm Save trong popup sẽ điều hướng tới `AccountController::deleteRebill(base64(id))` — xoá bản ghi `VillaExpense`, ghi access log, Flash message, rồi quay lại danh sách Rebill.
 
 ## Điều hướng
-- Vào từ: Sidebar > mục "Rebill" trong nhóm Account/Expenses.
-- Điều hướng đến: ACC-056-P1 (Popup thêm Rebill), ACC-056-P2 (Popup sửa Rebill).
+- Vào từ: Sidebar > mục "Owner Recharges" trong nhóm Finance & Admin / Spending.
+- Điều hướng đến: ACC-056-P1 (Thêm khoản tính lại), ACC-056-P2 (Sửa khoản tính lại).

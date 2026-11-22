@@ -1,11 +1,11 @@
-# TRN-001 — Training Homepage
+# TRN-001 — Staff Academy
 
 **Type:** Full page
 **Route:** `TrainingController::index()` — `/training/index` (default, DashedRoute)
-**Module:** TRN = Training
+**Module:** TRN = Staff Academy
 
 ## Overview
-The homepage/landing screen of the Training module. Displays the system logo banner (only for non-Employee users) and has no business data; acts as the entry point when a user selects the "Training" menu.
+The homepage/landing screen of the Staff Academy module. Displays the system logo banner (only for non-Employee users) and has no business data; acts as the entry point when a user selects the "Staff Academy" menu.
 
 ## Detailed Description
 There is no form or data list on this page.
@@ -18,5 +18,5 @@ There is no form or data list on this page.
 - No business actions on this page (only displays the banner).
 
 ## Navigation
-- **Entered from:** the system's main menu, "Training" item.
+- **Entered from:** the system's main menu, "Staff Academy" item.
 - **Leads to:** no direct navigation links on the page itself; the module's other screens (TRN-002, TRN-007, TRN-008, TRN-010, TRN-011) are accessed via the general navigation menu, not from this page.

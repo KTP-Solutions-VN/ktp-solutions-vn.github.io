@@ -1,10 +1,10 @@
-# VSV-027 — Kiểm soát điện check-in/check-out (bản cũ — Control)
+# VSV-027 — Kiểm tra chỉ số – bản cổ điển (Meter Audit (Classic))
 
 **Loại:** Trang đầy đủ
 
 **Route:** `VillaServicesController::control()` — mặc định `/villa-services/control`; dữ liệu điều hướng theo ngày tải qua AJAX `getElecricutyControlAjax`
 
-**Module:** Dịch vụ villa — Điện
+**Module:** Dịch vụ lưu trú — Đo điện
 
 ## Mô tả ngắn gọn
 Phiên bản kiểm soát điện check-in/check-out kiểu cũ, gộp chung trong một trang: liệt kê villa check-out trong ngày còn thiếu chỉ số/thanh toán điện (dải màu đỏ) và villa check-in trong ngày còn thiếu chỉ số điện đầu kỳ (dải màu xanh), điều hướng qua lại giữa các ngày bằng nút mũi tên/lịch. Chức năng này đã được thay thế bằng hai màn hình chi tiết hơn là VSV-011 (`electricityCheckInControl`) và VSV-012 (`electricityCheckOutControl`) nhưng route/action vẫn còn tồn tại trong hệ thống.

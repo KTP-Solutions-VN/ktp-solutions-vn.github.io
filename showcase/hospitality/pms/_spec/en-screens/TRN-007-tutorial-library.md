@@ -1,8 +1,8 @@
-# TRN-007 — Tutorial Library
+# TRN-007 — Lesson Catalog
 
 **Type:** Full page
 **Route:** `TrainingController::library()` — `/training/library`
-**Module:** TRN = Training
+**Module:** TRN = Staff Academy
 
 ## Overview
 A list of released (active) Tutorials that the current user is authorized to view, used for browsing and starting to read/study a lesson.
@@ -34,5 +34,5 @@ Data is automatically filtered by `user_type` (Employees only see access_level=s
 - **Hide/Show** (crossed-eye icon): calls `trainingStatus` to toggle the active/inactive status and reloads this page.
 
 ## Navigation
-- **Entered from:** main menu "Training" → "Library".
+- **Entered from:** main menu "Staff Academy" → "Lesson Catalog".
 - **Leads to:** TRN-009 (reading a lesson).

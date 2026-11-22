@@ -1,10 +1,10 @@
-# USR-017 — Thêm Nhà cung cấp dịch vụ (Add Provider)
+# USR-017 — Thêm nhà thầu (New Contractor)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `UserController::addProviders()` — mặc định `user/addProviders`
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Form tạo mới tài khoản nhân sự cho một nhà cung cấp dịch vụ bên ngoài (`employment = External`), gồm thông tin dịch vụ/công ty cung cấp, thông tin cá nhân, thông tin đăng nhập, phân quyền vai trò/module, đơn vị kinh doanh và ngôn ngữ.
@@ -40,4 +40,4 @@ Form tạo mới tài khoản nhân sự cho một nhà cung cấp dịch vụ b
 
 ## Điều hướng
 - Mở từ: USR-016 (nút "Thêm mới").
-- Điều hướng đến: USR-016 (Danh sách Nhà cung cấp dịch vụ) sau khi lưu thành công.
+- Điều hướng đến: USR-016 (Nhà thầu dịch vụ) sau khi lưu thành công.

@@ -1,10 +1,10 @@
-# OWN-004-P2 — View Expense Claim Details
+# OWN-004-P2 — Owner Expense Detail
 
 **Type:** Popup (opened from OWN-004, opens in a new browser tab)
 
 **Route:** `/Owner/viewClaim/{claim_id}` (controller `Owner`, action `viewClaim($claim_id)`)
 
-**Module:** Owner Management (Admin)
+**Module:** Owner Relations (Admin)
 
 ## Overview
 

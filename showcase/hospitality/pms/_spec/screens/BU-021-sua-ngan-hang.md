@@ -1,10 +1,10 @@
-# BU-021 — Sửa ngân hàng
+# BU-021 — Sửa hồ sơ ngân hàng (Edit Bank Record)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `BusinessUnitController::editBank($id)` — mặc định `/business-unit/edit-bank/{id}` (id mã hoá base64)
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Biểu mẫu chỉnh sửa thông tin một ngân hàng đã tồn tại — cùng bộ field với BU-020 (Thêm ngân hàng), nạp sẵn dữ liệu hiện có.

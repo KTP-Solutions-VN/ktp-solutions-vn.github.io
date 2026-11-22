@@ -1,10 +1,10 @@
-# CMS-024 — Danh sách text chung Collection Website
+# CMS-024 — Đoạn văn trang chủ đề (Themed Site Snippets)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::collectionCommonText($action, $id)` — mặc định `/cms/collection-common-text/:action/:id`
 
-**Module:** CMS = Nội dung trang chủ
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Danh sách các đoạn text dùng chung (bản dịch theo `type`) áp dụng cho các collection website — dữ liệu bảng `CollectionTranslation`. Đây là kho text nguồn cho 5 dropdown ở tab **Footer** của CMS-023 (Book with confidence, Terms & Condition, Personal data policy, Why work with us, Guarantee). Cùng 1 action `collectionCommonText` xử lý cả hiển thị danh sách và xoá bản ghi (khi truyền `$action`/`$id`).
@@ -29,5 +29,5 @@ Filter: dropdown `language` (danh mục `Language`) + nút Search (`language_fil
 - **Xoá:** gọi lại chính action này với `$action` + `$id` (route `/cms/collection-common-text/<action>/<id>`) → xoá bản ghi `CollectionTranslation` theo `id`, sau đó redirect về danh sách (không truyền lại tham số) kèm flash thành công/lỗi.
 
 ## Điều hướng
-- Vào từ: có thể truy cập độc lập trong module CMS (menu Settings/CMS); được tham chiếu như kho dữ liệu nguồn từ tab Footer của CMS-023.
+- Vào từ: có thể truy cập độc lập trong module CMS (menu Web Publishing); được tham chiếu như kho dữ liệu nguồn từ tab Footer của CMS-023.
 - Điều hướng đến: CMS-025 (form thêm/sửa 1 bản ghi text chung).

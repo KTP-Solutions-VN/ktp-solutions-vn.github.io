@@ -1,8 +1,8 @@
-# PROP-056 — Photography Activity Logs (Photography Logs)
+# PROP-056 — Shoot History
 
 **Type:** Full page
 **Route:** property/logs
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Page for looking up the log of completed Photography activities, filterable by Business Unit, Entry Level (Property/Residence/Unit), and the specific Residence/Unit/Property. Displays activity type, name, date, and comments.
@@ -33,6 +33,6 @@ Page for looking up the log of completed Photography activities, filterable by B
 - Actions icon on each row → view details of the related Photography activity (related to PROP-026 Photography Plan, PROP-028 Photo Quality Score).
 
 ## Navigation
-- Opened from: Property/Photography menu (outside the scope of the current code).
+- Opened from: Shoots menu (outside the scope of the current code).
 - Navigates to: No navigation to another page within scope (only filters data in place); related to PROP-026, PROP-027, PROP-028 data.
 - Child popup: None.

@@ -1,10 +1,10 @@
-# CMS-015 — Sửa nội dung Destination Global
+# CMS-015 — Trình sửa điểm đến tổng hợp (Aggregator Destination Editor)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::destinationGlobalEdit($district_id)` — mặc định `/cms/destination-global-edit/:district_id`
 
-**Module:** CMS = Nội dung trang chủ villa
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Form chỉnh nội dung giới thiệu điểm đến (`district_id`) trong phạm vi Guest Collection (website tổng hợp). Dữ liệu lưu ở model `GuestCollectionDestination` — 1 bản ghi/1 district, gồm tiêu đề (heading), ảnh và đoạn mô tả đa ngôn ngữ. Yêu cầu `district_id` hợp lệ.

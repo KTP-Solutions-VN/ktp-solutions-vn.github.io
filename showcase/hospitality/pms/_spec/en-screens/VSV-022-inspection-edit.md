@@ -1,10 +1,10 @@
-# VSV-022 — Inspection Report Processing Setup (Inspection Edit)
+# VSV-022 — Inspection Triage
 
 **Type:** Popup (opened from VSV-021, as a dedicated page)
 
 **Route:** `VillaServicesController::inspectionEdit()` — `/villa-services/inspectionEdit?id=<inspection_key>`
 
-**Module:** Villa Services — Inspection
+**Module:** In-Stay Services — Inspections
 
 ## Overview
 An intermediate page before processing an inspection report: summarizes the villa/inspector/timing/number of items, allows setting a common due date and assigning a responsible person per department (Maintenance, Cleaning, Purchasing, Gardening, Renovation) corresponding to the flagged items, before starting (Start) the detailed processing screen.

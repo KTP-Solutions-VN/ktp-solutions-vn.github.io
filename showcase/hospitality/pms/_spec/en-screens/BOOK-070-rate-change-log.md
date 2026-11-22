@@ -1,9 +1,9 @@
-# BOOK-070 — Rate Change Log
+# BOOK-070 — Price Change Notes
 
 **Type:** Full page
 **Route:** Booking/ratesLogs (default: `/booking/rates-logs`)
 **Pretty route:** no dedicated route found in config/Routes.php (uses the default route)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Page for recording and looking up logs/notes related to villa rate changes, which can be declared at 3 levels: Villa (Property), Residence, or Unit/Block. Supports adding/editing/deleting logs directly on the page via a popup.

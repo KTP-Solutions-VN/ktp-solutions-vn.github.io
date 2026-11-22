@@ -4,7 +4,7 @@
   var VSV = MM.VSV;
   var CHANNELS = ['Direct', 'Booking.com', 'Airbnb', 'Agoda'];
   var VILLA_TYPES = { 'PV-101': 'Pool Villa', 'PV-102': 'Beachfront Villa', 'PV-103': 'Hillside Villa', 'PV-104': 'Garden Villa', 'PV-105': 'Pool Villa', 'PV-106': 'Beachfront Villa', 'PV-107': 'Garden Villa', 'PV-108': 'Hillside Villa' };
-  var AREAS = { 'PV-101': 'Kamala', 'PV-102': 'Bang Tao', 'PV-103': 'Seminyak', 'PV-104': 'Ubud', 'PV-105': 'Kata', 'PV-106': 'Bophut', 'PV-107': 'Choeng Mon', 'PV-108': 'Canggu' };
+  var AREAS = { 'PV-101': 'Sentosa Cove', 'PV-102': 'Ocean Drive', 'PV-103': 'Belongil', 'PV-104': 'Bangalow', 'PV-105': 'Siloso', 'PV-106': 'Noosaville', 'PV-107': 'Sunshine Beach', 'PV-108': 'Byron Bay' };
 
   var MGMT_KEY = 'mm_vsv_electricity_mgmt';
   var PRICING_KEY = 'mm_vsv_electricity_pricing';

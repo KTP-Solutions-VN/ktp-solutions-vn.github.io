@@ -1,13 +1,13 @@
-# CMS-026 — Insights Article List
+# CMS-026 — Travel Journal
 
 **Type:** Full page
 
 **Route:** `CmsController::insights($action, $id)` — default `/cms/insights/:action/:id`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
-List screen for "Insights" articles (global article/news-style content, not tied to a specific villa) under the CMS's Common Texts section. From here, articles can be added, edited, or deleted.
+List screen for "Travel Journal" articles (global article/news-style content, not tied to a specific villa) under the CMS's Shared Content Blocks section. From here, articles can be added, edited, or deleted.
 
 ## Detailed Description
 
@@ -27,6 +27,6 @@ Data is fetched in full (`find('all')`, no conditions, no sorting, no pagination
 - **Delete (per row):** link `action => insights, delete, $id` → calls back into the `insights` action with `$action='delete'`, `$id`; the controller deletes the record (`_deleteData('GuestCollectionInsight', 'id', $id)`), shows a success/error Flash message, then redirects back to this same list screen.
 
 ## Navigation
-- Accessed from: Settings menu → Common Texts (`CmsController::commonText`), the "Insights" button/link.
-- Navigates to: CMS-027 (add/edit an Insight article).
-- Related: the "Insights" tab in the property CMS collection tabs screen (CMS-023, `plugins/VillaManagement/src/Template/Cms/collection_tabs.ctp`) displays this list of global Insights for assignment to/removal from a specific villa — that tab uses a separate element (`Element/cms/insights.ctp`) and the AJAX action `CmsController::updateInsightAjax()` to save the selection (not this screen's `insights` action), only reading the shared `GuestCollectionInsight` data.
+- Accessed from: Settings menu → Shared Content Blocks (`CmsController::commonText`), the "Travel Journal" button/link.
+- Navigates to: CMS-027 (Journal Article Editor).
+- Related: the "Journal" tab in the property CMS collection tabs screen (CMS-023, `plugins/VillaManagement/src/Template/Cms/collection_tabs.ctp`) displays this list of global Insights for assignment to/removal from a specific villa — that tab uses a separate element (`Element/cms/insights.ctp`) and the AJAX action `CmsController::updateInsightAjax()` to save the selection (not this screen's `insights` action), only reading the shared `GuestCollectionInsight` data.

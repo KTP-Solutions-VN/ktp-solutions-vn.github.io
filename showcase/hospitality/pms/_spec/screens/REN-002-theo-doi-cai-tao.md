@@ -1,8 +1,8 @@
-# REN-002 — Theo dõi cải tạo
+# REN-002 — Theo dõi nâng cấp (Refurbishment Tracker)
 
 **Loại:** Trang đầy đủ
 **Route:** renovation/followUp + route đẹp dạng dashed: renovation/follow-up
-**Module:** REN = Cải tạo
+**Module:** REN = Nâng cấp tài sản
 
 ## Mô tả ngắn gọn
 Màn hình danh sách tổng quan các dự án cải tạo (renovation project), lọc theo đơn vị kinh doanh và villa, cho phép đánh dấu ngày bắt đầu/hoàn thành thực tế của dự án, xóa dự án và điều hướng tới các màn hình liên quan (theo dõi chi tiết dự án, tạo dự án mới, sửa dự án).
@@ -25,12 +25,12 @@ Màn hình danh sách tổng quan các dự án cải tạo (renovation project)
 | 5 | Actions | — | Theo dõi dự án, Sửa, Xóa |
 
 ## Chức năng/nút thao tác
-- **+ Tạo dự án mới**: điều hướng tới REN-001 — Tạo dự án cải tạo mới.
-- **Theo dõi dự án (icon xem)**: mở REN-003 — Theo dõi dự án cải tạo (`projectFollowUp`).
-- **Sửa (icon bút)**: mở REN-004 — Sửa dự án cải tạo (`edit`).
+- **+ Tạo dự án mới**: điều hướng tới REN-001 — Tạo dự án nâng cấp.
+- **Theo dõi dự án (icon xem)**: mở REN-003 — Tiến trình dự án (`projectFollowUp`).
+- **Sửa (icon bút)**: mở REN-004 — Sửa dự án nâng cấp (`edit`).
 - **Xóa (icon thùng rác)**: xóa `Renovation` cùng toàn bộ `RenovationItem`, `RenovationReceipt`, `RenovationPhoto`, `RenovationPayment` liên quan.
 - **Đánh dấu ngày bắt đầu/hoàn thành thực tế**: form ẩn `date_type` (start/close) submit ngày chọn, cập nhật `actual_start_date`/`actual_end_date` và `status` tương ứng (Under Progress/Completed).
 
 ## Điều hướng
-- Vào từ: menu "Renovation" trong sidebar.
+- Vào từ: menu "Refurbishments" trong sidebar.
 - Đi tới: REN-001 (tạo mới), REN-003 (theo dõi dự án), REN-004 (sửa dự án).

@@ -1,10 +1,10 @@
-# CS-008 — Units
+# CS-008 — Unit Setup
 
 **Type:** Full page
 
 **Route:** `CommonSettingController::units()` — default `/common-setting/units`
 
-**Module:** CS = Common Lookup Settings
+**Module:** CS = Reference Data
 
 ## Overview
 A list for managing the Unit lookup data (rental apartments/units) — a child level of Residence, the lowest level in the geographic hierarchy Country > Region > District > Area > Residence > Unit.
@@ -31,5 +31,5 @@ List (DataTable `#zero_config`, sorted by Country > Region > District > Area > R
 - **Delete:** opens popup CS-008-P1 in delete-confirmation mode.
 
 ## Navigation
-- Accessed from: System Settings menu > Common Lookup Settings > Unit.
-- Navigates to: CS-008-P1 (Add/Edit/Delete Unit popup).
+- Accessed from: Configuration menu > Reference Data > Unit Setup.
+- Navigates to: CS-008-P1 (Unit Form popup).

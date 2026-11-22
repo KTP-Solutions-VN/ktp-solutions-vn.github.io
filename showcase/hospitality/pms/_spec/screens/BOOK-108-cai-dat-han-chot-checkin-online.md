@@ -1,4 +1,4 @@
-# BOOK-108 — Cài đặt hạn chót check-in online (Online Checkin Deadline Settings)
+# BOOK-108 — Hạn chót trước khi đến (Pre-arrival Deadlines)
 
 **Loại:** Trang đầy đủ
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** `/booking/online-checkin/deadline-settings`
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 

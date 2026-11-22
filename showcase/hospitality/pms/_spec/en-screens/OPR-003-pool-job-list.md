@@ -1,11 +1,11 @@
-# OPR-003 — Pool Job List
+# OPR-003 — Pool Rounds
 
 **Type:** Full page
 **Route:** operator/pools/:tab? + dashed-style pretty route: operator/pools
-**Module:** OPR = Garden/Pool Operations
+**Module:** OPR = Upkeep Jobs
 
 ## Overview
-Screen listing pool cleaning/maintenance jobs that have been performed, viewable via 2 tabs: "By Date" (by date) and "By Property" (by villa), with business unit + date/villa filters. Structure and behavior are similar to OPR-002 (Garden Job List) but applied to pools.
+Screen listing pool cleaning/maintenance jobs that have been performed, viewable via 2 tabs: "By Date" (by date) and "By Property" (by villa), with business unit + date/villa filters. Structure and behavior are similar to OPR-002 (Garden Rounds) but applied to pools.
 
 ## Detailed Description
 
@@ -30,11 +30,11 @@ Screen listing pool cleaning/maintenance jobs that have been performed, viewable
 
 ## Functions / Actions
 - **By Date / By Property tabs**: switches views (data pre-rendered in both tables via the `operator/pool/by_date` and `operator/pool/by_property` elements).
-- **View details (eye icon)**: opens OPR-004 — View Pool Job Details (`poolView`).
+- **View details (eye icon)**: opens OPR-004 — Pool Round Record (`poolView`).
 - **Download PDF (download icon)**: downloads the report file if one exists.
 - **Delete (trash icon)**: submits a hidden `is_delete=yes` via the `action_form` form, deleting the related `PoolCleaning` record (with a confirmation modal `exampleModal`).
 - **GPS badge**: opens the `gps_modal` showing a Time / Distance to Villa table.
 
 ## Navigation
-- Entered from: the "Pool" (pool operations) menu in the sidebar.
-- Leads to: OPR-004 — View Pool Job Details.
+- Entered from: the "Pool Rounds" (upkeep jobs) menu in the sidebar.
+- Leads to: OPR-004 — Pool Round Record.

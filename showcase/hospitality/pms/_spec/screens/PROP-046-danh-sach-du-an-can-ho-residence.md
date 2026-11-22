@@ -1,8 +1,8 @@
-# PROP-046 — Danh sách Dự án/Chung cư (Residence Enquiry)
+# PROP-046 — Khu căn hộ & dự án (Residences & Projects)
 
 **Loại:** Trang đầy đủ
 **Route:** property/residence-enquiry
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang liệt kê danh sách Dự án/Chung cư (Residence) có chứa ít nhất 1 Property đang mở, lọc theo Business Unit. Hiển thị thông tin quận/huyện, tên nội bộ/tên chính thức, mã Residence, và thông tin chủ nhà (Owner) có nhiều Property nhất trong Residence đó.
@@ -32,6 +32,6 @@ Trang liệt kê danh sách Dự án/Chung cư (Residence) có chứa ít nhất
 - Icon "Xem" (`fa-eye`) → mở PROP-047 (Xem chi tiết Residence Enquiry) tại `viewResidenceEnquiry/:residence_id/:business_unit_id`.
 
 ## Điều hướng
-- Mở từ: Menu Property (không thuộc phạm vi mã hiện tại).
-- Điều hướng tới: PROP-047 (Xem chi tiết Dự án/Chung cư).
+- Mở từ: Menu Hồ sơ tài sản (không thuộc phạm vi mã hiện tại).
+- Điều hướng tới: PROP-047 (Hồ sơ khu căn hộ).
 - Popup con: Không có.

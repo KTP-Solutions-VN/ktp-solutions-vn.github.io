@@ -1,11 +1,11 @@
-# VCS-007 — Danh sách Công năng sử dụng Villa (Property Usage)
+# VCS-007 — Loại hình sử dụng (Usage Types)
 
 **Loại:** Trang đầy đủ
 **Route:** villa-common-setting/villa-usage (dashed mặc định CakePHP DashedRoute: `/villa-common-setting/villa-usage`)
-**Module:** VCS = Cấu hình chung villa
+**Module:** VCS = Thuộc tính tài sản
 
 ## Mô tả ngắn gọn
-Màn hình quản lý dữ liệu chủ "Công năng sử dụng" (Usage) của villa (ví dụ: nghỉ dưỡng, cho thuê dài hạn...). Hiển thị dạng bảng danh sách, cho phép Thêm/Sửa/Xóa qua 1 popup dùng chung. Cấu trúc và hành vi giống hệt VCS-001 (Vật dụng), khác model dữ liệu.
+Màn hình quản lý dữ liệu chủ "Công năng sử dụng" (Usage) của villa (ví dụ: nghỉ dưỡng, cho thuê dài hạn...). Hiển thị dạng bảng danh sách, cho phép Thêm/Sửa/Xóa qua 1 popup dùng chung. Cấu trúc và hành vi giống hệt VCS-001 (Danh mục tiện nghi), khác model dữ liệu.
 
 ## Mô tả chi tiết
 | # | Tên field (label) | Field code (name/id) | Loại dữ liệu/input | Bắt buộc | Ghi chú |
@@ -24,6 +24,6 @@ Không có ô tìm kiếm/lọc riêng (DataTable client-side `#zero_config`).
 - Submit form popup gửi `POST` về chính action `villaUsage` với `action=add|edit|delete`; controller `VillaCommonSettingController::villaUsage()` lưu/xóa bảng `Uzage`, ghi Activity Log, hiển thị Flash message, redirect `referer()`.
 
 ## Điều hướng
-- Mở từ: Menu Settings > "Properties" > submenu "Property Usage".
+- Mở từ: Menu Portfolio Setup > "Property Attributes" > submenu "Usage Types".
 - Điều hướng tới: không điều hướng sang trang khác (thao tác CRUD tại chỗ qua popup + reload).
-- Popup con: VCS-007-P1 (Thêm/Sửa/Xóa Công năng sử dụng).
+- Popup con: VCS-007-P1 (Form loại hình sử dụng).

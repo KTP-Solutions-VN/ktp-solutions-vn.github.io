@@ -9,7 +9,7 @@ const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&
 const t = (k, v) => { let s = S.T[k] ?? k; if (v) for (const [a, b] of Object.entries(v)) s = s.replaceAll("{" + a + "}", b); return s; };
 const L = o => o == null ? "" : typeof o === "string" ? o : (o[S.lang] ?? o.vi ?? o.en ?? "");
 const nRec = n => t(n === 1 ? "list.count1" : "list.count", {n});
-const VT = {"Đọc / sửa / xoá": "Read / edit / delete", "Đọc / sửa": "Read / edit", "Tất cả user": "All users"}; // giá trị lấy nguyên từ cấu hình Legacy CRM (đã ghi bằng tiếng Việt)
+const VT = {"Đọc / sửa / xoá": "Read / edit / delete", "Đọc / sửa": "Read / edit", "Tất cả user": "All users"}; // giá trị lấy nguyên từ cấu hình hiện tại (đã ghi bằng tiếng Việt)
 const vt = s => S.lang === "vi" ? s : VT[s] ?? s;
 const ic = (n, c) => `<svg class="i${c ? " " + c : ""}"><use href="#i-${n}"/></svg>`;
 const fa = id => {
@@ -25,13 +25,15 @@ function av(name, big) {
   return `<span class="av${big ? "" : " s"}" style="background:${AVC[h % AVC.length]}">${esc(ini)}</span>`;
 }
 function toast(m) { const e = $("#toast"); e.textContent = m; e.classList.add("show"); clearTimeout(e._h); e._h = setTimeout(() => e.classList.remove("show"), 2600); }
-const money = v => v == null || v === "" ? "" : "S$ " + Number(v).toLocaleString("en-US", Number(v) % 1 ? {minimumFractionDigits: 2, maximumFractionDigits: 2} : {}); // có số lẻ thì luôn 2 chữ số
+const CUR_SYM = {AUD: "A$", SGD: "S$"};
+const curSym = tn => CUR_SYM[((S.app && S.app.tenants.find(x => x.code === (tn || S.tenant))) || {}).currency] || "A$"; // tiền tệ của pháp nhân (tenants.json); Group View → A$ (tiền tệ tập đoàn)
+const money = (v, tn) => v == null || v === "" ? "" : curSym(tn) + " " + Number(v).toLocaleString("en-AU", Number(v) % 1 ? {minimumFractionDigits: 2, maximumFractionDigits: 2} : {}); // tn: pháp nhân của bản ghi (mặc định pháp nhân đang chọn); có số lẻ thì luôn 2 chữ số
 const dmy = v => { if (!v) return ""; const [d, tm] = String(v).split("T"); const [y, m, dd] = d.split("-"); return `${dd}/${m}/${y}${tm ? " " + tm : ""}`; };
 const tenantOf = code => S.app.tenants.find(x => x.code === code) || S.app.tenants[0];
 const me = () => S.app.users.find(u => u.id === S.user);
-/* khối thông tin chính ở đầu màn chi tiết: field quan trọng nhất của từng module (tách khỏi cột danh sách theo Legacy CRM) */
+/* khối thông tin chính ở đầu màn chi tiết: field quan trọng nhất của từng module (tách khỏi cột danh sách) */
 const HIGHLIGHT = {"tasks": ["Due_Date", "Priority", "Status", "Owner"], "vehicles": ["Account_Name", "Equipment_Type", "Brand", "LM_Expiry_Date", "NEA_Expiry_Date", "Warr_Expiry_Date"], "contacts": ["Account_Name", "Title", "Mobile", "Email", "Owner"], "leads": ["Company", "Lead_Source", "Equipment_Type", "Lead_Status", "Owner"], "install": ["Account_Name", "Equipment_Type", "Status", "Delivery_Date", "Owner"], "invoices": ["Account_Name", "Invoice_Date", "Grand_Total", "Status"], "partsreq": ["Service_Repairs_Certs", "Date", "Owner"], "orders": ["Account_Name", "Division_Billing", "Grand_Total", "Status", "Delivery_Date"], "quotes": ["Account_Name", "Grand_Total", "Equipment_Type", "Date1", "Owner"], "products": ["Product_Code", "Product_Category", "Unit_Price", "Qty_in_Stock", "Location_Store_Rack_Shelf"], "vendors": ["Vendor_Code", "Category", "Credit_Terms", "Phone", "Email"], "jobs": ["Account", "Vehicle_Number", "Service_Type", "Priority", "Status", "Owner"], "accounts": ["Debtor_Code", "Credit_Term", "Region", "Phone", "Owner"], "nea": ["Account_Name", "Vehicle_License_Number", "Hooklift_Brand", "Owner"], "pr": ["Vendor", "Requestor_Name", "Date_of_Request", "Form_Status", "Owner"], "si": ["Requestor_Name", "Account_Name", "Request_Date", "Status"], "deals": ["Account_Name", "New_After_Sales", "Amount", "Stage", "Closing_Date", "Owner"], "tickets": ["Account_Name", "Case_Type", "Priority", "Status", "Owner"]};
-/* cột hệ thống Legacy CRM có trong list view (Created Time, Modified Time, Tag): thêm field ảo đọc từ _created / _modified / _tags */
+/* cột hệ thống có trong list view (Created Time, Modified Time, Tag): thêm field ảo đọc từ _created / _modified / _tags */
 const SYS_FIELDS = {Created_Time: {label: "Created Time", type: "datetime", src: "_created"}, Modified_Time: {label: "Modified Time", type: "datetime", src: "_modified"}, Tag: {label: "Tag", type: "text", src: "_tags"}};
 const cellVal = (r, c) => { const sf = SYS_FIELDS[c]; if (!sf || r[c] != null) return r[c]; const v = r[sf.src] ?? (c === "Modified_Time" ? r._created : null); return Array.isArray(v) ? v.join(", ") : v; };
 async function E(k) {
@@ -62,7 +64,7 @@ function pill(state, m) {
   if (state == null || state === "") return `<span class="empty">—</span>`;
   return `<span class="pill p-${(m && m.tones && m.tones[state]) || "info"}">${esc(state)}</span>`;
 }
-function fmt(fd, v, m, api) {
+function fmt(fd, v, m, api, tn) { // tn: pháp nhân của bản ghi (ký hiệu tiền)
   if (v == null || v === "" || (Array.isArray(v) && !v.length)) return `<span class="empty">—</span>`;
   if (m && api && api === m.status) return pill(v, m);
   switch (fd && fd.type) {
@@ -71,7 +73,7 @@ function fmt(fd, v, m, api) {
       return k ? `<a href="/e/${k}/${v.id}">${esc(v.name)}</a>` : esc(v.name);
     }
     case "user": return `<span class="who">${av(v)}${esc(v)}</span>`;
-    case "currency": return money(v);
+    case "currency": return money(v, tn);
     case "date": case "datetime": return dmy(v);
     case "checkbox": return v ? t("yes") : t("no");
     case "multipicklist": return [].concat(v).map(x => `<span class="chip">${esc(x)}</span>`).join("");
@@ -108,7 +110,7 @@ function applyTheme() {
   const st = document.documentElement.style;
   for (const [k, v] of Object.entries(themeOf(tenantOf(S.tenant).color))) st.setProperty(k, v);
 }
-/* Quyền kiểu Legacy CRM: profile quyết định thao tác trên module (v/c/e/d/x), thành viên teamspace quyết định thấy teamspace nào */
+/* Quyền: profile quyết định thao tác trên module (v/c/e/d/x), thành viên bộ phận quyết định thấy menu bộ phận nào */
 const GROUP_LISTS = ["deals", "quotes", "orders"]; // Group View: danh sách gộp chỉ đọc hiện ở menu (doanh thu). Job, Xe không lên menu — vào từ số liệu trên trang chủ Group View
 const isGroup = () => S.tenant === "ALL";
 function can(k, op = "v", u = me()) {
@@ -119,7 +121,7 @@ function memberOf(tm, u = me()) {
   const m = tm.members || {};
   return (m.users || []).includes(u.id) || (m.roles || []).includes(u.role) || (m.profiles || []).includes(u.profile) || (m.groups || []).some(g => (u.groups || []).includes(g));
 }
-const isAdmin = (u = me()) => S.app.profile_perms[u.profile] === "*"; // như Legacy CRM: chỉ profile Administrator vào được Setup
+const isAdmin = (u = me()) => S.app.profile_perms[u.profile] === "*"; // chỉ profile Administrator vào được Cài đặt
 const denied = (title, desc) => `<div class="card denied">${ic("alert")}<b>${title}</b><div class="muted">${desc}</div></div>`;
 /* Phạm vi bản ghi (M02.03): module Private → chỉ thấy bản ghi của mình và của nhóm (group khác "All Users"); Admin thấy hết.
  * Public read-only → xem được nhưng không sửa. Bản ghi đã xoá (thùng rác) không hiện ở danh sách. */
@@ -129,7 +131,7 @@ const visible = (k, r, u = me()) => !r._deleted && (isAdmin(u) || access(k) !== 
 const canEdit = (k, u = me()) => can(k, "e", u) && (isAdmin(u) || access(k) !== "Public read-only");
 async function rowsOf(k, opts) { return (await API.list(k, opts)).filter(r => visible(k, r)); }
 const myTeams = () => S.app.teams.filter(tm => memberOf(tm));
-function ensureTeam() { // teamspace hiện tại không còn quyền → về teamspace mặc định của user hoặc teamspace đầu tiên
+function ensureTeam() { // bộ phận hiện tại không còn quyền → về bộ phận mặc định của user hoặc bộ phận đầu tiên
   const mine = myTeams();
   if (!mine.some(x => x.id === S.team)) S.team = (mine.find(x => x.id === me().team) || mine[0] || {}).id;
 }
@@ -137,8 +139,8 @@ function teamEntities() {
   const tm = S.app.teams.find(x => x.id === S.team);
   return (!tm ? [] : tm.entities === "*" ? Object.keys(S.app.entities) : tm.entities).filter(k => can(k));
 }
-/* Menu riêng của teamspace. "CRM Teamspace" (tất cả module): chia nhóm theo menu.json (nhiều module).
- * Teamspace khác: danh sách phẳng theo thứ tự trong teams.json như Legacy CRM, module đề xuất thêm có nhãn ĐX. */
+/* Menu riêng của bộ phận. Bộ phận "Toàn công ty" (tất cả module): chia nhóm theo menu.json (nhiều module).
+ * Bộ phận khác: danh sách phẳng theo thứ tự trong teams.json, module đề xuất thêm có nhãn ĐX. */
 function teamGroups(A, navItem) {
   const tm = A.teams.find(x => x.id === S.team);
   if (!tm) return [];
@@ -148,7 +150,7 @@ function teamGroups(A, navItem) {
   const pages = A.menu.flatMap(g => g.items).filter(it => it.page && it.teams && it.teams.includes(S.team));
   const items = [...tm.entities.filter(k => !inCommon.includes(k)).map(k => ({entity: k})), ...pages].map(it => {
     const v = navItem(it);
-    if (v && it.entity && Array.isArray(tm.proposed) && tm.proposed.includes(it.entity)) v.prop = true; // teamspace đề xuất cả bộ ("*") đã ghi ở tên
+    if (v && it.entity && Array.isArray(tm.proposed) && tm.proposed.includes(it.entity)) v.prop = true; // bộ phận đề xuất cả bộ ("*") đã ghi ở tên
     return v;
   }).filter(Boolean);
   return [{title: "", items}];
@@ -156,14 +158,14 @@ function teamGroups(A, navItem) {
 async function shell(cur) {
   ensureTeam();
   const A = S.app, allowed = teamEntities(), u = me();
-  /* mục menu: entity ngoài teamspace hoặc mục có "teams" không gồm team hiện tại thì ẩn */
+  /* mục menu: entity ngoài bộ phận hoặc mục có "teams" không gồm team hiện tại thì ẩn */
   const navItem = it => {
     if (it.entity ? !allowed.includes(it.entity) : it.teams && !it.teams.includes(S.team)) return null;
     return it.entity
       ? {href: `/e/${it.entity}`, icon: A.entities[it.entity].icon, label: L(A.entities[it.entity].label), feat: A.entities[it.entity].feat, on: cur === it.entity}
       : {href: `/p/${it.page}`, icon: it.icon, label: t("page." + it.page), feat: it.feat, badge: it.badge, on: cur === it.page};
   };
-  if (isGroup()) { // Group View: bỏ teamspace và menu làm việc; giữ trang chủ, chờ duyệt, bảng công việc, báo cáo + vài danh sách gộp chỉ đọc
+  if (isGroup()) { // Group View: bỏ chọn bộ phận và menu làm việc; giữ tổng quan, phê duyệt, bảng điều phối việc, phân tích + vài danh sách gộp chỉ đọc
     const gItem = it => it.entity
       ? {href: `/e/${it.entity}`, icon: A.entities[it.entity].icon, label: L(A.entities[it.entity].label), feat: A.entities[it.entity].feat, on: cur === it.entity}
       : {href: `/p/${it.page}`, icon: it.icon, label: t("page." + it.page), feat: it.feat, badge: it.badge, on: cur === it.page};
@@ -177,9 +179,9 @@ async function shell(cur) {
     settings: A.settings.map(s => ({...s, label: t("page." + s.page), on: s.page === cur})),
     common: isGroup() ? groupNav.common : A.common.map(navItem).filter(Boolean), group: isGroup(),
     teamName: L((myTeams().find(x => x.id === S.team) || {name: ""}).name),
-    teams: myTeams().map(x => ({id: x.id, label: L(x.name), on: x.id === S.team, // n: số module xem được trong teamspace
+    teams: myTeams().map(x => ({id: x.id, label: L(x.name), on: x.id === S.team, // n: số module xem được trong bộ phận
       n: (x.entities === "*" ? Object.keys(A.entities) : x.entities).filter(k => A.entities[k] && can(k)).length})),
-    teamProp: (A.teams.find(x => x.id === S.team) || {}).proposed === "*", // cả teamspace là đề xuất → nhãn ĐX cạnh ô chọn
+    teamProp: (A.teams.find(x => x.id === S.team) || {}).proposed === "*", // cả bộ phận là đề xuất → nhãn ĐX cạnh ô chọn
     groups: isGroup() ? groupNav.groups : teamGroups(A, navItem),
   });
   $("#top").innerHTML = await render("top", {
@@ -217,7 +219,7 @@ function switchTenant(c) { // đổi pháp nhân: màn đang mở không có ở
 }
 function switchTeam(id) {
   S.team = id;
-  const m = curPath().match(/^\/e\/([^/?]+)/); // đang ở module không thuộc teamspace mới → về trang chủ
+  const m = curPath().match(/^\/e\/([^/?]+)/); // đang ở module không thuộc bộ phận mới → về trang tổng quan
   if (m && !teamEntities().includes(m[1])) go("/p/home"); else route();
 }
 function switchLang() { const u = new URL(location); u.searchParams.set("lang", S.lang === "vi" ? "en" : "vi"); location.href = u.toString(); }
@@ -278,34 +280,34 @@ async function viewList(k, mode, q, pre) {
     sub: `${S.tenant} · ${nRec(all.length)}${S.lang === "vi" ? ` · ${m.module} ${m.module_name}` : ""}${m.source === "new" ? " · " + t("list.newModule") : ""}`}; // mã + tên feature (tiếng Việt) chỉ hiện ở bản VI
   if (mode === "kanban") return viewKanban(k, m, all, head);
   const views = [...(OPEN_DEFAULT.includes(k) && m.status ? [{id: "open", label: t("lv.v.open"), f: [{fn: r => !isDone(r[m.status])}]}] : []), ...(NO_MINE.includes(k) ? [] : [{id: "mine", label: t("list.mine"), f: [{f: "Owner", v: me().name}]}]), ...(PRESET_VIEWS[k] || []).map(v => ({...v, label: t(v.label), tip: v.tip ? t(v.tip) : ""})), ...st.views,
-    ...(LEGACY_VIEWS[k] || []).map(v => ({...v, f: [{fn: v.fn}], legacy: true})),
+    ...(LEGACY_VIEWS[k] || []).map(v => ({...v, label: t(v.label), f: [{fn: v.fn}], legacy: true})),
     {id: "all", label: t("list.all"), f: []}]; // "Tất cả" để cuối khi module có view ưu tiên: chỉ là lựa chọn xem cả bản ghi đã đóng
   if (!DEFAULT_VIEW[k] && !OPEN_DEFAULT.includes(k)) views.unshift(views.pop()); // module không có view ưu tiên: "Tất cả" đứng đầu như cũ
   const di = views.findIndex(v => v.id === DEFAULT_VIEW[k]); if (di > 0) views.unshift(...views.splice(di, 1)); // view mặc định đứng đầu
   const cur = views.find(v => v.id === st.view) || views[0];
-  const cols = (cur.cols || m.list).filter(c => m.fields[c]), so = st.sort || {c: "_created", dir: "desc"}; // view Legacy CRM có bộ cột riêng; mặc định bản ghi mới tạo lên đầu
+  const cols = (cur.cols || m.list).filter(c => m.fields[c]), so = st.sort || {c: "_created", dir: "desc"}; // view chuyển từ hệ thống cũ có bộ cột riêng; mặc định bản ghi mới tạo lên đầu
   const rows = sortRows(applyFilters(all, [...cur.f, ...st.filters]), so, m);
   S._lvRows = rows; S._lvCols = cols;
   return render("list", {key: k, head, q: q || "", nAll: all.length,
     scope: scoped ? t("lv.scope", {a: access(k), t: teamNames().join(", ")}) : "",
-    views: views.map(v => ({id: v.id, label: v.label, tip: v.tip, count: applyFilters(all, v.f).length, on: v === cur, legacy: !!v.legacy})), // view lấy từ Legacy CRM hiện thành tab như các view khác
+    views: views.map(v => ({id: v.id, label: v.label, tip: v.tip, count: applyFilters(all, v.f).length, on: v === cur, legacy: !!v.legacy})), // view chuyển từ hệ thống cũ hiện thành tab như các view khác
     filters: st.filters.map((x, i) => ({i, label: `${fieldLabel(m, x.f)} = ${x.f === "_tone" ? t("tone." + x.v) : x.v}`})), filterFields: filterFields(m), showFilter: st.open,
     nSel: st.sel.length, canEdit: canEdit(k), canDel: can(k, "d"),
     titleLabel: m.title.map(f => m.fields[f] ? m.fields[f].label : f).join(" "), tSort: so.c === "_title" ? so.dir : "",
     cols: [...(isGroup() ? [{l: t("gh.c.entity"), c: "_tenant", dir: so.c === "_tenant" ? so.dir : ""}] : []), ...cols.map(c => ({l: m.fields[c].label, c, dir: so.c === c ? so.dir : ""}))], group: isGroup(),
     rows: rows.map(r => ({id: r.id, title: titleOf(m, r), sel: st.sel.includes(r.id), optOut: PDPA_MODS.includes(k) && optOut(r),
-      cells: [...(isGroup() ? [`<span class="tbadge" style="background:${tenantOf(r._tenant).color}">${esc(r._tenant)}</span>`] : []), ...cols.map(c => fmt(m.fields[c], cellVal(r, c), m, c))]}))});
+      cells: [...(isGroup() ? [`<span class="tbadge" style="background:${tenantOf(r._tenant).color}">${esc(r._tenant)}</span>`] : []), ...cols.map(c => fmt(m.fields[c], cellVal(r, c), m, c, r._tenant))]}))});
 }
 /* trạng thái list theo module, giữ trong phiên: view đang chọn, view đã lưu, bộ lọc, bản ghi đã chọn */
-/* "Của tôi" chỉ có nghĩa khi Owner là người phụ trách; xe của khách, sản phẩm, nhà cung cấp dùng chung (Public trên Legacy CRM) → không có view này */
+/* "Của tôi" chỉ có nghĩa khi Owner là người phụ trách; xe của khách, sản phẩm, nhà cung cấp dùng chung (quyền Public) → không có view này */
 const NO_MINE = ["vehicles", "products", "vendors"];
 /* view mặc định khi mở danh sách: bản ghi còn cần xử lý, không lẫn bản ghi đã đóng / đã giao */
 const OPEN_DEFAULT = ["deals", "quotes", "install", "si", "tickets"]; // thêm tab "Đang mở" (trạng thái chưa đóng) làm mặc định
 const DEFAULT_VIEW = {jobs: "z-open", orders: "open", leads: "nc"}; // Job: view All Open Cases của khách; SO: Chưa giao; Lead: Chưa liên hệ
-const LIST_FIRST = ["leads"]; // có Kanban nhưng mở List: sales làm lead theo danh sách gọi điện (Blueprint Lead trên Legacy CRM đang tắt)
+const LIST_FIRST = ["leads"]; // có Kanban nhưng mở List: sales làm khách tiềm năng theo danh sách gọi điện (quy trình này ở hệ thống cũ đang tắt)
 const daysTo = d => d ? -ageOf(d) : null, soon = d => { const n = daysTo(d); return n != null && n >= 0 && n <= 30; };
-const optOut = r => r.Email_Opt_Out === true; // PDPA (M06.02): người đã từ chối nhận tin
-const PDPA_MODS = ["contacts", "leads"]; // PDPA áp dụng cho cá nhân → chỉ người liên hệ, lead (nhà cung cấp là công ty, không gắn nhãn)
+const optOut = r => r.Email_Opt_Out === true; // Privacy Act 1988 của Úc (M06.02): người đã từ chối nhận tin
+const PDPA_MODS = ["contacts", "leads"]; // quy định dữ liệu cá nhân (Privacy Act) áp dụng cho cá nhân → chỉ người liên hệ, lead (nhà cung cấp là công ty, không gắn nhãn)
 const PRESET_VIEWS = {contacts: [{id: "optout", label: "lv.v.optOut", tip: "pdpa.tip", f: [{fn: optOut}]}],
   orders: [{id: "open", label: "lv.v.notDelivered", f: [{fn: r => r.Status !== "Delivered"}]}], // đơn đang chạy
   deals: [{id: "overdue", label: "lv.v.dealOverdue", f: [{fn: r => !/closed/i.test(r.Stage || "") && r.Closing_Date && ageOf(r.Closing_Date) > 0}]}], // deal chưa đóng đã qua ngày dự kiến chốt
@@ -313,22 +315,22 @@ const PRESET_VIEWS = {contacts: [{id: "optout", label: "lv.v.optOut", tip: "pdpa
   vehicles: [
   {id: "exp30", label: "lv.v.exp30", f: [{fn: r => [r.LM_Expiry_Date, r.LG_Expiry_Date, r.NEA_Expiry_Date].some(soon)}]},
   {id: "warr", label: "lv.v.warr", f: [{fn: r => (daysTo(r.Warr_Expiry_Date) ?? -1) >= 0}]}]};
-/* custom view khách đang dùng trên Legacy CRM (source/legacy_listviews_ape.txt): giữ tên gốc, điều kiện lọc và cột riêng của view.
- * Bỏ 2 view cá nhân lọc theo tên 1 sales (không đưa tên người thật vào prototype). Job chỉ giữ 4 view hay dùng (đủ 10 view ở source/legacy_listviews_ape.txt) */
+/* view khách đang dùng ở hệ thống cũ (source/legacy_listviews_ape.txt): tên đặt lại theo CRM mới (i18n lv.z.*), giữ điều kiện lọc và cột riêng của view.
+ * Bỏ 2 view cá nhân lọc theo tên 1 sales (không đưa tên người thật vào prototype). Lệnh dịch vụ chỉ giữ 4 view hay dùng (đủ 10 view ở source/legacy_listviews_ape.txt) */
 const isIn = (f, list) => r => list.includes(valOf(r, f)), notIn = (f, list) => r => !list.includes(valOf(r, f));
 const LEGACY_VIEWS = {
   jobs: [
-    {id: "z-open", label: "All Open Cases", fn: notIn("Status", ["CANCELLED", "CLOSED", "Completed"]), cols: ["Name", "Account", "Date_Time_1", "Vehicle_Number", "Date_Time_of_Completion", "Status"]},
-    {id: "z-pq", label: "Pending Quote", fn: isIn("Status", ["Pending Quotation Approval"]), cols: ["Name", "Account", "Date_Time_1", "Vehicle_Number", "Customer_Remark_s"]},
-    {id: "z-wip", label: "Work In Progress View", fn: isIn("Status", ["On Hold", "Pending Spare Part(s)", "QA/QC", "Troubleshooting", "Work In Progress 1", "Work In Progress 2"]), cols: ["Name", "Account", "Work_Done", "Problem_Identified", "Status", "Service_Type", "Days_from_Start"]},
-    {id: "z-cert", label: "Certifications", fn: isIn("Service_Type", ["LG Certication Renewal", "LG Certification & Load Test", "LM & LG Certification + Load Test", "LM & LG Certification Renewal", "LM Certification & Load Test", "LM Certification Renewal", "NEA Certification Renewal"]),
+    {id: "z-open", label: "lv.z.open", fn: notIn("Status", ["CANCELLED", "CLOSED", "Completed"]), cols: ["Name", "Account", "Date_Time_1", "Vehicle_Number", "Date_Time_of_Completion", "Status"]},
+    {id: "z-pq", label: "lv.z.pq", fn: isIn("Status", ["Pending Quotation Approval"]), cols: ["Name", "Account", "Date_Time_1", "Vehicle_Number", "Customer_Remark_s"]},
+    {id: "z-wip", label: "lv.z.wip", fn: isIn("Status", ["On Hold", "Pending Spare Part(s)", "QA/QC", "Troubleshooting", "Work In Progress 1", "Work In Progress 2"]), cols: ["Name", "Account", "Work_Done", "Problem_Identified", "Status", "Service_Type", "Days_from_Start"]},
+    {id: "z-cert", label: "lv.z.cert", fn: isIn("Service_Type", ["Lifting Gear Inspection Renewal", "Lifting Gear Inspection & Load Test", "Plant Rego & Lifting Gear + Load Test", "Plant Rego & Lifting Gear Renewal", "Plant Registration & Load Test", "Plant Registration Renewal", "EPA Licence Renewal"]),
       cols: ["Name", "Account", "Date_Time_1", "Service_Type", "Vehicle_Numbers", "Estimated_Days_Required", "Man_Hours", "Technicians_Involved", "Warranty", "Equipment_Type"]}],
   quotes: [
-    {id: "z-as", label: "After-Sales Quotation", fn: r => /after/i.test(valOf(r, "New_After_Sales")), cols: ["Subject", "Account_Name", "Date1", "Warranty", "Vehicle_Number", "Sub_Total", "New_After_Sales"]},
-    {id: "z-mil", label: "Fleet", fn: r => valOf(r, "Vehicle_Number").includes("MID"), cols: ["Account_Name", "Subject", "Vehicle_Number", "Date1", "Equipment_Type", "Serial_Number", "Sub_Total", "Quote_Stage"]},
-    {id: "z-hold", label: "On Hold", fn: r => r.Quote_Stage === "On Hold" && r.Owner === me().name, cols: ["Date1", "Subject", "Account_Name", "Service_Report_Reference"]},
-    {id: "z-pav", label: "Pending Approval View", fn: r => r.Quote_Stage === "Waiting For Approval" && r.Owner === me().name, cols: ["Date1", "Subject", "Account_Name", "Service_Report_Reference"]}],
-  products: [{id: "z-ferrocrane", label: "FERROCRANE", fn: r => valOf(r, "Manufacturer") === "Ferrocrane S.p.A", cols: ["Description", "Product_Category", "Product_Code", "Vendor_Name", "Usage_Unit"]}],
+    {id: "z-as", label: "lv.z.as", fn: r => /after/i.test(valOf(r, "New_After_Sales")), cols: ["Subject", "Account_Name", "Date1", "Warranty", "Vehicle_Number", "Sub_Total", "New_After_Sales"]},
+    {id: "z-mil", label: "lv.z.mil", fn: r => valOf(r, "Vehicle_Number").includes("MID"), cols: ["Account_Name", "Subject", "Vehicle_Number", "Date1", "Equipment_Type", "Serial_Number", "Sub_Total", "Quote_Stage"]},
+    {id: "z-hold", label: "lv.z.hold", fn: r => r.Quote_Stage === "On Hold" && r.Owner === me().name, cols: ["Date1", "Subject", "Account_Name", "Service_Report_Reference"]},
+    {id: "z-pav", label: "lv.z.pav", fn: r => r.Quote_Stage === "Waiting For Approval" && r.Owner === me().name, cols: ["Date1", "Subject", "Account_Name", "Service_Report_Reference"]}],
+  products: [{id: "z-ferrocrane", label: "lv.z.ferro", fn: r => valOf(r, "Manufacturer") === "Ferrocrane S.p.A", cols: ["Description", "Product_Category", "Product_Code", "Vendor_Name", "Usage_Unit"]}],
 };
 function lvState(k, m) {
   S.lv = S.lv || {};
@@ -396,7 +398,7 @@ function massOwner(k) {
   });
 }
 async function massEmail(k) {
-  const st = lvState(k), recs = (await Promise.all(st.sel.map(id => API.get(k, id)))).filter(Boolean), skip = recs.filter(optOut).length; // PDPA: bỏ người đã từ chối nhận tin
+  const st = lvState(k), recs = (await Promise.all(st.sel.map(id => API.get(k, id)))).filter(Boolean), skip = recs.filter(optOut).length; // Privacy Act: bỏ người đã từ chối nhận tin
   dialog({title: t("lv.massEmail"), feat: "M25.03", intro: t("lv.selected", {n: st.sel.length}) + (skip ? " · " + t("pdpa.skip", {n: skip}) : ""),
     fields: [{id: "tpl", label: t("em.template"), kind: "select", options: EMAIL_TPL.map(x => ({value: x, label: x}))}, {id: "from", label: t("em.from"), kind: "select", options: ORG_EMAILS.map(x => ({value: x[0], label: x[0]}))}],
     ok: t("em.send")}, () => { toast(t("em.sentN", {n: st.sel.length - skip})); st.sel = []; closeModal(); rerender(); });
@@ -434,20 +436,20 @@ async function viewDetail(k, id) {
   const sections = layoutOf(m, r).sections.map(s => ({
     name: s.name,
     feat: s.fields.some(f => m.fields[f] && m.fields[f].type === "subform") ? m.feat.lines : "",
-    fields: s.fields.filter(f => m.fields[f] && m.fields[f].type !== "subform").map(f => ({label: m.fields[f].label, required: m.fields[f].required, value: fmt(m.fields[f], r[f], m, f), feat: m.fields[f].feat})),
+    fields: s.fields.filter(f => m.fields[f] && m.fields[f].type !== "subform").map(f => ({label: m.fields[f].label, required: m.fields[f].required, value: fmt(m.fields[f], r[f], m, f, r._tenant), feat: m.fields[f].feat})),
     subs: s.fields.filter(f => m.fields[f] && m.fields[f].type === "subform").map(f => {
       const fd = m.fields[f], data = r[f] || [], cols = (fd.columns || []).filter(c => data.some(row => row[c.api] != null));
-      return {label: fd.label, feat: fd.feat, cols: cols.map(c => c.label), rows: data.map(row => cols.map(c => fmt(c, row[c.api])))};
+      return {label: fd.label, feat: fd.feat, cols: cols.map(c => c.label), rows: data.map(row => cols.map(c => fmt(c, row[c.api], null, null, r._tenant)))};
     }),
   }));
   S._body = await render("detail-sections", {sections});
   const cur = m.status ? m.states.indexOf(r[m.status]) : -1;
-  /* hồ sơ duyệt DoA: chuỗi bậc, ai đã duyệt / đang giữ; đang chờ duyệt thì không dùng nút chuyển trạng thái Approve / Reject của blueprint */
+  /* hồ sơ duyệt DoA: chuỗi bậc, ai đã duyệt / đang giữ; đang chờ duyệt thì không dùng nút chuyển trạng thái Approve / Reject của quy trình */
   let approval = null, apprBtns = [], pendingMine = false;
   if (APPR_SRC[k]) {
     const pending = r[m.status] === APPR_SRC[k], a = pending || r._approval ? apprOf(k, r) : null;
     if (a) {
-      approval = {cond: (S.app.approval_rules.find(x => x.doc === k && x.levels.join() === a.levels.join()) || {cond: money(a.amount)}).cond, levels: a.levels.map((lv, i) => { const h = decided(a)[i];
+      approval = {cond: (S.app.approval_rules.find(x => x.doc === k && x.levels.join() === a.levels.join()) || {cond: money(a.amount, r._tenant)}).cond, levels: a.levels.map((lv, i) => { const h = decided(a)[i];
         return {name: `${lv} · ${h ? h.by : i === a.step ? turnHolder(a) : holderOf(lv)}`, cls: h ? (h.act === "approved" ? "ok" : "wait") : i === a.step && pending ? "wait" : "next", mark: h ? (h.act === "approved" ? "✓" : "✕") : i + 1,
           status: h ? `${t(h.act === "approved" ? "ap.approved" : "ap.rejectedP")} · ${dmy(h.at)}${h.note ? ` — “${h.note}”` : ""}` : t(i === a.step && pending ? "det.waiting" : "det.notYet")}; })};
       if (pending) {
@@ -458,12 +460,12 @@ async function viewDetail(k, id) {
       }
     }
   }
-  /* báo giá: nút chính theo việc sales thật sự làm (Blueprint Quote Stage trên Legacy CRM đang tắt) — chuyển stage thủ công nằm trong "Thêm" */
+  /* chào giá: nút chính theo việc sales thật sự làm (quy trình stage ở hệ thống cũ đang tắt) — chuyển stage thủ công nằm trong "Thêm" */
   const qs = r.Quote_Stage, qBtns = k === "quotes" && !isGroup() && !apprBtns.length && canEdit(k) ? [
     ...(["Draft", "Negotiation", "Quotation"].includes(qs) ? [{label: t("q.submit"), primary: true, feat: "M10.06", onclick: `apprSubmit('${r.id}')`}] : []),
     ...(qs === "Confirmed" && !r.Quote_for_SO ? [{label: t("q.toSO"), primary: true, feat: "M10.08", onclick: `quoteToSO('${r.id}')`}] : []),
     {label: t("q.pdf"), feat: "M10.07", onclick: `toast(t('q.pdfT'))`},
-    {label: t("q.email"), feat: "M10.09", onclick: `sendEmail('quotes','${r.id}','Quotation – cover letter')`}]
+    {label: t("q.email"), feat: "M10.09", onclick: `sendEmail('quotes','${r.id}','Proposal – cover letter')`}]
     /* Sales Order: việc chính là đẩy sang kế toán (Accounting System) để xuất hoá đơn; Status đổi tay nằm trong "Thêm" */
     : k === "orders" && !isGroup() && canEdit(k) ? [...(r._synced ? [] : [{label: t("so.sync"), primary: true, feat: "M28.02", onclick: `soSync('${r.id}')`}]),
       {label: t("so.pdf"), feat: "M11.04", onclick: `toast(t('so.pdfT'))`}] : null;
@@ -478,7 +480,7 @@ async function viewDetail(k, id) {
       ...(can(k, "c") ? [{label: t("det.clone"), feat: "M31.08", onclick: `cloneRec('${k}','${r.id}')`}] : []),
       {label: t("det.share"), feat: "M31.08", onclick: `shareRec('${k}','${r.id}')`},
       ...(can(k, "d") ? [{label: t("lv.delete"), feat: "M04.04", onclick: `delRec('${k}','${r.id}')`}] : [])],
-    highlights: (HIGHLIGHT[k] || m.list).filter(f => f !== m.status && m.fields[f] && !SYS_FIELDS[f]).slice(0, 5).map(f => ({label: m.fields[f].label, value: fmt(m.fields[f], r[f], m, f)})),
+    highlights: (HIGHLIGHT[k] || m.list).filter(f => f !== m.status && m.fields[f] && !SYS_FIELDS[f]).slice(0, 5).map(f => ({label: m.fields[f].label, value: fmt(m.fields[f], r[f], m, f, r._tenant)})),
     path: m.status ? m.states.map((s, j) => ({state: s, cls: cur >= 0 && j < cur ? "done" : j === cur ? "cur" : "", done: cur >= 0 && j < cur})) : [],
     offPath: cur < 0 && m.status ? r[m.status] : "",
     tabs: m.related.map(x => ({label: L(S.app.entities[x.entity].label), spec: `${x.entity}|${x.field}`})),
@@ -493,7 +495,7 @@ async function tab(b, k, id, spec) {
   const rows = (await API.list(ek, {where: r => r[field] && r[field].id === id})).sort((a, b) => (b._created || "").localeCompare(a._created || "")); // mới tạo lên đầu
   const cols = m2.list.slice(0, 4);
   $("#tabBody").innerHTML = await render("related", {key: ek, cols: cols.map(c => m2.fields[c].label),
-    rows: rows.map(r => ({id: r.id, title: titleOf(m2, r), cells: cols.map(c => fmt(m2.fields[c], cellVal(r, c), m2, c))}))});
+    rows: rows.map(r => ({id: r.id, title: titleOf(m2, r), cells: cols.map(c => fmt(m2.fields[c], cellVal(r, c), m2, c, r._tenant))}))});
 }
 async function doTransition(k, id, ti, to) {
   const m = await E(k);
@@ -523,7 +525,7 @@ async function viewKanban(k, m, all, head) {
   const rows = all.filter(r => (kb.scope === "all" || owners(r).some(n => kb.scope === "mine" ? n === u.name : team.includes(n)))
     && (!qf || !kb.quick || r[qf] === kb.quick) && (!g || !kb.tenant || r._tenant === kb.tenant));
   const states = [...m.states, ...[...new Set(rows.map(r => r[m.status]))].filter(s => s && !m.states.includes(s))];
-  /* kéo thả đổi trạng thái: chỉ thả được vào cột mà Blueprint cho phép từ trạng thái hiện tại; bước cần ghi chú / nhập field thì mở hộp thoại như ở màn chi tiết.
+  /* kéo thả đổi trạng thái: chỉ thả được vào cột mà quy trình cho phép từ trạng thái hiện tại; bước cần ghi chú / nhập field thì mở hộp thoại như ở màn chi tiết.
      Group View hoặc không có quyền sửa → chỉ xem */
   const drag = canEdit(k) && !g;
   S._kb = {k, tr: {}};
@@ -553,7 +555,7 @@ function kbCard(k, m, r, g) {
   const rel = c.rel && r[c.rel], p = c.prio ? String(r[c.prio] || "") : "", pn = parseInt(p), lk = rel && rel.id ? ((m.fields[c.rel] || {}).lookup === "Vendors" ? "vendors" : "accounts") : "";
   return {id: r.id, title: titleOf(m, r), sub: subOf(m, r), icon: m.icon, owner: r.Owner,
     rel: rel ? {label: rel.name || rel, href: lk ? `/e/${lk}/${rel.id}` : ""} : null,
-    tag: c.tag ? valOf(r, c.tag) : "", value: c.money && r[c.money] != null ? money(Math.round(r[c.money])) : "",
+    tag: c.tag ? valOf(r, c.tag) : "", value: c.money && r[c.money] != null ? money(Math.round(r[c.money]), r._tenant) : "",
     date: dv ? dmy(dv) + (c.age && !done && n >= 0 ? " · " + t("kb.days", {n}) : "") : "",
     over: !done && n != null && (c.due ? n > 0 : !!c.age && n > JOB_LONG), overTxt: c.due && !done && n > 0 ? t("home.overdue", {n}) : "",
     prio: /high/i.test(p) || (pn && pn <= 2) ? (pn ? t("kb.prio", {n: pn}) : p) : "",
@@ -598,7 +600,7 @@ async function soSync(id) { // M28.02: đẩy SO sang kế toán (prototype: ghi
 }
 async function apprSubmit(id) { // gửi duyệt báo giá theo DoA: bậc duyệt dựng theo giá trị (approval_rules), người gửi ghi lý do
   const r = await API.get("quotes", id);
-  await dialog({title: t("q.submit"), feat: "M10.06", intro: `${r._title || id} · ${money(r.Grand_Total)}`, fields: [{id: "why", label: t("q.submitWhy"), kind: "textarea"}], ok: t("q.submit")}, async () => {
+  await dialog({title: t("q.submit"), feat: "M10.06", intro: `${r._title || id} · ${money(r.Grand_Total, r._tenant)}`, fields: [{id: "why", label: t("q.submitWhy"), kind: "textarea"}], ok: t("q.submit")}, async () => {
     r._approval = null; const a = apprOf("quotes", r); a.reason = $("#dlg-why").value.trim(); a.since = TODAY;
     logTo(r, t("q.submitted", {lv: a.levels[0]})); await API.update("quotes", id, {Quote_Stage: "Waiting For Approval"});
     closeModal(); toast(t("q.submitted", {lv: holderOf(a.levels[0])})); route();
@@ -624,8 +626,8 @@ function delRec(k, id) {
     await API.update(k, id, {_deleted: {by: me().name, at: new Date().toISOString().slice(0, 16)}}); closeModal(); toast(t("lv.deleted", {n: 1})); go(`/e/${k}`);
   });
 }
-const EMAIL_TPL = ["Quotation – cover letter", "Sales Agreement for signature", "Service completion notice", "LM certificate expiry reminder", "Payment reminder"];
-const ORG_EMAILS = [["sales@scegroup.example", "Sales"], ["service@scegroup.example", "After Sales"], ["accounts@scegroup.example", "Finance"], ["purchasing@scegroup.example", "Procurement"]];
+const EMAIL_TPL = ["Proposal – cover letter", "Sales contract for signature", "Service completion notice", "Plant registration expiry reminder", "Payment reminder"];
+const ORG_EMAILS = [["sales@apexindustrial.example", "Commercial"], ["service@apexindustrial.example", "Service"], ["accounts@apexindustrial.example", "Finance"], ["purchasing@apexindustrial.example", "Procurement"]];
 async function sendEmail(k, id, tpl) {
   const m = await E(k), r = await API.get(k, id);
   dialog({title: t("det.email"), feat: k === "quotes" ? "M10.09" : "M25.01", intro: titleOf(m, r),
@@ -668,12 +670,12 @@ async function saveForm(k, layoutName) {
 /* ---------------- trang chủ & phân tích ---------------- */
 /* ---------------- duyệt theo DoA (M22.01 / M22.02) ----------------
  * Mỗi yêu cầu có r._approval: levels (chuỗi bậc duyệt theo approval_rules), step (số bậc đã duyệt), history, lý do, ngày gửi.
- * Chỉ người giữ bậc hiện tại (theo role, hoặc được uỷ quyền) mới thấy ở "Chờ tôi duyệt". Job "Pending Quotation Approval" là chờ khách → Workqueue. */
+ * Chỉ người giữ bậc hiện tại (theo role, hoặc được uỷ quyền) mới thấy ở "Chờ tôi duyệt". Lệnh dịch vụ "Pending Quotation Approval" là chờ khách → Bảng điều phối việc. */
 const APPR_SRC = {quotes: "Waiting For Approval", pr: "Pending Approval"}, WAIT_HI = 2, PR_LIMIT = 5000; // WAIT_HI: chờ quá n ngày thì tô màu (không phải SLA)
 const turnOf = a => a.levels[a.step];
 const holderOf = lv => (S.app.users.find(u => u.role === lv) || {}).name || lv;
 const requesterOf = (k, r) => k === "pr" ? r.Requestor_Name || r.Owner : r.Owner;
-/* Delegate (như Legacy CRM My Jobs → Approvals): người đang giữ bậc chuyển riêng yêu cầu này cho người khác duyệt (a.dto = user id); bậc duyệt không đổi */
+/* Chuyển người duyệt (delegate): người đang giữ bậc chuyển riêng yêu cầu này cho người khác duyệt (a.dto = user id); bậc duyệt không đổi */
 function myTurn(a, u = me()) { return a.dto ? a.dto === u.id : turnOf(a) === u.role; }
 const nameOfUser = id => (S.app.users.find(u => u.id === id) || {}).name || id;
 const turnHolder = a => a.dto ? nameOfUser(a.dto) : holderOf(turnOf(a));
@@ -712,8 +714,8 @@ function apprCard({k, r, m, a}) {
     k === "quotes" && (r.Payment_Terms || r.Payment_Term) ? t("ap.pay", {p: r.Payment_Terms || r.Payment_Term}) : ""].filter(Boolean).join(" · ");
   const debt = k === "quotes" && r.Account_Name ? OVERDUE[r.Account_Name.id] || 0 : 0;
   return {key: k, id: r.id, title: titleOf(m, r), type: L(m.label), party: ((r.Account_Name || r.Vendor || {}).name) || subOf(m, r), subject: k === "quotes" ? r.Subject : "",
-    value: money(a.amount), gst: k === "quotes", disc: a.disc != null ? a.disc + "%" : "", discHi: a.disc > DISC_MAX,
-    discMax: DISC_MAX, why, what, debt: debt ? money(Math.round(debt)) : "",
+    value: money(a.amount, r._tenant), gst: k === "quotes", disc: a.disc != null ? a.disc + "%" : "", discHi: a.disc > DISC_MAX,
+    discMax: DISC_MAX, why, what, debt: debt ? money(Math.round(debt), r._tenant) : "",
     validity: vLeft == null ? "" : t(vLeft >= 0 ? "ap.validLeft" : "ap.validGone", {d: dmy(new Date(new Date(a.since).getTime() + vDays * 864e5).toISOString().slice(0, 10)), n: Math.abs(vLeft)}), validHi: vLeft != null && vLeft <= 3, validNear: vLeft != null && vLeft <= 7, // card chỉ hiện hiệu lực khi còn ≤ 7 ngày
     next: a.step + 1 < a.levels.length ? holderOf(a.levels[a.step + 1]) : "",
     step: a.step + 1, nStep: a.levels.length,
@@ -725,7 +727,7 @@ function apprCard({k, r, m, a}) {
 async function apprDo(k, id, ok) {
   if (isGroup()) return; // Group View chỉ xem: duyệt phải mở trong pháp nhân
   const m = await E(k), r = await API.get(k, id), a = apprOf(k, r);
-  await dialog({title: t(ok ? "ap.approveT" : "ap.rejectT"), feat: "M22.01", intro: `${isGroup() ? r._tenant + " · " : ""}${titleOf(m, r)} · ${money(a.amount)} · ${t("ap.step", {i: a.step + 1, n: a.levels.length, lv: turnOf(a)})}`,
+  await dialog({title: t(ok ? "ap.approveT" : "ap.rejectT"), feat: "M22.01", intro: `${isGroup() ? r._tenant + " · " : ""}${titleOf(m, r)} · ${money(a.amount, r._tenant)} · ${t("ap.step", {i: a.step + 1, n: a.levels.length, lv: turnOf(a)})}`,
     fields: [{id: "note", label: t(ok ? "ap.noteOpt" : "ap.reasonReq"), kind: "textarea"}], ok: t(ok ? "mj.approve" : "mj.reject")}, async () => {
     const note = $("#dlg-note").value.trim();
     if (!ok && !note) { $("#dlg-note").classList.add("err"); $("#dlg-note").focus(); return toast(t("ap.needReason")); }
@@ -746,7 +748,7 @@ async function apprApply(k, r, m, ok, note) { // ghi lịch sử + timeline; duy
 async function apprDeleg(k, id) { // chuyển yêu cầu này cho người khác duyệt, ghi vào lịch sử duyệt
   if (isGroup()) return;
   const m = await E(k), r = await API.get(k, id), a = apprOf(k, r), u = me(), lv = turnOf(a);
-  await dialog({title: t("ap.delegT"), feat: "M22.02", intro: `${titleOf(m, r)} · ${money(a.amount)} · ${t("ap.step", {i: a.step + 1, n: a.levels.length, lv})}`,
+  await dialog({title: t("ap.delegT"), feat: "M22.02", intro: `${titleOf(m, r)} · ${money(a.amount, r._tenant)} · ${t("ap.step", {i: a.step + 1, n: a.levels.length, lv})}`,
     fields: [{id: "to", label: t("ap.delegTo"), kind: "select", options: S.app.users.filter(x => x.id !== u.id && x.name !== requesterOf(k, r)).map(x => ({value: x.id, label: `${x.name} · ${x.role}`}))},
       {id: "note", label: t("ap.noteOpt"), kind: "textarea"}], ok: t("ap.delegOk")}, async () => {
     const to = $("#dlg-to").value, note = $("#dlg-note").value.trim(), n = nameOfUser(to);
@@ -760,12 +762,12 @@ async function apprPeek(k, id) { // xem nhanh: dòng hàng, lý do, lịch sử 
   const m = await E(k), r = await API.get(k, id), a = apprOf(k, r), c = apprCard({k, r, m, a});
   const sub = k === "quotes" ? "Quoted_Items" : "Subform_4", fd = m.fields[sub] || {}, rows = r[sub] || [];
   const cols = (fd.columns || []).filter(x => rows.some(row => row[x.api] != null)).slice(0, 5);
-  $("#modal").innerHTML = await render("appr-peek", {...c, cols: cols.map(x => x.label), lines: rows.map(row => cols.map(x => fmt(x, row[x.api]))),
+  $("#modal").innerHTML = await render("appr-peek", {...c, cols: cols.map(x => x.label), lines: rows.map(row => cols.map(x => fmt(x, row[x.api], null, null, r._tenant))),
     history: a.history.map(h => ({...h, ok: h.act === "approved", deleg: h.act === "delegated", at: dmy(h.at)})), pdf: k === "quotes", group: isGroup()});
   $("#modal").classList.add("show");
 }
 /* Trang chủ theo role (M27.06): trả lời 3 câu hỏi — hôm nay tôi cần làm gì, có gì bất thường, tôi đang làm thế nào.
- * Bố cục mặc định theo profile / teamspace của người đăng nhập; chọn tay thì nhớ theo từng user trong phiên. */
+ * Bố cục mặc định theo profile / bộ phận của người đăng nhập; chọn tay thì nhớ theo từng user trong phiên. */
 const TODAY = "2026-10-27", MONTH = TODAY.slice(0, 7), PREV_MONTH = "2026-09";
 const ageOf = d => Math.round((new Date(TODAY) - new Date(String(d).slice(0, 10))) / 864e5);
 const isDone = s => /completed|closed|cancel|not returning|delivered/i.test(s || "");
@@ -829,7 +831,7 @@ async function viewHome() {
       attention: active.filter(r => warnStates(r.Status) || ageOf(r._created) > 30).sort((a, b) => warnStates(b.Status) - warnStates(a.Status) || ageOf(b._created) - ageOf(a._created)).slice(0, 5)
         .map(r => ({id: r.id, doc: titleOf(mj, r), plate: (r.Vehicle_Number || {}).name || r.Vehicle_Numbers || "", acc: (r.Account || {}).name || "", pill: pill(r.Status, mj),
           why: warnStates(r.Status) ? t("home.att.wait") : t("home.att.long", {n: ageOf(r._created)})})),
-      expiring: vehicles.flatMap(r => [["LM", r.LM_Expiry_Date], ["NEA", r.NEA_Expiry_Date]].map(([kind, dt]) => ({r, kind, d: dt ? -ageOf(dt) : -1})))
+      expiring: vehicles.flatMap(r => [["Plant rego", r.LM_Expiry_Date], ["EPA", r.NEA_Expiry_Date]].map(([kind, dt]) => ({r, kind, d: dt ? -ageOf(dt) : -1})))
         .filter(x => x.d >= 0 && x.d <= 30).sort((a, b) => a.d - b.d).slice(0, 5) // cùng ngưỡng 30 ngày với view "Sắp hết hạn" của Xe / thiết bị
         .map(x => ({id: x.r.id, plate: x.r.Name, account: (x.r.Account_Name || {}).name || "", kind: x.kind, days: x.d, tone: x.d < 20 ? "bad" : "warn"}))});
   }
@@ -875,11 +877,11 @@ async function viewGroupHome() {
   /* điểm nóng toàn group: duyệt chờ lâu, job kẹt, deal lớn quá ngày chốt — chỉ xem, bấm để mở bản ghi */
   const hot = [
     ...appr.filter(x => ageOf(x.a.since) > WAIT_HI).map(x => ({c: x.r._tenant, key: x.k, id: x.r.id, title: titleOf(x.m, x.r), w: ageOf(x.a.since) + 30,
-      txt: t("gh.h.appr", {n: ageOf(x.a.since), v: money(x.a.amount), lv: turnOf(x.a)})})),
+      txt: t("gh.h.appr", {n: ageOf(x.a.since), v: money(x.a.amount, x.r._tenant), lv: turnOf(x.a)})})),
     ...jobs.filter(r => !isDone(r.Status) && mj.tones[r.Status] === "warn").map(r => ({c: r._tenant, key: "jobs", id: r.id, title: titleOf(mj, r), w: ageOf(r._created),
       txt: t("gh.h.job", {s: r.Status, n: ageOf(r._created)})})),
     ...deals.filter(r => openDeal(r) && r.Closing_Date && ageOf(r.Closing_Date) > 30).map(r => ({c: r._tenant, key: "deals", id: r.id, title: titleOf(md, r), w: ageOf(r.Closing_Date),
-      txt: t("gh.h.deal", {v: money(r.Amount), n: ageOf(r.Closing_Date)})})),
+      txt: t("gh.h.deal", {v: money(r.Amount, r._tenant), n: ageOf(r.Closing_Date)})})),
   ].sort((a, b) => b.w - a.w).slice(0, 8).map(x => ({...x, color: tenantOf(x.c).color}));
   const tones = ["info", "warn", "ok"];
   return render("home-group", {firstName: me().name.split(" ")[0], monthLbl: t("home.month", {m: "10/2026"}), pins: await pinnedReports(),
@@ -889,20 +891,20 @@ async function viewGroupHome() {
       {lbl: t("gh.k4"), icon: "check", o: true, v: tot("appr"), sub: t("gh.k4s", {n: tot("apprOld"), d: WAIT_HI}), href: "/e/quotes?f=Quote_Stage&v=Waiting%20For%20Approval"}],
     /* mỗi ô bấm được: ở lại Group View, mở danh sách gộp lọc theo pháp nhân (+ nhóm trạng thái); tên pháp nhân → chuyển sang pháp nhân đó */
     rows: rows.map(r => { const f = k => `/e/${k}?f=_tenant&v=${r.c}`;
-      return {...r, nowM: money(Math.round(r.now)), pipeM: money(r.pipe), go: `/home?tenant=${r.c}`,
+      return {...r, nowM: money(Math.round(r.now), r.c), pipeM: money(r.pipe, r.c), go: `/home?tenant=${r.c}`,
         h: {rev: f("orders"), pipe: f("deals"), q: f("quotes"), jobs: f("jobs"), stuck: f("jobs") + "&f=_tone&v=warn", appr: f("quotes") + "&f=Quote_Stage&v=Waiting%20For%20Approval", exp: f("vehicles")},
         hiStuck: r.stuck > 0, hiAppr: r.apprOld > 0, hiExp: r.exp > 0}; }),
-    rev: rows.map(r => ({c: r.c, color: r.color, now: money(Math.round(r.now)), wNow: r.now / maxNow * 100, wPrev: r.prev / maxNow * 100, prev: money(Math.round(r.prev))})),
+    rev: rows.map(r => ({c: r.c, color: r.color, now: money(Math.round(r.now), r.c), wNow: r.now / maxNow * 100, wPrev: r.prev / maxNow * 100, prev: money(Math.round(r.prev), r.c)})),
     jobMix: rows.filter(r => r.jobs).map(r => { const js = of(jobs, r.c).filter(x => !isDone(x.Status));
       return {c: r.c, n: js.length, parts: tones.map(g => { const n = js.filter(x => (mj.tones[x.Status] || "info") === g).length; return {n, w: n / js.length * 100, color: g === "info" ? "pri" : g}; }).filter(p => p.n)}; }),
     legend: tones.map(g => ({label: t("gh.t." + g), color: g === "info" ? "pri" : g})),
     hot});
 }
 async function doneTask(id) { await API.update("tasks", id, {Status: "Completed"}); toast(t("home.taskDone")); route(); }
-function findPlate(q) { // tìm theo biển số: bỏ khoảng trắng, đúng 1 xe → mở hồ sơ xe; nhiều → trang tìm kiếm
-  q = (q || "").replace(/\s+/g, "").toUpperCase(); if (!q) return;
-  API.list("vehicles", {tenant: S.tenant}).then(rows => { const hit = rows.filter(r => (r.Name || "").toUpperCase().includes(q));
-    go(hit.length === 1 ? `/e/vehicles/${hit[0].id}` : `/p/search?q=${encodeURIComponent(q)}`); });
+function findPlate(q) { // tìm theo biển số: bỏ khoảng trắng (cả ở biển số lưu dạng "XA 34 XN"), đúng 1 xe → mở hồ sơ xe; nhiều → trang tìm kiếm
+  const raw = (q || "").trim(); q = raw.replace(/\s+/g, "").toUpperCase(); if (!q) return;
+  API.list("vehicles", {tenant: S.tenant}).then(rows => { const hit = rows.filter(r => (r.Name || "").replace(/\s+/g, "").toUpperCase().includes(q));
+    go(hit.length === 1 ? `/e/vehicles/${hit[0].id}` : `/p/search?q=${encodeURIComponent(raw)}`); });
 }
 /* Chờ duyệt: ở pháp nhân 3 tab — chờ tôi duyệt (đúng bậc DoA của tôi), tôi đã gửi (đang ở bậc nào, ai giữ), đã xử lý gần đây.
  * Group View (chỉ xem): chờ tôi duyệt gộp mọi pháp nhân, nút "Duyệt trong APE" chuyển sang pháp nhân rồi mở bản ghi để duyệt. */
@@ -924,7 +926,7 @@ async function viewMyJobs(tn, tabQ) {
     types: [["", t("ap.allTypes")], ...Object.keys(APPR_SRC).map(k => [k, L(S.app.entities[k].label)])].map(([v, l]) => ({v, l, on: v === type})),
     tab, isDone: tab === "done", isSent: tab === "sent", cards, group: g,
     done: done.filter(x => !type || x.k === type).slice(0, 20).map(({k, r, m, h}) => ({key: k, id: r.id, title: titleOf(m, r), type: L(m.label), lv: h.level, ok: h.act === "approved", deleg: h.act === "delegated", to: h.to,
-      note: h.note, at: dmy(h.at), pill: pill(r[m.status], m), value: money((r._approval || {}).amount)}))});
+      note: h.note, at: dmy(h.at), pill: pill(r[m.status], m), value: money((r._approval || {}).amount, r._tenant)}))});
 }
 function apprTab(id) { S.apprTab = id; route(); }
 function apprType(v) { S.apprType = v; route(); }
@@ -1107,16 +1109,16 @@ async function newReport() {
 /* M27.05: lập lịch gửi báo cáo đang xem qua email — danh sách lịch hiện ngay dưới báo cáo, bật / tắt / xoá được */
 function scheduleReport(id) {
   dialog({title: t("rep.schedule"), feat: "M27.05", fields: [{id: "fr", label: t("rep.freq"), kind: "select", options: ["daily", "weekly", "monthly"].map(x => ({value: x, label: t("rep.f." + x)}))},
-    {id: "to", label: t("em.to"), value: "management@scegroup.example"}], ok: t("act.save")}, () => {
+    {id: "to", label: t("em.to"), value: "management@apexindustrial.example"}], ok: t("act.save")}, () => {
     S.repSched = S.repSched || [];
-    S.repSched.push({id, freq: $("#dlg-fr").value, to: $("#dlg-to").value.trim() || "management@scegroup.example", on: true});
+    S.repSched.push({id, freq: $("#dlg-fr").value, to: $("#dlg-to").value.trim() || "management@apexindustrial.example", on: true});
     closeModal(); toast(t("rep.scheduled")); route();
   });
 }
 function repSchedToggle(i) { S.repSched[i].on = !S.repSched[i].on; route(); }
 function repSchedDel(i) { S.repSched.splice(i, 1); route(); }
 /* ---------------- Bảng công việc (M24.02 + M27.08) ----------------
- * Gộp Công việc và Workqueue thành 1 bảng kanban kiểu Backlog. Mọi việc là Task (dùng chung trạng thái Not Started / In Progress /
+ * Gộp đầu việc và hàng đợi việc cần xử lý thành 1 bảng kanban kiểu Backlog. Mọi việc là Task (dùng chung trạng thái Not Started / In Progress /
  * Waiting for input / Completed nên kéo thả được); việc hệ thống phát hiện được automation tự sinh thành task gắn bản ghi gốc (M23.02).
  * Việc duyệt ở menu Chờ duyệt riêng (ra quyết định theo DoA, không phải task). */
 const AUTO_RULES = [ // id, module nguồn, điều kiện, trạng thái task ban đầu, hạn (số ngày từ hôm nay), độ ưu tiên
@@ -1179,7 +1181,7 @@ async function wkPeek(id) { // panel bên phải: thông tin task + bản ghi g�
   $("#modal").innerHTML = await render("work-peek", {id, group: isGroup(), tenant: r._tenant, subject: r.Subject, desc: r.Description || "", due: dmy(r.Due_Date), owner: r.Owner, prio: r.Priority, auto: !!r._auto,
     states: mt.states.map((st, i) => ({st, label: t("wk.col." + i), on: st === r.Status})),
     src: src ? {k: r._src.k, id: src.id, title: titleOf(ms, src), type: L(ms.label), sub: subOf(ms, src), pill: ms.status ? pill(src[ms.status], ms) : ""} : null,
-    email: r._act === "email" || r._act === "remind", tpl: r._act === "remind" ? "LM certificate expiry reminder" : "", log: (r._log || []).slice(0, 4)});
+    email: r._act === "email" || r._act === "remind", tpl: r._act === "remind" ? "Plant registration expiry reminder" : "", log: (r._log || []).slice(0, 4)});
   $("#modal").classList.add("show");
 }
 async function wkMove(id, st) { if (isGroup()) return; const r = await API.get("tasks", id); logTo(r, t("wk.moved", {a: r.Status, b: st})); await API.update("tasks", id, {Status: st}); closeModal(); rerender(); }
@@ -1207,13 +1209,15 @@ async function viewSearch(q) {
 /* ---------------- cài đặt: dữ liệu từ meta, bố cục ở templates/settings.html ---------------- */
 async function viewSetting(p) {
   const A = S.app, O = A.org;
+  const lab = k => A.entities[k] ? L(A.entities[k].label) : k; // tên module theo ngôn ngữ đang chọn (bảng cài đặt dùng key module, không viết cứng tên)
+  const TNS = A.tenants.filter(x => x.country), uniq = f => [...new Set(TNS.map(x => x[f]))], codesBy = (f, v) => TNS.filter(x => x[f] === v).map(x => x.code).join(", "); // nước / tiền tệ / GST theo tenants.json
   const page = (layout, blocks, actions, note) => render("settings", {head: {title: t("page." + p), actions: actions || ""}, layout, blocks, note});
   const tbl = (feat, cols, rows, title) => ({type: "table", feat, cols, rows, title});
   if (p === "s-tenant") return page("", [
     tbl("M01.03", [t("st.code"), t("st.entity"), t("st.color"), t("st.prefix")], A.tenants.filter(x => x.code !== "ALL").map(x =>
       [`<b>${x.code}</b>`, esc(L(x.name)), `<span class="chip" style="background:${x.color};color:#fff;border-color:${x.color}"${fa("M01.13")}>${x.color}</span>`, x.code + "26-"])),
-    tbl("M01.11", [t("st.code"), t("st.prefix"), t("st.currency"), "GST", t("st.fy"), t("st.tpl")], A.tenants.filter(x => x.code !== "ALL").map((x, i) =>
-      [`<b>${x.code}</b>`, `${x.code}26- · ${x.code}-SO-26-`, ["SGD", "SGD", "SGD", "SGD", "MYR"][i] || "SGD", i === 4 ? "SST 8%" : "SR 9%", i === 4 ? "01/01" : "01/07", `<span class="chip">${x.code} Quotation</span><span class="chip">${x.code} Tax Invoice</span>`]), t("st.perTenant")),
+    tbl("M01.11", [t("st.code"), t("st.prefix"), t("st.currency"), "GST", t("st.fy"), t("st.tpl")], A.tenants.filter(x => x.code !== "ALL").map(x =>
+      [`<b>${x.code}</b>`, `${x.code}26- · ${x.code}-SO-26-`, x.currency, `GST ${x.gst}%`, x.fy, `<span class="chip">${x.code} Proposal</span><span class="chip">${x.code} Tax Invoice</span>`]), t("st.perTenant")),
     {type: "text", feat: "M01.14", title: t("st.units"), text: t("st.unitsD")},
     ...["sso", "jit", "session", "group", "shared", "ip", "sso2"].map((c, i) => ({type: "text", feat: ["M01.01", "M01.10", "M01.06", "M01.08", "M01.09", "M01.15", "M01.12"][i], title: t("st." + c), text: t("st." + c + "D")})),
     tbl("M01.07", [t("sy.time"), "User", "Tenant", "IP", t("st.device"), t("st.method"), t("sy.result")], A.users.slice(0, 7).map((u, i) =>
@@ -1235,13 +1239,13 @@ async function viewSetting(p) {
   if (p === "s-perm") return page("", [
     permMatrix(),
     tbl("M02.09", [t("fp.field"), "Module", ...["Administrator", "Sales Engineer", "After Sales Team", "Finance"]], [
-      ["Cost Price", "Products", "edit", "hide", "hide", "read"], ["Discount", "Quotes", "edit", "edit", "read", "read"], ["Grand Total", "Sales Orders", "edit", "read", "read", "edit"],
-      ["Debtor Code / Credit Term", "Accounts", "edit", "read", "read", "edit"], ["Man Hours", "Services/Repairs", "edit", "hide", "edit", "read"]].map(([f, mo, ...lv]) =>
-      [`<b>${f}</b>`, mo, ...lv.map(x => `<span class="pill p-${{edit: "ok", read: "info", hide: "warn"}[x]}">${t("fp." + x)}</span>`)]), t("fp.title")),
+      ["Cost Price", "products", "edit", "hide", "hide", "read"], ["Discount", "quotes", "edit", "edit", "read", "read"], ["Grand Total", "orders", "edit", "read", "read", "edit"],
+      ["Debtor Code / Credit Term", "accounts", "edit", "read", "read", "edit"], ["Man Hours", "jobs", "edit", "hide", "edit", "read"]].map(([f, mo, ...lv]) =>
+      [`<b>${f}</b>`, esc(lab(mo)), ...lv.map(x => `<span class="pill p-${{edit: "ok", read: "info", hide: "warn"}[x]}">${t("fp." + x)}</span>`)]), t("fp.title")),
     tbl("M02.03", ["Module", t("sp.level"), t("ra.rule")], Object.entries(A.default_access || {}).filter(([k]) => A.entities[k]).map(([k, lv]) =>
       [esc(L(A.entities[k].label)), `<span class="pill p-${lv === "Private" ? "warn" : "ok"}">${lv}</span>`, t(lv === "Private" ? "ra.private" : lv === "Public read-only" ? "ra.ro" : "ra.rw")]), t("ra.title")),
-    tbl("M02.06", [t("sp.entity"), "Module", t("sp.level")], O.default_perm.map(x => [esc(x.entity), esc(x.module), `<span class="pill p-${/Private/.test(x.level) ? "warn" : "ok"}">${esc(x.level)}</span>`])),
-    tbl("M02.07", [t("sp.entity"), t("sp.from"), t("sp.to"), t("sp.perm")], O.sharing.map(x => [esc(x.entity), esc(x.from), esc(vt(x.to)), esc(vt(x.perm))])),
+    tbl("M02.06", [t("sp.entity"), "Module", t("sp.level")], O.default_perm.map(x => [esc(x.key ? lab(x.key) : x.entity), esc(x.module), `<span class="pill p-${/Private/.test(x.level) ? "warn" : "ok"}">${esc(x.level)}</span>`])),
+    tbl("M02.07", [t("sp.entity"), t("sp.from"), t("sp.to"), t("sp.perm")], O.sharing.map(x => [esc(x.key ? lab(x.key) : x.entity), esc(x.from), esc(vt(x.to)), esc(vt(x.perm))])),
   ], "", t("sp.note"));
   if (p === "s-config") {
     const groups = [];
@@ -1250,27 +1254,27 @@ async function viewSetting(p) {
       for (const f of ["Equipment_Type", "Service_Type", "Payment_Terms", "Division_Billing"]) if (m.fields[f] && m.fields[f].options.length && !groups.find(g => g.f === f)) groups.push({f, label: m.fields[f].label, items: m.fields[f].options.slice(0, 14)});
     }
     return page("grid", [...groups.map(g => ({type: "chips", feat: "M03.01", title: g.label, groups: [{label: "", items: g.items}]})),
-      {type: "chips", feat: "M03.02", title: "GST", groups: [{label: "", items: ["SR 9%", "8%", "ZR 0%"]}]},
+      {type: "chips", feat: "M03.02", title: "GST", groups: uniq("country").map(c => ({label: `${c} · ${codesBy("country", c)}`, items: [`GST ${TNS.find(x => x.country === c).gst}%`, {AU: "GST-free 0%", SG: "ZR 0%"}[c] || "0%"]}))},
       {type: "text", feat: "M03.03", title: t("sc.numbering"), text: "{tenant}26-{0000} · {tenant}-SO-26-{0000} · AS-26-{0000}"},
-      {type: "chips", feat: "M03.04", title: t("sc.currency"), groups: [{label: t("sc.home"), items: ["SGD"]}, {label: t("sc.other"), items: ["USD 1.35", "EUR 1.47", "MYR 0.29", "HKD 0.17", "SEK 0.13", "CAD 0.98"]}, {label: t("st.fy"), items: [t("sc.fyD")]}]},
-      {type: "chips", feat: "M03.07", title: t("sc.hours"), groups: [{label: "", items: [t("sc.hoursD1"), t("sc.hoursD2")]}, {label: t("sc.holidays"), items: ["01/01", "29–30/01", "18/04", "01/05", "31/05", "09/08", "20/10", "25/12"]}]},
-      tbl("M03.05", [t("sc.rule"), "Module", t("sc.cond")], [["ReasonForLoss", "Deals", t("sc.r1")], ["WarrantyDate", "Services/Repairs", t("sc.r2")], ["DT condition", "Quotes", t("sc.r3")],
-        ["Validation · Man_Hours", "Services/Repairs", t("sc.r4")], ["Dependent picklist", "Quotes", t("sc.r5")]].map(([a, b, c]) => [`<b>${a}</b>`, b, esc(c)]), t("sc.rules")),
-      tbl("M03.06", [t("fp.field"), "Module", t("sc.type"), t("sc.by")], [["Chassis Number", "Vehicles", "Text", "Admin · 20/10/2026"], ["Site Contact", "New Installation", "Lookup → Contacts", "Admin · 22/10/2026"]].map(r => r.map(esc)), t("sc.custom"))],
+      {type: "chips", feat: "M03.04", title: t("sc.currency"), groups: [{label: t("sc.home"), items: uniq("currency").map(c => `${c} · ${codesBy("currency", c)}`)}, {label: t("sc.other"), items: ["USD 1.35", "EUR 1.47", "SGD 1.15", "HKD 0.17", "SEK 0.13", "CAD 0.98"]}, {label: t("st.fy"), items: [t("sc.fyD")]}]},
+      {type: "chips", feat: "M03.07", title: t("sc.hours"), groups: [{label: "", items: [t("sc.hoursD1"), t("sc.hoursD2")]}, {label: t("sc.holidays"), items: ["01/01", "26/01", "03–06/04", "25/04", "08/06", "05/10", "25/12", "26/12"]}]},
+      tbl("M03.05", [t("sc.rule"), "Module", t("sc.cond")], [["Loss reason", "deals", t("sc.r1")], ["Warranty date", "jobs", t("sc.r2")], ["Equipment terms", "quotes", t("sc.r3")],
+        ["Man-hours check", "jobs", t("sc.r4")], ["Equipment cascade", "quotes", t("sc.r5")]].map(([a, b, c]) => [`<b>${a}</b>`, esc(lab(b)), esc(c)]), t("sc.rules")),
+      tbl("M03.06", [t("fp.field"), "Module", t("sc.type"), t("sc.by")], [["Chassis Number", lab("vehicles"), "Text", "Admin · 20/10/2026"], ["Site Contact", lab("install"), "Lookup → " + lab("contacts"), "Admin · 22/10/2026"]].map(r => r.map(esc)), t("sc.custom"))],
       btnHtml(t("sc.addField"), "plus", "toast(t('act.done'))", false, "M03.06"));
   }
   if (p === "s-approval") return page("", [tbl("M22.01", [t("sa.doc"), t("sa.cond"), t("sa.levels")], A.approval_rules.map(x =>
     [esc(A.entities[x.doc] ? L(A.entities[x.doc].label) : t("sa." + x.doc)), esc(x.cond), x.levels.map((l, i) => `<span class="chip">${i + 1}. ${esc(l)}</span>`).join("")]))],
     btnHtml(t("sa.add"), "plus", "", true, "M22.01"));
-  if (p === "s-auto") return page("", [tbl("M14.06", [t("su.name"), t("sp.entity"), "Layout", t("su.field"), t("su.legacy"), t("su.crm")], A.blueprints.map(b =>
-    [`<b>${esc(b.name)}</b>`, esc(b.entity), esc(b.layout), esc(b.field), `<span class="pill p-${b.status === "Đang bật" ? "ok" : "warn"}">${b.status === "Đang bật" ? t("su.on") : t("su.off")}</span>`,
+  if (p === "s-auto") return page("", [tbl("M14.06", [t("su.name"), t("sp.entity"), t("su.form"), t("su.field"), t("su.legacy"), t("su.crm")], A.blueprints.map(b =>
+    [`<b>${esc(b.name)}</b>`, esc(b.key ? lab(b.key) : b.entity), esc(b.layout), esc(b.field), `<span class="pill p-${b.status === "Đang bật" ? "ok" : "warn"}">${b.status === "Đang bật" ? t("su.on") : t("su.off")}</span>`,
       `<span class="pill p-${{std: "ok", merged: "info", off: "warn"}[b.crm]}">${t("su.crm." + b.crm)}</span>`]), t("su.flows")),
-    tbl("M23.05", [t("su.name"), "Module", t("sc.cond"), t("su.assign")], [["Leads Assignment Rules", "Leads", "Lead Source = Web form", "Round robin · Sales Team"], ["After-sales intake", "Services/Repairs", "Service Type = Breakdown", "AS Service Manager"]].map(r => r.map(esc)), t("su.assignT")),
-    tbl("M23.02", [t("su.name"), "Module", t("su.when"), t("su.action")], [["LM expiry reminder", "Vehicles", t("su.w1"), "SMS + email"], ["Job on hold > 2 days", "Services/Repairs", t("su.w4"), "Email + in-app"], ["Warranty expiry", "Vehicles", t("su.w2"), "Email"], ["Overdue tasks digest", "Tasks", t("su.w3"), "Email"]].map(r => r.map(esc)), t("su.sched")),
-    tbl("M23.04", [t("su.fn"), "Module", t("su.kind"), t("su.status"), t("su.plan")], [["Document Number", "Services/Repairs", "Workflow", "on", "rebuild"], ["Autofill from Vehicle", "Services/Repairs", "Workflow", "on", "rebuild"],
-      ["QuoteMapping", "Quotes", "Workflow", "on", "rebuild"], ["MapSI", "Shipping Instructions", "Workflow", "on", "rebuild"], ["SMS Servicing Reminder", "Vehicles", "Workflow", "on", "replace"],
-      ["Create Invoice in Legacy CRM Books", "Invoices", "Button", "on", "replace"], ["ConvertPOIntoAccountingBook", "Purchase Orders", "Button", "on", "confirm"], ["Big Deal Rule", "Deals", "Workflow", "off", "drop"]].map(([a, b, c, d, e]) =>
-      [`<b>${a}</b>`, b, c, `<span class="pill p-${d === "on" ? "ok" : "warn"}">${t(d === "on" ? "su.on" : "su.off")}</span>`, t("su.p." + e)]), t("su.inv")),
+    tbl("M23.05", [t("sc.rule"), "Module", t("sc.cond"), t("su.assign")], [["Web enquiry routing", lab("leads"), "Lead Source = Web form", "Round robin · Sales Team"], ["Breakdown intake", lab("jobs"), "Service Type = Breakdown", "AS Service Manager"]].map(r => r.map(esc)), t("su.assignT")),
+    tbl("M23.02", [t("sc.rule"), "Module", t("su.when"), t("su.action")], [["Plant registration expiry reminder", lab("vehicles"), t("su.w1"), "SMS + email"], ["Service order on hold > 2 days", lab("jobs"), t("su.w4"), "Email + in-app"], ["Warranty expiry", lab("vehicles"), t("su.w2"), "Email"], ["Overdue to-dos digest", lab("tasks"), t("su.w3"), "Email"]].map(r => r.map(esc)), t("su.sched")),
+    tbl("M23.04", [t("su.fn"), "Module", t("su.kind"), t("su.status"), t("su.plan")], [["Service order numbering", "jobs", "Workflow", "on", "rebuild"], ["Autofill from equipment record", "jobs", "Workflow", "on", "rebuild"],
+      ["Proposal field mapping", "quotes", "Workflow", "on", "rebuild"], ["Goods issue mapping", "si", "Workflow", "on", "rebuild"], ["Service reminder SMS", "vehicles", "Workflow", "on", "replace"],
+      ["Create invoice in accounting", "invoices", "Button", "on", "replace"], ["Send PO to accounting", "Purchase orders", "Button", "on", "confirm"], ["Large opportunity alert", "deals", "Workflow", "off", "drop"]].map(([a, b, c, d, e]) =>
+      [`<b>${a}</b>`, esc(lab(b)), c, `<span class="pill p-${d === "on" ? "ok" : "warn"}">${t(d === "on" ? "su.on" : "su.off")}</span>`, t("su.p." + e)]), t("su.inv")),
   ], "", t("su.note"));
   if (p === "s-msg") return page("grid", [...["t1", "t2", "t3", "t4"].map((c, i) => ({type: "text", feat: ["M26.01", "M26.03", "M26.02", "M25.02"][i], title: t("sm." + c), text: t("sm." + c + "D")})),
     {type: "chips", feat: "M25.04", title: t("sm.org"), groups: ORG_EMAILS.map(([e, d]) => ({label: d, items: [e]}))},
@@ -1288,15 +1292,15 @@ async function viewSetting(p) {
     const m = await E("accounts"), opts = sel => `<select class="inp sm">${[t("si.skip"), ...Object.values(m.fields).filter(f => f.type !== "subform").slice(0, 30).map(f => f.label)].map(o => `<option${o === sel ? " selected" : ""}>${esc(o)}</option>`).join("")}</select>`;
     return page("", [
       {type: "chips", feat: "M29.02", title: t("si.wizard"), groups: [{label: "", items: [t("si.s1"), t("si.s2"), t("si.s3"), t("si.s4")]}]},
-      tbl("M29.02", [t("si.col"), t("si.sample"), t("si.mapTo")], [["Company", "Alpha Construction Pte Ltd", "Account Name"], ["Debtor", "D3001", "Debtor Code"], ["Terms", "30 days", "Credit Term"],
-        ["Tel", "+65 6123 4567", "Phone"], ["Remark", "VIP", t("si.skip")]].map(([c, v, to]) => [`<b>${c}</b>`, esc(v), opts(to)]), t("si.mapping")),
-      tbl("M29.01", [t("sp.entity"), t("si.count")], Object.entries(A.counts_legacy).map(([k, v]) => [esc(k), `<b>${esc(v)}</b>`]), t("si.legacy")),
+      tbl("M29.02", [t("si.col"), t("si.sample"), t("si.mapTo")], [["Company", "Alpha Construction Pty Ltd", "Account Name"], ["Debtor", "D3001", "Debtor Code"], ["Terms", "30 days", "Credit Term"],
+        ["Tel", "+61 2 5550 4567", "Phone"], ["Remark", "VIP", t("si.skip")]].map(([c, v, to]) => [`<b>${c}</b>`, esc(v), opts(to)]), t("si.mapping")),
+      tbl("M29.01", [t("sp.entity"), t("si.count")], Object.entries(A.counts_legacy).map(([k, v]) => [esc(lab(k)), `<b>${esc(v)}</b>`]), t("si.legacy")),
       tbl("M29.03", [t("sy.time"), t("si.bkType"), t("si.size"), t("sy.result")], [["27/10/2026 02:00", t("si.daily"), "1.8 GB", "ok"], ["26/10/2026 02:00", t("si.daily"), "1.8 GB", "ok"], ["20/10/2026 03:00", t("si.weekly"), "1.7 GB", "ok"]].map(([a, b, c, d]) =>
         [a, b, c, `<span class="pill p-ok">${t("sy.ok")}</span>`]), t("si.backup")),
     ], btnHtml(t("si.upload"), "upload", "toast(t('si.dryDone'))", false, "M29.02") + btnHtml(t("si.dry"), "", "toast(t('si.dryDone'))", true, "M29.01"), t("si.note"));
   }
   if (p === "s-api") return page("", [
-    tbl("M30.01", [t("api.key"), t("api.scope"), t("api.created"), t("su.status")], [["accounting-sync", "orders:read, invoices:write", "15/10/2026", "on"], ["bi-export", "reports:read", "20/10/2026", "on"], ["old-legacy-bridge", "*:read", "01/09/2026", "off"]].map(([a, b, c, d]) =>
+    tbl("M30.01", [t("api.key"), t("api.scope"), t("api.created"), t("su.status")], [["accounting-sync", "orders:read, invoices:write", "15/10/2026", "on"], ["bi-export", "reports:read", "20/10/2026", "on"], ["migration-bridge", "*:read", "01/09/2026", "off"]].map(([a, b, c, d]) =>
       [`<b>${a}</b>`, `<code>${b}</code>`, c, `<span class="pill p-${d === "on" ? "ok" : "warn"}">${t(d === "on" ? "su.on" : "su.off")}</span>`]), t("api.keys")),
     {type: "text", feat: "M30.01", title: t("api.docs"), text: t("api.docsD")},
     tbl("M30.02", [t("api.event"), "URL", t("su.status")], [["quote.approved", "https://erp.example/hooks/quote", "on"], ["job.completed", "https://sms.example/notify", "on"], ["invoice.paid", "https://bi.example/ingest", "off"]].map(([a, b, d]) =>
@@ -1313,7 +1317,7 @@ async function viewSetting(p) {
   return `<p class="muted">${esc(p)}</p>`;
 }
 
-/* ---------------- cài đặt teamspace & profile (sửa trong phiên demo, tải lại trang thì về như config) ---------------- */
+/* ---------------- cài đặt bộ phận & profile (sửa trong phiên demo, tải lại trang thì về như config) ---------------- */
 const MEMBER_TYPES = ["users", "roles", "profiles", "groups"];
 function memberOptions() {
   const A = S.app, O = A.org, uniq = a => [...new Set(a)];

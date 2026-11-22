@@ -1,8 +1,8 @@
-# BOOK-053 — Partner Bookings
+# BOOK-053 — Partner Reservations
 
 **Type:** Full page
 **Route:** Booking/partnerBookings (default: `/booking/partner-bookings`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 List of bookings belonging to villas under a partnership contract (`VillaContract.ownership_type = partnership`), used by the villa owner/manager to confirm or reject each booking before it is passed into the partner payment flow (BOOK-052).
@@ -35,5 +35,5 @@ List of bookings belonging to villas under a partnership contract (`VillaContrac
 - Send booking confirmation email to the villa owner with a PDF attachment (`sendEmailToBookingConfirmation`)
 
 ## Navigation
-- Opened from: Booking module menu > Partner Bookings
-- Navigates to: BOOK-052 (Partner Payments) once the booking is confirmed
+- Opened from: Reservations module menu > Partner Reservations
+- Navigates to: BOOK-052 (Partner Payouts) once the booking is confirmed

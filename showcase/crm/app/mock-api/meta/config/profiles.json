@@ -1,5 +1,5 @@
 {
-  "_note": "Quyền của profile trên từng module (dữ liệu giả; 18 tên profile lấy theo Legacy CRM APE, quyền chi tiết là giả định). v = xem, c = tạo, e = sửa, d = xoá, x = export. \"*\" = toàn quyền. Không có quyền xem → module bị ẩn khỏi menu. default_access: quyền mặc định theo module (theo Legacy CRM APE): Private = chỉ thấy bản ghi của mình và nhóm mình.",
+  "_note": "Quyền của profile trên từng module (dữ liệu giả; 18 tên profile theo cấu hình hiện tại của APE, quyền chi tiết là giả định). v = xem, c = tạo, e = sửa, d = xoá, x = export. \"*\" = toàn quyền. Không có quyền xem → module bị ẩn khỏi menu. default_access: quyền mặc định theo module (theo cấu hình hiện tại của APE): Private = chỉ thấy bản ghi của mình và nhóm mình.",
   "profile_perms": {
     "Administrator": "*",
     "Directors": {

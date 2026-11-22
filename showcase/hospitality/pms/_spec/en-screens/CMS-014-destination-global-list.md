@@ -1,10 +1,10 @@
-# CMS-014 — Destination Global List
+# CMS-014 — Aggregator Destinations
 
 **Type:** Full page
 
 **Route:** `CmsController::destinationGlobal()` — default `/cms/destination-global`
 
-**Module:** Website Content (CMS)
+**Module:** Web Publishing
 
 ## Overview
 List of all destinations (`District`, together with Country/Region) similar to CMS-012, but used for editing destination content within the scope of the "Guest Collection" (the aggregated website, not tied to a specific villa) — the edited data is stored in the `GuestCollectionDestination` model. No server-side pagination.
@@ -28,5 +28,5 @@ Default sort order: Country → Region → District (ascending). No server-side 
 - **Edit:** navigates to CMS-015 (`/cms/destination-global-edit/:district_id`) to edit the destination introduction content/images within the Guest Collection.
 
 ## Navigation
-- Accessed from: CMS-005 (Common Text, "Destination Global" button).
+- Accessed from: CMS-005 (Shared Content Blocks, "Aggregator Destinations" button).
 - Navigates to: CMS-015 (edit destination content — Guest Collection).

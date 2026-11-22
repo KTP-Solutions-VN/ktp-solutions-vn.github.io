@@ -1,10 +1,10 @@
-# CMS-009 — Danh sách Logo đối tác
+# CMS-009 — Huy hiệu báo chí & đối tác (Press & Partner Badges)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::logos($action, $id)` — mặc định `/cms/logos/:action/:id`
 
-**Module:** CMS = Nội dung trang chủ villa
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Danh sách các logo đối tác/liên kết hiển thị trên website. Không phân trang server-side (lấy toàn bộ `CmsLogo->find('all')`).
@@ -28,5 +28,5 @@ Không có filter/tìm kiếm server-side, không phân trang server-side.
 - **Delete:** gọi lại action này dạng `/cms/logos/delete/:id` — xoá bản ghi `CmsLogo`, hiển thị flash message rồi redirect lại danh sách.
 
 ## Điều hướng
-- Vào từ: CMS-005 (Common Text, nút "Logo") hoặc breadcrumb từ CMS-010/CMS-011.
+- Vào từ: CMS-005 (Khối nội dung dùng chung, nút "Partner Badges") hoặc breadcrumb từ CMS-010/CMS-011.
 - Điều hướng đến: CMS-010 (thêm), CMS-011 (sửa).

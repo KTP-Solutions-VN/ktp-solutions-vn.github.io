@@ -1,10 +1,10 @@
-# OWN-014 — Add New Agency Staff
+# OWN-014 — New Agency User
 
 **Type:** Full page
 
 **Route:** `/Owner/addAgencyStaff` (controller `Owner`, action `addAgencyStaff()`)
 
-**Module:** Owner Management (Admin)
+**Module:** Owner Relations (Admin)
 
 ## Overview
 
@@ -32,7 +32,7 @@ A form for creating a new staff account belonging to an Agency, including person
 
 ## Functions / Actions
 
-- **Save**: saves `AgencyStaff`, `UserBusinessUnit`, and `UserRole` records; logs the activity; then redirects to OWN-013 (Agency Staff List).
+- **Save**: saves `AgencyStaff`, `UserBusinessUnit`, and `UserRole` records; logs the activity; then redirects to OWN-013 (Agency Users).
 - **Cancel**: returns to OWN-013.
 
 ## Navigation

@@ -1,10 +1,10 @@
-# SET-004 — Thiết lập Hostex (Hostex Set-up)
+# SET-004 — Ánh xạ tài khoản kênh (Channel Account Mapping)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `SettingController::hostexSetup()` — mặc định `/setting/hostex-setup`; dữ liệu tải qua AJAX GET `getHostexData()` (`/setting/get-hostex-data`)
 
-**Module:** SET = Cài đặt hệ thống
+**Module:** SET = Cài đặt nền tảng
 
 ## Mô tả ngắn gọn
 Màn hình cấu hình tích hợp kênh phân phối Hostex: với mỗi kênh OTA (Booking.com, Airbnb, Agoda, Expedia, Trip.com...) khai báo các tài khoản Hostex (email/tên tài khoản) đang nắm giữ listing, gắn tài khoản đó với OTA Account tương ứng và xác định tài khoản thuộc **Azura Stays** hay một **Agency** đối tác bên ngoài. Số lượng bất động sản (property) đang liên kết với từng tài khoản được tính tự động từ dữ liệu OTA lưu trên Villa và hiển thị dạng danh sách property mở rộng khi bấm vào.
@@ -37,6 +37,6 @@ Form thêm/sửa tài khoản (ẩn/hiện inline dưới bảng của từng k�
 - **Xem Properties linked:** mở rộng dòng con hiển thị danh sách property (ảnh + tên, link tới trang OTA management của villa) qua AJAX `getHostexAccountProperties`.
 
 ## Điều hướng
-- Vào từ: SET-001, hoặc menu Cài đặt hệ thống > Hostex Set-up.
+- Vào từ: SET-001, hoặc menu Cài đặt nền tảng > Channel Account Mapping.
 - Điều hướng đến: SET-004-P1 (form thêm/sửa tài khoản, inline), SET-004-P2 (popup xác nhận xóa), SET-004-P3 (popup cảnh báo không thể xóa).
 - Link ra ngoài: từ danh sách property liên kết, mở trang OTA management của Villa (`/property/villa/ota management/:id`) ở tab mới.

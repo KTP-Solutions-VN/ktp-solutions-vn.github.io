@@ -1,10 +1,10 @@
-# TXT-001-P3 — Confirm Delete Text/Language
+# TXT-001-P3 — Confirm Description Deletion
 
 **Type:** Popup (opened from TXT-001)
 
 **Route:** Shared static modal within `index.ctp` (`#texts-delete-modal`); confirmation calls AJAX `TextsController::deleteText()` (`POST /texts/delete-text`) or `TextsController::deleteLanguage()` (`POST /texts/delete-language`) depending on the context the popup was opened from.
 
-**Module:** Texts
+**Module:** Description Bank
 
 ## Overview
 A shared confirmation dialog for two delete actions: deleting a reusable text (Shared/Profile) or removing a language from a country (only when that language is not in use).

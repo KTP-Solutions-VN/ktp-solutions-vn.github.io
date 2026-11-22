@@ -1,8 +1,8 @@
-# MNT-016-P2 — Xem quy tắc thời gian kiểm tra
+# MNT-016-P2 — Chi tiết SLA kiểm tra (Inspection SLA Details)
 
 **Loại:** Popup (mở từ MNT-016)
 **Route:** maintenance/viewInspection/:id (id base64)
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Trang xem chi tiết (readonly) một bộ quy tắc thời gian kiểm tra villa theo đơn vị kinh doanh.
@@ -21,5 +21,5 @@ Trang xem chi tiết (readonly) một bộ quy tắc thời gian kiểm tra vill
 - Chỉ xem, không có thao tác chỉnh sửa.
 
 ## Điều hướng
-- Vào từ: icon Xem trên MNT-016 — Quy tắc thời gian kiểm tra.
+- Vào từ: icon Xem trên MNT-016 — SLA kiểm tra.
 - Đi tới: có thể có liên kết sang MNT-016-P1 (Sửa).

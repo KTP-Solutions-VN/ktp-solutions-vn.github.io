@@ -1,10 +1,10 @@
-# OWP-007-P1 — Cleaning Task Detail Popup
+# OWP-007-P1 — Housekeeping Visit Detail
 
 **Type:** Popup (opened from OWP-007)
 
 **Route:** `ExternalUserController::planningTeamsDetail($id, $location)` — route of the form `.../planning-teams-detail/{villas_clean_id}/owner`, opened from OWP-007 (the "Cleaning" tab) in a new tab
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 

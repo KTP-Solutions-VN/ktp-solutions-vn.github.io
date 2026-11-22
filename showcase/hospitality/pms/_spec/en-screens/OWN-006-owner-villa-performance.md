@@ -1,10 +1,10 @@
-# OWN-006 — Owner Villa Performance
+# OWN-006 — Property Performance
 
 **Type:** Full page
 
 **Route:** `/Owner/performance` (controller `Owner`, action `performance()`)
 
-**Module:** Owner Management (Admin)
+**Module:** Owner Relations (Admin)
 
 ## Overview
 
@@ -36,5 +36,5 @@ The screen also compiles year-over-year performance comparison data (current yea
 
 ## Navigation
 
-- Entered from: main menu (sidebar) item "Performance".
+- Entered from: main menu (sidebar) item "Property Performance".
 - No child popups; this is a standalone screen.

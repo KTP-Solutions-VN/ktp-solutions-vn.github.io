@@ -1,10 +1,10 @@
-# VSV-026 — Lịch phân công dọn dẹp hằng ngày (Planning Teams)
+# VSV-026 — Lịch dọn phòng chuyển khách (Turnover Cleaning Rota)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `VillaServicesController::planningTeams()` — mặc định `/villa-services/planning-teams`; danh sách villa/trạng thái tải qua AJAX `planningTeamsAjax`, cập nhật trạng thái "Clean Today" qua AJAX `updateCleaningDetails`
 
-**Module:** Dịch vụ villa — Dọn dẹp
+**Module:** Dịch vụ lưu trú — Dọn phòng
 
 ## Mô tả ngắn gọn
 Bảng lập kế hoạch dọn dẹp villa theo ngày: hiển thị villa nào cần dọn hôm nay dựa trên ngày check-out gần nhất/check-in kế tiếp, cho phép bật/tắt (toggle) đưa villa vào danh sách cần dọn, xem trạng thái dọn (chưa làm/đang làm/đã dọn/đã báo cáo).
@@ -33,5 +33,5 @@ Bảng lập kế hoạch dọn dẹp villa theo ngày: hiển thị villa nào 
 - Đổi Date/Business Unit → tự động tải lại danh sách.
 
 ## Điều hướng
-- Vào từ: Menu chính (mục Cleaning/Planning) hoặc VSV-016 (liên quan chủ đề đội dọn dẹp).
-- Điều hướng đến: VSV-026-P1 (Chi tiết tiến trình dọn dẹp villa).
+- Vào từ: Menu chính (mục Turnover Cleaning Rota) hoặc VSV-016 (liên quan chủ đề đội dọn dẹp).
+- Điều hướng đến: VSV-026-P1 (Chi tiết tiến độ dọn chuyển khách).

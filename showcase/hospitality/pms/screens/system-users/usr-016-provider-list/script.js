@@ -4,9 +4,9 @@
   var EDITS_KEY = 'mm_usr_providers_edits';
 
   var PROVIDERS_BASE = [
-    { id: 'p1', name: 'Budi Santoso', company: 'Andaman Pool Services', bu: 'Bali Retreats', status: 'active' },
-    { id: 'p2', name: 'Wichai Somsri', company: 'Bali Bloom Gardens', bu: 'Phuket Collection', status: 'active' },
-    { id: 'p3', name: 'Nattapon Chai', company: 'Siam Linen Supply', bu: 'Koh Samui Estates', status: 'inactive' }
+    { id: 'p1', name: 'Ben Sullivan', company: 'Coral Pool Services', bu: 'Byron Bay Retreats', status: 'active' },
+    { id: 'p2', name: 'Winston Sng', company: 'Byron Bloom Gardens', bu: 'Sentosa Collection', status: 'active' },
+    { id: 'p3', name: 'Nathan Cooper', company: 'Straits Linen Supply', bu: 'Noosa Estates', status: 'inactive' }
   ];
 
   var editingId = null;
@@ -38,8 +38,8 @@
 
   function openDrawer(provider) {
     editingId = provider ? provider.id : null;
-    document.getElementById('provider-drawer-title').textContent = provider ? 'Edit Provider' : 'Add Provider';
-    document.getElementById('provider-save-btn').textContent = provider ? 'Save Changes' : 'Create Provider';
+    document.getElementById('provider-drawer-title').textContent = provider ? 'Edit Contractor' : 'Add Contractor';
+    document.getElementById('provider-save-btn').textContent = provider ? 'Save Changes' : 'Create Contractor';
     document.getElementById('provider-form').reset();
     if (provider) {
       var parts = provider.name.split(' ');
@@ -74,12 +74,12 @@
         var edits = JSON.parse(localStorage.getItem(EDITS_KEY) || '{}');
         edits[editingId] = { name: (first + ' ' + last).trim(), company: company, bu: bu };
         localStorage.setItem(EDITS_KEY, JSON.stringify(edits));
-        MM.showToast('Provider updated');
+        MM.showToast('Contractor updated');
       } else {
         var added = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
         added.push({ id: MM.uid('prov'), name: (first + ' ' + last).trim(), company: company, bu: bu, status: 'active' });
         localStorage.setItem(STORAGE_KEY, JSON.stringify(added));
-        MM.showToast('Provider created');
+        MM.showToast('Contractor created');
       }
       MM.closeModal('provider-drawer');
       render();

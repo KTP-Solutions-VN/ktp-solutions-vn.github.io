@@ -1,9 +1,9 @@
-# BOOK-049 — Due Now Payments
+# BOOK-049 — Payouts Due
 
 **Type:** Full page (opened from BOOK-052)
 **Route:** Booking/dueNow (default: `/booking/due-now`)
 **Friendly route:** `/booking/partner-payments/due-now`
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 List of partner payments (villa owners under a partnership model) that have become due (based on the payment frequency configured in the villa contract: before check-in date, on check-in date, one month in advance, at time of booking, or the Monday of the previous week). Allows selecting multiple rows and confirming payment.
@@ -32,5 +32,5 @@ List of partner payments (villa owners under a partnership model) that have beco
 - **Paid** confirmation button — calls `addPartnerPayment` to mark the selected items as paid (moves them to BOOK-051 Paid)
 
 ## Navigation
-- Opened from: BOOK-052 (Partner Payments) > "Due Now" button
-- Navigates to: BOOK-051 (Paid) after confirming payment
+- Opened from: BOOK-052 (Partner Payouts) > "Due Now" button
+- Navigates to: BOOK-051 (Settled Payouts) after confirming payment

@@ -1,8 +1,8 @@
-# OPR-011 — Thực hiện kiểm tra villa theo điểm
+# OPR-011 — Thực hiện kiểm tra tình trạng (Run Condition Check)
 
 **Loại:** Trang đầy đủ
 **Route:** operator/inspectionDetails?id=&last_id= + route đẹp dạng dashed: operator/inspection-details
-**Module:** OPR = Vận hành vườn/hồ bơi
+**Module:** OPR = Công việc bảo dưỡng
 
 ## Mô tả ngắn gọn
 Màn hình wizard từng bước (point-by-point) cho nhân viên thực hiện các điểm kiểm tra (inspection point) của một lượt `Inspection`: chọn hạng mục kiểm tra (Inspection Service), khu vực (Location Service), chụp ảnh minh chứng, có thể Next/Back/Reset/Update từng điểm, và Finish để kết thúc toàn bộ lượt kiểm tra.
@@ -28,4 +28,4 @@ Màn hình wizard từng bước (point-by-point) cho nhân viên thực hiện 
 
 ## Điều hướng
 - Vào từ: OPR-010 (bấm Start) hoặc tiếp tục nháp (`fetchDraftInspection`).
-- Đi tới: sau khi Finish, quay về OPR-010 — Danh sách kiểm tra villa.
+- Đi tới: sau khi Finish, quay về OPR-010 — Kiểm tra tình trạng.

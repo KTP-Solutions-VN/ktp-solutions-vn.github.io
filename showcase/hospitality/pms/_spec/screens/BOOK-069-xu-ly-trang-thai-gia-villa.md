@@ -1,9 +1,9 @@
-# BOOK-069 — Xử lý trạng thái giá villa (Thanh toán/Kết thúc)
+# BOOK-069 — Xử lý tiền thuê tháng (Monthly Rent Action)
 
 **Loại:** Trang đầy đủ (trang con, điều hướng từ BOOK-067 — không phải popup/modal)
 **Route:** Booking/ratesStatusEdit/:business_unit_id/:villa_id/:action (action = `payment` hoặc `finish`)
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định, ví dụ `/booking/rates-status-edit/1/2/payment`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Màn hình xác nhận thao tác trên bản ghi giá thuê tháng (Monthly) đang áp dụng cho một villa: xác nhận đã thu tiền thuê tháng hiện tại (`action=payment`), hoặc xác nhận kết thúc hợp đồng thuê tháng để chuyển villa về giá thuê ngày (`action=finish`).
@@ -15,7 +15,7 @@ Không có form nhập liệu — chỉ hiển thị 1 dòng thông tin xác nh�
 
 | # | Trường hợp | Nội dung hiển thị | Nút |
 |---|---|---|---|
-| 1 | `action=payment` | "`<Tên villa>`, rent of `<monthly_rent>` THB due on `<next_due_date>`" | Nút **Paid** |
+| 1 | `action=payment` | "`<Tên villa>`, rent of `<monthly_rent>` SGD due on `<next_due_date>`" | Nút **Paid** |
 | 2 | `action=finish` (mặc định) | "`<Tên villa>` goes back to daily rate. There is no outstanding monthly Rent due." | Nút **Confirm** |
 
 ## Chức năng/nút thao tác

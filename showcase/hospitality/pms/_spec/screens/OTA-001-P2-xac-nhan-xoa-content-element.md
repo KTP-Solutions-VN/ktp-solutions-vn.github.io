@@ -1,10 +1,10 @@
-# OTA-001-P2 — Xác nhận xóa Content Element khỏi listing
+# OTA-001-P2 — Xác nhận gỡ thành phần (Confirm Element Removal)
 
 **Loại:** Popup (mở từ OTA-001)
 
 **Route:** Modal tĩnh trong `listing.ctp`; xác nhận gọi AJAX `OtaContentController::removeAssignment()` — `POST /ota-content/remove-assignment`
 
-**Module:** OTA = Nội dung OTA
+**Module:** OTA = Nội dung kênh
 
 ## Mô tả ngắn gọn
 Hộp thoại xác nhận trước khi gỡ bỏ một Content Element khỏi phần listing của OTA hiện tại (không xóa Content Element khỏi hệ thống, chỉ bỏ gán).

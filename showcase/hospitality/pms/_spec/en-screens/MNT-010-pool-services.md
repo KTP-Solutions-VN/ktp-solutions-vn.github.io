@@ -1,8 +1,8 @@
-# MNT-010 — Pool Services
+# MNT-010 — Pool Service Types
 
 **Type:** Full page
 **Route:** maintenance/poolServices
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Screen listing pool service categories (`GardenService.type = pool-services`) used to classify pool jobs. Each service has a name, illustrative image, applicable business unit(s), and status.
@@ -22,10 +22,10 @@ Screen listing pool service categories (`GardenService.type = pool-services`) us
 | 8 | Actions | — | Edit, Delete |
 
 ## Functions / Actions
-- **Add New**: opens MNT-010-P1 — Add Pool Service.
-- **Edit** (icon): opens MNT-010-P2 — Edit Pool Service.
+- **Add New**: opens MNT-010-P1 — New Pool Service Type.
+- **Edit** (icon): opens MNT-010-P2 — Edit Pool Service Type.
 - **Delete**: deletes the corresponding `GardenService` (`deletePoolService`).
 
 ## Navigation
-- Entered from: Settings/Maintenance menu in the sidebar.
+- Entered from: Repair Desk settings menu in the sidebar.
 - Navigates to: MNT-010-P1 (Add), MNT-010-P2 (Edit).

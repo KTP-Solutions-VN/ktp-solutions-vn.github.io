@@ -23,8 +23,8 @@
         {
           "route": "/home",
           "text": {
-            "vi": "Trang chủ tính từ dữ liệu của pháp nhân đang chọn",
-            "en": "Home page computed from the selected entity's data"
+            "en": "Overview computed from the selected entity's data",
+            "vi": "Trang tổng quan tính từ dữ liệu của pháp nhân đang chọn"
           }
         },
         {
@@ -37,15 +37,15 @@
         {
           "route": "/p/s-org",
           "text": {
-            "vi": "Org chart và người dùng; bấm avatar trên cùng để xem với vai trò khác",
-            "en": "Org chart and users; click the avatar at the top to view as another role"
+            "en": "Org structure and users; click the avatar at the top to view as another role",
+            "vi": "Cơ cấu tổ chức và người dùng; bấm avatar trên cùng để xem với vai trò khác"
           }
         },
         {
           "route": "/p/s-team",
           "text": {
-            "vi": "Teamspace: module và thành viên của từng team",
-            "en": "Teamspaces: modules and members of each team"
+            "en": "Departments: module menu and members of each department",
+            "vi": "Bộ phận: menu module và thành viên của từng bộ phận"
           }
         }
       ]
@@ -59,157 +59,157 @@
         {
           "route": "/e/leads/le1",
           "text": {
-            "vi": "Lead → convert thành Khách hàng + Liên hệ + Deal",
-            "en": "Lead → convert into Customer + Contact + Deal"
+            "en": "Prospect → convert into Client + Contact + Opportunity",
+            "vi": "Khách hàng tiềm năng → chuyển thành Khách hàng + Đầu mối + Cơ hội"
           }
         },
         {
           "route": "/e/deals/kanban",
           "text": {
-            "vi": "Pipeline Deal theo stage thật của Legacy CRM",
-            "en": "Deal pipeline using the real Legacy CRM stages"
+            "en": "Opportunity pipeline with the real sales stages",
+            "vi": "Pipeline cơ hội theo các giai đoạn bán hàng thực tế"
           }
         },
         {
           "route": "/e/deals/de1",
           "text": {
-            "vi": "Deal: nút theo luồng Deals Follow Up",
-            "en": "Deal: buttons follow the Deals Follow Up flow"
+            "en": "Opportunity: buttons follow the Opportunity pipeline process flow",
+            "vi": "Cơ hội: nút bấm theo quy trình Opportunity pipeline"
           }
         },
         {
           "route": "/e/quotes/new",
           "text": {
-            "vi": "Tạo báo giá: chọn mẫu Crane / Hooklift / Tailgate / After Sales",
-            "en": "New quotation: pick the Crane / Hooklift / Tailgate / After Sales template"
+            "en": "New proposal: pick the crane, hooklift, tail lift or service form",
+            "vi": "Tạo chào giá: chọn biểu mẫu cẩu, hooklift, bửng nâng hoặc dịch vụ"
           }
         },
         {
           "route": "/e/quotes/qu1",
           "text": {
-            "vi": "Báo giá: field và section theo layout thật, dòng sản phẩm, duyệt DoA",
-            "en": "Quotation: real layout fields and sections, line items, DoA approval"
+            "en": "Proposal: full form fields and sections, line items, DoA approval",
+            "vi": "Chào giá: đủ field và section của biểu mẫu, dòng hàng, duyệt DoA"
           }
         },
         {
           "route": "/p/myjobs",
           "text": {
-            "vi": "Người duyệt xử lý trong My Jobs",
-            "en": "Approvers act in My Jobs"
+            "en": "Approvers act in My approvals",
+            "vi": "Người duyệt xử lý ở Phê duyệt của tôi"
           }
         },
         {
           "route": "/e/orders/or1",
           "text": {
-            "vi": "Sales Order, đẩy sang kế toán",
-            "en": "Sales Order pushed to accounting"
+            "en": "Customer order pushed to accounting",
+            "vi": "Đơn đặt hàng, đẩy sang kế toán"
           }
         },
         {
           "route": "/e/install/in1",
           "text": {
-            "vi": "Dự án lắp đặt theo loại (Crane / Hook Lift / Tail Lift)",
-            "en": "Installation project by type (Crane / Hook Lift / Tail Lift)"
+            "en": "Fit-out project by type (crane / hooklift / tail lift)",
+            "vi": "Dự án đóng mới theo loại (cẩu / hooklift / bửng nâng)"
           }
         },
         {
           "route": "/e/vehicles/ve1",
           "text": {
-            "vi": "Xe vào sổ, theo dõi hạn LM / NEA / bảo hành",
-            "en": "Vehicle registered; LM / NEA / warranty due dates tracked"
+            "en": "Vehicle added to the installed base; certificate and warranty due dates tracked",
+            "vi": "Xe vào hồ sơ thiết bị, theo dõi hạn chứng nhận / bảo hành"
           }
         }
       ]
     },
     {
       "title": {
-        "vi": "Hậu mãi",
-        "en": "After-sales"
+        "en": "Service operations",
+        "vi": "Dịch vụ kỹ thuật"
       },
       "steps": [
         {
           "route": "/e/vehicles",
           "text": {
-            "vi": "Danh sách xe, hạn kiểm định",
-            "en": "Vehicle list and inspection due dates"
+            "en": "Installed base and inspection due dates",
+            "vi": "Hồ sơ thiết bị, hạn kiểm định"
           }
         },
         {
           "route": "/e/jobs/new",
           "text": {
-            "vi": "Tiếp nhận job: 4 loại job theo layout thật",
-            "en": "Job intake: 4 job types from the real layouts"
+            "en": "Service order intake: 4 order types, each with its own form",
+            "vi": "Tiếp nhận lệnh dịch vụ: 4 loại lệnh, mỗi loại một biểu mẫu"
           }
         },
         {
           "route": "/e/jobs/kanban",
           "text": {
-            "vi": "Bảng job theo trạng thái blueprint",
-            "en": "Job board by blueprint status"
+            "en": "Service order board by process-flow status",
+            "vi": "Bảng lệnh dịch vụ theo trạng thái quy trình"
           }
         },
         {
           "route": "/e/jobs/jo1",
           "text": {
-            "vi": "Chi tiết job: chuyển bước theo blueprint (có ghi chú / field bắt buộc)",
-            "en": "Job details: blueprint steps with required notes / fields"
+            "en": "Service order details: process-flow steps with required notes / fields",
+            "vi": "Chi tiết lệnh dịch vụ: chuyển bước theo quy trình (có ghi chú / field bắt buộc)"
           }
         },
         {
           "route": "/e/si/si1",
           "text": {
-            "vi": "Phiếu xuất phụ tùng (SI Chit Status)",
-            "en": "Shipping instruction (SI Chit Status)"
+            "en": "Goods issue: requested → ready for collection → issued",
+            "vi": "Phiếu xuất kho: yêu cầu → sẵn sàng nhận → đã xuất"
           }
         },
         {
           "route": "/e/pr/pr1",
           "text": {
-            "vi": "Đề nghị mua: ý kiến theo vai trò, duyệt",
-            "en": "Purchase requisition: comments by role, approval"
+            "en": "Purchase request: comments by role, approval",
+            "vi": "Yêu cầu mua sắm: ý kiến theo vai trò, duyệt"
           }
         },
         {
           "route": "/e/nea/ne1",
           "text": {
-            "vi": "Kiểm tra NEA hooklift / container",
-            "en": "NEA hooklift / container inspection"
+            "en": "Environmental check for hooklift / container",
+            "vi": "Kiểm định môi trường cho hooklift / thùng chứa"
           }
         },
         {
           "route": "/e/tickets",
           "text": {
-            "vi": "Ticket & bảo trì (module mới đề xuất)",
-            "en": "Tickets & maintenance (proposed new module)"
+            "en": "Customer support (proposed new module)",
+            "vi": "Hỗ trợ khách hàng (module mới đề xuất)"
           }
         }
       ]
     },
     {
       "title": {
-        "vi": "Quản trị & báo cáo",
-        "en": "Admin & reporting"
+        "en": "Admin & analytics",
+        "vi": "Quản trị & phân tích"
       },
       "steps": [
         {
           "route": "/p/s-perm",
           "text": {
-            "vi": "Quyền mặc định theo module, sharing rule",
-            "en": "Default permissions per module, sharing rules"
+            "en": "Default access per module, sharing rules",
+            "vi": "Quyền mặc định theo module, quy tắc chia sẻ"
           }
         },
         {
           "route": "/p/s-approval",
           "text": {
-            "vi": "Luồng duyệt DoA",
-            "en": "DoA approval rules"
+            "en": "DoA approval limits",
+            "vi": "Hạn mức phê duyệt DoA"
           }
         },
         {
           "route": "/p/s-auto",
           "text": {
-            "vi": "Luồng trạng thái (blueprint)",
-            "en": "Status flows (blueprints)"
+            "en": "Process flows and automation",
+            "vi": "Quy trình trạng thái và tự động hoá"
           }
         },
         {
@@ -222,36 +222,36 @@
         {
           "route": "/p/s-import",
           "text": {
-            "vi": "Migration từ Legacy CRM",
-            "en": "Migration from Legacy CRM"
+            "en": "Data migration from the current system",
+            "vi": "Chuyển dữ liệu từ hệ thống hiện tại"
           }
         },
         {
           "route": "/p/s-audit",
           "text": {
-            "vi": "Audit log",
-            "en": "Audit log"
+            "en": "Audit trail",
+            "vi": "Nhật ký thao tác"
           }
         },
         {
           "route": "/p/reports",
           "text": {
-            "vi": "Báo cáo tính từ dữ liệu",
-            "en": "Reports computed from data"
+            "en": "Analytics: reports computed from data",
+            "vi": "Phân tích: báo cáo tính từ dữ liệu"
           }
         },
         {
           "route": "/home",
           "text": {
-            "vi": "Trang chủ quản lý: KPI, pipeline, job theo trạng thái, báo cáo đã ghim",
-            "en": "Manager home: KPIs, pipeline, jobs by status, pinned reports"
+            "en": "Management overview: KPIs, pipeline, service orders by status, pinned reports",
+            "vi": "Tổng quan điều hành: KPI, pipeline, lệnh dịch vụ theo trạng thái, báo cáo đã ghim"
           }
         },
         {
           "route": "/p/reports?i=r10",
           "text": {
-            "vi": "Báo cáo dự báo theo tháng chốt",
-            "en": "Forecast by closing month report"
+            "en": "Revenue forecast by close month",
+            "vi": "Dự báo doanh thu theo tháng chốt"
           }
         }
       ]

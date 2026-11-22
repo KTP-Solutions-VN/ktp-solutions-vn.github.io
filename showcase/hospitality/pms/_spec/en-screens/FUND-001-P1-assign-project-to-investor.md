@@ -1,10 +1,10 @@
-# FUND-001-P1 — Assign Project to Investor
+# FUND-001-P1 — Link Investor to Project
 
 **Type:** Popup (opened from FUND-001)
 
 **Route:** Submits via POST to `FundController::investors()` (`/fund/investors`, hidden field `action = project`). Project list data is loaded via AJAX `fund/check-project` (POST).
 
-**Module:** FUND = Investment Fund
+**Module:** FUND = Investor Capital
 
 ## Overview
 A modal that allows one or more open projects (`ProjectFund.status = open`) to be assigned to an investor. Opened from the "Project" icon on the investor list (FUND-001).

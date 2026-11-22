@@ -1,10 +1,10 @@
-# CS-004-P1 — Popup Thêm/Sửa/Xóa Khu vực
+# CS-004-P1 — Form khu vực (Area Form)
 
 **Loại:** Popup (mở từ CS-004)
 
 **Route:** Modal Bootstrap (`#exampleModal`) trong `areas.ctp`; submit cùng action `CommonSettingController::areas()`; kiểm tra trùng tên qua AJAX `checkArea()` — `/common-setting/check-area`; nạp Region/District theo lựa chọn cha qua AJAX `getData()` — `/common-setting/get-data`.
 
-**Module:** CS = Danh mục dùng chung
+**Module:** CS = Dữ liệu tham chiếu
 
 ## Mô tả ngắn gọn
 Popup dùng chung cho Thêm mới/Sửa/Xóa một Khu vực (Area), với 3 dropdown chọn cha theo cấp bậc (Quốc gia → Vùng → Quận/Huyện) load cascade bằng AJAX.
@@ -25,5 +25,5 @@ Popup dùng chung cho Thêm mới/Sửa/Xóa một Khu vực (Area), với 3 dro
 - **Cancel:** đóng modal.
 
 ## Điều hướng
-- Mở từ: CS-004 (danh sách Khu vực).
+- Mở từ: CS-004 (Thiết lập khu vực).
 - Sau khi submit: quay lại CS-004 kèm flash message.

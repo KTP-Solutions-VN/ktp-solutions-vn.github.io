@@ -1,10 +1,10 @@
-# USR-004 — Danh sách người dùng (nhân viên nội bộ)
+# USR-004 — Danh bạ đội ngũ (Team Directory)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `UserController::list($tab)` — mặc định `user/list/:tab`
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Danh sách toàn bộ nhân viên nội bộ (`User.employment = Internal`) trong hệ thống, cho phép lọc theo vị trí địa lý/business unit, phòng ban, trạng thái, loại lương, quốc tịch, công ty, chi nhánh... Dùng bởi Superadmin/Admin/Business Unit Manager để quản lý nhân sự, xem cảnh báo work permit sắp/đã hết hạn, và là điểm vào của các thao tác thêm/sửa/xoá/xem chi tiết người dùng.
@@ -42,14 +42,14 @@ Danh sách toàn bộ nhân viên nội bộ (`User.employment = Internal`) tron
 | 12 | Xuất danh sách nhân viên | `is_download_staff_list` | Checkbox | Gọi action tải xuống `user/downloadUserReport` (không thuộc phạm vi tài liệu hoá màn hình) |
 
 ## Chức năng/nút thao tác
-- **Thêm mới:** mở USR-005 (Thêm người dùng).
+- **Thêm mới:** mở USR-005 (Thêm thành viên đội ngũ).
 - **Xem chi tiết:** mở USR-007 (Xem chi tiết).
-- **Sửa:** mở USR-006 (Sửa người dùng).
+- **Sửa:** mở USR-006 (Sửa thành viên đội ngũ).
 - **Xoá:** gọi `user/delete/:id`, có xác nhận trước khi xoá (xoá kèm dữ liệu liên quan: UserBusinessUnit, UserRole, UserLanguage, UserPayroll).
 - **Lọc/tìm kiếm:** submit filter để load lại danh sách.
 - **Xuất báo cáo nhân sự:** gọi action tải file `user/downloadUserReport` khi bật cờ xuất danh sách (action tải xuống, không có màn hình riêng).
 - Cảnh báo work permit: đánh dấu màu (đỏ/cam/xanh) theo số ngày còn lại tới hạn thông báo tiếp theo.
 
 ## Điều hướng
-- Vào từ: menu chính "Users"/"Nhân viên".
+- Vào từ: menu chính "Team Directory".
 - Điều hướng đến: USR-005 (Thêm), USR-006 (Sửa), USR-007 (Xem chi tiết).

@@ -1,13 +1,13 @@
-# ACC-055 — Loại chi phí (Expense Type)
+# ACC-055 — Nhóm chi phí (Cost Categories)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `AccountController::expenseType()` — mặc định `/account/expense-type`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
-Quản lý danh mục "Loại chi phí" (Expense Type) dùng trong các bảng kê Rebill/Recurring — danh sách kèm popup thêm/sửa/xoá ngay trên cùng trang.
+Quản lý danh mục "Loại chi phí" (Cost Categories) dùng trong các bảng kê Rebill/Recurring — danh sách kèm popup thêm/sửa/xoá ngay trên cùng trang.
 
 ## Mô tả chi tiết
 
@@ -36,5 +36,5 @@ Popup thêm/sửa/xoá (modal `#exampleModal`, dùng chung 1 form cho cả 3 tha
 - **Cancel:** đóng popup, không lưu.
 
 ## Điều hướng
-- Vào từ: Sidebar > mục "Expense Type" trong nhóm Account/Expenses.
+- Vào từ: Sidebar > mục "Cost Categories" trong nhóm Finance & Admin / Spending.
 - Điều hướng đến: không điều hướng sang trang khác — toàn bộ thao tác xử lý trong popup trên cùng trang (submit reload lại danh sách).

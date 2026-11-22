@@ -1,10 +1,10 @@
-# NOT-003-P1 — Xác nhận xóa thông báo (từ trang chi tiết)
+# NOT-003-P1 — Xóa thông báo từ trang chi tiết (Delete Announcement from Detail)
 
 **Loại:** Popup (mở từ NOT-003)
 
 **Route:** Modal tĩnh trong `view_detail.ctp`; xác nhận gọi `NoticeController::delete($id)` qua `GET /notice/delete/:id`
 
-**Module:** NOT = Thông báo
+**Module:** NOT = Thông báo nội bộ
 
 ## Mô tả ngắn gọn
 Hộp thoại xác nhận xóa thông báo ngay tại trang xem chi tiết.
@@ -17,5 +17,5 @@ Không có field nhập liệu, chỉ có thông điệp xác nhận.
 - **Cancel:** đóng modal.
 
 ## Điều hướng
-- Mở từ: NOT-003 (Chi tiết thông báo).
+- Mở từ: NOT-003 (Xem thông báo).
 - Sau khi xác nhận: quay về trang trước (`referer`).

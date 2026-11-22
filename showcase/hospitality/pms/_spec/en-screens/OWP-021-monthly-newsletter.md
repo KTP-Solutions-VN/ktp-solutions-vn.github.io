@@ -1,10 +1,10 @@
-# OWP-021 — Monthly Newsletter
+# OWP-021 — Owner Bulletin
 
 **Type:** Full page
 
 **Route:** `ExternalUserController::MonthlyNewsletter()` — no dedicated friendly route (default `/external-user/monthly-newsletter`)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 
@@ -27,5 +27,5 @@ List — displayed columns:
 
 ## Navigation
 
-- Accessed from the main menu (Monthly Newsletter)
+- Accessed from the main menu (Owner Bulletin)
 - No further navigation — the eye icon opens a popup in place, the download icon opens/downloads the PDF file

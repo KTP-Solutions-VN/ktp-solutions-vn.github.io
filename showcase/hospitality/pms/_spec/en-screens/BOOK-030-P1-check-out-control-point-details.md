@@ -1,8 +1,8 @@
-# BOOK-030-P1 — Check-out Control Point Details
+# BOOK-030-P1 — Departure Checkpoint Details
 
 **Type:** Popup (opened from BOOK-030)
 **Route:** Booking/viewCheckOutDetail/:id/:check_out_date/:booking_id
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 A popup for viewing the details of a single check-out control run: villa information, satisfaction rating, damage/comment notes, and the control items.
@@ -19,5 +19,5 @@ A popup for viewing the details of a single check-out control run: villa informa
 - View the check-out control results for each item
 
 ## Navigation
-- Opened from: BOOK-030 (Check-out Control)
+- Opened from: BOOK-030 (Departure Audit)
 - Closing the popup returns to BOOK-030

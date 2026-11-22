@@ -1,10 +1,10 @@
-# CMS-017 — Thêm/Sửa Contact Form
+# CMS-017 — Trình sửa biểu mẫu liên hệ (Enquiry Form Editor)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::editContactForm($id)` — mặc định `/cms/edit-contact-form/:id`
 
-**Module:** CMS = Nội dung trang chủ villa
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Form thêm mới hoặc chỉnh sửa một cấu hình form liên hệ (dùng chung 1 action cho cả Add khi không truyền `id`, và Edit khi có `id`). Không có yếu tố đa ngôn ngữ.

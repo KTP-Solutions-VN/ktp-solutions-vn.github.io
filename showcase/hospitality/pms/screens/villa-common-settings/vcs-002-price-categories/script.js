@@ -2,7 +2,7 @@
   'use strict';
   MM.VCS.wireCrudScreen({
     navCode: 'vcs-002-price-categories', storageKey: 'mm_vcs_price_categories', baseData: MM.VCS.PRICE_CATEGORIES,
-    entityLabel: 'price category', entityTitle: 'Price Category', nameField: 'name',
+    entityLabel: 'rate tier', entityTitle: 'Rate Tier', nameField: 'name',
     sort: function (a, b) { return a.description.localeCompare(b.description); },
     columns: [
       { key: 'name', cellClass: 'cell-strong' },

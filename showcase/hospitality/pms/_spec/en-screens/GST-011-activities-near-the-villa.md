@@ -1,8 +1,8 @@
-# GST-011 — Activities Near the Villa
+# GST-011 — Things to Do Nearby
 
 **Type:** Full page
 **Route:** `Guest::activities($booking_id = null)` — default `/guest/activities/:booking_id`; pretty route (DashedRoute fallback): `/guest/activities`
-**Module:** Guest Portal
+**Module:** Guest Hub
 
 ## Overview
 A page suggesting recreational activities/entertainment around the villa's area. If `booking_id` is empty, automatically redirects to GST-002. **Note:** all booking-based data-retrieval logic in the action (villa name, district, destination images) has been **commented out (disabled)** in the controller — the displayed content is currently static and does not depend on the booking.

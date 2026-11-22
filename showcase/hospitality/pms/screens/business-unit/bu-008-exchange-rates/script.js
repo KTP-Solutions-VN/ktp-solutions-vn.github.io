@@ -2,14 +2,14 @@
   'use strict';
 
   var LS_KEY = 'mm_bu_exchange_rates';
-  var REFERENCE = 'THB';
-  var CURRENCIES = ['USD', 'IDR', 'EUR'];
+  var REFERENCE = 'SGD';
+  var CURRENCIES = ['USD', 'AUD', 'EUR'];
 
   var MOCK_PERIODS = [
-    { key: 'forecast', label: 'Forecast (Sep 2026)', rates: { USD: 0.0277, IDR: 435.5, EUR: 0.0256 }, is_rate_set: true, is_forecast: true },
-    { key: '2026-08', label: 'Aug 2026', rates: { USD: 0.0277, IDR: 434.9, EUR: 0.0255 }, is_rate_set: true, is_forecast: false },
-    { key: '2026-07', label: 'Jul 2026', rates: { USD: 0.0278, IDR: null, EUR: 0.0256 }, is_rate_set: false, is_forecast: false },
-    { key: '2026-06', label: 'Jun 2026', rates: { USD: 0.0279, IDR: 433.2, EUR: 0.0257 }, is_rate_set: true, is_forecast: false }
+    { key: 'forecast', label: 'Forecast (Sep 2026)', rates: { USD: 0.7410, AUD: 1.1320, EUR: 0.6840 }, is_rate_set: true, is_forecast: true },
+    { key: '2026-08', label: 'Aug 2026', rates: { USD: 0.7405, AUD: 1.1305, EUR: 0.6815 }, is_rate_set: true, is_forecast: false },
+    { key: '2026-07', label: 'Jul 2026', rates: { USD: 0.7430, AUD: null, EUR: 0.6840 }, is_rate_set: false, is_forecast: false },
+    { key: '2026-06', label: 'Jun 2026', rates: { USD: 0.7455, AUD: 1.1260, EUR: 0.6865 }, is_rate_set: true, is_forecast: false }
   ];
 
   function load() {

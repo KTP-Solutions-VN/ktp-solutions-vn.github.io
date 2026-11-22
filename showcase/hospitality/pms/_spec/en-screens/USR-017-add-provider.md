@@ -1,10 +1,10 @@
-# USR-017 — Add Provider
+# USR-017 — New Contractor
 
 **Type:** Full page
 
 **Route:** `UserController::addProviders()` — default `user/addProviders`
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 A form for creating a new staff account for an external service provider (`employment = External`), including the service/provider company information, personal information, login credentials, role/module permissions, business unit, and language.
@@ -40,4 +40,4 @@ A form for creating a new staff account for an external service provider (`emplo
 
 ## Navigation
 - Opened from: USR-016 (the "Add New" button).
-- Navigates to: USR-016 (Provider List) after a successful save.
+- Navigates to: USR-016 (Contractors) after a successful save.

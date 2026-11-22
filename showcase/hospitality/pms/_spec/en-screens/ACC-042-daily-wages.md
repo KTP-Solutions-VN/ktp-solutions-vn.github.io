@@ -1,10 +1,10 @@
-# ACC-042 — Daily Wages
+# ACC-042 — Daily Earnings
 
 **Type:** Full page
 
 **Route:** `AccountController::dailyWages()` — default `/account/daily-wages`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 Calculates and pays daily wages for employees with `salary_type = daily` within a specific wage period (`WagePeriod`), based on time-clock data (`UserClockIn`); after calculation, confirms payment to save a snapshot into `UserSalary` and allows exporting to Excel.
@@ -48,5 +48,5 @@ Working-status column (`working_status`, color-coded):
 - **Download** (shown only in state B): submits the `export_form` → the server exports an `.xlsx` Excel file (PHPExcel library, file name `WAGE-<BU code>-<period end date>.xlsx`), using the helper function `getExcelColumnName()` to compute Excel column names.
 
 ## Navigation
-- Entered from: Sidebar > Account & HR > Daily Wages (`active_menu = acc-daily-wages`).
+- Entered from: Sidebar > Finance & Admin > Daily Earnings (`active_menu = acc-daily-wages`).
 - Navigates to: no sub-pages/popups; all actions (Calculate, To Pay, Download) are handled via AJAX/submit directly on this page.

@@ -1,10 +1,10 @@
-# BU-007-P1 — Add/Edit Currency Popup
+# BU-007-P1 — Currency Form
 
 **Type:** Popup (opened from BU-007)
 
 **Route:** Static Bootstrap modal (`#exampleModal`) in `currency.ctp`; submitted via POST to the same `BusinessUnitController::currency()` action.
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A shared popup for adding a new currency or editing an existing one.
@@ -25,5 +25,5 @@ A shared popup for adding a new currency or editing an existing one.
 - **Cancel:** closes the modal without saving.
 
 ## Navigation
-- Opened from: BU-007 (Currency list) — "Add new" button (Superadmin only), Edit icon on each row.
+- Opened from: BU-007 (Currency Setup) — "Add new" button (Superadmin only), Edit icon on each row.
 - After submission: redirects back to BU-007 (`referer()`), displays a flash message.

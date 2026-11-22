@@ -1,10 +1,10 @@
-# VSV-012 — Electricity Check-out Control (Electricity Check-out Control)
+# VSV-012 — Departure Reading Audit
 
 **Type:** Full page
 
 **Route:** `VillaServicesController::electricityCheckOutControl()` — defaults to `/villa-services/electricity-check-out-control`; filters are read/written via the query string (GET)
 
-**Module:** Villa Services — Electricity
+**Module:** In-Stay Services — Metering
 
 ## Overview
 An operations screen for verifying electricity check-out collection: end meter reading, calculated amount, amount actually paid by the guest, proof of payment, and discounts requiring approval.
@@ -51,5 +51,5 @@ An operations screen for verifying electricity check-out collection: end meter r
 - List pagination.
 
 ## Navigation
-- Entered from: VSV-001 ("Check-out" tile in the Controls section) or the main menu.
-- Navigates to: VSV-012-P1 (View Electricity Check-out Control Detail).
+- Entered from: VSV-001 ("Departure Reading Audit" tile in the Controls section) or the main menu.
+- Navigates to: VSV-012-P1 (Departure Reading Detail).

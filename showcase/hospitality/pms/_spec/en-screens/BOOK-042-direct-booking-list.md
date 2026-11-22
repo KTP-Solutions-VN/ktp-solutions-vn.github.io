@@ -1,8 +1,8 @@
-# BOOK-042 — Direct Booking List
+# BOOK-042 — Direct Stay Requests
 
 **Type:** Full page
 **Route:** Booking/directBookingList (default: `/booking/direct-booking-list`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 List of direct booking requests (not via OTA) submitted by villa owners/partners, pending approval or already processed, along with approval status.
@@ -29,5 +29,5 @@ List of direct booking requests (not via OTA) submitted by villa owners/partners
 - Delete request (deleteDirectBooking)
 
 ## Navigation
-- Opened from: Booking module menu > Direct Booking
-- Navigates to: BOOK-043 (Add), BOOK-044 (Edit), BOOK-045 (View), BOOK-046 (Cancelled List)
+- Opened from: Reservations module menu > Direct Stay Requests
+- Navigates to: BOOK-043 (Add), BOOK-044 (Edit), BOOK-045 (View), BOOK-046 (Cancelled Stay Requests)

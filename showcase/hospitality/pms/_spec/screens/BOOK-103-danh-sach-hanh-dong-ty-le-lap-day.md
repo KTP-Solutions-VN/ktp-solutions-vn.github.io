@@ -1,4 +1,4 @@
-# BOOK-103 — Danh sách hành động theo tỷ lệ lấp đầy (Action)
+# BOOK-103 — Điều chỉnh giá (Pricing Adjustments)
 
 **Loại:** Trang đầy đủ
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 
@@ -29,11 +29,11 @@ Sắp xếp theo `VillaAction.id` giảm dần (mới nhất trước).
 
 ## Chức năng/nút thao tác
 
-- Nút "+ Action" (góc trên phải) → mở BOOK-104 (Thêm hành động).
-- Icon "Follow up" trên từng dòng → mở BOOK-105 (Theo dõi hành động) với id được base64_encode.
+- Nút "+ Action" (góc trên phải) → mở BOOK-104 (Tạo điều chỉnh giá).
+- Icon "Follow up" trên từng dòng → mở BOOK-105 (Theo dõi điều chỉnh) với id được base64_encode.
 
 ## Điều hướng
 
-- Vào từ menu chính (icon "Action", active_menu = 1000).
+- Vào từ menu chính (icon "Pricing Adjustments", active_menu = 1000).
 - → BOOK-104 khi bấm "+ Action".
 - → BOOK-105 khi bấm icon Follow up trên một dòng.

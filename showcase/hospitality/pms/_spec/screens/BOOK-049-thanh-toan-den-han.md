@@ -1,9 +1,9 @@
-# BOOK-049 — Thanh toán đến hạn (Due Now)
+# BOOK-049 — Khoản chi trả đến hạn (Payouts Due)
 
 **Loại:** Trang đầy đủ (mở từ BOOK-052)
 **Route:** Booking/dueNow (mặc định: `/booking/due-now`)
 **Route đẹp:** `/booking/partner-payments/due-now`
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Danh sách các khoản thanh toán đối tác (chủ villa theo mô hình partnership) đã đến hạn thanh toán (dựa theo tần suất thanh toán cấu hình trên hợp đồng villa: trước ngày nhận phòng, đúng ngày nhận phòng, trước 1 tháng, khi đặt phòng, hoặc thứ 2 tuần trước). Cho phép chọn nhiều dòng và xác nhận đã thanh toán.
@@ -32,5 +32,5 @@ Danh sách các khoản thanh toán đối tác (chủ villa theo mô hình part
 - Nút xác nhận **Paid** — gọi `addPartnerPayment` để đánh dấu các khoản đã chọn là đã thanh toán (chuyển sang BOOK-051 Paid)
 
 ## Điều hướng
-- Mở từ: BOOK-052 (Partner Payments) > nút "Due Now"
-- Điều hướng tới: BOOK-051 (Paid) sau khi xác nhận thanh toán
+- Mở từ: BOOK-052 (Partner Payouts) > nút "Due Now"
+- Điều hướng tới: BOOK-051 (Settled Payouts) sau khi xác nhận thanh toán

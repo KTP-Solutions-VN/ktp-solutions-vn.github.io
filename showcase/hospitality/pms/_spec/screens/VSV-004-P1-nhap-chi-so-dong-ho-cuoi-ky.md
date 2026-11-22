@@ -1,10 +1,10 @@
-# VSV-004-P1 — Nhập chỉ số đồng hồ điện cuối kỳ (End Meter)
+# VSV-004-P1 — Ghi chỉ số khi đi (Record Departure Reading)
 
 **Loại:** Popup (mở từ VSV-004, dạng trang riêng)
 
 **Route:** `VillaServicesController::endMeter($booking_id)` — `/villa-services/end-meter/<booking_id>` (GET hiển thị form, POST cùng action để lưu)
 
-**Module:** Dịch vụ villa — Điện
+**Module:** Dịch vụ lưu trú — Đo điện
 
 ## Mô tả ngắn gọn
 Form nhập chỉ số công tơ điện tại thời điểm khách check-out, hệ thống tự tính tiền điện phải thu dựa trên đơn giá mặc định của villa, cho phép áp giảm giá/miễn giảm có phê duyệt, ghi nhận phương thức thanh toán và ảnh chứng minh.
@@ -41,4 +41,4 @@ Thông tin chỉ đọc: tên khách, villa, ngày check-in/check-out, chỉ s�
 
 ## Điều hướng
 - Vào từ: VSV-004 — nút "Fill it now".
-- Điều hướng đến: quay lại VSV-004 (Check-out điện) sau khi lưu.
+- Điều hướng đến: quay lại VSV-004 (Chỉ số điện khi đi) sau khi lưu.

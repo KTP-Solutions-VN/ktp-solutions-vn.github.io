@@ -1,10 +1,10 @@
-# NOT-005-P1 — Delete Company News Confirmation
+# NOT-005-P1 — Confirm Post Deletion
 
 **Type:** Popup (opened from NOT-005)
 
 **Route:** Static modal within `company_news.ctp`; confirming calls `NoticeController::deleteCompanyNews($id)` via `GET /notice/delete-company-news/:id`
 
-**Module:** Notices
+**Module:** Announcements
 
 ## Overview
 Confirmation dialog shown before deleting a company news item.
@@ -17,5 +17,5 @@ No input fields; only a confirmation message.
 - **Cancel:** closes the modal.
 
 ## Navigation
-- Opened from: NOT-005 (Company News).
+- Opened from: NOT-005 (Newsroom).
 - After confirming: returns to NOT-005.

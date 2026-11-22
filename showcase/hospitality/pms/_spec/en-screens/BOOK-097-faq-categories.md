@@ -1,4 +1,4 @@
-# BOOK-097 — FAQ Categories (Wiki)
+# BOOK-097 — Knowledge Topics
 
 **Type:** Full page
 
@@ -6,7 +6,7 @@
 
 **Friendly route:** no dedicated route found in config/Routes.php (uses the default route)
 
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 
@@ -37,5 +37,5 @@ Manages categories for the internal FAQ/Wiki knowledge base, used to classify qu
 
 ## Navigation
 
-- Accessed from the FAQ/Wiki menu.
-- Categories are used as a filter/selection option in BOOK-098 (FAQ Question List) and BOOK-099 (Add/Edit FAQ Question).
+- Accessed from the Knowledge menu.
+- Categories are used as a filter/selection option in BOOK-098 (Knowledge Articles) and BOOK-099 (New / Edit Knowledge Article).

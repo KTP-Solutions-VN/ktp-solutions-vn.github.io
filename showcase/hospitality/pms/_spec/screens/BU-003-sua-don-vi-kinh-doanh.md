@@ -1,10 +1,10 @@
-# BU-003 — Sửa đơn vị kinh doanh
+# BU-003 — Sửa đơn vị vận hành (Edit Operating Unit)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `BusinessUnitController::edit($id)` — mặc định `/business-unit/edit/{id_base64}`
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Form chỉnh sửa thông tin một đơn vị kinh doanh đã tồn tại — cùng bộ field với BU-002 (Thêm mới), dữ liệu được nạp sẵn từ bản ghi hiện có.

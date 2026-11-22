@@ -1,9 +1,9 @@
-# BOOK-084 — Recommendation Check
+# BOOK-084 — Run Pricing Check
 
 **Type:** Full page
 **Route:** Booking/recommendationCheck
 **Pretty route:** No dedicated route found in config/Routes.php
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 A screen that analyzes villa occupancy rates against a configured set of criteria (Criteria) set up in BOOK-080/081/082, helping to identify villas that require price adjustments or promotions (red = low occupancy, green = high occupancy) across the Last Minute/Regular/Early Bird time horizons. Allows logging comments for each villa.
@@ -33,7 +33,7 @@ A screen that analyzes villa occupancy rates against a configured set of criteri
 - **Save** button in the modal — calls the `saveRecommendationLog` AJAX action to save the note (appended to the `RecommendationCheck` `log` history), then reloads the results table
 
 ## Navigation
-- Opened from: BOOK-083 (Villa Recommendation List) — "Check" button
+- Opened from: BOOK-083 (Pricing Signals) — "Check" button
 - Navigates to: no sub-page; note logging is handled via a modal within the same page
 
 **Note:** `getRecommondationCheck()` (~16505) and `saveRecommendationLog()` (~16638) are AJAX actions returning JSON that directly support this screen; there is no separate view, so they are not split into a separate file.

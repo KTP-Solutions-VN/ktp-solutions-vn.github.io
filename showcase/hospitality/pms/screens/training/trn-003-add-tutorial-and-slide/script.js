@@ -119,7 +119,7 @@
           slides: []
         };
         TRN.addTutorial(tutorial);
-        MM.showToast('Tutorial created — now add slides');
+        MM.showToast('Lesson created — now add slides');
         goToStep2(tutorial.id, tutorial.title);
       });
     });
@@ -138,7 +138,7 @@
         if (!MM.validateForm(document.getElementById('slide-form'))) { MM.showToast('Please finish or clear the current slide first.', { danger: true }); return; }
         TRN.addSlide(tutorialId, collectSlide());
       }
-      MM.showToast('Tutorial saved');
+      MM.showToast('Lesson saved');
       setTimeout(function () { window.location.href = '../trn-002-tutorial-list-admin/index.html'; }, 700);
     });
   });

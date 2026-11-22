@@ -1,10 +1,10 @@
-# SET-004-P2 — Delete Hostex Account Popup
+# SET-004-P2 — Remove Mapped Account
 
 **Type:** Popup (opened from SET-004)
 
 **Route:** Bootstrap Modal `#exampleModal` within `hostex_setup.ctp`; confirmation sends AJAX POST to `deleteHostexAccount()` — `/setting/delete-hostex-account`.
 
-**Module:** SET = System Settings
+**Module:** SET = Platform Settings
 
 ## Overview
 A confirmation popup shown before deleting a Hostex account, displayed only when that account is not linked to any property (`props = 0`); if it is still linked to properties, the system shows SET-004-P3 instead of this popup.

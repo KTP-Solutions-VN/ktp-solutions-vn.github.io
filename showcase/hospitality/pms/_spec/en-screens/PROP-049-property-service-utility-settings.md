@@ -1,8 +1,8 @@
-# PROP-049 — Property Service & Utility Settings (Service Setting)
+# PROP-049 — Utilities Setup
 
 **Type:** Full page
 **Route:** property/service-setting/:tab/:villa_id (villa_id passed base64-encoded); also embedded as the "Service and Utilities" tab in the Villa Detail screen (PROP-050)
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Page consolidating operational service/utility settings for a Property across 10 tabs: Concierge, Common Area, Electricity, Cleaning, Water, Internet, Television, Pool, Garden, Pest Control. Each tab saves to its own corresponding data table (via the `_saveXxxSetting` functions); some tabs are only available once a Property (`villa_id`) has been selected. This content is shared (element `property/*`) with the "Service and Utilities" tab in the Villa Detail screen (PROP-050).
@@ -129,6 +129,6 @@ Page consolidating operational service/utility settings for a Property across 10
 - "Save" button on each tab — submits that tab's form, calls the corresponding Controller save function (`_saveConciergeSetting`, `_saveCommonAreaSetting`, `_saveElecticitySetting`, `_saveCleaningMakeUp`, `_saveWaterSetting`, `_saveInternetSetting`, `_saveTelevisionSetting`, `_savePoolSetting`, `_saveGardenSetting`, `_savePestControlSetting`), shows a flash message, then redirects back to the current tab.
 
 ## Navigation
-- Opened from: PROP-041 (Property Service Fee Payment List — "Add Settings" button), or from the "Service and Utilities" tab of PROP-050 (Villa Detail).
+- Opened from: PROP-041 (Service Fee Ledger — "Add Settings" button), or from the "Service and Utilities" tab of PROP-050 (Property Editor).
 - Navigates to: No navigation to another page (only switches tabs and saves in place).
 - Child popup: None.

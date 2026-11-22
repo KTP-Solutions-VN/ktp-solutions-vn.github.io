@@ -1,10 +1,10 @@
-# USR-005 — Add User (Internal Staff)
+# USR-005 — New Team Member
 
 **Type:** Full page
 
 **Route:** `UserController::add($tab)` — default `user/add/:tab`
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 A form for adding a new internal staff member to the system. The screen has a 4-tab structure (Identification, Office, Admin, Payroll) shared with USR-006 (Edit), but when adding a new user only the "Identification" tab is active — the remaining tabs (Office, Admin, Payroll) are locked until the staff record has been saved for the first time (at which point an `id` is generated and the profile is completed further on the USR-006 screen).
@@ -42,4 +42,4 @@ A form for adding a new internal staff member to the system. The screen has a 4-
 
 ## Navigation
 - Opened from: USR-004 (the "Add New" button).
-- Navigates to: after a successful save, moves to USR-006 (Edit User) with the newly created `id` to continue completing the Office/Admin/Payroll tabs, or returns to USR-004.
+- Navigates to: after a successful save, moves to USR-006 (Edit Team Member) with the newly created `id` to continue completing the Office/Admin/Payroll tabs, or returns to USR-004.

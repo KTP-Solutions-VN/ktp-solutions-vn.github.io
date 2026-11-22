@@ -4,8 +4,8 @@
   var STORAGE_KEY = 'mm_prop_territories';
 
   var AREA_MAP = {
-    'PV-101': 'Kamala', 'PV-102': 'Bang Tao', 'PV-103': 'Uluwatu', 'PV-104': 'Ubud',
-    'PV-105': 'Surin', 'PV-106': 'Bophut', 'PV-107': 'Choeng Mon', 'PV-108': 'Seminyak'
+    'PV-101': 'Sentosa Cove', 'PV-102': 'Ocean Drive', 'PV-103': 'Wategos', 'PV-104': 'Bangalow',
+    'PV-105': 'Paradise Island', 'PV-106': 'Noosaville', 'PV-107': 'Sunshine Beach', 'PV-108': 'Belongil'
   };
 
   function readJSON(key, fallback) {

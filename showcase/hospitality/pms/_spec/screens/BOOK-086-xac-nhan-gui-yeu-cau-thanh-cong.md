@@ -1,9 +1,9 @@
-# BOOK-086 — Xác nhận gửi yêu cầu đặt phòng thành công (Request Success)
+# BOOK-086 — Đã nhận yêu cầu (Enquiry Received)
 
 **Loại:** Trang con (mở từ BOOK-085, dạng trang xác nhận sau submit chứ không phải popup)
 **Route:** Booking/requestSuccess/:array
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Trang xác nhận hiển thị sau khi khách gửi thành công yêu cầu đặt phòng ở BOOK-085, tóm tắt lại tên khách, villa và khoảng ngày đã yêu cầu, đồng thời thông báo khách sẽ nhận được email xác nhận booking sau đó.
@@ -21,5 +21,5 @@ Không có form nhập liệu — chỉ hiển thị thông tin đã được m�
 - Nút **Back** — quay lại BOOK-085 (`bookingEnquiry`) với `villa_id` tương ứng
 
 ## Điều hướng
-- Mở từ: BOOK-085 (Form yêu cầu đặt phòng) — tự động điều hướng tới sau khi submit thành công
+- Mở từ: BOOK-085 (Yêu cầu lưu trú (form công khai)) — tự động điều hướng tới sau khi submit thành công
 - Điều hướng tới: BOOK-085 khi bấm Back

@@ -1,8 +1,8 @@
-# PROP-018 — Bản tin hàng tháng cho chủ nhà (Monthly Newsletter)
+# PROP-018 — Bản tin chủ nhà (Owner Bulletins)
 
 **Loại:** Trang đầy đủ
 **Route:** property/monthly-report
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Màn hình quản lý các bản tin (newsletter) hàng tháng gửi cho các Business Unit, theo tháng/năm và ngôn ngữ. Cho phép thêm mới, sao chép (copy), sửa, xóa bản tin; một bản tin có thể gán cho nhiều Business Unit cùng lúc (mỗi Business Unit chỉ được dùng 1 bản tin cho cùng kỳ + ngôn ngữ).
@@ -36,6 +36,6 @@ Màn hình quản lý các bản tin (newsletter) hàng tháng gửi cho các Bu
 - Submit Delete (`delete`): xóa các record theo `all_ids`.
 
 ## Điều hướng
-- Mở từ: Menu Property (không thuộc phạm vi mã hiện tại).
+- Mở từ: Menu Hồ sơ tài sản (không thuộc phạm vi mã hiện tại).
 - Điều hướng tới: không điều hướng — toàn bộ thao tác CRUD tại chỗ, redirect lại `monthlyReport` sau khi lưu.
 - Popup con: Modal Add (`#exampleModal1`), Modal Edit (`#exampleModal3`), Modal Delete confirm (`#exampleModal`) — đều là modal dùng chung trong cùng file, không tách mã riêng theo yêu cầu phạm vi (chỉ PROP-030 có popup con tách mã).

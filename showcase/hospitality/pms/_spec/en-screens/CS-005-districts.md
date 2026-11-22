@@ -1,10 +1,10 @@
-# CS-005 — Districts
+# CS-005 — District Setup
 
 **Type:** Full page
 
 **Route:** `CommonSettingController::districts()` — default `/common-setting/districts`
 
-**Module:** CS = Common Lookup Settings
+**Module:** CS = Reference Data
 
 ## Overview
 A list for managing the District lookup data belonging to a Region and Country. Each District is synchronized with a `CmsDestination` record (a destination page on the website).
@@ -28,5 +28,5 @@ List (DataTable `#zero_config`, sorted by Country > Region > District):
 - **Delete:** opens popup CS-005-P1 in delete-confirmation mode; deletion cascades to `Area` records with the corresponding `district_id` and the related `CmsDestination` record.
 
 ## Navigation
-- Accessed from: System Settings menu > Common Lookup Settings > Districts.
-- Navigates to: CS-005-P1 (Add/Edit/Delete District popup).
+- Accessed from: Configuration menu > Reference Data > District Setup.
+- Navigates to: CS-005-P1 (District Form popup).

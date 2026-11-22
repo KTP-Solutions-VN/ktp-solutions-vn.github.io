@@ -1,9 +1,9 @@
-# BOOK-079 — Guest Arrival Preparation Work
+# BOOK-079 — VIP Arrival Prep
 
 **Type:** Full page (opened from BOOK-078)
 **Route:** Booking/preparationWork/:button/:booking_id
 **Pretty route:** no dedicated route found in config/Routes.php
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Form for logging the preparation work for an arriving VIP guest: cleaning status and check-in preparation status, supporting the operations team ahead of the VIP guest's arrival.
@@ -21,9 +21,9 @@ Form for logging the preparation work for an arriving VIP guest: cleaning status
 | 2 | Check-in (Preparation) | `check_in` | Textarea | Yes | Note on guest-arrival preparation work; similarly displays prior history |
 
 ## Functions / Actions
-- **"Let's get ready!"** button (submit) — saves a new log entry to `VipGuestInformation.data` (appending to the `cleaning`/`check_in` history array if it already exists), then redirects to BOOK-078 (VIP Guests)
+- **"Let's get ready!"** button (submit) — saves a new log entry to `VipGuestInformation.data` (appending to the `cleaning`/`check_in` history array if it already exists), then redirects to BOOK-078 (VIP Arrivals)
 - **Cancel** button (reset) — clears the content currently entered on the form
 
 ## Navigation
-- Opened from: BOOK-078 (VIP Guest List) — clicking the "Get Ready" icon (blue/green) on a booking
+- Opened from: BOOK-078 (VIP Arrivals) — clicking the "Get Ready" icon (blue/green) on a booking
 - Navigates to: back to BOOK-078 after a successful or failed save

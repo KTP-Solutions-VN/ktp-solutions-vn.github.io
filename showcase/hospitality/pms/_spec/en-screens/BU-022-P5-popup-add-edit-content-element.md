@@ -1,10 +1,10 @@
-# BU-022-P5 — Popup: Add/Edit Content Element
+# BU-022-P5 — Listing Element Form
 
 **Type:** Popup (opened from BU-022, Content Element tab — Superadmin only)
 
 **Route:** Bootstrap modal (`#ota-element-modal`) within the `channel/content_elements.ctp` element; submits via AJAX to `OtaContentController::createElement` / `editElement`.
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A shared popup for adding and editing an OTA Content Element, used when composing Listing content for each platform.

@@ -21,8 +21,8 @@
 
     document.getElementById('accept-btn').addEventListener('click', function () {
       MM.simulateSave(document.getElementById('accept-btn'), 'Accepting...', function () {
-        MNT.updateLog(id, function (l) { l.status = 'Open'; l.assignee = 'Somchai Anuwat'; });
-        MNT.addHistory(id, { by: 'Somchai Anuwat', comment: 'Task accepted.', status: 'Open', date: new Date().toISOString().slice(0, 16).replace('T', ' ') });
+        MNT.updateLog(id, function (l) { l.status = 'Open'; l.assignee = 'Daniel Tan'; });
+        MNT.addHistory(id, { by: 'Daniel Tan', comment: 'Task accepted.', status: 'Open', date: new Date().toISOString().slice(0, 16).replace('T', ' ') });
         MM.showToast('Task accepted — moved to Open');
         setTimeout(function () { window.location.href = '../mnt-001-maintenance-ticket-list/index.html'; }, 700);
       });
@@ -31,7 +31,7 @@
     document.getElementById('reject-btn').addEventListener('click', function () {
       MM.simulateSave(document.getElementById('reject-btn'), 'Rejecting...', function () {
         MNT.updateLog(id, function (l) { l.status = 'Rejected'; });
-        MNT.addHistory(id, { by: 'Somchai Anuwat', comment: 'Task rejected.', status: 'Rejected', date: new Date().toISOString().slice(0, 16).replace('T', ' ') });
+        MNT.addHistory(id, { by: 'Daniel Tan', comment: 'Task rejected.', status: 'Rejected', date: new Date().toISOString().slice(0, 16).replace('T', ' ') });
         MM.showToast('Task rejected', { danger: true });
         setTimeout(function () { window.location.href = '../mnt-001-maintenance-ticket-list/index.html'; }, 700);
       });

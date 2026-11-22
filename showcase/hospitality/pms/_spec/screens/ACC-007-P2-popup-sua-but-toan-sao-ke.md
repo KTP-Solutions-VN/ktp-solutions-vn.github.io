@@ -1,10 +1,10 @@
-# ACC-007-P2 — Popup sửa bút toán sao kê
+# ACC-007-P2 — Sửa bút toán (Edit Ledger Entry)
 
 **Loại:** Popup (mở từ ACC-007)
 
 **Route:** `AccountController::editStatement($id)` — mặc định `/account/edit-statement/<id>` (`id` truyền dạng base64)
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Form sửa một bút toán sao kê đã tồn tại. Nếu bút toán đã được đối soát (`is_reconcile = 1`) thì toàn bộ field bị khóa (chỉ xem, không sửa được).
@@ -31,5 +31,5 @@ Dữ liệu nạp sẵn từ `AccountStatement` theo `id`; danh sách Business U
 - Nếu `id` không hợp lệ: báo lỗi "Invalid URL" và quay lại trang trước.
 
 ## Điều hướng
-- Vào từ: ACC-007 (Sao kê tài khoản) — nút Sửa trên từng dòng (chỉ hiện khi bút toán không phải `is_opening_statement`).
+- Vào từ: ACC-007 (Sổ cái tài khoản) — nút Sửa trên từng dòng (chỉ hiện khi bút toán không phải `is_opening_statement`).
 - Điều hướng đến: quay lại ACC-007 sau khi lưu hoặc hủy.

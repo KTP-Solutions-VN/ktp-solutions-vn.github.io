@@ -1,14 +1,14 @@
-# OWP-001 — Đăng nhập
+# OWP-001 — Đăng nhập Owner Hub (Owner Hub Login)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `ExternalUserController::index()` — route đẹp: `/Owner`, `/Owners` (config/Routes.php dòng 104-105)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 
-Trang đăng nhập dành cho Chủ sở hữu (Owner) và nhân viên đại lý được cấp quyền (Agency Staff) vào Cổng thông tin Chủ sở hữu. Hỗ trợ xác thực qua 2 bảng dữ liệu (Owner, AgencyStaff). Sau khi đăng nhập thành công, hệ thống ghi log truy cập (IP, thiết bị, vị trí địa lý) và chuyển hướng tới danh sách biệt thự (OWP-005).
+Trang đăng nhập dành cho Chủ sở hữu (Owner) và nhân viên đại lý được cấp quyền (Agency Staff) vào Không gian chủ nhà. Hỗ trợ xác thực qua 2 bảng dữ liệu (Owner, AgencyStaff). Sau khi đăng nhập thành công, hệ thống ghi log truy cập (IP, thiết bị, vị trí địa lý) và chuyển hướng tới danh sách biệt thự (OWP-005).
 
 ## Mô tả chi tiết
 
@@ -25,10 +25,10 @@ Bảng field (form đăng nhập):
 - Đăng nhập (submit form tới action `index`, method POST)
 - Quên mật khẩu (mở popup OWP-001-P1)
 - Thông báo lỗi khi sai tài khoản/mật khẩu (Flash message)
-- Tự động chuyển hướng tới OWP-005 (Danh sách biệt thự) nếu đã đăng nhập
+- Tự động chuyển hướng tới OWP-005 (Danh mục của tôi) nếu đã đăng nhập
 
 ## Điều hướng
 
-- Đăng nhập thành công → OWP-005 Danh sách biệt thự (property/list)
+- Đăng nhập thành công → OWP-005 Danh mục của tôi (property/list)
 - Nhấn "Quên mật khẩu" → mở OWP-001-P1 (popup, cùng trang)
-- Link đặt lại mật khẩu qua email → OWP-003 Đặt lại mật khẩu
+- Link đặt lại mật khẩu qua email → OWP-003 Mật khẩu mới

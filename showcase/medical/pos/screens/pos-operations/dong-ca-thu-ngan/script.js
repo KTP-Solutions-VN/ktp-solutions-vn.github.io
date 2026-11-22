@@ -23,9 +23,9 @@
       { label: 'Transactions', value: completed.length, variant: 'primary', sub: allTxns.length - completed.length ? (allTxns.length - completed.length) + ' voided' : 'All completed' },
       { label: 'Total Sales', value: money(totalSales), variant: 'accent', sub: 'incl. GST' },
       { label: 'Cash Sales', value: money(cashSales), variant: 'success', sub: 'Cash payment method' },
-      { label: 'Card / NETS Sales', value: money(nonCashSales), variant: 'primary', sub: 'Card + NETS' },
+      { label: 'Card / EFTPOS Sales', value: money(nonCashSales), variant: 'primary', sub: 'Card + EFTPOS' },
       { label: 'Supervisor Overrides', value: overrideCount, variant: overrideCount ? 'warning' : 'success', sub: 'Price overrides this session' },
-      { label: 'Loyalty & Promo', value: loyaltyPointsRedeemed.toLocaleString('en-SG') + ' pts', variant: 'success', sub: promoRedemptions + ' promo code redemption(s)' },
+      { label: 'Loyalty & Promo', value: loyaltyPointsRedeemed.toLocaleString('en-AU') + ' pts', variant: 'success', sub: promoRedemptions + ' promo code redemption(s)' },
     ];
     document.getElementById('kpiRow').innerHTML = cards.map(c => `
       <div class="stat-card stat-card--${c.variant}">
@@ -45,7 +45,7 @@
       if (t.status === 'Voided') flags.push('<span class="badge badge-error">Voided</span>');
       if (t.items.some(i => i.override)) flags.push('<span class="badge badge-override">Override</span>');
       if (t.linkedPrescriptionId) flags.push('<span class="badge badge-info">Rx</span>');
-      if (t.loyaltyPointsRedeemed) flags.push('<span class="badge badge-success">⭐ ' + t.loyaltyPointsRedeemed.toLocaleString('en-SG') + ' pts</span>');
+      if (t.loyaltyPointsRedeemed) flags.push('<span class="badge badge-success">⭐ ' + t.loyaltyPointsRedeemed.toLocaleString('en-AU') + ' pts</span>');
       if (t.promoCode) flags.push('<span class="badge badge-neutral">' + t.promoCode + '</span>');
       return `<tr>
         <td class="cell-strong">${t.transactionNo}</td>
@@ -104,13 +104,13 @@
       btn.disabled = true;
       btn.textContent = 'Session Closed';
       document.getElementById('closedNote').style.display = 'block';
-      document.getElementById('closedNote').textContent = 'Closed at ' + POS.fmtDateTime(session.closedAt) + '. View the full report in Operational Reports.';
+      document.getElementById('closedNote').textContent = 'Closed at ' + POS.fmtDateTime(session.closedAt) + '. View the full report in Pharmacy Reports.';
     }
 
     document.getElementById('closeSessionBtn').addEventListener('click', () => {
       const countedRaw = document.getElementById('countedCash').value;
       if (countedRaw === '') { POS.toast('Enter the counted cash amount before closing.', 'warning'); return; }
-      if (!confirm('Confirm closing this cashier session? This cannot be undone.')) return;
+      if (!confirm('Close out this shift? This cannot be undone.')) return;
       const counted = parseFloat(countedRaw) || 0;
       const variance = +(counted - expected).toFixed(2);
       session.status = 'closed';
@@ -118,7 +118,7 @@
       session.countedCash = counted;
       session.variance = variance;
       POS.saveSession(session);
-      POS.toast('Cashier session closed.', 'success');
+      POS.toast('Shift closed out.', 'success');
       document.querySelector('[data-session-pill]')?.classList.add('session-pill--closed');
       const label = document.querySelector('[data-session-label]');
       if (label) label.textContent = 'Session Closed';
@@ -127,7 +127,7 @@
       btn.disabled = true;
       btn.textContent = 'Session Closed';
       document.getElementById('closedNote').style.display = 'block';
-      document.getElementById('closedNote').textContent = 'Closed at ' + POS.fmtDateTime(session.closedAt) + '. View the full report in Operational Reports.';
+      document.getElementById('closedNote').textContent = 'Closed at ' + POS.fmtDateTime(session.closedAt) + '. View the full report in Pharmacy Reports.';
       renderHeader();
     });
   }

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CareJourney Kiosk — Prototype</title>
+<meta name="theme-color" content="#4C5FFF">
+<link rel="stylesheet" href="assets/css/global.css">
+<style>
+  body { display: block; padding: 0; background: var(--gray-50); }
+  .hub-wrap { max-width: 1160px; margin: 0 auto; padding: 0 var(--sp-6); }
+  .hub-hero { background: linear-gradient(135deg, var(--primary-gradient-to) 0%, var(--primary) 100%); color: #fff; padding: var(--sp-8) 0; }
+  .hub-hero .hub-wrap { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); flex-wrap: wrap; }
+  .hub-brand { display: flex; align-items: center; gap: var(--sp-3); }
+  .hub-mark { width: 48px; height: 48px; border-radius: var(--radius-sm); background: #fff; color: var(--primary-dark); display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-weight: 800; font-size: 16px; flex-shrink: 0; }
+  .hub-hero h1 { color: #fff; font-size: 28px; }
+  .hub-hero p { color: #fff; margin-top: 4px; }
+  .hub-launch { display: inline-flex; align-items: center; gap: var(--sp-2); min-height: var(--touch-min); padding: 0 var(--sp-6); border-radius: var(--radius-md); background: #fff; color: var(--primary-dark); font-family: var(--font-heading); font-weight: 700; text-decoration: none; box-shadow: var(--shadow-2); }
+  .hub-launch:hover { box-shadow: var(--shadow-3); }
+  .hub-main { padding: var(--sp-8) 0 var(--sp-12); }
+  .hub-signature { background: var(--accent-50); border: 1px solid var(--accent-100); border-radius: var(--radius-lg); padding: var(--sp-5) var(--sp-6); margin-bottom: var(--sp-8); }
+  .hub-signature h3 { margin: var(--sp-2) 0 var(--sp-1); }
+  .hub-signature p { color: var(--gray-700); }
+  .hub-group { margin-bottom: var(--sp-8); }
+  .hub-group h2 { display: flex; align-items: center; gap: var(--sp-2); font-size: 20px; margin-bottom: var(--sp-4); }
+  .hub-group h2 svg { width: 22px; height: 22px; color: var(--primary); }
+  .hub-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--sp-4); }
+  .hub-card { display: block; background: #fff; border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: var(--sp-4); box-shadow: var(--shadow-1); color: inherit; text-decoration: none; transition: box-shadow var(--dur-transition) var(--ease-out), transform var(--dur-transition) var(--ease-out), border-color var(--dur-transition) var(--ease-out); }
+  .hub-card:hover { box-shadow: var(--shadow-2); transform: translateY(-2px); border-color: var(--primary-100); }
+  .hub-card .num { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: var(--primary-50); color: var(--primary-dark); font-size: 12px; font-weight: 800; margin-bottom: var(--sp-2); }
+  .hub-card strong { display: block; color: var(--gray-900); font-size: 15px; margin-bottom: 4px; }
+  .hub-card span:last-child { display: block; color: var(--gray-600); font-size: 13px; line-height: 1.45; }
+  .hub-footer { border-top: 1px solid var(--gray-200); padding: var(--sp-6) 0; text-align: center; font-size: 13px; color: var(--gray-600); }
+</style>
+</head>
+<body>
+<div class="hub-hero">
+  <div class="hub-wrap">
+    <div class="hub-brand">
+      <span class="hub-mark" aria-hidden="true">CJ</span>
+      <div>
+        <h1>CareJourney Kiosk — Prototype</h1>
+        <p>Self-service kiosk for events and visitor areas · 17 screens · Landscape touch display</p>
+      </div>
+    </div>
+    <a class="hub-launch" href="screens/kiosk/home/index.html">Launch Kiosk &rarr;</a>
+  </div>
+</div>
+
+<main class="hub-main">
+  <div class="hub-wrap">
+
+    <div class="hub-signature">
+      <span class="badge badge-accent">Key Feature</span>
+      <h3>Live visitor counter</h3>
+      <p>The Welcome Screen shows how many visitors the kiosk has helped today across all five services, without queueing at a staffed counter. Completing any flow adds to the count in real time.</p>
+    </div>
+
+    <section class="hub-group">
+      <h2><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9a1 1 0 0 0 1 1h4v-5h2v5h4a1 1 0 0 0 1-1v-9"/></svg>Overview</h2>
+      <div class="hub-grid">
+        <a class="hub-card" href="screens/kiosk/home/index.html"><span class="num">1</span><strong>Welcome Screen</strong><span>Five service tiles, a live count of visitors served today and an always-on help button</span></a>
+      </div>
+    </section>
+    <section class="hub-group">
+      <h2><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 8h11l1 12H5.5Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>Products &amp; Bundles</h2>
+      <div class="hub-grid">
+        <a class="hub-card" href="screens/kiosk/catalog/index.html"><span class="num">2</span><strong>Product Catalog</strong><span>Search and filter event products and bundle deals, then pick items to reserve</span></a>
+        <a class="hub-card" href="screens/kiosk/reserve/index.html"><span class="num">3</span><strong>Reserve &amp; Collect</strong><span>Review the reservation, then pay at the counter or ask for a call-back</span></a>
+      </div>
+    </section>
+    <section class="hub-group">
+      <h2><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg>Schedule a Visit</h2>
+      <div class="hub-grid">
+        <a class="hub-card" href="screens/kiosk/ward-visit/step-1-slot/index.html"><span class="num">4</span><strong>Choose a Visit Slot</strong><span>Live availability for guided ward tours — fully booked slots stay visible</span></a>
+        <a class="hub-card" href="screens/kiosk/ward-visit/step-2-details/index.html"><span class="num">5</span><strong>Visitor Details</strong><span>Contact details and party size, validated on the spot</span></a>
+        <a class="hub-card" href="screens/kiosk/ward-visit/step-3-confirmation/index.html"><span class="num">6</span><strong>Visit Confirmed</strong><span>Reference code, add-to-calendar and a maternity package suggestion</span></a>
+      </div>
+    </section>
+    <section class="hub-group">
+      <h2><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.5 20s-7-4.3-9-8.7C1.9 8 3.3 4.8 6.4 4.2c2-.4 3.7.5 4.7 1.9.9-1.4 2.6-2.3 4.6-1.9 3.1.6 4.5 3.8 2.9 7.1-2 4.4-6.1 8.7-6.1 8.7Z"/><path d="M4 11h2l1.2-2.4L9 12l1-2h2.2"/></svg>Maternity Package Sign-up</h2>
+      <div class="hub-grid">
+        <a class="hub-card" href="screens/kiosk/maternity-package/step-1-intro/index.html"><span class="num">7</span><strong>Select a Maternity Package</strong><span>Antenatal care plan or birthing suite reservation</span></a>
+        <a class="hub-card" href="screens/kiosk/maternity-package/step-2-details/index.html"><span class="num">8</span><strong>Mother&#39;s Details</strong><span>Name, contact and estimated due date</span></a>
+        <a class="hub-card" href="screens/kiosk/maternity-package/step-3-questions/index.html"><span class="num">9</span><strong>Pregnancy Questions</strong><span>Trimester, first or next baby, risk factors, room type and preferred doctor</span></a>
+        <a class="hub-card" href="screens/kiosk/maternity-package/step-4-confirmation/index.html"><span class="num">10</span><strong>Package Request Received</strong><span>Reference code, NBP eligibility flag and a member enrollment suggestion</span></a>
+      </div>
+    </section>
+    <section class="hub-group">
+      <h2><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9.5 12 5l9 4.5-9 4.5-9-4.5Z"/><path d="M7 11.8v4.4c0 1.3 2.2 2.3 5 2.3s5-1 5-2.3v-4.4"/><path d="M20 9.5v6"/></svg>Birth &amp; Parenting Classes</h2>
+      <div class="hub-grid">
+        <a class="hub-card" href="screens/kiosk/parenting-classes/step-1-intro/index.html"><span class="num">11</span><strong>Choose a Class</strong><span>Birth preparation, newborn care and parenting essentials</span></a>
+        <a class="hub-card" href="screens/kiosk/parenting-classes/step-2-details/index.html"><span class="num">12</span><strong>Parent Details</strong><span>Parent or guardian contact details</span></a>
+        <a class="hub-card" href="screens/kiosk/parenting-classes/step-3-questions/index.html"><span class="num">13</span><strong>Family &amp; Session Details</strong><span>Child&#39;s age or due date, family size and a session with seats left</span></a>
+        <a class="hub-card" href="screens/kiosk/parenting-classes/step-4-confirmation/index.html"><span class="num">14</span><strong>Class Request Received</strong><span>Seat request summary and a maternity package suggestion</span></a>
+      </div>
+    </section>
+    <section class="hub-group">
+      <h2><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="5"/><path d="m8.5 13.5-1.6 6.5L12 18l5.1 2-1.6-6.5"/></svg>Member Enrollment</h2>
+      <div class="hub-grid">
+        <a class="hub-card" href="screens/kiosk/membership/step-1-intro/index.html"><span class="num">15</span><strong>Choose a Member Programme</strong><span>First Baby Programme (FBP) or Next Baby Programme (NBP)</span></a>
+        <a class="hub-card" href="screens/kiosk/membership/step-2-details/index.html"><span class="num">16</span><strong>Enrollment Details</strong><span>Applicant contact and birth details that adapt to the chosen programme</span></a>
+        <a class="hub-card" href="screens/kiosk/membership/step-3-confirmation/index.html"><span class="num">17</span><strong>Membership Active</strong><span>Member number issued on the spot — no queue at the counter</span></a>
+      </div>
+    </section>
+
+  </div>
+</main>
+<footer class="hub-footer">&copy; 2026 Meridian Health Pty Ltd. All rights reserved. · CareJourney Kiosk Prototype</footer>
+</body>
+</html>

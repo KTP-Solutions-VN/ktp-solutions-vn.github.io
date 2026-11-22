@@ -1,8 +1,8 @@
-# BOOK-033 — Tiến trình nhận phòng
+# BOOK-033 — Theo dõi nhận phòng (Check-in Tracker)
 
 **Loại:** Trang đầy đủ (mở tiếp theo từ BOOK-032)
 **Route:** Booking/checkinProgress/:id/:date/:villa_id (mặc định: `/booking/checkin-progress/:id/:date/:villa_id`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Màn hình theo dõi tiến trình thực hiện quy trình nhận phòng tại villa theo thời gian thực, cho phép nhân viên huỷ (Cancel) hoặc hoàn tất (Finish) quy trình nhận phòng.
@@ -19,5 +19,5 @@ Màn hình theo dõi tiến trình thực hiện quy trình nhận phòng tại 
 - Nút **Finish** — hoàn tất tiến trình nhận phòng, ghi nhận kết quả vào BOOK-029
 
 ## Điều hướng
-- Mở từ: BOOK-032 (Nhận phòng)
-- Điều hướng tới: kết quả được ghi vào BOOK-029 (Kiểm soát nhận phòng) / BOOK-029-P1
+- Mở từ: BOOK-032 (Nhận phòng tại chỗ)
+- Điều hướng tới: kết quả được ghi vào BOOK-029 (Kiểm tra khi khách đến) / BOOK-029-P1

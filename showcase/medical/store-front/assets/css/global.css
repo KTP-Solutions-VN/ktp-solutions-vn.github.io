@@ -7,8 +7,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  /* ---- Brand colors v2 (LOCKED, shared-brand-brief.md — REAL colors extracted
-     from the brand guideline). White background is the base;
+  /* ---- Brand colors v2 (LOCKED — CareJourney palette). White background is the base;
      Primary/Secondary are accent-only (CTA/logo/active-nav/strips), never a
      solid nav/header fill. ---- */
   --primary: #4C5FFF;
@@ -168,7 +167,7 @@ label { font-size: var(--fs-caption); font-weight: 600; color: var(--gray-700); 
 }
 .site-header__inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 var(--sp-5); display: flex; align-items: center; gap: var(--sp-6); }
 /* Brand-mark keeps a solid Primary treatment so the white header still reads
-   as "on brand" — this is the compensating color anchor per shared-brand-brief v2. */
+   as "on brand" — this is the compensating color anchor of the v2 palette. */
 .brand { display: flex; align-items: center; gap: var(--sp-2); color: var(--tertiary); font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; flex-shrink: 0; }
 .brand__mark {
   width: 36px; height: 36px; border-radius: var(--r-sm);
@@ -526,8 +525,7 @@ table.table tbody tr:hover { background: var(--primary-50); }
    ========================================================================== */
 /* v2: hero is a bright tint band (--primary-lightest/--secondary-lightest),
    not a full solid Primary block — the only "solid color" is the small
-   decorative circle accents, per shared-brand-brief.md "Section band/hero"
-   rule (tints allowed everywhere, solid Primary gradient only as one small
+   decorative circle accents, per the v2 "section band/hero" rule (tints allowed everywhere, solid Primary gradient only as one small
    decorative shape, never the whole section). */
 .hero {
   background: linear-gradient(135deg, var(--primary-lightest) 0%, var(--secondary-lightest) 100%);

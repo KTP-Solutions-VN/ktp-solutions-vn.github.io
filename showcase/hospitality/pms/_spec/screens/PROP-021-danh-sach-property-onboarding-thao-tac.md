@@ -1,8 +1,8 @@
-# PROP-021 — Danh sách Property cần Onboarding thao tác (Confirmation/Communication/Rules/Extras)
+# PROP-021 — Điểm chặn trước khi mở bán (Go-Live Blockers)
 
 **Loại:** Trang đầy đủ
 **Route:** property/onboarding
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Màn hình liệt kê các Property đang mở (status = Open), lọc theo Business Unit, cho phép truy cập nhanh 4 thao tác Onboarding phụ trợ cho từng Property: Villa Confirmation, Villa Communication, Villa Rules, Villa Extra. Có modal xác nhận xóa và modal Duplicate Property.
@@ -36,6 +36,6 @@ Danh sách sắp xếp theo `villa_type_id`, `area_id`, `name` (multisort).
 - Đổi Business Unit → redirect `onboarding?id=...`.
 
 ## Điều hướng
-- Mở từ: Menu Property (không thuộc phạm vi mã hiện tại).
+- Mở từ: Menu Hồ sơ tài sản (không thuộc phạm vi mã hiện tại).
 - Điều hướng tới: `confirmation`, `communication`, `villa-rules`, `villa-extras`, `property/delete`, `duplicateProperty` (các action ngoài phạm vi PROP-017..031).
 - Popup con: Modal xác nhận xóa và Modal Duplicate Property (không tách mã riêng vì thuộc phạm vi phụ trợ nhỏ, không phải trọng tâm PROP-021).

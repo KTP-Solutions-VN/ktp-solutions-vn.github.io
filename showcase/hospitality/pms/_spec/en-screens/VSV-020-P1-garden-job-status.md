@@ -1,10 +1,10 @@
-# VSV-020-P1 — Job Status (Garden Job Status)
+# VSV-020-P1 — Garden Job Progress
 
 **Type:** Popup (opened from VSV-020, as a dedicated page — currently a static mockup only)
 
 **Route:** `VillaServicesController::gardenJobStatus()` — `/villa-services/garden-job-status`
 
-**Module:** Villa Services — Garden
+**Module:** In-Stay Services — Garden Care
 
 ## Overview
 An unfinished mockup screen simulating a mobile interface for operations staff to view the progress of a shift (villa, start/end time) and take photos, with Stop/Finish buttons. All content is static (hard-coded) data; the action only sets the page title (mistakenly taken from `pool_text`).

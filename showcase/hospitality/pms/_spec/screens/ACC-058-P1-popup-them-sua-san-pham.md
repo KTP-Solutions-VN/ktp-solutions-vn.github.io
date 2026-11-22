@@ -1,10 +1,10 @@
-# ACC-058-P1 — Popup thêm/sửa sản phẩm
+# ACC-058-P1 — Form mặt hàng (Goods Item Form)
 
 **Loại:** Popup (mở từ ACC-058)
 
 **Route:** `AccountController::addProduct($id)` — mặc định `/account/add-product/<id>`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Form thêm mới/sửa một Sản phẩm, dùng chung 1 action cho cả hai trường hợp (có `id` = sửa).
@@ -30,5 +30,5 @@ Form thêm mới/sửa một Sản phẩm, dùng chung 1 action cho cả hai tr�
 - **Cancel:** quay lại ACC-058 (`products`).
 
 ## Điều hướng
-- Vào từ: ACC-058 (Sản phẩm) — nút "Add new" hoặc nút Sửa trên từng dòng.
+- Vào từ: ACC-058 (Danh mục hàng hóa) — nút "Add new" hoặc nút Sửa trên từng dòng.
 - Điều hướng đến: quay lại ACC-058 sau khi lưu hoặc hủy.

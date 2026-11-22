@@ -1,7 +1,7 @@
 (function () {
   'use strict';
   ACC.wireCrudScreen({
-    storageKey: 'mm_acc_recurring', baseData: MM.ACC.RECURRING_EXPENSES, entityLabel: 'recurring expense', entityTitle: 'Recurring Expense', nameField: 'name', colCount: 3,
+    storageKey: 'mm_acc_recurring', baseData: MM.ACC.RECURRING_EXPENSES, entityLabel: 'scheduled cost', entityTitle: 'Scheduled Cost', nameField: 'name', colCount: 3,
     fields: [{ id: 'f-name', key: 'name' }, { id: 'f-sub', key: 'frequency' }],
     rowHtml: function (r) {
       return '<tr><td class="cell-strong">' + r.name + '</td><td class="cell-sub">' + (r.frequency || '—') + (r.amount ? ' &middot; $' + r.amount : '') + '</td>' +

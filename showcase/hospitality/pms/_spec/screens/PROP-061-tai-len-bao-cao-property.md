@@ -1,8 +1,8 @@
-# PROP-061 — Tải lên Báo cáo Property (Upload Report)
+# PROP-061 — Thêm báo cáo tháng (Add Monthly Report)
 
 **Loại:** Trang đầy đủ
 **Route:** property/upload-report
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang tìm kiếm và tải lên báo cáo (Monthly Report) dưới dạng file cho một Property cụ thể, đồng thời hiển thị danh sách báo cáo đã tải lên trước đó để có thể gửi email cho chủ nhà.
@@ -41,6 +41,6 @@ Trang tìm kiếm và tải lên báo cáo (Monthly Report) dưới dạng file 
 - Nút "Post" trên từng dòng — gửi email báo cáo tới chủ nhà tương ứng.
 
 ## Điều hướng
-- Mở từ: Menu Property/Reports (không thuộc phạm vi mã hiện tại).
-- Điều hướng tới: Không điều hướng sang trang khác; liên hệ dữ liệu với PROP-018 (Bản tin hàng tháng), PROP-053/054/055 (BU Reports/Report Status/Report Ready).
+- Mở từ: Menu báo cáo chủ nhà (không thuộc phạm vi mã hiện tại).
+- Điều hướng tới: Không điều hướng sang trang khác; liên hệ dữ liệu với PROP-018 (Bản tin chủ nhà), PROP-053/054/055 (BU Reports/Report Status/Report Ready).
 - Popup con: Không có.

@@ -1,8 +1,8 @@
-# PROP-063 — View Property Onboarding Details (View Onboarding)
+# PROP-063 — Intake Record
 
 **Type:** Full page
-**Route:** property/view-onboarding/:id, opened from PROP-020 (Onboarding List)
-**Module:** PROP = Properties
+**Route:** property/view-onboarding/:id, opened from PROP-020 (Property Intake)
+**Module:** PROP = Property Records
 
 ## Overview
 Page for viewing (read-only) all entered data for a Villa Onboarding record: each Property/Unit information field with its value, the person who entered it/entry date, and the person who validated it/validation date.
@@ -20,6 +20,6 @@ Page for viewing (read-only) all entered data for a Villa Onboarding record: eac
 - (Depending on permissions) may have a "Request Re-validation" button navigating to PROP-062 or calling `reviewOnBoarding` to reset validation status and request re-approval.
 
 ## Navigation
-- Opened from: PROP-020 (Onboarding List).
-- Navigates to: PROP-062 (Onboarding Revalidation Request), or back to PROP-020 (Onboarding List).
+- Opened from: PROP-020 (Property Intake).
+- Navigates to: PROP-062 (Intake Revalidation), or back to PROP-020 (Property Intake).
 - Child popup: None.

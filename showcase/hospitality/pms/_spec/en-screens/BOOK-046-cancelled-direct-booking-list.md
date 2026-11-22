@@ -1,8 +1,8 @@
-# BOOK-046 — Cancelled Direct Booking List
+# BOOK-046 — Cancelled Stay Requests
 
 **Type:** Full page
 **Route:** Booking/cancelDirectBookingList (default: `/booking/cancel-direct-booking-list`)
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 List of direct booking requests that have been cancelled.
@@ -20,5 +20,5 @@ List of direct booking requests that have been cancelled.
 - View details of a cancelled request (opens BOOK-045)
 
 ## Navigation
-- Opened from: BOOK-042 (Direct Booking List) — "Cancelled" tab/link
-- Navigates to: BOOK-045 (View Direct Booking)
+- Opened from: BOOK-042 (Direct Stay Requests) — "Cancelled" tab/link
+- Navigates to: BOOK-045 (Stay Request Details)

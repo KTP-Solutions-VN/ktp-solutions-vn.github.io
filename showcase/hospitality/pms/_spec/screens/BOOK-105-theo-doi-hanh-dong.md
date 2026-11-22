@@ -1,4 +1,4 @@
-# BOOK-105 — Theo dõi hành động (Follow Up Action)
+# BOOK-105 — Theo dõi điều chỉnh (Adjustment Follow-up)
 
 **Loại:** Trang đầy đủ (mở từ BOOK-103)
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 

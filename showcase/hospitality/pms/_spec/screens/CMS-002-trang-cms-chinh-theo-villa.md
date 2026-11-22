@@ -1,10 +1,10 @@
-# CMS-002 — Trang CMS chính theo villa (nội dung website villa)
+# CMS-002 — Trang web của tài sản (Property Web Page)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::cms($tab, $villa_id, $lang1)` — mặc định `/cms/cms/:tab/:villa_id/:lang1` (tab mặc định `welcome` khi trống hoặc `main`)
 
-**Module:** CMS = Nội dung trang chủ
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Màn hình trung tâm của module CMS: quản lý toàn bộ nội dung hiển thị trên trang website (mini-website) của một villa cụ thể. Gồm 8 tab nội dung (Welcome, Why Here, Daily Life, Comfort, Booking, Menu, Services, SEO), mỗi tab có 1 hoặc nhiều form con độc lập với nút Save riêng. Toàn bộ 8 tab được render sẵn cùng lúc trên 1 trang (dữ liệu từng tab được controller nạp đầy đủ trong 1 lần load); việc chuyển tab chỉ là hiệu ứng ẩn/hiện (Bootstrap tab) và cập nhật URL bằng `history.replaceState`, KHÔNG phải AJAX load riêng — mỗi form con khi bấm Save vẫn submit POST bình thường (full-page) về lại action `cms` với cùng `$tab`, `$villa_id`, `$lang1` rồi redirect lại chính tab đó.
@@ -66,7 +66,7 @@ Toàn bộ field dưới đây (trừ ảnh) đều là **đa ngôn ngữ**: d�
 ### Tab 6 — Menu (bật/tắt & liên kết các khối nội dung khác của villa lên menu website)
 | # | Tên field | Field code | Loại dữ liệu/input | Bắt buộc | Ghi chú |
 |---|---|---|---|---|---|
-| 1 | Why Here | `cms_why_us_id` | Dropdown | - | Liên kết tới bản ghi Why Us (CMS-006/007/008) |
+| 1 | Why Here | `cms_why_us_id` | Dropdown | - | Liên kết tới bản ghi Book-Direct Benefits (CMS-006/007/008) |
 | 2 | Concierge | `cms_concierge_id` | Dropdown | - | Liên kết Concierge (CMS-018/019) |
 | 3 | Logo | field id `cms_destination_id` (label "Logo") | Dropdown | - | *Ghi chú kỹ thuật:* field này dùng chung `id`/name với field "Destination" bên dưới trong view — nghi vấn lỗi copy-paste trong code gốc, cần QA xác nhận khi làm lại UI |
 | 4 | Destination | `cms_destination_id` | Dropdown | - | Liên kết Destination theo villa (CMS-012/013) |

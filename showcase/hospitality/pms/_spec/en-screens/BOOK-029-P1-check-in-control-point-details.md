@@ -1,8 +1,8 @@
-# BOOK-029-P1 — Check-in Control Point Details
+# BOOK-029-P1 — Arrival Checkpoint Details
 
 **Type:** Popup (opened from BOOK-029)
 **Route:** Booking/viewCheckinDetail/:id/:booking_id
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 A popup for viewing the details of a single check-in control run: a log of movement time/location, and a comparison table of Planning versus Actual for each control item.
@@ -19,5 +19,5 @@ A popup for viewing the details of a single check-in control run: a log of movem
 - View the Planning vs. Actual comparison for check-in items
 
 ## Navigation
-- Opened from: BOOK-029 (Check-in Control) — click "Actions" on a villa row
+- Opened from: BOOK-029 (Arrival Audit) — click "Actions" on a villa row
 - Closing the popup returns to BOOK-029

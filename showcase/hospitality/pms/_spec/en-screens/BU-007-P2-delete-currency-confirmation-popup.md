@@ -1,10 +1,10 @@
-# BU-007-P2 — Delete Currency Confirmation Popup
+# BU-007-P2 — Confirm Currency Deletion
 
 **Type:** Popup (opened from BU-007)
 
 **Route:** Static Bootstrap modal (`#exampleModal`, form section hidden) in `currency.ctp`; submitted via POST to the same `BusinessUnitController::currency()` action with `action=delete`.
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A confirmation popup shown before permanently deleting a currency from the system.
@@ -22,5 +22,5 @@ A confirmation popup shown before permanently deleting a currency from the syste
 - **Cancel:** closes the modal without deleting.
 
 ## Navigation
-- Opened from: BU-007 (Currency list) — Delete icon on each row.
+- Opened from: BU-007 (Currency Setup) — Delete icon on each row.
 - After submission: redirects back to BU-007 (`referer()`).

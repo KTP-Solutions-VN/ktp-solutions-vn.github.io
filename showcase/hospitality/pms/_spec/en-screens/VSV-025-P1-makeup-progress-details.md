@@ -1,10 +1,10 @@
-# VSV-025-P1 — Makeup Progress Details (Makeup Detail View)
+# VSV-025-P1 — Refresh Progress Detail
 
 **Type:** Popup (opened from VSV-025, as a dedicated page)
 
 **Route:** `VillaServicesController::makeupTeamsDetail($id, $location)` — `/villa-services/makeup-teams-detail/<villa_clean_id>/makeup`
 
-**Module:** Villa Services — Cleaning (Make-up)
+**Module:** In-Stay Services — Housekeeping (Room Refresh)
 
 ## Overview
 A read-only page showing the details of a specific make-up cleaning visit: start/end journey, the person who performed it, and the set of recorded photos + notes — structured similarly to VSV-026-P1 but applied to the Make-up business process.

@@ -3,27 +3,47 @@
     {
       "code": "APE",
       "name": "Apex Engineering",
-      "color": "#4C5FFF"
+      "color": "#4C5FFF",
+      "country": "AU",
+      "currency": "AUD",
+      "gst": 10,
+      "fy": "01/07"
     },
     {
       "code": "APA",
       "name": "Apex Automotive",
-      "color": "#019770"
+      "color": "#019770",
+      "country": "AU",
+      "currency": "AUD",
+      "gst": 10,
+      "fy": "01/07"
     },
     {
       "code": "APL",
       "name": "Apex Leasing",
-      "color": "#7B4BD6"
+      "color": "#7B4BD6",
+      "country": "AU",
+      "currency": "AUD",
+      "gst": 10,
+      "fy": "01/07"
     },
     {
       "code": "FLE",
       "name": "Forgeline Engineering",
-      "color": "#0E7490"
+      "color": "#0E7490",
+      "country": "AU",
+      "currency": "AUD",
+      "gst": 10,
+      "fy": "01/07"
     },
     {
       "code": "BH",
       "name": "Blue Harbor",
-      "color": "#5B6478"
+      "color": "#5B6478",
+      "country": "SG",
+      "currency": "SGD",
+      "gst": 9,
+      "fy": "01/01"
     },
     {
       "code": "ALL",
@@ -34,5 +54,5 @@
       "color": "#00084A"
     }
   ],
-  "_note": "Màu pháp nhân chọn từ bảng màu team design đề xuất (Google Slides, 28/10/2026); FLE dùng xanh rêu thay đỏ để không trùng màu báo lỗi; BH dùng xanh chàm #5B6478"
+  "_note": "Màu pháp nhân chọn từ bảng màu team design đề xuất (Google Slides, 28/10/2026); FLE dùng xanh rêu thay đỏ để không trùng màu báo lỗi; BH dùng xanh chàm #5B6478. country / currency / gst (%) / fy (ngày đầu năm tài chính): bối cảnh vùng của pháp nhân — APE, APA, APL, FLE ở Úc (AUD, GST 10%), BH ở Singapore (SGD, GST 9%); app.js (ký hiệu tiền, Cài đặt) và _src/build_model.py (thuế, dữ liệu theo vùng) đọc từ đây"
 }

@@ -1,4 +1,4 @@
-/* Screen-specific overrides: Choose Slot (#5) */
+/* Screen-specific overrides: Select a Time Slot */
 .slot-row { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); padding: var(--sp-3); border: 1.5px solid var(--gray-200); border-radius: var(--r-md); margin-bottom: var(--sp-2); cursor: pointer; transition: all var(--dur-fast) var(--ease-out); }
 .slot-row:hover { border-color: var(--primary); }
 .slot-row.is-selected { border-color: var(--primary); background: var(--primary-50); }

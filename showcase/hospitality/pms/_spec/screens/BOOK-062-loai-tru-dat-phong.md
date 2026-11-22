@@ -1,8 +1,8 @@
-# BOOK-062 — Loại trừ đặt phòng (Booking Exclusions)
+# BOOK-062 — Loại trừ khỏi báo cáo (Report Exclusions)
 
 **Loại:** Trang đầy đủ
 **Route:** Booking/exception/:tab? (mặc định: `/booking/exception`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Quản lý danh sách từ khoá (keyword — thường là tên khách) được loại trừ khỏi các báo cáo/thống kê đặt phòng theo 4 nhóm: loại trừ toàn phần (Complete), giá trị bằng 0 (Nill Value), loại trừ sớm (Early), loại trừ muộn (Late). Dùng để lọc các booking nội bộ/chủ nhà tự ở ra khỏi số liệu kinh doanh.
@@ -35,4 +35,4 @@ Quản lý danh sách từ khoá (keyword — thường là tên khách) đượ
 - Kiểm tra trùng từ khoá trước khi lưu (`keywordCheck`)
 
 ## Điều hướng
-- Mở từ: Menu module Đặt phòng > Booking Exclusions
+- Mở từ: Menu module Đặt chỗ > Report Exclusions

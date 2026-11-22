@@ -1,10 +1,10 @@
-# CS-002-P1 — Add/Edit/Delete Language Popup
+# CS-002-P1 — Language Form
 
 **Type:** Popup (opened from CS-002)
 
 **Route:** Bootstrap Modal (`#exampleModal`) within `languages.ctp`; submits to the same action `CommonSettingController::languages()`; duplicate name check via AJAX `checkLanguage()` — `/common-setting/check-language`; retrieves data for editing via AJAX `getLanguageById()` — `/common-setting/get-language-by-id`.
 
-**Module:** CS = Common Lookup Settings
+**Module:** CS = Reference Data
 
 ## Overview
 A shared popup for Adding/Editing/Deleting a language and its list of applicable countries.
@@ -25,5 +25,5 @@ In **Delete** mode: all input fields are hidden, leaving only the confirmation.
 - **Cancel:** closes the modal.
 
 ## Navigation
-- Opened from: CS-002 (Language list).
+- Opened from: CS-002 (Language Setup).
 - After submission: redirects back to CS-002 with a flash message.

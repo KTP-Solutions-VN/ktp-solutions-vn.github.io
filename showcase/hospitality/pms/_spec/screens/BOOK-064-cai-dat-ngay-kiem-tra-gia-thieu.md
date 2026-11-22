@@ -1,11 +1,11 @@
-# BOOK-064 — Cài đặt ngày kiểm tra giá thiếu (Missing Rate Setting)
+# BOOK-064 — Ngưỡng cảnh báo chưa có giá (Unpriced Alert Threshold)
 
 **Loại:** Popup/Trang (mở từ BOOK-027)
 **Route:** Booking/missingRateSetting (mặc định: `/booking/missing-rate-setting`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
-Cấu hình ngày kết thúc (end date) dùng làm mốc để màn hình "Villa thiếu giá thuê" (BOOK-027) kiểm tra villa đã thiết lập đủ giá hàng ngày hay chưa.
+Cấu hình ngày kết thúc (end date) dùng làm mốc để màn hình "Tài sản chưa có giá" (BOOK-027) kiểm tra villa đã thiết lập đủ giá hàng ngày hay chưa.
 
 ## Mô tả chi tiết
 
@@ -17,5 +17,5 @@ Cấu hình ngày kết thúc (end date) dùng làm mốc để màn hình "Vill
 - Nút **Save** — lưu ngày cấu hình
 
 ## Điều hướng
-- Mở từ: BOOK-027 (Villa thiếu giá thuê) > nút cấu hình
+- Mở từ: BOOK-027 (Tài sản chưa có giá) > nút cấu hình
 - Điều hướng tới: quay lại BOOK-027

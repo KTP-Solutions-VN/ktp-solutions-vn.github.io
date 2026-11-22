@@ -1,8 +1,8 @@
-# MNT-011-P2 — Sửa dịch vụ sửa chữa hồ bơi
+# MNT-011-P2 — Sửa loại sửa chữa hồ bơi (Edit Pool Repair Type)
 
 **Loại:** Popup (mở từ MNT-011)
 **Route:** maintenance/editPoolRepair/:id
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Trang chỉnh sửa một dịch vụ sửa chữa hồ bơi đã có: tên, ảnh minh họa, đơn vị kinh doanh áp dụng, trạng thái.
@@ -21,5 +21,5 @@ Trang chỉnh sửa một dịch vụ sửa chữa hồ bơi đã có: tên, ả
 - **Cancel**: quay về MNT-011.
 
 ## Điều hướng
-- Vào từ: icon Sửa trên MNT-011 — Sửa chữa hồ bơi.
+- Vào từ: icon Sửa trên MNT-011 — Loại sửa chữa hồ bơi.
 - Đi tới: sau khi Save, quay về MNT-011.

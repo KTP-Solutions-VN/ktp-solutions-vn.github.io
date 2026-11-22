@@ -1,10 +1,10 @@
-# CS-003-P1 — Popup Thêm/Sửa/Xóa Vùng
+# CS-003-P1 — Form vùng (Region Form)
 
 **Loại:** Popup (mở từ CS-003)
 
 **Route:** Modal Bootstrap (`#exampleModal`) trong `regions.ctp`; submit cùng action `CommonSettingController::regions()`; kiểm tra trùng tên qua AJAX `checkRegion()` — `/common-setting/check-region`.
 
-**Module:** CS = Danh mục dùng chung
+**Module:** CS = Dữ liệu tham chiếu
 
 ## Mô tả ngắn gọn
 Popup dùng chung cho Thêm mới/Sửa/Xóa một Vùng trực thuộc Quốc gia.
@@ -23,5 +23,5 @@ Popup dùng chung cho Thêm mới/Sửa/Xóa một Vùng trực thuộc Quốc g
 - **Cancel:** đóng modal.
 
 ## Điều hướng
-- Mở từ: CS-003 (danh sách Vùng).
+- Mở từ: CS-003 (Thiết lập vùng).
 - Sau khi submit: quay lại CS-003 kèm flash message.

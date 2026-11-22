@@ -1,8 +1,8 @@
-# MNT-013-P1 — Add Renovation Service
+# MNT-013-P1 — New Refurbishment Type
 
 **Type:** Popup (opened from MNT-013)
 **Route:** maintenance/addRenovationService
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Page for adding a new renovation service: name, illustrative image (1:1 crop), applicable business unit(s), status.
@@ -21,5 +21,5 @@ Page for adding a new renovation service: name, illustrative image (1:1 crop), a
 - **Cancel**: returns to MNT-013.
 
 ## Navigation
-- Entered from: "Add New" button on MNT-013 — Renovation Services.
+- Entered from: "Add New" button on MNT-013 — Refurbishment Types.
 - Navigates to: after Save, returns to MNT-013.

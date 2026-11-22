@@ -1,8 +1,8 @@
-# VCS-011 — Danh sách Nhắc nhở (Reminders)
+# VCS-011 — Nhắc việc cho nhân viên (Staff Reminders)
 
 **Loại:** Trang đầy đủ
 **Route:** villa-common-setting/reminders (dashed mặc định CakePHP DashedRoute: `/villa-common-setting/reminders`)
-**Module:** VCS = Cấu hình chung villa
+**Module:** VCS = Thuộc tính tài sản
 
 ## Mô tả ngắn gọn
 Màn hình quản lý dữ liệu chủ "Nhắc nhở" (Reminder) hiển thị cho concierge/khách trong quy trình vận hành villa. Ngoài Thêm/Sửa/Xóa qua popup dùng chung như các danh mục khác, màn hình còn hỗ trợ sắp xếp thứ tự hiển thị (kéo lên/xuống) qua AJAX.
@@ -26,6 +26,6 @@ Không có ô tìm kiếm/lọc riêng (DataTable client-side `#zero_config`).
 - Submit form popup gửi `POST` về chính action `reminders` với `action=add|edit|delete`; controller `VillaCommonSettingController::reminders()` lưu/xóa bảng `Reminder`, ghi Activity Log, hiển thị Flash message, redirect `referer()`.
 
 ## Điều hướng
-- Mở từ: Menu Settings > "Properties" > submenu "Reminders".
+- Mở từ: Menu Portfolio Setup > "Property Attributes" > submenu "Staff Reminders".
 - Điều hướng tới: không điều hướng sang trang khác (thao tác CRUD + đổi thứ tự tại chỗ qua popup/AJAX).
-- Popup con: VCS-011-P1 (Thêm/Sửa/Xóa Nhắc nhở).
+- Popup con: VCS-011-P1 (Form nhắc việc).

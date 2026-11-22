@@ -4,19 +4,19 @@
   var LS_KEY = 'mm_bu_business_units';
 
   var MOCK_BUSINESS_UNITS = [
-    { id: 'bu1', country: 'Thailand', region: 'Phuket', name: 'Phuket Collection', short_name: 'PHK', legal_entity: 'Azura Stays Co., Ltd.', branch: 'Phuket Branch', phone: '+66 76 123 456', email: 'ops.phuket@azurastays.example', address: '88 Bangtao Beach Road', city: 'Phuket', postal_code: '83110', currency: 'THB', ownership: 'Azura Stays', beds24: 'BD24-PHK-991', airbnb: 'Airbnb - Azura Stays Official', created_at: '2021-03-20', status: 'active' },
-    { id: 'bu2', country: 'Thailand', region: 'Surat Thani (Koh Samui)', name: 'Koh Samui Estates', short_name: 'KSE', legal_entity: 'Azura Stays Co., Ltd.', branch: 'Koh Samui Branch', phone: '+66 77 987 654', email: 'ops.samui@azurastays.example', address: '12 Chaweng Beach Road', city: 'Koh Samui', postal_code: '84320', currency: 'THB', ownership: 'Azura Stays', beds24: '', airbnb: 'Airbnb - Azura Stays Official', created_at: '2021-10-02', status: 'active' },
-    { id: 'bu3', country: 'Indonesia', region: 'Bali', name: 'Bali Retreats', short_name: 'BAL', legal_entity: 'Azura Stays Bali PT', branch: 'Bali Branch', phone: '+62 361 555 010', email: 'ops.bali@azurastays.example', address: 'Jl. Pantai Berawa No. 21', city: 'Canggu', postal_code: '80361', currency: 'IDR', ownership: 'Azura Stays', beds24: 'BD24-BAL-114', airbnb: 'Airbnb - Phuket Partner', created_at: '2022-06-10', status: 'active' },
-    { id: 'bu4', country: 'Indonesia', region: 'West Nusa Tenggara (Lombok)', name: 'Lombok Escapes', short_name: 'LMB', legal_entity: 'Azura Stays Bali PT', branch: 'Bali Branch', phone: '+62 370 444 220', email: 'ops.lombok@azurastays.example', address: 'Jl. Pantai Selong Belanak', city: 'Lombok', postal_code: '83573', currency: 'USD', ownership: 'Partner', beds24: '', airbnb: 'Airbnb - Phuket Partner', created_at: '2023-02-14', status: 'paused' }
+    { id: 'bu1', country: 'Singapore', region: 'Sentosa', name: 'Sentosa Collection', short_name: 'SEN', legal_entity: 'Azura Stays Pte. Ltd.', branch: 'Sentosa Branch', phone: '+65 6612 3456', email: 'ops.sentosa@azurastays.example', address: '88 Ocean Drive', city: 'Singapore', postal_code: '098374', currency: 'SGD', ownership: 'Azura Stays', beds24: 'BD24-SEN-991', airbnb: 'Airbnb - Azura Stays Official', created_at: '2021-03-20', status: 'active' },
+    { id: 'bu2', country: 'Australia', region: 'Queensland (Noosa)', name: 'Noosa Estates', short_name: 'NSE', legal_entity: 'Azura Stays Pte. Ltd.', branch: 'Noosa Branch', phone: '+61 7 5447 7654', email: 'ops.noosa@azurastays.example', address: '12 Hastings Street', city: 'Noosa Heads', postal_code: '4567', currency: 'AUD', ownership: 'Azura Stays', beds24: '', airbnb: 'Airbnb - Azura Stays Official', created_at: '2021-10-02', status: 'active' },
+    { id: 'bu3', country: 'Australia', region: 'Byron Bay', name: 'Byron Bay Retreats', short_name: 'BYR', legal_entity: 'Azura Stays Byron Bay Pty Ltd', branch: 'Byron Bay Branch', phone: '+61 2 6685 5010', email: 'ops.byronbay@azurastays.example', address: '21 Lawson Street', city: 'Byron Bay', postal_code: '2481', currency: 'AUD', ownership: 'Azura Stays', beds24: 'BD24-BYR-114', airbnb: 'Airbnb - Sentosa Partner', created_at: '2022-06-10', status: 'active' },
+    { id: 'bu4', country: 'Australia', region: 'Queensland (Gold Coast)', name: 'Gold Coast Escapes', short_name: 'GCE', legal_entity: 'Azura Stays Byron Bay Pty Ltd', branch: 'Byron Bay Branch', phone: '+61 7 5535 4220', email: 'ops.goldcoast@azurastays.example', address: 'Goodwin Terrace', city: 'Burleigh Heads', postal_code: '4220', currency: 'USD', ownership: 'Partner', beds24: '', airbnb: 'Airbnb - Sentosa Partner', created_at: '2023-02-14', status: 'paused' }
   ];
 
   var REGIONS = {
-    Thailand: ['Phuket', 'Surat Thani (Koh Samui)', 'Bangkok'],
-    Indonesia: ['Bali', 'West Nusa Tenggara (Lombok)']
+    Singapore: ['Sentosa', 'Central Region'],
+    Australia: ['Byron Bay', 'Queensland (Gold Coast)', 'Queensland (Noosa)']
   };
   var BRANCHES = {
-    'Azura Stays Co., Ltd.': ['Phuket Branch', 'Koh Samui Branch'],
-    'Azura Stays Bali PT': ['Bali Branch']
+    'Azura Stays Pte. Ltd.': ['Sentosa Branch', 'Noosa Branch'],
+    'Azura Stays Byron Bay Pty Ltd': ['Byron Bay Branch']
   };
 
   function load() {
@@ -52,7 +52,7 @@
   legalSel.addEventListener('change', function () { populateBranches(legalSel.value, ''); });
 
   function fillForm(rec) {
-    document.getElementById('page-title').textContent = 'Edit Business Unit — ' + rec.name;
+    document.getElementById('page-title').textContent = 'Edit Operating Unit — ' + rec.name;
     document.getElementById('f-name').value = rec.name;
     document.getElementById('f-short-name').value = rec.short_name;
     document.getElementById('f-ownership').value = rec.ownership || '';

@@ -1,12 +1,12 @@
 (function () {
   'use strict';
-  var BUS = ['Phuket Collection', 'Bali Retreats', 'Koh Samui Estates'];
+  var BUS = ['Sentosa Collection', 'Byron Bay Retreats', 'Noosa Estates'];
   var METHODS = ['bank-transfer', 'credit-card', 'cash'];
   var STORAGE_KEY = 'mm_bu_payment_matrix';
 
   function defaultMatrix() {
     var m = {};
-    BUS.forEach(function (bu) { m[bu] = { 'bank-transfer': true, 'credit-card': bu !== 'Koh Samui Estates', cash: true }; });
+    BUS.forEach(function (bu) { m[bu] = { 'bank-transfer': true, 'credit-card': bu !== 'Noosa Estates', cash: true }; });
     return m;
   }
   var matrix = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null') || defaultMatrix();

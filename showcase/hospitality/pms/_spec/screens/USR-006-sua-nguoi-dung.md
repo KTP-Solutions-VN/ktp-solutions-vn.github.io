@@ -1,10 +1,10 @@
-# USR-006 — Sửa người dùng (nhân viên nội bộ)
+# USR-006 — Sửa thành viên đội ngũ (Edit Team Member)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `UserController::edit($tab, $id, $show_page, $bank_account_id)` — mặc định `user/edit/:tab/:id/:show_page/:bank_account_id`
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Form chỉnh sửa đầy đủ hồ sơ một nhân viên, gồm 4-5 tab: Identification (định danh), Office (văn phòng/nơi ở/chấm công), Admin (work permit, tài liệu, tài sản công ty cấp), Payroll (lương), Bank Account (tài khoản ngân hàng). Đây là màn hình trung tâm để hoàn thiện hồ sơ nhân viên sau khi tạo mới ở USR-005, và cũng là nơi khoá lương (`is_lock_sallery`), gán trưởng nhóm, cấu hình chấm công.

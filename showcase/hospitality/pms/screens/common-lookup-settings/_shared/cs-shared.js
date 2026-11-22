@@ -12,64 +12,64 @@
   var CS = window.MM.CS = window.MM.CS || {};
 
   CS.COUNTRIES = [
-    { id: 'c1', name: 'Thailand', createdAt: '2024-02-10' },
-    { id: 'c2', name: 'Indonesia', createdAt: '2024-02-10' }
+    { id: 'c1', name: 'Singapore', createdAt: '2024-02-10' },
+    { id: 'c2', name: 'Australia', createdAt: '2024-02-10' }
   ];
 
   CS.LANGUAGES = [
-    { id: 'l1', name: 'English', countries: ['Thailand', 'Indonesia'] },
-    { id: 'l2', name: 'Thai', countries: ['Thailand'] },
-    { id: 'l3', name: 'Bahasa Indonesia', countries: ['Indonesia'] }
+    { id: 'l1', name: 'English', countries: ['Singapore', 'Australia'] },
+    { id: 'l2', name: 'Malay', countries: ['Singapore'] },
+    { id: 'l3', name: 'Chinese', countries: ['Australia'] }
   ];
 
   CS.REGIONS = [
-    { id: 'r1', country: 'Thailand', name: 'Phuket', active: 6, inactive: 1, villaCounts: '6 active / 1 inactive' },
-    { id: 'r2', country: 'Thailand', name: 'Koh Samui', active: 2, inactive: 0, villaCounts: '2 active / 0 inactive' },
-    { id: 'r3', country: 'Indonesia', name: 'Bali', active: 3, inactive: 1, villaCounts: '3 active / 1 inactive' }
+    { id: 'r1', country: 'Singapore', name: 'Sentosa', active: 6, inactive: 1, villaCounts: '6 active / 1 inactive' },
+    { id: 'r2', country: 'Australia', name: 'Noosa', active: 2, inactive: 0, villaCounts: '2 active / 0 inactive' },
+    { id: 'r3', country: 'Australia', name: 'Byron Bay', active: 3, inactive: 1, villaCounts: '3 active / 1 inactive' }
   ];
 
   CS.DISTRICTS = [
-    { id: 'd1', country: 'Thailand', region: 'Phuket', name: 'Cherng Talay' },
-    { id: 'd2', country: 'Thailand', region: 'Phuket', name: 'Kathu' },
-    { id: 'd3', country: 'Indonesia', region: 'Bali', name: 'Ubud' },
-    { id: 'd4', country: 'Indonesia', region: 'Bali', name: 'Seminyak' }
+    { id: 'd1', country: 'Singapore', region: 'Sentosa', name: 'Sentosa Cove' },
+    { id: 'd2', country: 'Singapore', region: 'Sentosa', name: 'Siloso' },
+    { id: 'd3', country: 'Australia', region: 'Byron Bay', name: 'Bangalow' },
+    { id: 'd4', country: 'Australia', region: 'Byron Bay', name: 'Belongil' }
   ];
 
   CS.AREAS = [
-    { id: 'a1', country: 'Thailand', region: 'Phuket', district: 'Cherng Talay', name: 'Bang Tao' },
-    { id: 'a2', country: 'Thailand', region: 'Phuket', district: 'Cherng Talay', name: 'Laguna' },
-    { id: 'a3', country: 'Indonesia', region: 'Bali', district: 'Seminyak', name: 'Petitenget' }
+    { id: 'a1', country: 'Singapore', region: 'Sentosa', district: 'Sentosa Cove', name: 'Ocean Drive' },
+    { id: 'a2', country: 'Singapore', region: 'Sentosa', district: 'Sentosa Cove', name: 'Cove Drive' },
+    { id: 'a3', country: 'Australia', region: 'Byron Bay', district: 'Belongil', name: 'Belongil Beach' }
   ];
 
   CS.RESIDENCES = [
-    { id: 'res1', country: 'Thailand', area: 'Laguna', name: 'Laguna Residence', image: null },
-    { id: 'res2', country: 'Thailand', area: 'Bang Tao', name: 'Bang Tao Beach Cluster', image: null },
-    { id: 'res3', country: 'Indonesia', area: 'Petitenget', name: 'Petitenget Villas', image: null }
+    { id: 'res1', country: 'Singapore', area: 'Cove Drive', name: 'Cove Drive Residence', image: null },
+    { id: 'res2', country: 'Singapore', area: 'Ocean Drive', name: 'Ocean Drive Beach Cluster', image: null },
+    { id: 'res3', country: 'Australia', area: 'Belongil Beach', name: 'Belongil Beach Villas', image: null }
   ];
 
   CS.LOCATION_TYPES = [
     { id: 'lt1', name: 'Beachfront', createdAt: '2024-01-05 09:12' },
     { id: 'lt2', name: 'Hillside', createdAt: '2024-01-05 09:14' },
     { id: 'lt3', name: 'City Center', createdAt: '2024-01-05 09:15' },
-    { id: 'lt4', name: 'Rice Field View', createdAt: '2024-01-05 09:16' }
+    { id: 'lt4', name: 'Hinterland View', createdAt: '2024-01-05 09:16' }
   ];
 
   CS.UNITS = [
-    { id: 'u1', country: 'Thailand', residence: 'Laguna Residence', name: 'Unit A1' },
-    { id: 'u2', country: 'Thailand', residence: 'Laguna Residence', name: 'Unit A2' },
-    { id: 'u3', country: 'Indonesia', residence: 'Petitenget Villas', name: 'Unit B1' }
+    { id: 'u1', country: 'Singapore', residence: 'Cove Drive Residence', name: 'Unit A1' },
+    { id: 'u2', country: 'Singapore', residence: 'Cove Drive Residence', name: 'Unit A2' },
+    { id: 'u3', country: 'Australia', residence: 'Belongil Beach Villas', name: 'Unit B1' }
   ];
 
   /* Settings side-nav definition — shared across all 8 screens */
   CS.NAV_ITEMS = [
-    { code: 'cs-001-common-lookup-settings', label: 'Countries' },
-    { code: 'cs-002-languages', label: 'Languages' },
-    { code: 'cs-003-regions', label: 'Regions' },
-    { code: 'cs-004-areas', label: 'Areas' },
-    { code: 'cs-005-districts', label: 'Districts' },
-    { code: 'cs-006-residence', label: 'Residence' },
-    { code: 'cs-007-location-types', label: 'Location Types' },
-    { code: 'cs-008-units', label: 'Units' }
+    { code: 'cs-001-common-lookup-settings', label: 'Country Setup' },
+    { code: 'cs-002-languages', label: 'Language Setup' },
+    { code: 'cs-003-regions', label: 'Region Setup' },
+    { code: 'cs-004-areas', label: 'Area Setup' },
+    { code: 'cs-005-districts', label: 'District Setup' },
+    { code: 'cs-006-residence', label: 'Residence Setup' },
+    { code: 'cs-007-location-types', label: 'Location Tags' },
+    { code: 'cs-008-units', label: 'Unit Setup' }
   ];
 
   CS.renderSideNav = function (activeCode) {

@@ -5,14 +5,14 @@
   var LS_SUBS = 'mm_comp_subsidiaries';
 
   var MOCK_COMPANIES = [
-    { id: 'c1', name: 'Azura Stays Co., Ltd.', short_name: 'CM-TH', created_at: '2021-03-12' },
-    { id: 'c2', name: 'Azura Stays Bali PT', short_name: 'CM-ID', created_at: '2022-06-01' }
+    { id: 'c1', name: 'Azura Stays Pte. Ltd.', short_name: 'CM-SG', created_at: '2021-03-12' },
+    { id: 'c2', name: 'Azura Stays Byron Bay Pty Ltd', short_name: 'CM-AU', created_at: '2022-06-01' }
   ];
 
   var MOCK_SUBS = [
-    { id: 's1', company_id: 'c1', name: 'Phuket Branch', short_name: 'PHK-BR', country: 'Thailand', business_units: ['PHK'], created_at: '2021-03-15', created_by: 'Somchai Anuwat' },
-    { id: 's2', company_id: 'c1', name: 'Koh Samui Branch', short_name: 'KSE-BR', country: 'Thailand', business_units: ['KSE'], created_at: '2021-09-20', created_by: 'Somchai Anuwat' },
-    { id: 's3', company_id: 'c2', name: 'Bali Branch', short_name: 'BAL-BR', country: 'Indonesia', business_units: ['BAL', 'LMB'], created_at: '2022-06-05', created_by: 'Wayan Kertha' }
+    { id: 's1', company_id: 'c1', name: 'Sentosa Branch', short_name: 'SEN-BR', country: 'Singapore', business_units: ['SEN'], created_at: '2021-03-15', created_by: 'Daniel Tan' },
+    { id: 's2', company_id: 'c1', name: 'Noosa Branch', short_name: 'NSE-BR', country: 'Australia', business_units: ['NSE'], created_at: '2021-09-20', created_by: 'Daniel Tan' },
+    { id: 's3', company_id: 'c2', name: 'Byron Bay Branch', short_name: 'BYR-BR', country: 'Australia', business_units: ['BYR', 'GCE'], created_at: '2022-06-05', created_by: 'Warren Kelly' }
   ];
 
   function load(key, mock) {
@@ -153,11 +153,11 @@
     document.getElementById('f-sub-name').required = isSub;
     document.getElementById('f-country').required = isSub;
 
-    document.getElementById('comp-modal-title').textContent = (isEdit ? 'Edit ' : 'Add ') + (isSub ? 'Legal Entity' : 'Company');
+    document.getElementById('comp-modal-title').textContent = (isEdit ? 'Edit ' : 'Add ') + (isSub ? 'Branch Entity' : 'Company');
     document.getElementById('comp-modal-subtitle').textContent = isSub
       ? 'A subsidiary/branch belonging to a parent legal entity.'
       : 'A top-level legal entity used to own Business Units.';
-    document.getElementById('comp-save-btn').textContent = (isEdit ? 'Update' : 'Save') + ' ' + (isSub ? 'Legal Entity' : 'Company');
+    document.getElementById('comp-save-btn').textContent = (isEdit ? 'Update' : 'Save') + ' ' + (isSub ? 'Branch Entity' : 'Company');
 
     if (record) {
       document.getElementById('f-short-name').value = record.short_name;
@@ -178,7 +178,7 @@
     document.getElementById('comp-fields').hidden = true;
     document.getElementById('comp-delete-confirm').hidden = false;
     document.getElementById('comp-delete-name').textContent = record.name;
-    document.getElementById('comp-modal-title').textContent = 'Delete ' + (mode === 'delete-sub' ? 'Legal Entity' : 'Company');
+    document.getElementById('comp-modal-title').textContent = 'Delete ' + (mode === 'delete-sub' ? 'Branch Entity' : 'Company');
     document.getElementById('comp-modal-subtitle').textContent = 'This action cannot be undone.';
     document.getElementById('comp-save-btn').textContent = 'Delete';
     MM.openModal('comp-modal');
@@ -240,7 +240,7 @@
             return Object.assign({}, s, { company_id: companyId, name: document.getElementById('f-sub-name').value.trim(), short_name: document.getElementById('f-short-name').value.trim(), country: document.getElementById('f-country').value });
           });
         } else {
-          subs.push({ id: MM.uid('s'), company_id: companyId, name: document.getElementById('f-sub-name').value.trim(), short_name: document.getElementById('f-short-name').value.trim(), country: document.getElementById('f-country').value, business_units: [], created_at: new Date().toISOString().slice(0, 10), created_by: 'Somchai Anuwat' });
+          subs.push({ id: MM.uid('s'), company_id: companyId, name: document.getElementById('f-sub-name').value.trim(), short_name: document.getElementById('f-short-name').value.trim(), country: document.getElementById('f-country').value, business_units: [], created_at: new Date().toISOString().slice(0, 10), created_by: 'Daniel Tan' });
         }
         save(LS_SUBS, subs);
       } else {

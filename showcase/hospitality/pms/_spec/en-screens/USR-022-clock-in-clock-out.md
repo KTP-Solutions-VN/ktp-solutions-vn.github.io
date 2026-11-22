@@ -1,10 +1,10 @@
-# USR-022 — Clock In / Clock Out
+# USR-022 — Time Clock
 
 **Type:** Full page
 
 **Route:** `UserController::clockIn()` — default `user/clockIn`
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 A page allowing staff to start their workday ("Start my day"), end their workday ("End my day"), or mark a day off ("Day off today"). The system retrieves the current GPS location from the browser and matches it against the staff member's registered office to display a message such as "I am at [office name]".
@@ -25,4 +25,4 @@ A page allowing staff to start their workday ("Start my day"), end their workday
 
 ## Navigation
 - Entry point: main menu (for staff who clock in), or enforced upon login if the user has not yet clocked in (depending on permission configuration).
-- Navigates to: LOG-001 (Login) after "End my day" or "Day off today" (the system logs the user out).
+- Navigates to: LOG-001 (Sign In) after "End my day" or "Day off today" (the system logs the user out).

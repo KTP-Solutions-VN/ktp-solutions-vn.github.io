@@ -1,8 +1,8 @@
-# MNT-004 — Cập nhật xử lý nhật ký bảo trì
+# MNT-004 — Cập nhật tiến độ sửa chữa (Repair Progress Update)
 
 **Loại:** Trang đầy đủ
 **Route:** maintenance/edit/:id (id base64)
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Màn hình dành cho kỹ thuật viên đã nhận việc để cập nhật tiến trình xử lý một nhật ký bảo trì: đổi trạng thái, thêm bình luận/ghi chú, quản lý ảnh minh chứng (xóa ảnh cũ/thêm ảnh mới). Chỉ người được phân công hoặc Admin/Superadmin/Team Leader mới truy cập được (kiểm tra qua `checkTechnician`).
@@ -22,5 +22,5 @@ Màn hình dành cho kỹ thuật viên đã nhận việc để cập nhật ti
 - Nếu không phải kỹ thuật viên được phân công: hiển thị lỗi "chỉ kỹ thuật viên được phân công mới truy cập" và quay lại trang trước.
 
 ## Điều hướng
-- Vào từ: MNT-001 — Danh sách nhật ký bảo trì (click vào công việc đang xử lý).
+- Vào từ: MNT-001 — Yêu cầu sửa chữa (click vào công việc đang xử lý).
 - Đi tới: sau khi Update, quay về MNT-001.

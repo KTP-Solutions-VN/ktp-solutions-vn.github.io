@@ -1,10 +1,10 @@
-# BU-004 — View Business Unit Details
+# BU-004 — Operating Unit Profile
 
 **Type:** Full page
 
 **Route:** `BusinessUnitController::viewDetails($id)` — default `/business-unit/view-details/{id}`
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A read-only page displaying the complete information of a business unit.

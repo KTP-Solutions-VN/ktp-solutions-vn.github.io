@@ -1,10 +1,10 @@
-# USR-010 — Số ngày phép được cấp (Granted Leaves)
+# USR-010 — Lịch sử nghỉ phép (Leave History)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `UserController::grantedLeaves()` — mặc định `user/grantedLeaves`
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Màn hình liệt kê theo phòng ban các nhân viên cùng lịch sử 2 lần nghỉ phép được cấp gần nhất, và cho phép mở màn hình gán thêm ngày nghỉ phép mới cho từng nhân viên (USR-011).
@@ -27,8 +27,8 @@ Màn hình liệt kê theo phòng ban các nhân viên cùng lịch sử 2 lần
 
 ## Chức năng/nút thao tác
 - **Chọn phòng ban:** tải lại danh sách nhân viên bằng ajax.
-- **Thêm ngày nghỉ phép (Add Leaves):** mở USR-011 (Gán ngày nghỉ phép) cho nhân viên được chọn.
+- **Thêm ngày nghỉ phép (Add Leaves):** mở USR-011 (Cấp ngày nghỉ) cho nhân viên được chọn.
 
 ## Điều hướng
-- Vào từ: menu Users → Granted Leaves, hoặc từ USR-004.
-- Điều hướng đến: USR-011 (Gán ngày nghỉ phép).
+- Vào từ: menu Workforce → Leave History, hoặc từ USR-004.
+- Điều hướng đến: USR-011 (Cấp ngày nghỉ).

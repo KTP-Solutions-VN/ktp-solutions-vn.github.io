@@ -1,10 +1,10 @@
-# VSV-015 — Guest Electricity Bill Lookup (Check Stay)
+# VSV-015 — Guest Power Charges
 
 **Type:** Full page
 
 **Route:** `VillaServicesController::checkStay()` — defaults to `/villa-services/check-stay`; supplementary suggestion data via AJAX `getCheckStay` (no dedicated view)
 
-**Module:** Villa Services — Electricity
+**Module:** In-Stay Services — Metering
 
 ## Overview
 A quick lookup tool for a villa's electricity data, either by date range (start/end meter readings, amount collected) or by a specific check-in date (full electricity bill detail for a stay: units consumed, charges, discounts, amount paid, payment method).
@@ -35,5 +35,5 @@ Results displayed as label/value pairs: Check In Date/Meter, Check Out Date/Mete
 - **Search** (each tab): POST submits a search based on the corresponding filters.
 
 ## Navigation
-- Entered from: Main menu (Electricity/Check Stay item).
+- Entered from: Main menu (Guest Power Charges item).
 - Navigates to: no child page.

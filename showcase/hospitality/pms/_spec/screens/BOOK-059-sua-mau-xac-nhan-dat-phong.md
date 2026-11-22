@@ -1,9 +1,9 @@
-# BOOK-059 — Sửa mẫu xác nhận đặt phòng
+# BOOK-059 — Sửa mẫu thư xác nhận (Edit Confirmation Layout)
 
 **Loại:** Popup/Trang (mở từ BOOK-057)
 **Route:** Booking/editConfirmationTemplate/:id (id được base64_encode)
 **Route đẹp:** `/booking/confirmation-template/edit/:id`
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Form chỉnh sửa mẫu xác nhận đặt phòng đã tạo. Các field giống hệt màn thêm mới (BOOK-058), có giá trị mặc định lấy từ dữ liệu hiện có.

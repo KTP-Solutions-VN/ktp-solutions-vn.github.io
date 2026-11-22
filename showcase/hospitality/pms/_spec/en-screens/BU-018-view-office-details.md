@@ -1,10 +1,10 @@
-# BU-018 — View Office Details
+# BU-018 — Office Profile
 
 **Type:** Full page (read-only)
 
 **Route:** `BusinessUnitController::viewOffice($id)` — default `/business-unit/view-office/{id}` (id base64-encoded)
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A read-only detail page displaying the information of an office: name, Business Unit, department, address, coordinates, and image.
@@ -26,4 +26,4 @@ A read-only detail page displaying the information of an office: name, Business 
 - No editing action buttons on this page (view only).
 
 ## Navigation
-- Opened from: BU-015 (office list) — View icon.
+- Opened from: BU-015 (Office Locations) — View icon.

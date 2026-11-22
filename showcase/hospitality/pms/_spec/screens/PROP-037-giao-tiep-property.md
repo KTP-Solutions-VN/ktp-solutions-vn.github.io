@@ -1,8 +1,8 @@
-# PROP-037 — Thông tin giao tiếp Property (Villa Communication)
+# PROP-037 — Thông tin liên hệ & chat (Contact & Chat Details)
 
 **Loại:** Trang đầy đủ
 **Route:** property/communication/:villa_id (villa_id truyền dạng base64), mở từ PROP-021 (icon "Villa Communication")
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang khai báo thông tin liên hệ nhóm chat với Chủ nhà (Owner Chat) và nhóm chat với Concierge (Concierge Chat) cho Property, cùng với yêu cầu đặc biệt (Requirement) và thông tin tài khoản ngân hàng hiển thị (Bank Account). Cho phép thêm nhiều liên hệ owner/concierge (dynamic rows qua JS). Dữ liệu lưu bảng `VillaCommunication`.
@@ -26,6 +26,6 @@ Trang khai báo thông tin liên hệ nhóm chat với Chủ nhà (Owner Chat) v
 - Nút "Save" (`why_here_form_1`) — submit toàn bộ form, lưu vào bảng `VillaCommunication` (insert nếu chưa có, update nếu đã có theo `villa_id`), hiện Flash message rồi redirect lại chính trang.
 
 ## Điều hướng
-- Mở từ: PROP-021 (Danh sách Property cần Onboarding thao tác) — icon "Villa Communication".
+- Mở từ: PROP-021 (Điểm chặn trước khi mở bán) — icon "Villa Communication".
 - Điều hướng tới: Không có (chỉ lưu tại chỗ và redirect về chính nó).
 - Popup con: Không có.

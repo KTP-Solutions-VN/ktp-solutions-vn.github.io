@@ -1,10 +1,10 @@
-# BU-019 — Danh sách ngân hàng (Banks)
+# BU-019 — Danh bạ ngân hàng (Bank Directory)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `BusinessUnitController::banks()` — mặc định `/business-unit/banks`
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Danh sách các ngân hàng được cấu hình sẵn trong hệ thống, dùng khi tạo tài khoản (Account) tại BU-010.
@@ -25,7 +25,7 @@ Danh sách (DataTable `#zero_config0`):
 
 ## Chức năng/nút thao tác
 - **Add new:** điều hướng sang BU-020 (Thêm ngân hàng).
-- **Sửa (icon bút):** điều hướng sang BU-021 (Sửa ngân hàng).
+- **Sửa (icon bút):** điều hướng sang BU-021 (Sửa hồ sơ ngân hàng).
 - **Xóa (icon thùng rác):** mở popup BU-019-P1 xác nhận xóa.
 
 ## Điều hướng

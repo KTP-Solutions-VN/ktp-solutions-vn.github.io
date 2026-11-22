@@ -53,10 +53,10 @@ document.addEventListener('DOMContentLoaded', function () {
     MM.simulateSave(function () {
       var endTime = new Date();
       var entry = {
-        id: controlId, property: villa.name, staff: 'Somchai Anuwat',
+        id: controlId, property: villa.name, staff: 'Daniel Tan',
         start: startTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
         end: endTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
-        gps: villa ? '7.9,98.3' : '—', comments: 'Recorded via on-site Check-in Progress flow.'
+        gps: villa ? '1.25,103.84' : '—', comments: 'Recorded via on-site Check-in Progress flow.'
       };
       var saved = [];
       try { saved = JSON.parse(localStorage.getItem('mm_checkin_controls_extra') || '[]'); } catch (e) {}

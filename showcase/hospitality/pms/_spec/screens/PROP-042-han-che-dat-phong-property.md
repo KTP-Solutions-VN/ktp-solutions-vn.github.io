@@ -1,8 +1,8 @@
-# PROP-042 — Hạn chế đặt phòng Property (Booking Restriction)
+# PROP-042 — Cài đặt đặt ngay (Instant Book Settings)
 
 **Loại:** Trang đầy đủ
 **Route:** property/booking-restriction
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang liệt kê danh sách Property (trạng thái Open) cùng loại hình đặt phòng (Instant Booking / Non-Instant Booking) hiện tại, lọc theo Business Unit và loại đặt phòng. Cho phép bật/tắt (toggle) nhanh chế độ Instant Booking ngay trên danh sách, dữ liệu lưu bảng `VillaBookingType`.
@@ -30,6 +30,6 @@ Trang liệt kê danh sách Property (trạng thái Open) cùng loại hình đ�
 - Icon Edit → điều hướng tới `property/villa/ota management/{villa_id}` (tab "OTA Management" của màn hình Villa Detail).
 
 ## Điều hướng
-- Mở từ: Menu Property (không thuộc phạm vi mã hiện tại).
+- Mở từ: Menu Hồ sơ tài sản (không thuộc phạm vi mã hiện tại).
 - Điều hướng tới: `property/villa/ota management/:villa_id` (tab OTA Management thuộc action `villa`, ngoài phạm vi các mã đã tài liệu hóa).
 - Popup con: Không có.

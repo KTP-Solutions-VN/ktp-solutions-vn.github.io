@@ -1,10 +1,10 @@
-# USR-014 — Edit Agent
+# USR-014 — Edit Sales Agent
 
 **Type:** Full page
 
 **Route:** `UserController::editAgents($id)` — default `user/editAgents/:id`
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 A form for editing an existing Agent's information, with the same fields as USR-013 but pre-populated with the current values.
@@ -36,4 +36,4 @@ A form for editing an existing Agent's information, with the same fields as USR-
 
 ## Navigation
 - Opened from: USR-012 (Edit icon).
-- Navigates to: USR-012 (Agent List) after a successful save.
+- Navigates to: USR-012 (Sales Agents) after a successful save.

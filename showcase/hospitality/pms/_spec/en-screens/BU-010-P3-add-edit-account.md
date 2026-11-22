@@ -1,10 +1,10 @@
-# BU-010-P3 — Add/Edit Account
+# BU-010-P3 — Bank Account Form
 
 **Type:** Sub-page (opened from BU-010, Accounts tab — replaces the list table when the `page_action=add|edit` parameter is present)
 
 **Route:** `BusinessUnitController::paymentMethod('accounts', 'add')` or `paymentMethod('accounts', 'edit', $id)` — default `/business-unit/payment-method/accounts/add` or `/business-unit/payment-method/accounts/edit/{id}`
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A full form for adding a new Account or editing an existing one, used for receiving/disbursing funds, including account type, banking details, the business units it serves, and the accepted payment methods.

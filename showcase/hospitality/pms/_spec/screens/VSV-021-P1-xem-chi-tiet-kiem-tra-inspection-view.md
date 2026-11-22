@@ -1,10 +1,10 @@
-# VSV-021-P1 — Xem chi tiết báo cáo kiểm tra (Inspection View)
+# VSV-021-P1 — Chi tiết báo cáo kiểm tra (Inspection Report Detail)
 
 **Loại:** Popup (mở từ VSV-021, dạng trang riêng)
 
 **Route:** `VillaServicesController::inspectionView()` — `/villa-services/inspectionView?id=<inspection_key>&keys=<danh sách khóa, tùy chọn>`
 
-**Module:** Dịch vụ villa — Kiểm tra (Inspection)
+**Module:** Dịch vụ lưu trú — Kiểm tra
 
 ## Mô tả ngắn gọn
 Trang xem từng điểm kiểm tra (inspection point) của một báo cáo, dạng duyệt ảnh tuần tự (Previous/Next) kèm mô tả, bình luận, thông tin người thực hiện/dịch vụ/vị trí; cho phép bình luận, giao việc hoặc chuyển điểm kiểm tra sang báo cáo khác.

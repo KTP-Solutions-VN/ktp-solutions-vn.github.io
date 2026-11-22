@@ -1,10 +1,10 @@
-# FUND-001 — Danh sách nhà đầu tư
+# FUND-001 — Tài khoản nhà đầu tư (Investor Accounts)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `FundController::investors()` — `/fund/investors` (GET, lọc qua query string `id`, `show_investor`; POST dùng để gán dự án hoặc tải báo cáo Excel). Không có route đẹp riêng trong `config/Routes.php`, dùng fallback DashedRoute. Trong môi trường triển khai, ứng dụng chạy dưới base path `/VM` (ví dụ `/VM/fund/investors`).
 
-**Module:** FUND = Quỹ đầu tư
+**Module:** FUND = Vốn nhà đầu tư
 
 ## Mô tả ngắn gọn
 Danh sách các chủ sở hữu (Owner) được đánh dấu là nhà đầu tư của quỹ, hiển thị vốn góp, lãi dự kiến và các dự án đã gán; cho phép bật/tắt trạng thái "nhà đầu tư", gán dự án cho nhà đầu tư, và xuất báo cáo Excel.
@@ -32,11 +32,11 @@ Danh sách các chủ sở hữu (Owner) được đánh dấu là nhà đầu t
 
 ## Chức năng/nút thao tác
 - **Toggle bật/tắt trạng thái nhà đầu tư** (AJAX `fund/update-investor-status`): nếu Owner chưa có bản ghi `Fund`, hệ thống tự tạo mới với bậc lãi suất mặc định (1–24 tháng: 6%, 25–48 tháng: 7%, 49–99 tháng: 8%).
-- **Icon Rate (€)**: mở màn hình FUND-007 (Cấu hình lãi suất) cho nhà đầu tư tương ứng.
-- **Icon View (mắt)**: mở màn hình FUND-002 (Sao kê giao dịch) của nhà đầu tư.
+- **Icon Rate (€)**: mở màn hình FUND-007 (Lợi suất nhà đầu tư) cho nhà đầu tư tương ứng.
+- **Icon View (mắt)**: mở màn hình FUND-002 (Sổ giao dịch nhà đầu tư) của nhà đầu tư.
 - **Icon Project (bánh răng)**: mở popup FUND-001-P1 để gán dự án cho nhà đầu tư.
 - **Download**: xuất báo cáo Excel (`Investor-fund-report-<ngày>.xlsx`) theo bộ lọc hiện tại — hành động tải file, không có giao diện riêng.
 
 ## Điều hướng
-- Vào từ: menu quản lý Quỹ đầu tư (mục "Investors", `active_menu = 301`).
-- Điều hướng đến: FUND-007 (Rates), FUND-002 (Statements), popup FUND-001-P1 (Assign Project).
+- Vào từ: menu Vốn nhà đầu tư (mục "Investor Accounts", `active_menu = 301`).
+- Điều hướng đến: FUND-007 (Lợi suất nhà đầu tư), FUND-002 (Sổ giao dịch nhà đầu tư), popup FUND-001-P1 (Gắn nhà đầu tư vào dự án).

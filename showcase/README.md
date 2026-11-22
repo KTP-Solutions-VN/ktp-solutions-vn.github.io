@@ -12,6 +12,7 @@ Các prototype KTP Solutions đã dựng, bản white-label (tên, thương hi�
 | CareJourney Admin — back-office | Y tế | [`medical/admin/`](medical/admin/) |
 | CareJourney Storefront — web bán hàng | Y tế | [`medical/store-front/`](medical/store-front/) |
 | CareJourney POS — bán hàng tại quầy thuốc | Y tế | [`medical/pos/`](medical/pos/) |
+| CareJourney Kiosk — kiosk tự phục vụ tại sự kiện, sảnh bệnh viện | Y tế | [`medical/kiosk/`](medical/kiosk/) |
 
 ## Cấu trúc
 
@@ -25,7 +26,7 @@ showcase/
   _tools/shots.json                        màn ↔ ảnh chụp After
   shots/after/<project>-NNN.jpg            ảnh chụp bản After (CRM, medical)
   hospitality/{pms,cms}/                   prototype tĩnh
-  medical/{admin,store-front,pos}/         prototype tĩnh
+  medical/{admin,store-front,pos,kiosk}/   prototype tĩnh
   crm/app/                                 CRM single-page app (xem crm/README.md)
   *.zip                                    bản nén mã nguồn, CHỈ ở local (gitignore), không link ở đâu
 ```
@@ -34,7 +35,7 @@ Prototype tĩnh mở thẳng `index.html` là chạy. CRM cần server trả `in
 
 ## Thêm / sửa prototype
 
-1. Chỉ đưa vào đây bản **đã white-label**: không còn tên, domain, email, logo, màu, tên người của khách. Quét lại trước khi commit.
+1. Chỉ đưa vào đây bản **đã white-label**: không còn tên, domain, email, logo, màu, tên người, slogan, tên chương trình của khách; tên menu / nhóm menu / tên màn cũng phải đặt lại cách gọi (không giữ y nguyên như sản phẩm gốc). Quét lại trước khi commit.
 2. Sửa thư mục prototype thì nén lại zip cùng tên (thư mục gốc trong zip trùng tên, không kèm `.DS_Store` / `__MACOSX`):
    `cd hospitality && rm pms.zip && zip -qrX pms.zip pms -x 'pms/_spec/*' '*.DS_Store'`
 3. Thêm prototype mới: khai báo trong `PRODUCTS` ở `_tools/build_playground.py`, chụp ảnh bìa 1440×900 ở 2x, lưu JPEG rộng 2400 vào `assets/covers/<id>.jpg`, thêm 1 dự án vào `assets/data/du-an.js` (có `playground`, `use_cases`), rồi chạy `python3 showcase/_tools/build_playground.py` và thêm link vào `sitemap.xml` ở gốc website.

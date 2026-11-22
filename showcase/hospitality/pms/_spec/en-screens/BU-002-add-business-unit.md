@@ -1,10 +1,10 @@
-# BU-002 — Add Business Unit
+# BU-002 — New Operating Unit
 
 **Type:** Full page
 
 **Route:** `BusinessUnitController::add()` — default `/business-unit/add`
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A form for adding a new business unit, including contact information, geographic location, legal-entity configuration, default currency, and avatar/logo images.

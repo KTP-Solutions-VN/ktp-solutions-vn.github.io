@@ -1,10 +1,10 @@
-# CMS-011 — Sửa Logo đối tác
+# CMS-011 — Sửa huy hiệu đối tác (Edit Partner Badge)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::logoEdit($id)` — mặc định `/cms/logo-edit/:id`
 
-**Module:** CMS = Nội dung trang chủ villa
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Form chỉnh sửa một logo đối tác đã có. Yêu cầu `id` hợp lệ (nếu `id` rỗng, action không xử lý form/không set dữ liệu).

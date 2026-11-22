@@ -1,10 +1,10 @@
-# VSV-020 — Operations Job List (Garden Job List)
+# VSV-020 — Today's Garden Jobs
 
 **Type:** Full page
 
 **Route:** `VillaServicesController::gardenJobList()` — defaults to `/villa-services/garden-job-list`
 
-**Module:** Villa Services — Garden
+**Module:** In-Stay Services — Garden Care
 
 ## Overview
 An unfinished mockup/wireframe screen: the action only sets the page title (the title is mistakenly taken from `pool_text` — likely an uncorrected copy-paste error), and the view contains entirely static (hard-coded) data, not tied to any real model/data. The content simulates a "Pool Operator" screen for operations staff to select a villa and start a shift.
@@ -22,5 +22,5 @@ The view file also contains (as an HTML comment, not displayed) an old schedule 
 - No AJAX/submit integration in the current action.
 
 ## Navigation
-- Entered from: Main menu (Garden item — the path exists but is not yet linked from any other official UI in the module).
+- Entered from: Main menu (Garden Care Hub item — the path exists but is not yet linked from any other official UI in the module).
 - Navigates to: VSV-020-P1 (job status mockup, embedded in the same page).

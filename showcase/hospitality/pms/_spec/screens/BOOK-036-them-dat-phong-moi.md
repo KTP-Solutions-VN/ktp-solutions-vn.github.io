@@ -1,8 +1,8 @@
-# BOOK-036 — Thêm đặt phòng mới
+# BOOK-036 — Tạo đặt chỗ mới (New Reservation)
 
 **Loại:** Trang đầy đủ
 **Route:** Booking/addBooking/:id? (mặc định: `/booking/add-booking`, có id thì là sửa booking thủ công)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Form tạo nhanh một đặt phòng thủ công (manual booking) không qua kênh OTA: nhập thông tin khách, villa, ngày nhận/trả phòng, kênh đặt, số tiền và trạng thái thanh toán.
@@ -27,8 +27,8 @@ Lưu ý kỹ thuật: mã nguồn có sẵn các action `step3()`…`step8()` (v
 
 ## Chức năng/nút thao tác
 - Nút **Lưu** — tạo booking thủ công mới, ghi vào bảng ManualBooking/Booking
-- Nút **Xem danh sách booking đã tạo thủ công** — mở BOOK-036-P1
+- Nút **Offline Reservations** (đặt chỗ tạo thủ công) — mở BOOK-036-P1
 
 ## Điều hướng
-- Mở từ: Menu module Đặt phòng > Thêm đặt phòng
-- Điều hướng tới: BOOK-036-P1 (Danh sách đặt phòng thủ công)
+- Mở từ: Menu module Đặt chỗ > Tạo đặt chỗ mới
+- Điều hướng tới: BOOK-036-P1 (Đặt chỗ ngoại tuyến)

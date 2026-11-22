@@ -1,8 +1,8 @@
-# REN-012 — Popup mẫu (scaffold, chưa xác định điểm sử dụng)
+# REN-012 — Popup giữ chỗ chưa dùng (Unused Placeholder Popup)
 
 **Loại:** Popup
 **Route:** renovation/startPopup + route đẹp dạng dashed: renovation/start-popup
-**Module:** REN = Cải tạo
+**Module:** REN = Nâng cấp tài sản
 
 ## Mô tả ngắn gọn
 Đây là một modal mẫu do CakePHP bake sinh sẵn (copy từ boilerplate "Add Business Unit" xuất hiện lặp lại ở nhiều controller khác như Operator/Maintenance, Operator/Pools, Renovation/ProjectFollowUp...). Action `startPopup()` trong `RenovationController` chỉ set `active_menu` và không xử lý logic nghiệp vụ; không tìm thấy link/nút nào trong các view của module Renovation trỏ tới action này.

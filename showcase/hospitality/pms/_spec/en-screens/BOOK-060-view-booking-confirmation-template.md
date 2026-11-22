@@ -1,9 +1,9 @@
-# BOOK-060 — View Booking Confirmation Template
+# BOOK-060 — Confirmation Layout Preview
 
 **Type:** Popup/Page (opened from BOOK-057)
 **Route:** Booking/viewConfirmationTemplate/:id (id is base64_encoded)
 **Friendly route:** `/booking/confirmation-template/view/:id`
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Read-only detail view of a booking confirmation template: language, template name, logo, company information, currency, and the business units it applies to.

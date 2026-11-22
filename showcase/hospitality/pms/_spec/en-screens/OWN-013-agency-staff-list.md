@@ -1,14 +1,14 @@
-# OWN-013 — Agency Staff List
+# OWN-013 — Agency Users
 
 **Type:** Full page
 
 **Route:** `/Owner/agencyStaff` (controller `Owner`, action `agencyStaff()`)
 
-**Module:** Owner Management (Admin)
+**Module:** Owner Relations (Admin)
 
 ## Overview
 
-A screen listing all staff members across Agencies who are currently in Active status. This is a first-level sidebar menu item ("Agency Staff").
+A screen listing all staff members across Agencies who are currently in Active status. This is a first-level sidebar menu item ("Agency Users").
 
 ## Detailed Description
 
@@ -25,13 +25,13 @@ A screen listing all staff members across Agencies who are currently in Active s
 
 ## Functions / Actions
 
-- **+ Add New**: opens OWN-014 (Add New Agency Staff).
-- **Edit** (pencil icon): opens OWN-015 (Edit Agency Staff).
+- **+ Add New**: opens OWN-014 (New Agency User).
+- **Edit** (pencil icon): opens OWN-015 (Edit Agency User).
 - **Delete** (trash icon): confirmed via a popup modal, then calls `delete-agency-staff/{id}` (no dedicated UI).
 
 ## Navigation
 
-- Opened from: sidebar menu "Agency Staff" (`active_menu` 106).
+- Opened from: sidebar menu "Agency Users" (`active_menu` 106).
 - Navigates to:
-  - OWN-014 — Add New Agency Staff
-  - OWN-015 — Edit Agency Staff
+  - OWN-014 — New Agency User
+  - OWN-015 — Edit Agency User

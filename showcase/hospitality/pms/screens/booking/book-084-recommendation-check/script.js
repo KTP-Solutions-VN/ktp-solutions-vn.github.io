@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var comment = document.getElementById('log-comment').value.trim();
     var btn = this;
     MM.simulateSave(btn, 'Saving…', function () {
-      MM.BOOK.saveRecommendationLog(logTargetId, comment, 'Somchai Anuwat');
+      MM.BOOK.saveRecommendationLog(logTargetId, comment, 'Daniel Tan');
       MM.closeModal('log-modal');
       MM.showToast('Log saved.');
       runCheck();

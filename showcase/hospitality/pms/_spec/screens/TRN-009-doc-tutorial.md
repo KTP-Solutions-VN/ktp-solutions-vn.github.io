@@ -1,8 +1,8 @@
-# TRN-009 — Đọc Tutorial
+# TRN-009 — Trình đọc bài học (Lesson Reader)
 
 **Loại:** Trang đầy đủ
 **Route:** `TrainingController::readTutorial($tutorial_id, $reading_id = null)` — `/training/read-tutorial/{tutorial_id}/{reading_id}`
-**Module:** TRN = Đào tạo
+**Module:** TRN = Học viện nhân viên
 
 ## Mô tả ngắn gọn
 Trình chiếu (slideshow) nội dung các Slide của một Tutorial, cho phép người dùng lật qua từng slide (ảnh/video + text) bằng mũi tên trái/phải, tự động ghi nhận lượt đọc.
@@ -22,5 +22,5 @@ Ghi chú: giao diện đọc hiện không hiển thị lại phần câu hỏi 
 - **Stop → "End"** (khi đã tới slide cuối "The End"): submit form, đánh dấu `is_complete_read=1` cho bản ghi UserTraining, chuyển về TRN-008.
 
 ## Điều hướng
-- **Vào từ:** TRN-007 (Library) hoặc TRN-008 (My Record), qua icon "Đọc".
+- **Vào từ:** TRN-007 (Danh mục bài học) hoặc TRN-008 (Tiến độ học của tôi), qua icon "Đọc".
 - **Đi tới:** TRN-008 (khi Stop hoặc hoàn thành đọc).

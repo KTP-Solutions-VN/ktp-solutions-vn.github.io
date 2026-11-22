@@ -1,10 +1,10 @@
-# BU-012 — Business Zone (Zoning)
+# BU-012 — Reporting Zones
 
 **Type:** Full page
 
 **Route:** `BusinessUnitController::zoning()` — default `/business-unit/zoning`
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A list of "zones" created by the current user, used to group multiple Business Units together according to a custom geographic/management area.
@@ -22,8 +22,8 @@ List (DataTable `#zero_config0`):
 | 5 | Actions | — | Edit, Delete |
 
 ## Functions / Actions
-- **Add new:** navigates to BU-013 (Add Business Zone).
-- **Edit (pencil icon):** navigates to BU-014 (Edit Business Zone).
+- **Add new:** navigates to BU-013 (New Reporting Zone).
+- **Edit (pencil icon):** navigates to BU-014 (Edit Reporting Zone).
 - **Delete (trash icon):** opens popup BU-012-P1 to confirm deletion (sets `is_deleted=1`, not a hard delete — zone numbers can be reused when creating a new zone, up to a maximum of 99 zones per user).
 
 ## Navigation

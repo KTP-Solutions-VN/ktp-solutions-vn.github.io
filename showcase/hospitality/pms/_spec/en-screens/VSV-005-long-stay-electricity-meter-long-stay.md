@@ -1,10 +1,10 @@
-# VSV-005 — Long Stay Electricity Meter (Long Stay)
+# VSV-005 — Extended-Stay Metering
 
 **Type:** Full page
 
 **Route:** `VillaServicesController::partial()` — defaults to `/villa-services/partial`; filters are read via query string (`?villa=&guest_name=&check_in_date=&check_out_date=`)
 
-**Module:** Villa Services — Electricity
+**Module:** In-Stay Services — Metering
 
 ## Overview
 A list of long-stay bookings with an electricity meter that needs periodic monitoring/entry, kept separate from the regular short-stay check-in/check-out flow.
@@ -24,12 +24,12 @@ Booking list table:
 | 5 | Nights | `nights` | Calculated at runtime |
 | 6 | Entered By | `check_in_by` | `ElectricalBill.modified_by` |
 | 7 | Last Updated By | `last_updated_by` | `ElectricalBill.end_meter_modified_by` |
-| 8 | Action | — | "Enter" → opens VSV-005-P1 (Enter Long Stay Electricity Meter) |
+| 8 | Action | — | "Enter" → opens VSV-005-P1 (Record Extended-Stay Reading) |
 
 ## Functions / Actions
 - **Filter by Business Unit / Property / Guest Name / check-in–check-out date range.**
 - **Enter** (per row): opens VSV-005-P1 (`addLongStayMeter`).
 
 ## Navigation
-- Entered from: Main menu (Long Stay item) or after saving VSV-005-P1 (redirect back).
-- Navigates to: VSV-005-P1 (Enter Long Stay Electricity Meter).
+- Entered from: Main menu (Extended-Stay Metering item) or after saving VSV-005-P1 (redirect back).
+- Navigates to: VSV-005-P1 (Record Extended-Stay Reading).

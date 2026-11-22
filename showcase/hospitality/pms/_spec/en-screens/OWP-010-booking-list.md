@@ -1,10 +1,10 @@
-# OWP-010 — Booking List
+# OWP-010 — Reservations
 
 **Type:** Full page
 
 **Route:** `ExternalUserController::bookingList()` — no dedicated friendly route (default `/external-user/booking-list`)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 
@@ -43,5 +43,5 @@ List — displayed columns:
 
 ## Navigation
 
-- Accessed from the main menu (Booking)
+- Accessed from the main menu (Reservations)
 - Click the view details icon → OWP-010-P1 (booking detail popup)

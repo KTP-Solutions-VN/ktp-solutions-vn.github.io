@@ -1,8 +1,8 @@
-# PROP-057 — Listing Redo Request History (Redo Log)
+# PROP-057 — Listing Refresh History
 
 **Type:** Popup (opened from PROP-040 or PROP-058)
 **Route:** property/redo-log/:villa_id/:channel_id
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Popup/page displaying the history of OTA listing redo requests for a Property on a specific channel, including completion date, the person who completed it, and the person who originally requested it (sourced from the `VillaCoefficient` table of type `redo_list`, with `NoticeBoard`/`ReceivedUser`/`SendUser` information).
@@ -18,6 +18,6 @@ Popup/page displaying the history of OTA listing redo requests for a Property on
 - View-only history, no editing operations.
 
 ## Navigation
-- Opened from: PROP-040 (Property Quality — icon to view Redo request log), PROP-058 (Listing To Be Redone).
+- Opened from: PROP-040 (Listing Quality — icon to view Redo request log), PROP-058 (Listing Refresh Queue).
 - Navigates to: None.
 - Child popup: None.

@@ -1,10 +1,10 @@
-# OWP-011 — Thêm đặt phòng
+# OWP-011 — Khóa ngày (Block Dates)
 
 **Loại:** Trang đầy đủ (hiện đang là placeholder, chưa triển khai đầy đủ)
 
 **Route:** `ExternalUserController::addBooking()` — không có route đẹp riêng, không có link điều hướng nào trong hệ thống trỏ tới màn hình này hiện tại
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 

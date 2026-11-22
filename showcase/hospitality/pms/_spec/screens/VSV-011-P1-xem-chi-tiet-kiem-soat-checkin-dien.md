@@ -1,10 +1,10 @@
-# VSV-011-P1 — Xem chi tiết kiểm soát check-in điện
+# VSV-011-P1 — Chi tiết chỉ số khi đến (Arrival Reading Detail)
 
 **Loại:** Popup (mở từ VSV-011, dạng trang riêng)
 
 **Route:** `VillaServicesController::viewCheckinControl($id)` — `/villa-services/view-checkin-control/<booking_id>`
 
-**Module:** Dịch vụ villa — Điện
+**Module:** Dịch vụ lưu trú — Đo điện
 
 ## Mô tả ngắn gọn
 Trang chi tiết chỉ đọc (read-only), hiển thị đầy đủ thông tin chỉ số/ảnh đồng hồ điện, phương thức và tình trạng thanh toán check-in của một booking cụ thể, phục vụ nhân viên kiểm soát đối chiếu.

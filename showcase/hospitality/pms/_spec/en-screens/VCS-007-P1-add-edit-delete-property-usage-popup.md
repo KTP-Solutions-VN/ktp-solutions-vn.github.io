@@ -1,8 +1,8 @@
-# VCS-007-P1 — Add/Edit/Delete Property Usage Popup
+# VCS-007-P1 — Usage Type Form
 
 **Type:** Popup/Modal (opened from VCS-007)
 **Route:** No dedicated route — uses a shared form that POSTs to `villa-common-setting/villa-usage` (hidden `action`=`add`/`edit`/`delete`); duplicate-name check via AJAX `villa-common-setting/checkVillaUsage`
-**Module:** VCS = Villa Common Settings
+**Module:** VCS = Property Attributes
 
 ## Overview
 A shared Bootstrap modal (`#exampleModal`) covering the three Add/Edit/Delete Property Usage scenarios. In Delete mode, the input section is hidden.
@@ -20,5 +20,5 @@ A shared Bootstrap modal (`#exampleModal`) covering the three Add/Edit/Delete Pr
 - Validation: `name` is required, checked for duplicates via remote AJAX `checkVillaUsage`.
 
 ## Navigation
-- Opened from: VCS-007 (Add new / Edit / Delete buttons on the Property Usage list table).
+- Opened from: VCS-007 (Add new / Edit / Delete buttons on the Usage Types table).
 - Navigates to: no page change — after submission, VCS-007 is reloaded (redirect via `referer()`).

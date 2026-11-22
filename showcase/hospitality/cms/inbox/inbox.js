@@ -9,7 +9,7 @@
 
   var CONVERSATIONS = [
     {
-      id: 'c1', guest: 'Sophie Martin', property: 'Villa Andaman Breeze — Room 2', channel: 'Booking.com',
+      id: 'c1', guest: 'Sophie Martin', property: 'Villa Ocean Breeze — Room 2', channel: 'Booking.com',
       unread: true, folder: 'unread', time: '10:42 AM',
       preview: 'Hi! Is early check-in possible on the 20th?',
       bookingId: 'RSV-1000', checkin: 'Jul 20, 2026', checkout: 'Jul 23, 2026', total: '$960',

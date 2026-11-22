@@ -1,8 +1,8 @@
-# VCS-006-P2 — Add Service Type (Villa Service) Popup
+# VCS-006-P2 — Vendor Service Type Form
 
 **Type:** Popup/Modal (opened from VCS-006)
 **Route:** No dedicated route — uses a shared form that POSTs to `villa-common-setting/service-providers` (hidden `action`=`add_service`); duplicate-name check via AJAX `villa-common-setting/check-service-name` (a custom pretty route configured in Routes.php)
-**Module:** VCS = Villa Common Settings
+**Module:** VCS = Property Attributes
 
 ## Overview
 A Bootstrap modal (`#serviceModel`) that only supports Adding a new "Service Type" (`ProviderService`) — master data used to associate with Service Providers in VCS-006. Only visible to Superadmin users (since the "Services" tab is only shown to Superadmins).
@@ -20,5 +20,5 @@ A Bootstrap modal (`#serviceModel`) that only supports Adding a new "Service Typ
 - Validation: `name` is required, checked for duplicates via remote AJAX `checkServiceName`.
 
 ## Navigation
-- Opened from: VCS-006 ("Services" tab) — "+ Add new" button.
+- Opened from: VCS-006 ("Service Catalog" tab) — "+ Add new" button.
 - Navigates to: no page change — after submission, VCS-006 is reloaded (redirect via `referer()`); the new Service Type then appears in the selection list on VCS-006-P1.

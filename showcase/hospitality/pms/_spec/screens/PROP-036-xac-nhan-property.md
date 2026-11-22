@@ -1,8 +1,8 @@
-# PROP-036 — Thông tin xác nhận Property (Villa Confirmation)
+# PROP-036 — Thư xác nhận (Confirmation Letter)
 
 **Loại:** Trang đầy đủ
 **Route:** property/confirmation/:villa_id (villa_id truyền dạng base64), mở từ PROP-021 (icon "Villa Confirmation")
-**Module:** PROP = Bất động sản
+**Module:** PROP = Hồ sơ tài sản
 
 ## Mô tả ngắn gọn
 Trang nhập/soạn nội dung thư xác nhận (confirmation) gửi khách khi đặt phòng thành công cho một Property: lời chào mừng (welcome message) theo từng ngôn ngữ, hướng dẫn đón khách (pick up) và hướng dẫn đỗ xe (parking). Dữ liệu lưu bảng `VillaConfirmation`, các field đa ngôn ngữ được serialize theo mã ngôn ngữ.
@@ -20,6 +20,6 @@ Trang nhập/soạn nội dung thư xác nhận (confirmation) gửi khách khi 
 - Đổi ngôn ngữ — cập nhật textarea Welcome Message theo nội dung đã lưu cho ngôn ngữ đó (JS, không reload trang).
 
 ## Điều hướng
-- Mở từ: PROP-021 (Danh sách Property cần Onboarding thao tác) — icon "Villa Confirmation".
+- Mở từ: PROP-021 (Điểm chặn trước khi mở bán) — icon "Villa Confirmation".
 - Điều hướng tới: Không có (chỉ lưu tại chỗ và redirect về chính nó).
 - Popup con: Không có.

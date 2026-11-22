@@ -1,9 +1,9 @@
-# BOOK-060 — Xem mẫu xác nhận đặt phòng
+# BOOK-060 — Xem trước mẫu thư xác nhận (Confirmation Layout Preview)
 
 **Loại:** Popup/Trang (mở từ BOOK-057)
 **Route:** Booking/viewConfirmationTemplate/:id (id được base64_encode)
 **Route đẹp:** `/booking/confirmation-template/view/:id`
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Xem chi tiết (chỉ đọc) thông tin một mẫu xác nhận đặt phòng: ngôn ngữ, tên mẫu, logo, thông tin công ty, đơn vị tiền tệ, các đơn vị kinh doanh áp dụng.

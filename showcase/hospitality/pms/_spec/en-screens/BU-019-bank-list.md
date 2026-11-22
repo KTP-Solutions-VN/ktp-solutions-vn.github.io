@@ -1,10 +1,10 @@
-# BU-019 — Bank List
+# BU-019 — Bank Directory
 
 **Type:** Full page
 
 **Route:** `BusinessUnitController::banks()` — default `/business-unit/banks`
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A list of banks pre-configured in the system, used when creating an Account on BU-010.
@@ -24,8 +24,8 @@ List (DataTable `#zero_config0`):
 | 7 | Actions | — | Edit, Delete |
 
 ## Functions / Actions
-- **Add new:** navigates to BU-020 (Add Bank).
-- **Edit (pencil icon):** navigates to BU-021 (Edit Bank).
+- **Add new:** navigates to BU-020 (New Bank).
+- **Edit (pencil icon):** navigates to BU-021 (Edit Bank Record).
 - **Delete (trash icon):** opens popup BU-019-P1 to confirm deletion.
 
 ## Navigation

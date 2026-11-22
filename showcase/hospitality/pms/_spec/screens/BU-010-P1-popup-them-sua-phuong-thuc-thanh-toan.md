@@ -1,10 +1,10 @@
-# BU-010-P1 — Popup Thêm/Sửa phương thức thanh toán
+# BU-010-P1 — Form phương thức thanh toán (Payment Method Form)
 
 **Loại:** Popup (mở từ BU-010, tab Phương thức thanh toán)
 
 **Route:** Modal Bootstrap (`#exampleModal`) trong element `business-unit/main_list.ctp`; submit AJAX tới action `BusinessUnitController::paymentMethod()` (tab `main-list`).
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Popup dùng chung cho Thêm mới và Sửa một phương thức thanh toán, kèm chọn Đơn vị kinh doanh áp dụng và Tài khoản liên kết.

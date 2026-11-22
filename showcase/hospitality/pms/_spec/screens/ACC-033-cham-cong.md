@@ -1,10 +1,10 @@
-# ACC-033 — Chấm công (Timesheet)
+# ACC-033 — Nhật ký chuyên cần (Attendance Log)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `AccountController::timesheet()` — mặc định `/account/timesheet`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Theo dõi giờ chấm công vào/ra (clock-in/clock-out) hàng ngày của toàn bộ nhân viên nội bộ (`employment = Internal`, `is_clock_in = yes`, không phải Superadmin, không phải test staff) theo Business Unit và theo ngày; cho phép người có quyền xác thực (validate) giờ chấm công, chỉnh giờ vào thủ công, xem vị trí GPS lúc chấm công/tan ca và lộ trình di chuyển trong ngày trên bản đồ.
@@ -38,8 +38,8 @@ Filter phía trên bảng:
 - **Validate:** nút "Validate" trên dòng nhân viên → AJAX POST `/account/validateUser` (action nằm ngoài phạm vi tài liệu này) set `is_validated = yes`, `validated_by`, `validated_on = hôm nay`.
 - **Track:** mở modal bản đồ (Google Maps) hiển thị các điểm GPS đã ghi trong ngày (`tracking_location`) cùng vị trí lúc clock-in/clock-out.
 - **Tải chứng từ nghỉ ốm:** link tải file `certificate` khi `is_sick_leave = yes` và `is_certificate = yes`.
-- Action AJAX `getUserWorkingStatus` **không** được dùng trong màn hình này (được dùng ở ACC-042 — Lương theo ngày).
+- Action AJAX `getUserWorkingStatus` **không** được dùng trong màn hình này (được dùng ở ACC-042 — Thu nhập theo ngày).
 
 ## Điều hướng
-- Vào từ: Sidebar > Account & HR > Timesheet (`active_menu = acc-timesheet`).
+- Vào từ: Sidebar > Finance & Admin > Attendance Log (`active_menu = acc-timesheet`).
 - Điều hướng đến: không có trang popup riêng; các thao tác Track/nhập giờ đều xử lý bằng modal/AJAX ngay trên trang. Link "User tracking not enabled." mở trang sửa User (`User::edit`) ở tab mới.

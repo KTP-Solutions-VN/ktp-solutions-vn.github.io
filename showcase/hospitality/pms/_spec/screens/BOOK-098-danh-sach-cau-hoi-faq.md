@@ -1,4 +1,4 @@
-# BOOK-098 — Danh sách câu hỏi FAQ (Wiki)
+# BOOK-098 — Bài viết tri thức (Knowledge Articles)
 
 **Loại:** Trang đầy đủ
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định)
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 
@@ -42,7 +42,7 @@ Danh sách câu hỏi thường gặp (FAQ) dùng làm cơ sở tri thức nội
 
 ## Điều hướng
 
-- Vào từ menu FAQ/Wiki.
+- Vào từ menu tri thức (Knowledge).
 - → BOOK-099 khi Thêm mới/Sửa.
 - → BOOK-100 khi Xem chi tiết.
-- Danh mục hiển thị lấy từ BOOK-097 (Danh mục FAQ).
+- Danh mục hiển thị lấy từ BOOK-097 (Chủ đề tri thức).

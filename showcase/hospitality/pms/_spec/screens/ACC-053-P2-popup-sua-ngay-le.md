@@ -1,10 +1,10 @@
-# ACC-053-P2 — Popup sửa ngày lễ
+# ACC-053-P2 — Sửa ngày lễ (Edit Holiday)
 
 **Loại:** Popup (mở từ ACC-053)
 
 **Route:** `AccountController::editPublicHoliday($id)` — mặc định `/account/edit-public-holiday/<id>` (`id` truyền dạng base64 trên URL)
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Form chỉnh sửa một ngày lễ công đã tồn tại, dữ liệu được nạp sẵn từ `PublicHoliday` theo `id`; cùng bộ field và quy tắc validate như ACC-053-P1.
@@ -13,7 +13,7 @@ Form chỉnh sửa một ngày lễ công đã tồn tại, dữ liệu được
 
 | # | Tên field | Field code | Loại dữ liệu/input | Bắt buộc | Ghi chú |
 |---|---|---|---|---|---|
-| 1 | Country | `country_id` | Select2 (Thailand/France/Greece) | Có (`required`) | Nạp sẵn giá trị hiện tại |
+| 1 | Country | `country_id` | Select2 (Singapore/France/Greece) | Có (`required`) | Nạp sẵn giá trị hiện tại |
 | — | (id ẩn) | `id` | Hidden | — | `id` bản ghi đang sửa (dùng để loại trừ chính nó khi check trùng ngày) |
 | 2 | Date | `date` | Text + datepicker (`dd MM, yyyy`), `startDate` = hôm nay | Có (`required`) | Validate remote AJAX `checkUniqueDate` (loại trừ chính bản ghi đang sửa) |
 | 3 | Description | `description` | Textarea | Có (class `required`) | |
@@ -31,5 +31,5 @@ Form chỉnh sửa một ngày lễ công đã tồn tại, dữ liệu được
 - **checkUniqueDate (AJAX nền):** POST `/account/checkUniqueDate` chạy khi đổi Country hoặc Date, có kèm `id` để không tự báo trùng với chính bản ghi đang sửa.
 
 ## Điều hướng
-- Vào từ: ACC-053 (Ngày lễ) — icon Sửa trên từng dòng.
+- Vào từ: ACC-053 (Lịch ngày lễ) — icon Sửa trên từng dòng.
 - Điều hướng đến: quay lại trang trước đó (thường là ACC-053) sau khi lưu; Cancel quay lại ACC-053.

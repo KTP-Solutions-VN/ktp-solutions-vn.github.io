@@ -4,16 +4,16 @@
   var STORAGE_KEY = 'mm_prop_onboarding';
 
   var MOCK_ONBOARDING = [
-    { id: 'OB-1001', property: 'Villa Sapphire Cliff', bu: 'Phuket Collection', status: 'completed', createdAt: '2026-05-12', createdBy: 'Somchai Anuwat', updatedAt: '2026-05-20', updatedBy: 'Priya Nair' },
-    { id: 'OB-1002', property: 'Villa Coral Horizon', bu: 'Phuket Collection', status: 'completed', createdAt: '2026-05-14', createdBy: 'Somchai Anuwat', updatedAt: '2026-05-22', updatedBy: 'Priya Nair' },
-    { id: 'OB-1003', property: 'Villa Marble Cove', bu: 'Phuket Collection', status: 'in_progress', createdAt: '2026-07-02', createdBy: 'Kanya Srisawat', updatedAt: '2026-08-19', updatedBy: 'Kanya Srisawat' },
-    { id: 'OB-1004', property: 'Villa Golden Palm', bu: 'Koh Samui Estates', status: 'pending', createdAt: '2026-08-10', createdBy: 'Nok Pattaya', updatedAt: '2026-08-10', updatedBy: 'Nok Pattaya' },
-    { id: 'OB-1005', property: 'Villa Lotus Terrace', bu: 'Koh Samui Estates', status: 'completed', createdAt: '2026-04-01', createdBy: 'Nok Pattaya', updatedAt: '2026-04-09', updatedBy: 'Priya Nair' },
-    { id: 'OB-1006', property: 'Villa Emerald Bay', bu: 'Bali Retreats', status: 'completed', createdAt: '2026-03-15', createdBy: 'Wayan Kertha', updatedAt: '2026-03-25', updatedBy: 'David Chen' },
-    { id: 'OB-1007', property: 'Villa Azure Ridge', bu: 'Bali Retreats', status: 'completed', createdAt: '2026-02-11', createdBy: 'Wayan Kertha', updatedAt: '2026-02-19', updatedBy: 'David Chen' },
-    { id: 'OB-1008', property: 'Villa Palm Residence — Unit 3', bu: 'Bali Retreats', status: 'aborted', createdAt: '2026-06-01', createdBy: 'Wayan Kertha', updatedAt: '2026-06-18', updatedBy: 'Wayan Kertha' },
-    { id: 'OB-1009', property: 'Villa Silver Tide', bu: 'Bali Retreats', status: 'completed', createdAt: '2026-01-08', createdBy: 'Wayan Kertha', updatedAt: '2026-01-16', updatedBy: 'David Chen' },
-    { id: 'OB-1010', property: 'Villa Turquoise Reef', bu: 'Phuket Collection', status: 'pending', createdAt: '2026-08-22', createdBy: 'Somchai Anuwat', updatedAt: '2026-08-22', updatedBy: 'Somchai Anuwat' }
+    { id: 'OB-1001', property: 'Villa Sapphire Cliff', bu: 'Sentosa Collection', status: 'completed', createdAt: '2026-05-12', createdBy: 'Daniel Tan', updatedAt: '2026-05-20', updatedBy: 'Priya Nair' },
+    { id: 'OB-1002', property: 'Villa Coral Horizon', bu: 'Sentosa Collection', status: 'completed', createdAt: '2026-05-14', createdBy: 'Daniel Tan', updatedAt: '2026-05-22', updatedBy: 'Priya Nair' },
+    { id: 'OB-1003', property: 'Villa Marble Cove', bu: 'Sentosa Collection', status: 'in_progress', createdAt: '2026-07-02', createdBy: 'Karen Seah', updatedAt: '2026-08-19', updatedBy: 'Karen Seah' },
+    { id: 'OB-1004', property: 'Villa Golden Palm', bu: 'Noosa Estates', status: 'pending', createdAt: '2026-08-10', createdBy: 'Nicole Parker', updatedAt: '2026-08-10', updatedBy: 'Nicole Parker' },
+    { id: 'OB-1005', property: 'Villa Lotus Terrace', bu: 'Noosa Estates', status: 'completed', createdAt: '2026-04-01', createdBy: 'Nicole Parker', updatedAt: '2026-04-09', updatedBy: 'Priya Nair' },
+    { id: 'OB-1006', property: 'Villa Emerald Bay', bu: 'Byron Bay Retreats', status: 'completed', createdAt: '2026-03-15', createdBy: 'Warren Kelly', updatedAt: '2026-03-25', updatedBy: 'David Chen' },
+    { id: 'OB-1007', property: 'Villa Azure Ridge', bu: 'Byron Bay Retreats', status: 'completed', createdAt: '2026-02-11', createdBy: 'Warren Kelly', updatedAt: '2026-02-19', updatedBy: 'David Chen' },
+    { id: 'OB-1008', property: 'Villa Palm Residence — Unit 3', bu: 'Byron Bay Retreats', status: 'aborted', createdAt: '2026-06-01', createdBy: 'Warren Kelly', updatedAt: '2026-06-18', updatedBy: 'Warren Kelly' },
+    { id: 'OB-1009', property: 'Villa Silver Tide', bu: 'Byron Bay Retreats', status: 'completed', createdAt: '2026-01-08', createdBy: 'Warren Kelly', updatedAt: '2026-01-16', updatedBy: 'David Chen' },
+    { id: 'OB-1010', property: 'Villa Turquoise Reef', bu: 'Sentosa Collection', status: 'pending', createdAt: '2026-08-22', createdBy: 'Daniel Tan', updatedAt: '2026-08-22', updatedBy: 'Daniel Tan' }
   ];
 
   function loadAll() {
@@ -122,8 +122,8 @@
       try { extra = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch (err) { extra = []; }
       var today = new Date().toISOString().slice(0, 10);
       extra.unshift({
-        id: MM.uid('OB'), property: name + (isResidence ? ' (Residence)' : ''), bu: 'Phuket Collection',
-        status: 'pending', createdAt: today, createdBy: 'Somchai Anuwat', updatedAt: today, updatedBy: 'Somchai Anuwat'
+        id: MM.uid('OB'), property: name + (isResidence ? ' (Residence)' : ''), bu: 'Sentosa Collection',
+        status: 'pending', createdAt: today, createdBy: 'Daniel Tan', updatedAt: today, updatedBy: 'Daniel Tan'
       });
       localStorage.setItem(STORAGE_KEY, JSON.stringify(extra));
       MM.showToast('Onboarding request submitted for validation');

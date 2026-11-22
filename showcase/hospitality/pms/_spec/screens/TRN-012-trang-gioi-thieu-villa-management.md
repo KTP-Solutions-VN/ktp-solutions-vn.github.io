@@ -1,8 +1,8 @@
-# TRN-012 — Trang giới thiệu Villa Management (demo)
+# TRN-012 — Demo bài học giới thiệu (Intro Lesson Demo)
 
 **Loại:** Trang đầy đủ
 **Route:** `TrainingController::page()` — `/training/page`
-**Module:** TRN = Đào tạo
+**Module:** TRN = Học viện nhân viên
 
 ## Mô tả ngắn gọn
 Trang tĩnh dạng banner giới thiệu chung "Villa Management" kèm nút điều hướng trái/phải và nút Stop; nội dung là văn bản mẫu (lorem ipsum), không gắn với dữ liệu nghiệp vụ Tutorial thực tế. Có dấu hiệu là màn hình demo/mẫu còn sót lại, không thấy được liên kết tới từ các màn hình khác trong module.

@@ -1,10 +1,10 @@
-# OWP-007-P2 — Gardening Task Detail Popup
+# OWP-007-P2 — Garden Visit Detail
 
 **Type:** Popup (opened from OWP-007)
 
 **Route:** `ExternalUserController::gardenView($id)` — no dedicated friendly route, opened from OWP-007 (the "Garden" tab) in a new tab (default `/external-user/garden-view/{id}`)
 
-**Module:** Owner Portal
+**Module:** Owner Hub
 
 ## Overview
 

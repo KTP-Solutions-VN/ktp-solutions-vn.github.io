@@ -1,10 +1,10 @@
-# LOG-002 — Đặt lại mật khẩu (Reset Password)
+# LOG-002 — Đặt mật khẩu mới (Set New Password)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `LoginController::resetPassword($token)` — mặc định `login/resetPassword/:token`; route đẹp: `/reset-password/:token`
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Trang cho phép người dùng đặt mật khẩu mới sau khi bấm vào liên kết trong email quên mật khẩu (LOG-001-P1). Token có hiệu lực 1 ngày kể từ lúc yêu cầu; nếu token hết hạn hoặc không hợp lệ, form không hiển thị mà chỉ báo lỗi.

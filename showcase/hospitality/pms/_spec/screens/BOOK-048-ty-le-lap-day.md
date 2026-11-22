@@ -1,8 +1,8 @@
-# BOOK-048 — Tỷ lệ lấp đầy villa (Occupancy)
+# BOOK-048 — Công suất theo tài sản (Occupancy by Property)
 
 **Loại:** Trang đầy đủ (có thể nhúng/chia sẻ cho đối tác — public widget theo `referer`/`bu`)
 **Route:** Booking/occupancy/:string? (mặc định: `/booking/occupancy`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Trang thống kê tỷ lệ lấp đầy (occupancy) của villa theo tháng, lọc theo đơn vị kinh doanh hoặc quận (district), loại villa, hạng villa, hiển thị dạng bảng theo tháng kèm giá.
@@ -27,5 +27,5 @@ Bảng tỷ lệ lấp đầy theo tháng (`monthly_text`, `occupancy_text`) cho
 - Nút **Download** — tải báo cáo tỷ lệ lấp đầy
 
 ## Điều hướng
-- Mở từ: Menu module Đặt phòng > Occupancy, hoặc link chia sẻ trực tiếp cho đối tác
+- Mở từ: Menu module Đặt chỗ > Occupancy by Property, hoặc link chia sẻ trực tiếp cho đối tác
 - Điều hướng tới: luồng đặt phòng khi bấm Book

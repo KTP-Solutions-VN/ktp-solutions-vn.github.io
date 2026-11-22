@@ -1,10 +1,10 @@
-# OWN-014 — Thêm mới nhân viên Agency
+# OWN-014 — Thêm người dùng đại lý (New Agency User)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `/Owner/addAgencyStaff` (controller `Owner`, action `addAgencyStaff()`)
 
-**Module:** Quản lý chủ sở hữu (Admin)
+**Module:** Quan hệ chủ nhà (Admin)
 
 ## Mô tả ngắn gọn
 
@@ -32,7 +32,7 @@ Form tạo mới một tài khoản nhân viên (staff) thuộc một Agency, ba
 
 ## Chức năng/nút thao tác
 
-- **Save**: lưu bản ghi `AgencyStaff`, `UserBusinessUnit`, `UserRole`; ghi log hoạt động; sau đó chuyển hướng tới OWN-013 (Danh sách nhân viên Agency).
+- **Save**: lưu bản ghi `AgencyStaff`, `UserBusinessUnit`, `UserRole`; ghi log hoạt động; sau đó chuyển hướng tới OWN-013 (Người dùng của đại lý).
 - **Cancel**: quay lại OWN-013.
 
 ## Điều hướng

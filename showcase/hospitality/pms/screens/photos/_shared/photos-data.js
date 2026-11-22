@@ -106,25 +106,25 @@
 
   PHO.RESIDENCES = [
     {
-      id: 'RES-01', name: 'Bang Tao Residence', district: 'Bang Tao', bu: 'Phuket Collection',
+      id: 'RES-01', name: 'Ocean Drive Residence', district: 'Ocean Drive', bu: 'Sentosa Collection',
       sets: { ota: { count: 28, sizeMB: 24 }, highres: { count: 28, sizeMB: 120 } }
     },
     {
-      id: 'RES-02', name: 'Ubud Hillside Residence', district: 'Ubud', bu: 'Bali Retreats',
+      id: 'RES-02', name: 'Bangalow Hillside Residence', district: 'Bangalow', bu: 'Byron Bay Retreats',
       sets: { ota: { count: 10, sizeMB: 9 } }
     },
     {
-      id: 'RES-03', name: 'Bophut Bay Residence', district: 'Bophut', bu: 'Koh Samui Estates',
+      id: 'RES-03', name: 'Noosaville Bay Residence', district: 'Noosaville', bu: 'Noosa Estates',
       sets: {}
     }
   ];
 
   PHO.SHOOTS = [
-    { id: 'SHT-01', villaId: 'PV-105', photographer: 'Phuket Frame Photography', date: '2026-09-10', objective: 'OTA refresh', status: 'scheduled', comment: 'Villa Marble Cove exterior looks dated on Booking.com.' },
-    { id: 'SHT-02', villaId: 'PV-107', photographer: 'Phuket Frame Photography', date: '2026-09-14', objective: 'Full new set', status: 'scheduled', comment: 'No photos exist yet — priority shoot before OTA launch.' },
-    { id: 'SHT-03', villaId: 'PV-103', photographer: 'Andaman Pool Services', date: '2026-08-20', objective: 'Pool + drone extras', status: 'delivered', comment: 'Delivered but flagged for follow-up — 4 images below resolution.' },
-    { id: 'SHT-04', villaId: 'PV-101', photographer: 'Phuket Frame Photography', date: '2026-07-12', objective: 'Owner set', status: 'delivered', comment: '' },
-    { id: 'SHT-05', villaId: 'PV-108', photographer: 'Phuket Frame Photography', date: '2026-08-05', objective: 'OTA refresh', status: 'delivered', comment: '' }
+    { id: 'SHT-01', villaId: 'PV-105', photographer: 'Sentosa Frame Photography', date: '2026-09-10', objective: 'OTA refresh', status: 'scheduled', comment: 'Villa Marble Cove exterior looks dated on Booking.com.' },
+    { id: 'SHT-02', villaId: 'PV-107', photographer: 'Sentosa Frame Photography', date: '2026-09-14', objective: 'Full new set', status: 'scheduled', comment: 'No photos exist yet — priority shoot before OTA launch.' },
+    { id: 'SHT-03', villaId: 'PV-103', photographer: 'Coral Pool Services', date: '2026-08-20', objective: 'Pool + drone extras', status: 'delivered', comment: 'Delivered but flagged for follow-up — 4 images below resolution.' },
+    { id: 'SHT-04', villaId: 'PV-101', photographer: 'Sentosa Frame Photography', date: '2026-07-12', objective: 'Owner set', status: 'delivered', comment: '' },
+    { id: 'SHT-05', villaId: 'PV-108', photographer: 'Sentosa Frame Photography', date: '2026-08-05', objective: 'OTA refresh', status: 'delivered', comment: '' }
   ];
 
   PHO.FOLLOWUPS = [

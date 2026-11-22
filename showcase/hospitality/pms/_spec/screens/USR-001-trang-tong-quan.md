@@ -1,10 +1,10 @@
-# USR-001 — Trang tổng quan (Dashboard)
+# USR-001 — Tổng quan (Overview)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `UserController::dashboard()` — mặc định `user/dashboard`; route đẹp: `/user/dashboard`
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Trang chủ hiển thị ngay sau khi nhân viên đăng nhập thành công (là `loginRedirect` mặc định của hệ thống cho các tài khoản nhân viên/Employee). Hiện tại nội dung khá tối giản: chỉ hiển thị logo hệ thống (ẩn với vai trò Employee) và breadcrumb "Home". Đây là điểm trung chuyển để người dùng vào các module khác qua menu chính.

@@ -1,9 +1,9 @@
-# BOOK-051 — Paid Payments
+# BOOK-051 — Settled Payouts
 
 **Type:** Full page (opened from BOOK-052)
 **Route:** Booking/paid (default: `/booking/paid`)
 **Friendly route:** `/booking/partner-payments/paid`
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 List of partner payments (villa owners under a partnership model) that have been confirmed as paid (`PartnerBooking.status = paid`), including the payment date, the person who confirmed payment, and the payment method.
@@ -32,4 +32,4 @@ List of partner payments (villa owners under a partnership model) that have been
 - Filter by business unit
 
 ## Navigation
-- Opened from: BOOK-052 (Partner Payments) > "Paid" button, or from BOOK-049 after confirming payment
+- Opened from: BOOK-052 (Partner Payouts) > "Paid" button, or from BOOK-049 after confirming payment

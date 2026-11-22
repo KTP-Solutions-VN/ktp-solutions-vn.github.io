@@ -1,10 +1,10 @@
-# USR-012 — Agent List
+# USR-012 — Sales Agents
 
 **Type:** Full page
 
 **Route:** `UserController::agents()` — default `user/agents`
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 A list of sales agents (Agent) — a special `User` account type with `employment = Agent`, used to refer/sell villas and receive commission. The page lists agents together with their company and most recent contact date, and allows adding/editing/deleting.
@@ -23,10 +23,10 @@ A list of sales agents (Agent) — a special `User` account type with `employmen
 No dedicated filter/search; sorted by `first_name` ascending.
 
 ## Functions / Actions
-- **Add New:** opens USR-013 (Add Agent).
-- **Edit:** opens USR-014 (Edit Agent).
+- **Add New:** opens USR-013 (New Sales Agent).
+- **Edit:** opens USR-014 (Edit Sales Agent).
 - **Delete:** calls `user/deleteAgents/:id` (deletes both the `User` record and the linked `Agent` record), with a confirmation prompt before deletion.
 
 ## Navigation
-- Entry point: Users menu → Agents.
+- Entry point: Workforce menu → Sales Agents.
 - Navigates to: USR-013 (Add), USR-014 (Edit).

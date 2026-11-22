@@ -1,8 +1,8 @@
-# OPR-005 — Cập nhật hoàn thành công việc hồ bơi
+# OPR-005 — Hoàn tất lượt hồ bơi (Close Pool Round)
 
 **Loại:** Trang đầy đủ
 **Route:** operator/poolJob/:id + route đẹp dạng dashed: operator/pool-job/:id
-**Module:** OPR = Vận hành vườn/hồ bơi
+**Module:** OPR = Công việc bảo dưỡng
 
 ## Mô tả ngắn gọn
 Màn hình dành cho nhân viên hồ bơi khi đang thực hiện một công việc: chụp/tải ảnh minh chứng hoàn thành rồi submit để ghi nhận vị trí GPS, thời gian kết thúc và chuyển trạng thái `PoolCleaning.status = Cleaned`. Chức năng tương tự OPR-001 (garden job) nhưng áp dụng cho hồ bơi.
@@ -22,4 +22,4 @@ Màn hình dành cho nhân viên hồ bơi khi đang thực hiện một công v
 
 ## Điều hướng
 - Vào từ: luồng bắt đầu công việc hồ bơi (mobile/villa-services) khi nhân viên nhận job.
-- Đi tới: sau khi submit thành công, chuyển về OPR-003 — Danh sách công việc hồ bơi.
+- Đi tới: sau khi submit thành công, chuyển về OPR-003 — Lượt chăm hồ bơi.

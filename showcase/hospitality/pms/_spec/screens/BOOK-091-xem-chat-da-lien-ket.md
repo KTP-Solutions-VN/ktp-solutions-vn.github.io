@@ -1,4 +1,4 @@
-# BOOK-091 — Xem chat đã liên kết
+# BOOK-091 — Hội thoại đã gộp (Merged Conversation)
 
 **Loại:** Trang đầy đủ / xem (mở từ BOOK-089)
 
@@ -6,7 +6,7 @@
 
 **Route đẹp:** không tìm thấy route riêng trong config/Routes.php (dùng route mặc định)
 
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 

@@ -1,8 +1,8 @@
-# MNT-001 — Danh sách nhật ký bảo trì
+# MNT-001 — Yêu cầu sửa chữa (Repair Requests)
 
 **Loại:** Trang đầy đủ
 **Route:** maintenance/list
-**Module:** MNT = Bảo trì
+**Module:** MNT = Điều phối sửa chữa
 
 ## Mô tả ngắn gọn
 Màn hình danh sách các nhật ký bảo trì (Maintenance log) đang mở/chờ xử lý (status Open/Pending), xem theo 4 tab: Property (theo villa), Priority (theo mức ưu tiên), Due Date (theo hạn xử lý), Areas (theo khu vực). Có form tìm kiếm nâng cao (submit POST, tab "search") lọc theo nhiều tiêu chí.
@@ -33,9 +33,9 @@ Màn hình danh sách các nhật ký bảo trì (Maintenance log) đang mở/ch
 ## Chức năng/nút thao tác
 - **4 Tab**: chuyển view client-side (dữ liệu `data_v`, `data_p`, `data_d`, `data_a` đã render sẵn theo 4 cách sắp xếp khác nhau: theo villa, theo mức ưu tiên, theo hạn, theo khu vực).
 - **Tìm kiếm**: submit form POST, kết quả nhóm lại theo villa (`search_data`), hiển thị ở tab "search".
-- **Thêm mới** (nút "+"): mở MNT-002 — Thêm nhật ký bảo trì.
+- **Thêm mới** (nút "+"): mở MNT-002 — Tạo yêu cầu sửa chữa.
 - **Click vào một dòng/thẻ**: tùy trạng thái — mở MNT-003 (Nhận/Từ chối, nếu status Pending) hoặc MNT-004 (Cập nhật xử lý, nếu status Open/đã nhận).
 
 ## Điều hướng
-- Vào từ: menu "Maintenance" trong sidebar.
+- Vào từ: menu "Repair Requests" trong sidebar.
 - Đi tới: MNT-002 (Thêm mới), MNT-003 (Nhận việc), MNT-004 (Xử lý), MNT-005 (Xem chi tiết).

@@ -1,10 +1,10 @@
-# BU-022-P1 — Popup Thêm/Sửa nền tảng đặt phòng
+# BU-022-P1 — Form nền tảng đặt chỗ (Booking Platform Form)
 
 **Loại:** Popup (mở từ BU-022, tab Nền tảng đặt phòng)
 
 **Route:** Modal Bootstrap (`#platformModal`) tĩnh trong `channels.ctp`; submit POST tới `BusinessUnitController::channels('platforms')`.
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Popup dùng chung cho Thêm mới và Sửa một nền tảng đặt phòng (Booking Platform), gồm tên, ảnh minh họa và logo.

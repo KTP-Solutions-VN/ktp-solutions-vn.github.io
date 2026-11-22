@@ -4,11 +4,11 @@
   var LS_KEY = 'mm_bu_channels';
 
   var MOCK_CHANNELS = [
-    { id: 'ch1', name: 'Airbnb Direct', ownership: 'Azura Stays', manager: 'Somchai Anuwat', business_units: ['Phuket Collection', 'Koh Samui Estates'], paid_to: 'Azura Stays Operating Account', paid_out_type: 'Check In', paid_out: 1, received: 0, created_at: '2021-04-01' },
-    { id: 'ch2', name: 'Booking.com Partner', ownership: 'Partner', manager: '', business_units: ['Phuket Collection', 'Bali Retreats'], paid_to: 'USD Collections', paid_out_type: 'Check Out', paid_out: 3, received: 0, created_at: '2021-05-15' },
-    { id: 'ch3', name: 'Azura Stays Website', ownership: 'Azura Stays', manager: 'Wayan Kertha', business_units: ['Phuket Collection', 'Koh Samui Estates', 'Bali Retreats', 'Lombok Escapes'], paid_to: 'Azura Stays Operating Account', paid_out_type: 'Check In', paid_out: 0, received: 0, created_at: '2021-09-08' },
-    { id: 'ch4', name: 'Agoda Thailand', ownership: 'Partner', manager: '', business_units: ['Phuket Collection'], paid_to: '', paid_out_type: '', paid_out: null, received: null, created_at: '2022-02-11' },
-    { id: 'ch5', name: 'Expedia Bali', ownership: 'Partner', manager: 'Wayan Kertha', business_units: ['Bali Retreats', 'Lombok Escapes'], paid_to: 'Bali Retreats Main Account', paid_out_type: 'Check Out', paid_out: 5, received: 0, created_at: '2022-11-30' }
+    { id: 'ch1', name: 'Airbnb Direct', ownership: 'Azura Stays', manager: 'Daniel Tan', business_units: ['Sentosa Collection', 'Noosa Estates'], paid_to: 'Azura Stays Operating Account', paid_out_type: 'Check In', paid_out: 1, received: 0, created_at: '2021-04-01' },
+    { id: 'ch2', name: 'Booking.com Partner', ownership: 'Partner', manager: '', business_units: ['Sentosa Collection', 'Byron Bay Retreats'], paid_to: 'USD Collections', paid_out_type: 'Check Out', paid_out: 3, received: 0, created_at: '2021-05-15' },
+    { id: 'ch3', name: 'Azura Stays Website', ownership: 'Azura Stays', manager: 'Warren Kelly', business_units: ['Sentosa Collection', 'Noosa Estates', 'Byron Bay Retreats', 'Gold Coast Escapes'], paid_to: 'Azura Stays Operating Account', paid_out_type: 'Check In', paid_out: 0, received: 0, created_at: '2021-09-08' },
+    { id: 'ch4', name: 'Agoda Singapore', ownership: 'Partner', manager: '', business_units: ['Sentosa Collection'], paid_to: '', paid_out_type: '', paid_out: null, received: null, created_at: '2022-02-11' },
+    { id: 'ch5', name: 'Expedia Australia', ownership: 'Partner', manager: 'Warren Kelly', business_units: ['Byron Bay Retreats', 'Gold Coast Escapes'], paid_to: 'Byron Bay Retreats Main Account', paid_out_type: 'Check Out', paid_out: 5, received: 0, created_at: '2022-11-30' }
   ];
 
   function load() {

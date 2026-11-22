@@ -1,7 +1,7 @@
-# PROP-001 — Add Property Onboarding Confirmation Request
+# PROP-001 — New Intake Request
 **Type:** Full page
 **Route:** property/add-onboarding (optional parameter `$id` – ID of an existing Villa Onboarding record)
-**Module:** PROP = Properties
+**Module:** PROP = Property Records
 
 ## Overview
 Screen for initiating an Onboarding record for a new property (either standalone or a multi-unit Residence). The user selects a validator, then enters each core information field (Property Name, Short Name, Beds24 Name, Owner on VM, Location on VM, etc.) — each field is saved immediately via AJAX on blur. Finally, the user submits the validation request to the selected validator (creating a NoticeBoard notification).
@@ -31,6 +31,6 @@ Screen for initiating an Onboarding record for a new property (either standalone
 - "Cancel" button: returns to the Onboarding list (`onBoardings`).
 
 ## Navigation
-- Opened from: Property management menu, Onboarding section (`onBoardings` list, "Add" button).
+- Opened from: Property Records menu, Intake section (`onBoardings` list, "Add" button).
 - Navigates to: after submitting the request, redirects to `property/onBoardings` (outside the scope of PROP-001..016).
 - Child popup: none.

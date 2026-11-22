@@ -1,8 +1,8 @@
-# TRN-002-P1 — Confirm Delete Tutorial Popup
+# TRN-002-P1 — Confirm Lesson Deletion
 
 **Type:** Popup (opened from TRN-002)
 **Route:** Bootstrap modal within `create_tutorial.ctp`; the delete action calls `TrainingController::deleteTutorial($id)` — `/training/delete-tutorial/{id_base64}`
-**Module:** TRN = Training
+**Module:** TRN = Staff Academy
 
 ## Overview
 Confirmation dialog shown before permanently deleting a Tutorial (together with all of its related Slides and Quiz questions).

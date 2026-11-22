@@ -3,14 +3,14 @@
   var STORAGE_KEY = 'mm_set_hostex_accounts';
 
   var CHANNELS = [
-    { id: 'ch1', name: 'Booking.com', otaAccounts: ['BDC-Main', 'BDC-Bali'] },
+    { id: 'ch1', name: 'Booking.com', otaAccounts: ['BDC-Main', 'BDC-Byron'] },
     { id: 'ch2', name: 'Airbnb', otaAccounts: ['ABB-Main'] },
-    { id: 'ch3', name: 'Agoda', otaAccounts: ['AGD-Main', 'AGD-Samui'] }
+    { id: 'ch3', name: 'Agoda', otaAccounts: ['AGD-Main', 'AGD-Noosa'] }
   ];
 
   var BASE_ACCOUNTS = [
     { id: 'hx1', channel: 'ch1', email: 'reservations@azurastays.example', otaAccount: 'BDC-Main', owner: 'azurastays', props: 5 },
-    { id: 'hx2', channel: 'ch1', email: 'bali-ops@azurastays.example', otaAccount: 'BDC-Bali', owner: 'agency', agencyName: 'Aegean Retreats', props: 2 },
+    { id: 'hx2', channel: 'ch1', email: 'byronbay-ops@azurastays.example', otaAccount: 'BDC-Byron', owner: 'agency', agencyName: 'Aegean Retreats', props: 2 },
     { id: 'hx3', channel: 'ch2', email: 'reservations@azurastays.example', otaAccount: 'ABB-Main', owner: 'azurastays', props: 6 },
     { id: 'hx4', channel: 'ch3', email: 'reservations@azurastays.example', otaAccount: 'AGD-Main', owner: 'azurastays', props: 0 }
   ];
@@ -57,7 +57,7 @@
               '<div class="form-group"><label>Account Email or Name<span class="req">*</span></label><input type="text" id="inline-email-' + ch.id + '" placeholder="e.g. team@azurastays.example"></div>' +
               '<div class="form-group"><label>OTA Account</label><select id="inline-ota-' + ch.id + '">' + ch.otaAccounts.map(function (o) { return '<option>' + o + '</option>'; }).join('') + '</select></div>' +
               '<div class="form-group"><label>Owner</label><select id="inline-owner-' + ch.id + '"><option value="azurastays">Azura Stays</option><option value="agency">Agency</option></select></div>' +
-              '<div class="form-group"><label>Agency</label><select id="inline-agency-' + ch.id + '" disabled><option>Andaman Villas Group</option><option>Aegean Retreats</option></select></div>' +
+              '<div class="form-group"><label>Agency</label><select id="inline-agency-' + ch.id + '" disabled><option>Coral Coast Villas Group</option><option>Aegean Retreats</option></select></div>' +
             '</div>' +
             '<div class="flex-gap-8" style="margin-top:12px;"><button class="btn btn-primary btn-sm" data-save-inline="' + ch.id + '">Save Account</button><button class="btn btn-ghost btn-sm" data-cancel-inline="' + ch.id + '">Cancel</button></div>' +
           '</div>' +

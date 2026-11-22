@@ -1,11 +1,11 @@
-# GST-003 — My Booking Details
+# GST-003 — Trip Details
 
 **Type:** Full page
 **Route:** `Guest::yourBooking($booking_id = null)` — default `/guest/your-booking/:booking_id`; pretty route: `/guest/your-booking` (explicitly declared in `Routes.php`, `booking_id` is not passed in the pretty URL — when omitted, the system uses the guest's default booking `user['guest_booking_id']`)
-**Module:** Guest Portal
+**Module:** Guest Hub
 
 ## Overview
-Detail page for a specific booking: displays the villa address, check-in/check-out dates, and allows the guest to confirm or adjust the estimated arrival/departure time (pre-arrival). Once both times have been confirmed, the guest unlocks the button leading to GST-004 (Amenities Access Portal). This is also the default landing page after login (`Auth.loginRedirect`) and the destination of `home_redirect` when the most recent booking has not yet completed time confirmation.
+Detail page for a specific booking: displays the villa address, check-in/check-out dates, and allows the guest to confirm or adjust the estimated arrival/departure time (pre-arrival). Once both times have been confirmed, the guest unlocks the button leading to GST-004 (Quick Links). This is also the default landing page after login (`Auth.loginRedirect`) and the destination of `home_redirect` when the most recent booking has not yet completed time confirmation.
 
 ## Detailed Description
 
@@ -37,6 +37,6 @@ Detail page for a specific booking: displays the villa address, check-in/check-o
 - **Logout** icon → logs out, returns to GST-001.
 
 ## Navigation
-- → GST-004 (Amenities Access Portal) once both arrival and departure times are confirmed
-- → GST-002 (Booking List) via the Home icon (depending on status)
+- → GST-004 (Quick Links) once both arrival and departure times are confirmed
+- → GST-002 (My Reservations) via the Home icon (depending on status)
 - → GST-001 (logout)

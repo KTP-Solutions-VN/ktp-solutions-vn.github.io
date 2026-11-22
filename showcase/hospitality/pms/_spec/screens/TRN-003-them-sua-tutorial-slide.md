@@ -1,8 +1,8 @@
-# TRN-003 — Thêm mới Tutorial và Slide
+# TRN-003 — Tạo bài học (New Lesson)
 
 **Loại:** Trang đầy đủ
 **Route:** `TrainingController::addTutorial($tutorial_id = null, $slide_id = null)` — `/training/add-tutorial/{tutorial_id}/{slide_id}`
-**Module:** TRN = Đào tạo
+**Module:** TRN = Học viện nhân viên
 
 ## Mô tả ngắn gọn
 Màn hình dạng wizard 2 bước: (1) tạo/khai báo thông tin chung của Tutorial; sau khi lưu, (2) form thêm từng Slide nội dung (ảnh/video + text + quiz tùy chọn) nối tiếp nhau cho tới khi bấm Finish.

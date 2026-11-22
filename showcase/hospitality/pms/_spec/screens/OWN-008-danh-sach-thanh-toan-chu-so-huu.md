@@ -1,10 +1,10 @@
-# OWN-008 — Danh sách chi tiết thanh toán của chủ sở hữu
+# OWN-008 — Tài khoản nhận tiền của chủ nhà (Owner Payout Accounts)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `/Owner/payment/{owner_id}` (controller `Owner`, action `payment($owner_id)`)
 
-**Module:** Quản lý chủ sở hữu (Admin)
+**Module:** Quan hệ chủ nhà (Admin)
 
 ## Mô tả ngắn gọn
 
@@ -27,13 +27,13 @@ Màn hình liệt kê các tài khoản/chi tiết thanh toán (ngân hàng) đ�
 
 ## Chức năng/nút thao tác
 
-- **+ Payment Details**: mở OWN-008-P1 (Thêm chi tiết thanh toán).
-- **Sửa** (icon bút, từng dòng): mở OWN-008-P2 (Chỉnh sửa chi tiết thanh toán).
+- **+ Payment Details**: mở OWN-008-P1 (Thêm tài khoản nhận tiền).
+- **Sửa** (icon bút, từng dòng): mở OWN-008-P2 (Sửa tài khoản nhận tiền).
 - **Xoá** (icon thùng rác, từng dòng): xoá chi tiết thanh toán (action `deletePaymentDetail`, không có giao diện riêng).
 
 ## Điều hướng
 
 - Đi tới:
-  - OWN-008-P1 — Thêm chi tiết thanh toán chủ sở hữu
-  - OWN-008-P2 — Chỉnh sửa chi tiết thanh toán chủ sở hữu
+  - OWN-008-P1 — Thêm tài khoản nhận tiền
+  - OWN-008-P2 — Sửa tài khoản nhận tiền
 - Ghi chú: hiện chưa xác định được điểm vào (entry point) trực tiếp từ giao diện Admin OwnerController; cần rà soát thêm với đội phát triển để xác nhận đây là luồng còn dùng hay đã được thay thế bởi tab "Payment Details" của OWN-003.

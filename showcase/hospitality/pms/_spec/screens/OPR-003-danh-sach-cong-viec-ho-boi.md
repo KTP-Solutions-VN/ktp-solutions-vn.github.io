@@ -1,11 +1,11 @@
-# OPR-003 — Danh sách công việc hồ bơi
+# OPR-003 — Lượt chăm hồ bơi (Pool Rounds)
 
 **Loại:** Trang đầy đủ
 **Route:** operator/pools/:tab? + route đẹp dạng dashed: operator/pools
-**Module:** OPR = Vận hành vườn/hồ bơi
+**Module:** OPR = Công việc bảo dưỡng
 
 ## Mô tả ngắn gọn
-Màn hình danh sách các công việc vệ sinh/bảo dưỡng hồ bơi (pool cleaning) đã thực hiện, xem theo 2 tab: "By Date" (theo ngày) và "By Property" (theo villa), có bộ lọc business unit + ngày/villa. Cấu trúc và hành vi tương tự OPR-002 (Danh sách công việc vườn) nhưng áp dụng cho hồ bơi.
+Màn hình danh sách các công việc vệ sinh/bảo dưỡng hồ bơi (pool cleaning) đã thực hiện, xem theo 2 tab: "By Date" (theo ngày) và "By Property" (theo villa), có bộ lọc business unit + ngày/villa. Cấu trúc và hành vi tương tự OPR-002 (Lượt chăm vườn) nhưng áp dụng cho hồ bơi.
 
 ## Mô tả chi tiết
 
@@ -30,11 +30,11 @@ Màn hình danh sách các công việc vệ sinh/bảo dưỡng hồ bơi (pool
 
 ## Chức năng/nút thao tác
 - **Tab By Date / By Property**: chuyển view (dữ liệu render sẵn ở cả 2 bảng qua element `operator/pool/by_date` và `operator/pool/by_property`).
-- **Xem chi tiết (icon mắt)**: mở OPR-004 — Xem chi tiết công việc hồ bơi (`poolView`).
+- **Xem chi tiết (icon mắt)**: mở OPR-004 — Hồ sơ lượt hồ bơi (`poolView`).
 - **Tải PDF (icon download)**: tải file báo cáo nếu đã có.
 - **Xóa (icon thùng rác)**: submit ẩn `is_delete=yes` qua form `action_form`, xóa `PoolCleaning` liên quan (có modal xác nhận `exampleModal`).
 - **GPS badge**: mở modal `gps_modal` hiển thị bảng Thời gian / Khoảng cách tới villa.
 
 ## Điều hướng
-- Vào từ: menu "Pool" (vận hành hồ bơi) trong sidebar.
-- Đi tới: OPR-004 — Xem chi tiết công việc hồ bơi.
+- Vào từ: menu "Pool Rounds" (công việc bảo dưỡng) trong sidebar.
+- Đi tới: OPR-004 — Hồ sơ lượt hồ bơi.

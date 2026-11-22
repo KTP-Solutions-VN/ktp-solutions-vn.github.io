@@ -1,10 +1,10 @@
-# VSV-018 — Garden Teams
+# VSV-018 — Garden Crews
 
 **Type:** Full page
 
 **Route:** `VillaServicesController::gardenTeams()` — defaults to `/villa-services/garden-teams`; saved via AJAX `saveGardenTeams`
 
-**Module:** Villa Services — Garden
+**Module:** In-Stay Services — Garden Care
 
 ## Overview
 A screen for setting up shifts and members for garden teams by date and Business Unit: each team has a start/end time, break duration, and a list of assigned staff.
@@ -39,5 +39,5 @@ A screen for setting up shifts and members for garden teams by date and Business
 - Changing Date/Business Unit → reloads the team data for the corresponding date/BU.
 
 ## Navigation
-- Entered from: Main menu (Garden/Teams item), or related to the "Team" tab in VSV-017.
+- Entered from: Main menu (Garden Crews item), or related to the "Team" tab in VSV-017.
 - Navigates to: no child page (actions performed via in-place modals).

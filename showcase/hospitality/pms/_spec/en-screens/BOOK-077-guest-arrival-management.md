@@ -1,9 +1,9 @@
-# BOOK-077 — Guest Arrival Management
+# BOOK-077 — Arrivals Board
 
 **Type:** Full page
 **Route:** Booking/guestArrival
 **Pretty route:** `/booking/guest-arrival`
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Central hub for tracking arriving guests (replacing the old "Pre Arrival Information" screen), displaying the booking list across 5 tabs (Arrivals by Date, New Online Check-in, Alerts, Missing Check-out, Archive) with filters by business unit, date, online check-in status, and search. Table data is loaded via AJAX (not traditional server rendering).
@@ -50,7 +50,7 @@ Central hub for tracking arriving guests (replacing the old "Pre Arrival Informa
 - Download guest passports (`downloadGuestArrivalPassports`), contract (`downloadGuestArrivalContract`), concierge page (`downloadGuestArrivalConciergePage`) — file download links, not separate screens
 
 ## Navigation
-- Opened from: Booking module menu > Guest Arrival
+- Opened from: Reservations module menu > Arrivals Board
 - Navigates to: no separate sub-pages; all detailed actions are handled via modals/drawers within the same page
 
 **Additional note:** The `guestArrivalList`, `guestArrivalCounts`, `guestArrivalOccupancy`, `decideGuestArrivalTime`, `reviewGuestArrivalCheckin`, `confirmGuestArrivalGuestCount`, and `dismissGuestArrivalAlert` actions all return plain JSON (no dedicated .ctp view) and are merely supporting APIs for the `guest_arrival.ctp` screen — they are not documented as separate files, per the documentation scope.

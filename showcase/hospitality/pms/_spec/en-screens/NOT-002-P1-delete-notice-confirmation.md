@@ -1,10 +1,10 @@
-# NOT-002-P1 — Delete Notice Confirmation
+# NOT-002-P1 — Confirm Announcement Deletion
 
 **Type:** Popup (opened from NOT-002)
 
 **Route:** Static modal within `notice_list.ctp`; the delete action calls `NoticeController::delete($id)` via `GET /notice/delete/:id` (base64 id) when the confirm button in the modal is clicked.
 
-**Module:** Notices
+**Module:** Announcements
 
 ## Overview
 Confirmation dialog shown before deleting a notice/task from the system.
@@ -17,5 +17,5 @@ No input fields; only a confirmation message is displayed (`delete_confirm_help_
 - **Cancel:** closes the modal.
 
 ## Navigation
-- Opened from: NOT-002 (Notice List).
+- Opened from: NOT-002 (Announcements & Tasks).
 - After confirming: reloads/redirects to the calling page (`referer`), typically NOT-002.

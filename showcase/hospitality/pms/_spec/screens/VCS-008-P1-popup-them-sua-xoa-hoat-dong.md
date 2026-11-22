@@ -1,8 +1,8 @@
-# VCS-008-P1 — Popup Thêm/Sửa/Xóa Hoạt động villa
+# VCS-008-P1 — Form hoạt động cho khách (Guest Activity Form)
 
 **Loại:** Popup/Modal (mở từ VCS-008)
 **Route:** Không có route riêng — dùng chung form POST về `villa-common-setting/villa-activity` (hidden `action`=`add`/`edit`/`delete`); kiểm tra trùng tên qua AJAX `villa-common-setting/checkVillaActivity`
-**Module:** VCS = Cấu hình chung villa
+**Module:** VCS = Thuộc tính tài sản
 
 ## Mô tả ngắn gọn
 Modal Bootstrap dùng chung (`#exampleModal`) cho 3 kịch bản Thêm/Sửa/Xóa Hoạt động villa. Ở chế độ Xóa, phần nhập liệu bị ẩn.
@@ -20,5 +20,5 @@ Modal Bootstrap dùng chung (`#exampleModal`) cho 3 kịch bản Thêm/Sửa/Xó
 - Validate: `name` bắt buộc, kiểm tra trùng tên qua remote AJAX `checkVillaActivity`.
 
 ## Điều hướng
-- Mở từ: VCS-008 (nút Add new / Edit / Delete trên bảng danh sách Hoạt động villa).
+- Mở từ: VCS-008 (nút Add new / Edit / Delete trên bảng Hoạt động cho khách).
 - Điều hướng tới: không chuyển trang — submit xong reload lại VCS-008 (redirect `referer()`).

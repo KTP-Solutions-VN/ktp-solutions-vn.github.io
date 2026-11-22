@@ -1,13 +1,13 @@
-# ACC-060 — Dịch vụ
+# ACC-060 — Dịch vụ tính phí (Billable Services)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `AccountController::services($tab)` — mặc định `/account/services/<tab>`
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
-Trang 3 tab quản lý danh mục Dịch vụ: danh sách Service, phân bổ Service cho Nhà cung cấp (Services Allocation), và danh mục nhóm Dịch vụ (Services Categories). Cấu trúc và hành vi tương tự ACC-058 (Sản phẩm) nhưng cho `Product.type = services`.
+Trang 3 tab quản lý danh mục Dịch vụ: danh sách Service, phân bổ Service cho Nhà cung cấp (Services Allocation), và danh mục nhóm Dịch vụ (Services Categories). Cấu trúc và hành vi tương tự ACC-058 (Danh mục hàng hóa) nhưng cho `Product.type = services`.
 
 ## Mô tả chi tiết
 
@@ -34,5 +34,5 @@ Tab **Services Categories** (element `account/services_categories`): danh sách 
 - Chuyển tab cập nhật URL (`/account/services/<tab>`) mà không reload toàn trang.
 
 ## Điều hướng
-- Vào từ: Sidebar > mục "Services" trong Account Settings.
+- Vào từ: Sidebar > mục "Billable Services" trong Finance Preferences.
 - Điều hướng đến: KHÔNG có popup thêm/sửa Service riêng đang hoạt động — action `addServices()` trong `AccountController` đã bị comment toàn bộ (dead code) và view `add_services.ctp` không còn được action nào render; việc thêm mới/sửa Service tại tab này hiện không có chức năng UI tương ứng.

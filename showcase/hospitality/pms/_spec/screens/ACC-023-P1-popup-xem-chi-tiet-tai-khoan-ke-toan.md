@@ -1,10 +1,10 @@
-# ACC-023-P1 — Xem chi tiết tài khoản kế toán
+# ACC-023-P1 — Chi tiết cấu trúc tài khoản (Account Structure Details)
 
 **Loại:** Popup/Trang xem chi tiết (mở từ ACC-023)
 
 **Route:** `AccountController::viewChartAccount($id)` — mặc định `/account/view-chart-account/<id>` (`id` truyền dạng base64)
 
-**Module:** Tài khoản & Nhân sự
+**Module:** Tài chính & Hành chính
 
 ## Mô tả ngắn gọn
 Xem (chỉ đọc) toàn bộ các dòng chi tiết (`ChartAccountDetails`) thuộc một Chart of Account: rank, nature, category, sub-category, details, allocation.
@@ -31,5 +31,5 @@ Nếu chưa có dòng chi tiết nào: hiển thị "No entry yet."
 - Không có AJAX; chỉ dựng breadcrumb tĩnh khi tải trang.
 
 ## Điều hướng
-- Vào từ: ACC-023 (Sơ đồ tài khoản kế toán) — icon con mắt (See Content) trên từng dòng.
-- Điều hướng đến: không có (chỉ có link breadcrumb quay lại danh sách Chart of Accounts qua tên menu).
+- Vào từ: ACC-023 (Cấu trúc tài khoản) — icon con mắt (See Content) trên từng dòng.
+- Điều hướng đến: không có (chỉ có link breadcrumb quay lại danh sách Account Structure qua tên menu).

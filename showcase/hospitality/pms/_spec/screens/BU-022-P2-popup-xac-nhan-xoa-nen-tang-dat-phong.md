@@ -1,10 +1,10 @@
-# BU-022-P2 — Popup Xác nhận xóa nền tảng đặt phòng
+# BU-022-P2 — Xác nhận xóa nền tảng (Confirm Platform Deletion)
 
 **Loại:** Popup (mở từ BU-022, tab Nền tảng đặt phòng)
 
 **Route:** Modal Bootstrap (`#deletePlatformModal`) tĩnh trong `channels.ctp`; submit POST tới `BusinessUnitController::channels('platforms')` với `platform_action=delete`.
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Popup xác nhận trước khi xóa vĩnh viễn một nền tảng đặt phòng. Hệ thống chặn xóa nếu còn Tài khoản kênh (`Chanel`) đang sử dụng nền tảng này, hiển thị danh sách tài khoản cần xóa trước.

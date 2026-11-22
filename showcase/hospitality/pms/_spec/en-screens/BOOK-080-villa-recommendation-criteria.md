@@ -1,12 +1,12 @@
-# BOOK-080 — Villa Recommendation Criteria
+# BOOK-080 — Occupancy Thresholds
 
 **Type:** Full page
 **Route:** Booking/criteria
 **Pretty route:** no dedicated route found in config/Routes.php
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
-A list of criteria sets used to evaluate villa occupancy rates across different time horizons (Last Minute/Regular/Early Bird), supporting the "Recommendation Check" feature (BOOK-084). Each criteria set can be added, edited, or deleted.
+A list of criteria sets used to evaluate villa occupancy rates across different time horizons (Last Minute/Regular/Early Bird), supporting the "Run Pricing Check" feature (BOOK-084). Each criteria set can be added, edited, or deleted.
 
 ## Detailed Description
 
@@ -22,7 +22,7 @@ A list of criteria sets used to evaluate villa occupancy rates across different 
 - **Delete** icon on each row — opens a confirmation modal, calls `deleteCriteria/:id` on confirmation (deletes the `Recommendation` record)
 
 ## Navigation
-- Opened from: Booking module menu > Recommendations (BOOK-083) > Criteria
-- Navigates to: BOOK-081 (Add Criteria), BOOK-082 (Edit Criteria)
+- Opened from: Reservations module menu > Pricing Signals (BOOK-083) > Occupancy Thresholds
+- Navigates to: BOOK-081 (New Occupancy Threshold), BOOK-082 (Edit Occupancy Threshold)
 
 **Note:** `deleteCriteria($id)` (line ~16425) is simply a delete action with a redirect, not a separate screen, so it is not documented in its own file.

@@ -1,8 +1,8 @@
-# MNT-016-P1 — Edit Inspection Time Rule
+# MNT-016-P1 — Edit Inspection SLA
 
 **Type:** Popup (opened from MNT-016)
 **Route:** maintenance/editInspection/:id (id base64)
-**Module:** Maintenance
+**Module:** Repair Desk
 
 ## Overview
 Page for editing the maturity days of a villa inspection rule set for a business unit.
@@ -22,5 +22,5 @@ Page for editing the maturity days of a villa inspection rule set for a business
 - **Cancel**: returns to MNT-016.
 
 ## Navigation
-- Entered from: Edit icon on MNT-016 — Inspection Time Rules.
+- Entered from: Edit icon on MNT-016 — Inspection SLAs.
 - Navigates to: after Save, returns to MNT-016.

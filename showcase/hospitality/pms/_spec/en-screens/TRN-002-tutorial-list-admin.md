@@ -1,8 +1,8 @@
-# TRN-002 — Tutorial List (Admin)
+# TRN-002 — Lesson Builder
 
 **Type:** Full page
 **Route:** `TrainingController::createTutorial()` — `/training/create-tutorial`
-**Module:** TRN = Training
+**Module:** TRN = Staff Academy
 
 ## Overview
 A list of all tutorials (training lessons) in the system, for administrators to create/edit/delete training content.
@@ -27,5 +27,5 @@ Displayed columns:
 - **Delete** (trash icon): opens confirmation popup **TRN-002-P1**; confirming calls `deleteTutorial` (cascade-deletes the Tutorial along with its related TutorialSlide and QuizQuestion records) and reloads this list.
 
 ## Navigation
-- **Entered from:** main menu "Training" → "Create Tutorial".
+- **Entered from:** main menu "Staff Academy" → "Lesson Builder".
 - **Leads to:** TRN-003 (add new), TRN-004 (view), TRN-005 (edit), TRN-002-P1 (delete popup).

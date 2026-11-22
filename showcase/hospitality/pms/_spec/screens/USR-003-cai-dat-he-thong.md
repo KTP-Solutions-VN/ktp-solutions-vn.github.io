@@ -1,10 +1,10 @@
-# USR-003 — Cài đặt hệ thống (Settings)
+# USR-003 — Cài đặt website & SEO (Site & SEO Settings)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `UserController` kế thừa `LoginController::settings()` — mặc định `user/settings` (không có route đẹp riêng, đã comment sẵn trong `config/Routes.php`)
 
-**Module:** Đăng nhập & Người dùng hệ thống
+**Module:** Đăng nhập & Đội ngũ
 
 ## Mô tả ngắn gọn
 Cùng logic và cùng method `settings()` với LOG-003, nhưng được truy cập qua controller `User` nên hiển thị theo template riêng (`Template/User/settings.ctp`). Dùng để cấu hình thông tin chung của hệ thống (site title, SEO, email quản trị...).

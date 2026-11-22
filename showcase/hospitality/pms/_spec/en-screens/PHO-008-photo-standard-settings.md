@@ -1,10 +1,10 @@
-# PHO-008 — Photo Standard Settings (Photo Settings)
+# PHO-008 — Photo Requirements
 
 **Type:** Full page
 
 **Route:** `PhotosController::settings()` — default route `/photos/settings`
 
-**Module:** Photos
+**Module:** Photo Library
 
 ## Overview
 Configures the required number of photos for each area (area/flag) by villa type (Property Type) and number of bedrooms (1–8 BR). This data is the reference source for the "Completeness Against Standard" table in PHO-007.
@@ -28,8 +28,8 @@ Standard table (`standardAreas`), each row is one area:
 - **Delete a custom area**: applies only to areas not part of the standard list.
 - **Reset**: reloads the page, discarding unsaved changes.
 - **Save Photo Standard**: saves the entire table via AJAX (`settings`, POST submit); shows a success/error message inline without leaving the page.
-- **Navigation tabs**: Photo Sets (PHO-002), Common Areas (PHO-003), Settings (current screen).
+- **Navigation tabs**: Photo Albums (PHO-002), Shared Spaces (PHO-003), Requirements (current screen).
 
 ## Navigation
-- Accessed from: PHO-002 / PHO-003 / PHO-004 / PHO-006 / PHO-007 (the "Settings" tab on the Photos module's shared navigation bar).
+- Accessed from: PHO-002 / PHO-003 / PHO-004 / PHO-006 / PHO-007 (the "Settings" tab on the Photo Library module's shared navigation bar).
 - Navigates to: no further navigation (a standalone configuration screen); the data saved here is used by PHO-007 to compute Completeness Against Standard.

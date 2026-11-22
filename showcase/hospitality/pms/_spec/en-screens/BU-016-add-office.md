@@ -1,10 +1,10 @@
-# BU-016 — Add Office
+# BU-016 — New Office Location
 
 **Type:** Full page
 
 **Route:** `BusinessUnitController::addOffice()` — default `/business-unit/add-office`
 
-**Module:** Business Unit
+**Module:** Operating Units
 
 ## Overview
 A form for adding a new office: name, Business Unit, affiliated departments, address, map coordinates, and illustrative image.
@@ -27,5 +27,5 @@ A form for adding a new office: name, Business Unit, affiliated departments, add
 - **Cancel:** returns to BU-015 without saving.
 
 ## Navigation
-- Opened from: BU-015 (office list) — "Add new" button.
+- Opened from: BU-015 (Office Locations) — "Add new" button.
 - After saving: redirects back to BU-015.

@@ -1,10 +1,10 @@
-# USR-023 — Virtual Users Management
+# USR-023 — Department Avatars
 
 **Type:** Full page
 
 **Route:** `UserController::virtualUsers()` — default `user/virtualUsers`
 
-**Module:** Login & System Users
+**Module:** Sign-in & Workforce
 
 ## Overview
 A page for managing a library of "virtual users" (representative avatars by gender/department/country) used for operational departments (concierge, housekeeping, maintenance, renovation, gardening, pool, etc.). Accessible only to Superadmin. Allows filtering by country/gender/department, and adding or editing a virtual user via an in-page panel (drawer).
@@ -38,5 +38,5 @@ A page for managing a library of "virtual users" (representative avatars by gend
 - **Delete:** calls `user/deleteVirtualUser/:id`.
 
 ## Navigation
-- Entry point: Users menu → Virtual Users (visible/available to Superadmin only).
+- Entry point: Workforce menu → Department Avatars (visible/available to Superadmin only).
 - No navigation to other pages (add/edit actions are performed directly on this page via ajax).

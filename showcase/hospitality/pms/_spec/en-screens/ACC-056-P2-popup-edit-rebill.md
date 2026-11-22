@@ -1,10 +1,10 @@
-# ACC-056-P2 — Popup: Edit Rebill
+# ACC-056-P2 — Edit Owner Recharge
 
 **Type:** Popup (opened from ACC-056)
 
 **Route:** `AccountController::editRebill($id)` — default `/account/edit-rebill/<id>`
 
-**Module:** Accounting & HR
+**Module:** Finance & Admin
 
 ## Overview
 Form for editing an existing Rebill record — the same field structure as ACC-056-P1, pre-loaded from the `VillaExpense` record (the `data` column JSON is decoded into expense line items).
@@ -28,5 +28,5 @@ Form for editing an existing Rebill record — the same field structure as ACC-0
 - If `id` is invalid: shows an "Invalid URL" error and returns to ACC-056.
 
 ## Navigation
-- Entered from: ACC-056 (Rebill) — Edit button on each row.
+- Entered from: ACC-056 (Owner Recharges) — Edit button on each row.
 - Navigates to: returns to ACC-056 after saving or canceling.

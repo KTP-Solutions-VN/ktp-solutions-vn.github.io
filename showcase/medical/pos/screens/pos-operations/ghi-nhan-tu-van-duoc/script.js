@@ -11,7 +11,7 @@
 
   function requireDraft() {
     if (!draft) {
-      POS.toast('No prescription in progress — start from Sales Screen.', 'warning');
+      POS.toast('No prescription in progress — start from Sales Terminal.', 'warning');
       window.location.href = '../man-hinh-ban-hang-pos/index.html';
       return false;
     }
@@ -61,8 +61,8 @@
   function updatePrimaryButtonLabel() {
     const btn = document.getElementById('primaryActionBtn');
     btn.innerHTML = issueFound
-      ? 'Continue to Intervention Recording <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="margin-left:6px;vertical-align:-3px;"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
-      : 'Complete Counseling & Submit to NEHR';
+      ? 'Continue to Clinical Intervention <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="margin-left:6px;vertical-align:-3px;"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
+      : 'Complete Counseling & Submit to Health Record';
   }
 
   function toggleIssue() {
@@ -72,7 +72,7 @@
   }
 
   function generateNehrRef() {
-    return 'NEHR-SG-' + Math.floor(10000000 + Math.random() * 89999999);
+    return 'NHR-' + Math.floor(10000000 + Math.random() * 89999999);
   }
 
   function primaryAction() {
@@ -92,12 +92,12 @@
 
     const btn = document.getElementById('primaryActionBtn');
     btn.disabled = true;
-    btn.textContent = 'Submitting to NEHR…';
+    btn.textContent = 'Submitting to health record…';
 
     setTimeout(() => {
       const now = new Date().toISOString();
       draft.counselingCompletedAt = now;
-      draft.dispenseStatus = 'NEHR Submitted';
+      draft.dispenseStatus = 'Record Submitted';
       draft.nehrSubmitted = true;
       draft.nehrSubmittedAt = now;
       draft.nehrReference = generateNehrRef();
@@ -108,7 +108,7 @@
       POS.upsertPrescription(draft);
 
       document.getElementById('nehrAuditLine').innerHTML =
-        'Submitted by <b>' + draft.cashierName + '</b> at <b>' + POS.fmtDateTime(now) + '</b><br>NEHR Reference: <b>' + draft.nehrReference + '</b>' +
+        'Submitted by <b>' + draft.cashierName + '</b> at <b>' + POS.fmtDateTime(now) + '</b><br>Health Record Ref: <b>' + draft.nehrReference + '</b>' +
         (txn ? '<br>Linked transaction: <b>' + txn.transactionNo + '</b> · ' + POS.fmtCurrency(txn.total) : '');
 
       document.getElementById('formView').style.display = 'none';
@@ -117,7 +117,7 @@
   }
 
   function cancelFlow() {
-    if (confirm('Cancel this prescription and return to Sales Screen? Unsaved info will be lost.')) {
+    if (confirm('Cancel this prescription and return to Sales Terminal? Unsaved info will be lost.')) {
       POS.clearDraftRx();
       window.location.href = '../man-hinh-ban-hang-pos/index.html';
     }
@@ -136,7 +136,7 @@
     document.getElementById('cancelFlowBtn').addEventListener('click', cancelFlow);
     document.getElementById('doneBtn').addEventListener('click', () => {
       POS.clearDraftRx();
-      POS.toast('Prescription completed and submitted to NEHR.', 'success');
+      POS.toast('Prescription completed and submitted to the national health record.', 'success');
       window.location.href = '../man-hinh-ban-hang-pos/index.html';
     });
   });

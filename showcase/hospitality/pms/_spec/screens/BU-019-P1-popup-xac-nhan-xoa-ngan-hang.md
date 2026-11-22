@@ -1,10 +1,10 @@
-# BU-019-P1 — Popup Xác nhận xóa ngân hàng
+# BU-019-P1 — Xác nhận xóa ngân hàng (Confirm Bank Deletion)
 
 **Loại:** Popup (mở từ BU-019)
 
 **Route:** Modal Bootstrap (`#exampleModal`) tĩnh trong `banks.ctp`; xác nhận điều hướng tới `BusinessUnitController::deleteBank($id)` — `/business-unit/delete-bank/{id}` (id mã hoá base64).
 
-**Module:** Đơn vị kinh doanh
+**Module:** Đơn vị vận hành
 
 ## Mô tả ngắn gọn
 Popup xác nhận trước khi xóa vĩnh viễn một ngân hàng.

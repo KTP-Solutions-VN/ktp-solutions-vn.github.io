@@ -1,10 +1,10 @@
-# VSV-004-P1 — Enter End Meter Reading (End Meter)
+# VSV-004-P1 — Record Departure Reading
 
 **Type:** Popup (opened from VSV-004, as a separate page)
 
 **Route:** `VillaServicesController::endMeter($booking_id)` — `/villa-services/end-meter/<booking_id>` (GET displays the form, POST to the same action to save)
 
-**Module:** Villa Services — Electricity
+**Module:** In-Stay Services — Metering
 
 ## Overview
 A form for entering the electricity meter reading at the time of guest check-out; the system automatically calculates the amount due based on the villa's default rate, allows discounts/waivers subject to approval, and records the payment method and supporting photos.
@@ -41,4 +41,4 @@ Read-only information: guest name, villa, check-in/check-out dates, start meter 
 
 ## Navigation
 - Entered from: VSV-004 — "Fill it now" button.
-- Navigates to: back to VSV-004 (Electricity Check-out) after saving.
+- Navigates to: back to VSV-004 (Departure Meter Reading) after saving.

@@ -1,8 +1,8 @@
-# BOOK-045 — Xem đặt phòng trực tiếp
+# BOOK-045 — Chi tiết yêu cầu lưu trú (Stay Request Details)
 
 **Loại:** Popup (mở từ BOOK-042)
 **Route:** Booking/viewDirectBooking/:id (mặc định: `/booking/view-direct-booking/:id`)
-**Module:** Đặt phòng
+**Module:** Đặt chỗ
 
 ## Mô tả ngắn gọn
 Popup xem chi tiết (chỉ đọc) yêu cầu đặt phòng trực tiếp, bao gồm thông tin duyệt/từ chối.
@@ -27,5 +27,5 @@ Popup xem chi tiết (chỉ đọc) yêu cầu đặt phòng trực tiếp, bao 
 - Chỉ xem, không chỉnh sửa
 
 ## Điều hướng
-- Mở từ: BOOK-042 (Danh sách đặt phòng trực tiếp) — nút Xem
+- Mở từ: BOOK-042 (Yêu cầu lưu trú trực tiếp) — nút Xem
 - Đóng popup quay lại BOOK-042

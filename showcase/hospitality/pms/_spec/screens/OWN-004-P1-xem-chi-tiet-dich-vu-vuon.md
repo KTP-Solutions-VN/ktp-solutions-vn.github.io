@@ -1,10 +1,10 @@
-# OWN-004-P1 — Xem chi tiết dịch vụ vườn
+# OWN-004-P1 — Chi tiết lượt chăm vườn (Garden Visit Detail)
 
 **Loại:** Popup (mở từ OWN-004)
 
 **Route:** `/Owner/gardenView/{id}` (controller `Owner`, action `gardenView($id)`)
 
-**Module:** Quản lý chủ sở hữu (Admin)
+**Module:** Quan hệ chủ nhà (Admin)
 
 ## Mô tả ngắn gọn
 

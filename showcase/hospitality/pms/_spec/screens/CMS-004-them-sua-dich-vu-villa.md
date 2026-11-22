@@ -1,10 +1,10 @@
-# CMS-004 — Thêm/Sửa dịch vụ villa (CMS Services)
+# CMS-004 — Trình sửa dịch vụ trưng bày (Showcase Service Editor)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `CmsController::cmsServices($id)` — mặc định `/cms/cms-services/:id`
 
-**Module:** CMS = Nội dung trang chủ villa
+**Module:** CMS = Xuất bản web
 
 ## Mô tả ngắn gọn
 Form thêm mới hoặc chỉnh sửa nội dung dịch vụ villa hiển thị trên website (Concierge, Maintenance, Cleaning, Transport), dùng chung 1 action cho cả Add (không truyền `id`) và Edit (có `id`). Mỗi nhóm dịch vụ gồm 1 đoạn text đa ngôn ngữ và 1 ảnh minh hoạ.

@@ -1,10 +1,10 @@
-# OWP-003 — Đặt lại mật khẩu
+# OWP-003 — Mật khẩu mới (New Password)
 
 **Loại:** Trang đầy đủ
 
 **Route:** `ExternalUserController::resetPassword($token)` — không có route đẹp riêng; truy cập qua link trong email `/external-user/reset-password/{token}` (mặc định CakePHP)
 
-**Module:** Cổng thông tin Chủ sở hữu
+**Module:** Không gian chủ nhà
 
 ## Mô tả ngắn gọn
 
@@ -26,4 +26,4 @@ Trang đặt lại mật khẩu mới, truy cập từ link trong email được
 ## Điều hướng
 
 - Truy cập từ link email (nguồn: OWP-001-P1)
-- Đặt lại thành công → chuyển hướng về OWP-001 Đăng nhập
+- Đặt lại thành công → chuyển hướng về OWP-001 Đăng nhập Owner Hub

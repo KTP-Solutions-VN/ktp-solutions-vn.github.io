@@ -1,10 +1,10 @@
-# EMT-001-P1 — Delete Email Template Confirmation
+# EMT-001-P1 — Confirm Template Deletion
 
 **Type:** Popup (opened from EMT-001)
 
 **Route:** Static modal within `list.ctp`; confirming navigates to `EmailTemplateController::delete($id)` — `GET /email-template/delete/:id`
 
-**Module:** Email Templates
+**Module:** Email Library
 
 ## Overview
 Confirmation dialog shown before deleting an email template.
@@ -17,5 +17,5 @@ No input fields; only a confirmation message and the name of the email template 
 - **Cancel:** closes the modal.
 
 ## Navigation
-- Opened from: EMT-001 (Email Template List).
+- Opened from: EMT-001 (Email Library).
 - After confirming: returns to EMT-001.

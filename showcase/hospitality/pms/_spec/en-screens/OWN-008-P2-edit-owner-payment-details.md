@@ -1,10 +1,10 @@
-# OWN-008-P2 — Edit Owner Payment Details
+# OWN-008-P2 — Edit Owner Payout Account
 
 **Type:** Popup (opened from OWN-008)
 
 **Route:** `/Owner/editPaymentDetail/{id}` (controller `Owner`, action `editPaymentDetail($id)`)
 
-**Module:** Owner Management (Admin)
+**Module:** Owner Relations (Admin)
 
 ## Overview
 
@@ -27,7 +27,7 @@ A form for editing an existing payment account/detail (bank) for an owner. Opene
 ## Functions / Actions
 
 - **Save**: updates the `OwnerBankAccount` record; if `payment_type` is changed, the owner's other record of the same type automatically switches to the opposite type; logs the activity; after saving, redirects to OWN-008 (`payment/{owner_id}`).
-- **Cancel**: returns to OWN-001 (Owner List).
+- **Cancel**: returns to OWN-001 (Owner Accounts).
 
 ## Navigation
 

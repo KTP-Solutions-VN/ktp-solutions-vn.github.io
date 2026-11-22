@@ -1,9 +1,9 @@
-# BOOK-061 — Booking Confirmation Template Translations
+# BOOK-061 — Layout Translations
 
 **Type:** Full page (opened from BOOK-057)
 **Route:** Booking/transalateConfirmationTemplate
 **Friendly route:** `/booking/confirmation-template/transalations`
-**Module:** Booking
+**Module:** Reservations
 
 ## Overview
 Manages translations of the fixed text labels displayed on the booking confirmation PDF, per language (excluding the default English).

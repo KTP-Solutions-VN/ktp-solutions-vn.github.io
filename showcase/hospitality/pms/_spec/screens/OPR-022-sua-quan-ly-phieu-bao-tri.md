@@ -1,15 +1,15 @@
-# OPR-022 — Sửa/quản lý phiếu bảo trì
+# OPR-022 — Quản lý sửa chữa hiện trường (Manage Field Repair)
 
 **Loại:** Trang đầy đủ
 **Route:** operator/editMaintenanceTicket/:id + route đẹp dạng dashed: operator/edit-maintenance-ticket/:id (id truyền dạng base64/btoa)
-**Module:** OPR = Vận hành vườn/hồ bơi
+**Module:** OPR = Công việc bảo dưỡng
 
 ## Mô tả ngắn gọn
 Form chỉnh sửa một phiếu bảo trì đã tồn tại: hiển thị lại toàn bộ dữ liệu đã nhập ở OPR-021 (villa, tình trạng khách, phân loại vấn đề, mức ưu tiên, mô tả, ảnh, cách vào villa, hành động yêu cầu...) cho phép cập nhật lại.
 
 ## Mô tả chi tiết
 
-Cấu trúc field giống OPR-021 — Tạo phiếu bảo trì mới, khác biệt là các trường được nạp sẵn giá trị từ `ticket_data` (bản ghi `MaintenanceTicket` theo `id`):
+Cấu trúc field giống OPR-021 — Báo sửa chữa hiện trường, khác biệt là các trường được nạp sẵn giá trị từ `ticket_data` (bản ghi `MaintenanceTicket` theo `id`):
 
 | # | Tên field | Field code | Loại dữ liệu/input | Bắt buộc | Ghi chú |
 |---|---|---|---|---|---|
@@ -29,5 +29,5 @@ Cấu trúc field giống OPR-021 — Tạo phiếu bảo trì mới, khác bi�
 - Các cascading Category/Subcategory/Problem hoạt động như OPR-021.
 
 ## Điều hướng
-- Vào từ: icon "Sửa/Quản lý" tại OPR-020 — Danh sách phiếu bảo trì.
-- Đi tới: sau khi Update thành công, quay về OPR-020 — Danh sách phiếu bảo trì.
+- Vào từ: icon "Sửa/Quản lý" tại OPR-020 — Báo cáo sửa chữa hiện trường.
+- Đi tới: sau khi Update thành công, quay về OPR-020 — Báo cáo sửa chữa hiện trường.
