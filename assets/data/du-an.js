@@ -6,9 +6,15 @@
  *         use_cases (mảng {ten, mo_ta} — use case nghiệp vụ của prototype, viết theo lợi ích kinh doanh, chỉ những gì prototype có thật),
  *         dich_vu_lien_quan (slug trong DATA_DICH_VU), noi_bat (boolean), playground (trang bấm thử bản mẫu screens/du-an/playground/?app=<id>, tính từ gốc website)
  * linh_vuc: slug lĩnh vực (hospitality / industrial / healthcare) để chọn icon badge (KTP.domainIcon trong global.js).
+ * Trường portfolio (CR-02): mang (string[] — chip phân hệ / năng lực, tiếng Anh dùng chung 2 ngôn ngữ),
+ *         anh_phu (mảng 2 {anh, anh_alt, anh_alt_en} — ảnh chụp màn hình prototype cho marquee, card, gallery chi tiết).
+ * Trường case đồng hành (CR-01, tuỳ chọn): thi_truong / thi_truong_en (khác "Việt Nam" thì hiện badge thị trường),
+ *         trang_thai ("dang-dong-hanh" → badge "Đang đồng hành"), an_ten_khach_hang (boolean — ghi chú ẩn tên theo NDA),
+ *         pham_vi (mảng {giai_doan, hang_muc, mo_ta} + bản _en — các chặng triển khai, render thành hành trình ngang).
+ *         Nội dung case thật cũng phải white-label: không nêu tên, quốc gia, dòng sản phẩm hay nền tảng cũ của khách.
  * Song ngữ: mọi trường chữ có bản tiếng Anh cùng tên + hậu tố _en (ten_du_an_en, chi_so_en, mo_ta_en, ten_en…);
  *           script hiển thị gắn vào thuộc tính data-en để nút VI/EN của header đổi được.
- * Dùng chung ở: Trang chủ (case study nổi bật), trang Dự án tiêu biểu (danh sách), trang Chi tiết dự án.
+ * Dùng chung ở: Trang chủ (case study nổi bật), trang Dự án (portfolio), trang Chi tiết dự án, trang dịch vụ Tư vấn ứng dụng công nghệ.
  * Ảnh / link tương đối: trang hiển thị tự thêm tiền tố theo độ sâu (xem hàm rootUrl trong các script).
  */
 const DATA_DU_AN = [
@@ -46,7 +52,12 @@ const DATA_DU_AN = [
     ],
     dich_vu_lien_quan: "phat-trien-phan-mem",
     noi_bat: true,
-    playground: "screens/du-an/playground/?app=pms"
+    playground: "screens/du-an/playground/?app=pms",
+    mang: ["PMS", "Reservations", "Owner portal", "Housekeeping", "Accounting & HR"],
+    anh_phu: [
+      { anh: "showcase/assets/covers/pms-1.jpg", anh_alt: "Lịch đặt phòng và tình trạng villa theo ngày", anh_alt_en: "Reservation calendar and villa status by day" },
+      { anh: "showcase/assets/covers/pms-2.jpg", anh_alt: "Cổng chủ sở hữu: doanh thu và báo cáo hằng tháng", anh_alt_en: "Owner portal: revenue and monthly reports" }
+    ]
   },
   {
     id: "da-2",
@@ -61,12 +72,12 @@ const DATA_DU_AN = [
     anh: "showcase/assets/covers/cms.jpg",
     anh_alt: "Dashboard Channel Manager: khách đến, khách đi, công suất phòng và nguồn booking theo OTA",
     anh_alt_en: "Channel manager dashboard: arrivals, departures, occupancy and booking sources by OTA",
-    tom_tat: "Channel Manager đồng bộ giá phòng, phòng trống và đặt phòng lên các OTA, kèm hộp thư khách chung và báo cáo doanh thu cho từng vendor.",
-    tom_tat_en: "A channel manager that syncs rates, availability and reservations to the OTAs, with a unified guest inbox and revenue reports per vendor.",
+    tom_tat: "Channel Manager đồng bộ giá phòng, phòng trống và đặt phòng lên các OTA, kèm tin nhắn khách gom về một nơi và báo cáo doanh thu theo từng đơn vị vận hành.",
+    tom_tat_en: "A channel manager that syncs rates, availability and reservations to the OTAs, with every guest message in one place and revenue reports per operator.",
     thach_thuc: "Mỗi villa, khách sạn bán phòng trên nhiều kênh OTA (Booking.com, Agoda, Airbnb, Expedia). Cập nhật giá và phòng trống thủ công trên từng kênh dễ dẫn tới bán trùng phòng, tin nhắn khách nằm rải rác ở nhiều nơi, và chủ đơn vị không biết kênh nào mang lại doanh thu.",
     thach_thuc_en: "Every villa and hotel sells rooms on several OTAs (Booking.com, Agoda, Airbnb, Expedia). Updating rates and availability by hand on each channel led to double bookings, guest messages were scattered across platforms, and owners could not tell which channel actually brought in revenue.",
-    giai_phap: "KTP thiết kế Channel Manager kết nối OTA qua Channex / Beds24: lịch giá và phòng trống chung cho nhiều cơ sở, đặt phòng từ mọi kênh đổ về một nơi, hộp thư khách hợp nhất, báo cáo công suất (AOR, ADR) và nguồn booking, quản lý vendor cho mô hình nhiều chủ cơ sở.",
-    giai_phap_en: "KTP designed a channel manager connected to the OTAs through Channex / Beds24: one rate and availability calendar for many properties, reservations from every channel in one place, a unified guest inbox, occupancy (AOR, ADR) and booking source reports, and vendor management for multi-owner operations.",
+    giai_phap: "KTP thiết kế Channel Manager kết nối OTA qua Channex / Beds24: lịch giá và phòng trống chung cho nhiều cơ sở, đặt phòng từ mọi kênh đổ về một nơi, tin nhắn khách từ mọi kênh về một nơi, báo cáo công suất (AOR, ADR) và nguồn booking, quản lý đơn vị vận hành (operator) cho mô hình nhiều chủ cơ sở.",
+    giai_phap_en: "KTP designed a channel manager connected to the OTAs through Channex / Beds24: one rate and availability calendar for many properties, reservations from every channel in one place, guest messages from every channel in one place, occupancy (AOR, ADR) and booking source reports, and operator management for multi-owner operations.",
     ket_qua: [
       { chi_so: "Không trùng phòng", chi_so_en: "No double bookings", mo_ta: "giá và phòng trống đồng bộ mọi OTA", mo_ta_en: "rates and availability synced to every OTA" },
       { chi_so: "Một lịch giá", chi_so_en: "One rate calendar", mo_ta: "cho mọi cơ sở và mọi kênh bán", mo_ta_en: "for every property and every sales channel" },
@@ -76,13 +87,18 @@ const DATA_DU_AN = [
       { ten: "Chấm dứt bán trùng phòng", ten_en: "End double bookings", mo_ta: "Phòng trống cập nhật đồng thời lên Booking.com, Agoda, Airbnb, Expedia ngay khi có đặt phòng mới.", mo_ta_en: "Availability updates on Booking.com, Agoda, Airbnb and Expedia at the same time as soon as a new booking comes in." },
       { ten: "Đổi giá theo mùa trong vài phút", ten_en: "Seasonal pricing in minutes", mo_ta: "Lịch giá chung cho nhiều cơ sở, chỉnh giá và quy tắc lưu trú một lần, áp cho mọi kênh.", mo_ta_en: "One rate calendar for many properties: change rates and stay rules once and apply them to every channel." },
       { ten: "Mọi đặt phòng về một nơi", ten_en: "Every booking in one place", mo_ta: "Đặt phòng từ các OTA và đặt trực tiếp đổ về cùng một danh sách, lễ tân không phải mở từng kênh.", mo_ta_en: "Bookings from the OTAs and direct bookings land in the same list, so the front desk does not open each channel." },
-      { ten: "Trả lời khách nhanh hơn", ten_en: "Reply to guests faster", mo_ta: "Hộp thư hợp nhất gom tin nhắn khách từ mọi kênh, không bỏ sót yêu cầu trước ngày đến.", mo_ta_en: "A unified inbox collects guest messages from every channel, so no request before arrival is missed." },
+      { ten: "Trả lời khách nhanh hơn", ten_en: "Reply to guests faster", mo_ta: "Tin nhắn khách từ mọi kênh gom về một màn, không bỏ sót yêu cầu trước ngày đến.", mo_ta_en: "Guest messages from every channel land on one screen, so no request before arrival is missed." },
       { ten: "Biết kênh nào mang lại tiền", ten_en: "Know which channel makes money", mo_ta: "Báo cáo công suất, ADR và tỷ trọng nguồn booking để quyết định đầu tư kênh bán.", mo_ta_en: "Occupancy, ADR and booking source mix reports to decide where to invest in distribution." },
-      { ten: "Mở rộng mô hình nhiều chủ cơ sở", ten_en: "Scale to many property owners", mo_ta: "Quản lý vendor và phân quyền, mỗi chủ cơ sở chỉ thấy dữ liệu của mình.", mo_ta_en: "Vendor management and permissions: each owner only sees their own data." }
+      { ten: "Mở rộng mô hình nhiều chủ cơ sở", ten_en: "Scale to many property owners", mo_ta: "Quản lý đơn vị vận hành và phân quyền, mỗi chủ cơ sở chỉ thấy dữ liệu của mình.", mo_ta_en: "Operator management and permissions: each owner only sees their own data." }
     ],
     dich_vu_lien_quan: "phat-trien-phan-mem",
     noi_bat: false,
-    playground: "screens/du-an/playground/?app=cms"
+    playground: "screens/du-an/playground/?app=cms",
+    mang: ["Channel manager", "OTA sync", "Rate management", "Guest messaging", "Reports"],
+    anh_phu: [
+      { anh: "showcase/assets/covers/cms-1.jpg", anh_alt: "Lịch giá và phòng trống đồng bộ lên các OTA", anh_alt_en: "Rate and availability calendar synced to the OTAs" },
+      { anh: "showcase/assets/covers/cms-2.jpg", anh_alt: "Kết nối OTA và trạng thái đồng bộ", anh_alt_en: "OTA connections and sync status" }
+    ]
   },
   {
     id: "da-3",
@@ -94,31 +110,45 @@ const DATA_DU_AN = [
     nganh: "Công nghiệp / B2B",
     nganh_en: "Industrial / B2B",
     linh_vuc: "industrial",
+    thi_truong: "Đông Nam Á",
+    thi_truong_en: "Southeast Asia",
+    trang_thai: "dang-dong-hanh",
+    an_ten_khach_hang: true,
+    pham_vi: [
+      { giai_doan: "Đã triển khai", giai_doan_en: "Live", hang_muc: "E-commerce", hang_muc_en: "E-commerce", mo_ta: "Bán thiết bị, cấu hình theo yêu cầu, dịch vụ bảo dưỡng và sửa chữa", mo_ta_en: "Equipment sales, made-to-order configurations, maintenance and repair services" },
+      { giai_doan: "Đang triển khai", giai_doan_en: "In progress", hang_muc: "CRM", hang_muc_en: "CRM", mo_ta: "Khách hàng, cơ hội bán hàng, hậu mãi và phê duyệt trên nhiều pháp nhân", mo_ta_en: "Customers, deals, after-sales and approvals across several entities" },
+      { giai_doan: "Chuẩn bị bắt đầu", giai_doan_en: "Up next", hang_muc: "Kế toán", hang_muc_en: "Accounting", mo_ta: "Kế toán cho bán hàng và dịch vụ, hỗ trợ nhiều công ty", mo_ta_en: "Accounting for sales and services, supporting multiple companies" }
+    ],
     anh: "showcase/assets/covers/crm.jpg",
-    anh_alt: "Trang chủ CRM: doanh thu, pipeline bán hàng, phiếu sửa chữa và việc chờ duyệt",
-    anh_alt_en: "CRM home: revenue, sales pipeline, service jobs and pending approvals",
-    tom_tat: "CRM đa pháp nhân thay thế hệ thống CRM cũ: bán hàng, báo giá, đơn hàng, dịch vụ hậu mãi, lắp đặt, mua hàng và phê duyệt theo hạn mức (DoA).",
-    tom_tat_en: "A multi-entity CRM replacing a legacy CRM: sales, quotations, orders, after-sales service, installation, purchasing and delegation-of-authority (DoA) approvals.",
-    thach_thuc: "Tập đoàn phân phối thiết bị công nghiệp có nhiều pháp nhân, mỗi pháp nhân một quy trình bán hàng và hậu mãi. CRM cũ cấu hình chắp vá, phê duyệt báo giá và mua hàng đi qua email, phiếu sửa chữa và lịch kiểm định thiết bị theo dõi bằng bảng tính, ban lãnh đạo không xem được số liệu hợp nhất.",
-    thach_thuc_en: "The industrial equipment distributor runs several legal entities, each with its own sales and after-sales process. The legacy CRM was patched together, quotation and purchase approvals went through email, service jobs and inspection schedules lived in spreadsheets, and leadership had no consolidated figures.",
-    giai_phap: "KTP thiết kế CRM đa pháp nhân với Group View hợp nhất: từ lead, cơ hội bán hàng, báo giá đến đơn hàng và hoá đơn; phiếu sửa chữa, thiết bị, dự án lắp đặt, phiếu xuất phụ tùng và lịch kiểm định; luồng phê duyệt theo hạn mức (DoA), bảng Kanban theo trạng thái, phân quyền theo hồ sơ người dùng và tích hợp phần mềm kế toán.",
-    giai_phap_en: "KTP designed a multi-entity CRM with a consolidated Group View: from leads, deals and quotations to orders and invoices; service jobs, equipment, installation projects, parts requisitions and inspection schedules; DoA approval flows, status Kanban boards, profile-based permissions and accounting integration.",
+    anh_alt: "Tổng quan CRM: doanh thu, pipeline kinh doanh, lệnh dịch vụ và việc chờ phê duyệt",
+    anh_alt_en: "CRM overview: revenue, pipeline, service orders and pending approvals",
+    tom_tat: "Thay nền tảng SaaS cũ bằng hệ thống riêng, triển khai lần lượt E-commerce → CRM → Kế toán. CRM đa pháp nhân: bán hàng, báo giá, đơn hàng, dịch vụ hậu mãi, lắp đặt, mua hàng và phê duyệt theo hạn mức (DoA).",
+    tom_tat_en: "Replacing a SaaS platform with a system the business owns, rolled out E-commerce → CRM → Accounting. The multi-entity CRM covers sales, quotations, orders, after-sales service, installation, purchasing and delegation-of-authority (DoA) approvals.",
+    thach_thuc: "Tập đoàn kinh doanh thiết bị công nghiệp kèm dịch vụ bảo dưỡng, sửa chữa, có nhiều pháp nhân, đang vận hành trên một nền tảng SaaS: chi phí license cao, không hỗ trợ quản lý nhiều công ty, mỗi thay đổi theo nhu cầu riêng đều khó thực hiện. Phê duyệt báo giá và mua hàng đi qua email, phiếu sửa chữa và lịch kiểm định theo dõi bằng bảng tính, ban lãnh đạo không có số liệu hợp nhất. Yêu cầu đặt ra: một hệ thống doanh nghiệp kiểm soát hoàn toàn, và chuyển được toàn bộ dữ liệu hiện có sang mà không gián đoạn vận hành.",
+    thach_thuc_en: "The industrial equipment group, which also provides maintenance and repair services across several legal entities, was running on a SaaS platform: licence costs were high, multiple companies were not supported and every change to fit its own needs was hard to make. Quotation and purchase approvals went through email, service jobs and inspection schedules lived in spreadsheets, and leadership had no consolidated figures. The brief: a system the business fully controls, with all existing data migrated across without disrupting operations.",
+    giai_phap: "Thay vì tiếp tục xoay xở trên nền tảng cũ, KTP xây mới toàn bộ hệ thống và triển khai lần lượt từng mảng: E-commerce (bán thiết bị, cấu hình theo yêu cầu, dịch vụ bảo dưỡng và sửa chữa) đã đưa vào vận hành; CRM đang triển khai; Kế toán chuẩn bị bắt đầu. CRM đa pháp nhân có Group View hợp nhất: từ lead, cơ hội bán hàng, báo giá đến đơn hàng và hoá đơn; lệnh dịch vụ, hồ sơ thiết bị, dự án đóng mới, vật tư và lịch kiểm định; hạn mức phê duyệt (DoA), Kanban theo trạng thái, phân quyền theo hồ sơ người dùng và tích hợp kế toán. Mọi giai đoạn đều chuyển toàn bộ dữ liệu từ nền tảng cũ sang hệ thống mới.",
+    giai_phap_en: "Instead of working around the old platform, KTP is rebuilding the whole system one area at a time: E-commerce (equipment sales, made-to-order configurations, maintenance and repair services) is live; the CRM is being rolled out; Accounting is next. The multi-entity CRM has a consolidated Group View: from leads, deals and quotations to orders and invoices; service orders, installed base, fit-out projects, materials and inspection schedules; DoA approval limits, status Kanban boards, profile-based permissions and accounting integration. Every phase migrates all data from the old platform to the new system.",
     ket_qua: [
-      { chi_so: "Lead → hoá đơn", chi_so_en: "Lead → invoice", mo_ta: "một luồng bán hàng xuyên suốt", mo_ta_en: "one end-to-end sales flow" },
-      { chi_so: "Duyệt đúng hạn mức", chi_so_en: "Right approval limits", mo_ta: "báo giá và mua hàng theo DoA", mo_ta_en: "quotations and purchasing by DoA" },
-      { chi_so: "Toàn tập đoàn", chi_so_en: "Whole group", mo_ta: "số liệu hợp nhất mọi pháp nhân", mo_ta_en: "consolidated figures across every entity" }
+      { chi_so: "Toàn quyền kiểm soát", chi_so_en: "Full ownership", mo_ta: "hệ thống riêng thay nền tảng SaaS trả phí license", mo_ta_en: "a system of its own instead of a licensed SaaS platform" },
+      { chi_so: "Đa pháp nhân", chi_so_en: "Multi-entity", mo_ta: "nhiều công ty, số liệu hợp nhất trên một hệ thống", mo_ta_en: "many companies, consolidated figures in one system" },
+      { chi_so: "Lead → hoá đơn", chi_so_en: "Lead → invoice", mo_ta: "bán hàng và hậu mãi trên một luồng xuyên suốt", mo_ta_en: "sales and after-sales in one end-to-end flow" }
     ],
     use_cases: [
-      { ten: "Pipeline bán hàng rõ ràng", ten_en: "A clear sales pipeline", mo_ta: "Từ lead, cơ hội, báo giá đến đơn hàng và hoá đơn trên Kanban theo giai đoạn, quản lý biết deal nào cần đẩy.", mo_ta_en: "Leads, deals, quotations, orders and invoices on stage-based Kanban boards, so managers know which deals to push." },
-      { ten: "Báo giá duyệt đúng thẩm quyền", ten_en: "Quotes approved by the right person", mo_ta: "Luồng phê duyệt theo hạn mức (DoA) cho báo giá, chiết khấu và mua hàng, thay cho chuỗi email.", mo_ta_en: "Delegation-of-authority (DoA) approval flows for quotations, discounts and purchasing instead of email chains." },
-      { ten: "Hậu mãi tạo doanh thu lặp lại", ten_en: "After-sales that brings repeat revenue", mo_ta: "Phiếu sửa chữa, hồ sơ thiết bị và lịch kiểm định được nhắc hạn, biến dịch vụ sau bán thành nguồn doanh thu.", mo_ta_en: "Service jobs, equipment records and inspection schedules with due-date reminders turn after-sales into a revenue stream." },
-      { ten: "Lắp đặt đúng tiến độ", ten_en: "Installations on schedule", mo_ta: "Dự án lắp đặt, phiếu xuất và yêu cầu phụ tùng theo dõi trên cùng hệ thống với đơn hàng.", mo_ta_en: "Installation projects, parts issues and requisitions tracked in the same system as the orders." },
-      { ten: "Mua hàng có kiểm soát", ten_en: "Controlled purchasing", mo_ta: "Đề nghị mua, nhà cung cấp và phê duyệt minh bạch theo từng pháp nhân.", mo_ta_en: "Purchase requisitions, vendors and approvals kept transparent per legal entity." },
+      { ten: "Pipeline bán hàng rõ ràng", ten_en: "A clear sales pipeline", mo_ta: "Từ khách hàng tiềm năng, cơ hội, chào giá đến đơn hàng và hoá đơn trên Kanban theo giai đoạn, quản lý biết cơ hội nào cần đẩy.", mo_ta_en: "Prospects, opportunities, proposals, orders and invoices on stage-based Kanban boards, so managers know which opportunities to push." },
+      { ten: "Chào giá duyệt đúng thẩm quyền", ten_en: "Proposals approved by the right person", mo_ta: "Hạn mức phê duyệt (DoA) cho chào giá, chiết khấu và mua sắm, thay cho chuỗi email.", mo_ta_en: "Delegation-of-authority (DoA) approval limits for proposals, discounts and procurement instead of email chains." },
+      { ten: "Hậu mãi tạo doanh thu lặp lại", ten_en: "After-sales that brings repeat revenue", mo_ta: "Lệnh dịch vụ, hồ sơ thiết bị và lịch kiểm định được nhắc hạn, biến dịch vụ sau bán thành nguồn doanh thu.", mo_ta_en: "Service orders, installed-base records and inspection schedules with due-date reminders turn after-sales into a revenue stream." },
+      { ten: "Dự án đóng mới đúng tiến độ", ten_en: "Fit-out projects on schedule", mo_ta: "Dự án đóng mới, phiếu xuất kho và yêu cầu vật tư theo dõi trên cùng hệ thống với đơn hàng.", mo_ta_en: "Fit-out projects, goods issues and material requests tracked in the same system as the orders." },
+      { ten: "Thu mua có kiểm soát", ten_en: "Controlled procurement", mo_ta: "Yêu cầu mua sắm, đối tác cung ứng và phê duyệt minh bạch theo từng pháp nhân.", mo_ta_en: "Purchase requests, suppliers and approvals kept transparent per legal entity." },
       { ten: "Lãnh đạo nhìn toàn tập đoàn", ten_en: "Leadership sees the whole group", mo_ta: "Group View hợp nhất số liệu các pháp nhân, báo cáo và dự báo doanh số cho ban điều hành.", mo_ta_en: "Group View consolidates figures across entities, with reports and sales forecasts for management." }
     ],
-    dich_vu_lien_quan: "phat-trien-phan-mem",
+    dich_vu_lien_quan: "tu-van-ung-dung-cong-nghe",
     noi_bat: true,
-    playground: "screens/du-an/playground/?app=crm"
+    playground: "screens/du-an/playground/?app=crm",
+    mang: ["E-commerce", "CRM", "After-sales", "Accounting", "Data migration"],
+    anh_phu: [
+      { anh: "showcase/assets/covers/crm-1.jpg", anh_alt: "Bảng Kanban theo trạng thái cho lệnh dịch vụ", anh_alt_en: "Status Kanban board for service orders" },
+      { anh: "showcase/assets/covers/crm-2.jpg", anh_alt: "Phê duyệt của tôi: hàng chờ theo hạn mức (DoA)", anh_alt_en: "My approvals: delegation-of-authority queue" }
+    ]
   },
   {
     id: "da-4",
@@ -154,7 +184,12 @@ const DATA_DU_AN = [
     ],
     dich_vu_lien_quan: "phat-trien-phan-mem",
     noi_bat: false,
-    playground: "screens/du-an/playground/?app=admin"
+    playground: "screens/du-an/playground/?app=admin",
+    mang: ["E-commerce admin", "Orders & refunds", "Promotions", "Content", "Reports"],
+    anh_phu: [
+      { anh: "showcase/assets/covers/admin-1.jpg", anh_alt: "Danh sách đơn hàng theo kênh bán", anh_alt_en: "Order list by sales channel" },
+      { anh: "showcase/assets/covers/admin-2.jpg", anh_alt: "Báo cáo bán hàng theo kênh và thời gian", anh_alt_en: "Sales report by channel and period" }
+    ]
   },
   {
     id: "da-5",
@@ -190,7 +225,12 @@ const DATA_DU_AN = [
     ],
     dich_vu_lien_quan: "thiet-ke-phat-trien-web",
     noi_bat: false,
-    playground: "screens/du-an/playground/?app=store-front"
+    playground: "screens/du-an/playground/?app=store-front",
+    mang: ["E-commerce", "Booking", "Membership", "Loyalty points"],
+    anh_phu: [
+      { anh: "showcase/assets/covers/store-front-1.jpg", anh_alt: "Trang gói dịch vụ y tế và đặt lịch", anh_alt_en: "Healthcare package page with booking" },
+      { anh: "showcase/assets/covers/store-front-2.jpg", anh_alt: "Giỏ hàng nhóm theo kênh mua", anh_alt_en: "Cart grouped by purchase channel" }
+    ]
   },
   {
     id: "da-6",
@@ -225,6 +265,52 @@ const DATA_DU_AN = [
     ],
     dich_vu_lien_quan: "phat-trien-phan-mem",
     noi_bat: false,
-    playground: "screens/du-an/playground/?app=pos"
+    playground: "screens/du-an/playground/?app=pos",
+    mang: ["POS", "Pharmacy", "Prescriptions", "Shift close"],
+    anh_phu: [
+      { anh: "showcase/assets/covers/pos-1.jpg", anh_alt: "Ghi nhận đơn thuốc ngay tại quầy", anh_alt_en: "Prescription recording at the counter" },
+      { anh: "showcase/assets/covers/pos-2.jpg", anh_alt: "Chốt ca và đối soát cuối ngày", anh_alt_en: "Shift close and end-of-day reconciliation" }
+    ]
+  },
+  {
+    id: "da-7",
+    slug: "kiosk-tu-phuc-vu-benh-vien-phong-kham",
+    ten_du_an: "Kiosk tự phục vụ cho bệnh viện, phòng khám",
+    ten_du_an_en: "Self-service kiosk for hospitals & clinics",
+    khach_hang: "CareJourney (tên đã thay để bảo mật)",
+    khach_hang_en: "CareJourney (name changed for confidentiality)",
+    nganh: "Y tế",
+    nganh_en: "Healthcare",
+    linh_vuc: "healthcare",
+    anh: "showcase/assets/covers/kiosk.jpg",
+    anh_alt: "Màn hình chào của kiosk tự phục vụ bệnh viện: sản phẩm, đặt lịch tham quan, gói thai sản, lớp học, hội viên",
+    anh_alt_en: "Hospital self-service kiosk welcome screen: products, ward tours, maternity packages, classes, membership",
+    tom_tat: "Kiosk cảm ứng tự phục vụ tại sự kiện và sảnh bệnh viện: khách tự xem sản phẩm, đặt lịch tham quan, đăng ký gói thai sản, lớp học và hội viên mà không cần tài khoản.",
+    tom_tat_en: "A touch-screen self-service kiosk for events and hospital lobbies: visitors browse products, book tours and sign up for maternity packages, classes and membership without an account.",
+    thach_thuc: "Tại sự kiện và quầy tiếp đón, khách phải xếp hàng chờ nhân viên chỉ để hỏi giá, đặt lịch tham quan hay đăng ký chương trình; thông tin liên hệ ghi tay dễ thất lạc, đội ngũ khó theo dõi và gọi lại đúng người.",
+    thach_thuc_en: "At events and reception desks, visitors queued for a staff member just to check prices, book a tour or join a programme; contact details were taken by hand and often lost, and the team struggled to follow up with the right people.",
+    giai_phap: "KTP thiết kế kiosk cảm ứng tự phục vụ: màn hình chào với các dịch vụ chính, danh mục sản phẩm và combo để đặt trước rồi thanh toán tại quầy hoặc hẹn gọi lại, đặt lịch tham quan khoa sản theo số chỗ còn trống, đăng ký gói thai sản, lớp học tiền sản và chăm sóc bé, đăng ký hội viên nhận mã ngay tại chỗ. Mỗi bước kiểm tra dữ liệu, cấp mã tham chiếu và gợi ý dịch vụ liên quan; nút trợ giúp luôn sẵn và phiên tự làm mới cho khách tiếp theo. Prototype bấm thử được đến từng màn trước khi phát triển thật.",
+    giai_phap_en: "KTP designed a touch-screen self-service kiosk: a welcome screen with the main services, a product and bundle catalog to reserve and then pay at the counter or request a call-back, maternity ward tour booking by available places, sign-up for maternity packages, birth and parenting classes, and on-the-spot membership with a member number. Every step validates input, issues a reference code and suggests a related service; a help button is always available and the session resets itself for the next visitor. The prototype is clickable down to every screen before real development starts.",
+    ket_qua: [
+      { chi_so: "Không xếp hàng", chi_so_en: "No queueing", mo_ta: "khách tự đặt lịch, đăng ký ngay tại kiosk", mo_ta_en: "visitors book and sign up at the kiosk themselves" },
+      { chi_so: "Thu lead tại chỗ", chi_so_en: "On-the-spot leads", mo_ta: "liên hệ và nhu cầu ghi nhận ngay, kèm mã tham chiếu", mo_ta_en: "contact details and needs captured with a reference code" },
+      { chi_so: "Bán chéo", chi_so_en: "Cross-selling", mo_ta: "gợi ý gói thai sản, hội viên sau mỗi lượt đăng ký", mo_ta_en: "maternity packages and membership suggested after each sign-up" }
+    ],
+    use_cases: [
+      { ten: "Giảm hàng chờ tại sự kiện", ten_en: "Shorter queues at events", mo_ta: "Khách tự xem sản phẩm, combo ưu đãi sự kiện và đặt trước; nhân viên chỉ cần thu tiền tại quầy.", mo_ta_en: "Visitors browse products and event-only bundles and reserve them; staff only take payment at the counter." },
+      { ten: "Không bỏ lỡ khách chưa quyết định", ten_en: "Keep undecided visitors", mo_ta: "Khách chưa sẵn sàng mua để lại số điện thoại hoặc email để đội ngũ gọi lại tư vấn.", mo_ta_en: "Visitors not ready to buy leave a phone number or email so the team can follow up." },
+      { ten: "Lịch tham quan không quá tải", ten_en: "Ward tours never overbooked", mo_ta: "Khách chọn khung giờ còn chỗ, khung đã kín hiển thị rõ, mỗi lượt đặt có mã xác nhận.", mo_ta_en: "Visitors pick a slot with places left, full slots are clearly marked and every booking gets a confirmation code." },
+      { ten: "Tư vấn đúng gói thai sản", ten_en: "The right maternity package first time", mo_ta: "Thu thập thông tin thai kỳ, bác sĩ mong muốn và loại phòng sinh để đội ngũ tư vấn đúng gói ngay lần liên hệ đầu.", mo_ta_en: "Pregnancy details, preferred doctor and room type are collected up front, so the team offers the right package on the first call." },
+      { ten: "Lớp học kín chỗ, chuẩn bị chủ động", ten_en: "Full classes, planned ahead", mo_ta: "Khách chọn lớp tiền sản, chăm sóc bé và buổi học còn chỗ; trung tâm biết trước sĩ số để chuẩn bị.", mo_ta_en: "Visitors choose birth and newborn-care classes and a session with seats left; the centre knows numbers in advance." },
+      { ten: "Hội viên ngay tại chỗ", ten_en: "Instant membership", mo_ta: "Đăng ký chương trình hội viên và nhận mã ngay tại kiosk, không cần xếp hàng ở quầy dịch vụ.", mo_ta_en: "Visitors join the member programme and get a member number at the kiosk, with no queue at the service desk." }
+    ],
+    dich_vu_lien_quan: "phat-trien-phan-mem",
+    noi_bat: false,
+    playground: "screens/du-an/playground/?app=kiosk",
+    mang: ["Self-service kiosk", "Booking", "Lead capture", "Membership"],
+    anh_phu: [
+      { anh: "showcase/assets/covers/kiosk-1.jpg", anh_alt: "Danh mục sản phẩm và combo, chọn để đặt trước", anh_alt_en: "Product and bundle catalog, pick items to reserve" },
+      { anh: "showcase/assets/covers/kiosk-2.jpg", anh_alt: "Đặt lịch tham quan khoa sản theo số chỗ còn trống", anh_alt_en: "Maternity ward tour booking by available places" }
+    ]
   }
 ];

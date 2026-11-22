@@ -1,0 +1,143 @@
+/* CR-02 — Chi tiết dự án (case study portfolio). Dùng chung .pf-* từ ../style.css; class riêng tiền tố .pd- */
+
+/* ① Hero */
+.pd-hero { padding: calc(var(--header-h) + 40px) 0 var(--sp-12); }
+.pd-hero__badges { margin-bottom: var(--sp-4); }
+.pd-title {
+  font: 800 clamp(34px, 5vw, 68px)/1.08 var(--font-sans); letter-spacing: -0.03em; max-width: 1000px;
+  background: linear-gradient(180deg, var(--gray-300) 0%, #fff 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+  padding-bottom: 0.08em; /* chừa chỗ cho dấu tiếng Việt phía dưới khi clip text */
+}
+.pd-hero .domain-chips { margin-top: var(--sp-6); }
+.pd-lead { max-width: 860px; margin-top: var(--sp-6); font-size: clamp(16px, 1.5vw, 19px); line-height: 1.65; color: var(--text-secondary); }
+.pd-meta {
+  display: grid; grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr)); gap: 0; margin-top: var(--sp-8);
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+}
+.pd-meta > div { padding: var(--sp-4) var(--sp-4) var(--sp-4) 0; }
+.pd-meta > div + div { padding-left: var(--sp-4); border-left: 1px solid var(--border); }
+.pd-meta dt { font: 600 11.5px var(--font-sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+.pd-meta dd { margin: 0; font-size: 14.5px; line-height: 1.45; color: var(--text-strong); font-weight: 500; }
+.pd-meta dd a { color: var(--accent); }
+.pd-meta dd a:hover { text-decoration: underline; }
+.pd-hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3); margin-top: var(--sp-6); }
+.pd-hero__actions .case-confidential { margin: 0 0 0 var(--sp-2); }
+.pd-cover { position: relative; margin-top: var(--sp-10, 40px); height: clamp(260px, 58vh, 580px); border-radius: 40px; overflow: hidden; background: var(--surface); border: 1px solid var(--border); }
+.pd-cover img { position: absolute; inset: -6% 0; width: 100%; height: 112%; object-fit: cover; display: block; will-change: transform; }
+
+/* ② Bối cảnh */
+.pd-story { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-12); }
+.pd-story__num { display: block; font: 900 clamp(3rem, 7vw, 6rem)/0.85 var(--font-sans); letter-spacing: -0.04em; margin-bottom: var(--sp-4);
+  background: linear-gradient(180deg, var(--gray-600), var(--gray-200)); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+.pd-story h2 { font: 700 clamp(22px, 2.4vw, 30px)/1.25 var(--font-sans); color: var(--text-strong); margin-bottom: var(--sp-4); }
+.pd-story p { font-size: 16px; line-height: 1.75; color: var(--text-secondary); }
+
+/* ③ Gallery bento */
+.pd-bento { display: grid; grid-template-columns: 3fr 2fr; grid-template-rows: 1fr 1fr; gap: 16px; height: clamp(420px, 70vh, 640px); }
+.pd-bento figure { position: relative; margin: 0; border-radius: 40px; overflow: hidden; background: var(--surface); min-height: 0; }
+.pd-bento figure:first-child { grid-row: 1 / 3; }
+.pd-bento img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 700ms ease-out; }
+.pd-bento figure:hover img { transform: scale(1.04); }
+.pd-bento__stat {
+  border-radius: 40px; padding: var(--sp-8); display: flex; flex-direction: column; justify-content: flex-end; gap: var(--sp-2);
+  background: radial-gradient(circle at 85% 15%, rgba(1,151,112,0.22), transparent 60%), var(--surface);
+  border: 1px solid var(--border);
+}
+.pd-bento__stat strong { font: 900 clamp(40px, 5vw, 72px)/1 var(--font-sans); letter-spacing: -0.03em; color: var(--accent); }
+.pd-bento__stat span { font-size: 15px; line-height: 1.5; color: var(--gray-200); max-width: 320px; }
+
+/* ④ Hành trình 4 bước (case trong nước) */
+.pd-journey { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-6); counter-reset: none; }
+.pd-journey li { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 28px; padding: var(--sp-6); }
+.pd-journey li:not(:last-child)::after {
+  content: '→'; position: absolute; top: 34px; right: calc(var(--sp-6) / -2 - 8px); color: var(--accent); font: 700 18px var(--font-sans);
+}
+.pd-journey__num { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font: 800 14px var(--font-sans); color: var(--accent); background: var(--bg); border: 1px solid var(--accent); margin-bottom: var(--sp-4); }
+.pd-journey h3 { font: 600 15px/1.35 var(--font-sans); color: var(--text-strong); margin-bottom: var(--sp-2); }
+.pd-journey p { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+.pd-journey-next { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: var(--sp-6); color: var(--text-secondary); font-size: 14px; }
+.pd-journey-next svg { color: var(--accent); }
+
+/* ⑤ Kết quả (nền sáng, bo góc trên) */
+.pd-results { background: var(--gray-50); color: var(--gray-900); border-radius: 60px 60px 0 0; padding: var(--sp-20) var(--sp-8) calc(var(--sp-20) + 80px); }
+.pd-results__inner { max-width: 1040px; margin: 0 auto; }
+.pd-results__note { text-align: center; color: var(--gray-600); max-width: 560px; margin: var(--sp-4) auto 0; font-size: 15px; }
+.pd-results__list { margin-top: var(--sp-12); }
+.pd-result { display: grid; grid-template-columns: minmax(240px, 1.25fr) 1fr; gap: var(--sp-8); align-items: center; padding: var(--sp-8) 0; border-top: 1px solid rgba(0,8,74,0.15); }
+.pd-result:last-child { border-bottom: 1px solid rgba(0,8,74,0.15); }
+.pd-result strong { font: 900 clamp(2.4rem, 5.6vw, 84px)/0.95 var(--font-sans); letter-spacing: -0.04em; color: var(--primary-dark); }
+.pd-result span { font-size: clamp(1rem, 1.7vw, 1.3rem); line-height: 1.5; color: var(--gray-700); }
+
+/* ⑥ Dự án tiếp theo */
+.pd-next { position: relative; z-index: 1; margin-top: -56px; background: var(--bg); border-radius: 60px 60px 0 0; padding: var(--sp-20) 0; overflow: hidden; }
+.pd-next__link { position: relative; display: block; padding: var(--sp-8) 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.pd-next__title {
+  display: block; max-width: 860px; font: 800 clamp(28px, 4.4vw, 60px)/1.12 var(--font-sans); letter-spacing: -0.03em;
+  background: linear-gradient(180deg, var(--gray-500), var(--gray-100)); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+  transition: opacity 250ms ease-out; padding-bottom: 0.08em;
+}
+.pd-next__arrow {
+  position: absolute; right: 0; top: 50%; width: 72px; height: 72px; margin-top: -36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; border: 2px solid var(--gray-300); color: var(--gray-100);
+  transition: all 300ms ease-out;
+}
+.pd-next__arrow svg { width: 26px; height: 26px; }
+.pd-next__thumb {
+  position: absolute; right: 110px; top: 50%; width: 260px; aspect-ratio: 4 / 3; border-radius: 24px; overflow: hidden;
+  transform: translateY(-50%) rotate(4deg) scale(0.85); opacity: 0; pointer-events: none; box-shadow: var(--shadow-3);
+  transition: opacity 300ms ease-out, transform 400ms cubic-bezier(.34,1.56,.64,1);
+}
+.pd-next__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pd-next__link:hover .pd-next__thumb, .pd-next__link:focus-visible .pd-next__thumb { opacity: 1; transform: translateY(-50%) rotate(-3deg) scale(1); }
+.pd-next__link:hover .pd-next__arrow { background: var(--accent); border-color: var(--accent); color: #fff; transform: rotate(-45deg); }
+.pd-next__link:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 12px; }
+.pd-next__foot { display: flex; justify-content: space-between; gap: var(--sp-4); margin-top: var(--sp-6); font-size: 14px; }
+.pd-next__foot a { color: var(--text-secondary); }
+.pd-next__foot a:hover { color: var(--accent); }
+
+/* Responsive */
+@media (max-width: 960px) {
+  .pd-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pd-meta > div:nth-child(3) { padding-left: 0; border-left: 0; }
+  .pd-meta > div:nth-child(n+3) { border-top: 1px solid var(--border); }
+  .pd-journey { grid-template-columns: 1fr 1fr; }
+  .pd-journey li:nth-child(2)::after { display: none; }
+  .pd-next__thumb { display: none; }
+}
+@media (max-width: 767px) {
+  .pd-story { grid-template-columns: 1fr; gap: var(--sp-10, 40px); }
+  .pd-cover { border-radius: 28px; height: clamp(220px, 42vh, 320px); }
+  .pd-hero .breadcrumb { min-width: 0; }
+  .pd-hero .breadcrumb > span:last-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pd-bento { grid-template-columns: 1fr 1fr; grid-template-rows: 220px auto; height: auto; }
+  .pd-bento figure:first-child { grid-row: auto; grid-column: 1 / -1; }
+  .pd-bento figure, .pd-bento__stat { border-radius: 24px; }
+  .pd-bento figure:nth-child(2) { aspect-ratio: 1; }
+  .pd-bento__stat { padding: var(--sp-6); }
+  .pd-journey { grid-template-columns: 1fr; }
+  .pd-journey li::after { display: none; }
+  .pd-results { border-radius: 36px 36px 0 0; padding: var(--sp-16) var(--sp-6) calc(var(--sp-16) + 60px); }
+  .pd-result { grid-template-columns: 1fr; gap: var(--sp-2); }
+  .pd-next { border-radius: 36px 36px 0 0; }
+  .pd-next__arrow { position: static; margin: var(--sp-4) 0 0; width: 56px; height: 56px; }
+}
+
+/* ⑤ Use case chính (dữ liệu use_cases của prototype) */
+.pd-cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-6); }
+.pd-case { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 28px; padding: var(--sp-6); }
+.pd-case__num { display: inline-flex; align-items: center; justify-content: center; min-width: 36px; height: 28px; padding: 0 10px; margin-bottom: var(--sp-4);
+  border-radius: var(--radius-full); background: rgba(1,151,112,0.16); color: var(--accent); font: 700 12.5px var(--font-sans); }
+.pd-case h3 { font: 600 17px/1.35 var(--font-sans); color: var(--text-strong); margin-bottom: var(--sp-2); }
+.pd-case p { font-size: 14.5px; line-height: 1.65; color: var(--text-secondary); }
+.pd-cases__cta { display: flex; justify-content: center; margin-top: var(--sp-10, 40px); }
+@media (max-width: 960px) { .pd-cases { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 767px) { .pd-cases { grid-template-columns: 1fr; } .pd-meta { --cols: 2 !important; } }
+
+/* Light theme: chữ gradient / xám nhạt thiết kế cho nền tối */
+:root[data-theme="light"] .pd-title,
+:root[data-theme="light"] .pd-next__title { background: linear-gradient(180deg, var(--primary-dark) 0%, var(--gray-500) 100%); -webkit-background-clip: text; background-clip: text; }
+:root[data-theme="light"] .pd-story__num { background: linear-gradient(180deg, var(--gray-200), var(--gray-400)); -webkit-background-clip: text; background-clip: text; }
+:root[data-theme="light"] .pd-bento__stat span { color: var(--text-secondary); }
+:root[data-theme="light"] .pd-next__arrow { border-color: var(--border-light); color: var(--text-strong); }
+:root[data-theme="light"] .pd-results { background: var(--surface); }

@@ -445,16 +445,16 @@ h3, .h3 { font: var(--h3); }
 .hero .body-lg { max-width: 480px; margin-bottom: var(--sp-8); }
 .hero__ctas { display: flex; gap: var(--sp-4); flex-wrap: wrap; }
 
-/* Hero trust badge — avatar stack + star rating (social proof near CTA) */
+/* Hero trust row — icon các lĩnh vực + số dự án có playground (đếm từ DATA_DU_AN, script.js renderHeroTrust) */
 .hero__trust { display: flex; align-items: center; gap: var(--sp-3); margin-top: var(--sp-8); }
 .hero__trust-avatars { display: flex; }
 .hero__trust-avatars .avatar {
   width: 34px; height: 34px; font-size: 12px; border: 2px solid var(--bg); margin-left: -10px; flex-shrink: 0;
 }
 .hero__trust-avatars .avatar:first-child { margin-left: 0; }
+.hero__trust-avatars .avatar .domain-icon { width: 16px; height: 16px; }
 .hero__trust-rating { display: flex; flex-direction: column; gap: 3px; }
-.hero__trust-stars { display: flex; gap: 2px; }
-.hero__trust-stars svg { width: 13px; height: 13px; color: var(--warning); }
+.hero__trust-rating strong { font: 600 14px/1.3 var(--font-sans); color: var(--text-strong); }
 .hero__trust-rating span { font: var(--caption); text-transform: none; color: var(--text-secondary); font-size: 12.5px; }
 .hero__visual-stack { position: relative; }
 .hero__visual {
@@ -466,18 +466,23 @@ h3, .h3 { font: var(--h3); }
 .hero__visual-body { padding: var(--sp-6); }
 
 /* ==========================================================================
-   Hero showcase carousel — cycles product-domain case studies with a photo
-   background, replaces the old flat stat card so it never repeats the
-   company-wide Stats section below.
+   Hero showcase carousel — xoay các prototype thật (ảnh bìa trong showcase/assets/covers, dữ liệu DATA_DU_AN):
+   lĩnh vực, tên dự án, phân hệ, một giá trị kinh doanh bằng chữ, nút bấm thử playground.
    ========================================================================== */
 .hero-showcase { position: relative; height: 290px; overflow: hidden; background: var(--surface-3); }
 .hero-showcase__img {
-  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block;
 }
+.hero-showcase__try {
+  position: absolute; top: 14px; right: 14px; z-index: 2; display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 12px; border-radius: var(--radius-full); background: var(--primary); color: #fff;
+  font: 600 12.5px var(--font-sans); box-shadow: var(--shadow-2); transition: background 160ms ease-out, transform 160ms ease-out;
+}
+.hero-showcase__try:hover { background: #5B6CFF; transform: translateY(-1px); }
 .hero-showcase__overlay {
   position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; justify-content: flex-end;
   padding: var(--sp-6);
-  background: linear-gradient(180deg, rgba(8,10,20,0.08) 0%, rgba(8,10,20,0.72) 42%, rgba(6,8,15,0.96) 100%);
+  background: linear-gradient(180deg, rgba(8,10,20,0) 0%, rgba(8,10,20,0.2) 14%, rgba(8,10,20,0.9) 40%, rgba(6,8,15,0.97) 100%);
 }
 .hero-showcase__tag {
   display: inline-flex; align-items: center; gap: 7px; font: 700 11px var(--font-sans); letter-spacing: 0.06em;
@@ -490,11 +495,14 @@ h3, .h3 { font: var(--h3); }
     animation: statusPulse 1.8s ease-out infinite;
   }
 }
+.hero-showcase__tag .domain-icon { width: 13px; height: 13px; flex: none; }
 .hero-showcase__project { font: 700 16px var(--font-sans); color: #fff; margin-bottom: 5px; }
+.hero-showcase__project a { color: inherit; }
+.hero-showcase__project a:hover { color: var(--accent); }
 .hero-showcase__desc { font-size: 12.5px; color: var(--text-secondary); line-height: 1.5; margin-bottom: var(--sp-4); max-width: 92%; }
 .hero-showcase__metric { display: flex; align-items: center; gap: 10px; margin-bottom: var(--sp-3); }
-.hero-showcase__metric-value { font: 800 28px var(--font-sans); color: var(--accent); letter-spacing: -0.02em; }
-.hero-showcase__metric-label { font-size: 11.5px; color: var(--text-muted); line-height: 1.4; max-width: 180px; }
+.hero-showcase__metric-value { font: 800 20px/1.2 var(--font-sans); color: var(--accent); letter-spacing: -0.01em; }
+.hero-showcase__metric-label { font-size: 11.5px; color: var(--text-secondary); line-height: 1.4; max-width: 220px; }
 .hero-showcase__bar { height: 5px; border-radius: 999px; background: rgba(255,255,255,0.14); overflow: hidden; }
 .hero-showcase__bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--accent), var(--primary)); width: 0%; }
 @media (prefers-reduced-motion: no-preference) {
@@ -853,6 +861,283 @@ h3, .h3 { font: var(--h3); }
 .case-card__acts .btn { flex: 1 1 auto; padding: 10px 14px; font-size: 13.5px; }
 .case-card__metric span { color: var(--text-muted); font-size: 13px; }
 
+/* ==========================================================================
+   CR-01 — Case study: badge quốc gia / trạng thái, nhãn "Cần xác nhận", hành trình phạm vi
+   ========================================================================== */
+.case-card__badges { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.badge-market { background: rgba(76,95,255,0.16); color: #AEB8FF; }
+.badge-market svg { flex-shrink: 0; }
+.badge-ongoing { background: var(--warning-bg); color: var(--warning); }
+.badge-ongoing__dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .badge-ongoing__dot { animation: ongoingPulse 1.8s ease-in-out infinite; }
+}
+@keyframes ongoingPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.section-bg-light .badge-market { background: rgba(76,95,255,0.10); color: #3442C9; }
+.section-bg-light .badge-ongoing { background: #FFF3DC; color: #8A5300; }
+
+/* CR-02 — Nút demo (Live demo / Request for demo) + hàng nút trên card case study */
+.btn-sm { padding: 9px 16px; font-size: 13.5px; }
+.btn-demo svg { width: 15px; height: 15px; }
+.case-card__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sp-3); margin-top: var(--sp-4); }
+.case-card__actions .service-card__link { margin-top: 0; }
+.case-card__title-link { color: inherit; }
+.case-card__title-link:hover { color: var(--accent); }
+.section-bg-light .case-card__title-link:hover { color: var(--accent-dark); }
+a.portfolio-card__img { display: block; }
+
+/* CR-02 — Chip business domain của dự án (E-commerce, CRM, Inventory…) */
+.domain-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.domain-chip {
+  display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px; border-radius: var(--radius-full);
+  border: 1px solid var(--border-light); background: rgba(255,255,255,0.03);
+  font: 600 12px/1.4 var(--font-sans); color: var(--gray-200); white-space: nowrap;
+}
+.domain-chip::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.section-bg-light .domain-chip { border-color: var(--gray-200); background: #fff; color: var(--gray-700); }
+
+/* Nội dung chưa được KTP xác nhận — cố ý nổi bật để không bị bỏ sót trước go-live */
+.tbc-flag {
+  display: inline; padding: 1px 8px; border: 1px dashed var(--warning); border-radius: 6px;
+  background: rgba(245,165,36,0.10); color: var(--warning); font-size: 0.82em; font-weight: 600; line-height: 1.9;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.case-confidential { font-size: 13px; font-style: italic; color: var(--text-muted); margin-bottom: var(--sp-8); }
+
+.scope-journey {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(var(--stages, 3), 1fr); gap: var(--sp-8);
+}
+.scope-stage { position: relative; display: flex; flex-direction: column; gap: var(--sp-3); }
+.scope-stage__head {
+  display: flex; align-items: center; gap: 10px; padding-bottom: var(--sp-3); border-bottom: 1px solid var(--border-light);
+  font: 700 13px var(--font-sans); letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent);
+}
+.scope-stage__num {
+  width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  background: var(--surface-2); border: 1px solid var(--border-light); color: var(--text-strong); font-size: 12px; letter-spacing: 0;
+}
+.scope-stage:not(:last-child)::after {
+  content: '→'; position: absolute; top: 2px; right: calc(var(--sp-8) / -2 - 8px);
+  color: var(--accent); font: 700 18px var(--font-sans);
+}
+.scope-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--sp-4); }
+/* Trạng thái chặng: Đang triển khai (vàng cam, chấm nhấp nháy) · Chuẩn bị bắt đầu (xám, thẻ viền đứt) */
+.scope-stage.is-active .scope-stage__head { color: var(--warning); }
+.scope-stage.is-active .scope-stage__num { border-color: var(--warning); color: var(--warning); }
+.scope-stage.is-active .scope-stage__head::after { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--warning); margin-left: 2px; }
+@media (prefers-reduced-motion: no-preference) { .scope-stage.is-active .scope-stage__head::after { animation: ongoingPulse 1.6s ease-in-out infinite; } }
+.scope-stage.is-upcoming .scope-stage__head { color: var(--text-muted); }
+.scope-stage.is-upcoming .scope-item { background: transparent; border-style: dashed; }
+.scope-item strong { display: block; color: var(--text-strong); font-size: 15px; margin-bottom: 4px; }
+.scope-item p { margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--text-secondary); }
+@media (max-width: 860px) {
+  .scope-journey { grid-template-columns: 1fr; gap: var(--sp-10, 40px); }
+  .scope-stage:not(:last-child)::after { content: '↓'; top: auto; right: auto; bottom: -32px; left: 7px; }
+}
+
+/* ==========================================================================
+   CR-01 — Trang chủ: "Đồng hành chuyển đổi số" (vòng 4 bước, thay section Quy trình 4 bước)
+   ========================================================================== */
+.dx-loop__steps {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-6);
+}
+.dx-step {
+  position: relative; display: flex; flex-direction: column;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--sp-6);
+}
+.dx-step__num {
+  width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font: 800 15px var(--font-sans); color: var(--accent); background: var(--bg); border: 1px solid var(--accent);
+  margin-bottom: var(--sp-4);
+}
+.dx-step h3 { font: var(--h3); font-size: 17px; color: var(--text-strong); margin-bottom: var(--sp-2); }
+.dx-step p { font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+.dx-step__out {
+  margin-top: auto; padding-top: var(--sp-3); border-top: 1px dashed var(--border-light);
+  font-size: 12.5px; color: var(--text-muted);
+}
+.dx-step p + .dx-step__out { margin-top: var(--sp-4); }
+.dx-step__out strong { color: var(--accent); font-weight: 600; }
+/* CR-03 — dòng "✦ AI" trong mỗi bước + chip AI dùng chung (trang chủ, trang dịch vụ) */
+.dx-ai-tag {
+  display: inline-flex; align-items: center; gap: 4px; margin-right: 6px; padding: 1px 8px 1px 6px; border-radius: var(--radius-full);
+  background: rgba(1,151,112,0.18); color: var(--accent); font: 700 11px/1.6 var(--font-sans); letter-spacing: 0.05em; vertical-align: 1px;
+  transition: background 300ms ease-out, color 300ms ease-out;
+}
+.dx-ai-tag svg { width: 10px; height: 10px; }
+.dx-step .dx-step__ai {
+  margin-top: var(--sp-3); padding: 10px 12px; border-radius: 12px; font-size: 13px; line-height: 1.55; color: var(--gray-200);
+  background: rgba(1,151,112,0.07); border: 1px solid rgba(1,151,112,0.22);
+  transition: background 300ms ease-out, border-color 300ms ease-out;
+}
+.dx-step__ai + .dx-step__out { margin-top: var(--sp-4); }
+.dx-loop .dx-step.is-active .dx-step__ai { background: rgba(245,165,36,0.08); border-color: rgba(245,165,36,0.35); }
+.dx-loop .dx-step.is-active .dx-ai-tag { background: rgba(245,165,36,0.2); color: var(--warning); }
+/* Mũi tên nối giữa các bước (desktop) */
+.dx-step:not(:last-child)::after {
+  content: ''; position: absolute; top: 42px; right: calc(-1 * var(--sp-6)); width: var(--sp-6); height: 14px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='14' viewBox='0 0 24 14' fill='none' stroke='%23019770' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='3' y1='7' x2='20' y2='7'/%3E%3Cpolyline points='15 2 20 7 15 12'/%3E%3C/svg%3E") center / 24px 14px no-repeat;
+}
+/* Đường quay lại bước ① — nối tâm cột 1 với tâm cột 4: inset = w/2 = 12.5% − 3·gap/8 */
+.dx-loop__return {
+  position: relative; height: 52px; margin: 0 calc(12.5% - 9px);
+  border: 2px dashed rgba(1,151,112,0.55); border-top: none; border-radius: 0 0 28px 28px;
+}
+.dx-loop__return::before {
+  content: ''; position: absolute; left: -7px; top: -2px;
+  border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 9px solid var(--accent);
+}
+.dx-loop__return-label {
+  position: absolute; left: 50%; bottom: 0; transform: translate(-50%, 50%);
+  display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+  padding: 8px 18px; border-radius: var(--radius-full); background: var(--bg); border: 1px solid var(--accent);
+  font: 600 13.5px var(--font-sans); color: var(--text-strong);
+}
+.dx-loop__return-label svg { color: var(--accent); flex-shrink: 0; }
+.dx-loop__return-label span { color: var(--text-secondary); font-weight: 500; }
+
+.dx-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-6); margin-top: var(--sp-16); }
+.dx-stat {
+  display: flex; align-items: flex-start; gap: var(--sp-6);
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--sp-6);
+}
+.dx-stat__value { font: 800 32px/1.1 var(--font-sans); color: var(--text-strong); letter-spacing: -0.02em; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.dx-stat__value em { font-style: normal; color: var(--warning); }
+.dx-stat p { font-size: 14.5px; line-height: 1.55; color: var(--text-secondary); }
+.dx-stat__src { display: block; margin-top: var(--sp-2); font-size: 12px; color: var(--text-muted); }
+.dx-stat__src a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.dx-stat__src a:hover { color: var(--text-secondary); }
+.dx-loop__ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--sp-4); margin-top: var(--sp-12); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .dx-loop .dx-step, .dx-loop .dx-loop__return { opacity: 0; transform: translateY(12px); transition: opacity 450ms ease-out, transform 450ms ease-out; }
+  .dx-loop.is-visible .dx-step, .dx-loop.is-visible .dx-loop__return { opacity: 1; transform: none; }
+  .dx-loop.is-visible .dx-step:nth-child(2) { transition-delay: 150ms; }
+  .dx-loop.is-visible .dx-step:nth-child(3) { transition-delay: 300ms; }
+  .dx-loop.is-visible .dx-step:nth-child(4) { transition-delay: 450ms; }
+  .dx-loop.is-visible .dx-loop__return { transition-delay: 700ms; }
+}
+
+/* ---- Vòng chạy tự động (JS: initDxLoop) — chỉ khi không bật reduced-motion ----
+   Màu nổi bật của vòng chạy = vàng cam --warning (#F5A524) để tách khỏi teal của trạng thái tĩnh.
+   Không dùng đỏ: crimson là màu signature, đỏ --error mang nghĩa lỗi. */
+.dx-loop { --dx-hl: var(--warning); --dx-hl-rgb: 245,165,36; }
+.dx-loop__round { display: none; }
+.dx-step__trace { display: none; }
+.dx-golive { display: none; }
+.dx-loop__dot { display: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .dx-loop--running .dx-loop__round {
+    display: inline-flex; align-items: center; gap: 8px; margin-bottom: var(--sp-4);
+    font: 600 12.5px var(--font-sans); letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted);
+  }
+  .dx-loop__round b { color: var(--dx-hl); font-variant-numeric: tabular-nums; display: inline-block; }
+  .dx-loop__round b.is-bump { animation: dxRoundBump 520ms cubic-bezier(.34,1.56,.64,1); }
+  .dx-loop__round-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--dx-hl); animation: ongoingPulse 1.6s ease-in-out infinite; }
+
+  /* bỏ delay của reveal khi vòng chạy đã bắt đầu, để các trạng thái chuyển tức thời */
+  .dx-loop--running .dx-step, .dx-loop--running .dx-loop__return { transition-delay: 0s !important; }
+  .dx-loop .dx-step { transition: opacity 450ms ease-out, transform 400ms ease-out, border-color 400ms ease-out, box-shadow 400ms ease-out, background 400ms ease-out; }
+  .dx-loop .dx-step__num { transition: background 300ms ease-out, color 300ms ease-out, box-shadow 300ms ease-out, border-color 300ms ease-out; }
+
+  /* Bước đang chạy: nhấc lên, quầng sáng vàng cam, số tô đặc; viền giữ dịu để nét "progress" chạy quanh viền nổi rõ */
+  .dx-loop .dx-step.is-active {
+    border-color: rgba(var(--dx-hl-rgb),0.22); background: var(--surface-2); transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(var(--dx-hl-rgb),0.14), 0 0 28px rgba(var(--dx-hl-rgb),0.08);
+  }
+  .dx-loop .dx-step.is-active .dx-step__num { background: var(--dx-hl); border-color: var(--dx-hl); color: var(--bg); box-shadow: 0 0 0 6px rgba(var(--dx-hl-rgb),0.2); }
+  .dx-loop .dx-step.is-active h3 { color: var(--text-strong); }
+  .dx-loop .dx-step.is-active .dx-step__out strong { color: var(--dx-hl); }
+  .dx-loop .dx-step.is-done .dx-step__num { background: rgba(var(--dx-hl-rgb),0.14); border-color: rgba(var(--dx-hl-rgb),0.6); color: var(--dx-hl); }
+
+  /* Progress chạy vòng quanh viền card (SVG rect do JS chèn, pathLength=100 → dashoffset 100 → 0) */
+  .dx-loop--running .dx-step__trace {
+    display: block; position: absolute; left: -1px; top: -1px; width: calc(100% + 2px); height: calc(100% + 2px);
+    overflow: visible; pointer-events: none;
+  }
+  .dx-step__trace rect {
+    fill: none; stroke: var(--dx-hl); stroke-width: 2.5; stroke-linecap: round;
+    stroke-dasharray: 100 100; stroke-dashoffset: 100;
+    filter: drop-shadow(0 0 4px rgba(var(--dx-hl-rgb),0.7));
+  }
+  .dx-step.is-active .dx-step__trace rect { animation: dxTrace var(--dx-step-ms, 2200ms) linear forwards; }
+  .dx-step.is-done .dx-step__trace rect { stroke-dashoffset: 0; opacity: 0.28; filter: none; transition: opacity 400ms ease-out; }
+  .dx-loop.is-paused .dx-step__trace rect { animation-play-state: paused; }
+
+  /* Mũi tên "chảy" sang bước kế tiếp — đổi sang vàng cam trong lúc chảy */
+  .dx-step.is-flow::after {
+    animation: dxArrowFlow 650ms ease-out;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='14' viewBox='0 0 24 14' fill='none' stroke='%23F5A524' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='3' y1='7' x2='20' y2='7'/%3E%3Cpolyline points='15 2 20 7 15 12'/%3E%3C/svg%3E");
+  }
+
+  /* Badge Go-live bật lên ở bước 3 khi thử nghiệm xong */
+  .dx-loop--running .dx-golive {
+    display: inline-flex; align-items: center; gap: 5px; position: absolute; top: 18px; right: 18px;
+    padding: 4px 10px; border-radius: var(--radius-full); background: var(--success-bg); color: var(--success);
+    border: 1px solid rgba(34,197,94,0.4); font: 700 11.5px var(--font-sans); letter-spacing: 0.02em;
+    opacity: 0; transform: scale(0.5);
+    transition: opacity 260ms ease-out, transform 420ms cubic-bezier(.34,1.56,.64,1);
+  }
+  .dx-loop.is-golive .dx-golive { opacity: 1; transform: scale(1); }
+
+  /* Pha quay lại: đường nét đứt sáng lên + chấm sáng chạy từ bước 4 về bước 1 */
+  .dx-loop__return { transition: border-color 300ms ease-out; }
+  .dx-loop__return.is-active { border-color: var(--dx-hl); border-style: none solid solid solid; } /* giữ không có cạnh trên như trạng thái thường */
+  .dx-loop__return.is-active::before { border-bottom-color: var(--dx-hl); animation: dxArrowHead var(--dx-return-ms, 1800ms) ease-in-out; }
+  .dx-loop--running .dx-loop__dot {
+    display: block; position: absolute; left: 100%; top: 0; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%;
+    background: var(--dx-hl); box-shadow: 0 0 0 4px rgba(var(--dx-hl-rgb),0.25), 0 0 18px 4px rgba(var(--dx-hl-rgb),0.55); opacity: 0;
+  }
+  .dx-loop__return.is-active .dx-loop__dot { animation: dxReturnTravel var(--dx-return-ms, 1800ms) ease-in-out forwards; }
+  .dx-loop__return-label { transition: background 300ms ease-out, box-shadow 300ms ease-out, border-color 300ms ease-out; }
+  .dx-loop__return.is-active .dx-loop__return-label { background: var(--warning-bg); border-color: var(--dx-hl); box-shadow: 0 0 0 4px rgba(var(--dx-hl-rgb),0.15); }
+  .dx-loop__return.is-active .dx-loop__return-label svg { color: var(--dx-hl); animation: dxSpinBack var(--dx-return-ms, 1800ms) ease-in-out; }
+}
+@keyframes dxTrace { to { stroke-dashoffset: 0; } }
+@keyframes dxArrowFlow {
+  0% { opacity: 0.25; transform: translateX(-8px); }
+  60% { opacity: 1; transform: translateX(3px); filter: drop-shadow(0 0 6px rgba(245,165,36,0.9)); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+@keyframes dxArrowFlowDown {
+  0% { opacity: 0.25; transform: rotate(90deg) translateX(-8px); }
+  60% { opacity: 1; transform: rotate(90deg) translateX(3px); filter: drop-shadow(0 0 6px rgba(245,165,36,0.9)); }
+  100% { opacity: 1; transform: rotate(90deg) translateX(0); }
+}
+@keyframes dxRoundBump { 0% { transform: scale(1); } 40% { transform: scale(1.6); } 100% { transform: scale(1); } }
+@keyframes dxSpinBack { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+@keyframes dxArrowHead { 0%, 85% { transform: scale(1); } 93% { transform: scale(1.6); } 100% { transform: scale(1); } }
+/* Đi theo khung chữ U: phải-trên → phải-dưới → trái-dưới → trái-trên (có bo góc xấp xỉ) — dùng % nên đúng ở mọi độ rộng */
+@keyframes dxReturnTravel {
+  0%   { left: 100%; top: 0; opacity: 0; }
+  6%   { opacity: 1; }
+  22%  { left: 100%; top: 50%; }
+  30%  { left: calc(100% - 10px); top: calc(100% - 6px); }
+  36%  { left: calc(100% - 28px); top: 100%; }
+  64%  { left: 28px; top: 100%; }
+  70%  { left: 10px; top: calc(100% - 6px); }
+  78%  { left: 0; top: 50%; }
+  95%  { left: 0; top: 0; opacity: 1; }
+  100% { left: 0; top: 0; opacity: 0; }
+}
+
+@media (max-width: 860px) {
+  .dx-loop__steps { grid-template-columns: 1fr; gap: var(--sp-8); }
+  .dx-step:not(:last-child)::after { top: auto; right: auto; bottom: calc(-1 * var(--sp-8)); left: 28px; width: 24px; height: var(--sp-8); transform: rotate(90deg); transform-origin: center; }
+  .dx-loop__return { height: auto; margin: var(--sp-8) 0 0; border: none; display: flex; justify-content: center; }
+  .dx-loop__return::before { display: none; }
+  .dx-loop__dot { display: none !important; }
+  .dx-step.is-flow::after { animation-name: dxArrowFlowDown; }
+  .dx-loop__return-label { position: static; transform: none; white-space: normal; flex-wrap: wrap; justify-content: center; text-align: center; border-radius: var(--radius-lg); }
+  .dx-loop__return-label span { flex-basis: 100%; }
+  .dx-stats { grid-template-columns: 1fr; margin-top: var(--sp-12); }
+}
+@media (max-width: 480px) {
+  .dx-stat { flex-direction: column; gap: var(--sp-3); }
+}
+
 /* Blog card */
 .blog-card { padding: 0; overflow: hidden; }
 .blog-card__img { aspect-ratio: 16/10; overflow: hidden; background: var(--surface-3); }
@@ -872,7 +1157,7 @@ h3, .h3 { font: var(--h3); }
 
 /* CTA band (final CTA) */
 .cta-band { text-align: left; max-width: 480px; }
-.cta-band h2 { color: #fff; margin-bottom: var(--sp-4); }
+.cta-band h2 { color: var(--text-strong); margin-bottom: var(--sp-4); }
 .cta-band .body-lg { color: rgba(255,255,255,0.72); margin-bottom: var(--sp-8); }
 @media (max-width: 860px) {
   .cta-band { text-align: center; max-width: 520px; margin: 0 auto; }
@@ -1001,6 +1286,8 @@ h3, .h3 { font: var(--h3); }
 :root[data-theme="light"] .section-bg-light { background: var(--surface); }
 :root[data-theme="light"] .modal-overlay { background: rgba(0,8,74,0.4); }
 :root[data-theme="light"] .hero-showcase__dots { background: var(--surface-2); }
+:root[data-theme="light"] .badge-market { background: rgba(76,95,255,0.10); color: #3442C9; }
+:root[data-theme="light"] .domain-chip { border-color: var(--gray-200); background: #fff; color: var(--gray-700); }
 
 /* Khối luôn nền tối: giữ token dark để chữ / viền vẫn đúng ở light theme */
 :root[data-theme="light"] .site-footer,

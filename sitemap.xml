@@ -3,6 +3,7 @@
   <url><loc>https://www.ktpsolutions.vn/</loc></url>
   <url><loc>https://www.ktpsolutions.vn/screens/ve-chung-toi/</loc></url>
   <url><loc>https://www.ktpsolutions.vn/screens/dich-vu/</loc></url>
+  <url><loc>https://www.ktpsolutions.vn/screens/dich-vu/tu-van-ung-dung-cong-nghe/</loc></url>
   <url><loc>https://www.ktpsolutions.vn/screens/dich-vu/phat-trien-phan-mem/</loc></url>
   <url><loc>https://www.ktpsolutions.vn/screens/dich-vu/thiet-ke-phat-trien-web/</loc></url>
   <url><loc>https://www.ktpsolutions.vn/screens/dich-vu/truyen-thong-so/</loc></url>
@@ -19,4 +20,5 @@
   <url><loc>https://www.ktpsolutions.vn/screens/du-an/playground/?app=admin</loc></url>
   <url><loc>https://www.ktpsolutions.vn/screens/du-an/playground/?app=store-front</loc></url>
   <url><loc>https://www.ktpsolutions.vn/screens/du-an/playground/?app=pos</loc></url>
+  <url><loc>https://www.ktpsolutions.vn/screens/du-an/playground/?app=kiosk</loc></url>
 </urlset>

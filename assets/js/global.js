@@ -24,6 +24,46 @@ var KTP = (function () {
   return { en: en, domainIcon: domainIcon, domainBadge: domainBadge };
 })();
 
+/* ---- Case-study helpers (CR-01 / CR-02) — trang chủ, Dự án, Chi tiết dự án, trang dịch vụ Tư vấn. Song ngữ qua data-en.
+   KTPCase.badges(da)            → badge thị trường (khác Việt Nam) + badge "Đang đồng hành"; bản ghi không có trường thì rỗng
+   KTPCase.tbc(s) / plain(s)     → chuỗi "[cần xác nhận: …]" thành nhãn cảnh báo / bỏ marker (meta, plain text)
+   KTPCase.demo(da, root, extra) → nút xem thử: playground bản mẫu (có `playground`) → "Live demo" (có `demo_url`)
+                                   → "Request for demo" (sang Liên hệ, tự điền yêu cầu). root: tiền tố tới gốc site ("", "../"…) */
+var KTPCase = window.KTPCase = (function () {
+  var en = KTP.en;
+  var GLOBE = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>';
+  var TBC_RE = /\[cần xác nhận:?\s*([^\]]*)\]/g;
+  var ICON_FULL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5"/><path d="M20 9V4h-5"/><path d="M4 15v5h5"/><path d="M20 15v5h-5"/></svg>';
+  var ICON_EXT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
+  var ICON_REQ = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="14" rx="2"/><polygon points="10 8.5 15 11 10 13.5 10 8.5"/><line x1="8" y1="21" x2="16" y2="21"/></svg>';
+  var attr = function (s) { return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;'); };
+  return {
+    badges: function (da) {
+      var out = '';
+      if (da.thi_truong && da.thi_truong !== 'Việt Nam') out += '<span class="badge badge-market">' + GLOBE + '<span' + en(da.thi_truong_en) + '>' + da.thi_truong + '</span></span>';
+      if (da.trang_thai === 'dang-dong-hanh') out += '<span class="badge badge-ongoing"><span class="badge-ongoing__dot" aria-hidden="true"></span><span data-en="Ongoing partnership">Đang đồng hành</span></span>';
+      return out;
+    },
+    tbc: function (s) {
+      return String(s).replace(TBC_RE, function (_, note) {
+        return '<span class="tbc-flag" title="Nội dung chưa được KTP xác nhận">Cần xác nhận' + (note ? ': ' + note : '') + '</span>';
+      });
+    },
+    plain: function (s) { return String(s).replace(TBC_RE, '').replace(/\s{2,}/g, ' ').trim(); },
+    demo: function (da, root, extra) {
+      extra = extra ? ' ' + extra : '';
+      root = root || '';
+      if (da.playground) {
+        return '<a class="btn btn-primary btn-demo' + extra + '" href="' + root + da.playground + '"><span data-en="Try the playground">Playground bản mẫu</span> ' + ICON_FULL + '</a>';
+      }
+      if (da.demo_url) {
+        return '<a class="btn btn-accent btn-demo' + extra + '" href="' + da.demo_url + '" target="_blank" rel="noopener noreferrer" aria-label="Live demo: ' + attr(da.ten_du_an) + '">Live demo ' + ICON_EXT + '</a>';
+      }
+      return '<a class="btn btn-outline btn-demo' + extra + '" href="' + root + 'screens/lien-he/index.html?yeu-cau-demo=' + encodeURIComponent(da.ten_du_an) + '">Request for demo ' + ICON_REQ + '</a>';
+    }
+  };
+})();
+
 (function () {
   'use strict';
 
@@ -146,6 +186,7 @@ var KTP = (function () {
 
     function apply(lang) {
       document.documentElement.setAttribute('data-lang', lang);
+      document.documentElement.lang = lang; // trình đọc màn hình / dịch tự động biết ngôn ngữ đang hiển thị
       document.querySelectorAll('[data-en]').forEach(function (el) {
         if (!el.dataset.vi) el.dataset.vi = el.innerHTML;
         el.innerHTML = lang === 'en' ? el.dataset.en : el.dataset.vi;
