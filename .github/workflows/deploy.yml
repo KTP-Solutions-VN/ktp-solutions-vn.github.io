@@ -26,12 +26,12 @@ jobs:
         uses: actions/checkout@v4
 
       # Plain static site — no build step. Publish the repo as-is
-      # (upload-pages-artifact already excludes .git and .github).
+      # (upload-pages-artifact excludes .git, .github and hidden files such as .claude/).
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: .
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
