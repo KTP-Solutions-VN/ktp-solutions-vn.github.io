@@ -24,3 +24,6 @@ showcase/**/*.zip
 
 # Python cache
 __pycache__/
+
+# bản prototype website dạng nén (nguồn để sync, chỉ ở local)
+/prototype.rar

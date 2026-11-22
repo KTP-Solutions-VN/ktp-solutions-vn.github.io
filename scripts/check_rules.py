@@ -64,6 +64,8 @@ else:
 for dv in DATA["dich_vu"]:
     if not dv.get("ten_en"):
         err("R1", f"assets/data/dich-vu.js: dịch vụ '{dv.get('ten')}' thiếu ten_en")
+    if not dv.get("mo_ta_ngan_en") or len(dv.get("loi_ich_en") or []) != len(dv.get("loi_ich") or []):
+        err("R1", f"assets/data/dich-vu.js: dịch vụ '{dv.get('ten')}' thiếu mo_ta_ngan_en / loi_ich_en (tab Dịch vụ trang chủ, trang Dịch vụ)")
 for da in DATA["du_an"]:
     who = f"assets/data/du-an.js [{da.get('id')}]"
     for k in ("ten_du_an", "khach_hang", "nganh", "anh_alt", "tom_tat", "thach_thuc", "giai_phap"):
@@ -75,6 +77,14 @@ for da in DATA["du_an"]:
     for i, uc in enumerate(da.get("use_cases", [])):
         if not uc.get("ten_en") or not uc.get("mo_ta_en"):
             err("R1", f"{who}: use_cases[{i}] thiếu ten_en / mo_ta_en")
+    for i, pv in enumerate(da.get("pham_vi", [])):
+        if not all(pv.get(k + "_en") for k in ("giai_doan", "hang_muc", "mo_ta")):
+            err("R1", f"{who}: pham_vi[{i}] thiếu giai_doan_en / hang_muc_en / mo_ta_en")
+    if da.get("thi_truong") and not da.get("thi_truong_en"):
+        err("R1", f"{who}: thiếu thi_truong_en")
+    for i, ap in enumerate(da.get("anh_phu", [])):
+        if not ap.get("anh_alt_en"):
+            err("R1", f"{who}: anh_phu[{i}] thiếu anh_alt_en")
 
 # R2 — Dự án = prototype showcase: có playground, use case theo lợi ích kinh doanh, giá trị không phải số màn hình / số liệu bịa
 for da in DATA["du_an"]:
@@ -99,6 +109,9 @@ for da in DATA["du_an"]:
             err("R2", f"{rel(anh)}: ảnh bìa rộng {int.from_bytes(m.group(2), 'big')}px, cần ≥ 2000px (chụp 2x cho nét)")
     elif not anh.is_file():
         err("R2", f"{who}: ảnh {da.get('anh')} không tồn tại")
+    for ap in da.get("anh_phu", []):
+        if not (ROOT / ap.get("anh", "")).is_file():
+            err("R2", f"{who}: ảnh phụ {ap.get('anh')} không tồn tại (chụp lại màn prototype)")
 
 # R3 — Không cho tải mã nguồn
 gi = (ROOT / ".gitignore").read_text()
@@ -120,8 +133,10 @@ if cmp_html.is_file():
     m = re.search(r"const TERMS = (\[\[.*?\]\]);", cmp_html.read_text(encoding="utf-8"))
     terms = {t[1] for t in json.loads(m.group(1))} if m else set()
     terms = {t for t in terms if len(t) > 4 and not t.startswith(("\"", "data-count", "#")) and t.lower() not in {"military", "suntec", "novena", "marvel", "plum"}}
+    # tên người còn có thể lọt dưới dạng email chữ thường (first.last@…) → thêm biến thể first.last; so khớp không phân biệt hoa thường
+    terms |= {t.lower().replace(" ", ".") for t in terms if re.fullmatch(r"[A-Z][a-z]+ [A-Z][a-z]+", t)}
     if terms:
-        rx = re.compile("|".join(sorted(map(re.escape, terms), key=len, reverse=True)))
+        rx = re.compile("|".join(sorted(map(re.escape, terms), key=len, reverse=True)), re.I)
         for f in DEPLOY:
             if f.suffix.lower() in (".html", ".js", ".json", ".md", ".css", ".txt", ".xml", ".py"):
                 hit = rx.search(f.read_text(encoding="utf-8", errors="ignore"))

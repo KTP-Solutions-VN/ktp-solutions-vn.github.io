@@ -16,11 +16,14 @@ assets/data/*.js           Content data: services, projects, blog posts, testimo
 assets/img/                Logos
 screens/<page>/            Other pages, each with its own index.html, script.js, style.css
   ve-chung-toi/            About us
-  dich-vu/                 Services overview + 4 service detail pages
-  du-an/                   Projects list + chi-tiet/?slug=... (detail)
+  dich-vu/                 Services overview + 5 service detail pages
+                           (tu-van-ung-dung-cong-nghe/ is a hand-built page; the other 4 use detail.js)
+  du-an/                   Projects portfolio (+ portfolio-motion.js) + chi-tiet/?slug=... (detail)
+                           + playground/?app=... (click-through prototypes from showcase/)
   blog/                    Blog list + chi-tiet/?slug=... (post)
   lien-he/                 Contact & booking form + cam-on/ (thank-you)
 en/                        Redirect for the old /en/ URL (sets language to EN)
+showcase/                  White-labeled client prototypes shown in the playground (see showcase/README.md)
 ```
 
 ## Editing content
