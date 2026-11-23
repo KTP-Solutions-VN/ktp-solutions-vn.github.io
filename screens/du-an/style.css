@@ -223,6 +223,8 @@
 /* Trang lĩnh vực (?linh-vuc=): bỏ chiều cao toàn màn của hero để danh sách dự án lên gần đầu trang */
 .is-domain-page .pf-hero { min-height: auto; }
 .is-domain-page .pf-projects { margin-top: 0; }
+/* hidden phải thắng display: flex của marquee / Approach, không thì trang lĩnh vực vẫn hiện 2 khối này */
+.pf-marquee[hidden], .pf-approach[hidden] { display: none; }
 
 /* ---------- Light theme: các khối chữ gradient / xám nhạt thiết kế cho nền tối ---------- */
 :root[data-theme="light"] .pf-giant:not(.pf-giant--dark),

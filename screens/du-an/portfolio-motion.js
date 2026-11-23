@@ -124,13 +124,15 @@
     addJob(el._crJob);
   }
 
-  /* list: phần tử chứa các .pf-card-wrap (sticky); card thu nhỏ tới 1 - (n-1-i)*0.03 */
+  /* list: phần tử chứa các .pf-card-wrap (sticky); card thu nhỏ tới 1 - (n-1-i)*0.03.
+     Gọi lại được sau khi dựng lại card (lọc lĩnh vực): chỉ cập nhật danh sách card, không đăng ký thêm job cuộn. */
   function stickyStack(list) {
     if (!list) return;
-    var cards = Array.prototype.slice.call(list.querySelectorAll('.pf-card'));
-    var n = cards.length;
-    if (!n) return;
-    addJob(function () {
+    list._cards = Array.prototype.slice.call(list.querySelectorAll('.pf-card'));
+    if (list._ssJob) { list._ssJob(); return; }
+    list._ssJob = function () {
+      var cards = list._cards, n = cards.length;
+      if (!n) return;
       if (reduce || !desktop.matches) { cards.forEach(function (c) { c.style.transform = ''; }); return; }
       var r = list.getBoundingClientRect(), total = r.height - window.innerHeight;
       var p = clamp(-r.top / (total || 1), 0, 1);
@@ -140,7 +142,8 @@
         var local = clamp((p - start) / (1 - start || 1), 0, 1);
         c.style.transform = 'scale(' + (1 - (1 - target) * local).toFixed(4) + ')';
       });
-    });
+    };
+    addJob(list._ssJob);
   }
 
   function parallax(el, speed) {
