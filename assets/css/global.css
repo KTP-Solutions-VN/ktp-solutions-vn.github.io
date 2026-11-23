@@ -752,7 +752,8 @@ h3, .h3 { font: var(--h3); }
 
   @media (prefers-reduced-motion: no-preference) {
     /* Sequenced like a pipeline: each line draws into the next node, which is what reveals that
-       step's number + copy — nothing after step 1 is visible until its line reaches it. */
+       step's number + copy — nothing after step 1 is visible until its line reaches it.
+       Khung .process-steps phải có class reveal (global.js gắn is-visible), không thì các bước ẩn mãi. */
     .process-step > * { opacity: 0; transform: translateY(10px); }
     .process-steps.is-visible .process-step > * {
       animation: stepContentPop 380ms ease-out forwards;

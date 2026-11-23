@@ -13,6 +13,10 @@
   var ICON_BG = { compass: 'rgba(1,151,112,0.16)', code: 'rgba(76,95,255,0.16)', layout: 'rgba(124,136,255,0.16)', megaphone: 'rgba(245,165,36,0.16)', palette: 'rgba(170,1,36,0.16)' };
   var ICON_COLOR = { compass: 'var(--accent)', code: 'var(--primary)', layout: 'var(--text-strong)', megaphone: 'var(--warning)', palette: '#E0335A' };
   var CHECK = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+  // Điểm cuối của đường nối 4 bước (cột thứ 5 của .process-steps trên desktop)
+  var PIPELINE_END = '<div class="process-pipeline-end" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none">' +
+    '<circle cx="11" cy="13" r="8.5" fill="#e0393e"/><circle cx="11" cy="13" r="5.6" fill="#fbf1e2"/><circle cx="11" cy="13" r="2.4" fill="#e0393e"/>' +
+    '<path d="M19 5L13.3 10.7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M11 13L14.86 12.26L11.74 9.14Z" fill="currentColor"/></svg></div>';
 
   var root = document.getElementById('service-detail');
   if (!root || typeof DATA_DICH_VU === 'undefined' || typeof CURRENT_SERVICE_SLUG === 'undefined') return;
@@ -45,10 +49,12 @@
           '<span class="caption">Quy trình triển khai</span>' +
           '<h2>Từng bước KTP thực hiện dịch vụ này</h2>' +
         '</div>' +
-        '<div class="process-steps">' +
+        // .reveal bắt buộc: trên desktop CSS ẩn nội dung từng bước tới khi .process-steps có is-visible (global.js gắn khi cuộn tới)
+        '<div class="process-steps reveal">' +
           dv.quy_trinh.map(function (step, i) {
             return '<div class="process-step"><div class="process-step__num">0' + (i + 1) + '</div><p class="body-lg" style="font-size:14.5px;">' + step + '</p></div>';
           }).join('') +
+          PIPELINE_END +
         '</div>' +
       '</div>' +
     '</section>';
