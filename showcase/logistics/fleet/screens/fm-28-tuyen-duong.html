@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tuyến đường · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* FM_28 Tuyến đường — danh mục + drawer chi tiết */
+  .sub { margin-top: 6px; font-size: 12.5px; color: var(--fg-muted); }
+  .filterbar .grp { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--fg-muted); }
+  .gridcard { min-width: 0; overflow: hidden; }
+  .gridcard .grid tbody tr { cursor: pointer; }
+  .gridcard .grid tbody tr:last-child td { border-bottom: 0; }
+  .grid td.go { width: 36px; color: var(--fg-subtle); }
+  .grid tr:hover td.go { color: var(--primary); }
+  .route-name b { font-weight: 500; color: var(--fg-strong); }
+  .card-foot { display: flex; align-items: center; gap: 8px; padding: 10px 16px 14px; font-size: 12.5px; color: var(--fg-muted); }
+  .km-pair { display: inline-flex; gap: 4px; align-items: baseline; }
+  .km-pair small { color: var(--fg-muted); font-size: 12px; }
+  .hidden { display: none !important; }
+
+  /* Drawer */
+  .drawer.route-dr { width: min(680px, 100vw); }
+  .drawer-head { border-bottom: 0; padding-bottom: 4px; }
+  .drawer-body { gap: 22px; }
+  .drawer-foot { border-top: 0; box-shadow: 0 -1px 0 var(--border); }
+  .sec { display: flex; flex-direction: column; gap: 10px; }
+  .sec-h { display: flex; align-items: center; gap: 8px; }
+  .sec-h h3 { font-size: 14px; }
+  .sec-h .r { margin-left: auto; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; align-items: end; }
+  .unit-in { display: flex; align-items: center; height: 34px; border: 1px solid var(--border-strong); border-radius: var(--r-md); background: var(--surface); padding: 0 10px; gap: 6px; }
+  .unit-in:focus-within { border-color: var(--ring); box-shadow: 0 0 0 3px var(--primary-soft); }
+  .unit-in input { border: 0; outline: 0; font: 13.5px var(--font-body); color: var(--fg); width: 100%; min-width: 0; text-align: right; font-variant-numeric: tabular-nums; background: transparent; }
+  .unit-in span { color: var(--fg-muted); font-size: 12.5px; }
+  .unit-in.ro { background: var(--surface-muted); border-color: transparent; }
+  .sugg { display: grid; grid-template-columns: 32px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 12px; border-radius: 8px; background: var(--surface-muted); }
+  .sugg .ic { width: 32px; height: 32px; border-radius: 8px; background: var(--surface); display: grid; place-items: center; color: var(--fg-muted); }
+  .sugg b { color: var(--fg-strong); font-weight: 600; }
+  .sugg .d { font-size: 12.5px; color: var(--fg-muted); line-height: 17px; }
+  .schem { display: block; width: 100%; height: auto; }
+  .toll-tbl th, .toll-tbl td { padding: 7px 10px; }
+  .toll-tbl th { border-bottom: 0; }
+  .toll-tbl th:first-child { border-radius: var(--r-md) 0 0 var(--r-md); }
+  .toll-tbl th:last-child { border-radius: 0 var(--r-md) var(--r-md) 0; }
+  .toll-tbl td.on, .toll-tbl th.on { background: var(--primary-soft); color: var(--side-active); }
+  .toll-tbl th.on { color: var(--side-active); }
+  .toll-tbl tfoot td { background: transparent; border-bottom: 0; }
+  .toll-tbl tfoot td.on { background: var(--primary-soft); }
+  .toll-tbl tr:hover td { background: transparent; }
+  .toll-tbl tr:hover td.on { background: var(--primary-soft); }
+  .uses { display: flex; flex-direction: column; gap: 2px; }
+  .uses a { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; color: var(--fg); text-decoration: none; }
+  .uses a:hover { background: var(--surface-muted); }
+  .uses a .icon:last-child { margin-left: auto; color: var(--fg-subtle); }
+  .open-note { font-size: 12.5px; color: var(--fg-muted); display: flex; gap: 6px; align-items: flex-start; }
+  .empty .btn .icon { width: 16px; height: 16px; stroke-width: 1.75; color: inherit; }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Giá cước / Tuyến đường</div>
+      <h1>Tuyến đường</h1>
+      <div class="sub" id="pageSub">Km chuẩn và phí cầu đường của tuyến được dùng để tính giá thành dự kiến (FM_31) và gợi ý giá khi tạo đơn.</div>
+    </div>
+    <div class="actions">
+      <a class="btn btn-secondary" href="fm-03-import.html" id="btnImport"></a>
+      <button class="btn btn-primary" type="button" id="btnNew"></button>
+    </div>
+  </div>
+
+  <div class="filterbar" role="toolbar" aria-label="Lọc tuyến">
+    <label class="search-global" style="max-width:280px"><span id="icS"></span><input id="q" type="search" placeholder="Tìm mã tuyến, điểm đầu, điểm cuối…" aria-label="Tìm tuyến"></label>
+    <div class="seg" role="group" aria-label="Loại hàng" id="segType">
+      <button type="button" aria-pressed="true" data-t="all">Tất cả</button>
+      <button type="button" aria-pressed="false" data-t="cont">Container</button>
+      <button type="button" aria-pressed="false" data-t="thuong">Hàng thường</button>
+    </div>
+    <button class="chip" type="button" id="chipVerify" aria-pressed="false"></button>
+    <span class="grp">Phí hiển thị theo
+      <span class="seg" role="group" aria-label="Nhóm xe" id="segGrp">
+        <button type="button" aria-pressed="false" data-g="2">Nhóm 3</button>
+        <button type="button" aria-pressed="false" data-g="3">Nhóm 4</button>
+        <button type="button" aria-pressed="true" data-g="4">Nhóm 5</button>
+      </span>
+    </span>
+  </div>
+
+  <div id="errSlot"></div>
+
+  <section class="card gridcard" aria-label="Danh sách tuyến" id="listCard"></section>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_28', title: 'Tuyến đường' });
+const $ = id => document.getElementById(id);
+$('icS').outerHTML = icon('search');
+$('btnImport').innerHTML = icon('import') + 'Nhập từ Excel';
+$('btnNew').innerHTML = icon('plus') + 'Thêm tuyến';
+
+/* ---------- Dữ liệu mẫu (khớp FM_29, FM_31) ---------- */
+// Phí đ/lượt theo nhóm xe 1..5 (Nhóm 3: tải 4–<10 tấn · Nhóm 4: tải 10–<18 tấn, cont 20' · Nhóm 5: tải ≥ 18 tấn, cont 40')
+const TOLL = {
+  XLHN: ['Trạm BOT Xa lộ Hà Nội', 'TP. Thủ Đức', [15000, 25000, 35000, 60000, 100000]],
+  TV:   ['Trạm BOT Tân Vạn', 'ĐT743, Dĩ An', [15000, 25000, 35000, 60000, 100000]],
+  VP:   ['Trạm BOT Vĩnh Phú', 'QL13, Thuận An', [20000, 30000, 45000, 75000, 120000]],
+  CC:   ['Trạm BOT Củ Chi', 'QL22, Củ Chi', [25000, 35000, 50000, 100000, 180000]],
+  TB:   ['Trạm BOT Trảng Bàng', 'QL22, Tây Ninh', [20000, 30000, 45000, 80000, 140000]],
+  CTL:  ['Cao tốc TP.HCM – Trung Lương', 'Thu theo lượt, ra Trung Lương', [40000, 55000, 75000, 110000, 160000]],
+  TLMT: ['Cao tốc Trung Lương – Mỹ Thuận', 'Thu theo lượt', [30000, 45000, 60000, 90000, 140000]],
+  ASAL: ['Trạm BOT An Sương – An Lạc', 'QL1, Bình Tân', [15000, 25000, 35000, 52000, 90000]],
+  CT:   ['Trạm BOT cầu Cần Thơ', 'QL1, Cần Thơ', [25000, 35000, 50000, 75000, 120000]]
+};
+const ROUTES = [
+  { id: 'BD-01', a: 'KCN Tân Uyên', b: 'Cảng Cát Lái', via: 'Lấy rỗng ICD Phước Long', kl: 46, ke: 52, toll: ['TV', 'XLHN'], type: 'cont', ok: true, prices: ['TCL-2026'], trips: 24, upd: '10/11/2026' },
+  { id: 'BD-02', a: 'KCN Mỹ Phước 3', b: 'Cảng Cát Lái', via: 'QL13', kl: 58, ke: 58, toll: ['VP', 'XLHN'], type: 'cont', ok: true, prices: ['GML-2026'], trips: 15, upd: '02/10/2026' },
+  { id: 'BD-03', a: 'KCN Đồng An', b: 'Cảng Cát Lái', via: 'QL13, Xa lộ Hà Nội', kl: 34, ke: 38, toll: ['XLHN'], type: 'cont', ok: true, prices: ['HPBD-2026'], trips: 12, upd: '02/10/2026' },
+  { id: 'BD-04', a: 'Cảng Cát Lái', b: 'KCN VSIP 1', via: 'QL13', kl: 32, ke: 36, toll: ['XLHN', 'VP'], type: 'cont', ok: false, prices: ['TCL-2026'], trips: 9, upd: '11/11/2026', sugg: { kl: 33, ke: 35, n: 2 } },
+  { id: 'TN-01', a: 'Cảng Cát Lái', b: 'KCN Phước Đông', via: 'QL22 · Gò Dầu, Tây Ninh', kl: 105, ke: 105, toll: ['XLHN', 'CC', 'TB'], type: 'cont', ok: true, prices: ['TCL-2026'], trips: 18, upd: '15/09/2026' },
+  { id: 'TN-02', a: 'ICD Phước Long', b: 'Cảng Cát Lái', via: 'Đóng hàng KCN Phước Đông', kl: 115, ke: 115, toll: ['CC', 'TB', 'XLHN'], type: 'cont', ok: true, prices: ['TCL-2026'], trips: 14, upd: '15/09/2026' },
+  { id: 'DT-01', a: 'Cảng Cát Lái', b: 'Sa Đéc, Đồng Tháp', via: 'Cao tốc Trung Lương – Mỹ Thuận', kl: 160, ke: 160, toll: ['CTL', 'TLMT'], type: 'cont', ok: true, prices: ['VHC-2026'], trips: 9, upd: '20/08/2026' },
+  { id: 'TG-01', a: 'Bình Tân', b: 'KCN Mỹ Tho', via: 'Cao tốc TP.HCM – Trung Lương', kl: 75, ke: 75, toll: ['CTL'], type: 'thuong', ok: true, prices: ['NDT-2026'], trips: 11, upd: '20/08/2026' },
+  { id: 'LA-01', a: 'KCN Sóng Thần', b: 'KCN Đức Hòa, Long An', via: 'QL1, ĐT824', kl: 52, ke: 52, toll: ['ASAL'], type: 'thuong', ok: false, prices: ['BBPN-2026'], trips: 6, upd: '11/11/2026', sugg: { kl: 54, ke: 54, n: 1 } },
+  { id: 'LA-02', a: 'KCN Sóng Thần', b: 'KCN Thuận Đạo, Bến Lức', via: 'QL1', kl: 45, ke: 45, toll: ['ASAL'], type: 'thuong', ok: true, prices: ['BBPN-2026'], trips: 8, upd: '05/10/2026' },
+  { id: 'CT-01', a: 'Bình Tân', b: 'KCN Trà Nóc, Cần Thơ', via: 'Cao tốc, QL1', kl: 170, ke: 170, toll: ['CTL', 'TLMT', 'CT'], type: 'thuong', ok: false, prices: [], trips: 0, upd: '12/11/2026', sugg: { kl: 168, ke: 168, n: 3 } }
+];
+const GRP_LABEL = ['Nhóm 1', 'Nhóm 2', 'Nhóm 3', 'Nhóm 4', 'Nhóm 5'];
+const GRP_HINT = ['Xe dưới 12 chỗ, tải dưới 2 tấn', 'Xe 12–30 chỗ, tải 2–dưới 4 tấn', 'Xe 31 chỗ trở lên, tải 4–dưới 10 tấn', 'Tải 10–dưới 18 tấn, cont 20\'', 'Tải từ 18 tấn, cont 40\''];
+const defGrp = r => r.type === 'cont' ? 4 : 3;
+const tollSum = (r, g) => r.toll.reduce((a, k) => a + TOLL[k][2][g], 0);
+
+let F = { t: 'all', verify: false, q: '', g: 4 };
+let state = 'default';
+
+/* ---------- Danh sách ---------- */
+function rows() {
+  return ROUTES.filter(r => (F.t === 'all' || r.type === F.t) && (!F.verify || !r.ok) && (!F.q || (r.id + r.a + r.b + r.via).toLowerCase().includes(F.q)));
+}
+function srcBadge(r) {
+  return r.ok
+    ? `<span class="badge b-success">${icon('check')}Đã xác minh</span>`
+    : `<span class="tip"><span class="badge b-warning" tabindex="0">${icon('map')}Cần xác minh</span><span class="tip-body right">Km lấy từ dịch vụ bản đồ có tính phí BOT (ví dụ Vietmap Maps API). Dịch vụ chưa chốt, cần đối chiếu với km GSHT thực tế của 3–5 chuyến trước khi dùng để báo giá.</span></span>`;
+}
+function renderList() {
+  const list = rows(), g = F.g;
+  const pending = ROUTES.filter(r => !r.ok).length;
+  $('chipVerify').innerHTML = `${icon('warn')}Cần xác minh km <span class="count-pill">${pending}</span>`;
+  if (!list.length) { $('listCard').innerHTML = `<div class="empty">${icon('route')}<h3>Không có tuyến khớp bộ lọc</h3><p>Thử bỏ bớt điều kiện lọc hoặc tìm theo mã tuyến.</p><button class="btn btn-secondary" type="button" onclick="resetFilters()">Xoá lọc</button></div>`; return; }
+  $('listCard').innerHTML = `<div class="grid-wrap"><table class="grid" aria-label="Danh mục tuyến">
+    <thead><tr><th>Mã tuyến</th><th>Điểm đầu → Điểm cuối</th><th class="right">Km chuẩn</th><th>Nguồn km</th><th class="right">Phí 1 chiều · ${GRP_LABEL[g]}</th><th>Bảng giá dùng</th><th class="right">Chuyến 30 ngày</th><th></th></tr></thead>
+    <tbody>${list.map(r => `<tr data-id="${r.id}" tabindex="0" aria-label="Mở tuyến ${r.id}">
+      <td><b class="code">${r.id}</b><span class="cell-sub">${r.type === 'cont' ? 'Container' : 'Hàng thường'}</span></td>
+      <td class="route-name"><b>${r.a} → ${r.b}</b><span class="cell-sub">${r.via}</span></td>
+      <td class="right num"><span class="km-pair"><b style="font-weight:600">${r.kl + r.ke} km</b></span><span class="cell-sub">${r.kl} có hàng · ${r.ke} rỗng</span></td>
+      <td>${srcBadge(r)}</td>
+      <td class="right num">${fmt.vnd(tollSum(r, g))}<span class="cell-sub">${r.toll.length} trạm</span></td>
+      <td>${r.prices.length ? r.prices.map(p => `<a class="code" href="fm-29-bang-gia.html#${p}" onclick="event.stopPropagation()">${p}</a>`).join(', ') : '<span class="muted">Chưa có</span>'}</td>
+      <td class="right num">${r.trips || '<span class="muted">—</span>'}</td>
+      <td class="go">${icon('chevron-right')}</td></tr>`).join('')}</tbody></table></div>
+    <div class="card-foot">${icon('info')}<span>${list.length} / ${ROUTES.length} tuyến · Phí cầu đường nhập theo biểu phí niêm yết của từng trạm, cập nhật khi trạm điều chỉnh giá. Km chuẩn được so với km GSHT sau mỗi chuyến (FM_09).</span></div>`;
+  $('listCard').querySelectorAll('tbody tr').forEach(tr => {
+    tr.onclick = () => openDrawer(tr.dataset.id);
+    tr.onkeydown = e => { if (e.key === 'Enter') openDrawer(tr.dataset.id); };
+  });
+}
+function resetFilters() { F = { ...F, t: 'all', verify: false, q: '' }; $('q').value = ''; syncFilters(); renderList(); }
+function syncFilters() {
+  document.querySelectorAll('#segType button').forEach(b => b.setAttribute('aria-pressed', b.dataset.t === F.t));
+  document.querySelectorAll('#segGrp button').forEach(b => b.setAttribute('aria-pressed', +b.dataset.g === F.g));
+  $('chipVerify').classList.toggle('on', F.verify); $('chipVerify').setAttribute('aria-pressed', F.verify);
+}
+document.querySelectorAll('#segType button').forEach(b => b.onclick = () => { F.t = b.dataset.t; syncFilters(); renderList(); });
+document.querySelectorAll('#segGrp button').forEach(b => b.onclick = () => { F.g = +b.dataset.g; syncFilters(); renderList(); });
+$('chipVerify').onclick = () => { F.verify = !F.verify; syncFilters(); renderList(); };
+$('q').oninput = e => { F.q = e.target.value.trim().toLowerCase(); renderList(); };
+
+/* ---------- Drawer chi tiết tuyến ---------- */
+let D = null;
+function openDrawer(id, opts) {
+  closeDrawer(true);
+  const r = ROUTES.find(x => x.id === id);
+  D = { r, g: defGrp(r), kl: r.kl, ke: r.ke, mapFail: !!(opts && opts.mapFail), isNew: !!(opts && opts.isNew) };
+  const s = document.createElement('div'); s.className = 'scrim'; s.id = 'drScrim'; s.onclick = () => closeDrawer();
+  const d = document.createElement('aside'); d.className = 'drawer route-dr'; d.id = 'drawer'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'drTitle');
+  document.body.append(s, d); renderDrawer(); d.querySelector('#drClose').focus();
+}
+function closeDrawer(instant) {
+  const d = $('drawer'), s = $('drScrim');
+  [d, s].forEach(x => { if (!x) return; x.id = ''; instant ? x.remove() : Shell.dismiss(x); });
+}
+function schematic(r) {
+  const W = 620, H = 104, x0 = 40, x1 = W - 40, n = r.toll.length, y = 40;
+  const xs = r.toll.map((_, i) => x0 + (x1 - x0) * (i + 1) / (n + 1));
+  return `<svg class="schem" viewBox="0 0 ${W} ${H}" role="img" aria-label="Sơ đồ tuyến ${r.a} đến ${r.b} qua ${n} trạm thu phí">
+    <line x1="${x0}" x2="${x1}" y1="${y}" y2="${y}" style="stroke:var(--border-strong)" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="${x0}" cy="${y}" r="7" style="fill:var(--surface);stroke:var(--fg-strong)" stroke-width="2.5"/>
+    <circle cx="${x1}" cy="${y}" r="7" style="fill:var(--fg-strong)"/>
+    ${xs.map((x, i) => `<g><rect x="${x - 11}" y="${y - 11}" width="22" height="22" rx="5" style="fill:var(--surface);stroke:var(--fg-muted)" stroke-width="1.5"/>
+      <path d="M${x - 6} ${y + 5}V${y - 2}h12v3h-12M${x - 3} ${y + 1}l2 4M${x + 2} ${y + 1}l2 4" fill="none" style="stroke:var(--fg-muted)" stroke-width="1.4" stroke-linecap="round"/>
+      <text x="${x}" y="${y + (i % 2 ? 46 : 30)}" text-anchor="middle" font-size="11" style="fill:var(--fg-muted)">${TOLL[r.toll[i]][0].replace('Trạm BOT ', '').replace('Cao tốc ', 'CT ')}</text></g>`).join('')}
+    <text x="${x0}" y="${y - 18}" font-size="11.5" font-weight="600" style="fill:var(--fg-strong)">${r.a}</text>
+    <text x="${x1}" y="${y - 18}" text-anchor="end" font-size="11.5" font-weight="600" style="fill:var(--fg-strong)">${r.b}</text>
+  </svg>`;
+}
+function renderDrawer() {
+  const r = D.r, d = $('drawer'), g = D.g;
+  const sugg = r.sugg || { kl: r.kl, ke: r.ke, n: r.toll.length };
+  const tot = [0, 1, 2, 3, 4].map(i => tollSum(r, i));
+  d.innerHTML = `
+    <div class="drawer-head">
+      <div class="row"><span class="code muted">${r.id}</span>${srcBadge(r)}<button class="icon-btn" id="drClose" aria-label="Đóng (Esc)" style="margin-left:auto">${icon('x', 'lg')}</button></div>
+      <h2 id="drTitle">${r.a} → ${r.b}</h2>
+      <div class="sm muted">${r.type === 'cont' ? 'Container' : 'Hàng thường'} · ${r.via} · cập nhật ${r.upd}</div>
+    </div>
+    <div class="drawer-body">
+      <div class="sec">
+        <div class="sec-h"><h3>Điểm đầu và điểm cuối</h3><a class="btn btn-ghost btn-sm r" href="fm-32-danh-muc.html#diadiem">${icon('pin')}Danh mục địa điểm</a></div>
+        <div class="two">
+          <label class="field"><span>Điểm đầu *</span><select class="select"><option>${r.a}</option><option>ICD Phước Long</option><option>Cảng Cát Lái</option><option>+ Thêm địa điểm</option></select></label>
+          <label class="field"><span>Điểm cuối *</span><select class="select"><option>${r.b}</option><option>Cảng Cát Lái</option><option>ICD Sóng Thần</option><option>+ Thêm địa điểm</option></select></label>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-h"><h3>Km chuẩn</h3><span class="sm muted r">Dùng cho định mức dầu và chi phí cố định/km</span></div>
+        <div class="three">
+          <label class="field"><span>Km có hàng *</span><span class="unit-in"><input id="kl" value="${D.kl}" inputmode="numeric" aria-label="Km có hàng"><span>km</span></span></label>
+          <label class="field"><span>Km rỗng *</span><span class="unit-in"><input id="ke" value="${D.ke}" inputmode="numeric" aria-label="Km rỗng"><span>km</span></span></label>
+          <label class="field"><span>Cả vòng</span><span class="unit-in ro"><input id="kt" value="${D.kl + D.ke}" readonly tabindex="-1" aria-label="Tổng km cả vòng"><span>km</span></span></label>
+        </div>
+        ${D.mapFail
+          ? `<div class="alert alert-warning" role="alert">${icon('refresh')}<div>Không lấy được gợi ý từ dịch vụ bản đồ (hết hạn mức gọi API hôm nay). Bạn vẫn nhập km và trạm thu phí bằng tay được.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="retryMap">Thử lại</button></div></div>`
+          : r.ok && !D.isNew ? `<div class="sugg"><span class="ic">${icon('check')}</span><div style="min-width:0"><div><b class="num">Đã xác minh · km GSHT trung bình ${r.kl + r.ke + 2} km</b></div><div class="d">Đối chiếu ${Math.min(8, r.trips)} chuyến gần nhất, lệch ${fmt.dec(2 / (r.kl + r.ke) * 100)}% so với km chuẩn. Xác minh bởi Mai Hương ngày ${r.upd}.</div></div><span></span></div>`
+          : `<div class="sugg"><span class="ic">${icon('map')}</span><div style="min-width:0"><div><b class="num">${sugg.kl} km có hàng · ${sugg.ke} km rỗng · ${sugg.n} trạm thu phí</b></div><div class="d">Gợi ý từ dịch vụ bản đồ có tính phí BOT (ví dụ Vietmap Maps API) · lấy lúc 08:12 hôm nay. <b style="font-weight:600;color:var(--warning-fg)">Cần xác minh</b> với km GSHT trước khi chốt.</div></div>
+             <button class="btn btn-secondary btn-sm" type="button" id="useSugg">Dùng gợi ý</button></div>`}
+        <div class="open-note">${icon('info')}<span><b style="font-weight:600">Chưa chốt:</b> nhà cung cấp dịch vụ bản đồ và cách tính phí BOT tự động. Hiện km do người dùng xác nhận.</span></div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-h"><h3>Lộ trình</h3><span class="count-pill">${r.toll.length} trạm</span></div>
+        ${schematic(r)}
+      </div>
+
+      <div class="sec">
+        <div class="sec-h"><h3>Trạm thu phí và phí theo nhóm xe</h3><span class="sm muted r">đ/lượt, mỗi chiều</span></div>
+        <div class="grid-wrap"><table class="grid toll-tbl" aria-label="Phí theo nhóm xe">
+          <thead><tr><th>Trạm</th>${GRP_LABEL.map((l, i) => `<th class="right ${i === g ? 'on' : ''}" title="${GRP_HINT[i]}">${l}</th>`).join('')}</tr></thead>
+          <tbody>${r.toll.map(k => `<tr><td><b style="font-weight:500">${TOLL[k][0]}</b><span class="cell-sub">${TOLL[k][1]}</span></td>${TOLL[k][2].map((v, i) => `<td class="right num ${i === g ? 'on' : ''}">${fmt.vnd(v, { bare: 1 })}</td>`).join('')}</tr>`).join('')}</tbody>
+          <tfoot><tr><td>Cộng 1 chiều</td>${tot.map((v, i) => `<td class="right num ${i === g ? 'on' : ''}">${fmt.vnd(v, { bare: 1 })}</td>`).join('')}</tr></tfoot>
+        </table></div>
+        <div class="row wrap" style="justify-content:space-between">
+          <span class="sm muted">Cột tô nền: nhóm mặc định của tuyến (${GRP_LABEL[g]} · ${GRP_HINT[g]}). Cả vòng = <b class="num" style="color:var(--fg-strong)">${fmt.vnd(tot[g] * 2)}</b></span>
+          <button class="btn btn-ghost btn-sm" type="button" id="addToll">${icon('plus')}Thêm trạm</button>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-h"><h3>Đang dùng ở</h3></div>
+        <div class="uses">
+          ${r.prices.map(p => `<a href="fm-29-bang-gia.html#${p}">${icon('tag')}<span>Bảng giá <b class="code">${p}</b></span>${icon('chevron-right')}</a>`).join('') || '<span class="sm muted" style="padding:0 10px">Chưa có bảng giá nào dùng tuyến này.</span>'}
+          <a href="fm-31-du-toan.html#${r.id}">${icon('formula')}<span>Tính thử giá thành tuyến này</span>${icon('chevron-right')}</a>
+        </div>
+      </div>
+    </div>
+    <div class="drawer-foot">
+      <span class="sm muted" style="margin-right:auto">Sửa km chỉ áp cho đơn tạo mới. Chuyến đã quyết toán giữ nguyên.</span>
+      <button class="btn btn-secondary" type="button" id="drCancel">Huỷ</button>
+      <button class="btn btn-primary" type="button" id="drSave">${r.ok ? 'Lưu tuyến' : 'Xác minh &amp; lưu'}</button>
+    </div>`;
+  d.querySelector('#drClose').onclick = () => closeDrawer();
+  d.querySelector('#drCancel').onclick = () => closeDrawer();
+  const upd = () => { D.kl = +d.querySelector('#kl').value || 0; D.ke = +d.querySelector('#ke').value || 0; d.querySelector('#kt').value = D.kl + D.ke; };
+  d.querySelector('#kl').oninput = upd; d.querySelector('#ke').oninput = upd;
+  const us = d.querySelector('#useSugg'); if (us) us.onclick = () => { D.kl = sugg.kl; D.ke = sugg.ke; renderDrawer(); toast(`Đã điền km gợi ý: ${sugg.kl} + ${sugg.ke} km`); };
+  const rt = d.querySelector('#retryMap'); if (rt) rt.onclick = () => { D.mapFail = false; renderDrawer(); };
+  d.querySelector('#addToll').onclick = () => toast('Chọn trạm từ danh mục trạm thu phí (chưa có trong prototype)');
+  d.querySelector('#drSave').onclick = () => {
+    const prev = { kl: r.kl, ke: r.ke, ok: r.ok };
+    r.kl = D.kl; r.ke = D.ke; r.ok = true; r.upd = '12/11/2026'; closeDrawer(); renderList();
+    toast(`Đã lưu tuyến <span class="code">${r.id}</span> · ${r.kl + r.ke} km`, { undo: () => { Object.assign(r, prev); renderList(); } });
+  };
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+$('btnNew').onclick = () => openDrawer('CT-01');
+
+/* ---------- States ---------- */
+function skeleton() {
+  $('listCard').innerHTML = `<div class="grid-wrap"><table class="grid"><thead><tr>${Array(8).fill('<th><span class="sk" style="width:70px"></span></th>').join('')}</tr></thead><tbody>${Array(8).fill('<tr>' + Array(8).fill('<td><span class="sk" style="width:80%"></span><span class="sk" style="width:50%;margin-top:6px;height:9px"></span></td>').join('') + '</tr>').join('')}</tbody></table></div>`;
+}
+Shell.states([['default', 'Mặc định'], ['drawer', 'Chi tiết tuyến'], ['verify', 'Tuyến cần xác minh'], ['mapfail', 'Lỗi gợi ý bản đồ'], ['loading', 'Đang tải'], ['empty', 'Trống'], ['error', 'Lỗi']], s => {
+  closeDrawer(true); state = s; $('errSlot').innerHTML = '';
+  document.querySelector('.filterbar').classList.toggle('hidden', s === 'empty');
+  if (s === 'loading') { skeleton(); return; }
+  if (s === 'empty') {
+    $('listCard').innerHTML = `<div class="empty">${icon('route')}<h3>Chưa có tuyến nào</h3><p>Thêm tuyến hay chạy (điểm đầu, điểm cuối, km, trạm thu phí) để hệ thống tính giá thành và gợi ý giá cước.</p><div class="row" style="justify-content:center"><a class="btn btn-secondary" href="fm-03-import.html">${icon('import')}Nhập từ Excel</a><button class="btn btn-primary" type="button" onclick="openDrawer('CT-01')">${icon('plus')}Thêm tuyến</button></div></div>`;
+    return;
+  }
+  if (s === 'error') {
+    $('errSlot').innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Không tải được danh mục tuyến. Kiểm tra kết nối mạng rồi thử lại. Giá thành của đơn đang mở vẫn dùng số liệu đã lưu.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" onclick="location.hash='';location.reload()">Thử lại</button></div></div>`;
+    $('listCard').innerHTML = `<div class="empty">${icon('route')}<h3>Chưa hiển thị được danh sách</h3><p>Dữ liệu sẽ hiện lại khi kết nối ổn định.</p></div>`;
+    return;
+  }
+  F.verify = s === 'verify'; syncFilters(); renderList();
+  if (s === 'drawer') openDrawer('TN-01');
+  if (s === 'verify') openDrawer('BD-04');
+  if (s === 'mapfail') openDrawer('CT-01', { mapFail: true });
+});
+</script>
+</body>
+</html>

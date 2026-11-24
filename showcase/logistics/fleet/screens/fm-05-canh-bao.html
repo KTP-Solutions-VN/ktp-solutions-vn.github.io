@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cảnh báo · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* FM_05 — trung tâm cảnh báo, exception-first (cùng ngôn ngữ ActionQueue của FM_04) */
+  .fresh button { border: 0; background: none; color: var(--primary); font: 500 12.5px var(--font-body); cursor: pointer; padding: 0; display: inline-flex; gap: 4px; align-items: center; }
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: var(--s-4); align-items: start; }
+  .side { display: flex; flex-direction: column; gap: var(--s-4); position: sticky; top: 72px; }
+  .card-title { display: flex; align-items: center; gap: 10px; padding: 16px 18px 6px; }
+  .card-title h2 { font-size: 16px; }
+  .card-title .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 10px; align-items: center; }
+  .filterbar .select { height: 30px; font-size: 12.5px; padding: 0 8px; }
+  .filterbar .search-global { flex: 0 1 220px; min-width: 180px; }
+  .chip .n { font-variant-numeric: tabular-nums; color: var(--fg-muted); }
+  .chip.on .n { color: var(--primary); }
+  .chip .sw { width: 8px; height: 8px; border-radius: 2px; }
+
+  /* Danh sách cảnh báo */
+  .grp { display: flex; align-items: center; gap: 8px; padding: 14px 18px 4px; font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--fg-muted); }
+  .grp .count-pill { text-transform: none; letter-spacing: 0; }
+  .queue { list-style: none; margin: 0; padding: 2px 8px 8px; display: flex; flex-direction: column; gap: 2px; }
+  .qi { display: grid; grid-template-columns: 3px 32px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 10px 10px 0; border-radius: 8px; cursor: pointer; }
+  .qi .sev { align-self: stretch; margin: 4px 0; border-radius: 0 3px 3px 0; }
+  .qi.danger .sev { background: var(--danger-solid); } .qi.warning .sev { background: var(--warning-solid); } .qi.neutral .sev { background: transparent; }
+  .qi .ic { width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; }
+  .qi.danger .ic { background: var(--danger-soft); color: var(--danger-fg); } .qi.warning .ic { background: var(--warning-soft); color: var(--warning-fg); } .qi.neutral .ic { background: var(--surface-muted); color: var(--neutral-fg); }
+  .qi.resolved .ic { background: var(--success-soft); color: var(--success-fg); }
+  .qi .t { font-weight: 600; color: var(--fg-strong); font-size: 14px; line-height: 20px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .qi .d { font-size: 12.5px; color: var(--fg-muted); line-height: 18px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .qi .m { display: flex; align-items: center; gap: 8px; margin-top: 4px; font-size: 12px; color: var(--fg-muted); flex-wrap: wrap; }
+  .qi .m .badge { height: 20px; font-size: 11.5px; padding: 0 6px; }
+  .qi .act { display: flex; gap: 6px; align-items: center; }
+  .qi.sel { background: var(--primary-soft); }
+  .q-foot { display: flex; align-items: center; gap: 8px; padding: 6px 18px 16px; font-size: 12.5px; color: var(--fg-muted); }
+
+  /* Theo loại (BarList trung tính) */
+  .types { list-style: none; margin: 0; padding: 4px 8px 12px; display: flex; flex-direction: column; gap: 1px; }
+  .types button { width: 100%; display: grid; grid-template-columns: 18px minmax(0, 1fr) 70px 22px; gap: 10px; align-items: center; padding: 7px 10px; border: 0; background: none; border-radius: 8px; font: 13px var(--font-body); color: var(--fg); cursor: pointer; text-align: left; }
+  .types button:hover { background: var(--surface-muted); }
+  .types button.on { background: var(--primary-soft); color: var(--side-active); font-weight: 600; }
+  .types button .icon { color: var(--fg-muted); }
+  .types .tr { height: 6px; border-radius: 3px; background: var(--surface-muted); overflow: hidden; }
+  .types .tr i { display: block; height: 100%; background: var(--chart-muted); border-radius: 3px; }
+  .types button.on .tr i { background: var(--primary); }
+  .types b { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  .types button.zero { color: var(--fg-muted); }
+  .chan { padding: 4px 18px 16px; display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
+  .chan .row { justify-content: space-between; }
+  .open-note { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; line-height: 16px; color: var(--fg-muted); }
+  .open-note .badge { height: 18px; font-size: 11px; padding: 0 6px; flex: none; }
+
+  /* Drawer */
+  .drawer.narrow { width: min(500px, 100vw); }
+  .drawer-head { border-bottom: 0; padding-bottom: 4px; }
+  .drawer-foot { border-top: 0; box-shadow: 0 -1px 0 var(--border); }
+  .kv { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 8px 12px; font-size: 13.5px; }
+  .kv dt { color: var(--fg-muted); }
+  .kv dd { margin: 0; color: var(--fg); }
+  .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; padding: 6px; border-radius: 10px; background: var(--surface-muted); }
+  .facts div { padding: 10px 12px; border-radius: 8px; background: var(--surface); display: flex; flex-direction: column; gap: 2px; }
+  .facts span { font-size: 12px; color: var(--fg-muted); }
+  .facts b { font: 700 18px/24px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .facts b.neg { color: var(--danger-fg); }
+  .field .select, .field textarea { width: 100%; }
+  .check { display: inline-flex; align-items: flex-start; gap: 8px; font-size: 13px; cursor: pointer; line-height: 18px; }
+  .check input { width: 16px; height: 16px; accent-color: var(--primary); margin: 1px 0 0; flex: none; }
+  .check input:disabled { cursor: not-allowed; }
+  .log { display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
+  .log li { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 10px; }
+  .log ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .log time { color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+  .done-box { padding: 12px 14px; border-radius: 8px; background: var(--success-soft); color: var(--success-fg); display: flex; gap: 10px; font-size: 13px; line-height: 18px; }
+
+  /* Cấu hình thông báo */
+  .cfg th.c, .cfg td.c { text-align: center; width: 72px; }
+  .cfg input { width: 16px; height: 16px; accent-color: var(--primary); }
+  .cfg td .select { height: 30px; font-size: 12.5px; }
+  .cfg th .badge { height: 18px; font-size: 10.5px; padding: 0 5px; text-transform: none; letter-spacing: 0; margin-left: 4px; }
+  .input.invalid { border-color: var(--danger-solid); }
+  .hidden { display: none !important; }
+  @media (max-width: 1200px) { .layout { grid-template-columns: minmax(0, 1fr); } .side { position: static; } }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <h1>Cảnh báo</h1>
+      <div class="fresh" style="margin-top:6px"><span class="live" id="liveDot" aria-hidden="true"></span><span id="freshTxt">Cập nhật 1 phút trước · GSHT, app tài xế, hạn giấy tờ</span> <button type="button" id="refresh"></button></div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-secondary" type="button" id="cfgBtn"></button>
+      <a class="btn btn-secondary" href="fm-13-gio-lai.html" id="logBtn"></a>
+    </div>
+  </div>
+  <div id="banner"></div>
+  <div class="filterbar" id="filters"></div>
+  <div class="layout">
+    <section class="card" id="listCard" aria-labelledby="lTitle"></section>
+    <div class="side">
+      <section class="card" id="typeCard" aria-labelledby="tyTitle"></section>
+      <section class="card" id="chanCard" aria-labelledby="chTitle"></section>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, toast } = Shell;
+Shell.mount({ active: 'FM_05', title: 'Cảnh báo' });
+const $ = id => document.getElementById(id);
+$('refresh').innerHTML = icon('refresh') + 'Làm mới';
+$('cfgBtn').innerHTML = icon('gear') + 'Cấu hình thông báo';
+$('logBtn').innerHTML = icon('book') + 'Nhật ký an toàn';
+
+/* ---------- Dữ liệu (khớp FM_04, FM_08, data.js) ---------- */
+const TYPES = {
+  suco: ['warn', 'Sự cố từ tài xế'], giayto: ['doc', 'Giấy tờ'], tocdo: ['gauge', 'Quá tốc độ'], giolai: ['clock', 'Giờ lái'],
+  lech: ['route', 'Lệch tuyến'], gsht: ['map', 'Mất tín hiệu GSHT'], trarong: ['container', 'Hạn trả rỗng'], quyettoan: ['receipt', 'Quyết toán chờ'], baoduong: ['wrench', 'Bảo dưỡng đến hạn']
+};
+const SAFETY = ['tocdo', 'giolai', 'lech', 'gsht'];
+const A = [
+  { id: 'CB-2611', type: 'suco', sev: 'danger', t: 'Sự cố: <span class="code">CH-0457</span> kẹt cảng Cát Lái <span class="num">1h20</span>', d: 'Tài xế báo qua app: chờ hạ hàng cổng B, chưa có slot. Ảnh hàng chờ kèm theo.', veh: '51C-456.78', drv: 'Đặng Quang Vinh', trip: 'CH-0457', at: '07:40', src: 'App tài xế', act: ['Mở chuyến', 'fm-09-chi-tiet-chuyen.html'] },
+  { id: 'CB-2598', type: 'giayto', sev: 'danger', t: 'Đăng kiểm <span class="code">51C-099.21</span> quá hạn <span class="num">10</span> ngày', d: 'Hết hạn 02/11/2026 · xe đang bị chặn gán chuyến', veh: '51C-099.21', drv: null, at: '02/11', src: 'Hạn giấy tờ', act: ['Gia hạn', 'fm-18-giay-to.html'] },
+  { id: 'CB-2602', type: 'giayto', sev: 'danger', t: 'Bảo hiểm rơ-moóc <span class="code">51R-088.12</span> quá hạn, đang gắn chuyến', d: 'Hết hạn 28/10/2026 · gắn với CH-0464 (Cát Lái → Sa Đéc) lấy hàng 07:30', veh: '61C-220.14', drv: 'Võ Thành Nhân', trip: 'CH-0464', at: '06:58', src: 'Hạn giấy tờ', act: ['Đổi rơ-moóc', 'fm-08-dieu-phoi.html'] },
+  { id: 'CB-2600', type: 'giayto', sev: 'danger', t: 'GPLX Đặng Văn Hiếu hết hạn', d: 'Hết hạn 05/11/2026 · tài xế đang bị chặn gán chuyến', veh: null, drv: 'Đặng Văn Hiếu', at: '05/11', src: 'Hạn giấy tờ', act: ['Mở hồ sơ', 'fm-17-chi-tiet-tai-xe.html'] },
+  { id: 'CB-2614', type: 'tocdo', sev: 'danger', t: 'Quá tốc độ: <span class="num">78 km/h</span> trong vùng <span class="num">60 km/h</span>', d: 'ĐT 743, gần KCN Mỹ Phước 3 · vượt liên tục 2 phút · chuyến CH-0459', veh: '51C-731.80', drv: 'Ngô Đức Trí', trip: 'CH-0459', at: '08:31', src: 'GSHT', act: ['Xem hành trình', 'fm-12-ban-do.html'], facts: [['Tốc độ', '78 km/h', 1], ['Giới hạn', '60 km/h'], ['Kéo dài', '2 phút']] },
+  { id: 'CB-2609', type: 'giolai', sev: 'warning', t: 'Trần Minh Đức: giờ lái tuần còn <span class="num">3h30</span>', d: 'Đã lái 44h30 / 48h · chuyến CH-0462 dự kiến cần 6h10', veh: '51D-456.78', drv: 'Trần Minh Đức', trip: 'CH-0462', at: '05:41', src: 'GSHT', act: ['Xem giờ lái', 'fm-13-gio-lai.html'], facts: [['Tuần này', '44h30'], ['Giới hạn', '48h'], ['Chuyến cần', '6h10', 1]] },
+  { id: 'CB-2612', type: 'giolai', sev: 'warning', t: 'Võ Thành Nhân: giờ lái hôm nay còn <span class="num">2h30</span>', d: 'Đã lái 7h30 / 10h · CH-0464 dự kiến cần 6h10', veh: '61C-220.14', drv: 'Võ Thành Nhân', trip: 'CH-0464', at: '07:02', src: 'GSHT', act: ['Xem giờ lái', 'fm-13-gio-lai.html'], facts: [['Hôm nay', '7h30'], ['Giới hạn', '10h'], ['Chuyến cần', '6h10', 1]] },
+  { id: 'CB-2605', type: 'trarong', sev: 'warning', t: 'Hạn trả rỗng <span class="code">HLXU 2210983</span> còn <span class="num">6 giờ</span>', d: 'CH-0457 · trả tại Depot Phước Long trước 16:00 12/11 · đang kẹt cảng', veh: '51C-456.78', drv: 'Đặng Quang Vinh', trip: 'CH-0457', at: '10:00', src: 'Lệnh giao rỗng', act: ['Mở chuyến', 'fm-09-chi-tiet-chuyen.html'] },
+  { id: 'CB-2606', type: 'trarong', sev: 'warning', t: 'Hạn trả rỗng <span class="code">SEGU 9012334</span> còn <span class="num">9 giờ</span>', d: 'CH-0464 · hạn 19:00 12/11 · chuyến chưa lấy hàng', veh: '61C-220.14', drv: 'Võ Thành Nhân', trip: 'CH-0464', at: '10:00', src: 'Lệnh giao rỗng', act: ['Mở chuyến', 'fm-09-chi-tiet-chuyen.html'] },
+  { id: 'CB-2613', type: 'gsht', sev: 'warning', t: 'Mất tín hiệu GSHT <span class="code">61C-220.14</span> từ 09:20', d: '45 phút không có dữ liệu · xe đang thực hiện CH-0464 · lần cuối ở Cát Lái', veh: '61C-220.14', drv: 'Võ Thành Nhân', trip: 'CH-0464', at: '09:20', src: 'GSHT', act: ['Xem bản đồ', 'fm-12-ban-do.html'] },
+  { id: 'CB-2590', type: 'quyettoan', sev: 'neutral', t: '<span class="num">14</span> chuyến chờ quyết toán', d: 'Lâu nhất 6 ngày (CH-0391) · 4 chuyến thiếu chứng từ', veh: null, drv: null, at: '06:00', src: 'Quyết toán', act: ['Duyệt', 'fm-22-quyet-toan.html'] },
+  { id: 'CB-2588', type: 'baoduong', sev: 'neutral', t: '<span class="code">51C-731.80</span> quá mốc thay nhớt', d: 'Vượt 1.200 km so với mốc 180.000 km · lần trước 14/08/2026', veh: '51C-731.80', drv: null, at: '06:00', src: 'Kế hoạch bảo dưỡng', act: ['Lên lịch', 'fm-19-bao-duong.html'] }
+];
+const DONE = [
+  { id: 'CB-2607', type: 'lech', sev: 'warning', t: 'Lệch tuyến <span class="num">4,2 km</span>: <span class="code">CH-0459</span>', d: 'Rời tuyến ĐT 743 lúc 09:12, quay lại 09:26', veh: '51C-731.80', drv: 'Ngô Đức Trí', trip: 'CH-0459', at: '09:12', src: 'GSHT', by: 'Lê Thị Ngọc Lan', when: '09:30', note: 'Tránh đoạn ngập ĐT 743. Đã gọi tài xế xác nhận.', measure: 'Nhắc nhở qua điện thoại', logId: 'NK-1126' },
+  { id: 'CB-2603', type: 'giolai', sev: 'warning', t: 'Nguyễn Văn Tuấn lái liên tục <span class="num">3h50</span>', d: 'Gần giới hạn 4 giờ lái liên tục', veh: '51C-123.45', drv: 'Nguyễn Văn Tuấn', trip: 'CH-0458', at: '09:10', src: 'GSHT', by: 'Lê Thị Ngọc Lan', when: '09:14', note: 'Đã nhắc dừng nghỉ 15 phút tại KCN Tân Uyên.', measure: 'Nhắc nhở qua app', logId: 'NK-1125' },
+  { id: 'CB-2595', type: 'suco', sev: 'danger', t: 'Sự cố: <span class="code">CH-0455</span> khách chưa nhận hàng', d: 'Kho Nhựa Duy Tân Mỹ Tho chưa mở cổng', veh: '51C-588.02', drv: 'Huỳnh Tấn Lộc', trip: 'CH-0455', at: '06:40', src: 'App tài xế', by: 'Lê Thị Ngọc Lan', when: '06:58', note: 'Đã gọi kho, nhận hàng lúc 06:55.' },
+  { id: 'CB-2593', type: 'gsht', sev: 'warning', t: 'Mất tín hiệu GSHT <span class="code">51C-588.02</span>', d: '22 phút, có tín hiệu lại 05:32', veh: '51C-588.02', drv: 'Huỳnh Tấn Lộc', trip: 'CH-0455', at: '05:10', src: 'GSHT', by: 'Hệ thống', when: '05:32', note: 'Tự đóng khi có tín hiệu lại.', logId: 'NK-1124' },
+  { id: 'CB-2580', type: 'giayto', sev: 'warning', t: 'Phù hiệu <span class="code">51C-123.45</span> còn <span class="num">7</span> ngày', d: 'Hết hạn 19/11/2026', veh: '51C-123.45', drv: null, at: '06:00', src: 'Hạn giấy tờ', by: 'Phạm Thanh Phong', when: '08:05', note: 'Đã nộp hồ sơ gia hạn tại Sở GTVT, hẹn trả 15/11.' },
+  { id: 'CB-2578', type: 'quyettoan', sev: 'neutral', t: '<span class="code">CH-0431</span> chờ quyết toán 2 ngày', d: 'Gỗ Minh Long · Nguyễn Văn Tuấn', veh: '51C-123.45', drv: 'Nguyễn Văn Tuấn', trip: 'CH-0431', at: '06:00', src: 'Quyết toán', by: 'Trần Thị Mai', when: '08:40', note: 'Đã quyết toán, chênh lệch 0 đ.' }
+];
+const SEVL = { danger: 'Khẩn', warning: 'Cảnh báo', neutral: 'Thông tin' };
+const F = { view: 'open', sev: null, type: null, veh: '', drv: '', q: '' };
+let selId = null;
+
+/* ---------- Bộ lọc ---------- */
+function pool() { return F.view === 'open' ? A : F.view === 'done' ? DONE : A.concat(DONE); }
+function match(a, skip) {
+  return (skip === 'sev' || !F.sev || a.sev === F.sev) && (skip === 'type' || !F.type || a.type === F.type) && (!F.veh || a.veh === F.veh) && (!F.drv || a.drv === F.drv)
+    && (!F.q || (a.t + a.d + (a.veh || '') + (a.drv || '')).toLowerCase().includes(F.q.toLowerCase()));
+}
+function renderFilters() {
+  const all = A.concat(DONE);
+  const vehs = [...new Set(all.map(a => a.veh).filter(Boolean))].sort(), drvs = [...new Set(all.map(a => a.drv).filter(Boolean))].sort();
+  const sc = s => pool().filter(a => a.sev === s && match(a, 'sev')).length;
+  const any = F.sev || F.type || F.veh || F.drv || F.q;
+  $('filters').innerHTML = `<div class="seg" role="group" aria-label="Trạng thái xử lý"><button type="button" data-view="open" aria-pressed="${F.view === 'open'}">Chưa xử lý <span class="num">${A.length}</span></button><button type="button" data-view="done" aria-pressed="${F.view === 'done'}">Đã xử lý hôm nay <span class="num">${DONE.length}</span></button><button type="button" data-view="all" aria-pressed="${F.view === 'all'}">Tất cả</button></div>
+    ${['danger', 'warning', 'neutral'].map(s => `<button type="button" class="chip ${F.sev === s ? 'on' : ''}" data-sev="${s}"><span class="sw" style="background:var(--${s}-solid)"></span>${SEVL[s]} <span class="n">${sc(s)}</span></button>`).join('')}
+    <select class="select" id="fType" aria-label="Loại cảnh báo"><option value="">Mọi loại</option>${Object.entries(TYPES).map(([k, [, l]]) => `<option value="${k}" ${F.type === k ? 'selected' : ''}>${l}</option>`).join('')}</select>
+    <select class="select" id="fVeh" aria-label="Xe"><option value="">Mọi xe</option>${vehs.map(v => `<option ${F.veh === v ? 'selected' : ''}>${v}</option>`).join('')}</select>
+    <select class="select" id="fDrv" aria-label="Tài xế"><option value="">Mọi tài xế</option>${drvs.map(v => `<option ${F.drv === v ? 'selected' : ''}>${v}</option>`).join('')}</select>
+    <label class="search-global">${icon('search')}<input type="search" id="fQ" placeholder="Tìm biển số, mã chuyến…" value="${F.q}" aria-label="Tìm trong cảnh báo"></label>
+    ${any ? `<button class="btn btn-ghost btn-sm" type="button" id="clear">Xoá lọc</button>` : ''}`;
+}
+
+/* ---------- Danh sách ---------- */
+function row(a) {
+  const done = !!a.by, [ic, tl] = TYPES[a.type], safety = SAFETY.includes(a.type);
+  return `<li class="qi ${done ? 'resolved' : a.sev} ${selId === a.id ? 'sel' : ''}" data-id="${a.id}" tabindex="0"><span class="sev" aria-hidden="true"></span><span class="ic">${icon(done ? 'check' : ic)}</span>
+    <div style="min-width:0"><div class="t">${a.t}</div><div class="d" title="${a.d}">${a.d}</div>
+      <div class="m"><span>${tl}</span><span>·</span><span class="num">${a.at}</span><span>·</span><span>${a.src}</span>${safety ? `<span class="badge b-outline">${icon('shield')}An toàn</span>` : ''}${done ? `<span>·</span><span>${a.by} xử lý <span class="num">${a.when}</span></span>${a.logId ? `<span class="badge b-success">${icon('book')}${a.logId}</span>` : ''}` : ''}</div></div>
+    <div class="act">${done ? `<button class="btn btn-ghost btn-sm" type="button" data-open="${a.id}">Xem</button>` : `${a.act ? `<a class="btn btn-secondary btn-sm" href="${a.act[1]}">${a.act[0]}</a>` : ''}<button class="btn btn-ghost btn-sm" type="button" data-resolve="${a.id}" title="Đánh dấu đã xử lý kèm ghi chú">${icon('check')}Đã xử lý</button>`}</div></li>`;
+}
+function renderList() {
+  const list = pool().filter(a => match(a));
+  const title = F.view === 'open' ? 'Chưa xử lý' : F.view === 'done' ? 'Đã xử lý hôm nay' : 'Tất cả cảnh báo hôm nay';
+  if (!list.length) {
+    const none = F.view === 'open' && !A.length;
+    $('listCard').innerHTML = `<div class="card-title"><h2 id="lTitle">${title}</h2></div><div class="empty">${icon(none ? 'check' : 'filter')}<h3>${none ? 'Không còn cảnh báo nào cần xử lý' : 'Không có cảnh báo khớp bộ lọc'}</h3><p>${none ? 'Hệ thống vẫn theo dõi GSHT, giờ lái và hạn giấy tờ. Cảnh báo mới sẽ hiện ở đây và trên chuông.' : 'Thử bỏ bớt điều kiện lọc.'}</p>${none ? `<button class="btn btn-secondary" type="button" data-view="done">Xem ${DONE.length} việc đã xử lý</button>` : `<button class="btn btn-secondary" type="button" id="clear2">Xoá lọc</button>`}</div>`;
+    return;
+  }
+  const groups = F.view === 'done' ? [['', list]] : ['danger', 'warning', 'neutral'].map(s => [s, list.filter(a => a.sev === s && !a.by)]).concat(F.view === 'all' ? [['done', list.filter(a => a.by)]] : []);
+  $('listCard').innerHTML = `<div class="card-title"><h2 id="lTitle">${title}</h2><span class="count-pill">${list.length}</span><span class="meta">${F.view === 'done' ? 'Mới nhất trước' : 'Sắp theo mức độ, mới nhất trước'}</span></div>
+    ${groups.filter(g => g[1].length).map(([s, items]) => `${s ? `<div class="grp">${s === 'done' ? 'Đã xử lý' : SEVL[s]}<span class="count-pill">${items.length}</span></div>` : ''}<ul class="queue">${items.map(row).join('')}</ul>`).join('')}
+    <div class="q-foot">${icon('shield')}Cảnh báo an toàn (giờ lái, tốc độ, lệch tuyến, thiết bị) khi xử lý được ghi vào <a href="fm-13-gio-lai.html">nhật ký an toàn</a>, lưu tối thiểu 3 năm.</div>`;
+}
+function renderTypes() {
+  const p = pool().filter(a => match(a, 'type'));
+  const counts = Object.keys(TYPES).map(k => [k, p.filter(a => a.type === k).length]);
+  const max = Math.max(1, ...counts.map(c => c[1]));
+  $('typeCard').innerHTML = `<div class="card-title"><h2 id="tyTitle">Theo loại</h2>${F.type ? `<span class="meta"><button class="btn btn-ghost btn-sm" type="button" data-type="">Bỏ chọn</button></span>` : ''}</div>
+    <ul class="types">${counts.map(([k, n]) => `<li><button type="button" class="${F.type === k ? 'on' : ''} ${n ? '' : 'zero'}" data-type="${k}" aria-pressed="${F.type === k}">${icon(TYPES[k][0])}<span>${TYPES[k][1]}</span><span class="tr"><i style="width:${n / max * 100}%"></i></span><b>${n}</b></button></li>`).join('')}</ul>`;
+}
+function renderChan() {
+  $('chanCard').innerHTML = `<div class="card-title"><h2 id="chTitle">Kênh nhận thông báo</h2></div>
+    <div class="chan"><div class="row"><span>${icon('bell')} Thông báo web</span><span class="badge b-success">${icon('check')}Đang bật</span></div>
+      <div class="row"><span>Email tóm tắt 07:00</span><span class="badge b-success">${icon('check')}Đang bật</span></div>
+      <div class="row"><span>Zalo OA / SMS</span><span class="badge b-neutral">Chưa có</span></div>
+      <div class="open-note"><span class="badge b-neutral">Chưa chốt</span><span>Kênh Zalo OA có chi phí theo tin, chưa chốt có đưa vào MVP.</span></div>
+      <div><button class="btn btn-ghost btn-sm" type="button" data-cfg>${icon('gear')}Cấu hình</button></div></div>`;
+}
+function syncBadges() {
+  const n = A.length;
+  const nav = document.querySelector('.nav a.active .count'); if (nav) { nav.textContent = n; nav.style.display = n ? '' : 'none'; Shell.flash(nav, 'pop'); }
+  const dot = document.querySelector('.topbar .icon-btn .dot'); if (dot) { dot.textContent = n; dot.style.display = n ? '' : 'none'; dot.parentElement.setAttribute('aria-label', `Cảnh báo, ${n} chưa xử lý`); }
+}
+function renderAll() { renderFilters(); renderList(); renderTypes(); renderChan(); }
+
+/* ---------- Drawer chi tiết + xử lý ---------- */
+function closeOverlays() {
+  document.querySelectorAll('.drawer:not(.leaving), .scrim:not(.leaving)').forEach(x => Shell.dismiss(x));
+  if (selId) { selId = null; document.querySelectorAll('.qi.sel').forEach(x => x.classList.remove('sel')); }
+}
+function openDrawer(id, focusNote) {
+  closeOverlays();
+  const a = A.concat(DONE).find(x => x.id === id); if (!a) return;
+  selId = id; document.querySelectorAll('.qi').forEach(x => x.classList.toggle('sel', x.dataset.id === id));
+  const done = !!a.by, safety = SAFETY.includes(a.type), [ic, tl] = TYPES[a.type];
+  const s = document.createElement('div'); s.className = 'scrim'; s.onclick = closeOverlays;
+  const d = document.createElement('aside'); d.className = 'drawer narrow'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'drTitle');
+  const sevBadge = done ? `<span class="badge b-success">${icon('check')}Đã xử lý</span>` : `<span class="badge b-${a.sev}">${icon(a.sev === 'danger' ? 'warn' : a.sev === 'warning' ? 'warn' : 'info')}${SEVL[a.sev]}</span>`;
+  d.innerHTML = `<div class="drawer-head"><div class="row"><span class="sm muted">${icon(ic)} ${tl} · <span class="code">${a.id}</span></span><button class="icon-btn" type="button" data-close aria-label="Đóng (Esc)" style="margin-left:auto">${icon('x', 'lg')}</button></div>
+      <h2 id="drTitle">${a.t}</h2><div class="row wrap">${sevBadge}${safety ? `<span class="badge b-outline">${icon('shield')}Cảnh báo an toàn</span>` : ''}</div></div>
+    <div class="drawer-body">
+      ${a.facts ? `<div class="facts">${a.facts.map(([k, v, hl]) => `<div><span>${k}</span><b class="${hl ? 'neg' : ''}">${v}</b></div>`).join('')}</div>` : ''}
+      <dl class="kv"><dt>Mô tả</dt><dd>${a.d}</dd>${a.veh ? `<dt>Xe</dt><dd><span class="code">${a.veh}</span></dd>` : ''}${a.drv ? `<dt>Tài xế</dt><dd>${a.drv}</dd>` : ''}${a.trip ? `<dt>Chuyến</dt><dd><a class="code" href="fm-09-chi-tiet-chuyen.html">${a.trip}</a></dd>` : ''}<dt>Phát hiện</dt><dd><span class="num">${a.at}${a.at.includes('/') ? '/2026' : ' 12/11/2026'}</span> · ${a.src}</dd></dl>
+      ${done ? `<div class="done-box">${icon('check')}<div><b>${a.by}</b> đánh dấu đã xử lý lúc <span class="num">${a.when}</span>${a.measure ? ` · ${a.measure}` : ''}<br>"${a.note}"${a.logId ? `<br>Đã ghi vào nhật ký an toàn: <a href="fm-13-gio-lai.html">${a.logId}</a>` : ''}</div></div>`
+      : `<div class="section-title"><h3>Xử lý</h3></div>
+        ${safety ? `<label class="field"><span>Biện pháp</span><select class="select" id="dMeasure"><option>Nhắc nhở qua điện thoại</option><option>Nhắc nhở qua app tài xế</option><option>Lập biên bản, trừ thi đua</option><option>Đổi tài xế cho chuyến</option><option>Khác</option></select></label>` : ''}
+        <label class="field"><span>Ghi chú xử lý${safety ? ' (bắt buộc)' : ''}</span><textarea class="input" id="dNote" rows="3" placeholder="${safety ? 'Ví dụ: đã gọi tài xế lúc 08:40, tài xế xác nhận giảm tốc' : 'Ví dụ: đã gọi depot xin gia hạn trả rỗng'}"></textarea><span class="err sm neg" id="dErr" hidden>Cảnh báo an toàn cần ghi chú trước khi đóng.</span></label>
+        <label class="check"><input type="checkbox" id="dLog" ${safety ? 'checked disabled' : ''}><span>Ghi vào nhật ký an toàn${safety ? `<br><span class="muted sm">Bắt buộc với cảnh báo an toàn (NĐ 158/2024), lưu tối thiểu 3 năm. Người xử lý: Lê Thị Ngọc Lan.</span>` : ''}</span></label>`}
+      <div class="log"><div class="section-title"><h3>Diễn biến</h3></div><ul>
+        <li><time>${a.at.includes('/') ? '06:00' : a.at}</time><span>Hệ thống tạo cảnh báo từ ${a.src}${a.at.includes('/') ? ` (hạn ${a.at})` : ''}</span></li>
+        <li><time>${a.at.includes('/') ? '06:00' : a.at}</time><span>Thông báo web gửi Điều độ${a.type === 'giayto' || a.type === 'baoduong' ? ', Quản lý đội xe' : ''}${a.type === 'quyettoan' ? ', Kế toán' : ''}</span></li>
+        ${done ? `<li><time>${a.when}</time><span>${a.by} đánh dấu đã xử lý</span></li>` : ''}</ul></div>
+    </div>
+    <div class="drawer-foot" style="justify-content:space-between">${a.act ? `<a class="btn btn-ghost" href="${a.act[1]}">${a.act[0]}${icon('chevron-right')}</a>` : '<span></span>'}
+      ${done ? `<button class="btn btn-secondary" type="button" data-reopen="${a.id}">Mở lại cảnh báo</button>` : `<button class="btn btn-primary" type="button" data-confirm="${a.id}">${icon('check')}Đánh dấu đã xử lý</button>`}</div>`;
+  document.body.append(s, d);
+  const n = d.querySelector(focusNote ? '#dNote' : '[data-close]'); if (n) n.focus();
+}
+function resolve(id) {
+  const note = $('dNote'), a = A.find(x => x.id === id), safety = SAFETY.includes(a.type);
+  const txt = note.value.trim();
+  if (safety && !txt) { $('dErr').hidden = false; note.classList.add('invalid'); note.focus(); return; }
+  const logged = safety || $('dLog').checked;
+  const idx = A.indexOf(a); A.splice(idx, 1);
+  const rec = Object.assign({}, a, { by: 'Lê Thị Ngọc Lan', when: '10:06', note: txt || 'Không có ghi chú.', measure: $('dMeasure') ? $('dMeasure').value : null, logId: logged ? 'NK-1127' : null });
+  DONE.unshift(rec);
+  closeOverlays(); renderAll(); syncBadges();
+  toast(`Đã xử lý ${a.id}${logged ? ' · ghi nhật ký an toàn NK-1127' : ''}`, { undo: () => { DONE.splice(DONE.indexOf(rec), 1); A.splice(idx, 0, a); renderAll(); syncBadges(); } });
+}
+
+/* ---------- Cấu hình thông báo ---------- */
+function openCfg() {
+  closeOverlays();
+  const s = document.createElement('div'); s.className = 'scrim'; s.onclick = closeOverlays;
+  const d = document.createElement('aside'); d.className = 'drawer'; d.style.width = 'min(720px, 100vw)'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'cfgTitle');
+  const who = { suco: 'Điều độ', giayto: 'QL đội xe', tocdo: 'Điều độ', giolai: 'Điều độ', lech: 'Điều độ', gsht: 'Điều độ', trarong: 'Điều độ', quyettoan: 'Kế toán', baoduong: 'QL đội xe' };
+  d.innerHTML = `<div class="drawer-head"><div class="row"><h2 id="cfgTitle">Cấu hình thông báo</h2><button class="icon-btn" type="button" data-close aria-label="Đóng (Esc)" style="margin-left:auto">${icon('x', 'lg')}</button></div><p class="sm muted">Chọn ai nhận cảnh báo nào, qua kênh nào. Áp dụng cho chi nhánh TP.HCM.</p></div>
+    <div class="drawer-body">
+      <div class="alert alert-info">${icon('info')}<div><b>Zalo OA và SMS chưa bật.</b> Hai kênh này tính phí theo tin nhắn; chưa chốt có đưa vào gói MVP hay bán thêm. Cột để sẵn cho thảo luận, chưa chọn được.</div></div>
+      <div class="grid-wrap"><table class="grid cfg"><thead><tr><th>Loại cảnh báo</th><th>Người nhận</th><th class="c">Web</th><th class="c">Email</th><th class="c">Zalo<span class="badge b-neutral">Chưa chốt</span></th><th class="c">SMS<span class="badge b-neutral">Chưa chốt</span></th></tr></thead>
+      <tbody>${Object.entries(TYPES).map(([k, [ic, l]]) => `<tr><td><span class="row">${icon(ic)}${l}</span></td><td><select class="select" aria-label="Người nhận ${l}">${['Điều độ', 'QL đội xe', 'Kế toán', 'Chủ DN / Admin'].map(r => `<option ${who[k] === r ? 'selected' : ''}>${r}</option>`).join('')}</select></td><td class="c"><input type="checkbox" checked aria-label="Web"></td><td class="c"><input type="checkbox" ${['giayto', 'quyettoan', 'baoduong'].includes(k) ? 'checked' : ''} aria-label="Email"></td><td class="c"><input type="checkbox" disabled aria-label="Zalo, chưa có"></td><td class="c"><input type="checkbox" disabled aria-label="SMS, chưa có"></td></tr>`).join('')}</tbody></table></div>
+      <label class="check"><input type="checkbox" checked><span>Không gửi email cảnh báo mức Thông tin ngoài giờ 07:00–20:00</span></label>
+    </div>
+    <div class="drawer-foot"><button class="btn btn-secondary" type="button" data-close>Huỷ</button><button class="btn btn-primary" type="button" id="cfgSave">Lưu cấu hình</button></div>`;
+  document.body.append(s, d);
+  d.querySelector('[data-close]').focus();
+}
+
+/* ---------- Sự kiện ---------- */
+document.addEventListener('click', e => {
+  const t = e.target;
+  if (t.closest('[data-close]')) return closeOverlays();
+  if (t.closest('#cfgSave')) { closeOverlays(); return toast('Đã lưu cấu hình thông báo'); }
+  if (t.closest('#cfgBtn') || t.closest('[data-cfg]')) return openCfg();
+  const cf = t.closest('[data-confirm]'); if (cf) return resolve(cf.dataset.confirm);
+  const ro = t.closest('[data-reopen]'); if (ro) { const a = DONE.find(x => x.id === ro.dataset.reopen); DONE.splice(DONE.indexOf(a), 1); const r = Object.assign({}, a); delete r.by; delete r.when; delete r.note; delete r.logId; delete r.measure; A.unshift(r); closeOverlays(); renderAll(); syncBadges(); return toast(`Đã mở lại ${a.id}`); }
+  const rs = t.closest('[data-resolve]'); if (rs) return openDrawer(rs.dataset.resolve, true);
+  const op = t.closest('[data-open]'); if (op) return openDrawer(op.dataset.open);
+  const v = t.closest('[data-view]'); if (v) { F.view = v.dataset.view; return renderAll(); }
+  const sv = t.closest('[data-sev]'); if (sv) { F.sev = F.sev === sv.dataset.sev ? null : sv.dataset.sev; return renderAll(); }
+  const ty = t.closest('[data-type]'); if (ty) { F.type = ty.dataset.type && F.type !== ty.dataset.type ? ty.dataset.type : null; return renderAll(); }
+  if (t.closest('#clear') || t.closest('#clear2')) { Object.assign(F, { sev: null, type: null, veh: '', drv: '', q: '' }); return renderAll(); }
+  if (t.closest('#refresh')) return toast('Đã làm mới cảnh báo');
+  const qi = t.closest('.qi'); if (qi && !t.closest('a, button')) return openDrawer(qi.dataset.id);
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeOverlays();
+  if (e.key === 'Enter' && e.target.classList && e.target.classList.contains('qi')) openDrawer(e.target.dataset.id);
+});
+document.addEventListener('change', e => {
+  if (e.target.id === 'fType') { F.type = e.target.value || null; renderAll(); }
+  if (e.target.id === 'fVeh') { F.veh = e.target.value; renderAll(); }
+  if (e.target.id === 'fDrv') { F.drv = e.target.value; renderAll(); }
+});
+let qT; document.addEventListener('input', e => { if (e.target.id === 'fQ') { clearTimeout(qT); qT = setTimeout(() => { F.q = e.target.value; renderList(); renderTypes(); }, 200); } });
+
+function skeleton() {
+  $('filters').innerHTML = Array(6).fill('<span class="sk" style="width:110px;height:30px;border-radius:15px"></span>').join('');
+  $('listCard').innerHTML = `<div class="card-title"><span class="sk" style="width:160px"></span></div><div style="padding:8px 18px 18px;display:flex;flex-direction:column;gap:18px">${Array(6).fill('<div class="row" style="gap:12px"><span class="sk" style="width:32px;height:32px;border-radius:8px"></span><div class="stack grow"><span class="sk" style="width:55%"></span><span class="sk" style="width:80%;height:10px"></span></div><span class="sk" style="width:90px;height:30px"></span></div>').join('')}</div>`;
+  $('typeCard').innerHTML = `<div class="card-title"><span class="sk" style="width:90px"></span></div><div style="padding:8px 18px 18px;display:flex;flex-direction:column;gap:12px">${Array(9).fill('<span class="sk"></span>').join('')}</div>`;
+  $('chanCard').innerHTML = `<div class="card-title"><span class="sk" style="width:140px"></span></div><div style="padding:8px 18px 18px;display:flex;flex-direction:column;gap:12px">${Array(3).fill('<span class="sk"></span>').join('')}</div>`;
+}
+
+const A0 = A.slice(), D0 = DONE.slice();
+Shell.states([['default', 'Mặc định'], ['detail', 'Chi tiết an toàn'], ['done', 'Đã xử lý'], ['config', 'Cấu hình thông báo'], ['loading', 'Đang tải'], ['empty', 'Trống'], ['error', 'Lỗi GSHT']], s => {
+  closeOverlays();
+  A.splice(0, A.length, ...A0); DONE.splice(0, DONE.length, ...D0);
+  Object.assign(F, { view: 'open', sev: null, type: null, veh: '', drv: '', q: '' });
+  $('banner').innerHTML = ''; $('liveDot').className = 'live'; $('freshTxt').textContent = 'Cập nhật 1 phút trước · GSHT, app tài xế, hạn giấy tờ';
+  if (s === 'loading') { skeleton(); return; }
+  if (s === 'empty') A.splice(0, A.length);
+  if (s === 'done') F.view = 'done';
+  if (s === 'error') {
+    $('liveDot').className = 'live warn'; $('freshTxt').textContent = 'GSHT gián đoạn từ 09:42 · app tài xế và hạn giấy tờ vẫn cập nhật';
+    $('banner').innerHTML = `<div class="alert alert-warning" role="alert">${icon('refresh')}<div><b>Không nhận được dữ liệu từ hãng GSHT từ 09:42.</b> Cảnh báo quá tốc độ, lệch tuyến, giờ lái và mất tín hiệu có thể thiếu trong khoảng này. Cảnh báo giấy tờ, sự cố và quyết toán không bị ảnh hưởng.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" data-toast-retry>Thử lại</button></div></div>`;
+  }
+  renderAll(); syncBadges();
+  if (s === 'detail') openDrawer('CB-2614');
+  if (s === 'config') openCfg();
+});
+document.addEventListener('click', e => { if (e.target.closest('[data-toast-retry]')) toast('Đang kết nối lại GSHT…'); });
+</script>
+</body>
+</html>

@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Import data from Excel · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  [hidden] { display: none !important; }
+  .stepper { display: flex; align-items: center; gap: 0; padding: 2px 0; }
+  .stepper button { border: 0; background: none; display: flex; align-items: center; gap: 8px; font: 500 13.5px var(--font-body); color: var(--fg-muted); padding: 4px 6px; border-radius: var(--r-sm); cursor: default; white-space: nowrap; }
+  .stepper button .n { width: 24px; height: 24px; border-radius: 50%; background: var(--surface); box-shadow: inset 0 0 0 1px var(--border-strong); display: grid; place-items: center; font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .stepper button.done { color: var(--fg); cursor: pointer; }
+  .stepper button.done:hover { background: var(--surface-muted); }
+  .stepper button.done .n { background: var(--success-soft); box-shadow: none; color: var(--success-fg); }
+  .stepper button.cur { color: var(--primary); font-weight: 600; }
+  .stepper button.cur .n { background: var(--primary); box-shadow: 0 0 0 4px var(--primary-soft); color: var(--on-primary); }
+  .stepper .line { flex: 1; height: 2px; border-radius: 1px; background: var(--border); margin: 0 12px; min-width: 24px; }
+  .stepper .line.done { background: var(--success-solid); }
+  .s1 { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: var(--s-4); align-items: stretch; }
+  .s1 > .card { display: flex; flex-direction: column; min-width: 0; }
+  .s1 > .card > .card-body { flex: 1; }
+  .rcards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .rc { border: 1px solid var(--border); border-radius: var(--r-md); padding: 10px 12px; display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 2px 8px; cursor: pointer; font-size: 13.5px; background: var(--surface); }
+  .rc input { margin: 2px 0 0; accent-color: var(--primary); }
+  .rc b { font-weight: 600; display: flex; align-items: center; gap: 6px; }
+  .rc small { grid-column: 2; color: var(--fg-muted); font-size: 12.5px; line-height: 16px; }
+  .rc:hover { border-color: var(--border-strong); }
+  .rc:has(input:checked) { border-color: var(--primary); background: var(--primary-soft); box-shadow: inset 0 0 0 1px var(--primary); }
+  .drop { border: 1.5px dashed var(--border-strong); border-radius: var(--r-lg); background: var(--surface-muted); padding: 32px 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; transition: border-color .12s, background-color .12s; }
+  .drop.over { border-color: var(--primary); background: var(--primary-soft); }
+  .drop > .icon { width: 36px; height: 36px; stroke-width: 1.25; color: var(--fg-muted); }
+  .drop.err { border: 0; padding: 0; background: none; }
+  .filechip { display: flex; align-items: center; gap: 10px; border: 0; border-radius: 8px; padding: 10px 12px; background: var(--surface-muted); }
+  .filechip .ficon { width: 34px; height: 34px; border-radius: var(--r-md); background: var(--success-soft); color: var(--success-fg); display: grid; place-items: center; }
+  .exits a, .exits button { justify-content: flex-start; align-items: flex-start; width: 100%; height: auto; padding: 10px; border-radius: 8px; text-align: left; white-space: normal; line-height: 18px; }
+  .exits .icon { margin-top: 1px; flex: none; }
+  .exits .cell-sub { font-weight: 400; color: var(--fg-muted); margin-top: 2px; }
+  .field .input { width: 100%; }
+  .map td { padding: 6px 12px; height: 58px; }
+  .map td.samples { color: var(--fg-muted); font-size: 12.5px; }
+  .map .samples .code { color: var(--fg); background: var(--surface-muted); border: 0; border-radius: var(--r-sm); padding: 1px 6px; margin-right: 4px; font-size: 12px; font-weight: 500; }
+  .map select.input { width: 240px; height: 30px; }
+  .map tr.need td:first-child { box-shadow: inset 3px 0 0 var(--warning-solid); }
+  .map tr.dupmap select { border-color: var(--danger-solid); }
+  .pv-wrap { max-height: calc(100vh - 380px); min-height: 280px; overflow: auto; }
+  .pv td { height: 62px; padding: 6px 10px; vertical-align: middle; }
+  .pv th { padding-left: 10px; padding-right: 10px; }
+  .pv .cell-in { width: 116px; }
+  .pv th:nth-child(1), .pv td:nth-child(1) { position: sticky; left: 0; z-index: 1; width: 64px; }
+  .pv th:nth-child(2), .pv td:nth-child(2) { position: sticky; left: 64px; z-index: 1; box-shadow: inset -1px 0 0 var(--border); }
+  .pv th:nth-child(1), .pv th:nth-child(2) { z-index: 3; }
+  .pv td:nth-child(1), .pv td:nth-child(2) { background: var(--surface); }
+  .pv tr:hover td { background: var(--surface-muted); }
+  .cellv { display: inline-block; min-width: 72px; border: 1px solid transparent; border-radius: var(--r-sm); padding: 2px 6px; margin: 0 -6px; cursor: text; min-height: 24px; line-height: 20px; }
+  .cellv:hover { border-color: var(--border-strong); background: var(--surface); }
+  .cellv.bad { border-color: var(--danger-solid); background: var(--surface); color: var(--danger-fg); }
+  .cellv.empty-v { color: var(--fg-subtle); font-style: italic; }
+  .pv .cell-in { height: 28px; width: 130px; border: 1px solid var(--primary); border-radius: var(--r-sm); padding: 0 6px; font: 13.5px var(--font-body); outline: 2px solid var(--ring); outline-offset: 1px; }
+  .pv .cell-in.bad { border-color: var(--danger-solid); outline-color: var(--danger-solid); }
+  .emsg { display: flex; align-items: flex-start; gap: 4px; font-size: 11.5px; line-height: 14px; color: var(--danger-fg); margin-top: 2px; white-space: normal; max-width: 170px; }
+  .emsg .icon { margin-top: 1px; flex: none; }
+  .pv td:nth-child(3) { min-width: 116px; }
+  .pv td.right .emsg { display: block; margin-left: auto; text-align: right; }
+  .pv td.right .emsg .icon { display: inline-block; vertical-align: -2px; margin: 0 3px 0 0; }
+  .emsg .icon { width: 12px; height: 12px; }
+  .xb { display: flex; align-items: center; gap: 3px; font-size: 11.5px; line-height: 15px; margin-top: 2px; white-space: nowrap; }
+  .xb .icon { width: 12px; height: 12px; }
+  .xb.d { color: var(--danger-fg); } .xb.w { color: var(--warning-fg); }
+  .pv select.input { height: 30px; width: 170px; }
+  .gridfoot { padding: 12px 16px 14px; }
+  .manual td { padding: 6px 8px; vertical-align: top; }
+  .manual .input { height: 30px; width: 100%; }
+  .manual .input.bad { border-color: var(--danger-solid); }
+  .footbar { position: sticky; bottom: 0; z-index: 15; margin: 0 calc(-1 * var(--s-6)) calc(-1 * var(--s-6)); padding: 12px var(--s-6); background: var(--bg); border-top: 1px solid transparent; display: flex; gap: 8px; align-items: center; justify-content: flex-end; transition: border-color var(--d-2, 180ms), background-color var(--d-2, 180ms); }
+  .footbar.stuck { border-top-color: var(--border); background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: saturate(1.2) blur(8px); }
+  .summary { display: grid; grid-template-columns: minmax(300px, 1.6fr) repeat(3, minmax(0, 1fr)); gap: 6px; padding: 6px; background: var(--surface); border-radius: var(--r-lg); box-shadow: var(--shadow-card); }
+  .sum-main { padding: 18px 22px; background: var(--primary-soft); border-radius: 8px; display: flex; flex-direction: column; gap: 4px; }
+  .sum-main .k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--side-active); }
+  .sum-main .v { font: 700 var(--text-display)/40px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+  .sum-main .v small, .sum-item .v small { font: 600 15px var(--font-body); color: var(--fg-muted); margin-left: 2px; }
+  .sum-main .d { font-size: 12.5px; color: var(--fg-muted); }
+  .sum-item { padding: 18px 16px; display: flex; flex-direction: column; justify-content: center; gap: 4px; min-width: 0; border: 0; background: none; border-radius: 8px; text-align: left; font: inherit; color: inherit; }
+  button.sum-item { cursor: pointer; }
+  button.sum-item:hover { background: var(--surface-muted); }
+  .sum-item .k { font-size: 12.5px; color: var(--fg-muted); font-weight: 500; }
+  .sum-item .v { font: 700 24px/30px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .sum-item .d { font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 4px; align-items: center; }
+  .sum-item.is-err .v { color: var(--danger-fg); }
+  .sum-item.is-err .d { color: var(--primary); font-weight: 500; }
+  #app-content > * { flex: none; }
+  @media (max-width: 1100px) { .s1 { grid-template-columns: 1fr; } .rcards { grid-template-columns: repeat(2, minmax(0, 1fr)); } .summary { grid-template-columns: repeat(3, minmax(0, 1fr)); } .sum-main { grid-column: 1 / -1; } }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb" id="crumb">Fleet / Import data</div>
+      <h1>Import data from Excel</h1>
+    </div>
+    <div class="actions"><button class="btn btn-secondary" type="button" id="btnExit">${'Exit'}</button></div>
+  </div>
+  <nav class="stepper" id="stepper" aria-label="Import steps"></nav>
+  <div id="stepBody" class="stack" style="gap:16px"></div>
+  <div class="footbar" id="footbar"></div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_14', title: 'Import data from Excel' });
+document.getElementById('btnExit').textContent = 'Exit';
+const NA = 'href="javascript:void(0)" title="not in this prototype"';
+const $ = id => document.getElementById(id);
+const TODAY = new Date(2026, 10, 12);
+
+const TYPES = [
+  ['vehicle', 'Vehicles & trailers', 'License plate, vehicle type, capacity, inspection, insurance and operating badge expiry', 'truck'],
+  ['driver', 'Driver', 'Name, phone, license class, license expiry', 'user'],
+  ['doc', 'Documents', 'Holder, document type, number, expiry date', 'doc'],
+  ['customer', 'Customer', 'Name, tax ID, address, contact person', 'users'],
+  ['place', 'Location', 'Warehouses, ports, depots, coordinates', 'map'],
+  ['route', 'Routes', 'Origin, destination, standard km, toll stations', 'route']
+];
+const SHEETS = [['Vehicle list 2026', 126], ['Trailers', 40], ['Driver', 31]];
+const FIELDS = ['License plate', 'Vehicle type', 'Capacity (t)', 'Inspection expiry', 'Insurance expiry', 'Operating badge expiry', 'Make', 'Year of manufacture', 'Chassis number', 'Regular driver', 'Branch'];
+const REQUIRED = ['License plate', 'Vehicle type', 'Capacity (t)'];
+const COLS0 = [
+  ['Plate No.', ['51C12345', '51C 678.90'], 'License plate'],
+  ['Truck type', ['Tractor unit', 'Truck'], ''],
+  ['Tonnage', ['30', '15'], 'Capacity (t)'],
+  ['Insp. expiry', ['15/03/2027', '46100'], 'Inspection expiry', 'Date format: dd/mm/yyyy and Excel serial dates'],
+  ['Ins. expiry', ['02/11/2026', '12/25/2027'], 'Insurance expiry', 'Date format: dd/mm/yyyy'],
+  ['Operating badge expiry', ['20/12/2026', '30/06/2027'], 'Operating badge expiry', 'Date format: dd/mm/yyyy'],
+  ['Make', ['Hyundai', 'Hino'], 'Make'],
+  ['Mfg. year', ['2019', '2021'], 'Year of manufacture'],
+  ['Chassis number', ['KMFGA17PPLC0…', 'JHDFG8JN…'], 'Chassis number'],
+  ['Driver name', ['Nguyễn Văn Tuấn', 'Lê Hoàng Phúc'], ''],
+  ['Note', ['New tires fitted', '—'], '__skip']
+];
+const ROWS0 = [
+  [12, '51C12345', 'Tractor unit', '30', '15/03/2027', '02/11/2026', '20/12/2026'],
+  [13, '51C-602.17', 'Tractor unit', '30', '08/06/2027', '14/01/2027', '30/06/2027'],
+  [14, '51D 456.78', 'Tractor unit', '30', '19/01/2027', '22/02/2027', '15/04/2027'],
+  [15, '51C-618.40', 'Truck', '15', '21/11/2026', '05/05/2027', '12/08/2027'],
+  [18, '51C-745.12', 'Tractor unit', '30', '31/02/2027', '11/03/2027', '30/09/2027'],
+  [19, '61C-118.56', 'Tractor unit', '30', '46100', '18/07/2027', '18/07/2027'],
+  [23, '51D-233.09', '', '15', '02/04/2027', '09/12/2026', '09/12/2026'],
+  [27, '51C-099.21', 'Tractor unit', '30', '02/11/2026', '25/04/2027', '25/04/2027'],
+  [31, '51C-820.33', 'Tractor unit', '30', '17/05/2027', '04/11/2026', '10/10/2027'],
+  [45, '51C-588.02', 'Truck', '15', '13/02/2027', '13/02/2027', '13/02/2027'],
+  [52, '51D-517.64', 'Truck', 'thirty', '06/09/2027', '06/09/2027', '06/09/2027'],
+  [58, '61C 220.14', 'Tractor unit', '30', '28/12/2026', '28/12/2026', '28/12/2026'],
+  [67, '51C 588.02', 'Truck', '15', '13/02/2027', '13/02/2027', '13/02/2027'],
+  [71, '51C-904.28', 'Tractor unit', '30', '01/08/2027', '12/25/2027', '01/08/2027'],
+  [88, '50H-112.07', '', '15', '30/02/2027', '19/06/2027', '19/06/2027'],
+  [103, '51C12', 'Tractor unit', '30', '03/03/2027', '03/03/2027', '03/03/2027'],
+  [104, '51C-377.91', 'Tractor unit', '30', '27/11/2026', '14/09/2027', '14/09/2027'],
+  [109, '51D-640.25', 'Truck', '15', '11/10/2027', '11/10/2027', '11/10/2027']
+];
+const TOTAL = 126, HIDDEN_VALID = TOTAL - ROWS0.length;
+const EXISTING = new Set(FM.vehicles.map(v => v.plate));
+
+let S;
+function reset() {
+  S = { step: 1, type: 'vehicle', branch: 'TP.HCM', file: null, sheet: 'Vehicle list 2026', fileErr: false, readErr: false, sheetEmpty: false, loading: false,
+    cols: COLS0.map(c => ({ name: c[0], samples: c[1], field: c[2], hint: c[3], auto: !!c[2] })), dateMode: null,
+    rows: ROWS0.map(r => ({ r: r[0], plate: r[1], type: r[2], cap: r[3], dk: r[4], bh: r[5], ph: r[6], action: 'skip' })),
+    filter: 'all', editing: null, manual: null, bigImport: false, importing: false, result: null };
+}
+
+/* ---------- Validation ---------- */
+function normPlate(v) { const x = String(v || '').replace(/[\s.\-]/g, '').toUpperCase(); const m = x.match(/^(\d{2}[A-Z]{1,2})(\d{3})(\d{2})$/); if (m) return `${m[1]}-${m[2]}.${m[3]}`; const m4 = x.match(/^(\d{2}[A-Z]{1,2})(\d{4})$/); return m4 ? `${m4[1]}-${m4[2]}` : null; }
+function parseDate(v, md) {
+  v = String(v || '').trim(); if (!v) return { empty: true };
+  if (/^\d{5}$/.test(v)) { const d = new Date(1899, 11, 30); d.setDate(d.getDate() + +v); return { d }; }
+  const m = v.match(/^(\d{1,4})[\/.\-](\d{1,2})[\/.\-](\d{2,4})$/); if (!m) return { err: `Date '${v}' is in the wrong format` };
+  let a = +m[1], b = +m[2], y = +m[3];
+  if (m[1].length === 4) { y = a; a = +m[3]; }
+  if (y < 100) y += 2000;
+  let day = md ? b : a, mon = md ? a : b;
+  if (mon > 12 || mon < 1) return { err: `Date '${v}' doesn't exist (month ${mon})` };
+  const d = new Date(y, mon - 1, day);
+  if (d.getMonth() !== mon - 1) return { err: `Date '${v}' doesn't exist` };
+  return { d };
+}
+const fmtD = d => `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+function validate(row, idx) {
+  const e = {};
+  const p = normPlate(row.plate);
+  if (!row.plate) e.plate = 'Missing license plate';
+  else if (!p) e.plate = `License plate '${row.plate}' is in the wrong format`;
+  else { const first = S.rows.findIndex((x, i) => i < idx && normPlate(x.plate) === p); if (first >= 0) e.plate = `Same license plate as row ${S.rows[first].r}`; }
+  if (!row.type) e.type = 'Missing vehicle type'; else if (!['Tractor unit', 'Truck'].includes(row.type)) e.type = `Vehicle type '${row.type}' is not in master data`;
+  const c = parseFloat(String(row.cap).replace(',', '.'));
+  if (!row.cap) e.cap = 'Missing capacity'; else if (isNaN(c) || !/^[\d.,]+$/.test(row.cap)) e.cap = `Capacity '${row.cap}' is not a number`;
+  const dates = {};
+  [['dk', false], ['bh', S.dateMode === 'md'], ['ph', false]].forEach(([k, md]) => { const r = parseDate(row[k], md); if (r.err) e[k] = r.err; else dates[k] = r.d; });
+  const n = Object.keys(e).length;
+  return { e, n, plate: p, dates, dup: !n && p && EXISTING.has(p) };
+}
+function stats() {
+  const v = S.rows.map((r, i) => validate(r, i));
+  const err = v.filter(x => x.n).length, dup = v.filter(x => x.dup).length;
+  const valid = TOTAL - err - dup;
+  const upd = S.rows.filter((r, i) => v[i].dup && r.action === 'update').length;
+  return { v, err, dup, valid, upd, importN: valid + upd };
+}
+function expBadge(d) {
+  if (!d) return '';
+  const days = Math.round((d - TODAY) / 864e5);
+  if (days < 0) return `<span class="xb d">${icon('block')}Expired ${-days} days ago</span>`;
+  if (days <= 30) return `<span class="xb w">${icon('warn')}${days} days left</span>`;
+  return '';
+}
+
+/* ---------- Stepper & frame ---------- */
+const STEPS = ['Choose file', 'Map columns', 'Preview & fix', 'Result'];
+function renderStepper() {
+  $('stepper').innerHTML = STEPS.map((t, i) => {
+    const n = i + 1, cls = n < S.step ? 'done' : n === S.step ? 'cur' : '';
+    return `${i ? `<span class="line ${n <= S.step ? 'done' : ''}"></span>` : ''}<button type="button" class="${cls}" ${n < S.step && S.step < 4 ? `data-go="${n}"` : 'tabindex="-1"'} ${n === S.step ? 'aria-current="step"' : ''}><span class="n">${n < S.step ? icon('check') : n}</span>${t}</button>`;
+  }).join('');
+  $('stepper').querySelectorAll('[data-go]').forEach(b => b.onclick = () => { S.step = +b.dataset.go; render(); });
+}
+function render() {
+  renderStepper();
+  [step1, step2, step3, step4][S.step - 1]();
+}
+function foot(html) { $('footbar').innerHTML = html; requestAnimationFrame(syncFoot); }
+function syncFoot() { const se = document.scrollingElement; $('footbar').classList.toggle('stuck', se.scrollHeight - se.scrollTop - se.clientHeight > 2); }
+addEventListener('scroll', syncFoot, { passive: true }); addEventListener('resize', syncFoot);
+
+/* ---------- Bước 1 ---------- */
+function step1() {
+  const t = TYPES.find(x => x[0] === S.type);
+  let zone;
+  if (S.readErr) zone = `<div class="drop err"><div class="alert alert-danger" role="alert" style="width:100%;text-align:left">${icon('block')}<div>Couldn't read '<b>DS xe.xlsx</b>'. The file may be password-protected or corrupted.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="pickAgain">Choose another file</button><button class="btn btn-ghost btn-sm" type="button" data-support>Send file to support</button></div></div></div>`;
+  else if (S.fileErr) zone = dropHtml(`<div class="alert alert-danger" role="alert" style="text-align:left">${icon('block')}<div>'<b>${S.fileErr}</b>' is not an Excel or CSV file. Choose a .xlsx, .xls or .csv file.</div></div>`);
+  else if (S.file) {
+    const sh = SHEETS.find(s => s[0] === S.sheet);
+    zone = `<div class="stack" style="gap:12px"><div class="filechip"><span class="ficon">${icon('doc', 'lg')}</span><div class="grow"><b>${S.file}</b><span class="cell-sub">${SHEETS.length} sheets · 84 KB · uploaded at 08:51</span></div><button class="btn btn-ghost btn-sm" type="button" id="removeFile">${icon('x')}Remove file</button></div>
+      <label class="field" style="max-width:340px"><span>Sheet</span><select class="input" id="fSheet">${SHEETS.map(s => `<option value="${s[0]}" ${S.sheet === s[0] ? 'selected' : ''}>${s[0]} (${s[1]} rows)</option>`).join('')}</select></label>
+      ${S.sheetEmpty ? `<div class="card"><div class="empty" style="padding:28px 16px">${icon('tray')}<h3>Sheet '${S.sheet}' has no data</h3><p>Choose another sheet or check the file.</p><button class="btn btn-secondary" type="button" id="otherSheet">Choose another sheet</button></div></div>` : `<p class="sm muted">Header row detected at row 3 (skipping the company name and blank rows above). ${sh[1]} data rows.</p>`}</div>`;
+  } else zone = dropHtml('');
+  $('stepBody').innerHTML = `<div class="s1">
+    <section class="card"><div class="card-head"><h2 style="font-size:15px">What do you want to import?</h2></div><div class="card-body stack" style="gap:16px">
+      <div class="rcards" role="radiogroup" aria-label="Data type">${TYPES.map(([k, l, s, ic]) => `<label class="rc"><input type="radio" name="dtype" value="${k}" ${S.type === k ? 'checked' : ''}><b>${icon(ic)}${l}</b><small>${s}</small></label>`).join('')}</div>
+      <label class="field" style="max-width:280px"><span>Import into branch</span><select class="input"><option selected>TP.HCM</option><option>Bình Dương</option></select></label>
+      ${zone}
+    </div></section>
+    <aside class="card"><div class="card-head"><h2 style="font-size:15px">No file ready?</h2></div><div class="card-body stack exits" style="gap:4px;padding:10px">
+      <button class="btn btn-ghost" type="button" id="dlTpl">${icon('download')}<span>Download template (optional)<span class="cell-sub">With expiry columns for inspection, insurance, operating badge and driver's license</span></span></button>
+      <button class="btn btn-ghost" type="button" id="manualBtn">${icon('pen')}<span>Quick-enter your first 5 vehicles<span class="cell-sub">Type directly, no file needed</span></span></button>
+      <button class="btn btn-ghost" type="button" data-support>${icon('phone')}<span>Have our support team import your file<span class="cell-sub">We'll call back within 1 business day</span></span></button>
+    </div></aside></div>`;
+  document.querySelectorAll('input[name=dtype]').forEach(r => r.onchange = () => { S.type = r.value; $('crumb').textContent = 'Fleet / Import data'; });
+  const dz = document.querySelector('.drop');
+  if (dz && !S.readErr) {
+    dz.ondragover = e => { e.preventDefault(); dz.classList.add('over'); };
+    dz.ondragleave = () => dz.classList.remove('over');
+    dz.ondrop = e => { e.preventDefault(); dz.classList.remove('over'); const f = e.dataTransfer.files[0]; acceptFile(f ? f.name : 'DS xe 2026.xlsx'); };
+    $('pickFile').onclick = () => $('fileIn').click();
+    $('fileIn').onchange = e => { const f = e.target.files[0]; if (f) acceptFile(f.name); };
+  }
+  const pa = $('pickAgain'); if (pa) pa.onclick = () => { S.readErr = false; render(); };
+  const rf = $('removeFile'); if (rf) rf.onclick = () => { S.file = null; S.sheetEmpty = false; render(); };
+  const fs = $('fSheet'); if (fs) fs.onchange = () => { S.sheet = fs.value; S.sheetEmpty = fs.value === 'Trailers'; render(); };
+  const os = $('otherSheet'); if (os) os.onclick = () => { $('fSheet').focus(); try { $('fSheet').showPicker(); } catch (e) {} };
+  $('dlTpl').onclick = () => toast(`Downloaded template "Template-${t[1].replace(/ & /g, '-').replace(/\s/g, '-')}.xlsx"`);
+  $('manualBtn').onclick = () => { S.manual = blankManual(); S.step = 3; render(); };
+  document.querySelectorAll('[data-support]').forEach(b => b.onclick = supportModal);
+  const canGo = S.file && !S.sheetEmpty;
+  foot(`<span class="sm muted" style="margin-right:auto">Confirmed column mappings are saved for next time.</span><span class="tip"><button class="btn btn-primary" type="button" id="toStep2" ${canGo ? '' : 'disabled'}>Continue: Map columns</button>${canGo ? '' : `<span class="tip-body right">${S.sheetEmpty ? 'The selected sheet has no data' : 'Choose a file first'}</span>`}</span>`);
+  $('toStep2').onclick = () => { S.loading = true; S.step = 2; render(); setTimeout(() => { S.loading = false; if (S.step === 2) render(); }, 900); };
+}
+function dropHtml(extra) {
+  return `<div class="drop">${icon('import')}<b style="font-size:15px;color:var(--fg-strong)">Drag in the Excel file you already use, or <button class="btn btn-secondary btn-sm" type="button" id="pickFile" style="margin-left:4px">Choose file</button></b><span class="sm muted">No template needed. Supports .xlsx, .xls, .csv, up to 10 MB.</span><input type="file" id="fileIn" accept=".xlsx,.xls,.csv" hidden>${extra}</div>`;
+}
+function acceptFile(name) {
+  if (!/\.(xlsx|xls|csv)$/i.test(name)) { S.fileErr = name; S.file = null; render(); return; }
+  S.fileErr = false; S.file = name; S.sheet = 'Vehicle list 2026'; S.sheetEmpty = false; render();
+}
+
+/* ---------- Bước 2: Ghép cột ---------- */
+function step2() {
+  if (S.loading) {
+    $('stepBody').innerHTML = `<section class="card"><div class="card-head"><h2 style="font-size:15px">Map columns</h2><span class="row sm muted" style="margin-left:auto">${icon('refresh')}Reading file…</span></div>
+      <table class="grid"><thead><tr><th>File column</th><th>Sample values</th><th></th><th>System field</th><th>Detection</th></tr></thead><tbody>${Array(8).fill(`<tr><td><span class="sk" style="width:90px"></span></td><td><span class="sk" style="width:160px"></span></td><td></td><td><span class="sk" style="width:200px;height:28px"></span></td><td><span class="sk" style="width:80px"></span></td></tr>`).join('')}</tbody></table></section>`;
+    foot(`<button class="btn btn-ghost" type="button" disabled style="margin-right:auto">Back</button><button class="btn btn-primary" type="button" disabled>Preview data</button>`);
+    return;
+  }
+  const used = {}; S.cols.forEach(c => { if (c.field && c.field !== '__skip') used[c.field] = (used[c.field] || []).concat(c.name); });
+  const need = S.cols.filter(c => !c.field).length, autoN = S.cols.filter(c => c.auto).length;
+  const missing = REQUIRED.filter(f => !used[f]);
+  const dupF = Object.keys(used).filter(f => used[f].length > 1);
+  const block = missing.length || dupF.length || need;
+  $('stepBody').innerHTML = `
+    <div class="alert alert-info">${icon('sparkle')}<div>Auto-detected <b>${autoN}/${S.cols.length} columns</b>.${need ? ` <b>${need} columns still need mapping.</b>` : ' All columns are mapped.'}</div></div>
+    ${S.dateMode == null && S.cols.find(c => c.name === 'Ins. expiry').field !== '__skip' ? `<div class="alert alert-warning" role="alert">${icon('calendar')}<div>Column '<b>Ins. expiry</b>' has the value <span class="code">12/25/2027</span>. The file may use month/day.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" data-dm="md">Read as month/day</button><button class="btn btn-ghost btn-sm" type="button" data-dm="dm">Keep day/month</button></div></div>` : ''}
+    <section class="card"><div class="card-head"><h2 style="font-size:15px">Map columns · <span class="muted" style="font-weight:500">${S.file || 'DS xe 2026.xlsx'} · sheet ${S.sheet}</span></h2><span class="sm muted" style="margin-left:auto">* required: ${REQUIRED.join(', ')}</span></div>
+    <div class="grid-wrap"><table class="grid map"><thead><tr><th>File column</th><th>Sample values</th><th style="width:24px"></th><th>System field</th><th>Detection</th></tr></thead>
+    <tbody>${S.cols.map((c, i) => {
+      const dupHere = c.field && dupF.includes(c.field);
+      const st = !c.field ? `<span class="badge b-warning">${icon('warn')}Needs mapping</span>` : c.field === '__skip' ? `<span class="badge b-neutral">${icon('x')}Skipped</span>` : c.auto ? `<span class="badge b-success">${icon('check')}Auto-detected</span>` : `<span class="badge b-info">${icon('pen')}Set manually</span>`;
+      return `<tr class="${!c.field ? 'need' : ''} ${dupHere ? 'dupmap' : ''}"><td><b style="font-weight:600">${c.name}</b></td>
+        <td class="samples">${c.samples.map(s => `<span class="code">${s}</span>`).join('')}</td><td class="muted">→</td>
+        <td><select class="input" data-map="${i}" aria-label="Field for column ${c.name}"><option value="" ${!c.field ? 'selected' : ''}>Choose a field…</option>${FIELDS.map(f => `<option value="${f}" ${c.field === f ? 'selected' : ''}>${f}${REQUIRED.includes(f) ? ' *' : ''}</option>`).join('')}<option value="__skip" ${c.field === '__skip' ? 'selected' : ''}>Skip this column</option></select>
+          ${dupHere ? `<span class="emsg">${icon('block')}Field '${c.field}' is already mapped to column '${used[c.field].find(n => n !== c.name)}'</span>` : c.hint && c.field && c.field !== '__skip' ? `<span class="cell-sub">${c.hint}${c.name === 'Ins. expiry' && S.dateMode === 'md' ? ' · read as month/day' : ''}</span>` : ''}</td>
+        <td>${st}</td></tr>`;
+    }).join('')}</tbody></table></div></section>`;
+  document.querySelectorAll('[data-map]').forEach(s => s.onchange = () => { const c = S.cols[+s.dataset.map]; c.field = s.value; c.auto = false; step2(); });
+  document.querySelectorAll('[data-dm]').forEach(b => b.onclick = () => { S.dateMode = b.dataset.dm; toast(S.dateMode === 'md' ? "Column 'Ins. expiry' will be read as month/day" : "Keeping day/month for column 'Ins. expiry'"); step2(); });
+  const reasons = [missing.length && 'Missing: ' + missing.join(', '), need && `${need} columns have no field yet (choose "Skip this column" if not needed)`, dupF.length && 'Two columns are mapped to the same field: ' + dupF.join(', ')].filter(Boolean);
+  foot(`<button class="btn btn-ghost" type="button" id="back1" style="margin-right:auto">Back</button><span class="tip"><button class="btn btn-primary" type="button" id="toStep3" ${block ? 'disabled' : ''}>Preview data</button>${block ? `<span class="tip-body right">${reasons.join('. ')}.</span>` : ''}</span>`);
+  $('back1').onclick = () => { S.step = 1; render(); };
+  $('toStep3').onclick = () => { S.step = 3; S.manual = null; S.filter = 'all'; render(); toast('Column mapping saved for next time'); };
+}
+
+/* ---------- Bước 3: Xem trước & sửa ---------- */
+const COLDEF = [['plate', 'License plate'], ['type', 'Vehicle type'], ['cap', 'Capacity (t)', 1], ['dk', 'Inspection expiry'], ['bh', 'Insurance expiry'], ['ph', 'Operating badge expiry']];
+function step3() {
+  if (S.manual) return step3manual();
+  const st = stats();
+  const show = S.rows.map((r, i) => ({ r, i, v: st.v[i] })).filter(x => S.filter === 'all' || (S.filter === 'valid' && !x.v.n && !x.v.dup) || (S.filter === 'error' && x.v.n) || (S.filter === 'dup' && x.v.dup));
+  const chip = (k, l, n) => `<button class="chip ${S.filter === k ? 'on' : ''}" type="button" data-f="${k}" aria-pressed="${S.filter === k}">${l} <b class="num">${n}</b></button>`;
+  const cell = (x, k) => {
+    const raw = x.r[k], err = x.v.e[k];
+    if (S.editing && S.editing.i === x.i && S.editing.k === k) {
+      if (k === 'type') return `<select class="cell-in ${err ? 'bad' : ''}" data-edit autofocus><option value="">Select…</option><option ${raw === 'Tractor unit' ? 'selected' : ''}>Tractor unit</option><option ${raw === 'Truck' ? 'selected' : ''}>Truck</option></select>${err ? `<span class="emsg">${icon('block')}${err}</span>` : ''}`;
+      return `<input class="cell-in ${err ? 'bad' : ''} num" data-edit value="${raw}" aria-label="Edit ${k}" aria-invalid="${!!err}">${err ? `<span class="emsg">${icon('block')}${err}</span>` : ''}`;
+    }
+    let disp = raw;
+    if (!err && k === 'plate') disp = `<span class="code">${x.v.plate}</span>`;
+    if (!err && ['dk', 'bh', 'ph'].includes(k) && x.v.dates[k]) disp = `<span class="num">${fmtD(x.v.dates[k])}</span>`;
+    if (!err && k === 'cap') disp = `<span class="num">${fmt.dec(parseFloat(raw.replace(',', '.')))}</span>`;
+    return `<span class="cellv ${err ? 'bad' : ''} ${!raw ? 'empty-v' : ''}" tabindex="0" role="button" data-cell="${x.i}" data-k="${k}" aria-label="${err ? 'Error: ' + err + '. ' : ''}Edit cell">${raw ? disp : 'empty'}</span>${err ? `<span class="emsg">${icon('block')}${err}</span>` : (['dk', 'bh', 'ph'].includes(k) ? expBadge(x.v.dates[k]) : '')}`;
+  };
+  const statusCell = x => {
+    if (x.v.n) return `<span class="badge b-danger">${icon('block')}${x.v.n > 1 ? x.v.n + ' errors' : Object.values(x.v.e)[0]}</span>`;
+    if (x.v.dup) return `<div class="stack" style="gap:4px"><span class="badge b-neutral">${icon('copy')}Duplicate: ${x.v.plate} already exists</span><select class="input" data-act="${x.i}" aria-label="Handle duplicate row ${x.r.r}"><option value="skip" ${x.r.action === 'skip' ? 'selected' : ''}>Skip this row</option><option value="update" ${x.r.action === 'update' ? 'selected' : ''}>Update existing vehicle</option></select></div>`;
+    return `<span class="badge b-success">${icon('check')}Valid</span>`;
+  };
+  const moreValid = S.filter === 'all' || S.filter === 'valid';
+  $('stepBody').innerHTML = `
+    ${S.bigImport ? `<div class="alert alert-info" role="status">${icon('refresh')}<div>Importing <b class="num">1,240 / 4,800</b> rows… You can leave this page; we'll let you know when it's done.</div></div>` : ''}
+    <section class="card">
+      <div class="card-head" style="flex-wrap:wrap;gap:8px">
+        <div class="filterbar" role="toolbar" aria-label="Filter rows">${chip('all', 'All', TOTAL)}${chip('valid', 'Valid', st.valid)}${chip('error', 'Has errors', st.err)}${chip('dup', 'Matches existing data', st.dup)}</div>
+        <div class="row" style="margin-left:auto;gap:8px">
+          ${st.dup >= 2 ? `<button class="btn btn-secondary btn-sm" type="button" id="dupAll">Apply to all duplicate rows: Update</button>` : ''}
+          <button class="btn btn-secondary btn-sm" type="button" id="dlErr" ${st.err ? '' : 'disabled'}>${icon('download')}Download error file (${st.err} rows)</button>
+        </div>
+      </div>
+      <div class="pv-wrap grid-wrap"><table class="grid pv"><thead><tr><th>Row</th>${COLDEF.map(c => `<th class="${c[2] ? 'right' : ''}">${c[1]}</th>`).join('')}<th>Row status</th></tr></thead>
+        <tbody>${show.length ? show.map(x => `<tr><td class="num muted">${x.r.r}</td>${COLDEF.map(c => `<td class="${c[2] ? 'right' : ''}">${cell(x, c[0])}</td>`).join('')}<td>${statusCell(x)}</td></tr>`).join('') : `<tr><td colspan="8" style="height:auto"><div class="empty" style="padding:32px 16px">${icon('check')}<h3>No error rows left</h3><p>All error rows have been fixed.</p></div></td></tr>`}</tbody></table></div>
+      <div class="sm muted gridfoot">${moreValid ? `Showing ${show.length} rows · <span class="num">${HIDDEN_VALID}</span> other valid rows collapsed. ` : ''}Click a cell to edit; the row is rechecked as soon as you leave the cell.</div>
+    </section>`;
+  document.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { S.filter = b.dataset.f; S.editing = null; step3(); });
+  document.querySelectorAll('[data-cell]').forEach(c => { const open = () => { S.editing = { i: +c.dataset.cell, k: c.dataset.k }; step3(); }; c.onclick = open; c.onfocus = () => { if (c.classList.contains('bad')) open(); }; c.onkeydown = e => { if (e.key === 'Enter') open(); }; });
+  const ed = document.querySelector('[data-edit]');
+  if (ed) {
+    ed.focus(); if (ed.select) ed.select();
+    const commit = () => { const { i, k } = S.editing; const before = validate(S.rows[i], i).n; S.rows[i][k] = ed.value.trim(); S.editing = null; const after = validate(S.rows[i], i).n; step3(); if (before && !after) toast(`Row ${S.rows[i].r} is now valid`); };
+    ed.onblur = e => { const t = e.relatedTarget, nx = t && t.dataset && t.dataset.cell != null ? { i: +t.dataset.cell, k: t.dataset.k } : null; commit(); if (nx) { S.editing = nx; step3(); } }; ed.onchange = () => { if (ed.tagName === 'SELECT') ed.blur(); };
+    ed.onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); ed.blur(); } if (e.key === 'Escape') { S.editing = null; step3(); } };
+  }
+  document.querySelectorAll('[data-act]').forEach(s => s.onchange = () => { S.rows[+s.dataset.act].action = s.value; step3(); });
+  const da = $('dupAll'); if (da) da.onclick = () => { const prev = S.rows.map(r => r.action); S.rows.forEach(r => r.action = 'update'); step3(); toast(`Will update ${st.dup} existing vehicles`, { undo: () => { S.rows.forEach((r, i) => r.action = prev[i]); step3(); } }); };
+  $('dlErr').onclick = () => toast(`Downloaded "DS xe 2026 - loi.xlsx" (${st.err} rows, with an added "Error reason" column)`);
+  foot(`<button class="btn btn-ghost" type="button" id="back2" style="margin-right:auto" ${S.bigImport ? 'disabled' : ''}>Back to column mapping</button><span class="sm muted">${st.err ? `${st.err} error rows won't be imported` : 'No error rows left'}${st.upd ? ` · updating ${st.upd} existing vehicles` : ''}</span>
+    ${S.bigImport ? `<button class="btn btn-primary" type="button" disabled>${icon('refresh')}Importing…</button>` : `<button class="btn btn-primary" type="button" id="doImport" ${st.importN ? '' : 'disabled'}>Import ${fmt.vnd(st.importN, { bare: 1 })} valid rows</button>`}`);
+  const b2 = $('back2'); if (b2) b2.onclick = () => { S.step = 2; render(); };
+  const di = $('doImport'); if (di) di.onclick = () => { S.result = { ins: st.valid, upd: st.upd, skip: st.dup - st.upd, err: st.err }; S.step = 4; render(); };
+}
+function blankManual() { return Array.from({ length: 5 }, () => ({ plate: '', type: '', cap: '', dk: '', bh: '', ph: '', touched: {} })); }
+function step3manual() {
+  const rows = S.manual;
+  const errs = rows.map(r => {
+    if (!Object.values(r).some(v => typeof v === 'string' && v)) return null;
+    const e = {}; if (!r.plate) e.plate = 'Missing license plate'; else if (!normPlate(r.plate)) e.plate = 'Wrong license plate format';
+    if (!r.type) e.type = 'Missing vehicle type'; if (!r.cap) e.cap = 'Missing capacity'; else if (isNaN(parseFloat(r.cap.replace(',', '.')))) e.cap = 'Not a number';
+    ['dk', 'bh', 'ph'].forEach(k => { const p = parseDate(r[k]); if (p.err) e[k] = p.err; }); return e;
+  });
+  const okN = errs.filter(e => e && !Object.keys(e).length).length;
+  $('stepBody').innerHTML = `<section class="card"><div class="card-head"><h2 style="font-size:15px">Quick manual entry</h2><span class="sm muted" style="margin-left:auto">Enter moves to the next row · cells are checked when you leave them</span></div>
+    <div class="grid-wrap"><table class="grid manual"><thead><tr><th style="width:44px">#</th><th>License plate *</th><th style="width:130px">Vehicle type *</th><th class="right" style="width:130px">Capacity (t) *</th><th>Inspection expiry</th><th>Insurance expiry</th><th>Operating badge expiry</th></tr></thead>
+    <tbody>${rows.map((r, i) => `<tr><td class="num muted" style="padding-top:12px">${i + 1}</td>${['plate', 'type', 'cap', 'dk', 'bh', 'ph'].map(k => {
+      const e = errs[i] && r.touched[k] && errs[i][k];
+      const inp = k === 'type' ? `<select class="input ${e ? 'bad' : ''}" data-m="${i}" data-k="${k}"><option value="">Select…</option><option ${r.type === 'Tractor unit' ? 'selected' : ''}>Tractor unit</option><option ${r.type === 'Truck' ? 'selected' : ''}>Truck</option></select>`
+        : `<input class="input ${k === 'cap' ? 'num right' : k === 'plate' ? 'code' : 'num'} ${e ? 'bad' : ''}" data-m="${i}" data-k="${k}" value="${r[k]}" placeholder="${k === 'plate' ? 'e.g. 51C-123.45' : k === 'cap' ? '0' : 'dd/mm/yyyy'}">`;
+      return `<td>${inp}${e ? `<span class="emsg">${icon('block')}${e}</span>` : ''}</td>`; }).join('')}</tr>`).join('')}</tbody></table></div>
+    <div class="card-body" style="padding-top:10px"><button class="btn btn-ghost btn-sm" type="button" id="addRow">${icon('plus')}Add row</button></div></section>`;
+  document.querySelectorAll('[data-m]').forEach(inp => {
+    inp.onchange = () => { const r = rows[+inp.dataset.m]; r[inp.dataset.k] = inp.value.trim(); r.touched[inp.dataset.k] = true; if (inp.dataset.k === 'plate' && normPlate(r.plate)) r.plate = normPlate(r.plate); const at = [inp.dataset.m, inp.dataset.k]; step3manual(); const nx = document.querySelector(`[data-m="${at[0]}"][data-k="${at[1]}"]`); };
+    inp.onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); inp.dispatchEvent(new Event('change')); const n = document.querySelector(`[data-m="${+inp.dataset.m + 1}"][data-k="${inp.dataset.k}"]`); if (n) n.focus(); } };
+  });
+  $('addRow').onclick = () => { rows.push({ plate: '', type: '', cap: '', dk: '', bh: '', ph: '', touched: {} }); step3manual(); };
+  foot(`<button class="btn btn-ghost" type="button" id="backM" style="margin-right:auto">Back to file selection</button><span class="sm muted">${okN} valid rows</span><button class="btn btn-primary" type="button" id="doImportM" ${okN ? '' : 'disabled'}>Import ${okN} vehicles</button>`);
+  $('backM').onclick = () => { S.manual = null; S.step = 1; render(); };
+  $('doImportM').onclick = () => { S.result = { ins: okN, upd: 0, skip: 0, err: 0, manual: true }; S.step = 4; render(); };
+}
+
+/* ---------- Bước 4: Kết quả ---------- */
+function step4() {
+  const r = S.result || { ins: 115, upd: 4, skip: 0, err: 7 };
+  const next = { vehicle: ['driver', 'Driver'], driver: ['doc', 'Documents'], doc: ['customer', 'Customer'] }[S.type] || ['driver', 'Driver'];
+  $('stepBody').innerHTML = `
+    <div class="alert alert-success" role="status">${icon('check')}<div>Finished importing ${TYPES.find(t => t[0] === S.type)[1].toLowerCase()} data into the HCMC branch at 08:58 12/11/2026.</div></div>
+    <div class="summary" aria-label="Import results">
+      <div class="sum-main"><span class="k">Newly imported</span><span class="v">${r.ins}<small>vehicles</small></span><span class="d">Created in the HCMC branch vehicle list</span></div>
+      <div class="sum-item"><span class="k">Updated</span><span class="v">${r.upd}<small>vehicles</small></span><span class="d">Duplicate plate, Update chosen</span></div>
+      <div class="sum-item"><span class="k">Skipped</span><span class="v">${r.skip}</span><span class="d">Duplicate plate, Skip chosen</span></div>
+      ${r.err ? `<button class="sum-item is-err" type="button" id="kErr"><span class="k">Unfixed errors</span><span class="v">${r.err}<small>rows</small></span><span class="d">${icon('download')}Download error file</span></button>` : `<div class="sum-item"><span class="k">Unfixed errors</span><span class="v">0</span><span class="d">No error rows</span></div>`}
+    </div>
+    ${r.manual ? '' : `<div class="alert alert-warning" role="alert">${icon('doc')}<div>The data you just imported has <b>3 expired documents</b> and <b>7 documents expiring within 30 days</b>. Vehicles with expired documents can't be assigned to trips.</div><div class="alert-actions"><a class="btn btn-secondary btn-sm" ${NA}>View documents</a></div></div>`}
+    <p class="sm muted">Vehicles imported from a file have no GPS tracker linked yet. Link trackers in Settings → GPS tracker connection.</p>`;
+  const k = $('kErr'); if (k) k.onclick = () => toast(`Downloaded "DS xe 2026 - loi.xlsx" (${r.err} rows)`);
+  foot(`<button class="btn btn-secondary" type="button" id="nextType" style="margin-left:auto">Import next: ${next[1]}</button><a class="btn btn-primary" href="fm-04-tong-quan.html#onboarding">Back to Overview</a>`);
+  $('nextType').onclick = () => { const t = S.type; reset(); S.type = next[0]; render(); toast(`Preselected type "${next[1]}"`); };
+}
+
+/* ---------- Modals ---------- */
+function modal(html, onOk) {
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim';
+  const m = document.createElement('div'); m.className = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true');
+  m.innerHTML = html; document.body.append(s, m);
+  const close = () => { Shell.dismiss(s); Shell.dismiss(m); };
+  m.querySelector('[data-x]').onclick = close; s.onclick = close; m.querySelector('[data-ok]').onclick = () => { onOk(m); close(); };
+  (m.querySelector('textarea') || m.querySelector('[data-x]')).focus();
+  return close;
+}
+function supportModal() {
+  modal(`<h2>Send the file to our support team to import?</h2><p class="muted">Our support team will import '<b>${S.file || 'DS xe 2026.xlsx'}</b>' into the HCMC branch and call you back on <span class="num">0903 xxx 128</span> within 1 business day.</p>
+    <label class="field"><span>Note for the support team (optional)</span><textarea class="input" rows="3" placeholder="e.g. Sheet Mooc: trailers are matched by tractor unit plate in column B"></textarea></label>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Back</button><button class="btn btn-primary" type="button" data-ok>Send file</button></div>`, () => toast('File sent. Our support team will contact you within 1 business day.'));
+}
+$('btnExit').onclick = () => {
+  if (S.step === 2 || S.step === 3) modal(`<h2>Exit before the import is finished?</h2><p class="muted">Your edits in the preview grid will be lost. The column mapping has been saved.</p><div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Stay</button><button class="btn btn-danger" type="button" data-ok>Exit</button></div>`, () => location.href = 'fm-04-tong-quan.html');
+  else location.href = 'fm-04-tong-quan.html';
+};
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { const m = document.querySelector('.modal:not(.leaving)'); if (m) { Shell.dismiss(m); Shell.dismiss(document.querySelector('.modal-scrim:not(.leaving)')); } } });
+
+/* ---------- Prototype states ---------- */
+Shell.states([['default', 'Default'], ['sheets', 'Multiple sheets'], ['mapping', 'Map columns'], ['preview', 'Preview with errors'], ['manual', 'Quick manual entry'], ['big', 'Importing (large file)'], ['loading', 'Reading file'], ['success', 'Result'], ['empty', 'Empty sheet'], ['error', 'File read error']], st => {
+  document.querySelectorAll('.modal:not(.leaving), .modal-scrim:not(.leaving)').forEach(x => Shell.dismiss(x));
+  reset();
+  if (st !== 'default' && st !== 'error') S.file = 'DS xe 2026.xlsx';
+  if (st === 'mapping') S.step = 2;
+  if (st === 'loading') { S.step = 2; S.loading = true; }
+  if (st === 'preview') { S.step = 3; S.dateMode = 'dm'; S.cols[1].field = 'Vehicle type'; S.cols[9].field = '__skip'; S.filter = 'error'; S.editing = { i: 4, k: 'dk' }; }
+  if (st === 'big') { S.step = 3; S.dateMode = 'dm'; S.cols[1].field = 'Vehicle type'; S.cols[9].field = '__skip'; S.bigImport = true; }
+  if (st === 'manual') { S.step = 3; S.manual = blankManual(); Object.assign(S.manual[0], { plate: '51C-602.17', type: 'Tractor unit', cap: '30', dk: '08/06/2027', bh: '14/01/2027', ph: '30/06/2027' }); Object.assign(S.manual[1], { plate: '51D-233.09', type: 'Truck', cap: '15', dk: '02/04/2027', bh: '09/12/2026', ph: '' }); }
+  if (st === 'success') { S.step = 4; S.result = { ins: 115, upd: 4, skip: 0, err: 7 }; }
+  if (st === 'empty') { S.sheet = 'Trailers'; S.sheetEmpty = true; }
+  if (st === 'error') S.readErr = true;
+  render();
+});
+</script>
+</body>
+</html>

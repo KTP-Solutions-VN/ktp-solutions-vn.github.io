@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alerts · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* FM_05 — trung tâm cảnh báo, exception-first (cùng ngôn ngữ ActionQueue của FM_04) */
+  .fresh button { border: 0; background: none; color: var(--primary); font: 500 12.5px var(--font-body); cursor: pointer; padding: 0; display: inline-flex; gap: 4px; align-items: center; }
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: var(--s-4); align-items: start; }
+  .side { display: flex; flex-direction: column; gap: var(--s-4); position: sticky; top: 72px; }
+  .card-title { display: flex; align-items: center; gap: 10px; padding: 16px 18px 6px; }
+  .card-title h2 { font-size: 16px; }
+  .card-title .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 10px; align-items: center; }
+  .filterbar .select { height: 30px; font-size: 12.5px; padding: 0 8px; }
+  .filterbar .search-global { flex: 0 1 220px; min-width: 180px; }
+  .chip .n { font-variant-numeric: tabular-nums; color: var(--fg-muted); }
+  .chip.on .n { color: var(--primary); }
+  .chip .sw { width: 8px; height: 8px; border-radius: 2px; }
+
+  /* Danh sách cảnh báo */
+  .grp { display: flex; align-items: center; gap: 8px; padding: 14px 18px 4px; font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--fg-muted); }
+  .grp .count-pill { text-transform: none; letter-spacing: 0; }
+  .queue { list-style: none; margin: 0; padding: 2px 8px 8px; display: flex; flex-direction: column; gap: 2px; }
+  .qi { display: grid; grid-template-columns: 3px 32px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 10px 10px 0; border-radius: 8px; cursor: pointer; }
+  .qi .sev { align-self: stretch; margin: 4px 0; border-radius: 0 3px 3px 0; }
+  .qi.danger .sev { background: var(--danger-solid); } .qi.warning .sev { background: var(--warning-solid); } .qi.neutral .sev { background: transparent; }
+  .qi .ic { width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; }
+  .qi.danger .ic { background: var(--danger-soft); color: var(--danger-fg); } .qi.warning .ic { background: var(--warning-soft); color: var(--warning-fg); } .qi.neutral .ic { background: var(--surface-muted); color: var(--neutral-fg); }
+  .qi.resolved .ic { background: var(--success-soft); color: var(--success-fg); }
+  .qi .t { font-weight: 600; color: var(--fg-strong); font-size: 14px; line-height: 20px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .qi .d { font-size: 12.5px; color: var(--fg-muted); line-height: 18px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .qi .m { display: flex; align-items: center; gap: 8px; margin-top: 4px; font-size: 12px; color: var(--fg-muted); flex-wrap: wrap; }
+  .qi .m .badge { height: 20px; font-size: 11.5px; padding: 0 6px; }
+  .qi .act { display: flex; gap: 6px; align-items: center; }
+  .qi.sel { background: var(--primary-soft); }
+  .q-foot { display: flex; align-items: center; gap: 8px; padding: 6px 18px 16px; font-size: 12.5px; color: var(--fg-muted); }
+
+  /* Theo loại (BarList trung tính) */
+  .types { list-style: none; margin: 0; padding: 4px 8px 12px; display: flex; flex-direction: column; gap: 1px; }
+  .types button { width: 100%; display: grid; grid-template-columns: 18px minmax(0, 1fr) 70px 22px; gap: 10px; align-items: center; padding: 7px 10px; border: 0; background: none; border-radius: 8px; font: 13px var(--font-body); color: var(--fg); cursor: pointer; text-align: left; }
+  .types button:hover { background: var(--surface-muted); }
+  .types button.on { background: var(--primary-soft); color: var(--side-active); font-weight: 600; }
+  .types button .icon { color: var(--fg-muted); }
+  .types .tr { height: 6px; border-radius: 3px; background: var(--surface-muted); overflow: hidden; }
+  .types .tr i { display: block; height: 100%; background: var(--chart-muted); border-radius: 3px; }
+  .types button.on .tr i { background: var(--primary); }
+  .types b { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  .types button.zero { color: var(--fg-muted); }
+  .chan { padding: 4px 18px 16px; display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
+  .chan .row { justify-content: space-between; }
+  .open-note { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; line-height: 16px; color: var(--fg-muted); }
+  .open-note .badge { height: 18px; font-size: 11px; padding: 0 6px; flex: none; }
+
+  /* Drawer */
+  .drawer.narrow { width: min(500px, 100vw); }
+  .drawer-head { border-bottom: 0; padding-bottom: 4px; }
+  .drawer-foot { border-top: 0; box-shadow: 0 -1px 0 var(--border); }
+  .kv { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 8px 12px; font-size: 13.5px; }
+  .kv dt { color: var(--fg-muted); }
+  .kv dd { margin: 0; color: var(--fg); }
+  .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; padding: 6px; border-radius: 10px; background: var(--surface-muted); }
+  .facts div { padding: 10px 12px; border-radius: 8px; background: var(--surface); display: flex; flex-direction: column; gap: 2px; }
+  .facts span { font-size: 12px; color: var(--fg-muted); }
+  .facts b { font: 700 18px/24px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .facts b.neg { color: var(--danger-fg); }
+  .field .select, .field textarea { width: 100%; }
+  .check { display: inline-flex; align-items: flex-start; gap: 8px; font-size: 13px; cursor: pointer; line-height: 18px; }
+  .check input { width: 16px; height: 16px; accent-color: var(--primary); margin: 1px 0 0; flex: none; }
+  .check input:disabled { cursor: not-allowed; }
+  .log { display: flex; flex-direction: column; gap: 10px; font-size: 13px; }
+  .log li { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 10px; }
+  .log ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .log time { color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+  .done-box { padding: 12px 14px; border-radius: 8px; background: var(--success-soft); color: var(--success-fg); display: flex; gap: 10px; font-size: 13px; line-height: 18px; }
+
+  /* Cấu hình thông báo */
+  .cfg th.c, .cfg td.c { text-align: center; width: 72px; }
+  .cfg input { width: 16px; height: 16px; accent-color: var(--primary); }
+  .cfg td .select { height: 30px; font-size: 12.5px; }
+  .cfg th .badge { height: 18px; font-size: 10.5px; padding: 0 5px; text-transform: none; letter-spacing: 0; margin-left: 4px; }
+  .input.invalid { border-color: var(--danger-solid); }
+  .hidden { display: none !important; }
+  @media (max-width: 1200px) { .layout { grid-template-columns: minmax(0, 1fr); } .side { position: static; } }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <h1>Alerts</h1>
+      <div class="fresh" style="margin-top:6px"><span class="live" id="liveDot" aria-hidden="true"></span><span id="freshTxt">Updated 1 min ago · GPS tracker, driver app, document expiry</span> <button type="button" id="refresh"></button></div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-secondary" type="button" id="cfgBtn"></button>
+      <a class="btn btn-secondary" href="fm-13-gio-lai.html" id="logBtn"></a>
+    </div>
+  </div>
+  <div id="banner"></div>
+  <div class="filterbar" id="filters"></div>
+  <div class="layout">
+    <section class="card" id="listCard" aria-labelledby="lTitle"></section>
+    <div class="side">
+      <section class="card" id="typeCard" aria-labelledby="tyTitle"></section>
+      <section class="card" id="chanCard" aria-labelledby="chTitle"></section>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, toast } = Shell;
+Shell.mount({ active: 'FM_05', title: 'Alerts' });
+const $ = id => document.getElementById(id);
+$('refresh').innerHTML = icon('refresh') + 'Refresh';
+$('cfgBtn').innerHTML = icon('gear') + 'Notification settings';
+$('logBtn').innerHTML = icon('book') + 'Safety log';
+
+/* ---------- Dữ liệu (khớp FM_04, FM_08, data.js) ---------- */
+const TYPES = {
+  suco: ['warn', 'Driver incident'], giayto: ['doc', 'Documents'], tocdo: ['gauge', 'Speeding'], giolai: ['clock', 'Driving hours'],
+  lech: ['route', 'Route deviation'], gsht: ['map', 'GPS tracker signal lost'], trarong: ['container', 'Empty return deadline'], quyettoan: ['receipt', 'Pending settlement'], baoduong: ['wrench', 'Maintenance due']
+};
+const SAFETY = ['tocdo', 'giolai', 'lech', 'gsht'];
+const A = [
+  { id: 'CB-2611', type: 'suco', sev: 'danger', t: 'Incident: <span class="code">CH-0457</span> stuck at Cát Lái port for <span class="num">1h20</span>', d: 'Driver reported via app: waiting to drop off at gate B, no slot yet. Photo of the queue attached.', veh: '51C-456.78', drv: 'Đặng Quang Vinh', trip: 'CH-0457', at: '07:40', src: 'Driver app', act: ['Open trip', 'fm-09-chi-tiet-chuyen.html'] },
+  { id: 'CB-2598', type: 'giayto', sev: 'danger', t: '<span class="code">51C-099.21</span> inspection expired <span class="num">10</span> days ago', d: 'Expired 02/11/2026 · vehicle is blocked from trip assignment', veh: '51C-099.21', drv: null, at: '02/11', src: 'Document expiry', act: ['Renew', 'fm-18-giay-to.html'] },
+  { id: 'CB-2602', type: 'giayto', sev: 'danger', t: 'Trailer <span class="code">51R-088.12</span> insurance expired, still assigned to a trip', d: 'Expired 28/10/2026 · assigned to CH-0464 (Cát Lái → Sa Đéc), pickup 07:30', veh: '61C-220.14', drv: 'Võ Thành Nhân', trip: 'CH-0464', at: '06:58', src: 'Document expiry', act: ['Swap trailer', 'fm-08-dieu-phoi.html'] },
+  { id: 'CB-2600', type: 'giayto', sev: 'danger', t: 'Đặng Văn Hiếu\'s driver\'s license expired', d: 'Expired 05/11/2026 · driver is blocked from trip assignment', veh: null, drv: 'Đặng Văn Hiếu', at: '05/11', src: 'Document expiry', act: ['Open profile', 'fm-17-chi-tiet-tai-xe.html'] },
+  { id: 'CB-2614', type: 'tocdo', sev: 'danger', t: 'Speeding: <span class="num">78 km/h</span> in a <span class="num">60 km/h</span> zone', d: 'ĐT 743, near Mỹ Phước 3 Industrial Park · over the limit for 2 min · trip CH-0459', veh: '51C-731.80', drv: 'Ngô Đức Trí', trip: 'CH-0459', at: '08:31', src: 'GPS', act: ['View route', 'fm-12-ban-do.html'], facts: [['Speed', '78 km/h', 1], ['Limit', '60 km/h'], ['Duration', '2 min']] },
+  { id: 'CB-2609', type: 'giolai', sev: 'warning', t: 'Trần Minh Đức: <span class="num">3h30</span> of weekly driving left', d: 'Driven 44h30 / 48h · trip CH-0462 needs an estimated 6h10', veh: '51D-456.78', drv: 'Trần Minh Đức', trip: 'CH-0462', at: '05:41', src: 'GPS', act: ['View driving hours', 'fm-13-gio-lai.html'], facts: [['This week', '44h30'], ['Limit', '48h'], ['Trip needs', '6h10', 1]] },
+  { id: 'CB-2612', type: 'giolai', sev: 'warning', t: 'Võ Thành Nhân: <span class="num">2h30</span> of driving left today', d: 'Driven 7h30 / 10h · CH-0464 needs an estimated 6h10', veh: '61C-220.14', drv: 'Võ Thành Nhân', trip: 'CH-0464', at: '07:02', src: 'GPS', act: ['View driving hours', 'fm-13-gio-lai.html'], facts: [['Today', '7h30'], ['Limit', '10h'], ['Trip needs', '6h10', 1]] },
+  { id: 'CB-2605', type: 'trarong', sev: 'warning', t: 'Empty return deadline for <span class="code">HLXU 2210983</span>: <span class="num">6 h</span> left', d: 'CH-0457 · return to Depot Phước Long by 16:00 12/11 · stuck at port', veh: '51C-456.78', drv: 'Đặng Quang Vinh', trip: 'CH-0457', at: '10:00', src: 'Empty release order', act: ['Open trip', 'fm-09-chi-tiet-chuyen.html'] },
+  { id: 'CB-2606', type: 'trarong', sev: 'warning', t: 'Empty return deadline for <span class="code">SEGU 9012334</span>: <span class="num">9 h</span> left', d: 'CH-0464 · due 19:00 12/11 · trip hasn\'t picked up yet', veh: '61C-220.14', drv: 'Võ Thành Nhân', trip: 'CH-0464', at: '10:00', src: 'Empty release order', act: ['Open trip', 'fm-09-chi-tiet-chuyen.html'] },
+  { id: 'CB-2613', type: 'gsht', sev: 'warning', t: 'GPS tracker signal lost on <span class="code">61C-220.14</span> since 09:20', d: 'No data for 45 min · vehicle is running CH-0464 · last seen at Cát Lái', veh: '61C-220.14', drv: 'Võ Thành Nhân', trip: 'CH-0464', at: '09:20', src: 'GPS', act: ['View map', 'fm-12-ban-do.html'] },
+  { id: 'CB-2590', type: 'quyettoan', sev: 'neutral', t: '<span class="num">14</span> trips pending settlement', d: 'Oldest 6 days (CH-0391) · 4 trips missing receipts', veh: null, drv: null, at: '06:00', src: 'Settlement', act: ['Approve', 'fm-22-quyet-toan.html'] },
+  { id: 'CB-2588', type: 'baoduong', sev: 'neutral', t: '<span class="code">51C-731.80</span> is past its oil change mark', d: '1,200 km past the 180,000 km mark · last done 14/08/2026', veh: '51C-731.80', drv: null, at: '06:00', src: 'Maintenance plan', act: ['Schedule', 'fm-19-bao-duong.html'] }
+];
+const DONE = [
+  { id: 'CB-2607', type: 'lech', sev: 'warning', t: 'Route deviation of <span class="num">4.2 km</span>: <span class="code">CH-0459</span>', d: 'Left route ĐT 743 at 09:12, back on route at 09:26', veh: '51C-731.80', drv: 'Ngô Đức Trí', trip: 'CH-0459', at: '09:12', src: 'GPS', by: 'Lê Thị Ngọc Lan', when: '09:30', note: 'Avoided a flooded stretch of ĐT 743. Called the driver to confirm.', measure: 'Phone reminder', logId: 'NK-1126' },
+  { id: 'CB-2603', type: 'giolai', sev: 'warning', t: 'Nguyễn Văn Tuấn has driven <span class="num">3h50</span> continuously', d: 'Close to the 4 h continuous driving limit', veh: '51C-123.45', drv: 'Nguyễn Văn Tuấn', trip: 'CH-0458', at: '09:10', src: 'GPS', by: 'Lê Thị Ngọc Lan', when: '09:14', note: 'Reminded the driver to take a 15-min break at Tân Uyên Industrial Park.', measure: 'App reminder', logId: 'NK-1125' },
+  { id: 'CB-2595', type: 'suco', sev: 'danger', t: 'Incident: <span class="code">CH-0455</span> customer hasn\'t taken delivery', d: 'Nhựa Duy Tân Mỹ Tho warehouse gate not open yet', veh: '51C-588.02', drv: 'Huỳnh Tấn Lộc', trip: 'CH-0455', at: '06:40', src: 'Driver app', by: 'Lê Thị Ngọc Lan', when: '06:58', note: 'Called the warehouse; delivery accepted at 06:55.' },
+  { id: 'CB-2593', type: 'gsht', sev: 'warning', t: 'GPS tracker signal lost on <span class="code">51C-588.02</span>', d: '22 min, signal back at 05:32', veh: '51C-588.02', drv: 'Huỳnh Tấn Lộc', trip: 'CH-0455', at: '05:10', src: 'GPS', by: 'System', when: '05:32', note: 'Closed automatically when the signal came back.', logId: 'NK-1124' },
+  { id: 'CB-2580', type: 'giayto', sev: 'warning', t: 'Operating badge <span class="code">51C-123.45</span>: <span class="num">7</span> days left', d: 'Expires 19/11/2026', veh: '51C-123.45', drv: null, at: '06:00', src: 'Document expiry', by: 'Phạm Thanh Phong', when: '08:05', note: 'Renewal application filed with the Department of Transport, expected back 15/11.' },
+  { id: 'CB-2578', type: 'quyettoan', sev: 'neutral', t: '<span class="code">CH-0431</span> pending settlement for 2 days', d: 'Gỗ Minh Long · Nguyễn Văn Tuấn', veh: '51C-123.45', drv: 'Nguyễn Văn Tuấn', trip: 'CH-0431', at: '06:00', src: 'Settlement', by: 'Trần Thị Mai', when: '08:40', note: 'Settled, difference 0 ₫.' }
+];
+const SEVL = { danger: 'Urgent', warning: 'Warning', neutral: 'Info' };
+const F = { view: 'open', sev: null, type: null, veh: '', drv: '', q: '' };
+let selId = null;
+
+/* ---------- Bộ lọc ---------- */
+function pool() { return F.view === 'open' ? A : F.view === 'done' ? DONE : A.concat(DONE); }
+function match(a, skip) {
+  return (skip === 'sev' || !F.sev || a.sev === F.sev) && (skip === 'type' || !F.type || a.type === F.type) && (!F.veh || a.veh === F.veh) && (!F.drv || a.drv === F.drv)
+    && (!F.q || (a.t + a.d + (a.veh || '') + (a.drv || '')).toLowerCase().includes(F.q.toLowerCase()));
+}
+function renderFilters() {
+  const all = A.concat(DONE);
+  const vehs = [...new Set(all.map(a => a.veh).filter(Boolean))].sort(), drvs = [...new Set(all.map(a => a.drv).filter(Boolean))].sort();
+  const sc = s => pool().filter(a => a.sev === s && match(a, 'sev')).length;
+  const any = F.sev || F.type || F.veh || F.drv || F.q;
+  $('filters').innerHTML = `<div class="seg" role="group" aria-label="Resolution status"><button type="button" data-view="open" aria-pressed="${F.view === 'open'}">Open <span class="num">${A.length}</span></button><button type="button" data-view="done" aria-pressed="${F.view === 'done'}">Resolved today <span class="num">${DONE.length}</span></button><button type="button" data-view="all" aria-pressed="${F.view === 'all'}">All</button></div>
+    ${['danger', 'warning', 'neutral'].map(s => `<button type="button" class="chip ${F.sev === s ? 'on' : ''}" data-sev="${s}"><span class="sw" style="background:var(--${s}-solid)"></span>${SEVL[s]} <span class="n">${sc(s)}</span></button>`).join('')}
+    <select class="select" id="fType" aria-label="Alert type"><option value="">All types</option>${Object.entries(TYPES).map(([k, [, l]]) => `<option value="${k}" ${F.type === k ? 'selected' : ''}>${l}</option>`).join('')}</select>
+    <select class="select" id="fVeh" aria-label="Vehicle"><option value="">All vehicles</option>${vehs.map(v => `<option ${F.veh === v ? 'selected' : ''}>${v}</option>`).join('')}</select>
+    <select class="select" id="fDrv" aria-label="Driver"><option value="">All drivers</option>${drvs.map(v => `<option ${F.drv === v ? 'selected' : ''}>${v}</option>`).join('')}</select>
+    <label class="search-global">${icon('search')}<input type="search" id="fQ" placeholder="Search plate, trip ID…" value="${F.q}" aria-label="Search alerts"></label>
+    ${any ? `<button class="btn btn-ghost btn-sm" type="button" id="clear">Clear filters</button>` : ''}`;
+}
+
+/* ---------- Danh sách ---------- */
+function row(a) {
+  const done = !!a.by, [ic, tl] = TYPES[a.type], safety = SAFETY.includes(a.type);
+  return `<li class="qi ${done ? 'resolved' : a.sev} ${selId === a.id ? 'sel' : ''}" data-id="${a.id}" tabindex="0"><span class="sev" aria-hidden="true"></span><span class="ic">${icon(done ? 'check' : ic)}</span>
+    <div style="min-width:0"><div class="t">${a.t}</div><div class="d" title="${a.d}">${a.d}</div>
+      <div class="m"><span>${tl}</span><span>·</span><span class="num">${a.at}</span><span>·</span><span>${a.src}</span>${safety ? `<span class="badge b-outline">${icon('shield')}Safety</span>` : ''}${done ? `<span>·</span><span>Resolved by ${a.by} at <span class="num">${a.when}</span></span>${a.logId ? `<span class="badge b-success">${icon('book')}${a.logId}</span>` : ''}` : ''}</div></div>
+    <div class="act">${done ? `<button class="btn btn-ghost btn-sm" type="button" data-open="${a.id}">View</button>` : `${a.act ? `<a class="btn btn-secondary btn-sm" href="${a.act[1]}">${a.act[0]}</a>` : ''}<button class="btn btn-ghost btn-sm" type="button" data-resolve="${a.id}" title="Mark as resolved with a note">${icon('check')}Resolve</button>`}</div></li>`;
+}
+function renderList() {
+  const list = pool().filter(a => match(a));
+  const title = F.view === 'open' ? 'Open' : F.view === 'done' ? 'Resolved today' : 'All alerts today';
+  if (!list.length) {
+    const none = F.view === 'open' && !A.length;
+    $('listCard').innerHTML = `<div class="card-title"><h2 id="lTitle">${title}</h2></div><div class="empty">${icon(none ? 'check' : 'filter')}<h3>${none ? 'No alerts need attention' : 'No alerts match the filters'}</h3><p>${none ? 'The system keeps monitoring GPS trackers, driving hours and document expiry. New alerts will show up here and on the bell.' : 'Try removing some filters.'}</p>${none ? `<button class="btn btn-secondary" type="button" data-view="done">View ${DONE.length} resolved items</button>` : `<button class="btn btn-secondary" type="button" id="clear2">Clear filters</button>`}</div>`;
+    return;
+  }
+  const groups = F.view === 'done' ? [['', list]] : ['danger', 'warning', 'neutral'].map(s => [s, list.filter(a => a.sev === s && !a.by)]).concat(F.view === 'all' ? [['done', list.filter(a => a.by)]] : []);
+  $('listCard').innerHTML = `<div class="card-title"><h2 id="lTitle">${title}</h2><span class="count-pill">${list.length}</span><span class="meta">${F.view === 'done' ? 'Newest first' : 'By severity, newest first'}</span></div>
+    ${groups.filter(g => g[1].length).map(([s, items]) => `${s ? `<div class="grp">${s === 'done' ? 'Resolved' : SEVL[s]}<span class="count-pill">${items.length}</span></div>` : ''}<ul class="queue">${items.map(row).join('')}</ul>`).join('')}
+    <div class="q-foot">${icon('shield')}Safety alerts (driving hours, speed, route deviation, device) are recorded in the <a href="fm-13-gio-lai.html">safety log</a> when resolved and kept for at least 3 years.</div>`;
+}
+function renderTypes() {
+  const p = pool().filter(a => match(a, 'type'));
+  const counts = Object.keys(TYPES).map(k => [k, p.filter(a => a.type === k).length]);
+  const max = Math.max(1, ...counts.map(c => c[1]));
+  $('typeCard').innerHTML = `<div class="card-title"><h2 id="tyTitle">By type</h2>${F.type ? `<span class="meta"><button class="btn btn-ghost btn-sm" type="button" data-type="">Clear selection</button></span>` : ''}</div>
+    <ul class="types">${counts.map(([k, n]) => `<li><button type="button" class="${F.type === k ? 'on' : ''} ${n ? '' : 'zero'}" data-type="${k}" aria-pressed="${F.type === k}">${icon(TYPES[k][0])}<span>${TYPES[k][1]}</span><span class="tr"><i style="width:${n / max * 100}%"></i></span><b>${n}</b></button></li>`).join('')}</ul>`;
+}
+function renderChan() {
+  $('chanCard').innerHTML = `<div class="card-title"><h2 id="chTitle">Notification channels</h2></div>
+    <div class="chan"><div class="row"><span>${icon('bell')} Web notifications</span><span class="badge b-success">${icon('check')}On</span></div>
+      <div class="row"><span>Email digest 07:00</span><span class="badge b-success">${icon('check')}On</span></div>
+      <div class="row"><span>Zalo OA / SMS</span><span class="badge b-neutral">Not available</span></div>
+      <div class="open-note"><span class="badge b-neutral">TBD</span><span>Zalo OA is charged per message; not yet decided whether it goes into the MVP.</span></div>
+      <div><button class="btn btn-ghost btn-sm" type="button" data-cfg>${icon('gear')}Configure</button></div></div>`;
+}
+function syncBadges() {
+  const n = A.length;
+  const nav = document.querySelector('.nav a.active .count'); if (nav) { nav.textContent = n; nav.style.display = n ? '' : 'none'; Shell.flash(nav, 'pop'); }
+  const dot = document.querySelector('.topbar .icon-btn .dot'); if (dot) { dot.textContent = n; dot.style.display = n ? '' : 'none'; dot.parentElement.setAttribute('aria-label', `Alerts, ${n} open`); }
+}
+function renderAll() { renderFilters(); renderList(); renderTypes(); renderChan(); }
+
+/* ---------- Drawer chi tiết + xử lý ---------- */
+function closeOverlays() {
+  document.querySelectorAll('.drawer:not(.leaving), .scrim:not(.leaving)').forEach(x => Shell.dismiss(x));
+  if (selId) { selId = null; document.querySelectorAll('.qi.sel').forEach(x => x.classList.remove('sel')); }
+}
+function openDrawer(id, focusNote) {
+  closeOverlays();
+  const a = A.concat(DONE).find(x => x.id === id); if (!a) return;
+  selId = id; document.querySelectorAll('.qi').forEach(x => x.classList.toggle('sel', x.dataset.id === id));
+  const done = !!a.by, safety = SAFETY.includes(a.type), [ic, tl] = TYPES[a.type];
+  const s = document.createElement('div'); s.className = 'scrim'; s.onclick = closeOverlays;
+  const d = document.createElement('aside'); d.className = 'drawer narrow'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'drTitle');
+  const sevBadge = done ? `<span class="badge b-success">${icon('check')}Resolved</span>` : `<span class="badge b-${a.sev}">${icon(a.sev === 'danger' ? 'warn' : a.sev === 'warning' ? 'warn' : 'info')}${SEVL[a.sev]}</span>`;
+  d.innerHTML = `<div class="drawer-head"><div class="row"><span class="sm muted">${icon(ic)} ${tl} · <span class="code">${a.id}</span></span><button class="icon-btn" type="button" data-close aria-label="Close (Esc)" style="margin-left:auto">${icon('x', 'lg')}</button></div>
+      <h2 id="drTitle">${a.t}</h2><div class="row wrap">${sevBadge}${safety ? `<span class="badge b-outline">${icon('shield')}Safety alert</span>` : ''}</div></div>
+    <div class="drawer-body">
+      ${a.facts ? `<div class="facts">${a.facts.map(([k, v, hl]) => `<div><span>${k}</span><b class="${hl ? 'neg' : ''}">${v}</b></div>`).join('')}</div>` : ''}
+      <dl class="kv"><dt>Description</dt><dd>${a.d}</dd>${a.veh ? `<dt>Vehicle</dt><dd><span class="code">${a.veh}</span></dd>` : ''}${a.drv ? `<dt>Driver</dt><dd>${a.drv}</dd>` : ''}${a.trip ? `<dt>Trip</dt><dd><a class="code" href="fm-09-chi-tiet-chuyen.html">${a.trip}</a></dd>` : ''}<dt>Detected</dt><dd><span class="num">${a.at}${a.at.includes('/') ? '/2026' : ' 12/11/2026'}</span> · ${a.src}</dd></dl>
+      ${done ? `<div class="done-box">${icon('check')}<div><b>${a.by}</b> marked as resolved at <span class="num">${a.when}</span>${a.measure ? ` · ${a.measure}` : ''}<br>"${a.note}"${a.logId ? `<br>Recorded in safety log: <a href="fm-13-gio-lai.html">${a.logId}</a>` : ''}</div></div>`
+      : `<div class="section-title"><h3>Resolve</h3></div>
+        ${safety ? `<label class="field"><span>Action taken</span><select class="select" id="dMeasure"><option>Phone reminder</option><option>Driver app reminder</option><option>Violation report, performance points deducted</option><option>Driver replaced for the trip</option><option>Other</option></select></label>` : ''}
+        <label class="field"><span>Resolution note${safety ? ' (required)' : ''}</span><textarea class="input" id="dNote" rows="3" placeholder="${safety ? 'e.g. called the driver at 08:40; driver confirmed slowing down' : 'e.g. called the depot to request an empty return extension'}"></textarea><span class="err sm neg" id="dErr" hidden>Safety alerts need a note before closing.</span></label>
+        <label class="check"><input type="checkbox" id="dLog" ${safety ? 'checked disabled' : ''}><span>Record in safety log${safety ? `<br><span class="muted sm">Required for safety alerts (Decree 158/2024), kept for at least 3 years. Handled by: Lê Thị Ngọc Lan.</span>` : ''}</span></label>`}
+      <div class="log"><div class="section-title"><h3>Timeline</h3></div><ul>
+        <li><time>${a.at.includes('/') ? '06:00' : a.at}</time><span>System created the alert from ${a.src}${a.at.includes('/') ? ` (expiry ${a.at})` : ''}</span></li>
+        <li><time>${a.at.includes('/') ? '06:00' : a.at}</time><span>Web notification sent to Dispatcher${a.type === 'giayto' || a.type === 'baoduong' ? ', Fleet manager' : ''}${a.type === 'quyettoan' ? ', Accountant' : ''}</span></li>
+        ${done ? `<li><time>${a.when}</time><span>${a.by} marked as resolved</span></li>` : ''}</ul></div>
+    </div>
+    <div class="drawer-foot" style="justify-content:space-between">${a.act ? `<a class="btn btn-ghost" href="${a.act[1]}">${a.act[0]}${icon('chevron-right')}</a>` : '<span></span>'}
+      ${done ? `<button class="btn btn-secondary" type="button" data-reopen="${a.id}">Reopen alert</button>` : `<button class="btn btn-primary" type="button" data-confirm="${a.id}">${icon('check')}Mark as resolved</button>`}</div>`;
+  document.body.append(s, d);
+  const n = d.querySelector(focusNote ? '#dNote' : '[data-close]'); if (n) n.focus();
+}
+function resolve(id) {
+  const note = $('dNote'), a = A.find(x => x.id === id), safety = SAFETY.includes(a.type);
+  const txt = note.value.trim();
+  if (safety && !txt) { $('dErr').hidden = false; note.classList.add('invalid'); note.focus(); return; }
+  const logged = safety || $('dLog').checked;
+  const idx = A.indexOf(a); A.splice(idx, 1);
+  const rec = Object.assign({}, a, { by: 'Lê Thị Ngọc Lan', when: '10:06', note: txt || 'No note.', measure: $('dMeasure') ? $('dMeasure').value : null, logId: logged ? 'NK-1127' : null });
+  DONE.unshift(rec);
+  closeOverlays(); renderAll(); syncBadges();
+  toast(`Resolved ${a.id}${logged ? ' · recorded in safety log NK-1127' : ''}`, { undo: () => { DONE.splice(DONE.indexOf(rec), 1); A.splice(idx, 0, a); renderAll(); syncBadges(); } });
+}
+
+/* ---------- Cấu hình thông báo ---------- */
+function openCfg() {
+  closeOverlays();
+  const s = document.createElement('div'); s.className = 'scrim'; s.onclick = closeOverlays;
+  const d = document.createElement('aside'); d.className = 'drawer'; d.style.width = 'min(720px, 100vw)'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'cfgTitle');
+  const who = { suco: 'Dispatcher', giayto: 'Fleet manager', tocdo: 'Dispatcher', giolai: 'Dispatcher', lech: 'Dispatcher', gsht: 'Dispatcher', trarong: 'Dispatcher', quyettoan: 'Accountant', baoduong: 'Fleet manager' };
+  d.innerHTML = `<div class="drawer-head"><div class="row"><h2 id="cfgTitle">Notification settings</h2><button class="icon-btn" type="button" data-close aria-label="Close (Esc)" style="margin-left:auto">${icon('x', 'lg')}</button></div><p class="sm muted">Choose who receives which alerts, and through which channel. Applies to the HCMC branch.</p></div>
+    <div class="drawer-body">
+      <div class="alert alert-info">${icon('info')}<div><b>Zalo OA and SMS are not enabled.</b> Both channels are charged per message; it's not yet decided whether they go into the MVP plan or are sold as an add-on. The columns are placeholders for discussion and can't be selected yet.</div></div>
+      <div class="grid-wrap"><table class="grid cfg"><thead><tr><th>Alert type</th><th>Recipient</th><th class="c">Web</th><th class="c">Email</th><th class="c">Zalo<span class="badge b-neutral">TBD</span></th><th class="c">SMS<span class="badge b-neutral">TBD</span></th></tr></thead>
+      <tbody>${Object.entries(TYPES).map(([k, [ic, l]]) => `<tr><td><span class="row">${icon(ic)}${l}</span></td><td><select class="select" aria-label="Recipient for ${l}">${['Dispatcher', 'Fleet manager', 'Accountant', 'Owner / Admin'].map(r => `<option ${who[k] === r ? 'selected' : ''}>${r}</option>`).join('')}</select></td><td class="c"><input type="checkbox" checked aria-label="Web"></td><td class="c"><input type="checkbox" ${['giayto', 'quyettoan', 'baoduong'].includes(k) ? 'checked' : ''} aria-label="Email"></td><td class="c"><input type="checkbox" disabled aria-label="Zalo, not available"></td><td class="c"><input type="checkbox" disabled aria-label="SMS, not available"></td></tr>`).join('')}</tbody></table></div>
+      <label class="check"><input type="checkbox" checked><span>Don't email Info-level alerts outside 07:00–20:00</span></label>
+    </div>
+    <div class="drawer-foot"><button class="btn btn-secondary" type="button" data-close>Cancel</button><button class="btn btn-primary" type="button" id="cfgSave">Save settings</button></div>`;
+  document.body.append(s, d);
+  d.querySelector('[data-close]').focus();
+}
+
+/* ---------- Sự kiện ---------- */
+document.addEventListener('click', e => {
+  const t = e.target;
+  if (t.closest('[data-close]')) return closeOverlays();
+  if (t.closest('#cfgSave')) { closeOverlays(); return toast('Notification settings saved'); }
+  if (t.closest('#cfgBtn') || t.closest('[data-cfg]')) return openCfg();
+  const cf = t.closest('[data-confirm]'); if (cf) return resolve(cf.dataset.confirm);
+  const ro = t.closest('[data-reopen]'); if (ro) { const a = DONE.find(x => x.id === ro.dataset.reopen); DONE.splice(DONE.indexOf(a), 1); const r = Object.assign({}, a); delete r.by; delete r.when; delete r.note; delete r.logId; delete r.measure; A.unshift(r); closeOverlays(); renderAll(); syncBadges(); return toast(`Reopened ${a.id}`); }
+  const rs = t.closest('[data-resolve]'); if (rs) return openDrawer(rs.dataset.resolve, true);
+  const op = t.closest('[data-open]'); if (op) return openDrawer(op.dataset.open);
+  const v = t.closest('[data-view]'); if (v) { F.view = v.dataset.view; return renderAll(); }
+  const sv = t.closest('[data-sev]'); if (sv) { F.sev = F.sev === sv.dataset.sev ? null : sv.dataset.sev; return renderAll(); }
+  const ty = t.closest('[data-type]'); if (ty) { F.type = ty.dataset.type && F.type !== ty.dataset.type ? ty.dataset.type : null; return renderAll(); }
+  if (t.closest('#clear') || t.closest('#clear2')) { Object.assign(F, { sev: null, type: null, veh: '', drv: '', q: '' }); return renderAll(); }
+  if (t.closest('#refresh')) return toast('Alerts refreshed');
+  const qi = t.closest('.qi'); if (qi && !t.closest('a, button')) return openDrawer(qi.dataset.id);
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeOverlays();
+  if (e.key === 'Enter' && e.target.classList && e.target.classList.contains('qi')) openDrawer(e.target.dataset.id);
+});
+document.addEventListener('change', e => {
+  if (e.target.id === 'fType') { F.type = e.target.value || null; renderAll(); }
+  if (e.target.id === 'fVeh') { F.veh = e.target.value; renderAll(); }
+  if (e.target.id === 'fDrv') { F.drv = e.target.value; renderAll(); }
+});
+let qT; document.addEventListener('input', e => { if (e.target.id === 'fQ') { clearTimeout(qT); qT = setTimeout(() => { F.q = e.target.value; renderList(); renderTypes(); }, 200); } });
+
+function skeleton() {
+  $('filters').innerHTML = Array(6).fill('<span class="sk" style="width:110px;height:30px;border-radius:15px"></span>').join('');
+  $('listCard').innerHTML = `<div class="card-title"><span class="sk" style="width:160px"></span></div><div style="padding:8px 18px 18px;display:flex;flex-direction:column;gap:18px">${Array(6).fill('<div class="row" style="gap:12px"><span class="sk" style="width:32px;height:32px;border-radius:8px"></span><div class="stack grow"><span class="sk" style="width:55%"></span><span class="sk" style="width:80%;height:10px"></span></div><span class="sk" style="width:90px;height:30px"></span></div>').join('')}</div>`;
+  $('typeCard').innerHTML = `<div class="card-title"><span class="sk" style="width:90px"></span></div><div style="padding:8px 18px 18px;display:flex;flex-direction:column;gap:12px">${Array(9).fill('<span class="sk"></span>').join('')}</div>`;
+  $('chanCard').innerHTML = `<div class="card-title"><span class="sk" style="width:140px"></span></div><div style="padding:8px 18px 18px;display:flex;flex-direction:column;gap:12px">${Array(3).fill('<span class="sk"></span>').join('')}</div>`;
+}
+
+const A0 = A.slice(), D0 = DONE.slice();
+Shell.states([['default', 'Default'], ['detail', 'Safety detail'], ['done', 'Resolved'], ['config', 'Notification settings'], ['loading', 'Loading'], ['empty', 'Empty'], ['error', 'GPS tracker error']], s => {
+  closeOverlays();
+  A.splice(0, A.length, ...A0); DONE.splice(0, DONE.length, ...D0);
+  Object.assign(F, { view: 'open', sev: null, type: null, veh: '', drv: '', q: '' });
+  $('banner').innerHTML = ''; $('liveDot').className = 'live'; $('freshTxt').textContent = 'Updated 1 min ago · GPS tracker, driver app, document expiry';
+  if (s === 'loading') { skeleton(); return; }
+  if (s === 'empty') A.splice(0, A.length);
+  if (s === 'done') F.view = 'done';
+  if (s === 'error') {
+    $('liveDot').className = 'live warn'; $('freshTxt').textContent = 'GPS tracker feed interrupted since 09:42 · driver app and document expiry still updating';
+    $('banner').innerHTML = `<div class="alert alert-warning" role="alert">${icon('refresh')}<div><b>No data from the tracker vendor since 09:42.</b> Speeding, route deviation, driving hours and signal-lost alerts may be missing for this period. Document, incident and settlement alerts are not affected.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" data-toast-retry>Retry</button></div></div>`;
+  }
+  renderAll(); syncBadges();
+  if (s === 'detail') openDrawer('CB-2614');
+  if (s === 'config') openCfg();
+});
+document.addEventListener('click', e => { if (e.target.closest('[data-toast-retry]')) toast('Reconnecting to GPS tracker…'); });
+</script>
+</body>
+</html>

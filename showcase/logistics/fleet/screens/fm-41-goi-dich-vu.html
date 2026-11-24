@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gói dịch vụ · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* Sub-nav Cài đặt (giống hệt ở FM_38–41) */
+  .set-layout { display: grid; grid-template-columns: 216px minmax(0, 1fr); gap: var(--s-6); align-items: start; }
+  .set-nav { position: sticky; top: 72px; display: flex; flex-direction: column; gap: 2px; }
+  .set-nav .set-g { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--side-fg-muted); padding: 2px 10px 8px; }
+  .set-nav a { display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 10px; border-radius: 8px; color: var(--fg); font: 500 13.5px var(--font-body); text-decoration: none !important; white-space: nowrap; transition: background-color var(--d-1) var(--ease-std), color var(--d-1) var(--ease-std); }
+  .set-nav a .icon { color: var(--fg-muted); flex: none; }
+  .set-nav a:hover { background: var(--surface-muted); }
+  .set-nav a[aria-current] { background: var(--primary-soft); color: var(--side-active); font-weight: 600; }
+  .set-nav a[aria-current] .icon { color: var(--side-active); }
+  .set-main { display: flex; flex-direction: column; gap: var(--s-4); min-width: 0; }
+  @media (max-width: 1100px) { .set-layout { grid-template-columns: 1fr; } .set-nav { position: static; flex-direction: row; flex-wrap: wrap; } .set-nav .set-g { display: none; } }
+  .card { display: flex; flex-direction: column; min-width: 0; }
+  .card-title { display: flex; align-items: center; gap: 10px; padding: 16px 18px 10px; min-height: 30px; }
+  .card-title h2 { font-size: 16px; white-space: nowrap; }
+  .card-title .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 10px; align-items: center; }
+  .card-foot { margin-top: auto; padding: 8px 18px 16px; display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--fg-muted); }
+  .card-foot .icon { width: 15px; height: 15px; flex: none; }
+  .row2 { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: var(--s-4); align-items: stretch; }
+  /* Gói hiện tại */
+  .plan { display: grid; grid-template-columns: minmax(220px, .85fr) minmax(0, 1.2fr); gap: 6px; padding: 0 18px 8px; }
+  .plan-main { background: var(--primary-soft); border-radius: 8px; padding: 16px 20px; display: flex; flex-direction: column; gap: 4px; }
+  .plan-main .k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--side-active); }
+  .plan-main .v { font: 700 var(--text-display)/40px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .plan-main .v small { font: 600 18px var(--font-display); color: var(--fg-muted); margin-left: 4px; }
+  .plan-main .s { font-size: 12.5px; color: var(--fg-muted); line-height: 18px; }
+  .facts { display: flex; flex-direction: column; gap: 2px; padding: 4px 6px; }
+  .fact { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 10px; font-size: 13.5px; border-radius: 6px; }
+  .fact span { color: var(--fg-muted); white-space: nowrap; }
+  .fact b { white-space: nowrap; }
+  .fact b { font-weight: 600; color: var(--fg-strong); text-align: right; font-variant-numeric: tabular-nums; display: inline-flex; gap: 6px; align-items: center; }
+  .usage { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; padding: 8px 18px 16px; }
+  .use .t { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--fg-muted); margin-bottom: 6px; }
+  .use .t b { color: var(--fg-strong); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .use .cap-bar { height: 6px; }
+  .use .cap-bar i { background: var(--primary); }
+  /* So sánh gói */
+  .cmp th, .cmp td { text-align: center; }
+  .cmp th:first-child, .cmp td:first-child { text-align: left; }
+  .cmp th { font-size: 12px; }
+  .cmp th .pn { display: block; font: 700 15px var(--font-display); color: var(--fg-strong); text-transform: none; letter-spacing: 0; margin-top: 2px; }
+  .cmp .cur { background: var(--primary-soft) !important; }
+  .cmp tr:hover td.cur { background: var(--primary-soft); }
+  .cmp td .icon { width: 16px; height: 16px; }
+  .cmp .yes { color: var(--success-fg); } .cmp .no { color: var(--fg-subtle); }
+  .cmp tfoot td { background: var(--surface); font-weight: 400; border-bottom: 0; padding-top: 12px; padding-bottom: 14px; }
+  .cmp tfoot td.cur { border-radius: 0 0 8px 8px; }
+  .tbl-wrap { overflow-x: auto; padding: 0 0 4px; }
+  .grid tbody tr:last-child td { border-bottom: 0; }
+  .grid td { font-variant-numeric: tabular-nums; }
+  .grid td.right, .grid th.right { text-align: right; }
+  /* Quá hạn */
+  .tl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; padding: 0 18px 12px; }
+  .tl .st { padding: 12px 14px; border-radius: 8px; background: var(--surface-muted); position: relative; }
+  .tl .st.now { background: var(--warning-soft); }
+  .tl .st b { display: block; font-size: 13.5px; color: var(--fg-strong); }
+  .tl .st span { display: block; font-size: 12.5px; color: var(--fg-muted); margin-top: 2px; }
+  .tl .st .d { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--fg); font-size: 12.5px; }
+  .can { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 0 18px 8px; font-size: 13px; }
+  .can div { display: flex; gap: 8px; align-items: flex-start; padding: 6px 0; }
+  .can .icon { flex: none; margin-top: 1px; }
+  /* Modal */
+  .modal { width: min(520px, calc(100vw - 32px)); }
+  .modal-head { display: flex; align-items: center; gap: 8px; }
+  .modal-head h2 { font-size: 17px; }
+  .modal-foot { display: flex; gap: 8px; justify-content: flex-end; align-items: center; }
+  .lim { display: flex; flex-direction: column; gap: 2px; }
+  .lim div { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 12px; align-items: center; padding: 8px 10px; border-radius: 6px; background: var(--surface-muted); font-size: 13.5px; }
+  .lim div b { font-variant-numeric: tabular-nums; }
+  @media (max-width: 1200px) { .row2, .plan { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="set-layout">
+    <nav class="set-nav" aria-label="Cài đặt">
+      <div class="set-g">Cài đặt</div>
+      <a href="fm-38-thanh-vien.html" data-k="members" data-ic="users">Thành viên &amp; phân quyền</a>
+      <a href="fm-38-thanh-vien.html#chi-nhanh" data-k="branches" data-ic="branch">Chi nhánh</a>
+      <a href="fm-39-tich-hop.html" data-k="integrations" data-ic="link">Tích hợp</a>
+      <a href="fm-40-quyen-rieng-tu.html" data-k="privacy" data-ic="shield">Quyền riêng tư &amp; nhật ký</a>
+      <a href="fm-41-goi-dich-vu.html" data-k="plan" data-ic="receipt">Gói dịch vụ</a>
+    </nav>
+    <div class="set-main">
+      <div class="page-header">
+        <div><div class="crumb">Cài đặt / Gói dịch vụ</div><h1>Gói dịch vụ</h1></div>
+        <div class="actions"><span class="badge b-neutral" tabindex="0" title="Mức giá theo xe/tháng đang được xác định">Giá theo xe/tháng: Chưa chốt</span></div>
+      </div>
+      <div id="view" style="display:contents"></div>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_38', title: 'Gói dịch vụ' });
+/* Sub-nav Cài đặt (giống hệt ở FM_38–41) */
+function setNav(k) { document.querySelectorAll('.set-nav a').forEach(a => { if (!a.querySelector('.icon')) a.insertAdjacentHTML('afterbegin', Shell.icon(a.dataset.ic)); a.dataset.k === k ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'); }); }
+setNav('plan');
+document.querySelector('.page-header .badge').innerHTML = icon('info') + 'Giá theo xe/tháng: Chưa chốt';
+
+const PLANS = [
+  { k: 'basic', n: 'Cơ bản', veh: 10, br: 1, mem: 5 },
+  { k: 'std', n: 'Tiêu chuẩn', veh: 40, br: 5, mem: 15 },
+  { k: 'pro', n: 'Nâng cao', veh: null, br: null, mem: null }
+];
+const USE = { veh: 26, br: 3, mem: 9 };
+const FEAT = [
+  ['Đơn, điều phối, giấy vận tải, app tài xế', 1, 1, 1],
+  ['Tạm ứng, quyết toán chuyến, báo cáo lãi/lỗ', 1, 1, 1],
+  ['Kết nối GSHT (hãng được hỗ trợ)', 0, 1, 1],
+  ['Hoá đơn điện tử, MISA AMIS', 0, 1, 1],
+  ['Báo cáo tuân thủ, xuất mẫu kiểm tra', 0, 1, 1],
+  ['Hỗ trợ', 'Email', 'Email, điện thoại', 'Người phụ trách riêng']
+];
+// [số HĐ, kỳ, số xe, số tiền (minh hoạ), trạng thái]
+const INV = [
+  ['TB-0000142', '01/11 – 30/11/2026', 26, null, 'paid', '01/11/2026'],
+  ['TB-0000118', '01/10 – 31/10/2026', 25, null, 'paid', '02/10/2026'],
+  ['TB-0000097', '15/09 – 30/09/2026', 24, null, 'paid', '15/09/2026']
+];
+
+let S;
+function reset(o) { S = Object.assign({ plan: 'std', overdue: false, trial: false, loading: false, error: false }, o || {}); }
+const view = document.getElementById('view');
+const lim = v => v == null ? 'Không giới hạn' : fmt.vnd(v, { bare: 1 });
+
+function render() {
+  if (S.loading) { view.innerHTML = `<div class="row2"><div class="card card-body"><span class="sk" style="width:200px;height:18px"></span><span class="sk" style="width:120px;height:36px;margin-top:14px"></span>${Array(3).fill('<span class="sk" style="height:14px;margin:12px 0"></span>').join('')}</div><div class="card card-body">${Array(5).fill('<span class="sk" style="height:14px;margin:12px 0"></span>').join('')}</div></div><div class="card"><table class="grid"><tbody>${Array(6).fill('<tr>' + Array(4).fill('<td><span class="sk" style="width:80%"></span></td>').join('') + '</tr>').join('')}</tbody></table></div>`; return; }
+  if (S.error) { view.innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Không tải được thông tin gói dịch vụ. Thử lại sau ít phút.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="retry">${icon('refresh')}Thử lại</button></div></div>`; document.getElementById('retry').onclick = () => { S.error = false; render(); }; return; }
+  view.innerHTML = (S.overdue ? overdueHtml() : '') + `<div class="row2">${currentHtml()}${payHtml()}</div>` + compareHtml() + invoicesHtml();
+  bind();
+}
+function overdueHtml() {
+  return `<div class="alert alert-danger" role="alert">${icon('lock')}<div><b>Thuê bao quá hạn từ 01/11/2026. Tài khoản đang ở chế độ chỉ đọc đến 01/12/2026 (còn 19 ngày).</b> Dữ liệu không bị xoá. Thanh toán hoá đơn TB-0000142 để mở lại toàn bộ chức năng ngay.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" data-pay>Thanh toán ngay</button></div></div>
+  <section class="card" aria-label="Chế độ chỉ đọc">
+    <div class="card-title"><h2>Chế độ chỉ đọc</h2><span class="meta">Áp dụng cho mọi thành viên của công ty</span></div>
+    <div class="tl"><div class="st"><b>Hết hạn thanh toán</b><span class="d">01/11/2026</span><span>Hoá đơn TB-0000142 chưa thanh toán</span></div>
+      <div class="st now"><b>Chỉ đọc 30 ngày · đang ở đây</b><span class="d">01/11 – 01/12/2026</span><span>Xem và xuất được, không tạo hay sửa</span></div>
+      <div class="st"><b>Sau 01/12/2026</b><span class="d"><span class="badge b-neutral">Chưa chốt</span></span><span>Dữ liệu vẫn giữ, chính sách tiếp theo đang xác định</span></div></div>
+    <div class="can"><div>${icon('check', '')}<span><b>Vẫn làm được:</b> xem mọi danh sách, báo cáo; xuất Excel, PDF; tải hoá đơn thuê bao.</span></div><div>${icon('lock')}<span><b>Tạm khoá:</b> tạo, sửa đơn và chuyến, ghi chi phí, duyệt quyết toán, phát hành hoá đơn.</span></div></div>
+  </section>`;
+}
+function currentHtml() {
+  const p = PLANS.find(x => x.k === S.plan);
+  return `<section class="card" aria-label="Gói hiện tại">
+    <div class="card-title"><h2>Gói hiện tại</h2>${S.trial ? `<span class="badge b-info">${icon('clock')}Dùng thử</span>` : S.overdue ? `<span class="badge b-warning">${icon('lock')}Chỉ đọc</span>` : `<span class="badge b-success">${icon('check')}Đang hoạt động</span>`}</div>
+    <div class="plan"><div class="plan-main"><span class="k">Gói ${p.n}</span><span class="v">${USE.veh}<small>xe tính phí</small></span><span class="s">Xe đang hoạt động trong kỳ. Xe đã bán hoặc ngừng hoạt động cả kỳ không tính phí.</span></div>
+      <div class="facts"><div class="fact"><span>${S.trial ? 'Hết dùng thử' : S.overdue ? 'Hết hạn' : 'Gia hạn'}</span><b>${S.trial ? '29/11/2026 (còn 17 ngày)' : S.overdue ? '01/11/2026 (quá 11 ngày)' : '01/12/2026 (còn 19 ngày)'}</b></div>
+        <div class="fact"><span>Chu kỳ</span><b>Theo tháng</b></div><div class="fact"><span>Đơn giá</span><b><span class="badge b-neutral">Chưa chốt</span> /xe/tháng</b></div><div class="fact"><span>Bắt đầu dùng</span><b>15/09/2026</b></div></div></div>
+    <div class="usage">${[['Xe', USE.veh, p.veh], ['Chi nhánh', USE.br, p.br], ['Thành viên', USE.mem, p.mem]].map(([l, u, m]) => `<div class="use"><div class="t"><span>${l}</span><b>${u} / ${lim(m)}</b></div><div class="cap-bar"><i style="width:${m ? u / m * 100 : 8}%"></i></div></div>`).join('')}</div>
+  </section>`;
+}
+function payHtml() {
+  return `<section class="card" aria-label="Thanh toán">
+    <div class="card-title"><h2>Thanh toán</h2></div>
+    <div class="facts" style="padding:0 12px"><div class="fact"><span>Kỳ tới</span><b>01/12 – 31/12/2026</b></div><div class="fact"><span>Ước tính</span><b>${USE.veh} xe × <span class="badge b-neutral">Chưa chốt</span></b></div>
+      <div class="fact"><span>Phương thức</span><b>Chuyển khoản</b></div><div class="fact"><span>Gửi hoá đơn tới</span><b>mai.ketoan@phatdat.vn</b></div><div class="fact"><span>Xuất hoá đơn cho</span><b>MST 0312345678</b></div></div>
+    <div class="card-foot" style="gap:8px">${S.overdue ? `<button class="btn btn-primary" type="button" data-pay style="width:100%">Thanh toán TB-0000142</button>` : `<button class="btn btn-secondary btn-sm" type="button" id="editPay">Sửa thông tin thanh toán</button>`}</div>
+  </section>`;
+}
+function compareHtml() {
+  const idx = PLANS.findIndex(p => p.k === S.plan);
+  const cell = (v, i) => `<td class="${i === idx ? 'cur' : ''}">${v === 1 ? `<span class="yes">${icon('check')}</span>` : v === 0 ? '<span class="no">—</span>' : v}</td>`;
+  return `<section class="card" aria-label="So sánh gói">
+    <div class="card-title"><h2>So sánh gói</h2><span class="meta">Nâng cấp áp dụng ngay · hạ cấp áp dụng từ kỳ sau</span></div>
+    <div class="tbl-wrap"><table class="grid cmp"><thead><tr><th style="width:34%">Tính năng</th>${PLANS.map((p, i) => `<th class="${i === idx ? 'cur' : ''}">${i === idx ? 'Gói hiện tại' : '&nbsp;'}<span class="pn">${p.n}</span></th>`).join('')}</tr></thead>
+      <tbody><tr><td>Giá theo xe/tháng</td>${PLANS.map((p, i) => `<td class="${i === idx ? 'cur' : ''}"><span class="badge b-neutral">Chưa chốt</span></td>`).join('')}</tr>
+        <tr><td>Số xe tối đa</td>${PLANS.map((p, i) => cell(lim(p.veh), i)).join('')}</tr>
+        <tr><td>Chi nhánh</td>${PLANS.map((p, i) => cell(lim(p.br), i)).join('')}</tr>
+        <tr><td>Thành viên văn phòng</td>${PLANS.map((p, i) => cell(lim(p.mem), i)).join('')}</tr>
+        ${FEAT.map(f => `<tr><td>${f[0]}</td>${[1, 2, 3].map(j => cell(f[j], j - 1)).join('')}</tr>`).join('')}</tbody>
+      <tfoot><tr><td class="muted sm">Tài xế dùng app không tính phí theo người.</td>${PLANS.map((p, i) => `<td class="${i === idx ? 'cur' : ''}">${i === idx ? '<span class="muted sm">Đang dùng</span>' : `<button class="btn ${i > idx ? 'btn-primary' : 'btn-secondary'} btn-sm" type="button" data-chg="${p.k}" ${S.overdue ? 'disabled title="Thanh toán hoá đơn quá hạn trước khi đổi gói"' : ''}>${i > idx ? 'Nâng cấp' : 'Hạ cấp'}</button>`}</td>`).join('')}</tr></tfoot></table></div>
+  </section>`;
+}
+function invoicesHtml() {
+  if (S.trial) return `<section class="card"><div class="card-title"><h2>Hoá đơn thuê bao</h2></div><div class="empty">${icon('receipt')}<h3>Chưa có hoá đơn thuê bao</h3><p>Hoá đơn đầu tiên được gửi tới mai.ketoan@phatdat.vn khi hết dùng thử ngày 29/11/2026.</p></div></section>`;
+  const rows = INV.map((r, i) => S.overdue && i === 0 ? [...r.slice(0, 4), 'overdue', '—'] : r);
+  return `<section class="card" aria-label="Hoá đơn thuê bao">
+    <div class="card-title"><h2>Hoá đơn thuê bao</h2><span class="count-pill">${rows.length}</span><span class="meta">Hoá đơn điện tử do Đội Xe phát hành</span></div>
+    <div class="tbl-wrap" style="border-radius:0 0 var(--r-lg) var(--r-lg)"><table class="grid"><thead><tr><th>Số hoá đơn</th><th>Kỳ</th><th class="right">Số xe tính phí</th><th class="right">Số tiền</th><th>Trạng thái</th><th>Ngày thanh toán</th><th><span class="sr-only">Tải</span></th></tr></thead>
+      <tbody>${rows.map(r => `<tr><td class="code">${r[0]}</td><td>${r[1]}</td><td class="right">${r[2]}</td><td class="right"><span class="badge b-neutral" title="Giá chưa chốt">Chưa chốt</span></td>
+        <td>${r[4] === 'paid' ? `<span class="badge b-success">${icon('check')}Đã thanh toán</span>` : `<span class="badge b-danger">${icon('block')}Quá hạn 11 ngày</span>`}</td><td>${r[5]}</td>
+        <td class="right">${r[4] === 'overdue' ? `<button class="btn btn-ghost btn-sm" type="button" data-pay>Thanh toán</button>` : ''}<button class="btn btn-ghost btn-sm" type="button" data-dl="${r[0]}">${icon('download')}PDF</button></td></tr>`).join('')}</tbody></table></div>
+  </section>`;
+}
+function bind() {
+  view.querySelectorAll('[data-pay]').forEach(b => b.onclick = () => toast('Mở hướng dẫn chuyển khoản TB-0000142 · nội dung: PHATDAT TB0000142'));
+  view.querySelectorAll('[data-dl]').forEach(b => b.onclick = () => toast(`Đang tải ${b.dataset.dl}.pdf`));
+  view.querySelectorAll('[data-chg]').forEach(b => b.onclick = () => openChange(b.dataset.chg));
+  const ep = document.getElementById('editPay'); if (ep) ep.onclick = () => toast('Sửa thông tin thanh toán (chưa có trong prototype)');
+}
+function openChange(k) {
+  closeModal(true);
+  const to = PLANS.find(p => p.k === k), cur = PLANS.find(p => p.k === S.plan), up = PLANS.indexOf(to) > PLANS.indexOf(cur);
+  const over = [['Xe đang hoạt động', USE.veh, to.veh], ['Chi nhánh', USE.br, to.br], ['Thành viên', USE.mem, to.mem]].filter(([, u, m]) => m != null && u > m);
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim'; s.id = 'mScrim';
+  const m = document.createElement('div'); m.className = 'modal'; m.id = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.setAttribute('aria-labelledby', 'mT');
+  m.innerHTML = `<div class="modal-head">${icon(up ? 'sparkle' : 'warn')}<h2 id="mT">${up ? 'Nâng cấp' : 'Hạ cấp'} lên gói ${to.n}</h2></div>`.replace('Hạ cấp lên', 'Hạ cấp xuống') +
+    (up ? `<p class="muted">Áp dụng ngay sau khi xác nhận. Phần chênh lệch của kỳ này tính theo số ngày còn lại (từ 12/11 đến 30/11/2026) và cộng vào hoá đơn kỳ tới.</p>
+      <div class="lim"><div><span>Số xe tối đa</span><b>${lim(cur.veh)}</b><b>→ ${lim(to.veh)}</b></div><div><span>Chi nhánh</span><b>${lim(cur.br)}</b><b>→ ${lim(to.br)}</b></div><div><span>Thành viên</span><b>${lim(cur.mem)}</b><b>→ ${lim(to.mem)}</b></div><div><span>Đơn giá theo xe/tháng</span><b></b><b><span class="badge b-neutral">Chưa chốt</span></b></div></div>`
+    : over.length ? `<p class="muted">Gói ${to.n} không đủ cho dữ liệu hiện có. Cần giảm trước khi hạ cấp; dữ liệu không bị xoá.</p>
+      <div class="lim">${over.map(([l, u, mx]) => `<div><span>${l}</span><b style="color:var(--danger-fg)">${u} đang dùng</b><b>tối đa ${mx}</b></div>`).join('')}</div>
+      <p class="sm muted">Ngừng hoạt động xe tại <a href="fm-14-xe.html">Xe & rơ-moóc</a>, khoá thành viên tại <a href="fm-38-thanh-vien.html">Thành viên</a>.</p>`
+    : `<p class="muted">Áp dụng từ kỳ sau (01/12/2026). Các tính năng không có trong gói ${to.n} chuyển sang chỉ xem.</p>`) +
+    `<div class="modal-foot"><button class="btn btn-secondary" type="button" id="mC">Huỷ</button><button class="btn btn-primary" type="button" id="mOk" ${!up && over.length ? 'disabled title="Giảm số xe, chi nhánh, thành viên trước"' : ''}>${up ? 'Xác nhận nâng cấp' : 'Hạ cấp từ kỳ sau'}</button></div>`;
+  document.body.append(s, m);
+  s.onclick = m.querySelector('#mC').onclick = () => closeModal();
+  m.querySelector('#mOk').onclick = () => { closeModal(); if (up) { const prev = S.plan; S.plan = k; render(); toast(`Đã nâng cấp lên gói ${to.n}`, { undo: () => { S.plan = prev; render(); } }); } else toast(`Sẽ chuyển sang gói ${to.n} từ 01/12/2026`); };
+}
+function closeModal(now) { ['modal', 'mScrim'].forEach(id => { const e = document.getElementById(id); if (e) { e.id = ''; now ? e.remove() : Shell.dismiss(e); } }); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+Shell.states([['default', 'Mặc định'], ['overdue', 'Quá hạn · chỉ đọc'], ['upgrade', 'Nâng cấp'], ['downgrade', 'Hạ cấp bị chặn'], ['trial', 'Dùng thử (trống)'], ['loading', 'Đang tải'], ['error', 'Lỗi']], s => {
+  closeModal(true);
+  reset({ overdue: { overdue: true }, trial: { trial: true }, loading: { loading: true }, error: { error: true } }[s]); render();
+  if (s === 'upgrade') openChange('pro');
+  if (s === 'downgrade') openChange('basic');
+});
+</script>
+</body>
+</html>

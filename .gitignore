@@ -27,3 +27,5 @@ __pycache__/
 
 # bản prototype website dạng nén (nguồn để sync, chỉ ở local)
 /prototype.rar
+# danh sách đoạn chưa dịch do i18n_prototype.py extract sinh ra (file làm việc)
+showcase/_tools/i18n/*.todo.json

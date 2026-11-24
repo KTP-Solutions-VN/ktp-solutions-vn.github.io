@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Giờ lái &amp; nhật ký an toàn · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  .head-meta { display: flex; align-items: center; gap: 10px; margin-top: 4px; flex-wrap: wrap; }
+  .tabs .count-pill { padding: 0 7px; font-size: 11.5px; }
+  .tabs button[aria-selected="true"] .count-pill { background: var(--primary-soft); color: var(--side-active); }
+  .filterbar .select { height: 30px; font-size: 12.5px; padding: 0 28px 0 10px; appearance: none; -webkit-appearance: none; border-radius: 15px; cursor: pointer; }
+  .filterbar .select-wrap > .icon { right: 9px; }
+  .sumline { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; color: var(--fg-muted); }
+  .tbl-card { min-width: 0; display: flex; flex-direction: column; }
+  .grid tbody tr { cursor: pointer; }
+  .meter { display: flex; flex-direction: column; gap: 4px; min-width: 116px; }
+  .grid td.restc { white-space: normal; min-width: 110px; max-width: 140px; font-size: 12.5px; line-height: 16px; }
+  .meter .bar { height: 6px; border-radius: 3px; background: var(--surface-muted); overflow: hidden; position: relative; box-shadow: inset 0 0 0 1px var(--border); }
+  .meter .bar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px; }
+  .meter .bar.ok i { background: var(--success-solid); }
+  .meter .bar.warn i { background: var(--warning-solid); }
+  .meter .bar.over i { background: var(--danger-solid); }
+  .meter .bar::after { content: ""; position: absolute; left: 80%; top: 0; bottom: 0; width: 1px; background: var(--border-strong); }
+  .meter .txt { font-size: 12.5px; font-variant-numeric: tabular-nums; color: var(--fg-muted); display: flex; gap: 4px; align-items: baseline; }
+  .meter .txt b { font-size: 13.5px; color: var(--fg-strong); font-weight: 600; }
+  .meter .txt b.warn { color: var(--warning-fg); }
+  .meter .txt b.over { color: var(--danger-fg); }
+  .nodata { display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: var(--r-sm); font-size: 12.5px; color: var(--fg-muted); background: repeating-linear-gradient(-45deg, var(--surface-muted) 0 5px, var(--surface) 5px 10px); box-shadow: inset 0 0 0 1px var(--border); white-space: nowrap; }
+  .tfoot { display: flex; align-items: center; gap: 8px; padding: 10px 16px 12px; font-size: 12.5px; color: var(--fg-muted); margin-top: auto; flex-wrap: wrap; }
+  .wrapcell { white-space: normal !important; min-width: 200px; max-width: 300px; }
+  .open-note { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: 8px; background: var(--warning-soft); color: var(--warning-fg); font-size: 12.5px; line-height: 17px; }
+  .open-note .badge { background: var(--surface); color: var(--warning-fg); flex: none; }
+  .sev { display: inline-block; width: 3px; height: 30px; border-radius: 2px; vertical-align: middle; margin-right: 8px; }
+  /* Drawer */
+  .drawer { width: min(600px, 100vw); }
+  .dayline { position: relative; height: 34px; border-radius: 6px; background: var(--surface-muted); overflow: hidden; }
+  .dayline i { position: absolute; top: 6px; bottom: 6px; border-radius: 3px; background: var(--info-solid); }
+  .dayline i.over { background: var(--danger-solid); }
+  .dayline .now { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--fg-strong); }
+  .dayscale { display: flex; justify-content: space-between; font-size: 11px; color: var(--fg-muted); font-variant-numeric: tabular-nums; margin-top: 4px; }
+  .wk svg { display: block; width: 100%; height: auto; }
+  .kv { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 6px; }
+  .kv > div { padding: 10px 12px; border-radius: 8px; background: var(--surface-muted); }
+  .kv .k { font-size: 12px; color: var(--fg-muted); }
+  .kv .v { font: 700 18px/24px var(--font-display); font-variant-numeric: tabular-nums; }
+  .kv .v small { font: 500 12px var(--font-body); color: var(--fg-muted); margin-left: 2px; }
+  .empty .btn .icon { width: 16px; height: 16px; stroke-width: 1.75; color: inherit; }
+  .empty p { max-width: 560px; }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Vận hành / Giờ lái &amp; an toàn</div>
+      <h1>Giờ lái &amp; nhật ký an toàn</h1>
+      <div class="head-meta"><span class="fresh" id="fresh"></span></div>
+    </div>
+    <div class="actions" id="hActions"></div>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Nội dung" id="tabs"></div>
+  <div class="filterbar" role="toolbar" aria-label="Bộ lọc" id="fbar"></div>
+  <div id="slot"></div>
+  <section class="card tbl-card" id="tbl" aria-live="polite"></section>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_13', title: 'Giờ lái & an toàn' });
+const $ = id => document.getElementById(id);
+const fh = h => { const H = Math.floor(h + 1e-6), m = Math.round((h - H) * 60); return `${H}h${String(m).padStart(2, '0')}`; };
+
+/* Giờ lái: dữ liệu GSHT. null = Không đủ dữ liệu (không ước lượng). FM.drivers giữ nguyên tuần/hôm nay; tài xế đang chạy chuyến cộng phần lái từ sáng. */
+const D = FM.drivers;
+const base = [
+  { id: 'TX01', trip: 'CH-0458', veh: '51C-123.45', cont: 0.18, today: 2.48, week: D[0].week + 2.48, rest: 'Nghỉ 15 phút lúc 08:40', state: 'Đang lái', blocks: [[5.5, 6.08], [6.33, 7.47], [8.27, 8.67], [8.92, 9.1]] },
+  { id: 'TX02', trip: 'CH-0462', veh: '51D-456.78', cont: 1.33, today: D[1].today, week: D[1].week, rest: 'Nghỉ 1h10 sau CH-0452', state: 'Đang lái', note: 'Tuần còn 3h30, chuyến cần 6h10', blocks: [[1, 1.83], [7.77, 9.1]] },
+  { id: 'TX03', trip: 'CH-0463', veh: '51D-702.33', cont: 1.92, today: 1.92, week: D[2].week + 1.92, rest: 'Nghỉ qua đêm', state: 'Đang lái', blocks: [[7.17, 9.1]] },
+  { id: 'TX04', trip: null, veh: null, cont: 0, today: D[3].today, week: D[3].week, rest: '—', state: 'Không có chuyến', blocks: [] },
+  { id: 'TX05', trip: 'CH-0464', veh: '61C-220.14', cont: 0, today: D[4].today, week: D[4].week, rest: 'Đang nghỉ 25 phút', state: 'Chờ xuất phát', note: 'Hôm nay còn 2h30, chuyến cần 6h10', blocks: [[0.5, 3.9], [4.25, 8.35]] },
+  { id: 'TX06', trip: null, veh: null, cont: 0, today: D[5].today, week: D[5].week, rest: '—', state: 'GPLX hết hạn', blocks: [] },
+  { id: 'TX07', name: 'Đặng Quang Vinh', trip: 'CH-0457', veh: '51C-456.78', cont: 3.33, today: 5.1, week: 41.2, rest: 'Nghỉ 20 phút lúc 05:45', state: 'Sự cố · kẹt cảng', blocks: [[0.5, 2.3], [2.6, 5.75], [6.08, 9.1]] },
+  { id: 'TX08', name: 'Ngô Đức Trí', trip: 'CH-0459', veh: '51C-731.80', cont: 4.2, today: 4.2, week: 30.5, rest: 'Chưa nghỉ từ 04:50', state: 'Đang lái', late: 'GSHT đồng bộ trễ 17 phút', blocks: [[4.83, 9.03]] },
+  { id: 'TX09', name: 'Trần Văn Hùng', trip: 'CH-0471', veh: '61C-245.18', cont: 1.67, today: 3.83, week: 48.83, rest: 'Nghỉ 30 phút lúc 07:00', state: 'Đang lái', blocks: [[3.25, 5.4], [7.5, 9.1]] },
+  { id: 'TX10', name: 'Huỳnh Tấn Lộc', trip: null, veh: '51C-588.02', cont: 0, today: 3.58, week: 27.0, rest: 'Đang nghỉ từ 07:05', state: 'Xong CH-0455', blocks: [[3.5, 7.08]] },
+  { id: 'TX11', name: 'Bùi Văn Khoa', trip: 'CH-0467', veh: '51C-415.92', cont: null, today: null, week: null, rest: '—', state: 'Đang chạy', why: 'Xe 51C-415.92 mất tín hiệu GSHT từ 09:18. Hệ thống không ước lượng giờ lái khi thiếu dữ liệu.' },
+  { id: 'TX12', name: 'Đỗ Văn Lâm', ext: 'Xe ngoài · Nhà xe Minh Phát', trip: 'CH-0461', veh: '51C-654.32', cont: null, today: null, week: null, rest: '—', state: 'Đã gán', why: 'Xe ngoài không có dữ liệu GSHT trong hệ thống. Nhà xe chịu trách nhiệm giờ lái của tài xế họ.' }
+].map(r => { const d = D.find(x => x.id === r.id); return Object.assign({ name: d ? d.name : r.name, gplx: d ? d.gplx : 'CE' }, r); });
+const LIM = { cont: 4, today: 10, week: 48 };
+const lvl = (v, k) => v == null ? 'na' : v > LIM[k] ? 'over' : v / LIM[k] >= .8 ? 'warn' : 'ok';
+const rank = r => { const l = ['cont', 'today', 'week'].map(k => lvl(r[k], k)); return l.includes('over') ? 0 : l.includes('warn') ? 1 : l.includes('na') ? 2 : 3; };
+
+let LOG0 = [
+  { t: '12/11/2026 09:58', d: 'Ngô Đức Trí', v: '51C-731.80', trip: 'CH-0459', type: 'Giờ lái', detail: 'Lái liên tục 4h12, vượt 4h', src: 'GSHT', by: 'Lê Văn Hải (Điều độ)', act: 'Gọi điện yêu cầu dừng nghỉ 15 phút tại trạm dừng Bến Cát', st: 'watch', sev: 'danger' },
+  { t: '12/11/2026 09:18', d: 'Bùi Văn Khoa', v: '51C-415.92', trip: 'CH-0467', type: 'Thiết bị không hoạt động', detail: 'Mất tín hiệu GSHT trên QL13', src: 'Cảnh báo (FM_05)', by: 'Lê Văn Hải (Điều độ)', act: 'Liên hệ tài xế, yêu cầu kiểm tra thiết bị khi về bãi', st: 'open', sev: 'warning' },
+  { t: '12/11/2026 08:30', d: 'Trần Văn Hùng', v: '61C-245.18', trip: 'CH-0471', type: 'Giờ lái', detail: 'Giờ lái tuần 48h50, vượt 48h', src: 'GSHT', by: 'Phạm Thị Thanh (QL đội xe)', act: 'Chặng về giao phụ xe lái; không gán chuyến tới hết tuần', st: 'watch', sev: 'danger' },
+  { t: '12/11/2026 07:12', d: 'Nguyễn Văn Tuấn', v: '51C-123.45', trip: 'CH-0458', type: 'Tốc độ', detail: '68/60 km/h trên ĐT 746, 40 giây', src: 'GSHT', by: 'Lê Văn Hải (Điều độ)', act: 'Nhắc nhở qua điện thoại', st: 'done', sev: 'warning' },
+  { t: '11/11/2026 17:05', d: 'Trần Minh Đức', v: '51D-456.78', trip: 'CH-0462', type: 'Giờ lái', detail: 'Gán chuyến vượt 48h/tuần (dự kiến 50h40)', src: 'Điều phối (FM_10)', by: 'Lê Văn Hải (Điều độ)', act: 'Lý do: gán thêm tài xế thứ hai cho chặng về', st: 'done', sev: 'warning' },
+  { t: '10/11/2026 11:02', d: 'Lê Hoàng Phúc', v: '51D-702.33', trip: 'CH-0447', type: 'Lệch tuyến', detail: 'Lệch 3,2 km khỏi tuyến đăng ký', src: 'GSHT', by: 'Lê Văn Hải (Điều độ)', act: 'Tài xế giải trình đường cấm tải tạm thời; chấp nhận', st: 'done', sev: 'neutral' },
+  { t: '08/11/2026 22:40', d: 'Đặng Quang Vinh', v: '51C-456.78', trip: 'CH-0421', type: 'Tốc độ', detail: '74/70 km/h CT TP.HCM – Trung Lương, 2 phút', src: 'GSHT', by: 'Phạm Thị Thanh (QL đội xe)', act: 'Nhắc nhở lần 2, trừ thưởng an toàn tháng 11', st: 'done', sev: 'warning' },
+  { t: '05/11/2026 03:15', d: 'Võ Thành Nhân', v: '61C-220.14', trip: 'CH-0398', type: 'Giờ lái', detail: 'Lái liên tục 4h25, vượt 4h', src: 'GSHT', by: 'Lê Văn Hải (Điều độ)', act: 'Nhắc nhở, ghi vào đánh giá tháng', st: 'done', sev: 'danger' },
+  { t: '28/10/2026 14:10', d: '—', v: '51C-099.21', trip: null, type: 'Thiết bị không hoạt động', detail: 'GSHT không gửi dữ liệu 6 giờ', src: 'Cảnh báo (FM_05)', by: 'Phạm Thị Thanh (QL đội xe)', act: 'Thay SIM thiết bị, đã hoạt động lại', st: 'done', sev: 'neutral' },
+  { t: '14/03/2024 05:20', d: 'Huỳnh Tấn Lộc', v: '51C-588.02', trip: 'CH-0012', type: 'Tốc độ', detail: '65/60 km/h QL1A, 1 phút', src: 'GSHT', by: 'Phạm Thị Thanh (QL đội xe)', act: 'Nhắc nhở', st: 'done', sev: 'warning', old: true }
+];
+const S = { tab: 'hours', hf: 'all', q: '', lf: 'all', nogsht: false };
+let LOG = [];
+
+function meter(v, k, why) {
+  if (v == null) return `<span class="tip"><span class="nodata" tabindex="0">${icon('info')}Không đủ dữ liệu</span><span class="tip-body left">${why}</span></span>`;
+  const l = lvl(v, k), pct = Math.min(100, v / LIM[k] * 100);
+  return `<div class="meter"><div class="txt"><b class="${l === 'ok' ? '' : l}">${fh(v)}</b>/ ${LIM[k]}h${l === 'over' ? ` · <span class="neg">vượt ${fh(v - LIM[k])}</span>` : l === 'warn' ? ` · còn ${fh(LIM[k] - v)}` : ''}</div><div class="bar ${l}" role="meter" aria-valuemin="0" aria-valuemax="${LIM[k]}" aria-valuenow="${v.toFixed(2)}" aria-label="${k}"><i style="width:${pct}%"></i></div></div>`;
+}
+function rowsH() {
+  const all = base.map(r => S.nogsht ? Object.assign({}, r, { cont: null, today: null, week: null, why: 'Chưa kết nối GSHT. Hệ thống không ước lượng giờ lái từ app tài xế.' }) : r);
+  return all.filter(r => (S.hf === 'all' || (S.hf === 'attn' && rank(r) <= 1) || (S.hf === 'na' && rank(r) === 2)) && (!S.q || (r.name + (r.veh || '') + (r.trip || '')).toLowerCase().includes(S.q))).sort((a, b) => rank(a) - rank(b));
+}
+function renderTabs() {
+  const attn = S.nogsht ? 0 : base.filter(r => rank(r) <= 1).length;
+  $('tabs').innerHTML = [['hours', 'Bảng giờ lái', attn], ['log', 'Nhật ký an toàn', LOG.filter(l => l.st !== 'done').length]].map(([k, l, n]) => `<button role="tab" type="button" data-tab="${k}" aria-selected="${S.tab === k}">${l}<span class="count-pill" title="${k === 'hours' ? 'Cần chú ý' : 'Chưa đóng'}">${n}</span></button>`).join('');
+  $('tabs').querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { S.tab = b.dataset.tab; render(); });
+}
+function renderHead() {
+  $('fresh').innerHTML = S.tab === 'hours'
+    ? (S.nogsht ? `<span class="live warn" aria-hidden="true"></span>Chưa kết nối GSHT · không có dữ liệu giờ lái` : `<span class="live" aria-hidden="true"></span>Cập nhật 1 phút trước · GSHT · tuần tính từ thứ Hai 09/11/2026`)
+    : `${icon('lock')}Lưu tối thiểu 3 năm · không xoá được · bản ghi cũ nhất 03/2024`;
+  $('hActions').innerHTML = S.tab === 'hours'
+    ? `<a class="btn btn-secondary" href="fm-12-ban-do.html">${icon('map')}Bản đồ giám sát</a>`
+    : `<button class="btn btn-secondary" type="button" id="addLog">${icon('plus')}Ghi vi phạm</button><button class="btn btn-primary" type="button" id="export">${icon('download')}Xuất file</button>`;
+  const a = $('addLog'); if (a) a.onclick = () => addModal();
+  const e = $('export'); if (e) e.onclick = exportModal;
+}
+function renderFilter() {
+  if (S.tab === 'hours') {
+    $('fbar').innerHTML = `<div class="seg" role="group" aria-label="Lọc">${[['all', 'Tất cả'], ['attn', 'Cần chú ý'], ['na', 'Không đủ dữ liệu']].map(([k, l]) => `<button type="button" data-hf="${k}" aria-pressed="${S.hf === k}">${l}</button>`).join('')}</div>
+      <span class="sumline">${icon('info')}Ngưỡng 4h liên tục · 10h/ngày · 48h/tuần. Vàng ≥ 80%, đỏ khi vượt.</span>
+      <label class="search-global" style="max-width:280px;margin-left:auto">${icon('search')}<input id="q" type="search" placeholder="Tìm tài xế, biển số, chuyến…" value="${S.q}" aria-label="Tìm tài xế"></label>`;
+    $('fbar').querySelectorAll('[data-hf]').forEach(b => b.onclick = () => { S.hf = b.dataset.hf; render(); });
+  } else {
+    $('fbar').innerHTML = `<span class="select-wrap"><select class="select" aria-label="Khoảng thời gian"><option>30 ngày qua</option><option>Tháng 11/2026</option><option>Năm 2026</option><option>Toàn bộ (3 năm)</option></select>${icon('chevron')}</span>
+      ${['all', 'Giờ lái', 'Tốc độ', 'Lệch tuyến', 'Thiết bị không hoạt động'].map(k => `<button class="chip ${S.lf === k ? 'on' : ''}" type="button" data-lf="${k}" aria-pressed="${S.lf === k}">${k === 'all' ? 'Tất cả loại' : k}</button>`).join('')}
+      <label class="search-global" style="max-width:260px;margin-left:auto">${icon('search')}<input id="q" type="search" placeholder="Tìm tài xế, biển số, chuyến…" value="${S.q}" aria-label="Tìm trong nhật ký"></label>`;
+    $('fbar').querySelectorAll('[data-lf]').forEach(b => b.onclick = () => { S.lf = b.dataset.lf; render(); });
+  }
+  $('q').oninput = e => { S.q = e.target.value.trim().toLowerCase(); renderBody(); };
+}
+function renderHours() {
+  const r = rowsH();
+  if (!r.length) { $('tbl').innerHTML = `<div class="empty">${icon('users')}<h3>Không có tài xế khớp bộ lọc</h3></div>`; return; }
+  $('tbl').innerHTML = `${S.nogsht ? '' : ''}<div class="grid-wrap"><table class="grid" aria-label="Giờ lái theo tài xế">
+    <thead><tr><th>Tài xế</th><th>Chuyến · tình trạng</th><th>Lái liên tục</th><th>Hôm nay</th><th>Tuần này</th><th>Nghỉ gần nhất</th></tr></thead>
+    <tbody>${r.map(x => `<tr data-id="${x.id}" tabindex="0">
+      <td><b style="font-weight:600">${x.name}</b><span class="cell-sub">${x.ext || `GPLX ${x.gplx}`}${x.veh ? ` · <span class="code">${x.veh}</span>` : ''}</span></td>
+      <td>${x.trip ? `<a class="code" href="fm-09-chi-tiet-chuyen.html">${x.trip}</a>` : '<span class="muted">—</span>'}<span class="cell-sub">${x.state}${x.late && !S.nogsht ? ` · <span style="color:var(--warning-fg)">${x.late}</span>` : ''}</span>${x.note && !S.nogsht ? `<span class="cell-sub"><span class="badge b-warning" style="height:auto;min-height:18px;padding:2px 6px;margin-top:3px;white-space:normal;line-height:14px;max-width:190px;align-items:flex-start">${icon('warn')}${x.note}</span></span>` : ''}</td>
+      <td>${meter(x.cont, 'cont', x.why)}</td>
+      <td>${meter(x.today, 'today', x.why)}</td>
+      <td>${meter(x.week, 'week', x.why)}</td>
+      <td class="restc">${x.cont == null ? '<span class="muted">—</span>' : x.rest}</td>
+    </tr>`).join('')}</tbody></table></div>
+    <div class="tfoot">${icon('shield')}Nguồn: thời gian lái do thiết bị GSHT ghi nhận. Không có dữ liệu GSHT thì ghi "Không đủ dữ liệu", không ước lượng. Xe tải nghỉ tối thiểu 15 phút giữa hai lần lái. Bấm một dòng để xem chi tiết.</div>`;
+  $('tbl').querySelectorAll('tbody tr').forEach(tr => { tr.onclick = e => { if (!e.target.closest('a')) openDrawer(tr.dataset.id); }; tr.onkeydown = e => { if (e.key === 'Enter') openDrawer(tr.dataset.id); }; });
+}
+const ST = { open: '<span class="badge b-warning">Chưa xử lý</span>', watch: '<span class="badge b-info">Đang theo dõi</span>', done: `<span class="badge b-success">${icon('check')}Đã xử lý</span>` };
+const TYPEB = { 'Giờ lái': 'clock', 'Tốc độ': 'gauge', 'Lệch tuyến': 'route', 'Thiết bị không hoạt động': 'block' };
+function renderLog() {
+  const r = LOG.filter(l => (S.lf === 'all' || l.type === S.lf) && (!S.q || (l.d + l.v + (l.trip || '')).toLowerCase().includes(S.q)));
+  $('tbl').innerHTML = !r.length ? `<div class="empty">${icon('book')}<h3>Chưa có vi phạm nào trong khoảng này</h3><p>Cảnh báo an toàn từ Trung tâm cảnh báo (FM_05) được tự ghi vào đây.</p></div>` : `<div class="grid-wrap"><table class="grid" aria-label="Nhật ký an toàn">
+    <thead><tr><th>Thời gian</th><th>Tài xế · Xe</th><th>Vi phạm</th><th>Nguồn</th><th>Người nhắc nhở · Biện pháp</th><th>Trạng thái</th></tr></thead>
+    <tbody>${r.map(l => `<tr style="cursor:default">
+      <td class="num"><span class="sev" style="background:var(--${l.sev === 'neutral' ? 'neutral' : l.sev}-solid)" aria-hidden="true"></span>${l.t.slice(0, 10)}<span class="cell-sub" style="padding-left:11px">${l.t.slice(11)}</span></td>
+      <td>${l.d}<span class="cell-sub"><span class="code">${l.v}</span>${l.trip ? ` · <a class="code" href="fm-09-chi-tiet-chuyen.html">${l.trip}</a>` : ''}</span></td>
+      <td class="wrapcell"><span class="row" style="gap:6px;font-weight:500">${icon(TYPEB[l.type])}${l.type}</span><span class="cell-sub">${l.detail}</span></td>
+      <td class="sm">${l.src}</td>
+      <td class="wrapcell">${l.by}<span class="cell-sub">${l.act}</span></td>
+      <td>${ST[l.st]}${l.old ? `<span class="cell-sub">Lưu đến 14/03/2027</span>` : ''}</td>
+    </tr>`).join('')}</tbody></table></div>
+    <div class="tfoot">${icon('lock')}Bản ghi không sửa, không xoá; chỉ thêm ghi chú bổ sung. Lưu tối thiểu 3 năm để xuất trình khi cơ quan chức năng kiểm tra.</div>`;
+}
+function renderBody() { S.tab === 'hours' ? renderHours() : renderLog(); }
+function render() {
+  renderTabs(); renderHead(); renderFilter();
+  $('slot').innerHTML = S.tab === 'log' ? `<div class="open-note"><span class="badge">${icon('info')}Chưa chốt</span><div>Dữ liệu vi phạm từ camera AI theo NĐ 319/2026 (áp dụng 2027–2028) có lấy về nhật ký hay không: chưa chốt, phụ thuộc tích hợp với hãng GSHT.</div></div>`
+    : S.nogsht ? `<div class="alert alert-info">${icon('link')}<div>Chưa kết nối hãng GSHT nên không có dữ liệu thời gian lái. Hệ thống không ước lượng từ app tài xế.</div><div class="alert-actions"><a class="btn btn-secondary btn-sm" href="fm-39-tich-hop.html">Kết nối GSHT</a></div></div>` : '';
+  renderBody();
+}
+
+/* ---------- Drawer chi tiết tài xế ---------- */
+function closeDrawer() { const d = $('drawer'); if (d) { d.id = ''; Shell.dismiss(d); const s = $('drScrim'); if (s) { s.id = ''; Shell.dismiss(s); } } }
+function weekChart(r) {
+  const days = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
+  const prev = r.week - r.today, split = [0.32, 0.35, 0.33].map(k => prev * k);
+  const vals = [...split, r.today, null, null, null], w = 520, h = 160, L = 28, B = 22, max = 14, y = v => h - B - v / max * (h - B - 10), bw = 36, x = i => L + 10 + i * ((w - L - 20) / 7);
+  return `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Giờ lái theo ngày trong tuần">${[0, 5, 10].map(v => `<line x1="${L}" x2="${w}" y1="${y(v)}" y2="${y(v)}" style="stroke:${v ? (v === 10 ? 'var(--danger-solid)' : 'var(--surface-muted)') : 'var(--border-strong)'}" ${v === 10 ? 'stroke-dasharray="4 4"' : ''}/><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end" font-size="10.5" style="fill:var(--fg-muted)">${v}h</text>`).join('')}
+    ${vals.map((v, i) => `<text x="${x(i) + bw / 2}" y="${h - 6}" text-anchor="middle" font-size="11" style="fill:${i === 3 ? 'var(--fg-strong)' : 'var(--fg-muted)'}" font-weight="${i === 3 ? 600 : 400}">${days[i]}</text>${v == null ? '' : `<rect x="${x(i)}" y="${y(v)}" width="${bw}" height="${y(0) - y(v)}" rx="3" style="fill:${i === 3 ? 'var(--primary)' : 'var(--chart-muted)'}" ${i === 3 ? 'stroke-dasharray="3 3"' : ''}/><text x="${x(i) + bw / 2}" y="${y(v) - 5}" text-anchor="middle" font-size="11" font-weight="600" style="fill:var(--fg-strong)">${fh(v)}</text>`}`).join('')}
+    <text x="${w - 4}" y="${y(10) - 5}" text-anchor="end" font-size="10.5" style="fill:var(--danger-fg)">giới hạn 10h/ngày</text></svg>`;
+}
+function openDrawer(id) {
+  closeDrawer();
+  const r0 = base.find(x => x.id === id), r = S.nogsht ? Object.assign({}, r0, { cont: null, today: null, week: null, why: 'Chưa kết nối GSHT.' }) : r0;
+  const s = document.createElement('div'); s.className = 'scrim'; s.id = 'drScrim'; s.onclick = closeDrawer;
+  const d = document.createElement('aside'); d.className = 'drawer'; d.id = 'drawer'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'drT');
+  const na = r.cont == null;
+  const logs = LOG.filter(l => l.d === r.name);
+  d.innerHTML = `<div class="drawer-head"><div class="row"><h2 id="drT">${r.name}</h2><span class="muted sm">${r.ext || 'GPLX ' + r.gplx}</span><button class="icon-btn" id="drX" aria-label="Đóng (Esc)" style="margin-left:auto">${icon('x', 'lg')}</button></div>
+      <div class="row sm muted">${r.trip ? `Chuyến <a class="code" href="fm-09-chi-tiet-chuyen.html">${r.trip}</a> · ` : ''}${r.state}${r.veh ? ` · <span class="code">${r.veh}</span>` : ''}</div></div>
+    <div class="drawer-body">
+      ${na ? `<div class="empty" style="padding:24px 8px">${icon('info')}<h3>Không đủ dữ liệu</h3><p>${r.why}</p></div>` : `
+      <div class="kv"><div><div class="k">Lái liên tục</div><div class="v" style="color:${lvl(r.cont, 'cont') === 'over' ? 'var(--danger-fg)' : lvl(r.cont, 'cont') === 'warn' ? 'var(--warning-fg)' : 'inherit'}">${fh(r.cont)}<small>/ 4h</small></div></div><div><div class="k">Hôm nay</div><div class="v">${fh(r.today)}<small>/ 10h</small></div></div><div><div class="k">Tuần này</div><div class="v" style="color:${lvl(r.week, 'week') === 'over' ? 'var(--danger-fg)' : lvl(r.week, 'week') === 'warn' ? 'var(--warning-fg)' : 'inherit'}">${fh(r.week)}<small>/ 48h</small></div></div></div>
+      <div class="stack" style="gap:6px"><div class="section-title"><h3>Hôm nay 12/11</h3><span class="muted sm">khối xanh = đang lái, khoảng trống = nghỉ</span></div>
+        <div class="dayline">${(r.blocks || []).map(([a, b]) => `<i class="${b - a > 4 ? 'over' : ''}" style="left:${a / 24 * 100}%;width:${(b - a) / 24 * 100}%" title="${fh(a).replace('h', ':')} – ${fh(b).replace('h', ':')}"></i>`).join('')}<span class="now" style="left:${9.1 / 24 * 100}%" title="Bây giờ 09:06"></span></div>
+        <div class="dayscale"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div></div>
+      <div class="stack wk" style="gap:6px"><div class="section-title"><h3>Tuần từ 09/11</h3><span class="muted sm">thứ Năm (hôm nay) đang tính</span></div>${weekChart(r)}</div>`}
+      <div class="stack" style="gap:6px"><div class="section-title"><h3>Nhật ký an toàn</h3><span class="count-pill">${logs.length}</span></div>
+        ${logs.length ? logs.map(l => `<div class="row sm" style="align-items:flex-start;gap:10px;padding:6px 0"><span class="num muted" style="width:92px;flex:none">${l.t.slice(0, 10)}</span><span class="grow"><b style="font-weight:600">${l.type}</b> · ${l.detail}<span class="cell-sub">${l.act}</span></span>${ST[l.st]}</div>`).join('') : '<p class="muted sm">Chưa có vi phạm.</p>'}
+      </div>
+    </div>
+    <div class="drawer-foot"><a class="btn btn-ghost" href="fm-17-chi-tiet-tai-xe.html" style="margin-right:auto">Hồ sơ tài xế</a>${r.veh && r.trip ? `<a class="btn btn-secondary" href="fm-12-ban-do.html">${icon('map')}Xem trên bản đồ</a>` : ''}<button class="btn btn-primary" type="button" id="remind">${icon('bell')}Ghi nhắc nhở</button></div>`;
+  document.body.append(s, d); $('drX').onclick = closeDrawer; $('drX').focus();
+  $('remind').onclick = () => addModal(r);
+}
+
+/* ---------- Modals ---------- */
+function modal(html, onOk) {
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim';
+  const m = document.createElement('div'); m.className = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.innerHTML = html;
+  document.body.append(s, m); const close = () => { Shell.dismiss(s); Shell.dismiss(m); };
+  m.querySelector('[data-x]').onclick = close; s.onclick = close; m.querySelector('[data-ok]').onclick = () => { if (onOk(m) !== false) close(); };
+  const f = m.querySelector('input, select, textarea'); if (f) f.focus({ preventScroll: true });
+  return m;
+}
+function addModal(r) {
+  const over = r && ['cont', 'today', 'week'].find(k => lvl(r[k], k) === 'over' || lvl(r[k], k) === 'warn');
+  modal(`<h2>${r ? 'Ghi nhắc nhở · ' + r.name : 'Ghi vi phạm'}</h2>
+    ${r ? '' : `<label class="field"><span>Tài xế *</span><select class="input">${base.map(x => `<option>${x.name}</option>`).join('')}</select></label>`}
+    <label class="field"><span>Loại vi phạm *</span><select class="input" id="mType">${Object.keys(TYPEB).map(k => `<option>${k}</option>`).join('')}</select></label>
+    <label class="field"><span>Chi tiết *</span><input class="input" id="mDet" value="${r && over ? `${{ cont: 'Lái liên tục', today: 'Giờ lái ngày', week: 'Giờ lái tuần' }[over]} ${fh(r[over])}` : ''}" placeholder="VD: 68/60 km/h trên ĐT 746"></label>
+    <label class="field"><span>Biện pháp xử lý *</span><textarea class="input" id="mAct" rows="2" placeholder="VD: Gọi điện yêu cầu dừng nghỉ 15 phút"></textarea></label>
+    <p class="sm muted">Người nhắc: Lê Văn Hải (Điều độ) · 12/11/2026 09:06. Bản ghi không xoá được.</p>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Huỷ</button><button class="btn btn-primary" type="button" data-ok>Lưu vào nhật ký</button></div>`, m => {
+    const det = m.querySelector('#mDet').value.trim(), act = m.querySelector('#mAct').value.trim();
+    if (!det || !act) { m.querySelector(!det ? '#mDet' : '#mAct').focus(); toast('Nhập chi tiết và biện pháp xử lý'); return false; }
+    const who = r || base[0];
+    LOG.unshift({ t: '12/11/2026 09:06', d: who.name, v: who.veh || '—', trip: who.trip, type: m.querySelector('#mType').value, detail: det, src: 'Thủ công', by: 'Lê Văn Hải (Điều độ)', act, st: 'watch', sev: 'warning' });
+    closeDrawer(); render(); toast(`Đã ghi vào nhật ký an toàn · ${who.name}`);
+  });
+}
+function exportModal() {
+  modal(`<h2>Xuất nhật ký an toàn</h2>
+    <div class="row" style="gap:10px"><label class="field grow"><span>Từ ngày</span><input class="input num" value="01/01/2026"></label><label class="field grow"><span>Đến ngày</span><input class="input num" value="12/11/2026"></label></div>
+    <div class="field"><span>Định dạng</span><div class="seg" role="group" aria-label="Định dạng" id="fmtSeg"><button type="button" aria-pressed="true">Excel</button><button type="button" aria-pressed="false">PDF</button></div></div>
+    <label class="field"><span>Mục đích xuất *</span><input class="input" id="eWhy" value="Cơ quan chức năng kiểm tra định kỳ"></label>
+    <p class="sm muted">Gồm vi phạm, người nhắc nhở, thời gian, biện pháp xử lý. Thao tác xuất được ghi nhật ký (FM_40).</p>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Huỷ</button><button class="btn btn-primary" type="button" data-ok>${icon('download')}Xuất file</button></div>`, m => {
+    const f = m.querySelector('#fmtSeg [aria-pressed="true"]').textContent;
+    toast(`Đã xuất nhat-ky-an-toan_01-01_12-11-2026.${f === 'Excel' ? 'xlsx' : 'pdf'} · ${LOG.length} bản ghi`);
+  });
+  document.querySelectorAll('#fmtSeg button').forEach(b => b.onclick = () => document.querySelectorAll('#fmtSeg button').forEach(x => x.setAttribute('aria-pressed', x === b)));
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); if (e.target.matches('input, textarea, select')) return; if (e.key === '/') { e.preventDefault(); $('q').focus(); } });
+
+Shell.states([['default', 'Bảng giờ lái'], ['attn', 'Cần chú ý'], ['drawer', 'Chi tiết tài xế'], ['nogsht', 'Không có GSHT'], ['log', 'Nhật ký an toàn'], ['export', 'Xuất file'], ['loading', 'Đang tải'], ['empty', 'Trống'], ['error', 'Lỗi']], s => {
+  closeDrawer(); document.querySelectorAll('.modal, .modal-scrim').forEach(x => x.remove());
+  LOG = LOG0.map(l => Object.assign({}, l));
+  Object.assign(S, { tab: ['log', 'export'].includes(s) ? 'log' : 'hours', hf: s === 'attn' ? 'attn' : 'all', q: '', lf: 'all', nogsht: s === 'nogsht' });
+  render();
+  if (s === 'drawer') openDrawer('TX08');
+  if (s === 'export') exportModal();
+  if (s === 'loading') { $('fresh').innerHTML = 'Đang tải dữ liệu GSHT…'; $('tbl').innerHTML = `<table class="grid"><thead><tr>${Array(6).fill('<th><span class="sk" style="width:80px"></span></th>').join('')}</tr></thead><tbody>${Array(8).fill('<tr>' + Array(6).fill('<td><span class="sk" style="width:80%"></span><span class="sk" style="width:55%;margin-top:6px;height:6px"></span></td>').join('') + '</tr>').join('')}</tbody></table>`; }
+  if (s === 'empty') $('tbl').innerHTML = `<div class="empty">${icon('users')}<h3>Chưa có tài xế</h3><p>Thêm tài xế để theo dõi giờ lái và nhật ký an toàn.</p><a class="btn btn-primary" href="fm-16-tai-xe.html">${icon('plus')}Thêm tài xế</a></div>`;
+  if (s === 'error') { $('fresh').innerHTML = `<span class="live warn" aria-hidden="true"></span>Dữ liệu GSHT lần cuối 08:40 · có thể chưa mới nhất`; $('slot').innerHTML = `<div class="alert alert-warning" role="alert">${icon('refresh')}<div>Không lấy được dữ liệu giờ lái mới từ hãng GSHT. Số liệu dưới đây tính đến 08:40.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" onclick="location.reload()">Thử lại</button></div></div>`; }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tích hợp · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* Sub-nav Cài đặt (giống hệt ở FM_38–41) */
+  .set-layout { display: grid; grid-template-columns: 216px minmax(0, 1fr); gap: var(--s-6); align-items: start; }
+  .set-nav { position: sticky; top: 72px; display: flex; flex-direction: column; gap: 2px; }
+  .set-nav .set-g { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--side-fg-muted); padding: 2px 10px 8px; }
+  .set-nav a { display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 10px; border-radius: 8px; color: var(--fg); font: 500 13.5px var(--font-body); text-decoration: none !important; white-space: nowrap; transition: background-color var(--d-1) var(--ease-std), color var(--d-1) var(--ease-std); }
+  .set-nav a .icon { color: var(--fg-muted); flex: none; }
+  .set-nav a:hover { background: var(--surface-muted); }
+  .set-nav a[aria-current] { background: var(--primary-soft); color: var(--side-active); font-weight: 600; }
+  .set-nav a[aria-current] .icon { color: var(--side-active); }
+  .set-main { display: flex; flex-direction: column; gap: var(--s-4); min-width: 0; }
+  @media (max-width: 1100px) { .set-layout { grid-template-columns: 1fr; } .set-nav { position: static; flex-direction: row; flex-wrap: wrap; } .set-nav .set-g { display: none; } }
+  .fresh button { border: 0; background: none; color: var(--primary); font: 500 12.5px var(--font-body); cursor: pointer; padding: 0; display: inline-flex; gap: 4px; align-items: center; }
+  .fresh button .icon { width: 14px; height: 14px; }
+  .card { display: flex; flex-direction: column; min-width: 0; }
+  .card-title { display: flex; align-items: center; gap: 10px; padding: 16px 18px 10px; min-height: 30px; }
+  .card-title h2 { font-size: 16px; white-space: nowrap; }
+  .card-title .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 10px; align-items: center; }
+  .card-sub { padding: 0 18px 12px; font-size: 13px; color: var(--fg-muted); margin-top: -4px; }
+  .card-foot { margin-top: auto; padding: 8px 18px 16px; display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--fg-muted); }
+  .card-foot .icon { width: 15px; height: 15px; flex: none; }
+  /* GSHT: danh sách hãng + chi tiết */
+  .gsht { display: grid; grid-template-columns: 248px minmax(0, 1fr); gap: 18px; padding: 0 18px 18px; }
+  .prov { display: flex; flex-direction: column; gap: 2px; }
+  .pv { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 10px; align-items: center; padding: 8px 10px; border-radius: 8px; border: 0; background: none; font: inherit; color: inherit; text-align: left; cursor: pointer; }
+  .pv:hover { background: var(--surface-muted); }
+  .pv[aria-pressed="true"] { background: var(--primary-soft); }
+  .pv .lg { width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; background: var(--surface-muted); color: var(--fg-muted); font: 700 12px var(--font-display); }
+  .pv[aria-pressed="true"] .lg { background: var(--surface); color: var(--side-active); }
+  .pv b { display: block; font-weight: 600; font-size: 13.5px; color: var(--fg-strong); }
+  .pv small { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--fg-muted); }
+  .dotc { width: 7px; height: 7px; border-radius: 50%; background: var(--fg-subtle); flex: none; }
+  .dotc.ok { background: var(--success-solid); } .dotc.wait { background: var(--info-solid); } .dotc.err { background: var(--danger-solid); }
+  .detail { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+  .dhead { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .dhead h3 { font-size: 15px; }
+  .dhead .acts { margin-left: auto; display: flex; gap: 8px; }
+  .kv { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; background: var(--surface-muted); border-radius: 8px; padding: 6px; }
+  .kv div { padding: 8px 10px; border-radius: 6px; min-width: 0; }
+  .kv div:first-child { background: var(--surface); }
+  .kv span { display: block; font-size: 12px; color: var(--fg-muted); }
+  .kv b { display: block; font-weight: 600; color: var(--fg-strong); font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
+  .lastErr { display: grid; grid-template-columns: 3px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 6px 0; }
+  .lastErr .sev { align-self: stretch; border-radius: 0 3px 3px 0; background: var(--warning-solid); }
+  .lastErr .t { font-weight: 600; color: var(--fg-strong); font-size: 13.5px; }
+  .lastErr .d { font-size: 12.5px; color: var(--fg-muted); }
+  .sec-h { display: flex; align-items: center; gap: 8px; }
+  .sec-h h4 { font-size: 13.5px; font-weight: 600; color: var(--fg-strong); }
+  .sec-h .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 8px; align-items: center; }
+  .dev-wrap { border-radius: 8px; overflow-x: auto; box-shadow: inset 0 0 0 1px var(--border); }
+  .grid tbody tr:last-child td { border-bottom: 0; }
+  .grid td .select-sm { height: 30px; font-size: 13px; }
+  .mapcell { display: flex; gap: 6px; align-items: center; }
+  .pending { padding: 22px 4px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; max-width: 560px; }
+  .pending p { color: var(--fg-muted); font-size: 13.5px; line-height: 20px; }
+  /* HĐĐT + kế toán */
+  .row2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s-4); align-items: stretch; }
+  .svc { display: grid; grid-template-columns: 36px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 10px; margin: 0 8px; border-radius: 8px; }
+  .svc:hover { background: var(--surface-muted); }
+  .svc .lg { width: 36px; height: 36px; border-radius: 8px; display: grid; place-items: center; background: var(--surface-muted); color: var(--fg-muted); font: 700 12px var(--font-display); }
+  .svc b { display: block; font-weight: 600; color: var(--fg-strong); font-size: 14px; }
+  .svc small { display: block; font-size: 12.5px; color: var(--fg-muted); line-height: 17px; }
+  .svc .acts { display: flex; gap: 6px; align-items: center; }
+  .exp { margin: 6px 18px 0; padding: 12px 14px; border-radius: 8px; background: var(--surface-muted); display: flex; flex-direction: column; gap: 10px; }
+  .exp .h { font-size: 13px; font-weight: 600; color: var(--fg-strong); display: flex; gap: 6px; align-items: center; }
+  .exp .r { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .exp .r .input { height: 30px; font-size: 13px; flex: 1; min-width: 0; }
+  .exp .r .btn { flex: none; }
+  .chk { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+  .chk input { accent-color: var(--primary); width: 15px; height: 15px; }
+  .chks { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; }
+  /* Drawer */
+  .drawer { width: min(520px, 100vw); }
+  .drawer-head { border-bottom: 0; padding-bottom: 0; }
+  .drawer-head .top { display: flex; align-items: flex-start; gap: 12px; }
+  .drawer-head .top h2 { font-size: 18px; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .form-grid .full { grid-column: 1 / -1; }
+  .steps { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--fg-muted); padding-left: 18px; }
+  @media (max-width: 1280px) { .kv { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 1200px) { .row2, .gsht { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="set-layout">
+    <nav class="set-nav" aria-label="Cài đặt">
+      <div class="set-g">Cài đặt</div>
+      <a href="fm-38-thanh-vien.html" data-k="members" data-ic="users">Thành viên &amp; phân quyền</a>
+      <a href="fm-38-thanh-vien.html#chi-nhanh" data-k="branches" data-ic="branch">Chi nhánh</a>
+      <a href="fm-39-tich-hop.html" data-k="integrations" data-ic="link">Tích hợp</a>
+      <a href="fm-40-quyen-rieng-tu.html" data-k="privacy" data-ic="shield">Quyền riêng tư &amp; nhật ký</a>
+      <a href="fm-41-goi-dich-vu.html" data-k="plan" data-ic="receipt">Gói dịch vụ</a>
+    </nav>
+    <div class="set-main">
+      <div class="page-header">
+        <div><div class="crumb">Cài đặt / Tích hợp</div><h1>Tích hợp</h1><div class="fresh" style="margin-top:6px" id="fresh"></div></div>
+      </div>
+      <div id="view" style="display:contents"></div>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_38', title: 'Tích hợp' });
+/* Sub-nav Cài đặt (giống hệt ở FM_38–41) */
+function setNav(k) { document.querySelectorAll('.set-nav a').forEach(a => { if (!a.querySelector('.icon')) a.insertAdjacentHTML('afterbegin', Shell.icon(a.dataset.ic)); a.dataset.k === k ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'); }); }
+setNav('integrations');
+
+/* ---------- Dữ liệu ---------- */
+const PROV = [
+  { k: 'ba', n: 'Bình Anh', ab: 'BA', st: 'ok' },
+  { k: 'vt', n: 'Viettel vTracking', ab: 'VT', st: 'wait' },
+  { k: 'vm', n: 'Vietmap', ab: 'VM', st: 'wait' },
+  { k: 'ad', n: 'Adsun', ab: 'AD', st: 'no' },
+  { k: 'eu', n: 'Eupfin', ab: 'EU', st: 'no' }
+];
+// [mã thiết bị, biển số trên hệ thống hãng, xe đã map, tín hiệu cuối, trạng thái ok|lost|unmapped]
+const DEV = [
+  ['BA-86214', '51C12345', '51C-123.45', '10:44', 'ok'],
+  ['BA-86219', '51D45678', '51D-456.78', '10:44', 'ok'],
+  ['BA-86222', '61C22014', '61C-220.14', '10:43', 'ok'],
+  ['BA-86231', '51C64517', '51C-645.17', '09:58', 'lost'],
+  ['BA-86240', '51C73180', '51C-731.80', '10:44', 'ok'],
+  ['BA-90117', '51C33421', null, '10:42', 'unmapped'],
+  ['BA-90118', '51C41209', null, '10:41', 'unmapped']
+];
+const FREE = ['51C-334.21', '51C-412.09', '51C-588.02', '51C-099.21'];
+
+let S;
+function reset(o) { S = Object.assign({ sel: 'ba', none: false, autherr: false, loading: false, error: false }, o || {}); }
+const view = document.getElementById('view');
+const provSt = p => S.none && p.k === 'ba' ? 'off' : S.autherr && p.k === 'ba' ? 'err' : p.st;
+const stLabel = { ok: ['ok', 'Đã kết nối'], wait: ['wait', 'Đang đàm phán'], no: ['', 'Chưa hỗ trợ'], off: ['', 'Chưa kết nối'], err: ['err', 'Lỗi xác thực'] };
+
+function render() {
+  const f = document.getElementById('fresh');
+  f.innerHTML = S.none ? '<span class="live warn" aria-hidden="true"></span>Chưa có kết nối GSHT · vị trí lấy từ app tài xế khi đang chạy chuyến'
+    : S.autherr ? '<span class="live warn" aria-hidden="true"></span>GSHT dừng đồng bộ từ 06:40 12/11'
+    : `<span class="live" aria-hidden="true"></span>GSHT đồng bộ 1 phút trước · HĐĐT kiểm tra lúc 09:40 <button type="button" id="rf">${icon('refresh')}Làm mới</button>`;
+  const rf = document.getElementById('rf'); if (rf) rf.onclick = () => toast('Đã đồng bộ lại với Bình Anh');
+  if (S.loading) { view.innerHTML = `<div class="card card-body"><span class="sk" style="width:280px;height:18px"></span><div style="display:grid;grid-template-columns:248px 1fr;gap:18px;margin-top:16px"><div>${Array(5).fill('<span class="sk" style="height:32px;margin:6px 0"></span>').join('')}</div><div>${Array(6).fill('<span class="sk" style="height:20px;margin:10px 0"></span>').join('')}</div></div></div><div class="row2"><div class="card card-body">${Array(4).fill('<span class="sk" style="height:28px;margin:8px 0"></span>').join('')}</div><div class="card card-body">${Array(4).fill('<span class="sk" style="height:28px;margin:8px 0"></span>').join('')}</div></div>`; return; }
+  if (S.error) { view.innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Không tải được danh sách tích hợp. Thử lại sau ít phút.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="retry">${icon('refresh')}Thử lại</button></div></div>`; document.getElementById('retry').onclick = () => { S.error = false; render(); }; return; }
+  view.innerHTML = (S.autherr ? `<div class="alert alert-danger" role="alert">${icon('block')}<div><b>Kết nối Bình Anh bị từ chối: khoá API hết hạn hoặc đã bị đổi.</b> Vị trí, tốc độ, km rỗng từ 06:40 12/11 chưa về. Giờ lái vẫn tính từ mốc app tài xế.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" data-edit-ba>Nhập lại khoá API</button></div></div>` : '') + gshtHtml() + `<div class="row2">${einvHtml()}${acctHtml()}</div>`;
+  bind();
+}
+function gshtHtml() {
+  const p = PROV.find(x => x.k === S.sel), st = provSt(p);
+  return `<section class="card" aria-label="Kết nối giám sát hành trình">
+    <div class="card-title"><h2>Giám sát hành trình (GSHT)</h2><span class="badge b-neutral" tabindex="0" title="Thứ tự hỗ trợ hãng phụ thuộc đàm phán; hãng GSHT không công bố API">${icon('info')}Danh sách hãng: chưa chốt</span><span class="meta">Kéo vị trí, tốc độ, km từ thiết bị đã lắp trên xe</span></div>
+    <div class="gsht"><div class="prov" role="group" aria-label="Hãng GSHT">${PROV.map(x => { const s = stLabel[provSt(x)]; return `<button class="pv" type="button" data-p="${x.k}" aria-pressed="${x.k === S.sel}"><span class="lg">${x.ab}</span><span><b>${x.n}</b><small><span class="dotc ${s[0]}"></span>${s[1]}</small></span></button>`; }).join('')}
+      <button class="pv" type="button" id="reqProv"><span class="lg">${icon('plus')}</span><span><b>Hãng khác</b><small>Gửi yêu cầu hỗ trợ</small></span></button></div>
+      <div class="detail">${st === 'ok' || st === 'err' ? connectedHtml(p, st) : pendingHtml(p, st)}</div></div>
+  </section>`;
+}
+function connectedHtml(p, st) {
+  const err = st === 'err', mapped = DEV.filter(d => d[2]).length + 19, un = DEV.filter(d => !d[2]).length;
+  return `<div class="dhead"><h3>${p.n}</h3>${err ? `<span class="badge b-danger">${icon('block')}Lỗi xác thực</span>` : `<span class="badge b-success">${icon('check')}Đang đồng bộ</span>`}
+      <div class="acts"><button class="btn btn-secondary btn-sm" type="button" id="testBtn">${icon('refresh')}Kiểm tra kết nối</button><button class="btn btn-secondary btn-sm" type="button" data-edit-ba>Sửa thông tin</button><button class="btn btn-ghost btn-sm" type="button" id="discBtn">Ngắt kết nối</button></div></div>
+    <div class="kv"><div><span>Đồng bộ gần nhất</span><b>${err ? '06:40 12/11' : '10:44 hôm nay'}</b></div><div><span>Tài khoản API</span><b class="code">phatdat_api</b></div><div><span>Mã khách hàng</span><b class="code">BA-204118</b></div><div><span>Khoá bí mật</span><b class="code">••••••••3F9A</b></div></div>
+    ${err ? '' : `<div class="lastErr"><span class="sev"></span><span><span class="t">Lỗi gần nhất · 09:58 hôm nay</span><span class="d" style="display:block">Thiết bị BA-86231 (51C-645.17) không gửi dữ liệu 46 phút. Có thể do mất sóng hoặc thiết bị tắt nguồn.</span></span><a class="btn btn-ghost btn-sm" href="fm-15-chi-tiet-xe.html?plate=51C-645.17">Mở xe</a></div>`}
+    <div class="sec-h"><h4>Map thiết bị ↔ xe</h4><span class="count-pill">${mapped}/${mapped + un} đã map</span>${un ? `<span class="badge b-warning">${icon('warn')}${un} thiết bị chưa gán xe</span>` : ''}<span class="meta"><a href="javascript:void(0)" id="allDev">Xem tất cả ${mapped + un} thiết bị</a></span></div>
+    <div class="dev-wrap"><table class="grid"><thead><tr><th>Thiết bị · biển số bên hãng</th><th>Xe trong Đội Xe</th><th>Tín hiệu cuối</th><th>Trạng thái</th></tr></thead>
+      <tbody>${DEV.map((d, i) => `<tr><td><span class="code">${d[0]}</span><span class="cell-sub code">${d[1]}</span></td>
+        <td>${d[2] ? `<span class="code">${d[2]}</span>` : `<div class="mapcell"><select class="input select-sm" data-dev="${i}" aria-label="Chọn xe cho ${d[0]}"><option value="">Chọn xe…</option>${FREE.map(v => `<option ${v.replace(/[-.]/g, '') === d[1] ? 'selected' : ''}>${v}</option>`).join('')}</select><button class="btn btn-secondary btn-sm" type="button" data-map="${i}">Gán</button></div>`}</td>
+        <td class="num">${err ? '06:40' : d[3]}</td>
+        <td>${err ? `<span class="badge b-neutral">${icon('dot')}Chờ kết nối</span>` : d[4] === 'ok' ? `<span class="badge b-success">${icon('check')}Đang nhận</span>` : d[4] === 'lost' ? `<span class="badge b-warning">${icon('warn')}Mất 46 phút</span>` : `<span class="badge b-neutral">${icon('dot')}Chưa gán</span>`}</td></tr>`).join('')}</tbody></table></div>
+    <p class="sm muted">Gợi ý gán theo biển số hãng cung cấp. Dữ liệu chỉ dùng trong chuyến và lưu theo <a href="fm-40-quyen-rieng-tu.html">chính sách lưu trữ</a> (vị trí 12 tháng).</p>`;
+}
+function pendingHtml(p, st) {
+  const ba = p.k === 'ba';
+  return `<div class="dhead"><h3>${p.n}</h3><span class="badge ${st === 'wait' ? 'b-info' : 'b-neutral'}">${st === 'wait' ? icon('clock') + 'Đang đàm phán' : icon('dot') + (ba ? 'Chưa kết nối' : 'Chưa hỗ trợ')}</span></div>
+    <div class="pending">${ba ? `<p>Nhập thông tin kết nối do Bình Anh cấp (tài khoản API, mã khách hàng, khoá bí mật). Liên hệ tổng đài Bình Anh để xin cấp quyền truy cập dữ liệu cho chính công ty mình.</p><button class="btn btn-primary" type="button" data-edit-ba>${icon('link')}Kết nối Bình Anh</button>`
+      : `<p>${p.n} chưa công bố API cho khách hàng lấy dữ liệu hành trình. Đội Xe đang ${st === 'wait' ? 'đàm phán kết nối với hãng' : 'chờ xếp lịch làm việc với hãng'}; thời điểm hỗ trợ chưa xác định.</p>
+      <button class="btn btn-secondary" type="button" id="notify">${icon('bell')}Báo tôi khi hỗ trợ ${p.n}</button>`}
+      <div class="alert alert-info" style="width:100%">${icon('info')}<div>Khi chưa kết nối GSHT, vị trí và mốc chuyến lấy từ app tài xế, <b>chỉ trong lúc đang chạy chuyến</b>. Km rỗng và tốc độ sẽ thiếu trong báo cáo.</div></div></div>`;
+}
+function einvHtml() {
+  const vt = !S.none;
+  return `<section class="card" aria-label="Hoá đơn điện tử">
+    <div class="card-title"><h2>Hoá đơn điện tử</h2><span class="meta">Phát hành từ màn <a href="fm-26-hoa-don.html">Hoá đơn</a></span></div>
+    <div class="svc"><span class="lg">VT</span><span style="min-width:0"><b>Viettel S-Invoice ${vt ? '<span class="badge b-neutral" style="margin-left:4px">Mặc định</span>' : ''}</b><small>${vt ? 'MST 0312345678 · ký hiệu 1C26TPD' : 'Phát hành hoá đơn GTGT có mã của CQT'}</small></span>
+      <span class="acts">${vt ? `<button class="btn btn-ghost btn-sm" type="button" data-conn="Viettel S-Invoice">Sửa</button><span class="badge b-success">${icon('check')}Đã kết nối</span>` : `<button class="btn btn-secondary btn-sm" type="button" data-conn="Viettel S-Invoice">Kết nối</button>`}</span></div>
+    <div class="svc"><span class="lg">MI</span><span style="min-width:0"><b>MISA meInvoice</b><small>Phát hành hoá đơn GTGT có mã của CQT</small></span><span class="acts"><button class="btn btn-secondary btn-sm" type="button" data-conn="MISA meInvoice">Kết nối</button></span></div>
+    ${vt ? '' : expHtml('inv', 'Chưa kết nối: xuất file để nhập vào phần mềm HĐĐT', ['Đề nghị hoá đơn', 'Bảng kê chuyến'])}
+    <div class="card-foot">${icon('info')}<span>Chỉ một nhà cung cấp là mặc định. Lỗi phát hành hiện ngay trên dòng hoá đơn kèm cách xử lý.</span></div>
+  </section>`;
+}
+function acctHtml() {
+  return `<section class="card" aria-label="Phần mềm kế toán">
+    <div class="card-title"><h2>Kế toán</h2><span class="meta">Đẩy chứng từ sau khi quyết toán</span></div>
+    <div class="svc"><span class="lg">AM</span><span style="min-width:0"><b>MISA AMIS Kế toán</b><small>Đẩy phiếu chi, hoá đơn, công nợ</small></span><span class="acts"><span class="badge b-neutral">Chưa kết nối</span><button class="btn btn-secondary btn-sm" type="button" data-conn="MISA AMIS Kế toán">Kết nối</button></span></div>
+    ${expHtml('acct', 'Chưa kết nối: xuất file theo mẫu nhập MISA', ['Chi phí đã quyết toán', 'Hoá đơn bán ra', 'Công nợ khách hàng', 'Tạm ứng tài xế'])}
+    <div class="card-foot">${icon('info')}<span>Việc xuất file được ghi vào <a href="fm-40-quyen-rieng-tu.html#log">nhật ký hệ thống</a>.</span></div>
+  </section>`;
+}
+function expHtml(id, title, items) {
+  return `<div class="exp"><div class="h">${icon('download')}${title}</div><div class="chks">${items.map((x, i) => `<label class="chk"><input type="checkbox" ${i < 2 ? 'checked' : ''}>${x}</label>`).join('')}</div>
+    <div class="r"><select class="input" aria-label="Kỳ"><option>Tháng 10/2026</option><option>Tháng 11/2026 (đến nay)</option></select><select class="input" aria-label="Định dạng"><option>Excel mẫu MISA (.xlsx)</option><option>CSV</option></select><button class="btn btn-secondary btn-sm" type="button" data-exp="${id}">Xuất file</button></div></div>`;
+}
+function bind() {
+  view.querySelectorAll('[data-p]').forEach(b => b.onclick = () => { S.sel = b.dataset.p; render(); });
+  view.querySelectorAll('[data-edit-ba]').forEach(b => b.onclick = () => openConnect('Bình Anh', 'gsht'));
+  view.querySelectorAll('[data-conn]').forEach(b => b.onclick = () => openConnect(b.dataset.conn, 'svc'));
+  view.querySelectorAll('[data-exp]').forEach(b => b.onclick = () => toast('Đang tạo file Tháng 10/2026 theo mẫu nhập khẩu MISA…'));
+  view.querySelectorAll('[data-map]').forEach(b => b.onclick = () => { const i = +b.dataset.map, sel = view.querySelector(`[data-dev="${i}"]`); if (!sel.value) { sel.focus(); toast('Chọn xe trước khi gán'); return; } DEV[i][2] = sel.value; DEV[i][4] = 'ok'; render(); toast(`Đã gán thiết bị ${DEV[i][0]} cho xe ${sel.value}`, { undo: () => { DEV[i][2] = null; DEV[i][4] = 'unmapped'; render(); } }); });
+  const t = document.getElementById('testBtn'); if (t) t.onclick = () => toast(S.autherr ? 'Kiểm tra thất bại: 401 · khoá API không hợp lệ' : 'Kết nối tốt · nhận 26 thiết bị, độ trễ 0,8 giây');
+  const dc = document.getElementById('discBtn'); if (dc) dc.onclick = () => toast('Ngắt kết nối cần Chủ DN xác nhận qua email (chưa có trong prototype)');
+  const rq = document.getElementById('reqProv'); if (rq) rq.onclick = () => toast('Đã mở form gửi yêu cầu hỗ trợ hãng GSHT');
+  const nt = document.getElementById('notify'); if (nt) nt.onclick = () => toast('Sẽ báo qua email khi hãng được hỗ trợ');
+  const ad = document.getElementById('allDev'); if (ad) ad.onclick = () => toast('Danh sách đầy đủ 28 thiết bị (chưa có trong prototype)');
+}
+
+/* ---------- Drawer kết nối ---------- */
+function openConnect(name, kind) {
+  closeDrawer(true);
+  const s = document.createElement('div'); s.className = 'scrim'; s.id = 'drScrim'; s.onclick = () => closeDrawer();
+  const d = document.createElement('aside'); d.className = 'drawer'; d.id = 'drawer'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'drT');
+  const g = kind === 'gsht', acct = /AMIS/.test(name);
+  d.innerHTML = `<div class="drawer-head"><div class="top"><div><div class="muted sm">${g ? 'Giám sát hành trình' : acct ? 'Phần mềm kế toán' : 'Hoá đơn điện tử'}</div><h2 id="drT">Kết nối ${name}</h2></div><button class="icon-btn" style="margin-left:auto" type="button" aria-label="Đóng" data-close>${icon('x')}</button></div></div>
+    <div class="drawer-body">
+      <ol class="steps"><li>Đăng nhập trang quản trị của ${name}, mục tích hợp / API.</li><li>Tạo hoặc lấy thông tin kết nối, dán vào các ô dưới.</li><li>Bấm Kiểm tra kết nối trước khi lưu.</li></ol>
+      <div class="form-grid">
+        ${g ? `<label class="field"><span>Tài khoản API</span><input class="input code" value="phatdat_api"></label><label class="field"><span>Mã khách hàng</span><input class="input code" value="BA-204118"></label><label class="field full"><span>Khoá bí mật</span><input class="input code" type="password" placeholder="Dán khoá mới do hãng cấp"></label>`
+        : `<label class="field"><span>Mã số thuế</span><input class="input code" value="0312345678"></label><label class="field"><span>Tên đăng nhập</span><input class="input" placeholder="${acct ? 'ketoan@phatdat.vn' : 'admin_hddt'}"></label><label class="field full"><span>Mật khẩu / khoá ứng dụng</span><input class="input" type="password" placeholder="••••••••"></label>
+          ${acct ? '<label class="field full"><span>Mã công ty trên AMIS</span><input class="input code" placeholder="Ví dụ: PHATDAT"></label>' : '<label class="field"><span>Mẫu số</span><input class="input code" value="1"></label><label class="field"><span>Ký hiệu hoá đơn</span><input class="input code" placeholder="C26TPD"></label>'}`}
+      </div>
+      <div id="testRes"></div>
+      <p class="sm muted">Thông tin kết nối được mã hoá. Chỉ Chủ DN / Admin xem và sửa được. Mỗi lần sửa được ghi nhật ký.</p>
+    </div>
+    <div class="drawer-foot"><button class="btn btn-secondary" type="button" id="drTest">${icon('refresh')}Kiểm tra kết nối</button><span style="flex:1"></span><button class="btn btn-secondary" type="button" data-close>Huỷ</button><button class="btn btn-primary" type="button" id="drSave" disabled title="Kiểm tra kết nối trước khi lưu">Lưu kết nối</button></div>`;
+  document.body.append(s, d);
+  d.querySelectorAll('[data-close]').forEach(b => b.onclick = () => closeDrawer());
+  d.querySelector('#drTest').onclick = () => { d.querySelector('#testRes').innerHTML = `<div class="alert alert-success">${icon('check')}<div>Kết nối thành công với ${name}${g ? ' · nhận 28 thiết bị' : acct ? ' · công ty Vận tải Phát Đạt' : ' · còn 1.752 số hoá đơn'}.</div></div>`; const sv = d.querySelector('#drSave'); sv.disabled = false; sv.removeAttribute('title'); };
+  d.querySelector('#drSave').onclick = () => { closeDrawer(); if (g) { S.autherr = false; S.none = false; render(); } toast(`Đã lưu kết nối ${name}`); };
+}
+function closeDrawer(now) { ['drawer', 'drScrim'].forEach(id => { const e = document.getElementById(id); if (e) { e.id = ''; now ? e.remove() : Shell.dismiss(e); } }); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+Shell.states([['default', 'Mặc định'], ['none', 'Chưa kết nối'], ['vendor', 'Hãng đang đàm phán'], ['autherr', 'Lỗi xác thực GSHT'], ['connect', 'Kết nối HĐĐT'], ['loading', 'Đang tải'], ['error', 'Lỗi']], s => {
+  closeDrawer(true);
+  reset({ none: { none: true }, vendor: { sel: 'vt' }, autherr: { autherr: true }, loading: { loading: true }, error: { error: true } }[s]); render();
+  if (s === 'connect') openConnect('MISA meInvoice', 'svc');
+});
+</script>
+</body>
+</html>

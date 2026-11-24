@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compliance report · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  .fresh button { border: 0; background: none; color: var(--primary); font: 500 12.5px var(--font-body); cursor: pointer; padding: 0; display: inline-flex; gap: 4px; align-items: center; }
+  .fresh button .icon { width: 14px; height: 14px; }
+  /* SummaryStrip (như FM_35) */
+  .summary { display: grid; grid-template-columns: minmax(380px, 1.5fr) repeat(4, minmax(0, 1fr)); gap: 6px; padding: 6px; background: var(--surface); border-radius: var(--r-lg); box-shadow: var(--shadow-card); }
+  .sum-main { padding: 18px 22px; background: var(--primary-soft); display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: 16px; border-radius: 8px; }
+  .sum-main-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .sum-main .k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--side-active); }
+  .sum-main .v { font: 700 var(--text-display)/40px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .sum-main .v small { font: 600 18px var(--font-display); color: var(--fg-muted); margin-left: 4px; }
+  .sum-main .row, .sum-item .row { gap: 6px; flex-wrap: wrap; font-size: 12.5px; color: var(--fg-muted); }
+  .sum-spark { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; padding-bottom: 2px; }
+  .sum-spark small { font-size: 11.5px; color: var(--fg-muted); }
+  .sum-item { padding: 18px 16px; display: flex; flex-direction: column; justify-content: center; gap: 4px; min-width: 0; border: 0; border-radius: 8px; background: transparent; font: inherit; color: inherit; text-align: left; cursor: pointer; text-decoration: none !important; }
+  .sum-item:hover { background: var(--surface-muted); }
+  .sum-item .k { font-size: 12.5px; color: var(--fg-muted); font-weight: 500; }
+  .sum-item .v { font: 700 24px/30px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .sum-item .v small { font: 600 14px var(--font-body); color: var(--fg-muted); }
+  .delta { display: inline-flex; align-items: center; gap: 3px; font-size: 12.5px; font-weight: 600; }
+  .delta.good { color: var(--success-fg); } .delta.bad { color: var(--danger-fg); }
+  .card { display: flex; flex-direction: column; min-width: 0; }
+  .card-title { display: flex; align-items: center; gap: 10px; padding: 16px 18px 10px; min-height: 30px; }
+  .card-title h2 { font-size: 16px; white-space: nowrap; }
+  .card-title .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 10px; align-items: center; white-space: nowrap; }
+  .card-foot { margin-top: auto; padding: 8px 18px 14px; font-size: 12.5px; color: var(--fg-muted); display: flex; align-items: center; gap: 8px; }
+  .card-foot .icon { width: 15px; height: 15px; flex: none; }
+  .row2 { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: var(--s-4); align-items: stretch; }
+  /* Bảng vi phạm */
+  .grid td, .grid th { font-variant-numeric: tabular-nums; }
+  .grid td.right, .grid th.right { text-align: right; }
+  .grid tbody tr[data-drv] { cursor: pointer; }
+  .grid tbody tr:last-child td { border-bottom: 0; }
+  .grid th.grp { text-align: center; border-bottom: 0; padding-bottom: 0; }
+  #tblV th, #tblV td { padding-left: 10px; padding-right: 10px; }
+  .z { color: var(--fg-subtle); }
+  .hot { color: var(--warning-fg); font-weight: 600; }
+  .tbl-wrap { border-radius: 0 0 var(--r-lg) var(--r-lg); overflow: hidden; flex: 1; }
+  /* Chart tuần */
+  .chart-wrap { padding: 4px 14px 4px; flex: 1; display: flex; align-items: center; }
+  .chart-wrap svg { display: block; width: 100%; height: auto; }
+  .chart-legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; color: var(--fg-muted); padding: 4px 18px 14px; }
+  .chart-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; box-sizing: border-box; }
+  /* Danh sách không kẻ (B1) */
+  .list { padding: 0 10px 6px; display: flex; flex-direction: column; gap: 2px; }
+  .li { display: grid; grid-template-columns: 88px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 8px 8px; border-radius: 8px; color: inherit; text-decoration: none !important; }
+  .li:hover { background: var(--surface-muted); }
+  .li .when { font-size: 12.5px; color: var(--fg-muted); font-variant-numeric: tabular-nums; line-height: 16px; }
+  .li .t, .li .d { display: block; }
+  .li .t { font-weight: 600; color: var(--fg-strong); font-size: 13.5px; line-height: 20px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .li .d { font-size: 12.5px; color: var(--fg-muted); line-height: 17px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .doc-li { grid-template-columns: 3px 32px minmax(0, 1fr) auto; padding-left: 0; }
+  .doc-li .sev { align-self: stretch; margin: 4px 0; border-radius: 0 3px 3px 0; background: var(--danger-solid); }
+  .doc-li .ic { width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; background: var(--danger-soft); color: var(--danger-fg); }
+  /* Drawer */
+  .drawer { width: min(640px, 100vw); }
+  .drawer-head { border-bottom: 0; padding-bottom: 0; }
+  .drawer-head .top { display: flex; align-items: flex-start; gap: 12px; }
+  .drawer-head .top h2 { font-size: 18px; }
+  .drawer-head .close { margin-left: auto; }
+  .ev { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 9px 8px; border-radius: 8px; }
+  .ev:hover { background: var(--surface-muted); }
+  .ev.sel { background: var(--primary-soft); }
+  .mini-stats { display: flex; gap: 6px; background: var(--surface-muted); border-radius: 8px; padding: 6px; }
+  .mini-stats div { flex: 1; padding: 8px 10px; border-radius: 6px; }
+  .mini-stats div:first-child { background: var(--surface); }
+  .mini-stats b { display: block; font: 700 20px/26px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .mini-stats span { font-size: 12px; color: var(--fg-muted); }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .form-grid .full { grid-column: 1 / -1; }
+  .opt { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: 8px; background: var(--surface-muted); cursor: pointer; }
+  .opt:has(input:checked) { background: var(--primary-soft); box-shadow: inset 0 0 0 1px var(--primary); }
+  .opt input { margin-top: 3px; accent-color: var(--primary); }
+  .opt b { display: block; font-size: 13.5px; color: var(--fg-strong); }
+  .opt small { display: block; font-size: 12.5px; color: var(--fg-muted); line-height: 17px; margin-top: 2px; }
+  .chk { display: flex; align-items: center; gap: 8px; font-size: 13.5px; }
+  .chk input { accent-color: var(--primary); width: 16px; height: 16px; }
+  .modal { width: min(560px, calc(100vw - 32px)); }
+  .modal-head { display: flex; align-items: center; gap: 8px; }
+  .modal-head h2 { font-size: 17px; }
+  .modal-foot { display: flex; gap: 8px; justify-content: flex-end; align-items: center; margin-top: 4px; }
+  .lbl { font-size: 12.5px; font-weight: 600; color: var(--fg-muted); text-transform: uppercase; letter-spacing: .04em; }
+  @media (max-width: 1200px) { .summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } .sum-main { grid-column: 1 / -1; } .row2 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Reports / Compliance</div>
+      <h1>Compliance report</h1>
+      <div class="fresh" style="margin-top:6px" id="fresh"></div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-secondary" type="button" id="xlsBtn"></button>
+      <button class="btn btn-primary" type="button" id="exportBtn"></button>
+    </div>
+  </div>
+
+  <div class="filterbar" role="toolbar" aria-label="Filters">
+    <button class="chip on" type="button">Period: Oct 2026 <span class="ic-chev"></span></button>
+    <button class="chip" type="button">Driver: All <span class="ic-chev"></span></button>
+    <div class="seg" role="group" aria-label="Violation type" id="kindSeg"><button type="button" data-kind="all" aria-pressed="true">All violations</button><button type="button" data-kind="drive" aria-pressed="false">Driving hours</button><button type="button" data-kind="speed" aria-pressed="false">Speed</button></div>
+    <button class="chip" type="button" id="openOnly" aria-pressed="false">Open only</button>
+    <button class="btn btn-ghost btn-sm" type="button" id="clearF">Clear filters</button>
+  </div>
+
+  <div id="view" style="display:contents"></div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_37', title: 'Compliance report' });
+document.querySelectorAll('.ic-chev').forEach(e => e.outerHTML = icon('chevron'));
+document.getElementById('xlsBtn').innerHTML = icon('download') + 'Export to Excel';
+document.getElementById('exportBtn').innerHTML = icon('shield') + 'Export for inspection';
+
+/* ---------- Dữ liệu tháng 10/2026 ----------
+   Vi phạm giờ lái: liên tục > 4h, ngày > 10h, tuần > 48h. Tốc độ: số lần vượt giới hạn đoạn đường từ GSHT.
+   [tài xế, xe, liên tục, ngày, tuần, tốc độ, tốc độ cao nhất "x/y", số chưa xử lý] */
+const DRV = [
+  ['Đặng Quang Vinh', '51C-456.78', 4, 1, 1, 6, '92/80', 2],
+  ['Võ Thành Nhân', '61C-220.14', 3, 2, 0, 4, '88/80', 1],
+  ['Trần Minh Đức', '51D-456.78', 2, 1, 1, 1, '84/80', 1],
+  ['Võ Thanh Sơn', '51C-334.21', 2, 0, 0, 3, '86/80', 0],
+  ['Ngô Đức Trí', '51C-731.80', 1, 1, 0, 2, '83/80', 1],
+  ['Bùi Minh Khoa', '51C-412.09', 1, 0, 0, 1, '81/80', 0],
+  ['Lê Hoàng Phúc', '51D-702.33', 0, 0, 0, 1, '68/60', 0],
+  ['Nguyễn Văn Tuấn', '51C-123.45', 1, 0, 0, 0, '—', 0]
+].map(([name, plate, c4, d10, w48, sp, max, open]) => ({ name, plate, c4, d10, w48, sp, max, open, drive: c4 + d10 + w48, total: c4 + d10 + w48 + sp }));
+const EVENTS = {
+  'Đặng Quang Vinh': [
+    ['28/10 14:52', 'speed', 'Speeding 92/80 km/h for 3 min', 'CH-0438 · QL1A, Bình Chánh section', null],
+    ['24/10 16:10', 'drive', 'Continuous driving 4h38 without a break', 'CH-0429 · Cát Lái → Sa Đéc', null],
+    ['19/10 22:40', 'drive', 'Daily driving time 10h25', 'CH-0417, CH-0419', 'Verbal warning · Trần Thanh Phong · 21/10'],
+    ['17/10 09:05', 'speed', 'Speeding 87/80 km/h for 1 min', 'CH-0412 · Ring Road 2, Thủ Đức', 'Verbal warning · Trần Thanh Phong · 18/10'],
+    ['12/10 15:30', 'drive', 'Continuous driving 4h12 without a break', 'CH-0401 · Tân Uyên Industrial Park → Cát Lái', 'Written warning · Hoàng Văn Hùng · 14/10'],
+    ['06/10 11:20', 'drive', 'Total weekly driving 49h10', 'Week 29/09–05/10', 'Verbal warning · Trần Thanh Phong · 07/10']
+  ]
+};
+const LOG = [
+  ['11/11/2026', '09:14', 'Võ Thanh Sơn', 'Speeding 86/80 km/h · CH-0447', 'Verbal warning', 'Trần Thanh Phong'],
+  ['10/11/2026', '16:40', 'Bùi Minh Khoa', 'Continuous driving 4h05 · CH-0444', 'Driving-hours rules retraining', 'Trần Thanh Phong'],
+  ['08/11/2026', '10:02', 'Võ Thành Nhân', 'Daily driving time 10h40 · CH-0436', 'Written warning', 'Hoàng Văn Hùng'],
+  ['05/11/2026', '14:25', 'Trần Minh Đức', 'Total weekly driving 48h50', 'Verbal warning; next week\'s schedule adjusted', 'Nguyễn Thị Lan'],
+  ['03/11/2026', '08:50', 'Lê Hoàng Phúc', 'Speeding 68/60 km/h · CH-0425', 'Verbal warning', 'Trần Thanh Phong']
+];
+const DOCS = [
+  ['51C-099.21', 'Inspection certificate', '02/11/2026', 10, 'truck'],
+  ['Đặng Văn Hiếu', 'Class FC driver\'s license', '05/11/2026', 7, 'user'],
+  ['51C-731.80', 'Container truck operating badge', '09/11/2026', 3, 'truck'],
+  ['51R-088.12', 'Trailer TPL insurance', '28/10/2026', 15, 'container']
+];
+const WEEKS = [['28/9', 9], ['5/10', 11], ['12/10', 8], ['19/10', 7], ['26/10', 6], ['2/11', 5], ['9/11', 2]];
+
+let S;
+function reset(o) { S = Object.assign({ kind: 'all', open: false, loading: false, empty: false, error: false, gsht: false }, o || {}); }
+const view = document.getElementById('view');
+const rowsF = () => DRV.filter(d => (S.kind === 'all' ? d.total : S.kind === 'drive' ? d.drive : d.sp) > 0 && (!S.open || d.open > 0));
+
+function render() {
+  sync();
+  document.getElementById('fresh').innerHTML = S.gsht ? `<span class="live warn" aria-hidden="true"></span>Speed data stops at 06:40 12/11 · Bình Anh GPS tracker disconnected` : `<span class="live" aria-hidden="true"></span>Updated 8 min ago · GPS tracker and driver app milestones <button type="button" id="refresh">${icon('refresh')}Refresh</button>`;
+  const rf = document.getElementById('refresh'); if (rf) rf.onclick = () => toast('Compliance figures refreshed');
+  if (S.loading) { view.innerHTML = `<section class="summary"><div class="sum-main"><div class="sum-main-text"><span class="sk" style="width:60%"></span><span class="sk" style="width:30%;height:34px;margin-top:8px"></span></div></div>${Array(4).fill('<div class="sum-item"><span class="sk" style="width:70%"></span><span class="sk" style="width:40%;height:22px;margin-top:8px"></span></div>').join('')}</section><div class="row2"><div class="card"><table class="grid"><tbody>${Array(8).fill('<tr>' + Array(8).fill('<td><span class="sk" style="width:80%"></span></td>').join('') + '</tr>').join('')}</tbody></table></div><div class="card card-body">${Array(7).fill('<span class="sk" style="height:18px;margin:10px 0"></span>').join('')}</div></div>`; return; }
+  if (S.error) { view.innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Couldn't load the compliance report. Try again in a few minutes.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="retry">${icon('refresh')}Retry</button></div></div>`; document.getElementById('retry').onclick = () => { S.error = false; render(); }; return; }
+  if (S.empty) { view.innerHTML = `<div class="card"><div class="empty">${icon('shield')}<h3>No driving-hours or speed violations in this period</h3><p>You can still export an empty report to keep on file for inspections.</p><button class="btn btn-secondary" type="button" id="exp2">Export for inspection</button></div></div>` + `<div class="row2" style="grid-template-columns:1fr">${docsHtml()}</div>`; document.getElementById('exp2').onclick = openExport; return; }
+  view.innerHTML = (S.gsht ? `<div class="alert alert-warning" role="status">${icon('warn')}<div><b>Speed violations since 06:40 12/11 aren't available yet.</b> The Bình Anh GPS tracker connection reports an authentication error. Driving-hours violations are still calculated from driver app milestones.</div><div class="alert-actions"><a class="btn btn-secondary btn-sm" href="fm-39-tich-hop.html#autherr">Open Integrations</a></div></div>` : '') +
+    summaryHtml() + `<div class="row2">${tableHtml()}${weekHtml()}</div><div class="row2">${logHtml()}${docsHtml()}</div>`;
+  bind();
+}
+function summaryHtml() {
+  const t = k => DRV.reduce((s, d) => s + d[k], 0), total = t('total'), open = t('open');
+  return `<section class="summary" aria-label="Compliance summary, October 2026">
+    <div class="sum-main"><span class="sum-main-text"><span class="k">Violations, October 2026</span><span class="v">${total}<small>cases</small></span> <span class="row"><span>${DRV.filter(d => d.total).length} drivers</span><span class="delta good">▼ 9 cases</span><span>vs Sep</span></span></span> <span class="sum-spark">${spark([58, 52, 49, 49, total], 112, 40)}<small>last 5 months</small></span></div>
+    <button class="sum-item" type="button" data-kindgo="drive"><span class="k">Driving hours</span><span class="v">${t('drive')}</span><span class="row" title="Continuous &gt; 4h: ${t('c4')} · daily &gt; 10h: ${t('d10')} · weekly &gt; 48h: ${t('w48')}">${t('c4')} continuous stints &gt; 4h</span></button>
+    <button class="sum-item" type="button" data-kindgo="speed"><span class="k">Speeding</span><span class="v">${t('sp')}</span><span class="row">${S.gsht ? 'data missing since 06:40 12/11' : 'highest 92/80 km/h'}</span></button>
+    <button class="sum-item" type="button" id="openGo"><span class="k">Open</span><span class="v" style="color:var(--warning-fg)">${open}</span><span class="row">need an action recorded</span></button>
+    <a class="sum-item" href="fm-18-giay-to.html?filter=overdue"><span class="k">Expired documents</span><span class="v">${DOCS.length}</span><span class="row">vehicles, trailers, drivers ${icon('chevron-right')}</span></a>
+  </section>`;
+}
+function spark(vals, w, h) {
+  const max = Math.max(...vals), min = Math.min(...vals), pts = vals.map((v, i) => [4 + i / (vals.length - 1) * (w - 8), h - 4 - (v - min) / (max - min || 1) * (h - 8)]);
+  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true"><path d="${pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ')}" fill="none" style="stroke:var(--primary)" stroke-width="2" stroke-linecap="round"/><circle cx="${pts[pts.length - 1][0]}" cy="${pts[pts.length - 1][1]}" r="3" style="fill:var(--primary)"/></svg>`;
+}
+function tableHtml() {
+  const rs = rowsF().sort((a, b) => b.total - a.total), sd = S.kind !== 'speed', ss = S.kind !== 'drive';
+  const n = v => v ? v : '<span class="z">0</span>';
+  return `<section class="card" aria-label="Violations by driver">
+    <div class="card-title"><h2>Violations by driver</h2><span class="count-pill">${rs.length} drivers</span><span class="meta">Click a row to see each violation and record an action</span></div>
+    <div class="tbl-wrap grid-wrap"><table class="grid" id="tblV"><thead>
+      <tr><th rowspan="2">Driver</th>${sd ? '<th colspan="3" class="grp">Driving hours exceeded</th>' : ''}${ss ? '<th colspan="2" class="grp">Speed</th>' : ''}<th rowspan="2" class="right">Total</th><th rowspan="2">Resolve</th></tr>
+      <tr>${sd ? '<th class="right">4h continuous</th><th class="right">10h/day</th><th class="right">48h/week</th>' : ''}${ss ? '<th class="right">Count</th><th class="right">Max km/h</th>' : ''}</tr></thead>
+      <tbody>${rs.map(d => `<tr data-drv="${d.name}" tabindex="0"><td><b style="font-weight:600">${d.name}</b><span class="cell-sub code">${d.plate}</span></td>
+        ${sd ? `<td class="right ${d.c4 >= 3 ? 'hot' : ''}">${n(d.c4)}</td><td class="right ${d.d10 >= 2 ? 'hot' : ''}">${n(d.d10)}</td><td class="right">${n(d.w48)}</td>` : ''}
+        ${ss ? `<td class="right ${d.sp >= 4 ? 'hot' : ''}">${n(d.sp)}</td><td class="right">${d.max === '—' ? '<span class="z">—</span>' : d.max}</td>` : ''}
+        <td class="right"><b>${S.kind === 'all' ? d.total : S.kind === 'drive' ? d.drive : d.sp}</b></td>
+        <td>${d.open ? `<span class="badge b-warning">${icon('warn')}${d.open} open</span>` : `<span class="badge b-success">${icon('check')}Done</span>`}</td></tr>`).join('') || `<tr><td colspan="8" class="muted">No drivers match the filters.</td></tr>`}</tbody></table></div>
+  </section>`;
+}
+function weekHtml() {
+  const W = 340, H = 330, X0 = 30, Y0 = 22, Y1 = H - 26, max = 12, bw = 28, gap = (W - X0 - 8) / WEEKS.length, y = v => Y1 - v / max * (Y1 - Y0);
+  const bars = WEEKS.map(([lb, v], i) => { const cx = X0 + gap * i + gap / 2, partial = i === WEEKS.length - 1, hi = i === WEEKS.length - 2;
+    return `<rect x="${cx - bw / 2}" y="${y(v)}" width="${bw}" height="${Y1 - y(v)}" rx="3" style="fill:${partial ? 'transparent' : hi ? 'var(--primary)' : 'var(--chart-muted)'};${partial ? 'stroke:var(--primary);stroke-dasharray:4 3;stroke-width:1.5' : ''}"/>
+      <text x="${cx}" y="${y(v) - 6}" text-anchor="middle" font-size="12" font-weight="${hi || partial ? 700 : 500}" style="fill:${hi || partial ? 'var(--fg-strong)' : 'var(--fg-muted)'}">${v}</text>
+      <text x="${cx}" y="${H - 8}" text-anchor="middle" font-size="11" style="fill:var(--fg-muted)">${lb}</text>`; }).join('');
+  return `<section class="card" aria-label="Violations by week">
+    <div class="card-title"><h2>Violations by week</h2><span class="meta">Last 7 weeks</span></div>
+    <div class="chart-wrap"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Column chart of violations per week">
+      ${[4, 8, 12].map(v => `<line x1="${X0}" x2="${W - 4}" y1="${y(v)}" y2="${y(v)}" style="stroke:var(--surface-muted)"/><text x="${X0 - 8}" y="${y(v) + 4}" text-anchor="end" font-size="11" style="fill:var(--fg-muted)">${v}</text>`).join('')}
+      <line x1="${X0}" x2="${W - 4}" y1="${Y1}" y2="${Y1}" style="stroke:var(--border-strong)"/>${bars}</svg></div>
+    <div class="chart-legend"><span><i style="background:var(--chart-muted)"></i>Earlier weeks</span><span><i style="background:var(--primary)"></i>Latest full week</span><span><i style="border:1.5px dashed var(--primary)"></i>This week (in progress)</span></div>
+  </section>`;
+}
+function logHtml() {
+  return `<section class="card" aria-label="Action log">
+    <div class="card-title"><h2>Action log</h2><span class="meta"><a href="fm-40-quyen-rieng-tu.html#log">Audit log</a></span></div>
+    <div class="list">${LOG.map(([d, t, drv, v, how, who]) => `<div class="li"><span class="when">${d}<br>${t}</span><span style="min-width:0"><span class="t">${drv} · ${how}</span><span class="d" title="${v}">${v} · recorded by ${who}</span></span><span class="badge b-success">${icon('check')}Resolved</span></div>`).join('')}</div>
+    <div class="card-foot">${icon('lock')}<span>The action log is a safety record: it's kept for 3 years and can't be edited once recorded.</span></div>
+  </section>`;
+}
+function docsHtml() {
+  return `<section class="card" aria-label="Expired documents">
+    <div class="card-title"><h2>Expired documents</h2><span class="count-pill">${DOCS.length}</span><span class="meta"><a href="fm-18-giay-to.html?filter=overdue">Open Documents & expiry</a></span></div>
+    <div class="list">${DOCS.map(([who, doc, exp, days, ic]) => `<a class="li doc-li" href="fm-18-giay-to.html?filter=overdue&q=${encodeURIComponent(who)}"><span class="sev"></span><span class="ic">${icon(ic)}</span><span style="min-width:0"><span class="t"><span class="${/^\d/.test(who) ? 'code' : ''}">${who}</span></span><span class="d" title="${doc}">${doc}</span></span><span class="badge b-danger" title="Expired ${exp}">${icon('block')}Expired ${days} days ago</span></a>`).join('')}</div>
+    <div class="card-foot">${icon('info')}<span>Vehicles and drivers with expired documents are blocked from trip assignment.</span></div>
+  </section>`;
+}
+
+/* ---------- Drawer chi tiết tài xế ---------- */
+function openDrawer(name) {
+  closeDrawer(true);
+  const d = DRV.find(x => x.name === name), ev = EVENTS[name] || EVENTS['Đặng Quang Vinh'].slice(0, d.total > 6 ? 6 : Math.max(2, d.total)).map((e, i) => [e[0], e[1], e[2], `${['CH-0441', 'CH-0433', 'CH-0420', 'CH-0414', 'CH-0408', 'CH-0402'][i]} · ${d.plate}`, i < d.open ? null : e[4]]);
+  const s = document.createElement('div'); s.className = 'scrim'; s.id = 'drScrim'; s.onclick = () => closeDrawer();
+  const dr = document.createElement('aside'); dr.className = 'drawer'; dr.id = 'drawer'; dr.setAttribute('role', 'dialog'); dr.setAttribute('aria-modal', 'true'); dr.setAttribute('aria-labelledby', 'drT');
+  const firstOpen = ev.findIndex(e => !e[4]);
+  dr.innerHTML = `<div class="drawer-head"><div class="top"><div><div class="muted sm">Violations, October 2026 · <span class="code">${d.plate}</span></div><h2 id="drT">${d.name}</h2></div><button class="icon-btn close" type="button" aria-label="Close" id="drClose">${icon('x')}</button></div></div>
+    <div class="drawer-body">
+      <div class="mini-stats"><div><b>${d.total}</b><span>violations in period</span></div><div><b>${d.drive}</b><span>driving hours</span></div><div><b>${d.sp}</b><span>speed</span></div><div><b style="color:${d.open ? 'var(--warning-fg)' : 'var(--fg-strong)'}">${d.open}</b><span>open</span></div></div>
+      <div><div class="lbl" style="margin-bottom:6px">Individual violations</div>
+        ${ev.map((e, i) => `<div class="ev ${i === firstOpen ? 'sel' : ''}"><span class="sm muted" style="font-variant-numeric:tabular-nums">${e[0]}</span><span style="min-width:0"><b style="font-weight:600;font-size:13.5px">${e[2]}</b><span class="cell-sub">${e[3]}${e[4] ? ' · ' + e[4] : ''}</span></span>${e[4] ? `<span class="badge b-success">${icon('check')}Resolved</span>` : `<span class="badge b-warning">${icon('warn')}Open</span>`}</div>`).join('')}
+        <p class="sm muted" style="margin-top:8px">Location is only recorded while the vehicle is on a trip. Review routes in <a href="fm-13-gio-lai.html">Driving hours & safety</a>.</p></div>
+      ${firstOpen >= 0 ? `<div><div class="lbl" style="margin-bottom:8px">Record action · ${ev[firstOpen][0]}</div>
+        <div class="form-grid"><label class="field"><span>Method</span><select class="input" id="how"><option>Verbal warning</option><option>Written warning</option><option>Trip bonus deduction</option><option>Rules retraining</option></select></label>
+        <label class="field"><span>Handled by</span><input class="input" value="Trần Thanh Phong (Fleet manager)" readonly></label>
+        <label class="field full"><span>Note</span><textarea class="input" rows="3" placeholder="e.g. talked in person; the driver committed to a 15-min break every 4 hours"></textarea></label></div></div>` : `<div class="alert alert-success">${icon('check')}<div>All of this driver's violations in the period have an action recorded.</div></div>`}
+    </div>
+    <div class="drawer-foot"><a class="btn btn-ghost" href="fm-17-chi-tiet-tai-xe.html?tab=safety">Driver profile</a><span style="flex:1"></span><button class="btn btn-secondary" type="button" id="drCancel">Close</button>${firstOpen >= 0 ? '<button class="btn btn-primary" type="button" id="drSave">Save action</button>' : ''}</div>`;
+  document.body.append(s, dr);
+  dr.querySelector('#drClose').onclick = dr.querySelector('#drCancel').onclick = () => closeDrawer();
+  const sv = dr.querySelector('#drSave'); if (sv) sv.onclick = () => { const how = dr.querySelector('#how').value; d.open = Math.max(0, d.open - 1); LOG.unshift(['12/11/2026', '10:05', d.name, ev[firstOpen][2], how, 'Trần Thanh Phong']); LOG.pop(); closeDrawer(); render(); toast(`Recorded "${how}" for ${d.name}`, { undo: () => { d.open++; LOG.shift(); render(); } }); };
+}
+function closeDrawer(now) { ['drawer', 'drScrim'].forEach(id => { const e = document.getElementById(id); if (e) { e.id = ''; now ? e.remove() : Shell.dismiss(e); } }); }
+
+/* ---------- Modal xuất mẫu ---------- */
+function openExport() {
+  closeModal(true);
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim'; s.id = 'mScrim'; s.onclick = () => closeModal();
+  const m = document.createElement('div'); m.className = 'modal'; m.id = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.setAttribute('aria-labelledby', 'mT');
+  m.innerHTML = `<div class="modal-head">${icon('shield')}<h2 id="mT">Export for inspection</h2><button class="icon-btn" style="margin-left:auto" type="button" aria-label="Close" id="mX">${icon('x')}</button></div>
+    <div class="field"><span>Template</span>
+      <label class="opt"><input type="radio" name="tpl" checked><span><b>Full internal template</b><small>Driving-hours and speed violations by driver, action log, expired documents. Signed by the preparer.</small></span></label>
+      <label class="opt"><input type="radio" name="tpl"><span><b>Circular 36/2024 template <span class="badge b-neutral" style="margin-left:4px">Unconfirmed</span></b><small>It's unclear whether the circular prescribes a mandatory report template. Read the circular before using this template.</small></span></label></div>
+    <div class="form-grid"><label class="field"><span>Period</span><select class="input"><option>October 2026</option><option>Q3 2026</option><option>Custom…</option></select></label>
+      <label class="field"><span>Format</span><select class="input"><option>Excel (.xlsx)</option><option>Signed PDF</option></select></label></div>
+    <div class="field"><span>Sections included</span><div class="form-grid">${['Driving-hours violations', 'Speed violations', 'Action log', 'Expired documents'].map(x => `<label class="chk"><input type="checkbox" checked>${x}</label>`).join('')}</div></div>
+    <div class="modal-foot"><span class="sm muted" style="margin-right:auto">${DRV.length} drivers · HCMC branch</span><button class="btn btn-secondary" type="button" id="mC">Cancel</button><button class="btn btn-primary" type="button" id="mOk">${icon('download')}Export</button></div>`;
+  document.body.append(s, m);
+  m.querySelector('#mX').onclick = m.querySelector('#mC').onclick = () => closeModal();
+  m.querySelector('#mOk').onclick = () => { closeModal(); toast('Generating the October 2026 compliance report file… The export is recorded in the audit log.'); };
+}
+function closeModal(now) { ['modal', 'mScrim'].forEach(id => { const e = document.getElementById(id); if (e) { e.id = ''; now ? e.remove() : Shell.dismiss(e); } }); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeDrawer(); closeModal(); } });
+
+function bind() {
+  view.querySelectorAll('tr[data-drv]').forEach(tr => { tr.onclick = () => openDrawer(tr.dataset.drv); tr.onkeydown = e => { if (e.key === 'Enter') openDrawer(tr.dataset.drv); }; });
+  view.querySelectorAll('[data-kindgo]').forEach(b => b.onclick = () => { S.kind = b.dataset.kindgo; render(); });
+  const og = document.getElementById('openGo'); if (og) og.onclick = () => { S.open = true; render(); };
+}
+function sync() {
+  document.querySelectorAll('#kindSeg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.kind === S.kind));
+  const o = document.getElementById('openOnly'); o.classList.toggle('on', S.open); o.setAttribute('aria-pressed', S.open);
+}
+document.querySelectorAll('#kindSeg button').forEach(b => b.onclick = () => { S.kind = b.dataset.kind; render(); });
+document.getElementById('openOnly').onclick = () => { S.open = !S.open; render(); };
+document.getElementById('clearF').onclick = () => { S.open = false; S.kind = 'all'; render(); };
+document.getElementById('exportBtn').onclick = openExport;
+document.getElementById('xlsBtn').onclick = () => toast('Generating the October 2026 violations Excel file…');
+
+Shell.states([['default', 'Default'], ['drawer', 'Driver details'], ['export', 'Inspection export'], ['gsht', 'GPS tracker data lost'], ['loading', 'Loading'], ['empty', 'No violations'], ['error', 'Error']], s => {
+  closeDrawer(true); closeModal(true);
+  reset({ gsht: { gsht: true }, loading: { loading: true }, empty: { empty: true }, error: { error: true } }[s]); render();
+  if (s === 'drawer') openDrawer('Đặng Quang Vinh');
+  if (s === 'export') openExport();
+});
+</script>
+</body>
+</html>

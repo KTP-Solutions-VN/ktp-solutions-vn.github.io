@@ -1,0 +1,1993 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>App tài xế (demo) · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* ---------- Reviewer layout (prototype only) ---------- */
+  body { background: var(--surface-muted); }
+  .rv { display: grid; grid-template-columns: 340px minmax(0, 1fr); height: 100vh; }
+  .rv-panel { background: var(--surface); border-right: 1px solid var(--border); overflow-y: auto; padding: 16px 16px 32px; display: flex; flex-direction: column; gap: 14px; font-size: 13px; line-height: 18px; }
+  .rv-panel h1 { font-size: 17px; line-height: 22px; }
+  .rv-panel h2 { font: 600 11.5px/16px var(--font-body); text-transform: uppercase; letter-spacing: .05em; color: var(--fg-muted); margin-bottom: 6px; }
+  .rv-panel p { color: var(--fg-muted); }
+  .rv-sec { display: flex; flex-direction: column; gap: 6px; }
+  .rv-scr { border: 1px solid var(--border); border-radius: var(--r-md); padding: 8px 10px; }
+  .rv-scr.on { border-color: var(--primary); box-shadow: inset 3px 0 0 var(--primary); }
+  .rv-scr h3 { font-size: 13.5px; line-height: 18px; }
+  .rv-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+  .rv-chips a { font-size: 12px; line-height: 16px; padding: 3px 8px; border: 1px solid var(--border-strong); border-radius: 12px; color: var(--fg); text-decoration: none; }
+  .rv-chips a:hover { background: var(--surface-muted); }
+  .rv-chips a[aria-current="true"] { background: var(--primary-soft); border-color: var(--primary); color: var(--primary); font-weight: 600; }
+  .rv-sw { display: flex; gap: 8px; align-items: center; padding: 3px 0; cursor: pointer; }
+  .rv-sw input { accent-color: var(--primary); width: 16px; height: 16px; }
+  .rv-row { display: flex; flex-wrap: wrap; gap: 6px; }
+  .rv-file { display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; color: var(--fg-muted); }
+  .rv-file input { font-size: 12px; }
+  .rv-now { background: var(--surface-muted); border-radius: var(--r-md); padding: 8px 10px; color: var(--fg); }
+  .rv-stage { display: flex; align-items: center; justify-content: center; padding: 20px; overflow: auto; min-width: 0; }
+
+  /* ---------- Device ---------- */
+  /* v1.3 language on mobile: borderless surfaces (--shadow-card) or tinted fills, spacing instead of rules.
+     Borders stay only on interactive controls (inputs, Secondary buttons). Indigo accent via --primary. */
+  .app-device { flex: none; width: 414px; height: 868px; padding: 12px; border-radius: 54px; background: var(--fg-strong); box-shadow: var(--shadow-overlay); }
+  .app-screen { --safe-b: 34px; --press: scale(.97); position: relative; width: 390px; height: 844px; border-radius: 42px; overflow: hidden; background: var(--bg); display: flex; flex-direction: column; font: 400 16px/24px var(--font-body); color: var(--fg); }
+  .app-screen .icon { width: 22px; height: 22px; }
+  .app-screen .icon.app-i16 { width: 16px; height: 16px; }
+  .app-screen .icon.app-i28 { width: 28px; height: 28px; }
+  .app-screen .icon.app-i32 { width: 32px; height: 32px; }
+  .app-screen .icon.app-i40 { width: 40px; height: 40px; stroke-width: 1.4; }
+  .app-sys { flex: none; height: 40px; display: flex; align-items: center; justify-content: space-between; padding: 6px 30px 0 34px; font: 600 15px/1 var(--font-body); color: var(--fg-strong); background: var(--bg); position: relative; z-index: 60; }
+  .app-sys.is-dark { background: var(--fg-strong); color: var(--nav-active); }
+  .app-sys::after { content: ""; position: absolute; left: 50%; top: 9px; width: 108px; height: 28px; border-radius: 14px; background: var(--fg-strong); transform: translateX(-50%); }
+  .app-sys .app-sysr { display: flex; align-items: center; gap: 6px; }
+  .app-sys .icon { width: 17px; height: 17px; stroke-width: 2.2; }
+  .app-batt { width: 26px; height: 13px; border: 2px solid currentColor; border-radius: 4px; position: relative; padding: 1px; }
+  .app-batt i { display: block; height: 100%; width: 72%; background: currentColor; border-radius: 1px; }
+  .app-homebar { position: absolute; left: 50%; bottom: 7px; width: 134px; height: 5px; border-radius: 3px; background: var(--fg-strong); transform: translateX(-50%); z-index: 70; pointer-events: none; }
+  .app-screen.is-dark .app-homebar, .app-screen.is-locked .app-homebar { background: var(--nav-active); }
+  .app-view { flex: 1; min-height: 0; display: flex; flex-direction: column; background: var(--bg); }
+  .app-view.is-dark { background: var(--fg-strong); }
+
+  /* Shared press feedback (DESIGN §9: scale .97 in 90ms, colour in --d-1) */
+  .app-screen button, .app-screen .app-camact, .app-screen .app-opt, .app-screen .app-trip, .app-screen .app-xl { -webkit-tap-highlight-color: transparent; transition: background-color var(--d-1) var(--ease-std), color var(--d-1) var(--ease-std), box-shadow var(--d-2) var(--ease-std), transform 90ms var(--ease-std); }
+  .app-btn:active:not([disabled]), .app-ia:active:not([disabled]), .app-gcell:active, .app-key:active, .app-camact:active, .app-thumb:active,
+  .app-back:active, .app-sync:active, .app-link:active, .app-nav button:active, .app-tabs button:active, .app-opt:active, .app-seg button:active,
+  .app-alert .app-alert-act button:active, .app-undo button:active, .app-edit:active, .app-lock .app-call:active, .app-fld:active { transform: var(--press); }
+  .app-trip:active:not(:has(button:active)), .app-mrow:active:not([disabled]), .app-xl:active:not(:has(button:active)) { transform: scale(.99); }
+
+  /* ---------- TopBar, SyncStatus, Banner ---------- */
+  .app-top { flex: none; min-height: 64px; display: flex; align-items: center; gap: 4px; padding: 4px 12px 4px 4px; background: var(--bg); box-shadow: 0 1px 0 transparent; transition: box-shadow var(--d-2) var(--ease-std); position: relative; z-index: 2; }
+  .app-top.is-scrolled { box-shadow: 0 1px 0 var(--border), 0 6px 16px -10px rgba(30,41,82,.18); }
+  .app-top.is-dark { background: var(--fg-strong); color: var(--nav-active); box-shadow: none; }
+  .app-top-pad { width: 12px; flex: none; }
+  .app-back { flex: none; width: 66px; white-space: nowrap; letter-spacing: -.01em; min-height: 56px; border: 0; background: none; color: var(--primary); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; font: 600 14px/16px var(--font-body); cursor: pointer; border-radius: var(--r-lg); }
+  .app-back:hover { background: var(--primary-soft); }
+  .app-top.is-dark .app-back { color: var(--nav-active); }
+  .app-top.is-dark .app-back:hover { background: var(--nav-active-bg); }
+  .app-title { flex: 1; min-width: 0; }
+  .app-title h1 { font: 700 20px/26px var(--font-display); color: var(--fg-strong); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .app-title h1.app-h-sm { font-size: 17px; line-height: 22px; letter-spacing: -.01em; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .app-title p { font-size: 14px; line-height: 19px; color: var(--fg-muted); font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .app-top.is-dark h1 { color: var(--nav-active); }
+  .app-top.is-dark .app-title p { color: var(--nav-fg); }
+  .app-sync { flex: none; position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; min-width: 44px; padding: 0 12px; border-radius: 22px; border: 0; font: 600 14px/1 var(--font-body); cursor: pointer; white-space: nowrap; }
+  .app-sync::before { content: ""; position: absolute; inset: -6px -4px; }
+  .app-sync .icon { width: 18px; height: 18px; }
+  .app-sync.s-ok { background: var(--success-soft); color: var(--success-fg); padding: 0; width: 44px; }
+  .app-sync.s-wait { background: var(--warning-soft); color: var(--warning-fg); box-shadow: inset 0 0 0 1.5px var(--warning-solid); }
+  .app-sync.s-send { background: var(--primary-soft); color: var(--side-active); padding: 0; width: 44px; }
+  .app-sync .app-syncn { font: 700 16px/1 var(--font-body); font-variant-numeric: tabular-nums; }
+  .app-sync.s-send .icon { animation: app-spin 1s linear infinite; }
+  @keyframes app-spin { to { transform: rotate(360deg); } }
+  .app-banner { flex: none; display: flex; align-items: center; gap: 10px; min-height: 52px; margin: 0 16px; padding: 0 4px 0 14px; border-radius: var(--r-lg); background: var(--primary-soft); color: var(--side-active); font: 600 16px/22px var(--font-body); }
+  .app-banner span { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .app-banner .icon { flex: none; }
+  .app-banner button { flex: none; min-height: 52px; padding: 0 12px; border: 0; background: none; color: var(--side-active); font: 600 16px var(--font-body); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; border-radius: var(--r-md); }
+
+  /* ---------- Body, cards, buttons ---------- */
+  .app-body { flex: 1; min-height: 0; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; scrollbar-width: none; }
+  .app-body::-webkit-scrollbar { display: none; }
+  .app-banner + .app-body { padding-top: 12px; }
+  /* Safe bottom spacing: content never sits on the home indicator */
+  .app-view > .app-body:last-child { padding-bottom: calc(var(--safe-b) + 8px); }
+  .app-body.is-pad-b, .app-view > .app-body.is-pad-b:last-child { padding-bottom: 112px; }
+  .app-card { background: var(--surface); border-radius: var(--r-lg); box-shadow: var(--shadow-card); padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .app-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 56px; padding: 0 16px; border-radius: var(--r-lg); border: 1px solid transparent; font: 600 18px/22px var(--font-body); cursor: pointer; text-align: center; }
+  .app-btn-primary { background: var(--primary); color: var(--on-primary); box-shadow: 0 1px 2px rgba(15,23,42,.08), 0 6px 16px -8px color-mix(in srgb, var(--primary) 60%, transparent); }
+  .app-btn-primary:hover:not([disabled]) { background: var(--primary-hover); }
+  .app-btn-primary:active:not([disabled]) { background: var(--primary-hover); box-shadow: 0 1px 2px rgba(15,23,42,.08); }
+  .app-btn-secondary { background: var(--surface); color: var(--fg-strong); border-color: var(--border-strong); }
+  .app-btn-secondary:active:not([disabled]) { background: var(--surface-muted); }
+  .app-btn-danger-o { background: var(--surface); color: var(--danger-fg); border-color: var(--danger-solid); }
+  .app-btn-danger-o:active { background: var(--danger-soft); }
+  .app-btn-ghost { background: none; color: var(--primary); }
+  .app-btn-ghost:active { background: var(--primary-soft); }
+  .app-btn[disabled] { background: var(--surface-muted); color: var(--fg-subtle); border-color: transparent; box-shadow: none; cursor: not-allowed; }
+  .app-btn-sm { min-height: 48px; font-size: 16px; width: auto; }
+  .app-note { font-size: 14px; line-height: 20px; color: var(--fg-muted); text-align: center; }
+  .app-badge { display: inline-flex; align-items: center; gap: 6px; min-height: 30px; padding: 3px 10px; border-radius: var(--r-md); font: 600 14px/18px var(--font-body); }
+  .app-badge .icon { width: 16px; height: 16px; }
+  .app-code { font-variant-numeric: tabular-nums; font-weight: 600; letter-spacing: .02em; white-space: nowrap; }
+  .app-money-v { font-variant-numeric: tabular-nums; }
+  .app-alert { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: var(--r-lg); box-shadow: inset 3px 0 0 var(--al, currentColor); font-size: 16px; line-height: 22px; }
+  .app-alert .icon { margin-top: 1px; flex: none; }
+  .app-alert .app-alert-b { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .app-alert .app-alert-act { display: flex; gap: 8px; flex-wrap: wrap; }
+  .app-alert .app-alert-act button { min-height: 48px; padding: 0 14px; border-radius: var(--r-md); border: 1px solid currentColor; background: var(--surface); color: inherit; font: 600 16px var(--font-body); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+  .app-a-info { background: var(--primary-soft); --al: var(--primary); color: var(--side-active); }
+  .app-a-warn { background: var(--warning-soft); --al: var(--warning-solid); color: var(--warning-fg); }
+  .app-a-danger { background: var(--danger-soft); --al: var(--danger-solid); color: var(--danger-fg); }
+  .app-a-neutral { background: var(--neutral-soft); --al: var(--neutral-solid); color: var(--neutral-fg); }
+  .app-a-success { background: var(--success-soft); --al: var(--success-solid); color: var(--success-fg); }
+
+  /* ---------- DR_03 ---------- */
+  .app-money { background: var(--surface); border-radius: var(--r-lg); box-shadow: var(--shadow-card); flex: none; padding: 6px 6px 8px; display: flex; flex-direction: column; gap: 2px; }
+  .app-money h2 { font: 700 17px/22px var(--font-display); padding: 8px 10px 4px; color: var(--fg-strong); }
+  .app-mrow { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 60px; padding: 6px 8px 6px 10px; border: 0; border-radius: var(--r-lg); background: none; text-align: left; font: inherit; color: inherit; cursor: pointer; }
+  .app-mrow:not([disabled]):hover { background: var(--surface-muted); }
+  .app-mrow[disabled] { cursor: default; }
+  .app-mrow.is-act { background: var(--primary-soft); }
+  .app-mrow.is-act small { color: var(--side-active); }
+  .app-mrow.is-act b, .app-mrow.is-act > .icon { color: var(--side-active); }
+  .app-mrow .app-ml { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .app-mrow small { font-size: 14px; line-height: 19px; color: var(--fg-muted); }
+  .app-mrow b { font: 700 24px/30px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .app-mrow b.app-mnone { font: 500 16px/24px var(--font-body); color: var(--fg-muted); }
+  .app-mrow > .icon { color: var(--fg-muted); }
+  /* Tabs: baseline is part of the control; Indigo underline grows from the centre (same as web .tabs) */
+  .app-tabs { flex: none; display: grid; grid-template-columns: repeat(3, 1fr); box-shadow: inset 0 -1px 0 var(--border); }
+  .app-tabs button { position: relative; min-height: 56px; border: 0; border-radius: var(--r-md) var(--r-md) 0 0; background: none; font: 500 16px/20px var(--font-body); color: var(--fg-muted); cursor: pointer; padding: 0 2px; white-space: nowrap; }
+  .app-tabs button:active { background: var(--surface-muted); }
+  .app-tabs button[aria-selected="true"] { color: var(--side-active); font-weight: 700; }
+  .app-tabs button::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 0; height: 3px; border-radius: 3px 3px 0 0; background: var(--primary); transform: scaleX(0); transition: transform var(--d-3) var(--ease-out); }
+  .app-tabs button[aria-selected="true"]::after { transform: scaleX(1); }
+  .app-trip { cursor: pointer; gap: 6px; }
+  .app-trip.is-hl { box-shadow: 0 0 0 2px var(--primary), 0 0 0 6px var(--primary-soft), var(--shadow-card); }
+  .app-trip-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  .app-trip-head .app-code { font-size: 16px; color: var(--fg-muted); }
+  .app-route { font: 600 20px/27px var(--font-display); color: var(--fg-strong); }
+  .app-kv { font-size: 16px; line-height: 24px; color: var(--fg); }
+  .app-kv span { color: var(--fg-muted); }
+  .app-kv b { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .app-next { display: flex; align-items: center; gap: 8px; font: 600 16px/22px var(--font-body); color: var(--side-active); }
+  .app-cd b { white-space: nowrap; font-weight: 800; }
+  .app-cd { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: var(--r-md); background: var(--warning-soft); color: var(--warning-fg); font: 600 16px/22px var(--font-body); }
+  .app-cd { flex-wrap: wrap; column-gap: 8px; row-gap: 0; }
+  .app-cd .icon { flex: none; }
+  .app-cd b { margin-left: auto; }
+  .app-trip .app-btn { margin-top: 6px; }
+  .app-mini { gap: 4px; }
+  .app-mini .app-route { font-size: 18px; line-height: 24px; }
+  .app-nav { flex: none; display: grid; grid-template-columns: repeat(3, 1fr); background: var(--surface); box-shadow: 0 -1px 0 rgba(15,23,42,.04), 0 -8px 24px -12px rgba(30,41,82,.14); padding: 6px 8px var(--safe-b); position: relative; z-index: 2; }
+  .app-nav button { min-height: 64px; border: 0; background: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font: 500 16px/20px var(--font-body); color: var(--fg-muted); cursor: pointer; border-radius: var(--r-lg); }
+  .app-screen .app-nav button .icon { width: 56px; height: 32px; padding: 3px 14px; border-radius: 16px; transition: background-color var(--d-2) var(--ease-std); }
+  .app-nav button[aria-current="page"] { color: var(--side-active); font-weight: 700; }
+  .app-nav button[aria-current="page"] .icon { background: var(--primary-soft); }
+  .app-emptystate { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; padding: 32px 12px; }
+  .app-emptystate .icon { color: var(--fg-subtle); }
+  .app-emptystate h3 { font: 700 20px/26px var(--font-display); }
+  .app-emptystate p { color: var(--fg-muted); }
+  .app-sk { display: flex; flex-direction: column; gap: 10px; }
+  .app-sk .sk { height: 16px; border-radius: var(--r-sm); }
+  .app-sk .sk.h24 { height: 26px; } .app-sk .sk.h56 { height: 56px; border-radius: var(--r-lg); }
+
+  /* ---------- DR_04 ---------- */
+  .app-dest { gap: 4px; }
+  .app-dest .app-lbl { font: 600 14px/18px var(--font-body); color: var(--fg-muted); text-transform: uppercase; letter-spacing: .04em; }
+  .app-dest h2 { font: 700 18px/24px var(--font-display); color: var(--fg-strong); }
+  .app-dest p { font-size: 16px; line-height: 22px; }
+  .app-dest .app-cd { margin-top: 6px; }
+  .app-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+  .app-2 .app-btn { font-size: 16px; padding: 0 8px; flex-direction: row; }
+  .app-2 .app-btn small { display: block; font-size: 14px; font-weight: 500; color: var(--fg-muted); line-height: 16px; }
+  .app-big { flex: none; position: relative; width: 100%; min-height: 184px; border: 0; border-radius: 16px; background: var(--primary); color: var(--on-primary); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 18px 16px; cursor: pointer; text-align: center; overflow: hidden;
+    box-shadow: 0 1px 2px rgba(15,23,42,.1), 0 14px 28px -14px color-mix(in srgb, var(--primary) 75%, transparent);
+    transition: transform 90ms var(--ease-std), background-color var(--d-1) var(--ease-std), box-shadow var(--d-2) var(--ease-std); }
+  .app-big:active:not([disabled]) { transform: var(--press); background: var(--primary-hover); box-shadow: 0 1px 2px rgba(15,23,42,.1), 0 6px 14px -10px color-mix(in srgb, var(--primary) 75%, transparent); }
+  .app-big .app-step { font: 600 16px/20px var(--font-body); padding: 5px 12px; border-radius: 14px; background: color-mix(in srgb, var(--on-primary) 18%, transparent); }
+  .app-big .app-bigt { font: 800 28px/34px var(--font-display); letter-spacing: .01em; }
+  .app-big .app-bigs { font: 500 17px/23px var(--font-body); display: block; opacity: .92; }
+  .app-big .app-bigs .icon { vertical-align: -6px; margin-right: 6px; }
+  .app-big .icon { width: 26px; height: 26px; }
+  .app-big[disabled] { background: var(--surface-muted); color: var(--fg-muted); box-shadow: inset 0 0 0 2px var(--border-strong); cursor: not-allowed; }
+  .app-big[disabled] .app-step { background: var(--border); }
+  /* After a milestone is recorded the next step's label slides in, so the driver sees the button changed */
+  .app-big.is-next > span { animation: app-next-in var(--d-3) var(--ease-out) both; }
+  .app-big.is-next > span:nth-child(2) { animation-delay: 40ms; }
+  .app-big.is-next > span:nth-child(3) { animation-delay: 80ms; }
+  @keyframes app-next-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .app-doneblock { flex: none; border-radius: var(--r-lg); background: var(--success-soft); color: var(--success-fg); padding: 24px 16px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+  .app-doneblock b { font: 700 22px/28px var(--font-display); }
+  .app-doneblock > .icon { animation: app-pop 320ms var(--ease-out) both; }
+  @keyframes app-pop { 0% { transform: scale(.6); opacity: 0; } 60% { transform: scale(1.08); opacity: 1; } 100% { transform: scale(1); } }
+  .app-icons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; flex: none; }
+  .app-icons.n2 { grid-template-columns: repeat(2, 1fr); }
+  .app-icons.n1 { grid-template-columns: 1fr; }
+  .app-ia { min-height: 88px; border: 0; border-radius: var(--r-lg); background: var(--surface); box-shadow: var(--shadow-card); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 8px 2px; font: 600 15px/18px var(--font-body); color: var(--fg-strong); cursor: pointer; text-align: center; }
+  .app-ia .icon { width: 28px; height: 28px; color: var(--primary); }
+  .app-ia:active:not([disabled]) { background: var(--primary-soft); }
+  .app-ia[disabled] { color: var(--fg-subtle); background: var(--surface-muted); box-shadow: none; cursor: not-allowed; }
+  .app-ia[disabled] .icon { color: var(--fg-subtle); }
+  .app-link { min-height: 56px; border: 0; border-radius: var(--r-lg); background: none; color: var(--primary); font: 600 17px var(--font-body); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; flex: none; }
+  .app-link:active { background: var(--primary-soft); }
+
+  /* ---------- Overlays (enter + exit, DESIGN §9) ---------- */
+  .app-scrim { position: absolute; inset: 0; background: var(--scrim); z-index: 40; animation: fadeIn var(--d-2) var(--ease-std) both; }
+  .app-scrim.leaving { animation: fadeOut var(--d-2) var(--ease-in) both; }
+  .app-dialog { position: absolute; left: 16px; right: 16px; top: 50%; transform: translateY(-50%); z-index: 41; background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-overlay); padding: 20px; display: flex; flex-direction: column; gap: 12px; max-height: 760px; overflow-y: auto; animation: app-dlg-in var(--d-3) var(--ease-out) both; }
+  .app-dialog.leaving { animation: app-dlg-out var(--d-1) var(--ease-in) both; }
+  @keyframes app-dlg-in { from { opacity: 0; transform: translateY(-48%) scale(.96); } to { opacity: 1; transform: translateY(-50%) scale(1); } }
+  @keyframes app-dlg-out { from { opacity: 1; transform: translateY(-50%) scale(1); } to { opacity: 0; transform: translateY(-49%) scale(.97); } }
+  .app-dialog h2, .app-sheet h2 { font: 700 21px/27px var(--font-display); color: var(--fg-strong); }
+  .app-dialog .app-btns, .app-sheet .app-btns { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+  .app-checks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .app-checks li { display: flex; gap: 10px; align-items: flex-start; font-size: 16px; line-height: 22px; }
+  .app-checks li .icon { flex: none; margin-top: 0; }
+  .app-checks .ok .icon { color: var(--success-solid); }
+  .app-checks .no { color: var(--danger-fg); font-weight: 600; }
+  .app-checks .wait .icon { color: var(--fg-subtle); }
+  .app-sumline { background: var(--surface-muted); border-radius: var(--r-md); padding: 10px 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .app-sheet { position: absolute; left: 0; right: 0; bottom: 0; z-index: 41; background: var(--surface); border-radius: 20px 20px 0 0; box-shadow: var(--shadow-overlay); padding: 10px 16px var(--safe-b); display: flex; flex-direction: column; gap: 12px; max-height: 88%; overflow-y: auto; animation: app-sheet-in var(--d-3) var(--ease-out) both; }
+  .app-sheet.leaving { animation: app-sheet-out var(--d-2) var(--ease-in) both; }
+  .app-sheet::before { content: ""; align-self: center; width: 44px; height: 5px; border-radius: 3px; background: var(--border-strong); flex: none; }
+  @keyframes app-sheet-in { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+  @keyframes app-sheet-out { from { transform: none; opacity: 1; } to { transform: translateY(40px); opacity: 0; } }
+  .app-screen .leaving { pointer-events: none; }
+  .app-zoom.leaving { animation: fadeOut var(--d-1) var(--ease-in) both; }
+  .app-view.swap > * { animation: swapIn 160ms var(--ease-std) both; }
+  .app-static, .app-static.app-sheet, .app-static.app-dialog { animation: none; }
+  .app-qlist { display: flex; flex-direction: column; gap: 6px; }
+  .app-sheet .app-qi { display: flex; gap: 10px; align-items: center; padding: 12px 14px; border-radius: var(--r-lg); background: var(--warning-soft); color: var(--fg-strong); }
+  .app-sheet .app-qi .icon { color: var(--warning-fg); flex: none; }
+  .app-tl { list-style: none; margin: 0; padding: 0; }
+  .app-tl li { display: flex; gap: 10px; align-items: center; min-height: 36px; font-size: 16px; }
+  .app-tl li.is-todo { color: var(--fg-muted); }
+  .app-tl .app-dot { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; flex: none; background: var(--surface-muted); box-shadow: inset 0 0 0 2px var(--border-strong); }
+  .app-tl li.is-done .app-dot { background: var(--success-solid); box-shadow: none; color: var(--on-primary); }
+  .app-tl .app-dot .icon { width: 14px; height: 14px; stroke-width: 3; }
+  .app-tl time { margin-left: auto; font-variant-numeric: tabular-nums; font-weight: 600; }
+  .app-dl { display: flex; flex-direction: column; gap: 2px; padding: 6px; border-radius: var(--r-lg); background: var(--surface-muted); }
+  .app-dl > div, .app-dl > button { display: flex; justify-content: space-between; gap: 12px; min-height: 44px; align-items: center; border: 0; border-radius: var(--r-md); background: none; font: inherit; color: inherit; text-align: left; padding: 0 10px; }
+  .app-dl > button { cursor: pointer; color: var(--primary); font-weight: 600; min-height: 56px; background: var(--surface); }
+  .app-dl > button:active { background: var(--primary-soft); }
+  .app-dl span { color: var(--fg-muted); flex: none; white-space: nowrap; }
+  .app-dl b { font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
+  .app-undo { position: absolute; left: 12px; right: 12px; bottom: var(--safe-b); z-index: 30; background: var(--fg-strong); color: var(--nav-active); border-radius: 14px; box-shadow: var(--shadow-pop); display: flex; align-items: center; gap: 8px; padding: 6px 6px 6px 14px; min-height: 68px; animation: app-undo-in var(--d-3) var(--ease-out) both; }
+  .app-undo.leaving { animation: app-undo-out var(--d-2) var(--ease-in) both; }
+  @keyframes app-undo-in { from { opacity: 0; transform: translateY(16px) scale(.98); } to { opacity: 1; transform: none; } }
+  @keyframes app-undo-out { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(12px) scale(.98); } }
+  .app-undo .app-ut { flex: 1; font: 500 16px/21px var(--font-body); }
+  .app-undo .app-ut b { font-weight: 700; }
+  .app-undo > .icon { color: var(--success-soft); flex: none; }
+  .app-undo button { min-height: 56px; padding: 0 12px; border: 0; border-radius: var(--r-md); background: none; color: var(--toast-link); font: 700 16px/20px var(--font-body); cursor: pointer; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+  .app-undo button:active { background: var(--nav-active-bg); }
+  .app-ring { width: 28px; height: 28px; transform: rotate(-90deg); flex: none; }
+  .app-ring circle { fill: none; stroke-width: 3; }
+  .app-ring .bg { stroke: var(--nav-active-bg); }
+  .app-ring .fg { stroke: var(--toast-link); stroke-linecap: round; transition: stroke-dashoffset .95s linear; }
+  .app-toasts { position: absolute; left: 12px; right: 12px; bottom: var(--toast-b, 28px); z-index: 35; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
+  .app-toast { background: var(--fg-strong); color: var(--nav-active); border-radius: 14px; padding: 14px 16px; font: 500 16px/22px var(--font-body); box-shadow: var(--shadow-pop); display: flex; gap: 10px; align-items: flex-start; animation: toastIn var(--d-2) var(--ease-out) both; pointer-events: auto; }
+  .app-toast.leaving { animation: toastOut var(--d-2) var(--ease-in) both; }
+  .app-toast .icon { color: var(--toast-link); flex: none; }
+  /* DrivingLock keeps the dark ink palette (--nav-*) */
+  .app-lock { position: absolute; left: 0; right: 0; top: 40px; bottom: 0; z-index: 50; background: var(--nav-bg); color: var(--nav-active); display: flex; flex-direction: column; padding: 28px 20px calc(var(--safe-b) + 6px); gap: 16px; animation: fadeIn var(--d-3) var(--ease-std) both; }
+  .app-lock .app-speed { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 16px; background: var(--nav-active-bg); font: 600 16px var(--font-body); color: var(--nav-fg); font-variant-numeric: tabular-nums; }
+  .app-lock .app-lk-t { font: 600 20px/26px var(--font-display); color: var(--nav-fg); margin-top: 16px; }
+  .app-lock .app-lk-h { font: 800 32px/40px var(--font-display); color: var(--nav-active); }
+  .app-lock .app-lk-dest { background: var(--nav-active-bg); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 4px; }
+  .app-lock .app-lk-dest small { font: 600 14px/18px var(--font-body); color: var(--nav-fg); text-transform: uppercase; letter-spacing: .04em; }
+  .app-lock .app-lk-dest b { font: 600 20px/27px var(--font-display); }
+  .app-lock .app-lk-dest span { color: var(--nav-fg); font-size: 16px; }
+  .app-lock .app-lk-note { color: var(--nav-fg); font-size: 16px; display: flex; gap: 8px; align-items: center; }
+  .app-lock .app-call { margin-top: auto; min-height: 84px; border-radius: 16px; border: 0; background: var(--surface); color: var(--fg-strong); font: 700 22px var(--font-display); display: flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer; }
+  .app-lock .app-call .icon { width: 30px; height: 30px; color: var(--success-fg); }
+  .app-lock .app-unl { background: var(--success-soft); color: var(--success-fg); border-radius: var(--r-lg); padding: 10px 14px; font-weight: 600; }
+
+  /* ---------- DR_05 camera ---------- */
+  .app-cam { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+  .app-seg { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin: 8px 12px 0; padding: 4px; border-radius: 14px; background: var(--nav-bg); flex: none; }
+  .app-seg button { min-height: 56px; border-radius: var(--r-lg); border: 0; background: none; color: var(--nav-fg); font: 600 17px var(--font-body); display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; }
+  .app-seg button[aria-pressed="true"] { background: var(--surface); color: var(--fg-strong); }
+  .app-seg button[aria-pressed="true"] .icon { color: var(--primary); }
+  .app-cam > .app-alert { margin: 10px 12px 0; flex: none; }
+  .app-vf { flex: 1; min-height: 0; position: relative; margin: 10px 12px 0; border-radius: 14px; overflow: hidden; background: var(--fg); display: flex; align-items: center; justify-content: center; }
+  .app-vf.flash { background: var(--neutral-solid); }
+  .app-vf img.app-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .app-vf .app-frame { position: absolute; inset: 56px 26px 50px; pointer-events: none; }
+  .app-vf .app-frame i { position: absolute; width: 34px; height: 34px; border: 0 solid var(--nav-active); }
+  .app-vf .app-frame i:nth-child(1) { left: 0; top: 0; border-left-width: 4px; border-top-width: 4px; border-top-left-radius: 8px; }
+  .app-vf .app-frame i:nth-child(2) { right: 0; top: 0; border-right-width: 4px; border-top-width: 4px; border-top-right-radius: 8px; }
+  .app-vf .app-frame i:nth-child(3) { left: 0; bottom: 0; border-left-width: 4px; border-bottom-width: 4px; border-bottom-left-radius: 8px; }
+  .app-vf .app-frame i:nth-child(4) { right: 0; bottom: 0; border-right-width: 4px; border-bottom-width: 4px; border-bottom-right-radius: 8px; }
+  .app-vf .app-vfhint { position: absolute; left: 0; right: 0; bottom: 0; background: var(--fg-strong); color: var(--nav-active); text-align: center; padding: 10px 8px; font: 600 16px/20px var(--font-body); }
+  .app-vf .app-vftop { position: absolute; left: 8px; right: 8px; top: 8px; display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: var(--r-lg); background: var(--warning-soft); color: var(--warning-fg); font: 600 16px/20px var(--font-body); z-index: 2; }
+  .app-vf .app-vftop .icon { flex: none; }
+  .app-paper { position: relative; width: 15em; height: 20em; background: var(--surface); border-radius: .3em; box-shadow: var(--shadow-pop); padding: 1.2em 1.1em; display: flex; flex-direction: column; gap: .55em; transform: rotate(-2deg); color: var(--fg-strong); overflow: hidden; flex: none; }
+  .app-paper b { font: 700 1em/1.25 var(--font-display); text-align: center; }
+  .app-paper .app-psub { font: 600 .8em/1.2 var(--font-body); text-align: center; color: var(--fg-muted); }
+  .app-paper i { display: block; height: .45em; background: var(--border-strong); border-radius: .2em; }
+  .app-paper i.s { width: 62%; }
+  .app-paper .app-ptab { display: grid; grid-template-columns: 1fr 1fr; gap: .4em; margin-top: .3em; }
+  .app-paper .app-ptab i { height: 1.6em; background: var(--surface-muted); border: .1em solid var(--border-strong); }
+  .app-paper .app-psign { margin-top: auto; align-self: flex-end; width: 6em; height: 2.2em; border-bottom: .12em solid var(--fg-muted); position: relative; }
+  .app-paper .app-psign::after { content: ""; position: absolute; left: .8em; bottom: .3em; width: 4em; height: 1.2em; border: .15em solid var(--info-fg); border-color: var(--info-fg) transparent transparent transparent; border-radius: 50%; transform: rotate(-12deg); }
+  .app-paper.is-blur { filter: blur(1.5px); }
+  .app-vf .app-paper { font-size: 15px; }
+  .app-thumbs { flex: none; display: flex; gap: 10px; padding: 10px 12px 0; overflow-x: auto; scrollbar-width: none; }
+  .app-thumb { flex: none; width: 76px; border: 0; background: none; padding: 0; display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--nav-active); font: 600 14px/18px var(--font-body); cursor: pointer; }
+  .app-thumb:nth-last-child(2):not(.is-add) { animation: app-thumb-in var(--d-3) var(--ease-out) both; }
+  @keyframes app-thumb-in { from { opacity: 0; transform: translateY(6px) scale(.94); } to { opacity: 1; transform: none; } }
+  .app-thumb .app-tbox { width: 64px; height: 76px; border-radius: var(--r-lg); background: var(--fg); display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: inset 0 0 0 2px var(--nav-fg-muted); }
+  .app-thumb .app-tbox img { width: 100%; height: 100%; object-fit: cover; }
+  .app-thumb .app-paper { font-size: 3.4px; }
+  .app-thumb.is-add .app-tbox { box-shadow: none; border: 2px dashed var(--nav-fg-muted); background: none; color: var(--nav-active); }
+  .app-cambar { flex: none; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 12px 12px 8px; }
+  .app-camact { justify-self: center; min-width: 76px; min-height: 64px; border: 0; background: none; color: var(--nav-active); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font: 600 14px/18px var(--font-body); cursor: pointer; border-radius: var(--r-lg); }
+  .app-camact[aria-pressed="true"] { color: var(--warning-soft); }
+  .app-camact .icon { width: 28px; height: 28px; }
+  .app-camact input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  /* Shutter: white disc + separate outer ring (gap colour = surrounding bg) so the label never touches the ring */
+  .app-shutter { --gap: var(--fg-strong); --ring: var(--nav-fg-muted); width: 84px; height: 84px; margin: 8px; border-radius: 50%; border: 0; background: var(--surface); color: var(--fg-strong); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; padding: 0 0 2px; font: 800 15px/18px var(--font-display); letter-spacing: .04em; cursor: pointer; box-shadow: 0 0 0 4px var(--gap), 0 0 0 8px var(--ring); transition: transform 90ms var(--ease-std), box-shadow var(--d-1) var(--ease-std); }
+  .app-shutter:active:not([disabled]) { transform: scale(.92); }
+  .app-shutter .icon { width: 26px; height: 26px; }
+  .app-shutter[disabled] { color: var(--fg-subtle); cursor: not-allowed; }
+  .app-body .app-shutter { --gap: var(--bg); --ring: var(--primary); }
+  .app-camdone { flex: none; padding: 6px 12px var(--safe-b); }
+  .app-camdone.is-light { padding-top: 12px; }
+  .app-signwrap { flex: 1; min-height: 0; overflow-y: auto; margin: 10px 12px 0; background: var(--surface); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .app-signwrap p { font-weight: 600; }
+  .app-pad { position: relative; height: 200px; border: 2px dashed var(--border-strong); border-radius: var(--r-lg); background: var(--surface); touch-action: none; }
+  .app-pad canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: crosshair; }
+  .app-pad .app-padl { position: absolute; left: 16px; right: 16px; bottom: 40px; border-bottom: 2px solid var(--border-strong); pointer-events: none; }
+  .app-pad .app-padl span { position: absolute; left: 0; top: 4px; font-size: 14px; color: var(--fg-muted); }
+  .app-field { display: flex; flex-direction: column; gap: 6px; }
+  .app-field > span { font: 600 16px/20px var(--font-body); color: var(--fg); }
+  .app-input { min-height: 56px; border: 1px solid var(--border-strong); border-radius: var(--r-lg); padding: 0 14px; font: 500 18px var(--font-body); color: var(--fg-strong); background: var(--surface); width: 100%; transition: border-color var(--d-1) var(--ease-std), box-shadow var(--d-1) var(--ease-std); }
+  textarea.app-input { min-height: 96px; padding: 12px 14px; font-size: 16px; line-height: 22px; resize: none; }
+  .app-input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px var(--primary-soft); }
+  .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .app-gcell { min-height: 108px; border: 0; border-radius: var(--r-lg); background: var(--surface); box-shadow: var(--shadow-card); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 10px 8px; font: 600 18px/22px var(--font-body); color: var(--fg-strong); text-align: center; cursor: pointer; }
+  .app-gcell .icon { width: 34px; height: 34px; color: var(--primary); }
+  .app-gcell.is-wide { grid-column: span 2; min-height: 72px; flex-direction: row; }
+  .app-gcell:active { background: var(--primary-soft); }
+  .app-gcell[aria-pressed="true"] { background: var(--primary-soft); color: var(--side-active); box-shadow: 0 0 0 2px var(--primary); }
+  .app-h { font: 700 22px/28px var(--font-display); color: var(--fg-strong); }
+  .app-stepper { font: 600 14px/18px var(--font-body); color: var(--fg-muted); }
+
+  /* ---------- DR_06 ---------- */
+  .app-adv { flex: none; display: flex; align-items: center; gap: 10px; margin: 0 16px; padding: 10px 14px; border-radius: var(--r-lg); background: var(--surface-muted); font-size: 16px; line-height: 22px; font-variant-numeric: tabular-nums; }
+  .app-adv .icon { flex: none; color: var(--fg-muted); }
+  .app-adv b { font-weight: 700; white-space: nowrap; }
+  .app-adv.is-over { background: var(--warning-soft); color: var(--warning-fg); }
+  .app-adv.is-over .icon { color: var(--warning-fg); }
+  .app-adv + .app-body { padding-top: 12px; }
+  .app-fields { display: flex; flex-direction: column; gap: 8px; }
+  .app-fld { min-height: 56px; display: flex; align-items: center; gap: 8px; padding: 6px 14px; border: 1px solid var(--border-strong); border-radius: var(--r-lg); background: var(--surface); cursor: pointer; text-align: left; font: inherit; color: inherit; width: 100%; }
+  .app-fld .app-fl { flex: 1; font-size: 16px; color: var(--fg-muted); }
+  .app-fld .app-fv { font: 700 22px/28px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .app-fld .app-fv.is-empty { color: var(--fg-subtle); font-weight: 500; }
+  .app-fld .app-arrow { width: 16px; color: var(--primary); font-size: 14px; }
+  .app-fld.is-on { border-color: var(--primary); background: var(--primary-soft); box-shadow: 0 0 0 1px var(--primary), 0 0 0 4px var(--primary-soft); }
+  .app-fld.is-on .app-fl { color: var(--side-active); font-weight: 600; }
+  .app-amt { text-align: center; padding: 8px 0 4px; }
+  .app-amt small { display: block; font-size: 16px; color: var(--fg-muted); font-weight: 600; }
+  .app-amt b { font: 800 38px/46px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .app-amt b.is-empty { color: var(--fg-subtle); }
+  /* Numpad is docked with the action button (outside the scroll area) so its bottom row is never covered */
+  .app-keys { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; flex: none; }
+  .app-key { min-height: 56px; border: 0; border-radius: var(--r-lg); background: var(--surface); box-shadow: var(--shadow-card); font: 600 26px var(--font-body); color: var(--fg-strong); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-variant-numeric: tabular-nums; }
+  .app-key:active { background: var(--primary-soft); }
+  .app-key.is-fn { font-size: 15px; line-height: 18px; flex-direction: column; gap: 0; background: var(--surface-muted); box-shadow: none; }
+  .app-key.is-fn .icon { width: 24px; height: 24px; }
+  .app-co { display: flex; flex-direction: column; gap: 4px; }
+  .app-co b { font: 700 17px/22px var(--font-display); }
+  .app-vf.is-short { flex: none; height: 300px; }
+  .app-lis { display: flex; flex-direction: column; gap: 4px; padding: 6px; }
+  .app-li { display: flex; align-items: center; gap: 12px; min-height: 64px; padding: 6px 4px 6px 10px; border-radius: var(--r-lg); }
+  .app-li > .icon { color: var(--primary); flex: none; }
+  .app-li .app-lt { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .app-li .app-lt b { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .app-li .app-lt small { font-size: 14px; color: var(--fg-muted); line-height: 19px; }
+  .app-li .app-edit { min-height: 56px; min-width: 64px; border: 0; border-radius: var(--r-md); background: none; color: var(--primary); font: 600 16px var(--font-body); cursor: pointer; }
+  .app-li .app-edit:active { background: var(--primary-soft); }
+  .app-li.is-warn { background: var(--warning-soft); }
+  .app-li.is-warn > .icon, .app-li.is-warn b { color: var(--warning-fg); }
+  .app-zoom { position: absolute; inset: 40px 0 0; z-index: 45; background: var(--surface); display: flex; flex-direction: column; justify-content: center; gap: 20px; padding: 24px 24px calc(var(--safe-b) + 8px); text-align: center; animation: fadeIn var(--d-2) var(--ease-std) both; }
+  .app-zoom b { font: 800 28px/36px var(--font-display); color: var(--fg-strong); }
+  .app-zoom p { font: 700 28px/36px var(--font-body); font-variant-numeric: tabular-nums; }
+
+  /* ---------- DR_08 ---------- */
+  .app-concl { display: flex; flex-direction: column; gap: 0; padding: 6px 16px 16px; }
+  .app-concl .app-cr { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 48px; font-size: 18px; line-height: 24px; }
+  .app-concl .app-cr span { color: var(--fg-muted); font-size: 16px; }
+  .app-concl .app-cr b { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--fg-strong); }
+  .app-concl button.app-cr { border: 0; border-radius: var(--r-md); background: none; font: inherit; color: inherit; cursor: pointer; padding: 0 8px; margin: 0 -8px; text-align: left; min-height: 56px; }
+  .app-concl button.app-cr:active { background: var(--surface-muted); }
+  .app-result { margin-top: 10px; border-radius: var(--r-lg); background: var(--primary-soft); padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+  .app-result.is-in { background: var(--success-soft); }
+  .app-result p { font: 600 18px/24px var(--font-body); color: var(--fg-strong); }
+  .app-result b { font: 800 var(--text-display)/40px var(--font-display); color: var(--side-active); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+  .app-result.is-in b { color: var(--success-fg); }
+  .app-result small { font-size: 14px; line-height: 20px; color: var(--fg-muted); }
+  .app-result .app-formula { font: 600 14px/20px var(--font-body); color: var(--fg); font-variant-numeric: tabular-nums; letter-spacing: .01em; }
+  .app-result.is-none { background: var(--neutral-soft); }
+  .is-changed { outline: 3px solid var(--warning-solid); outline-offset: 2px; border-radius: var(--r-md); }
+  .app-xlist { padding: 4px 8px 8px; gap: 2px; }
+  .app-xlist > .app-h { font-size: 18px; padding: 10px 8px 4px; }
+  .app-xl { display: flex; flex-direction: column; gap: 6px; padding: 12px 8px; border-radius: var(--r-lg); cursor: pointer; }
+  /* minimal hairline between line items: long list, aids scanning */
+  .app-xl { position: relative; }
+  .app-xl + .app-xl::before { content: ""; position: absolute; left: 8px; right: 8px; top: -1px; height: 1px; background: var(--surface-muted); }
+  .app-xl:hover { background: var(--surface-muted); }
+  .app-xl .app-xh { display: flex; align-items: center; gap: 10px; }
+  .app-xl .app-xh > .icon { color: var(--primary); flex: none; }
+  .app-xl .app-xh span { flex: 1; font-weight: 600; }
+  .app-xl .app-xh b { font: 700 18px var(--font-body); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .app-xl .app-xh b.is-out { text-decoration: line-through; color: var(--fg-muted); }
+  .app-xl small { font-size: 14px; color: var(--fg-muted); padding-left: 32px; line-height: 19px; }
+  .app-xl .app-badge { align-self: flex-start; margin-left: 32px; }
+  /* B3: rejected/needs-doc reasons are severity lines, not red fills */
+  .app-reason { margin-left: 32px; font-size: 16px; line-height: 22px; padding: 8px 12px; border-radius: var(--r-md); background: var(--surface-muted); color: var(--fg); box-shadow: inset 3px 0 0 var(--al); }
+  .app-reason.r-danger { --al: var(--danger-solid); }
+  .app-reason.r-warn { --al: var(--warning-solid); }
+  .app-xl .app-btn { margin-left: 32px; width: calc(100% - 32px); }
+  .app-foot { flex: none; padding: 12px 16px var(--safe-b); background: var(--surface); box-shadow: 0 -1px 0 rgba(15,23,42,.04), 0 -8px 24px -12px rgba(30,41,82,.14); display: flex; flex-direction: column; gap: 8px; position: relative; z-index: 2; }
+  .app-foot.is-pad { padding-top: 10px; gap: 10px; background: var(--bg); }
+  .app-opt { display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 14px; border: 0; border-radius: var(--r-lg); background: var(--surface-muted); cursor: pointer; font-size: 16px; }
+  .app-opt input { width: 24px; height: 24px; accent-color: var(--primary); flex: none; }
+  .app-opt:has(input:checked) { background: var(--primary-soft); color: var(--side-active); font-weight: 600; box-shadow: inset 0 0 0 2px var(--primary); }
+  .app-err { color: var(--danger-fg); font-size: 14px; font-weight: 600; }
+
+  /* ---------- Shared additions (DR_01, 02, 07, 09, 10, 11) ---------- */
+  .app-kick { font: 600 14px/18px var(--font-body); color: var(--fg-muted); text-transform: uppercase; letter-spacing: .04em; }
+  .app-sec-t { font: 600 14px/18px var(--font-body); color: var(--fg-muted); text-transform: uppercase; letter-spacing: .04em; padding: 6px 4px 0; }
+  .app-p { font-size: 16px; line-height: 24px; color: var(--fg); }
+  .app-p.is-muted { color: var(--fg-muted); }
+  .app-arows { padding: 6px; gap: 2px; }
+  .app-arow { display: flex; align-items: center; gap: 12px; min-height: 64px; width: 100%; padding: 8px 10px; border: 0; border-radius: var(--r-lg); background: none; font: inherit; color: inherit; text-align: left; }
+  button.app-arow { cursor: pointer; }
+  button.app-arow:hover:not([disabled]) { background: var(--surface-muted); }
+  button.app-arow[disabled] { cursor: default; }
+  button.app-arow:active:not([disabled]) { background: var(--primary-soft); transform: scale(.99); }
+  .app-arow > .icon { flex: none; color: var(--primary); }
+  .app-arow .app-at { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .app-arow .app-at small { font-size: 14px; line-height: 19px; color: var(--fg-muted); }
+  .app-arow .app-at b { font-weight: 600; font-size: 17px; line-height: 23px; color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .app-arow .app-at .app-sub2 { font-size: 14px; line-height: 19px; color: var(--fg-muted); }
+  .app-arow .app-aside { flex: none; color: var(--primary); font: 600 16px var(--font-body); display: inline-flex; align-items: center; gap: 2px; white-space: nowrap; }
+  .app-arow > .app-chev { color: var(--fg-subtle); }
+  .app-hd { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  .app-tabs.n2 { grid-template-columns: 1fr 1fr; }
+  .app-reason.r-ok { --al: var(--success-solid); }
+  .app-reason.r-neutral { --al: var(--neutral-solid); }
+
+  /* ---------- DR_01 / DR_02 ---------- */
+  .app-brand { display: flex; align-items: center; gap: 12px; font: 700 18px/24px var(--font-display); color: var(--fg-strong); padding: 4px 0; }
+  .app-brand small { display: block; font: 500 14px/18px var(--font-body); color: var(--fg-muted); }
+  .app-logo { flex: none; width: 48px; height: 48px; border-radius: 14px; background: var(--primary); color: var(--on-primary); display: grid; place-items: center; }
+  .app-hero-t { font: 800 26px/34px var(--font-display); color: var(--fg-strong); letter-spacing: -.01em; }
+  .app-lead { font-size: 17px; line-height: 25px; color: var(--fg); }
+  .app-phone { font: 700 24px/30px var(--font-display); letter-spacing: .06em; font-variant-numeric: tabular-nums; min-height: 64px; }
+  .app-otp { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+  .app-otp span { height: 64px; border-radius: var(--r-lg); background: var(--surface); box-shadow: inset 0 0 0 1px var(--border-strong); display: grid; place-items: center; font: 700 28px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; transition: box-shadow var(--d-1) var(--ease-std); }
+  .app-otp span.is-cur { box-shadow: inset 0 0 0 2px var(--primary), 0 0 0 3px var(--primary-soft); }
+  .app-otp.is-err span { box-shadow: inset 0 0 0 2px var(--danger-solid); }
+  .app-otp.is-err { animation: app-shake 320ms var(--ease-std); }
+  @keyframes app-shake { 20%, 60% { transform: translateX(-5px); } 40%, 80% { transform: translateX(5px); } }
+  .app-sms { display: flex; align-items: center; gap: 10px; min-height: 60px; width: 100%; padding: 6px 6px 6px 14px; border: 0; border-radius: var(--r-lg); background: var(--primary-soft); color: var(--side-active); font: 500 16px/22px var(--font-body); cursor: pointer; text-align: left; }
+  .app-sms span { flex: 1; }
+  .app-sms .app-sms-b { flex: none; min-height: 48px; padding: 0 14px; border-radius: var(--r-md); background: var(--surface); display: inline-flex; align-items: center; font-weight: 700; }
+  .app-sms:active { transform: var(--press); }
+  .app-keys .app-key-gap { visibility: hidden; }
+  .app-hero-ic { width: 72px; height: 72px; border-radius: 20px; background: var(--primary-soft); color: var(--primary); display: grid; place-items: center; flex: none; }
+  .app-facts { padding: 8px 14px; gap: 0; }
+  .app-fact { display: flex; gap: 12px; padding: 12px 0; align-items: flex-start; }
+  .app-fact + .app-fact { box-shadow: 0 -1px 0 var(--surface-muted); }
+  .app-fact > .icon { flex: none; color: var(--primary); margin-top: 2px; }
+  .app-fact b { display: block; font: 700 17px/23px var(--font-display); color: var(--fg-strong); }
+  .app-fact p { font-size: 16px; line-height: 23px; color: var(--fg); }
+  .app-perm-ic { align-self: center; color: var(--primary); }
+  .app-perm { display: flex; flex-direction: column; gap: 6px; }
+  .app-perm button { min-height: 56px; border: 0; border-radius: 28px; background: var(--primary-soft); color: var(--side-active); font: 600 17px var(--font-body); cursor: pointer; }
+  .app-perm button:active { transform: var(--press); background: var(--primary); color: var(--on-primary); }
+  .app-dialog h2.is-c { text-align: center; font-size: 19px; line-height: 26px; }
+
+  /* ---------- DR_07 ---------- */
+  .app-grid .app-gcell.is-crash .icon { color: var(--danger-solid); }
+  .app-pics { display: flex; gap: 10px; flex-wrap: wrap; }
+  .app-pic { position: relative; width: 92px; height: 92px; border-radius: var(--r-lg); background: var(--nav-bg); color: var(--nav-fg-muted); display: grid; place-items: center; flex: none; overflow: hidden; animation: app-thumb-in var(--d-3) var(--ease-out) both; }
+  .app-pic .icon { width: 36px; height: 36px; }
+  .app-pic span { position: absolute; left: 0; right: 0; bottom: 0; padding: 3px 6px; background: var(--fg-strong); color: var(--nav-active); font: 600 13px/18px var(--font-body); text-align: center; }
+  .app-pic button { position: absolute; top: 2px; right: 2px; width: 44px; height: 44px; border: 0; border-radius: 22px; background: none; color: var(--nav-active); cursor: pointer; display: grid; place-items: center; }
+  .app-pic button .icon { width: 20px; height: 20px; padding: 2px; border-radius: 10px; background: var(--fg-strong); }
+  .app-pic.is-add { background: var(--surface); color: var(--primary); box-shadow: inset 0 0 0 2px var(--border-strong); border: 0; cursor: pointer; display: flex; flex-direction: column; gap: 4px; font: 600 15px/18px var(--font-body); animation: none; }
+  .app-pic.is-add:active { transform: var(--press); background: var(--primary-soft); }
+  .app-seg.is-light { margin: 0; background: var(--surface-muted); }
+  .app-seg.is-light button { color: var(--fg-muted); }
+  .app-seg.is-light button[aria-pressed="true"] { box-shadow: var(--shadow-card); }
+  .app-mic { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 72px; width: 100%; border: 0; border-radius: var(--r-lg); background: var(--surface); box-shadow: var(--shadow-card); color: var(--fg-strong); font: 600 18px var(--font-body); cursor: pointer; }
+  .app-mic .icon { width: 30px; height: 30px; color: var(--primary); }
+  .app-mic:active { transform: var(--press); background: var(--primary-soft); }
+  .app-rec { display: flex; align-items: center; gap: 12px; min-height: 72px; padding: 8px 8px 8px 16px; border-radius: var(--r-lg); background: var(--primary-soft); color: var(--side-active); font: 600 17px/22px var(--font-body); }
+  .app-rec .app-recdot { width: 14px; height: 14px; border-radius: 50%; background: var(--danger-solid); flex: none; animation: app-blink 1s var(--ease-std) infinite; }
+  @keyframes app-blink { 50% { opacity: .25; } }
+  .app-rec span { flex: 1; }
+  .app-rec time { font: 700 22px var(--font-display); font-variant-numeric: tabular-nums; }
+  .app-rec button { min-height: 56px; padding: 0 16px; border: 0; border-radius: var(--r-md); background: var(--surface); color: var(--fg-strong); font: 600 16px var(--font-body); display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+  .app-ctx { display: flex; gap: 8px; align-items: center; font-size: 14px; line-height: 20px; color: var(--fg-muted); }
+  .app-ctx .icon { width: 18px; height: 18px; flex: none; }
+  .app-doneblock.is-wait { background: var(--warning-soft); color: var(--warning-fg); }
+  .app-doneblock span { font-size: 16px; line-height: 22px; }
+  .app-incsum { padding: 4px 6px; }
+
+  /* ---------- DR_09 ---------- */
+  .app-pay { gap: 2px; }
+  .app-pay .app-pay-v { font: 800 var(--text-display)/44px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+  .app-pay .app-concl { padding: 8px 0 0; }
+  .app-pay .app-cr b.is-plus { color: var(--success-fg); }
+  .app-xl.is-pend .app-xh b { color: var(--fg-muted); font-weight: 600; }
+  .app-xl .app-xh small { padding: 0; }
+
+  /* ---------- DR_10 ---------- */
+  .app-permit { padding: 16px 16px 8px; gap: 12px; }
+  .app-permit .app-ph { display: flex; flex-direction: column; gap: 2px; text-align: center; }
+  .app-permit .app-ph b { font: 800 20px/26px var(--font-display); color: var(--fg-strong); letter-spacing: .01em; }
+  .app-permit .app-ph span { font-size: 15px; line-height: 20px; color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+  .app-qrbtn { align-self: center; border: 0; background: var(--surface); padding: 0; border-radius: var(--r-lg); cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--primary); font: 600 15px/20px var(--font-body); }
+  .app-qrbtn:active { transform: var(--press); }
+  .app-qr { display: block; width: 236px; height: 236px; background: var(--surface); border-radius: var(--r-md); box-shadow: inset 0 0 0 1px var(--border); }
+  .app-qr path { fill: var(--fg-strong); }
+  .app-pfs { display: flex; flex-direction: column; gap: 0; padding: 4px 0 0; }
+  .app-pf { display: flex; flex-direction: column; padding: 10px 2px; }
+  .app-pf + .app-pf { box-shadow: 0 -1px 0 var(--surface-muted); }
+  .app-pf small { font-size: 14px; line-height: 19px; color: var(--fg-muted); }
+  .app-pf b { font-size: 17px; line-height: 24px; font-weight: 600; color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .app-qrzoom { align-items: center; gap: 14px; }
+  .app-qrzoom .app-qr { width: 326px; height: 326px; box-shadow: none; }
+  .app-qrzoom .app-btn { margin-top: 8px; }
+
+  /* ---------- DR_11 ---------- */
+  .app-prof { flex-direction: row; align-items: center; gap: 14px; }
+  .app-ava { flex: none; width: 64px; height: 64px; border-radius: 50%; background: var(--primary-soft); color: var(--side-active); display: grid; place-items: center; font: 800 22px var(--font-display); }
+  .app-prof b { display: block; font: 700 21px/27px var(--font-display); color: var(--fg-strong); }
+  .app-prof span { font-size: 15px; line-height: 21px; color: var(--fg-muted); }
+  .app-switch { flex: none; position: relative; width: 56px; height: 32px; border-radius: 16px; background: var(--border-strong); transition: background-color var(--d-2) var(--ease-std); }
+  .app-switch::after { content: ""; position: absolute; left: 3px; top: 3px; width: 26px; height: 26px; border-radius: 50%; background: var(--surface); box-shadow: 0 1px 3px rgba(15,23,42,.25); transition: transform var(--d-2) var(--ease-out); }
+  .app-arow[aria-checked="true"] .app-switch { background: var(--primary); }
+  .app-arow[aria-checked="true"] .app-switch::after { transform: translateX(24px); }
+  .app-ver { font-size: 14px; color: var(--fg-subtle); text-align: center; }
+  .app-sheet h3 { font: 700 17px/23px var(--font-display); color: var(--fg-strong); margin-top: 4px; }
+  .app-sheet p { font-size: 16px; line-height: 23px; }
+
+  /* app.css already kills every animation/transition under reduced motion; also drop transforms on press */
+  @media (prefers-reduced-motion: reduce) { .app-screen { --press: none; } .app-shutter:active:not([disabled]) { transform: none; } .app-sync.s-send .icon { animation: none; } }
+</style>
+</head>
+<body>
+<div class="rv">
+  <aside class="rv-panel" id="panel" aria-label="Màn hình và trạng thái (chỉ có trong prototype)"></aside>
+  <main class="rv-stage">
+    <div class="app-device">
+      <div class="app-screen" id="screen">
+        <div class="app-sys" id="sys"></div>
+        <div class="app-view" id="view"></div>
+        <div id="layer"></div>
+        <div id="undo"></div>
+        <div class="app-toasts" id="toasts" aria-live="polite"></div>
+        <div id="lock"></div>
+        <div class="app-homebar" aria-hidden="true"></div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="../assets/js/shell.js"></script>
+<script>
+(function () {
+  /* ================= Icons & format ================= */
+  const LI = {
+    back: '<path d="M15 5l-7 7 7 7"/>',
+    chevR: '<path d="M9 5l7 7-7 7"/>',
+    call: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/>',
+    nav: '<path d="M12 3l7 18-7-4-7 4z"/>',
+    pin: '<path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0113 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/>',
+    flash: '<path d="M13 3L5 13h6l-1 8 8-10h-6z"/>',
+    image: '<rect x="3.5" y="5" width="17" height="14" rx="1.5"/><circle cx="9" cy="10" r="1.6"/><path d="M20.5 16l-5-5-8.5 8"/>',
+    trash: '<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
+    hand: '<path d="M8 13V6a1.5 1.5 0 013 0v5M11 11V4.5a1.5 1.5 0 013 0V11M14 11V6a1.5 1.5 0 013 0v7c0 4-2.5 7-6 7s-5-2-6.5-4.5L3 12.5a1.5 1.5 0 012.5-1.5L8 13"/>',
+    play: '<path d="M8 5l11 7-11 7z"/>',
+    bksp: '<path d="M9 5h11v14H9l-6-7z"/><path d="M12 9l5 6M17 9l-5 6"/>',
+    clip: '<path d="M20 11l-8 8a5 5 0 01-7-7l8.5-8.5a3.3 3.3 0 014.7 4.7L9.7 16.7a1.7 1.7 0 01-2.4-2.4L15 6.5"/>',
+    lift: '<rect x="4" y="12" width="16" height="8" rx="1"/><path d="M8 12v8M12 12v8M16 12v8M12 3v6M9 6l3-3 3 3"/>',
+    signal: '<path d="M4 20v-3M9 20v-6M14 20v-9M19 20V7"/>',
+    wifi: '<path d="M3 9a14 14 0 0118 0M6 12.5a9 9 0 0112 0M9 16a4 4 0 016 0M12 19.5v.01"/>',
+    noWifi: '<path d="M3 3l18 18M9 16a4 4 0 016 0M12 19.5v.01M6 12.5a9 9 0 015-2.4M3 9a14 14 0 014.5-2.6M14.5 10.4A9 9 0 0118 12.5M12.5 5.1A14 14 0 0121 9"/>',
+    zoom: '<circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M11 8v6M8 11h6"/>',
+    ticket: '<path d="M4 7h16v3a2 2 0 000 4v3H4v-3a2 2 0 000-4z"/><path d="M14 7v10"/>',
+    mic: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0013 0M12 17.5V21"/>',
+    stop: '<rect x="7" y="7" width="10" height="10" rx="1.5"/>',
+    msg: '<path d="M4 5h16v11H9l-5 4z"/>',
+    logout: '<path d="M14 4h5v16h-5M10 8l-4 4 4 4M6 12h10"/>',
+    card: '<rect x="3" y="5.5" width="18" height="13" rx="1.5"/><circle cx="8.5" cy="11" r="2"/><path d="M5.5 16c.6-1.6 1.6-2.3 3-2.3s2.4.7 3 2.3M14 10h4M14 13h4"/>'
+  };
+  const ic = (n, c) => LI[n] ? `<svg class="icon ${c || ''}" viewBox="0 0 24 24" aria-hidden="true">${LI[n]}</svg>` : Shell.icon(n, c);
+  const vnd = n => Shell.fmt.vnd(n);
+  const grp = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  /* ================= Domain data ================= */
+  const MS = [
+    { k: 'accept', btn: 'NHẬN CHUYẾN', sub: 'Xem kỹ thông tin rồi bấm nhận', long: 'Nhận chuyến', tl: 'Nhận chuyến', t: '06:10', next: 'Nhận chuyến' },
+    { k: 'start', btn: 'BẮT ĐẦU CHUYẾN', sub: 'Bấm khi xe bắt đầu chạy', long: 'Bắt đầu chuyến', tl: 'Bắt đầu', t: '06:45', next: 'Bắt đầu chuyến' },
+    { k: 'arrPort', btn: 'ĐÃ ĐẾN CẢNG', sub: 'Bấm khi xe đã tới cảng Cát Lái', long: 'Đã đến cảng Cát Lái', tl: 'Đến cảng Cát Lái', t: '08:05', geo: 1, next: 'Đến cảng Cát Lái' },
+    { k: 'pickup', btn: 'ĐÃ LẤY CONTAINER', sub: 'Chụp phiếu EIR để xác nhận', cam: 'eir1', long: 'Đã lấy container', tl: 'Lấy container', t: '09:12', next: 'Lấy container' },
+    { k: 'arrWh', btn: 'ĐÃ ĐẾN KHO GIAO', sub: 'Bấm khi xe đã tới kho', long: 'Đã đến kho giao', tl: 'Đến kho giao', t: '10:42', geo: 1, next: 'Đến kho giao hàng' },
+    { k: 'deliver', btn: 'ĐÃ GIAO HÀNG', sub: 'Chụp phiếu giao nhận hoặc cho người nhận ký', cam: 'pod', long: 'Đã giao hàng', tl: 'Giao hàng', t: '11:35', next: 'Giao hàng' },
+    { k: 'arrDepot', btn: 'ĐÃ ĐẾN BÃI TRẢ RỖNG', sub: 'Bấm khi xe đã tới Depot Phước Long', long: 'Đã đến bãi trả rỗng', tl: 'Đến bãi trả rỗng', t: '13:20', geo: 1, next: 'Đến bãi trả rỗng' },
+    { k: 'return', btn: 'ĐÃ TRẢ RỖNG', sub: 'Chụp phiếu EIR trả rỗng để xác nhận', cam: 'eir2', long: 'Đã trả rỗng', tl: 'Trả rỗng', t: '14:05', next: 'Trả rỗng' },
+    { k: 'finish', btn: 'HOÀN THÀNH CHUYẾN', sub: 'Kiểm tra đủ chứng từ rồi bấm', long: 'Hoàn thành chuyến', tl: 'Hoàn thành', t: '14:30', next: 'Hoàn thành chuyến' }
+  ];
+  const INFO = {
+    'CH-0472': { kind: "Container 40'", route: 'Cảng Cát Lái → KCN Tân Uyên → trả rỗng Depot Phước Long', cont: 'MSKU 123 4567', raw: 'MSKU1234567', pick: 'Lấy hàng: 07:30 hôm nay 13/11', adv: 3000000 },
+    'CH-0475': { kind: "Container 40'", route: 'Cảng Cát Lái → KCN Tân Uyên, Bình Dương', cont: 'MSKU 765 4321', raw: 'MSKU7654321', pick: 'Lấy hàng: 07:30 thứ Bảy 14/11', adv: 3000000 }
+  };
+  const OLD = [
+    { id: 'CH-0469', kind: "Container 20'", route: 'Cảng Cát Lái → KCN VSIP 1, Bình Dương', done: 'Xong: 17:05 11/11', cost: 1760000, b: ['warning', 'warn', 'Cần bổ sung chứng từ'], act: 'Xem quyết toán' },
+    { id: 'CH-0468', kind: 'Hàng thường', route: 'KCN Tân Tạo → Kho Mỹ Phước, Bình Dương', done: 'Xong: 15:40 10/11', cost: 980000, b: ['neutral', 'clock', 'Hoàn thành — chờ kế toán'] },
+    { id: 'CH-0466', kind: 'Hàng thường', route: 'KCN Sóng Thần → Long An', done: 'Xong: 16:20 08/11', cost: 1240000, b: ['success', 'lock', 'Đã quyết toán'] },
+    { id: 'CH-0463', kind: "Container 40'", route: 'Cảng Cát Lái → KCN Mỹ Phước 3', done: 'Xong: 18:10 06/11', cost: 2310000, b: ['success', 'lock', 'Đã quyết toán'] }
+  ];
+  const ET = {
+    fuel: { label: 'Đổ nhiên liệu', icon: 'fuel' },
+    toll: { label: 'Phí cầu đường', icon: 'toll' },
+    lift: { label: 'Phí nâng hạ', icon: 'lift' },
+    load: { label: 'Bốc xếp', icon: 'box' },
+    other: { label: 'Khác', icon: 'plus' }
+  };
+  const DOCS = {
+    eir1: { title: 'Chụp phiếu EIR — lấy container', short: 'Phiếu EIR lấy container', grid: 'Phiếu EIR — lấy cont', icon: 'doc', art: 'eir' },
+    eir2: { title: 'Chụp phiếu EIR — trả rỗng', short: 'Phiếu EIR trả rỗng', grid: 'Phiếu EIR — trả rỗng', icon: 'doc', art: 'eir' },
+    pod: { title: 'Chứng từ giao nhận (POD)', short: 'Chứng từ giao nhận (POD)', grid: 'Giao nhận (POD)', icon: 'pen', art: 'pod' },
+    load: { title: 'Chụp xác nhận xếp hàng', short: 'Xác nhận xếp hàng', grid: 'Xác nhận xếp hàng', icon: 'box', art: 'load' },
+    other: { title: 'Chụp chứng từ khác', short: 'Chứng từ khác', grid: 'Khác', icon: 'clip', art: 'other' },
+    inv: { title: 'Khác — hoá đơn gửi xe', short: 'Hoá đơn gửi xe', icon: 'receipt', art: 'inv' },
+    bill: { title: 'Chụp hoá đơn', short: 'Hoá đơn', icon: 'receipt', art: 'inv' }
+  };
+  const CANON = () => [
+    { id: 1, type: 'fuel', amt: 1850000, lit: 92, km: 182450, time: '10:15', inv: 1 },
+    { id: 2, type: 'toll', amt: 120000, time: '10:30', inv: 1 },
+    { id: 3, type: 'lift', amt: 650000, time: '09:20', inv: 1 },
+    { id: 4, type: 'load', amt: 300000, time: '11:05', inv: 1 },
+    { id: 5, type: 'other', name: 'Gửi xe qua đêm', amt: 50000, time: '12:40', inv: 1 }
+  ];
+  const ALL_TIMES = { accept: '06:10', start: '06:45', arrPort: '08:05', pickup: '09:12', arrWh: '10:42', deliver: '11:35', arrDepot: '13:20', return: '14:05' };
+  const ALL_DOCS = () => ({ eir1: { pages: 2 }, pod: { sign: 'Trần Thị Mai', short: 'Chị Mai' }, eir2: { pages: 1 } });
+  const PREV_KM = 181920;
+  const COMPANY = 'CÔNG TY TNHH VẬN TẢI MINH PHÁT', MST = '0312345678';
+  /* DR_07 */
+  const INC = {
+    port: { l: 'Kẹt cảng / chờ lâu', i: 'clock', ph: 'Ví dụ: Kẹt cổng B Cát Lái, xếp hàng từ 08:10' },
+    broke: { l: 'Hỏng xe', i: 'wrench', ph: 'Ví dụ: Xì lốp sau bên phải, đã tấp vào lề' },
+    crash: { l: 'Tai nạn', i: 'warn', ph: 'Ví dụ: Va quẹt nhẹ với xe máy, không ai bị thương' },
+    refuse: { l: 'Khách không nhận', i: 'block', ph: 'Ví dụ: Kho báo hết chỗ, hẹn giao lại chiều nay' },
+    other: { l: 'Khác', i: 'more', ph: 'Ghi ngắn chuyện gì đang xảy ra' }
+  };
+  /* DR_09 — kỳ 01–15/11: 6 chuyến đã quyết toán + thưởng − khoản trừ = 4.850.000 đ (khớp DR_03) */
+  const PAY = [
+    { id: 'CH-0452', d: '01/11', route: 'Cảng Cát Lái → KCN Tân Uyên', kind: "Cont 40'", how: "Khoán tuyến Cát Lái – Tân Uyên, cont 40'", amt: 900000, st: '02/11' },
+    { id: 'CH-0455', d: '02/11', route: 'Cảng Cát Lái → KCN VSIP 1', kind: "Cont 20'", how: "Khoán tuyến Cát Lái – VSIP 1, cont 20'", amt: 750000, st: '04/11' },
+    { id: 'CH-0459', d: '04/11', route: 'Cảng Cát Lái → KCN Tân Uyên', kind: "Cont 40'", how: "Khoán tuyến Cát Lái – Tân Uyên, cont 40'", amt: 900000, st: '05/11' },
+    { id: 'CH-0461', d: '05/11', route: 'KCN Tân Tạo → Kho Mỹ Phước', kind: 'Hàng thường', how: 'Khoán tuyến Tân Tạo – Mỹ Phước, hàng thường', amt: 600000, st: '07/11' },
+    { id: 'CH-0463', d: '06/11', route: 'Cảng Cát Lái → KCN Mỹ Phước 3', kind: "Cont 40'", how: "Khoán tuyến Cát Lái – Mỹ Phước 3, cont 40'", amt: 950000, st: '08/11' },
+    { id: 'CH-0466', d: '08/11', route: 'KCN Sóng Thần → Long An', kind: 'Hàng thường', how: 'Khoán tuyến Sóng Thần – Long An, hàng thường', amt: 650000, st: '09/11' }
+  ];
+  const PAY_ADJ = [
+    { k: 'plus', l: 'Thưởng giao đúng giờ', amt: 250000, why: 'Lý do: 6/6 chuyến giao đúng giờ hẹn trong kỳ.', by: 'Anh Khoa · Kế toán' },
+    { k: 'minus', l: 'Trừ phí lưu container', amt: 150000, why: 'Lý do: CH-0459 trả rỗng trễ (hạn 08:00 05/11, trả lúc 11:20). Hãng tàu thu phí lưu cont 1 ngày.', by: 'Anh Khoa · Kế toán' }
+  ];
+  const PAY_PEND = [
+    { id: 'CH-0468', d: '10/11', route: 'KCN Tân Tạo → Kho Mỹ Phước', why: 'Chờ kế toán kiểm tra' },
+    { id: 'CH-0469', d: '11/11', route: 'Cảng Cát Lái → KCN VSIP 1', why: 'Cần bổ sung chứng từ' },
+    { id: 'CH-0472', d: '13/11', route: 'Cảng Cát Lái → KCN Tân Uyên', why: 'Đang chạy' }
+  ];
+  const PAY_HIST = [
+    { id: 'p1', name: 'Kỳ 16–31/10/2026', trips: 14, base: 8720000, plus: 400000, minus: 0, close: '01/11', paid: '05/11' },
+    { id: 'p2', name: 'Kỳ 01–15/10/2026', trips: 13, base: 8490000, plus: 250000, minus: 100000, close: '16/10', paid: '20/10', minusWhy: 'Trừ 100.000 đ: thiếu phiếu EIR trả rỗng CH-0391, hãng tàu thu phí cấp lại.' },
+    { id: 'p3', name: 'Kỳ 16–30/09/2026', trips: 15, base: 9150000, plus: 400000, minus: 0, close: '01/10', paid: '05/10' }
+  ];
+  const ME = { name: 'Nguyễn Văn Tuấn', phone: '0903 456 482', masked: '0903 xxx 482', code: 'TX01', truck: '51C-456.78' };
+
+  /* ================= State ================= */
+  let S, uid = 100, lastBig = '', lastScreen = '', lastLayerKey = '', lastLayerHTML = '';
+  let photo = null;
+  function base() {
+    return {
+      screen: 'dr03', state: 'default', tab: null, hl: null, cur: 'CH-0472',
+      trips: {
+        'CH-0472': { id: 'CH-0472', step: 4, docs: { eir1: { pages: 2 } }, times: { accept: '06:10', start: '06:45', arrPort: '08:05', pickup: '09:12' }, auto: { arrPort: 1 } },
+        'CH-0475': { id: 'CH-0475', step: 0, docs: {}, times: {}, auto: {} }
+      },
+      exp: [{ id: 3, type: 'lift', amt: 650000, time: '09:20', inv: 1 }],
+      adv: 3000000, speed: 0, unlockLeft: 0, offline: false, consent: true, queue: [], sync: 'ok',
+      clock: '10:38', flags: {}, dlg: null, sheet: null, cam: null, ex: null, zoom: false,
+      st: { status: 'confirm', other: 'ok', changed: false, lockLeft: 0, confirmedAt: '16:40 15/11' },
+      undo: null, empty: false,
+      auth: newAuth(), c2: { from: 'dr01' }, inc: null, incPending: false,
+      pay: { tab: 'cur' }, acct: { phoneReq: null, gplxSoon: false }
+    };
+  }
+  function newAuth(extra) { return Object.assign({ step: 'invite', phone: '', err: '', otp: '', otpErr: '', tries: 5, resend: 30, checking: false }, extra || {}); }
+  function newInc(extra) { return Object.assign({ type: null, pics: 0, mode: 'note', note: '', rec: null, recSec: 0, status: 'edit', sentAt: '' }, extra || {}); }
+  const trip = () => S.trips[S.cur];
+  const t72 = () => S.trips['CH-0472'];
+  const locked = () => S.speed > 10 || S.unlockLeft > 0;
+  const sharing = () => S.consent && Object.values(S.trips).some(t => t.step >= 2 && t.step <= 8);
+  const q = (text) => { const it = { id: ++uid, text }; S.queue.push(it); return it.id; };
+  const mins = hm => { const [h, m] = hm.split(':').map(Number); return h * 60 + m; };
+
+  function finishTrip(t) { t.step = 9; t.times = Object.assign({}, ALL_TIMES, { finish: '14:30' }); t.docs = ALL_DOCS(); S.exp = CANON(); }
+  function newCam(type, from, extra) { return Object.assign({ type, from, pages: [], mode: 'photo', name: '', strokes: [], flash: false, blur: false, storage: false, noperm: false, pick: !type, view: null }, extra || {}); }
+  function newEx(extra) { return Object.assign({ step: 1, type: null, other: '', amt: 0, lit: 0, km: 0, field: 'amt', pages: 0, noInv: false, edit: null, closed: false, err: false }, extra || {}); }
+
+  /* ================= Presets (location.hash) ================= */
+  const SCREENS = [
+    ['dr01', 'DR_01 Kích hoạt & đăng nhập', [['default', 'Mở link mời'], ['phone', 'Nhập SĐT'], ['unknown', 'SĐT chưa đăng ký'], ['otp', 'Nhập mã OTP'], ['otperr', 'Mã sai'], ['offline', 'Mất mạng']]],
+    ['dr02', 'DR_02 Đồng ý dữ liệu vị trí', [['default', 'Mặc định — sau đăng nhập'], ['sysperm', 'Hộp thoại quyền Android'], ['fromaccount', 'Bật lại từ Tài khoản']]],
+    ['dr03', 'DR_03 Danh sách chuyến', [['default', 'Mặc định — đang chạy'], ['new', 'Chuyến mới (từ thông báo)'], ['done', 'Đã xong'], ['offline', 'Mất mạng'], ['lock', 'Đang lái xe'], ['loading', 'Đang tải'], ['empty', 'Chưa có chuyến'], ['error', 'Lỗi tải']]],
+    ['dr04', 'DR_04 Chi tiết chuyến & mốc', [['default', 'Mặc định — bước 5/9'], ['new', 'Chuyến mới'], ['cam', 'Mốc cần ảnh'], ['justdone', 'Vừa ghi mốc'], ['geo', 'Tự ghi geofence'], ['finish', 'Hoàn thành — đủ chứng từ'], ['missing', 'Hoàn thành — thiếu chứng từ'], ['offline', 'Mất mạng'], ['lock', 'Đang lái xe'], ['noconsent', 'Không đồng ý vị trí'], ['completed', 'Đã hoàn thành'], ['details', 'Chi tiết chuyến (sheet)'], ['loading', 'Đang tải'], ['error', 'Điều độ đã thay đổi']]],
+    ['dr05', 'DR_05 Chụp chứng từ', [['default', 'Mặc định — EIR lấy cont'], ['pages', 'Đã chụp 2 trang'], ['choose', 'Chọn loại'], ['sign', 'POD — ký trên máy'], ['supplement', 'Bổ sung từ DR_08'], ['blur', 'Ảnh mờ'], ['offline', 'Mất mạng'], ['lock', 'Đang lái xe'], ['noperm', 'Chưa có quyền camera'], ['error', 'Hết bộ nhớ']]],
+    ['dr06', 'DR_06 Ghi chi phí', [['default', 'Bước 1 — chọn loại'], ['amount', 'Bước 2 — số tiền'], ['fuel', 'Bước 2 — đổ nhiên liệu'], ['camera', 'Bước 3 — chụp hoá đơn'], ['review', 'Bước 4 — xem lại'], ['noinvoice', 'Không có hoá đơn'], ['edit', 'Sửa'], ['closed', 'Đã chốt'], ['offline', 'Mất mạng'], ['lock', 'Đang lái xe'], ['error', 'Lỗi lưu']]],
+    ['dr08', 'DR_08 Quyết toán & xác nhận', [['default', 'Mặc định — chờ xác nhận'], ['need', 'Cần bổ sung'], ['extra', 'Công ty trả thêm'], ['confirm', 'Xác nhận (hộp thoại)'], ['disagree', 'Không đồng ý'], ['reviewing', 'Đang chờ kế toán xem lại'], ['settled', 'Đã quyết toán'], ['changed', 'Kế toán vừa sửa'], ['pending', 'Chờ kế toán'], ['offline', 'Mất mạng'], ['lock', 'Đang lái xe'], ['loading', 'Đang tải'], ['error', 'Lỗi tải']]],
+    ['dr07', 'DR_07 Báo sự cố', [['default', 'Chọn loại'], ['filled', 'Đã có ảnh & ghi chú'], ['voice', 'Đang ghi âm'], ['crash', 'Tai nạn'], ['sent', 'Điều độ đã nhận'], ['offline', 'Mất mạng — xếp hàng'], ['error', 'Gửi lỗi'], ['lock', 'Đang lái xe']]],
+    ['dr09', 'DR_09 Lương chuyến', [['default', 'Kỳ này'], ['line', 'Chi tiết một chuyến'], ['history', 'Kỳ đã chốt'], ['period', 'Chi tiết kỳ đã chốt'], ['offline', 'Mất mạng'], ['loading', 'Đang tải'], ['empty', 'Kỳ này chưa có chuyến'], ['error', 'Lỗi tải']]],
+    ['dr10', 'DR_10 Giấy vận tải', [['default', 'Mặc định — CH-0472'], ['zoom', 'Phóng to mã QR'], ['offline', 'Mất mạng'], ['loading', 'Đang tải'], ['notrip', 'Không có chuyến đang chạy']]],
+    ['dr11', 'DR_11 Tài khoản', [['default', 'Mặc định'], ['gplx', 'GPLX sắp hết hạn'], ['phone', 'Đổi SĐT (sheet)'], ['phonereq', 'Chờ admin duyệt SĐT'], ['withdraw', 'Tắt chia sẻ vị trí (hỏi lại)'], ['nolocation', 'Đã tắt vị trí'], ['policy', 'Chính sách dữ liệu'], ['offline', 'Mất mạng'], ['loading', 'Đang tải'], ['error', 'Lỗi tải']]]
+  ];
+
+  function preset(scr, st) {
+    clearToasts();
+    S = base(); S.screen = scr; S.state = st; lastBig = '';
+    const T = t72();
+    const fuelFilled = { type: 'fuel', amt: 1850000, lit: 92, km: 182450 };
+    switch (scr + '-' + st) {
+      case 'dr03-new': case 'dr03-done':
+        finishTrip(T); S.clock = '16:20';
+        if (st === 'new') { S.tab = 'new'; S.hl = 'CH-0475'; setTimeout(() => toast('Có chuyến mới CH-0475. Bấm để xem.', 'bell', 6000), 50); } else S.tab = 'done';
+        break;
+      case 'dr03-offline': S.offline = true; S.queue = [{ id: 1, text: 'Đã lấy container · bấm lúc 09:12' }, { id: 2, text: 'Chi phí Phí nâng hạ 650.000 đ · 09:20' }, { id: 3, text: 'Ảnh phiếu EIR (2 trang) · 09:12' }]; break;
+      case 'dr03-lock': case 'dr04-lock': S.speed = 40; break;
+      case 'dr03-loading': case 'dr04-loading': case 'dr08-loading': S.flags.loading = true; break;
+      case 'dr03-error': case 'dr08-error': S.flags.error = true; break;
+      case 'dr03-empty': S.empty = true; S.trips = {}; break;
+      case 'dr04-new': S.cur = 'CH-0475'; S.clock = '16:20'; finishTrip(T); break;
+      case 'dr04-cam': T.step = 3; delete T.times.pickup; T.docs = {}; S.exp = []; S.clock = '09:05'; break;
+      case 'dr04-justdone': T.step = 5; T.times.arrWh = '10:42'; S.clock = '10:42'; S.undo = { text: 'Đã ghi: <b>Đã đến kho giao</b> · 10:42', left: 7, trip: 'CH-0472', prev: 4, k: 'arrWh' }; break;
+      case 'dr04-geo': T.step = 3; delete T.times.pickup; T.docs = {}; S.exp = []; S.clock = '08:05'; S.undo = { text: 'Tự ghi: <b>Đã đến cảng Cát Lái</b> · 08:05', left: 10, auto: true, trip: 'CH-0472', prev: 2, k: 'arrPort' }; break;
+      case 'dr04-finish': case 'dr04-missing':
+        finishTrip(T); T.step = 8; delete T.times.finish; S.clock = '14:28';
+        if (st === 'missing') { delete T.docs.eir2; S.dlg = { kind: 'missing' }; } else S.dlg = { kind: 'finish' };
+        break;
+      case 'dr04-offline': S.offline = true; S.queue = [{ id: 1, text: 'Đã lấy container · bấm lúc 09:12' }, { id: 2, text: 'Ảnh phiếu EIR (2 trang) · 09:12' }]; break;
+      case 'dr04-noconsent': S.consent = false; T.auto = {}; break;
+      case 'dr04-completed': finishTrip(T); S.st.status = 'pending'; S.clock = '14:35'; break;
+      case 'dr04-details': S.sheet = { kind: 'details' }; break;
+      case 'dr04-error': S.flags.error = true; break;
+      case 'dr05-default': case 'dr05-pages': case 'dr05-blur': case 'dr05-offline': case 'dr05-lock': case 'dr05-error':
+        T.step = 3; delete T.times.pickup; T.docs = {}; S.exp = []; S.clock = '09:10';
+        S.cam = newCam('eir1', 'milestone', { ms: 3 });
+        if (st === 'pages') S.cam.pages = [{ n: 1 }, { n: 2 }];
+        if (st === 'blur') { S.cam.pages = [{ n: 1, blur: true }]; S.cam.blur = true; }
+        if (st === 'lock') { S.cam.pages = [{ n: 1 }]; S.speed = 40; }
+        if (st === 'offline') { S.offline = true; S.queue = [{ id: 1, text: 'Đã đến cảng Cát Lái · bấm lúc 08:05' }, { id: 2, text: 'Ảnh lệnh giao hàng (1 trang) · 08:20' }]; }
+        if (st === 'error') S.cam.storage = true;
+        break;
+      case 'dr05-choose': S.cam = newCam(null, 'free'); break;
+      case 'dr05-sign': T.step = 5; T.times.arrWh = '10:42'; S.clock = '11:33'; S.cam = newCam('pod', 'milestone', { ms: 5, mode: 'sign', name: 'Trần Thị Mai', strokes: demoStrokes() }); break;
+      case 'dr05-supplement': finishTrip(T); S.st.status = 'need'; S.st.other = 'need'; S.clock = '15:10'; S.cam = newCam('inv', 'dr08'); break;
+      case 'dr05-noperm': T.step = 3; T.docs = {}; S.exp = []; S.cam = newCam('eir1', 'milestone', { ms: 3, noperm: true }); break;
+      case 'dr06-default': S.ex = newEx(); break;
+      case 'dr06-amount': S.ex = newEx({ step: 2, type: 'fuel', amt: 1850000, field: 'amt' }); break;
+      case 'dr06-fuel': S.ex = newEx(Object.assign({ step: 2, field: 'km' }, fuelFilled)); break;
+      case 'dr06-camera': S.ex = newEx(Object.assign({ step: 3 }, fuelFilled)); break;
+      case 'dr06-review': S.ex = newEx(Object.assign({ step: 4, pages: 1 }, fuelFilled)); break;
+      case 'dr06-noinvoice': S.ex = newEx(Object.assign({ step: 3 }, fuelFilled)); S.dlg = { kind: 'noinv' }; break;
+      case 'dr06-edit': S.exp = [S.exp[0], { id: 1, type: 'fuel', amt: 1850000, lit: 92, km: 182450, time: '10:15', inv: 1 }]; S.ex = newEx(Object.assign({ step: 4, pages: 1, edit: 1 }, fuelFilled)); S.clock = '10:40'; break;
+      case 'dr06-closed': finishTrip(T); S.st.status = 'settled'; S.ex = newEx(Object.assign({ step: 4, pages: 1, edit: 1, closed: true }, fuelFilled)); break;
+      case 'dr06-offline': S.ex = newEx(); S.offline = true; S.queue = [{ id: 1, text: 'Chi phí Phí nâng hạ 650.000 đ · 09:20' }]; break;
+      case 'dr06-lock': S.ex = newEx({ step: 2, type: 'fuel', amt: 1850000, lit: 92, field: 'km' }); S.speed = 40; break;
+      case 'dr06-error': S.ex = newEx(Object.assign({ step: 4, pages: 1, err: true }, fuelFilled)); break;
+    }
+    if (scr === 'dr08') {
+      finishTrip(T); S.clock = '16:38';
+      const m = { need: 'need', reviewing: 'reviewing', settled: 'settled', pending: 'pending' };
+      if (m[st]) S.st.status = m[st];
+      if (st === 'need') S.st.other = 'need';
+      if (st === 'extra') S.adv = 2420000;
+      if (st === 'confirm') S.dlg = { kind: 'confirm' };
+      if (st === 'disagree') S.sheet = { kind: 'disagree', sel: ['rej'], note: 'Phí bốc xếp ở kho Hưng Thịnh tôi trả tiền mặt, khách không trả.' };
+      if (st === 'changed') { S.st.changed = true; S.st.lockLeft = 3; }
+      if (st === 'offline') { S.offline = true; S.queue = [{ id: 1, text: 'Ảnh hoá đơn gửi xe (1 trang) · 15:12' }]; }
+      if (st === 'lock') S.speed = 40;
+    }
+    if (scr === 'dr01') {
+      S.clock = '07:52'; S.consent = false;
+      const A = S.auth;
+      if (st === 'phone') A.step = 'phone';
+      if (st === 'unknown') Object.assign(A, { step: 'phone', phone: '0903456128', err: 'unknown' });
+      if (st === 'otp') Object.assign(A, { step: 'otp', phone: '0903456482', otp: '48', resend: 24 });
+      if (st === 'otperr') Object.assign(A, { step: 'otp', phone: '0903456482', otp: '', otpErr: 'Mã chưa đúng. Còn 4 lần thử.', tries: 4, resend: 0 });
+      if (st === 'offline') { Object.assign(A, { step: 'phone', phone: '0903456482' }); S.offline = true; }
+    }
+    if (scr === 'dr02') {
+      S.clock = '07:53'; S.consent = false;
+      if (st === 'sysperm') S.dlg = { kind: 'sysperm' };
+      if (st === 'fromaccount') { S.c2 = { from: 'dr11' }; S.clock = '10:38'; }
+    }
+    if (scr === 'dr07') {
+      S.inc = newInc();
+      if (st === 'filled') Object.assign(S.inc, { type: 'port', pics: 2, note: 'Kẹt cổng B Cát Lái, xếp hàng từ 08:10. Dự kiến lấy cont trễ 1 tiếng.' });
+      if (st === 'voice') Object.assign(S.inc, { type: 'broke', pics: 1, mode: 'voice', rec: 'on', recSec: 7 });
+      if (st === 'crash') S.inc.type = 'crash';
+      if (st === 'sent') Object.assign(S.inc, { type: 'port', pics: 2, note: 'Kẹt cổng B Cát Lái, xếp hàng từ 08:10. Dự kiến lấy cont trễ 1 tiếng.', status: 'sent', sentAt: '10:38' });
+      if (st === 'offline') { Object.assign(S.inc, { type: 'broke', pics: 1, mode: 'voice', rec: 'done', recSec: 12, status: 'queued', sentAt: '10:38' }); S.offline = true; S.incPending = true; S.queue = [{ id: 1, text: 'Báo sự cố: Hỏng xe (1 ảnh, ghi âm 0:12) · 10:38' }]; }
+      if (st === 'error') Object.assign(S.inc, { type: 'port', pics: 2, note: 'Kẹt cổng B Cát Lái, xếp hàng từ 08:10.', status: 'error' });
+      if (st === 'lock') { Object.assign(S.inc, { type: 'port', pics: 1 }); S.speed = 40; }
+    }
+    if (scr === 'dr09') {
+      if (st === 'history' || st === 'period') S.pay.tab = 'hist';
+      if (st === 'line') S.sheet = { kind: 'payline', id: 'CH-0463' };
+      if (st === 'period') S.sheet = { kind: 'period', id: 'p1' };
+      if (st === 'offline') S.offline = true;
+      if (st === 'loading') S.flags.loading = true;
+      if (st === 'error') S.flags.error = true;
+      if (st === 'empty') S.flags.empty = true;
+    }
+    if (scr === 'dr10') {
+      if (st === 'zoom') S.zoom = 'qr';
+      if (st === 'offline') S.offline = true;
+      if (st === 'loading') S.flags.loading = true;
+      if (st === 'notrip') { finishTrip(T); S.trips = { 'CH-0472': T }; S.clock = '16:20'; }
+    }
+    if (scr === 'dr11') {
+      if (st === 'gplx') S.acct.gplxSoon = true;
+      if (st === 'phone') S.sheet = { kind: 'phone', val: '', err: '' };
+      if (st === 'phonereq') S.acct.phoneReq = '0912 345 777';
+      if (st === 'withdraw') S.dlg = { kind: 'withdraw' };
+      if (st === 'nolocation') S.consent = false;
+      if (st === 'policy') S.sheet = { kind: 'policy' };
+      if (st === 'offline') S.offline = true;
+      if (st === 'loading') S.flags.loading = true;
+      if (st === 'error') S.flags.error = true;
+    }
+    if ((scr === 'dr06' || scr === 'dr05') && S.speed === 0 && st === 'lock') S.speed = 40;
+    render();
+    if (scr === 'dr08' && st === 'need') { const x = document.querySelector('[data-act="supplement"]'); if (x) x.scrollIntoView({ block: 'center' }); }
+  }
+
+  /* ================= Navigation & actions ================= */
+  function commitUndo() { S.undo = null; }
+  function go(scr, opts) {
+    commitUndo(); S.screen = scr; S.flags = {}; S.dlg = null; S.sheet = null; S.zoom = false;
+    if (scr === 'dr03') { S.tab = (opts && opts.tab) || null; S.hl = null; }
+    if (scr !== 'dr05') S.cam = null;
+    if (scr !== 'dr06') S.ex = null;
+    if (scr !== 'dr07') S.inc = null;
+    if (scr === 'dr09' && !(opts && opts.keepTab)) S.pay.tab = 'cur';
+    render();
+  }
+
+  function recordMs(auto) {
+    const t = trip(); const m = MS[t.step]; const prev = t.step;
+    t.step++; t.times[m.k] = m.t; S.clock = m.t;
+    if (auto) t.auto[m.k] = 1; else delete t.auto[m.k];
+    const qid = S.offline ? q(`${m.long} · bấm lúc ${m.t}`) : null;
+    S.undo = { text: (auto ? 'Tự ghi: ' : 'Đã ghi: ') + `<b>${m.long}</b> · ${m.t}`, left: 10, auto, trip: t.id, prev, k: m.k, qid };
+    if (m.k === 'finish') {
+      S.st.status = 'pending'; S.dlg = null;
+      S.undo.text = 'Đã ghi: <b>Hoàn thành chuyến</b> · 14:30';
+      S.undo.onEnd = () => { go('dr03'); toast('Chuyến CH-0472 đã xong. Kế toán sẽ quyết toán và báo bạn.', 'check'); };
+    }
+  }
+  function doUndo() {
+    const u = S.undo; if (!u) return;
+    const t = S.trips[u.trip]; t.step = u.prev; delete t.times[u.k]; delete t.auto[u.k];
+    if (u.qid) S.queue = S.queue.filter(x => x.id !== u.qid);
+    if (u.k === 'finish') S.st.status = 'confirm';
+    S.undo = null; render(); toast('Đã hoàn tác. Mốc chưa được ghi.', 'undo');
+  }
+
+  function missingDocs(t) { return ['eir1', 'pod', 'eir2'].filter(k => !t.docs[k]); }
+
+  function camDone() {
+    const c = S.cam, t = trip(), d = DOCS[c.type];
+    const sign = c.mode === 'sign';
+    const n = c.pages.length;
+    const doc = sign ? { sign: c.name, short: c.name } : { pages: n };
+    const what = sign ? 'chữ ký người nhận' : `${n} trang ${d.short.charAt(0).toLowerCase() + d.short.slice(1)}`;
+    if (S.offline) q(sign ? `Chữ ký người nhận (POD) · ${S.clock}` : `Ảnh ${d.short} (${n} trang) · ${S.clock}`);
+    const msg = S.offline ? (sign ? 'Đã lưu chữ ký. Sẽ gửi khi có mạng.' : `Đã lưu ${n} trang. Sẽ gửi khi có mạng.`) : `Đã gửi ${what}.`;
+    const from = c.from;
+    if (from === 'dr08') { S.st.other = 'supplied'; go('dr08'); toast(S.offline ? msg : 'Đã gửi ảnh bổ sung. Kế toán sẽ xem lại.', 'check'); return; }
+    if (['eir1', 'eir2', 'pod'].includes(c.type)) t.docs[c.type] = doc;
+    go('dr04');
+    if (from === 'milestone') { recordMs(false); render(); }
+    if (from === 'missing') toast('Đã đủ chứng từ. Bấm "Hoàn thành chuyến" để kết thúc.', 'check');
+    else toast(msg, 'check');
+  }
+
+  function capture(src) {
+    const c = S.cam || null;
+    if (S.screen === 'dr06') { S.ex.pages++; S.ex.photo = src || photo; S.ex.step = 4; S.ex.noInv = false; render(); return; }
+    if (!c) return;
+    const pg = { n: c.pages.length + 1, src: src || photo };
+    if (c.retake != null) { pg.n = c.retake + 1; c.pages[c.retake] = pg; c.retake = null; toast(`Đã chụp lại trang ${pg.n}.`, 'check'); }
+    else { if (c.pages.length >= 10) { toast('Tối đa 10 trang cho một chứng từ.', 'warn'); return; } c.pages.push(pg); }
+    render();
+  }
+
+  function settle() {
+    const status = S.st.status;
+    const lines = S.exp.map(e => {
+      let st = 'ok', reason = '';
+      if (e.type === 'load') { st = 'rej'; reason = 'Lý do: Theo hợp đồng, khách hàng tự trả phí bốc xếp tại kho.'; }
+      if (e.type === 'other') { st = S.st.other; if (st === 'need') reason = 'Kế toán ghi: Ảnh hoá đơn bị mờ, chụp lại giúp.'; }
+      if (status === 'pending') { st = 'wait'; reason = ''; }
+      return Object.assign({}, e, { st, reason });
+    });
+    const appr = lines.filter(l => l.st === 'ok');
+    const apprSum = appr.reduce((a, l) => a + l.amt, 0);
+    const total = lines.reduce((a, l) => a + l.amt, 0);
+    const open = lines.some(l => l.st === 'need' || l.st === 'supplied');
+    return { lines, appr, apprSum, total, open, diff: S.adv - apprSum };
+  }
+
+  function act(a, arg, el) {
+    if (locked() && a !== 'call') return;
+    const t = trip();
+    switch (a) {
+      case 'go': go(arg); break;
+      case 'openTrip': S.cur = arg; go('dr04'); break;
+      case 'openOld': toast(`Prototype chỉ dựng chi tiết của CH-0472. ${arg} là dữ liệu mẫu.`, 'info'); break;
+      case 'openSettle': go('dr08'); break;
+      case 'tab': S.tab = arg; S.hl = null; render(); break;
+      case 'salary': go('dr09'); break;
+      case 'account': go('dr11'); break;
+      case 'sync': S.sheet = { kind: 'queue' }; render(); break;
+      case 'learn': S.sheet = { kind: 'loc' }; render(); break;
+      case 'sendNow': if (S.offline) { toast('Vẫn chưa có mạng. Có mạng là tự gửi.', 'warn'); } else flush(); S.sheet = null; render(); break;
+      case 'close': S.dlg = null; S.sheet = null; S.zoom = false; if (S.st.lockLeft < 0) S.st.lockLeft = 0; render(); break;
+      case 'retry': S.flags = {}; render(); toast('Đã tải lại.', 'check'); break;
+      case 'call': toast(arg === 'acc' ? 'Đang gọi kế toán Anh Khoa (loa ngoài)…' : arg === '115' ? 'Đang gọi 115 — cấp cứu…' : 'Đang gọi điều độ Chị Hằng (loa ngoài)…', 'call'); break;
+      case 'maps': toast('Mở Google Maps chỉ đường tới điểm đến.', 'nav'); break;
+      /* DR_04 */
+      case 'ms': {
+        const m = MS[t.step];
+        if (m.k === 'finish') { S.dlg = { kind: missingDocs(t).length ? 'missing' : 'finish' }; render(); break; }
+        if (m.cam) { commitUndo(); S.cam = newCam(m.cam, 'milestone', { ms: t.step }); S.screen = 'dr05'; render(); break; }
+        recordMs(false); render(); break;
+      }
+      case 'undo': doUndo(); break;
+      case 'finishOk': recordMs(false); render(); break;
+      case 'takeMissing': commitUndo(); S.dlg = null; S.cam = newCam(arg, 'missing'); S.screen = 'dr05'; render(); break;
+      case 'expense': commitUndo(); S.ex = newEx(); S.screen = 'dr06'; S.dlg = null; S.sheet = null; render(); break;
+      case 'editExp': { const e = S.exp.find(x => x.id === +arg); commitUndo(); S.sheet = null; S.ex = newEx({ step: 4, type: e.type, other: e.name || '', amt: e.amt, lit: e.lit || 0, km: e.km || 0, pages: e.inv ? 1 : 0, noInv: !e.inv, edit: e.id }); S.screen = 'dr06'; render(); break; }
+      case 'freeCam': commitUndo(); S.cam = newCam(null, 'free'); S.screen = 'dr05'; render(); break;
+      case 'incident': commitUndo(); S.inc = newInc(); S.screen = 'dr07'; S.dlg = null; S.sheet = null; render(); break;
+      case 'permit': go('dr10'); break;
+      case 'details': S.sheet = { kind: 'details' }; render(); break;
+      /* DR_05 */
+      case 'pickType': S.cam.type = arg; S.cam.pick = false; render(); break;
+      case 'shoot': capture(); break;
+      case 'flash': S.cam.flash = !S.cam.flash; render(); break;
+      case 'thumb': S.cam.view = +arg; S.sheet = { kind: 'page' }; render(); break;
+      case 'retake': S.cam.retake = S.cam.view; S.sheet = null; render(); toast(`Chụp lại trang ${S.cam.view + 1}: bấm CHỤP.`, 'camera'); break;
+      case 'delPage': S.cam.pages.splice(S.cam.view, 1); S.cam.pages.forEach((p, i) => p.n = i + 1); S.sheet = null; render(); break;
+      case 'blurRetake': S.cam.pages.pop(); S.cam.blur = false; render(); break;
+      case 'blurKeep': S.cam.blur = false; render(); break;
+      case 'seg': S.cam.mode = arg; render(); break;
+      case 'signClear': S.cam.strokes = []; render(); break;
+      case 'camCancel':
+        if (S.cam && (S.cam.pages.length || S.cam.strokes.length)) { S.dlg = { kind: 'camDiscard' }; render(); }
+        else camBack();
+        break;
+      case 'camDiscard': S.dlg = null; camBack(); break;
+      case 'camDone': camDone(); break;
+      case 'grant': S.cam.noperm = false; render(); toast('Đã cho phép dùng camera.', 'check'); break;
+      case 'storageFix': S.cam.storage = false; render(); break;
+      /* DR_06 */
+      case 'exType': S.ex.type = arg; if (arg !== 'other') { S.ex.step = 2; S.ex.field = 'amt'; } render(); if (arg === 'other') setTimeout(() => { const i = document.getElementById('exOther'); if (i) i.focus(); }, 30); break;
+      case 'exOtherNext': S.ex.step = 2; S.ex.field = 'amt'; render(); break;
+      case 'key': key(arg); break;
+      case 'exField': S.ex.field = arg; render(); break;
+      case 'exNext': exNext(); break;
+      case 'exBack': exBack(); break;
+      case 'zoom': S.zoom = true; render(); break;
+      case 'noInv': S.dlg = { kind: 'noinv' }; render(); break;
+      case 'noInvOk': S.dlg = null; S.ex.noInv = true; S.ex.pages = 0; S.ex.step = 4; render(); break;
+      case 'exGoto': S.ex.step = +arg; if (+arg === 2) S.ex.field = 'amt'; render(); break;
+      case 'exSave': exSave(); break;
+      case 'exDel': S.dlg = { kind: 'del' }; render(); break;
+      case 'exDelOk': { const e = S.exp.find(x => x.id === S.ex.edit); S.exp = S.exp.filter(x => x.id !== S.ex.edit); go('dr04'); toast(`Đã xoá: ${expLabel(e)} ${vnd(e.amt)}`, 'trash'); break; }
+      case 'exDiscard': go('dr04'); break;
+      /* DR_08 */
+      case 'confirm': S.dlg = { kind: 'confirm' }; render(); break;
+      case 'confirmOk':
+        S.dlg = null; S.st.status = 'settled'; S.st.confirmedAt = '16:40 15/11';
+        if (S.offline) { q('Xác nhận quyết toán CH-0472 · bấm lúc 16:40'); toast('Đã lưu. Sẽ gửi khi có mạng.', 'clock'); }
+        else toast('Đã xác nhận quyết toán CH-0472 lúc 16:40.', 'lock');
+        render(); break;
+      case 'disagree': S.sheet = { kind: 'disagree', sel: [], note: '' }; render(); break;
+      case 'disSend': {
+        const sh = S.sheet; const err = !sh.sel.length ? 'Chọn ít nhất một lý do.' : (sh.sel.includes('other') && !sh.note.trim() ? 'Chọn "Lý do khác" thì cần ghi thêm cho kế toán.' : '');
+        if (err) { sh.err = err; render(); break; }
+        S.sheet = null; S.st.status = 'reviewing';
+        if (S.offline) { q('Không đồng ý quyết toán CH-0472 · 16:40'); toast('Đã lưu. Sẽ gửi khi có mạng.', 'clock'); } else toast('Đã gửi ý kiến cho kế toán.', 'check');
+        render(); break;
+      }
+      case 'supplement': commitUndo(); S.cam = newCam('inv', 'dr08'); S.screen = 'dr05'; render(); break;
+      case 'viewInv': S.sheet = { kind: 'inv', id: +arg }; render(); break;
+      /* DR_01 */
+      case 'authStart': S.auth.step = 'phone'; render(); focusLater('authPhone'); break;
+      case 'authBack': { const A = S.auth; if (A.step === 'otp') { A.step = 'phone'; A.otp = ''; A.otpErr = ''; } else if (A.step === 'phone') A.step = 'invite'; render(); break; }
+      case 'authSend': {
+        const A = S.auth;
+        if (S.offline) { toast('Chưa có mạng. Bật dữ liệu di động rồi thử lại.', 'noWifi'); break; }
+        if (!/482$/.test(A.phone)) { A.err = 'unknown'; render(); break; }
+        Object.assign(A, { err: '', step: 'otp', otp: '', otpErr: '', resend: 30 }); render();
+        toast(`Đã gửi mã 6 số tới ${ME.masked}.`, 'msg'); break;
+      }
+      case 'otpKey': otpKey(arg); break;
+      case 'otpPaste': S.auth.otp = '482913'; S.auth.otpErr = ''; render(); verifyOtp(); break;
+      case 'otpResend': S.auth.resend = 30; S.auth.otp = ''; S.auth.otpErr = ''; render(); toast(`Đã gửi lại mã tới ${ME.masked}.`, 'msg'); break;
+      /* DR_02 */
+      case 'cAgree': S.dlg = { kind: 'sysperm' }; render(); break;
+      case 'permAllow': S.consent = true; S.dlg = null; consentDone(true); break;
+      case 'permDeny': S.consent = false; S.dlg = null; consentDone(false, true); break;
+      case 'cDecline': S.consent = false; consentDone(false); break;
+      case 'policy': S.sheet = { kind: 'policy' }; render(); break;
+      /* DR_07 */
+      case 'incType': S.inc.type = arg; render(); break;
+      case 'incPic': if (S.inc.pics >= 6) { toast('Tối đa 6 ảnh cho một lần báo.', 'warn'); break; } S.inc.pics++; render(); break;
+      case 'incDelPic': S.inc.pics--; render(); break;
+      case 'incMode': S.inc.mode = arg; render(); if (arg === 'note') focusLater('incNote'); break;
+      case 'incRec': S.inc.rec = 'on'; S.inc.recSec = 0; render(); break;
+      case 'incRecStop': S.inc.rec = 'done'; if (S.inc.recSec < 1) S.inc.recSec = 1; render(); break;
+      case 'incRecDel': S.inc.rec = null; S.inc.recSec = 0; render(); break;
+      case 'incPlay': toast(`Đang phát ghi âm ${mmss(S.inc.recSec)}.`, 'play'); break;
+      case 'incSend': incSend(); break;
+      case 'incBack': {
+        const i = S.inc;
+        if (i.status === 'edit' && (i.type || i.pics || i.note.trim() || i.rec)) { S.dlg = { kind: 'incDiscard' }; render(); }
+        else go('dr04');
+        break;
+      }
+      case 'incDiscardOk': go('dr04'); break;
+      /* DR_09 */
+      case 'payTab': S.pay.tab = arg; render(); break;
+      case 'payLine': S.sheet = { kind: 'payline', id: arg }; render(); break;
+      case 'payAdj': S.sheet = { kind: 'payadj', id: +arg }; render(); break;
+      case 'payPeriod': S.sheet = { kind: 'period', id: arg }; render(); break;
+      /* DR_10 */
+      case 'qrZoom': S.zoom = 'qr'; render(); break;
+      /* DR_11 */
+      case 'locToggle':
+        if (S.consent) { S.dlg = { kind: 'withdraw' }; render(); }
+        else { S.c2 = { from: 'dr11' }; go('dr02'); }
+        break;
+      case 'withdrawOk':
+        S.consent = false; S.dlg = null;
+        if (S.offline) q('Rút đồng ý chia sẻ vị trí · ' + S.clock);
+        render(); toast('Đã tắt chia sẻ vị trí. Mốc "Đã đến…" giờ bấm tay.', 'check'); break;
+      case 'changePhone': S.sheet = { kind: 'phone', val: '', err: '' }; render(); focusLater('newPhone'); break;
+      case 'phoneSend': {
+        const sh = S.sheet, v = sh.val.replace(/\D/g, '');
+        if (!/^0\d{9}$/.test(v)) { sh.err = 'Số điện thoại cần đủ 10 số, bắt đầu bằng 0.'; render(); break; }
+        if (v === ME.phone.replace(/\s/g, '')) { sh.err = 'Đây là số đang dùng. Nhập số mới.'; render(); break; }
+        S.acct.phoneReq = v.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3'); S.sheet = null;
+        if (S.offline) q('Yêu cầu đổi SĐT · ' + S.clock);
+        render(); toast(S.offline ? 'Đã lưu. Sẽ gửi khi có mạng.' : 'Đã gửi yêu cầu. Admin sẽ gọi số cũ để xác nhận.', 'check'); break;
+      }
+      case 'gplxNew': toast('Đã gửi ảnh GPLX mới cho admin. Admin cập nhật hạn sau khi đối chiếu.', 'check'); S.acct.gplxSent = true; render(); break;
+      case 'logout': S.dlg = { kind: 'logout' }; render(); break;
+      case 'logoutOk': S.auth = newAuth(); S.dlg = null; go('dr01'); toast('Đã đăng xuất khỏi máy này.', 'logout'); break;
+    }
+  }
+
+  /* DR_01 / DR_02 helpers */
+  function focusLater(id) { setTimeout(() => { const i = document.getElementById(id); if (i) i.focus(); }, 40); }
+  function otpKey(k) {
+    const A = S.auth; if (A.checking) return;
+    if (A.otpErr) { A.otpErr = ''; A.otp = ''; }
+    if (k === 'del') A.otp = A.otp.slice(0, -1);
+    else if (A.otp.length < 6) A.otp += k;
+    render();
+    if (A.otp.length === 6) verifyOtp();
+  }
+  function verifyOtp() {
+    const A = S.auth; A.checking = true; render();
+    setTimeout(() => {
+      A.checking = false;
+      if (A.otp === '111111') { A.tries--; A.otpErr = `Mã chưa đúng. Còn ${A.tries} lần thử.`; render(); return; }
+      S.c2 = { from: 'dr01' }; S.screen = 'dr02'; S.consent = false; render();
+      toast('Đã đăng nhập. Máy này giữ đăng nhập, lần sau không cần nhập lại.', 'check', 5000);
+    }, 700);
+  }
+  function consentDone(ok, sysDenied) {
+    const back = S.c2.from === 'dr11' ? 'dr11' : 'dr03';
+    go(back);
+    if (ok) toast('Đã bật chia sẻ vị trí. Chỉ chia sẻ khi chuyến đang chạy.', 'pin');
+    else if (sysDenied) toast('Máy chưa cho phép vị trí. Bạn vẫn bấm mốc bằng tay; bật lại trong Tài khoản.', 'info', 5000);
+    else toast('Không chia sẻ vị trí. Bạn bấm mốc bằng tay; đổi lại trong Tài khoản.', 'info', 5000);
+  }
+  /* DR_07 helpers */
+  const mmss = s => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+  function incSummary(i) {
+    const parts = [];
+    if (i.pics) parts.push(`${i.pics} ảnh`);
+    if (i.rec === 'done') parts.push(`ghi âm ${mmss(i.recSec)}`);
+    if (i.note.trim()) parts.push('ghi chú');
+    return `Báo sự cố: ${INC[i.type].l}${parts.length ? ' (' + parts.join(', ') + ')' : ''} · ${S.clock}`;
+  }
+  function incSend() {
+    const i = S.inc; if (!i.type) return;
+    if (i.rec === 'on') { i.rec = 'done'; }
+    i.sentAt = S.clock;
+    if (S.offline) { q(incSummary(i)); S.incPending = true; i.status = 'queued'; render(); return; }
+    i.status = 'sending'; render();
+    setTimeout(() => { if (S.inc === i && i.status === 'sending') { i.status = 'sent'; render(); toast('Điều độ đã nhận báo sự cố.', 'check'); } }, 1200);
+  }
+
+  function camBack() {
+    const c = S.cam;
+    if (c.from === 'dr08') go('dr08');
+    else { go('dr04'); if (c.from === 'milestone') toast('Đã huỷ chụp. Mốc chưa được ghi.', 'info'); }
+  }
+  function flush() {
+    if (!S.queue.length) return;
+    const n = S.queue.length; S.sync = 'send'; render();
+    setTimeout(() => {
+      S.queue = []; S.sync = 'ok';
+      const inc = S.incPending; S.incPending = false;
+      if (inc && S.inc && S.inc.status === 'queued') S.inc.status = 'sent';
+      render(); toast(`Đã gửi ${n} thao tác. Giờ ghi nhận là giờ bạn bấm.`, 'check');
+      if (inc) toast('Điều độ đã nhận báo sự cố.', 'check');
+    }, 1500);
+  }
+
+  /* DR_06 helpers */
+  const expLabel = e => e.type === 'other' ? 'Khác: ' + (e.name || e.other || '') : ET[e.type].label;
+  function exFields() { return S.ex.type === 'fuel' ? ['amt', 'lit', 'km'] : ['amt']; }
+  function key(k) {
+    const ex = S.ex, f = ex.field, max = { amt: 99999999, lit: 999, km: 9999999 }[f];
+    let s = String(ex[f] || '');
+    if (k === 'del') s = s.slice(0, -1);
+    else s = s + k;
+    let v = parseInt(s || '0', 10); if (v > max) return;
+    ex[f] = v; render();
+  }
+  function exNext() {
+    const ex = S.ex, fs = exFields(), i = fs.indexOf(ex.field);
+    if (!ex[ex.field]) return;
+    if (i < fs.length - 1) { ex.field = fs[i + 1]; render(); return; }
+    const missing = fs.find(f => !ex[f]);
+    if (missing) { ex.field = missing; render(); return; }
+    ex.step = ex.pages || ex.noInv ? 4 : 3; render();
+  }
+  function exBack() {
+    const ex = S.ex;
+    if (ex.edit && ex.step === 4) { go('dr04'); return; }
+    if (ex.step > 1) { ex.step = ex.step === 4 ? 3 : ex.step - 1; if (ex.step === 1 && ex.type !== 'other') {} render(); return; }
+    if (ex.type || ex.amt) { S.dlg = { kind: 'discard' }; render(); return; }
+    go('dr04');
+  }
+  function exSave() {
+    const ex = S.ex;
+    if (ex.err) { ex.err = false; }
+    const e = { id: ex.edit || ++uid, type: ex.type, amt: ex.amt, time: S.clock, inv: ex.pages ? 1 : 0 };
+    if (ex.type === 'fuel') { e.lit = ex.lit; e.km = ex.km; }
+    if (ex.type === 'other') e.name = ex.other || 'Khoản khác';
+    if (ex.edit) S.exp = S.exp.map(x => x.id === ex.edit ? Object.assign({}, x, e, { time: x.time }) : x); else S.exp.push(e);
+    const label = `${expLabel(e)} ${vnd(e.amt)}`;
+    if (S.offline) q(`Chi phí ${label} · ${S.clock}`);
+    go('dr04');
+    toast(S.offline ? 'Đã lưu. Sẽ gửi khi có mạng.' : `Đã lưu: ${label}`, 'check');
+  }
+
+  /* ================= Render helpers ================= */
+  function syncChip(dark) {
+    const n = S.queue.length;
+    if (S.sync === 'send') return `<button class="app-sync s-send" data-act="sync" aria-label="Đang gửi…" title="Đang gửi…">${ic('refresh')}</button>`;
+    if (n) return `<button class="app-sync s-wait" data-act="sync" aria-label="Chờ mạng, ${n} thao tác đang chờ gửi" title="Chờ mạng">${ic('clock')}<span class="app-syncn">${n}</span></button>`;
+    return `<button class="app-sync s-ok" data-act="sync" aria-label="Đã gửi hết" title="Đã gửi hết">${ic('check')}</button>`;
+  }
+  function topbar(o) {
+    const back = o.back ? `<button class="app-back" data-act="${o.backAct || 'go'}" data-arg="${o.backArg || ''}">${ic(o.backIcon || 'back')}<span>${o.backLabel || 'Quay lại'}</span></button>` : '<span class="app-top-pad"></span>';
+    return `<header class="app-top ${o.dark ? 'is-dark' : ''}">${back}<div class="app-title"><h1 class="${o.sm ? 'app-h-sm' : ''}">${o.title}</h1>${o.sub ? `<p>${o.sub}</p>` : ''}</div>${syncChip()}</header>`;
+  }
+  const banner = () => sharing() ? `<div class="app-banner" role="status">${ic('pin')}<span>Đang chia sẻ vị trí</span><button data-act="learn">Tìm hiểu</button></div>` : '';
+  const alert = (kind, icon, body, actions) => `<div class="app-alert app-a-${kind}" role="${kind === 'danger' ? 'alert' : 'status'}">${ic(icon)}<div class="app-alert-b"><div>${body}</div>${actions ? `<div class="app-alert-act">${actions}</div>` : ''}</div></div>`;
+  const badge = (kind, icon, text, extra) => `<span class="app-badge b-${kind}">${extra || ''}${ic(icon)}${text}</span>`;
+  function countdown() {
+    const left = (24 * 60 - mins(S.clock)) + 8 * 60; const h = Math.floor(left / 60);
+    return `<div class="app-cd">${ic('clock')}<span>Hạn trả rỗng: còn ${h} giờ</span><b>Sắp hết hạn</b></div>`;
+  }
+  function art(kind, n, blur) {
+    const T = { eir: 'PHIẾU GIAO NHẬN CONTAINER (EIR)', pod: 'BIÊN BẢN GIAO NHẬN HÀNG', inv: 'HOÁ ĐƠN GIÁ TRỊ GIA TĂNG', load: 'XÁC NHẬN XẾP HÀNG', other: 'CHỨNG TỪ' }[kind];
+    const sub = kind === 'eir' ? 'Số cont: MSKU1234567' : kind === 'inv' ? COMPANY : 'CH-0472 · KCN Tân Uyên';
+    return `<div class="app-paper ${blur ? 'is-blur' : ''}"><b>${T}</b><span class="app-psub">${sub}${n ? ' · Trang ' + n : ''}</span><i></i><i class="s"></i><div class="app-ptab"><i></i><i></i><i></i><i></i></div><i></i><i class="s"></i><i></i><div class="app-psign"></div></div>`;
+  }
+  const skel = (rows) => `<div class="app-card app-sk">${rows.map(r => `<span class="sk ${r[1] || ''}" style="width:${r[0]}%"></span>`).join('')}</div>`;
+
+  /* ================= DR_03 ================= */
+  function tripStatus(t) {
+    if (t.step === 0) return badge('info', 'bell', 'Chuyến mới — cần nhận');
+    if (t.step === 1) return badge('info', 'check', 'Đã nhận');
+    if (t.step <= 8) return badge('info', 'play', 'Đang chạy', '<span class="pulse"></span>');
+    return settleBadge();
+  }
+  function settleBadge() {
+    const s = S.st.status;
+    if (s === 'pending') return badge('neutral', 'clock', 'Hoàn thành — chờ kế toán');
+    if (s === 'need') return badge('warning', 'warn', 'Cần bổ sung chứng từ');
+    if (s === 'confirm') return badge('info', 'hand', 'Chờ bạn xác nhận quyết toán');
+    if (s === 'reviewing') return badge('neutral', 'clock', 'Kế toán đang xem lại');
+    return badge('success', 'lock', 'Đã quyết toán');
+  }
+  function tripCard(t) {
+    const I = INFO[t.id];
+    if (t.step === 9) {
+      const tot = S.exp.reduce((a, e) => a + e.amt, 0);
+      const btn = ['confirm', 'need'].includes(S.st.status) ? `<button class="app-btn app-btn-primary" data-act="openSettle">Xem quyết toán ${ic('chevR')}</button>` : '';
+      return `<article class="app-card app-trip app-mini" data-act="openSettle"><div class="app-trip-head"><span class="app-code">${t.id} · ${I.kind}</span>${tripStatus(t)}</div><div class="app-route">Cảng Cát Lái → KCN Tân Uyên</div><div class="app-kv"><span>Xong:</span> <b>14:30 13/11</b></div><div class="app-kv"><span>Chi phí đã ghi:</span> <b>${vnd(tot)}</b></div>${btn}</article>`;
+    }
+    const isNew = t.step === 0;
+    return `<article class="app-card app-trip ${S.hl === t.id ? 'is-hl' : ''}" data-act="openTrip" data-arg="${t.id}">
+      <div class="app-trip-head"><span class="app-code">${t.id} · ${I.kind}</span>${tripStatus(t)}</div>
+      <div class="app-route">${I.route}</div>
+      ${isNew ? `<div class="app-kv"><b>${I.pick}</b></div>` : `<div class="app-next">${ic('chevR')}Bước tiếp theo: ${MS[t.step].next}</div>`}
+      <div class="app-kv"><span>Số cont:</span> <b class="app-code">${I.cont}</b></div>
+      ${isNew ? '<div class="app-kv"><span>Xe:</span> <b>51C-456.78 · Rơ-moóc 51R-123.45</b></div>' : ''}
+      <div class="app-kv"><span>Tạm ứng:</span> <b>${vnd(I.adv)}</b></div>
+      ${!isNew && t.step <= 7 ? countdown() : ''}
+      <button class="app-btn app-btn-primary" data-act="openTrip" data-arg="${t.id}">${isNew ? 'Xem và nhận chuyến' : 'Mở chuyến'} ${ic('chevR')}</button>
+    </article>`;
+  }
+  const oldCard = o => `<article class="app-card app-trip app-mini" data-act="openOld" data-arg="${o.id}"><div class="app-trip-head"><span class="app-code">${o.id} · ${o.kind}</span>${badge(o.b[0], o.b[1], o.b[2])}</div><div class="app-route">${o.route}</div><div class="app-kv"><span>${o.done.split(':')[0]}:</span> <b>${o.done.slice(o.done.indexOf(':') + 2)}</b></div><div class="app-kv"><span>Chi phí đã ghi:</span> <b>${vnd(o.cost)}</b></div></article>`;
+
+  function vDR03() {
+    const f = S.flags;
+    let h = topbar({ title: 'Chuyến của tôi', sub: 'Nguyễn Văn Tuấn · 51C-456.78' });
+    if (f.loading) {
+      return h + `<div class="app-body">${skel([[40, 'h24'], [70], [55, 'h24'], [80], [50, 'h24']])}<div class="app-tabs" style="border-radius:var(--r-lg)"><button disabled>…</button><button disabled>…</button><button disabled>…</button></div>${skel([[45], [90, 'h24'], [70], [60], [100, 'h56']])}${skel([[45], [85, 'h24'], [65], [100, 'h56']])}<p class="app-note">Đang tải danh sách chuyến…</p></div>` + nav();
+    }
+    h += banner();
+    const trips = Object.values(S.trips);
+    const lists = { new: trips.filter(t => t.step === 0), run: trips.filter(t => t.step >= 1 && t.step <= 8), done: trips.filter(t => t.step === 9) };
+    const doneAll = S.empty ? [] : lists.done.map(tripCard).concat(OLD.map(oldCard));
+    if (!S.tab) S.tab = lists.run.length ? 'run' : lists.new.length ? 'new' : 'done';
+    const T = t72();
+    const holding = T && T.step >= 1 && S.st.status !== 'settled' ? INFO['CH-0472'].adv : 0;
+    const waiting = T && T.step === 9 && S.st.status === 'confirm';
+    const sd = settle().diff;
+    let body = '';
+    if (S.offline) body += alert('warn', 'noWifi', 'Không có mạng. Đang xem dữ liệu lúc 09:05. Thao tác vẫn được lưu.');
+    if (f.error) body += alert('danger', 'warn', 'Chưa tải được danh sách chuyến. Đang hiện bản lưu lúc 09:05.', '<button data-act="retry">Thử lại</button>');
+    body += `<section class="app-money" aria-label="Tiền của tôi"><h2>Tiền của tôi</h2>
+      <button class="app-mrow" disabled><span class="app-ml"><small>Tạm ứng đang giữ</small><b>${vnd(holding)}</b></span></button>
+      ${waiting ? `<button class="app-mrow is-act" data-act="openSettle"><span class="app-ml"><small>Quyết toán chờ bạn xác nhận — 1 chuyến</small><b>${sd >= 0 ? 'Nộp lại ' + vnd(sd) : 'Nhận thêm ' + vnd(-sd)}</b></span>${ic('chevR')}</button>`
+        : `<button class="app-mrow" disabled><span class="app-ml"><small>Quyết toán chờ bạn xác nhận</small><b class="app-mnone">Chưa có chuyến nào</b></span></button>`}
+      <button class="app-mrow" data-act="salary"><span class="app-ml"><small>Lương chuyến kỳ này (01–15/11)</small><b>${vnd(4850000)}</b></span>${ic('chevR')}</button>
+    </section>`;
+    if (S.empty) {
+      body += `<div class="app-emptystate">${ic('truck', 'app-i40')}<h3>Chưa có chuyến nào</h3><p>Khi điều độ giao chuyến, bạn sẽ nhận thông báo ở đây.</p><button class="app-btn app-btn-primary" data-act="call">${ic('call')}Gọi điều độ</button></div>`;
+      return h + `<div class="app-body">${body}</div>` + nav();
+    }
+    const tabs = `<div class="app-tabs" role="tablist">${[['new', 'Chuyến mới', lists.new.length], ['run', 'Đang chạy', lists.run.length], ['done', 'Đã xong', doneAll.length]].map(([k, l, n]) => `<button role="tab" aria-selected="${S.tab === k}" data-act="tab" data-arg="${k}">${l} (${n})</button>`).join('')}</div>`;
+    let cards = S.tab === 'done' ? doneAll.join('') : lists[S.tab].map(tripCard).join('');
+    if (!cards) cards = `<div class="app-emptystate">${ic('truck', 'app-i40')}<h3>${S.tab === 'new' ? 'Không có chuyến mới' : 'Không có chuyến đang chạy'}</h3><p>${S.tab === 'new' ? 'Chuyến mới sẽ hiện ở đây kèm thông báo.' : 'Mở tab "Chuyến mới" để nhận chuyến.'}</p></div>`;
+    return h + `<div class="app-body">${body}${tabs}${cards}</div>` + nav();
+  }
+  const nav = () => { const c = k => S.screen === k ? 'aria-current="page"' : ''; return `<nav class="app-nav" aria-label="Điều hướng chính"><button ${c('dr03')} data-act="go" data-arg="dr03">${ic('truck', 'app-i28')}Chuyến</button><button ${c('dr09')} data-act="salary">${ic('wallet', 'app-i28')}Lương</button><button ${c('dr11')} data-act="account">${ic('user', 'app-i28')}Tài khoản</button></nav>`; };
+
+  /* ================= DR_04 ================= */
+  function dest(t) {
+    const s = t.step;
+    if (s <= 3) return { lbl: s === 0 ? 'Lấy hàng tại' : 'Đang đi tới', name: 'Cảng Cát Lái', lines: ['Đường Nguyễn Thị Định, TP. Thủ Đức, TP.HCM', INFO[t.id].pick], short: 'Cảng Cát Lái, TP. Thủ Đức' };
+    if (s <= 5) return { lbl: 'Đang đi tới', name: 'Kho Cty Hưng Thịnh — Lô C5, KCN Tân Uyên, Bình Dương', lines: ['Hẹn giao: 11:00 hôm nay', 'Người nhận: Chị Mai · 0908 xxx 215'], short: 'Kho Cty Hưng Thịnh, KCN Tân Uyên' };
+    return { lbl: 'Đang đi tới', name: 'Depot Phước Long — bãi trả rỗng', lines: ['Đường Đỗ Xuân Hợp, TP. Thủ Đức, TP.HCM', 'Hạn trả rỗng: 08:00 14/11'], short: 'Depot Phước Long, TP. Thủ Đức' };
+  }
+  function vDR04() {
+    const t = trip(), I = INFO[t.id], f = S.flags;
+    let h = topbar({ back: true, backArg: 'dr03', title: `${t.id} · ${I.kind}`, sub: `${I.cont} · 51C-456.78`, sm: true });
+    if (f.loading) return h + `<div class="app-body">${skel([[30], [90, 'h24'], [70], [60], [100, 'h56']])}<span class="sk" style="height:236px;border-radius:12px"></span><p class="app-note">Đang tải chuyến…</p></div>`;
+    h += banner();
+    let b = '';
+    if (S.offline) b += alert('warn', 'noWifi', 'Không có mạng. Mốc vẫn được ghi với giờ bạn bấm, có mạng là tự gửi.');
+    if (f.error) b += alert('danger', 'block', '<b>Điều độ đã thay đổi chuyến này.</b> Nút mốc tạm khoá.', '<button data-act="call">Gọi điều độ</button>');
+    if (t.step === 9) {
+      b += `<div class="app-doneblock">${ic('check', 'app-i40')}<b>Chuyến đã xong — chờ kế toán quyết toán</b><span>Hoàn thành lúc 14:30 · Chi phí đã ghi: ${S.exp.length} khoản · ${vnd(S.exp.reduce((a, e) => a + e.amt, 0))}</span></div>`;
+      b += `<div class="app-icons n2"><button class="app-ia" data-act="expense">${ic('plus')}Chi phí</button><button class="app-ia" data-act="freeCam">${ic('camera')}Chụp chứng từ</button></div>`;
+      b += `<button class="app-link" data-act="details">Xem chi tiết chuyến ${ic('chevR')}</button>`;
+      return h + `<div class="app-body">${b}</div>`;
+    }
+    const d = dest(t), m = MS[t.step];
+    b += `<section class="app-card app-dest"><span class="app-lbl">${d.lbl}</span><h2>${d.name}</h2>${d.lines.map(l => `<p>${l}</p>`).join('')}${t.step >= 1 && t.step <= 7 && t.id === 'CH-0472' ? countdown() : ''}
+      <div class="app-2"><button class="app-btn app-btn-secondary" data-act="maps">${ic('nav')}Chỉ đường</button><button class="app-btn app-btn-secondary" data-act="call">${ic('call')}<span>Gọi điều độ<small>Chị Hằng</small></span></button></div></section>`;
+    const bigKey = t.id + ':' + t.step, isNext = lastBig && lastBig !== bigKey && lastBig.split(':')[0] === t.id; lastBig = bigKey;
+    b += `<button class="app-big ${isNext ? 'is-next' : ''}" data-act="ms" ${f.error ? 'disabled' : ''} aria-label="Bước ${t.step + 1} trên 9: ${m.btn}. ${m.sub}">
+      <span class="app-step">Bước ${t.step + 1}/9</span><span class="app-bigt">${m.btn}</span><span class="app-bigs">${m.cam ? ic('camera') : ''}${f.error ? 'Tạm khoá — gọi điều độ' : m.sub}</span></button>`;
+    b += t.step === 0
+      ? `<div class="app-icons n1"><button class="app-ia" data-act="permit">${ic('doc')}Giấy vận tải</button></div>`
+      : `<div class="app-icons"><button class="app-ia" data-act="expense" ${f.error ? 'disabled' : ''}>${ic('plus')}Chi phí</button><button class="app-ia" data-act="freeCam" ${f.error ? 'disabled' : ''}>${ic('camera')}Chụp chứng từ</button><button class="app-ia" data-act="incident">${ic('warn')}Báo sự cố</button><button class="app-ia" data-act="permit">${ic('doc')}Giấy vận tải</button></div>`;
+    b += `<button class="app-link" data-act="details">Xem chi tiết chuyến ${ic('chevR')}</button>`;
+    return h + `<div class="app-body ${S.undo ? 'is-pad-b' : ''}">${b}</div>`;
+  }
+
+  /* ================= DR_05 ================= */
+  function vDR05() {
+    const c = S.cam;
+    if (c.pick) {
+      return topbar({ back: true, backIcon: 'x', backLabel: 'Huỷ', backAct: 'camCancel', title: 'Chụp chứng từ', sub: 'CH-0472 · MSKU1234567' }) +
+        `<div class="app-body"><h2 class="app-h">Bạn chụp giấy gì?</h2><div class="app-grid">${['eir1', 'eir2', 'pod', 'load'].map(k => `<button class="app-gcell" data-act="pickType" data-arg="${k}">${ic(DOCS[k].icon)}${DOCS[k].grid}</button>`).join('')}<button class="app-gcell is-wide" data-act="pickType" data-arg="other">${ic('clip')}Khác</button></div></div>`;
+    }
+    const d = DOCS[c.type];
+    const top = topbar({ dark: !c.noperm, back: true, backIcon: 'x', backLabel: 'Huỷ', backAct: 'camCancel', title: d.title, sub: 'CH-0472 · MSKU1234567', sm: true });
+    if (c.noperm) {
+      return top + `<div class="app-body"><div class="app-emptystate" style="padding-top:80px">${ic('camera', 'app-i40')}<h3>Cần mở camera để chụp chứng từ</h3><p>Bấm nút dưới, rồi chọn "Cho phép".</p></div></div><div class="app-camdone is-light"><button class="app-btn app-btn-primary" data-act="grant">${ic('gear')}Mở cài đặt camera</button></div>`;
+    }
+    let h = top + '<div class="app-cam">';
+    if (c.type === 'pod') h += `<div class="app-seg" role="group" aria-label="Cách lấy chứng từ giao nhận"><button aria-pressed="${c.mode === 'photo'}" data-act="seg" data-arg="photo">${c.mode === 'photo' ? ic('check') : ic('camera')}Chụp phiếu</button><button aria-pressed="${c.mode === 'sign'}" data-act="seg" data-arg="sign">${c.mode === 'sign' ? ic('check') : ic('pen')}Ký trên máy</button></div>`;
+    if (c.from === 'dr08') h += alert('warn', 'info', '<b>Kế toán cần:</b> Ảnh hoá đơn gửi xe 50.000 đ — ảnh cũ bị mờ, chụp lại giúp.');
+    if (c.storage) h += alert('danger', 'warn', 'Máy hết bộ nhớ. Xoá bớt ảnh cũ trong máy rồi chụp lại.', '<button data-act="storageFix">Đã xoá, thử lại</button>');
+    if (c.blur) h += alert('warn', 'warn', 'Ảnh hơi mờ. Chụp lại cho rõ chữ?', '<button data-act="blurRetake">Chụp lại</button><button data-act="blurKeep">Vẫn dùng</button>');
+    if (c.mode === 'sign') {
+      h += `<div class="app-signwrap"><p>Đưa máy cho người nhận ký vào đây</p><div class="app-pad"><div class="app-padl"><span>Ký tên</span></div><canvas id="sig" aria-label="Vùng ký tên"></canvas></div>
+        <button class="app-btn app-btn-secondary app-btn-sm" data-act="signClear" style="align-self:flex-start">${ic('refresh')}Ký lại</button>
+        <label class="app-field"><span>Họ tên người nhận</span><input class="app-input" id="podName" value="${esc(c.name)}" placeholder="Ví dụ: Trần Thị Mai" autocomplete="off"></label></div>`;
+      h += `</div><div class="app-camdone"><button class="app-btn app-btn-primary" id="signDone" data-act="camDone" ${c.strokes.length && c.name.trim() ? '' : 'disabled'}>${ic('check')}Xong — gửi chữ ký</button></div>`;
+      return h;
+    }
+    const last = c.pages[c.pages.length - 1];
+    h += `<div class="app-vf ${c.flash ? 'flash' : ''}">${photo ? `<img class="app-photo" src="${photo}" alt="Ảnh từ máy">` : art(d.art, c.retake != null ? c.retake + 1 : c.pages.length + 1)}
+      ${d.art === 'eir' ? `<div class="app-vftop">${ic('info')}Kiểm tra số cont trên phiếu: MSKU1234567</div>` : ''}
+      <div class="app-frame"><i></i><i></i><i></i><i></i></div><div class="app-vfhint">${c.retake != null ? `Chụp lại trang ${c.retake + 1}` : `Đặt cả tờ ${d.art === 'inv' ? 'hoá đơn' : 'phiếu'} vào trong khung`}</div></div>`;
+    if (c.pages.length) h += `<div class="app-thumbs">${c.pages.map((p, i) => `<button class="app-thumb" data-act="thumb" data-arg="${i}"><span class="app-tbox">${p.src ? `<img src="${p.src}" alt="">` : art(d.art, p.n, p.blur)}</span>Trang ${p.n}</button>`).join('')}<button class="app-thumb is-add" data-act="shoot"><span class="app-tbox">${ic('plus', 'app-i28')}</span>Chụp thêm</button></div>`;
+    h += `<div class="app-cambar"><button class="app-camact" data-act="flash" aria-pressed="${c.flash}">${ic('flash')}${c.flash ? 'Tắt đèn' : 'Bật đèn'}</button>
+      <button class="app-shutter" data-act="shoot" ${c.storage ? 'disabled' : ''} aria-label="Chụp trang">${ic('camera')}CHỤP</button>
+      <label class="app-camact" style="position:relative">${ic('image')}Ảnh có sẵn<input type="file" accept="image/*" capture="environment" data-file="cam"></label></div>`;
+    h += '</div>';
+    if (c.pages.length) h += `<div class="app-camdone"><button class="app-btn app-btn-primary" data-act="camDone">${ic('check')}Xong — gửi ${c.pages.length} trang</button></div>`;
+    else h += '<div class="app-camdone" style="padding-bottom:28px"></div>';
+    return h;
+  }
+
+  /* ================= DR_06 ================= */
+  function vDR06() {
+    const ex = S.ex;
+    const others = S.exp.filter(e => e.id !== ex.edit);
+    const spent = others.reduce((a, e) => a + e.amt, 0), left = S.adv - spent;
+    let h = topbar({ back: true, backAct: 'exBack', title: ex.edit ? 'Sửa chi phí' : 'Ghi chi phí', sub: 'CH-0472 · 51C-456.78' });
+    h += left >= 0 ? `<div class="app-adv">${ic('wallet')}<span>Tạm ứng <b>${vnd(S.adv)}</b> · đã ghi <b>${vnd(spent)}</b> · còn <b>${vnd(left)}</b></span></div>`
+      : `<div class="app-adv is-over">${ic('warn')}<span>Đã chi vượt tạm ứng <b>${vnd(-left)}</b></span></div>`;
+    const stepper = n => `<div class="app-stepper">Bước ${n}/4 · ${['Chọn loại', 'Số tiền', 'Chụp hoá đơn', 'Xem lại & lưu'][n - 1]}</div>`;
+    let b = '';
+    if (ex.step === 1) {
+      b += stepper(1) + `<h2 class="app-h">Bạn chi tiền gì?</h2><div class="app-grid">${['fuel', 'toll', 'lift', 'load'].map(k => `<button class="app-gcell" data-act="exType" data-arg="${k}" aria-pressed="${ex.type === k}">${ic(ET[k].icon)}${ET[k].label}</button>`).join('')}<button class="app-gcell is-wide" data-act="exType" data-arg="other" aria-pressed="${ex.type === 'other'}">${ic('plus')}Khác</button></div>`;
+      if (ex.type === 'other') b += `<label class="app-field"><span>Khoản gì?</span><input class="app-input" id="exOther" value="${esc(ex.other)}" placeholder="Ví dụ: Gửi xe qua đêm" autocomplete="off"></label><button class="app-btn app-btn-primary" id="exOtherNext" data-act="exOtherNext" ${ex.other.trim() ? '' : 'disabled'}>Tiếp ${ic('chevR')}</button>`;
+      return h + `<div class="app-body">${b}</div>`;
+    }
+    if (ex.step === 2) {
+      const fs = exFields();
+      const fmtF = (f, v) => !v ? (f === 'amt' ? '0 đ' : f === 'lit' ? '— lít' : '— km') : f === 'amt' ? vnd(v) : f === 'lit' ? `${grp(v)} lít` : `${grp(v)} km`;
+      b += `<div class="app-stepper">Bước 2/4 · Số tiền · <b style="color:var(--fg-strong)">${esc(expLabel(ex))}</b></div>`;
+      if (fs.length === 1) b += `<div class="app-amt"><small>Số tiền</small><b class="${ex.amt ? '' : 'is-empty'}">${fmtF('amt', ex.amt)}</b></div>`;
+      else {
+        b += `<div class="app-fields">${fs.map(f => `<button class="app-fld ${ex.field === f ? 'is-on' : ''}" data-act="exField" data-arg="${f}"><span class="app-arrow">${ex.field === f ? '▶' : ''}</span><span class="app-fl">${{ amt: 'Số tiền', lit: 'Số lít', km: 'Km đồng hồ' }[f]}</span><span class="app-fv ${ex[f] ? '' : 'is-empty'}">${fmtF(f, ex[f])}</span></button>`).join('')}</div>`;
+        const info = [];
+        if (ex.amt && ex.lit) info.push(`≈ <b>${grp(Math.round(ex.amt / ex.lit))} đ/lít</b>`);
+        if (ex.km && ex.km < PREV_KM) b += alert('warn', 'warn', `Km nhỏ hơn lần đổ trước (${grp(PREV_KM)} km), kiểm tra lại?`);
+        else if (ex.km) info.push(`cách lần đổ trước ${grp(ex.km - PREV_KM)} km`);
+        if (info.length) b += `<div class="app-alert app-a-info" style="padding:8px 12px">${ic('info')}<div>${info.join(' · ')}</div></div>`;
+      }
+      const keys = `<div class="app-keys">${['1', '2', '3', '4', '5', '6', '7', '8', '9'].map(k => `<button class="app-key" data-act="key" data-arg="${k}">${k}</button>`).join('')}<button class="app-key" data-act="key" data-arg="000">000</button><button class="app-key" data-act="key" data-arg="0">0</button><button class="app-key is-fn" data-act="key" data-arg="del" aria-label="Xoá một số">${ic('bksp')}Xoá</button></div>`;
+      const last = ex.field === fs[fs.length - 1];
+      return h + `<div class="app-body" style="gap:8px">${b}</div><div class="app-foot is-pad">${keys}<button class="app-btn app-btn-primary" data-act="exNext" ${ex[ex.field] ? '' : 'disabled'}>${last ? 'Tiếp' : 'Ô tiếp theo'} ${ic('chevR')}</button></div>`;
+    }
+    if (ex.step === 3) {
+      b += stepper(3) + alert('info', 'receipt', `<div class="app-co"><span>Hoá đơn phải ghi tên công ty:</span><b>${COMPANY}</b><span>MST: <b>${MST}</b></span></div>`, `<button data-act="zoom">${ic('zoom', 'app-i16')} Phóng to cho cửa hàng xem</button>`);
+      b += `<div class="app-vf is-short" style="margin:0">${photo ? `<img class="app-photo" src="${photo}" alt="">` : art('inv', 0)}<div class="app-frame"><i></i><i></i><i></i><i></i></div><div class="app-vfhint">Đặt cả tờ hoá đơn vào khung</div></div>`;
+      b += `<div class="app-cambar" style="padding:0"><span></span><button class="app-shutter" data-act="shoot" aria-label="Chụp hoá đơn">${ic('camera')}CHỤP</button><label class="app-camact" style="position:relative;color:var(--primary)">${ic('image')}Ảnh có sẵn<input type="file" accept="image/*" capture="environment" data-file="cam"></label></div>`;
+      b += `<button class="app-btn app-btn-ghost" data-act="noInv">Không có hoá đơn</button>`;
+      return h + `<div class="app-body" style="gap:10px">${b}</div>`;
+    }
+    // step 4
+    const readOnly = ex.closed;
+    b += stepper(4);
+    if (readOnly) b += alert('neutral', 'lock', 'Kế toán đã chốt quyết toán. Khoản này chỉ xem được.');
+    if (ex.err) b += alert('danger', 'warn', 'Chưa lưu được. Bấm Lưu lại, hoặc gọi điều độ.', '<button data-act="exSave">Lưu lại</button><button data-act="call">Gọi điều độ</button>');
+    const edit = s => readOnly ? '' : `<button class="app-edit" data-act="exGoto" data-arg="${s}">Sửa</button>`;
+    b += `<section class="app-card app-lis" style="padding:6px">
+      <div class="app-li">${ic(ET[ex.type].icon, 'app-i28')}<div class="app-lt"><b>${expLabel(ex)} · ${vnd(ex.amt)}</b>${ex.type === 'fuel' ? `<small>${ex.lit} lít · km ${grp(ex.km)} · ≈ ${grp(Math.round(ex.amt / ex.lit))} đ/lít</small>` : ''}</div>${edit(2)}</div>
+      <div class="app-li ${ex.pages ? '' : 'is-warn'}">${ic(ex.pages ? 'receipt' : 'warn', 'app-i28')}<div class="app-lt"><b>${ex.pages ? `Hoá đơn ${ex.pages} trang ✓` : 'Thiếu hoá đơn'}</b><small>${ex.pages ? 'Ghi tên ' + COMPANY.replace('CÔNG TY TNHH ', 'Cty ').toLowerCase().replace(/(^|\s)\S/g, s => s.toUpperCase()) : 'Kế toán có thể không duyệt khoản này'}</small></div>${edit(3)}</div>
+      <div class="app-li">${ic('clock', 'app-i28')}<div class="app-lt"><b>Ghi lúc ${S.clock} hôm nay</b><small>Giờ ghi nhận là giờ bấm Lưu trên máy</small></div></div></section>`;
+    let foot = '';
+    if (!readOnly) {
+      foot = `<button class="app-btn app-btn-primary" data-act="exSave">${ic('check')}${ex.edit ? 'Lưu thay đổi' : 'Lưu chi phí'}</button>`;
+      if (ex.edit) foot += `<button class="app-btn app-btn-danger-o" data-act="exDel">${ic('trash')}Xoá khoản này</button>`;
+    } else foot = `<button class="app-btn app-btn-secondary" data-act="go" data-arg="dr04">Quay lại chuyến</button>`;
+    return h + `<div class="app-body">${b}</div><div class="app-foot">${foot}</div>`;
+  }
+
+  /* ================= DR_08 ================= */
+  function vDR08() {
+    const f = S.flags, st = S.st;
+    let h = topbar({ back: true, backArg: 'dr03', title: 'Quyết toán chuyến', sub: 'CH-0472 · Cát Lái → KCN Tân Uyên · xong 14:30 13/11', sm: true });
+    if (f.loading) return h + `<div class="app-body">${skel([[50], [100, 'h24'], [100, 'h24'], [70, 'h56']])}${skel([[80, 'h24'], [50]])}${skel([[75, 'h24'], [40]])}${skel([[85, 'h24'], [55]])}<p class="app-note">Đang tải quyết toán…</p></div>`;
+    if (f.error) return h + `<div class="app-body">${alert('danger', 'warn', 'Chưa tải được quyết toán.', '<button data-act="retry">Thử lại</button>')}<div class="app-emptystate">${ic('receipt', 'app-i40')}<h3>Chưa có dữ liệu quyết toán</h3><p>Kiểm tra mạng rồi bấm Thử lại.</p></div></div>`;
+    const s = settle();
+    let b = '';
+    if (S.offline) b += alert('warn', 'noWifi', 'Không có mạng. Đang xem dữ liệu lúc 15:20.');
+    if (st.changed) b += alert('warn', 'refresh', '<b>Kế toán vừa sửa quyết toán.</b> Xem lại số mới.');
+    const statusBadge = st.status === 'confirm' ? badge('info', 'hand', 'Chờ bạn xác nhận')
+      : st.status === 'need' ? (s.lines.some(l => l.st === 'need') ? badge('warning', 'warn', 'Cần bổ sung chứng từ (1 khoản)') : badge('neutral', 'clock', 'Đã bổ sung — chờ kế toán xem'))
+      : st.status === 'reviewing' ? badge('neutral', 'clock', 'Đang chờ kế toán xem lại')
+      : st.status === 'pending' ? badge('neutral', 'clock', 'Chờ kế toán kiểm tra')
+      : badge('success', 'lock', 'Đã quyết toán');
+    b += `<div>${statusBadge}</div>`;
+    const concluded = st.status !== 'pending' && !s.open;
+    let concl = `<section class="app-card" style="padding:0"><div class="app-concl">
+      <div class="app-cr"><span>Tạm ứng đã nhận</span><b>${vnd(S.adv)}</b></div>`;
+    if (st.status === 'pending') {
+      concl += `<div class="app-cr"><span>Đã ghi (${s.lines.length} khoản)</span><b>${vnd(s.total)}</b></div><div class="app-result is-none"><p>⏳ Kế toán đang kiểm tra từng khoản.</p><small>Có kết quả bạn sẽ nhận thông báo để xác nhận.</small></div>`;
+    } else if (!concluded) {
+      concl += `<div class="app-cr"><span>Đã ghi (${s.lines.length} khoản)</span><b>${vnd(s.total)}</b></div><div class="app-result is-none"><p>Kế toán chưa chốt. Bổ sung chứng từ để được tính.</p><small>Số tiền nộp lại / nhận thêm sẽ hiện khi kế toán chốt.</small></div>`;
+    } else {
+      const out = s.diff >= 0;
+      concl += `<button class="app-cr ${st.changed ? 'is-changed' : ''}" data-act="scrollList"><span>Được duyệt (${s.appr.length} khoản)</span><b>− ${vnd(s.apprSum)}</b></button>
+        <div class="app-result ${out ? '' : 'is-in'} ${st.changed ? 'is-changed' : ''}"><p>${out ? 'Bạn nộp lại cho công ty:' : 'Công ty trả thêm cho bạn:'}</p><b>${vnd(Math.abs(s.diff))}</b>
+        <span class="app-formula">${vnd(S.adv)} − ${vnd(s.apprSum)} = ${s.diff < 0 ? '−' : ''}${vnd(Math.abs(s.diff))}</span>
+        <small>${out ? 'Nộp tại văn phòng Thủ Đức hoặc chuyển khoản theo hướng dẫn của kế toán.' : 'Kế toán chuyển khoản hoặc trả tiền mặt tại văn phòng Thủ Đức.'}</small></div>`;
+    }
+    concl += '</div></section>';
+    b += concl;
+    const stB = l => l.st === 'ok' ? badge('success', 'check', 'Được duyệt') : l.st === 'rej' ? badge('danger', 'x', 'Không duyệt') : l.st === 'need' ? badge('warning', 'warn', 'Cần bổ sung') : l.st === 'supplied' ? badge('neutral', 'clock', 'Đã bổ sung — chờ kế toán xem') : badge('neutral', 'clock', 'Chờ kế toán kiểm tra');
+    b += `<section class="app-card app-xlist" id="xlist"><h2 class="app-h">Các khoản đã ghi</h2>${s.lines.map(l => `<div class="app-xl" data-act="viewInv" data-arg="${l.id}">
+      <div class="app-xh">${ic(ET[l.type].icon)}<span>${expLabel(l)}</span><b class="${l.st === 'rej' ? 'is-out' : ''}">${vnd(l.amt)}</b></div>
+      ${l.type === 'fuel' ? `<small>${l.lit} lít · km ${grp(l.km)}</small>` : ''}${stB(l)}
+      ${l.reason ? `<div class="app-reason ${l.st === 'rej' ? 'r-danger' : 'r-warn'}">${l.reason}${l.st === 'rej' ? '<br><b>Không tính vào chi phí được duyệt.</b>' : ''}</div>` : ''}
+      ${l.st === 'need' ? `<button class="app-btn app-btn-primary" data-act="supplement">${ic('camera')}Chụp bổ sung</button>` : ''}</div>`).join('')}</section>`;
+    b += `<button class="app-btn app-btn-secondary" data-act="call" data-arg="acc">${ic('call')}<span>Gọi kế toán · Anh Khoa</span></button>`;
+    let foot = '';
+    if (st.status === 'confirm' || st.status === 'need') {
+      const canConfirm = st.status === 'confirm' && !s.open && st.lockLeft <= 0;
+      foot = `<button class="app-btn app-btn-primary" id="btnConfirm" data-act="confirm" ${canConfirm ? '' : 'disabled'}>${ic('check')}${st.lockLeft > 0 ? `Đọc lại số mới (${st.lockLeft})` : 'Xác nhận quyết toán'}</button>`;
+      if (!canConfirm && st.lockLeft <= 0) foot += `<p class="app-note">Bổ sung xong và kế toán chốt thì mới xác nhận được</p>`;
+      foot += `<button class="app-btn app-btn-secondary" data-act="disagree">Không đồng ý</button>`;
+    } else if (st.status === 'reviewing') foot = alert('neutral', 'clock', 'Kế toán đang xem lại ý kiến của bạn.');
+    else if (st.status === 'settled') foot = alert('success', 'lock', `Bạn đã xác nhận lúc ${st.confirmedAt}. Có thắc mắc, gọi kế toán.`);
+    return h + `<div class="app-body">${b}</div>${foot ? `<div class="app-foot">${foot}</div>` : ''}`;
+  }
+
+  /* ================= DR_01 / DR_02 ================= */
+  const fmtPhone = v => String(v).replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
+  function plainTop(o) {
+    const back = o.back ? `<button class="app-back" data-act="${o.backAct || 'go'}" data-arg="${o.backArg || ''}">${ic('back')}<span>Quay lại</span></button>` : '<span class="app-top-pad"></span>';
+    return `<header class="app-top">${back}<div class="app-title"><h1>${o.title}</h1>${o.sub ? `<p>${o.sub}</p>` : ''}</div></header>`;
+  }
+  function vDR01() {
+    const A = S.auth;
+    if (A.step === 'invite') {
+      const b = `<div class="app-brand"><span class="app-logo">${ic('truck', 'app-i28')}</span><span>Đội Xe — App tài xế<small>Lời mời từ Vận tải Minh Phát</small></span></div>
+        <section class="app-card" style="gap:10px"><span class="app-kick">Lời mời tham gia</span><h1 class="app-hero-t">Chào anh Tuấn,</h1>
+        <p class="app-lead"><b>Công ty TNHH Vận tải Minh Phát</b> mời anh dùng app để nhận chuyến, chụp chứng từ và ghi chi phí.</p>
+        <div class="app-dl"><div><span>Người mời</span><b>Chị Hằng · Điều độ</b></div><div><span>Số đã đăng ký</span><b>${ME.masked}</b></div><div><span>Chi nhánh</span><b>TP.HCM</b></div></div></section>
+        <ul class="app-checks"><li class="ok">${ic('check')}Không cần mật khẩu — đăng nhập bằng mã gửi qua tin nhắn.</li><li class="ok">${ic('check')}Đăng nhập một lần, máy này tự giữ đăng nhập.</li></ul>`;
+      return `<div class="app-body" style="padding-top:20px">${b}</div><div class="app-foot"><button class="app-btn app-btn-primary" data-act="authStart">Bắt đầu ${ic('chevR')}</button><p class="app-note">Link mời dùng được tới 19/11/2026</p></div>`;
+    }
+    if (A.step === 'phone') {
+      let b = `<h2 class="app-h">Số điện thoại của bạn</h2><p class="app-p is-muted">Nhập số đã đăng ký với Minh Phát. App gửi mã 6 số qua tin nhắn — không cần mật khẩu.</p>`;
+      if (S.offline) b += alert('warn', 'noWifi', 'Không có mạng. Cần có mạng để nhận mã — bật dữ liệu di động hoặc Wi‑Fi rồi thử lại.');
+      b += `<label class="app-field"><span>Số điện thoại</span><input class="app-input app-phone" id="authPhone" type="tel" inputmode="numeric" autocomplete="tel" maxlength="10" placeholder="0903 456 482" value="${esc(A.phone)}"></label>`;
+      if (A.err === 'unknown') b += alert('danger', 'warn', `<b>Số ${fmtPhone(A.phone)} chưa có trong danh sách tài xế của Minh Phát.</b> Kiểm tra lại số, hoặc gọi điều độ để được thêm.`, `<button data-act="call">${ic('call')}Gọi điều độ</button>`);
+      const ok = /^0\d{9}$/.test(A.phone) && !S.offline;
+      return plainTop({ back: true, backAct: 'authBack', title: 'Đăng nhập', sub: 'Bước 1/2 · Số điện thoại' }) +
+        `<div class="app-body">${b}</div><div class="app-foot"><button class="app-btn app-btn-primary" id="authSend" data-act="authSend" ${ok ? '' : 'disabled'}>Gửi mã ${ic('chevR')}</button></div>`;
+    }
+    const boxes = Array.from({ length: 6 }, (_, i) => `<span class="${i === A.otp.length && !A.checking && !A.otpErr ? 'is-cur' : ''}">${A.otp[i] || ''}</span>`).join('');
+    let b = `<h2 class="app-h">Nhập mã 6 số</h2><p class="app-p is-muted">Đã gửi tin nhắn tới <b style="color:var(--fg-strong)">${fmtPhone(A.phone)}</b>.</p>`;
+    b += `<div class="app-otp ${A.otpErr ? 'is-err' : ''}" role="group" aria-label="Mã xác nhận 6 số">${boxes}</div>`;
+    if (A.otpErr) b += `<p class="app-err" role="alert" style="font-size:16px">${A.otpErr}</p>`;
+    else if (A.checking) b += `<p class="app-p is-muted">Đang kiểm tra mã…</p>`;
+    if (!A.checking && A.otp.length < 6) b += `<button class="app-sms" data-act="otpPaste">${ic('msg')}<span>Tin nhắn mới: mã <b>482913</b></span><span class="app-sms-b">Điền mã</span></button>`;
+    b += A.resend > 0 ? `<p class="app-note" id="otpResend">Chưa nhận được? Gửi lại mã sau ${mmss(A.resend)}</p>` : `<button class="app-link" data-act="otpResend">${ic('refresh')}Gửi lại mã</button>`;
+    const keys = `<div class="app-keys">${['1', '2', '3', '4', '5', '6', '7', '8', '9'].map(k => `<button class="app-key" data-act="otpKey" data-arg="${k}">${k}</button>`).join('')}<span class="app-key-gap" aria-hidden="true"></span><button class="app-key" data-act="otpKey" data-arg="0">0</button><button class="app-key is-fn" data-act="otpKey" data-arg="del" aria-label="Xoá một số">${ic('bksp')}Xoá</button></div>`;
+    return plainTop({ back: true, backAct: 'authBack', title: 'Đăng nhập', sub: 'Bước 2/2 · Mã xác nhận' }) + `<div class="app-body" style="gap:14px">${b}</div><div class="app-foot is-pad">${keys}</div>`;
+  }
+  function vDR02() {
+    const fromAcc = S.c2.from === 'dr11';
+    const top = plainTop({ back: fromAcc, backAct: 'go', backArg: 'dr11', title: 'Vị trí khi chạy chuyến', sub: fromAcc ? 'Tài khoản · Quyền riêng tư' : 'Bước cuối trước khi vào app' });
+    const fact = (i, t, p) => `<div class="app-fact">${ic(i)}<div><b>${t}</b><p>${p}</p></div></div>`;
+    let b = `<div class="app-hero-ic">${ic('pin', 'app-i40')}</div><h2 class="app-hero-t" style="font-size:23px;line-height:31px">Cho công ty thấy xe đang ở đâu khi bạn chạy chuyến?</h2>`;
+    b += `<section class="app-card app-facts">${fact('clock', 'Khi nào', 'Chỉ khi chuyến đang chạy: từ lúc bấm "Bắt đầu chuyến" tới "Hoàn thành". Ngoài giờ chuyến, app không lấy vị trí.')}
+      ${fact('users', 'Ai xem', 'Điều độ và quản lý của Minh Phát. Khách chỉ thấy xe của đúng chuyến họ thuê, qua link theo dõi.')}
+      ${fact('calendar', 'Lưu bao lâu', '12 tháng, sau đó tự xoá.')}
+      ${fact('check', 'Bạn được gì', 'Mốc "Đã đến cảng / kho / bãi" tự ghi, đỡ phải bấm. Điều độ ít phải gọi hỏi.')}</section>`;
+    b += `<p class="app-p is-muted">Không đồng ý vẫn dùng app bình thường — bạn bấm mốc bằng tay. Đổi lại lúc nào cũng được trong Tài khoản.</p><button class="app-link" data-act="policy">Đọc chính sách đầy đủ ${ic('chevR')}</button>`;
+    return top + `<div class="app-body">${b}</div><div class="app-foot"><button class="app-btn app-btn-primary" data-act="cAgree">${ic('pin')}Đồng ý và bật vị trí</button><button class="app-btn app-btn-secondary" data-act="cDecline">${fromAcc ? 'Để sau' : 'Không đồng ý'}</button></div>`;
+  }
+
+  /* ================= DR_07 ================= */
+  const addMin = (hm, n) => { const v = mins(hm) + n; return `${String(Math.floor(v / 60)).padStart(2, '0')}:${String(v % 60).padStart(2, '0')}`; };
+  function vDR07() {
+    const i = S.inc;
+    const editing = i.status === 'edit' || i.status === 'error' || i.status === 'sending';
+    const top = topbar({ back: true, backAct: editing ? 'incBack' : 'go', backArg: 'dr04', title: 'Báo sự cố', sub: 'CH-0472 · 51C-456.78' });
+    if (!editing) {
+      const sent = i.status === 'sent', seen = addMin(i.sentAt, 1);
+      let b = sent ? `<div class="app-doneblock">${ic('check', 'app-i40')}<b>Điều độ đã nhận</b><span>Chị Hằng đã xem lúc ${seen}. Chị sẽ gọi lại cho bạn.</span></div>`
+        : `<div class="app-doneblock is-wait">${ic('clock', 'app-i40')}<b>Đã lưu trên máy — chưa gửi</b><span>Có mạng là tự gửi tới điều độ. Gấp thì gọi điều độ.</span></div>`;
+      b += `<section class="app-card"><ol class="app-tl">
+        <li class="is-done"><span class="app-dot">${ic('check')}</span>${sent ? 'Đã gửi' : 'Đã lưu trên máy'}<time>${i.sentAt}</time></li>
+        <li class="${sent ? 'is-done' : 'is-todo'}"><span class="app-dot">${sent ? ic('check') : ''}</span>Điều độ đã nhận${sent ? ' — Chị Hằng' : ''}${sent ? `<time>${seen}</time>` : ''}</li>
+        <li class="is-todo"><span class="app-dot"></span>Điều độ xử lý và gọi lại</li></ol></section>`;
+      const what = [];
+      if (i.rec === 'done') what.push(`Ghi âm ${mmss(i.recSec)}`);
+      if (i.note.trim()) what.push('Ghi chú');
+      b += `<div class="app-dl app-incsum"><div><span>Loại</span><b>${INC[i.type].l}</b></div><div><span>Chuyến</span><b>CH-0472 · 51C-456.78</b></div><div><span>Ảnh</span><b>${i.pics ? i.pics + ' ảnh' : 'Không có'}</b></div><div><span>Lời nhắn</span><b>${what.join(' · ') || 'Không có'}</b></div><div><span>Vị trí</span><b>${S.consent ? 'Có gửi kèm' : 'Không gửi kèm'}</b></div></div>`;
+      const foot = sent ? `<button class="app-btn app-btn-primary" data-act="go" data-arg="dr04">Về chuyến</button><button class="app-btn app-btn-secondary" data-act="call">${ic('call')}Gọi điều độ</button>`
+        : `<button class="app-btn app-btn-primary" data-act="call">${ic('call')}Gọi điều độ</button><button class="app-btn app-btn-secondary" data-act="go" data-arg="dr04">Về chuyến</button>`;
+      return top + `<div class="app-body">${b}</div><div class="app-foot">${foot}</div>`;
+    }
+    let b = '';
+    if (i.status === 'error') b += alert('danger', 'warn', '<b>Chưa gửi được báo sự cố.</b> Đã lưu trên máy. Bấm Gửi lại, hoặc gọi điều độ.', `<button data-act="incSend">${ic('refresh')}Gửi lại</button><button data-act="call">${ic('call')}Gọi điều độ</button>`);
+    if (S.offline) b += alert('warn', 'noWifi', 'Không có mạng. Báo sự cố được lưu và tự gửi khi có mạng. Gấp thì gọi điều độ.');
+    b += `<h2 class="app-h">Chuyện gì xảy ra?</h2><div class="app-grid">${['port', 'broke', 'crash', 'refuse'].map(k => `<button class="app-gcell ${k === 'crash' ? 'is-crash' : ''}" data-act="incType" data-arg="${k}" aria-pressed="${i.type === k}">${ic(INC[k].i)}${INC[k].l}</button>`).join('')}<button class="app-gcell is-wide" data-act="incType" data-arg="other" aria-pressed="${i.type === 'other'}">${ic('more')}Khác</button></div>`;
+    if (i.type === 'crash' && i.status !== 'error') b += alert('danger', 'call', '<b>Có người bị thương?</b> Gọi 115 trước, rồi báo điều độ.', `<button data-act="call" data-arg="115">${ic('call')}Gọi 115</button>`);
+    if (i.type) {
+      b += `<div class="app-hd"><h3 class="app-h" style="font-size:18px">Ảnh</h3><span class="app-note">Không bắt buộc · tối đa 6</span></div>`;
+      b += `<div class="app-pics">${Array.from({ length: i.pics }, (_, n) => `<div class="app-pic">${ic(n % 2 ? 'container' : 'truck')}<span>Ảnh ${n + 1}</span><button data-act="incDelPic" aria-label="Xoá ảnh ${n + 1}">${ic('x')}</button></div>`).join('')}${i.pics < 6 ? `<button class="app-pic is-add" data-act="incPic">${ic('camera', 'app-i28')}Chụp ảnh</button>` : ''}</div>`;
+      b += `<h3 class="app-h" style="font-size:18px">Nói hoặc viết cho điều độ</h3>`;
+      b += `<div class="app-seg is-light" role="group" aria-label="Cách gửi lời nhắn"><button aria-pressed="${i.mode === 'voice'}" data-act="incMode" data-arg="voice">${ic('mic')}Ghi âm</button><button aria-pressed="${i.mode === 'note'}" data-act="incMode" data-arg="note">${ic('pen')}Ghi chú</button></div>`;
+      if (i.mode === 'voice') {
+        if (i.rec === 'on') b += `<div class="app-rec" role="status"><i class="app-recdot"></i><span>Đang ghi âm…</span><time id="recT">${mmss(i.recSec)}</time><button data-act="incRecStop">${ic('stop')}Dừng</button></div>`;
+        else if (i.rec === 'done') b += `<section class="app-card app-lis"><div class="app-li">${ic('mic', 'app-i28')}<div class="app-lt"><b>Ghi âm ${mmss(i.recSec)}</b><small>Điều độ nghe được ngay khi nhận</small></div><button class="app-edit" data-act="incPlay">Nghe</button><button class="app-edit" data-act="incRecDel">Xoá</button></div></section>`;
+        else b += `<button class="app-mic" data-act="incRec">${ic('mic')}Bấm để ghi âm</button>`;
+      } else {
+        b += `<label class="app-field"><span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Ghi chú cho điều độ</span><textarea class="app-input" id="incNote" placeholder="${esc(INC[i.type].ph)}">${esc(i.note)}</textarea></label>`;
+      }
+      b += `<p class="app-ctx">${ic(S.consent ? 'pin' : 'info')}Gửi kèm: ${S.consent ? 'vị trí hiện tại · ' : ''}CH-0472 · giờ bấm gửi</p>`;
+    }
+    const sending = i.status === 'sending';
+    const lbl = sending ? `${ic('refresh')}Đang gửi…` : i.status === 'error' ? `${ic('refresh')}Gửi lại` : `${ic('check')}Gửi cho điều độ`;
+    return top + `<div class="app-body">${b}</div><div class="app-foot"><button class="app-btn app-btn-primary" data-act="incSend" ${i.type && !sending ? '' : 'disabled'}>${lbl}</button>${!i.type ? '<p class="app-note">Chọn loại sự cố để gửi</p>' : ''}</div>`;
+  }
+
+  /* ================= DR_09 ================= */
+  function vDR09() {
+    const f = S.flags;
+    const h = topbar({ title: 'Lương chuyến', sub: `${ME.name} · ${ME.code}` });
+    if (f.loading) return h + `<div class="app-body">${skel([[45], [70, 'h24'], [90], [80], [85]])}${skel([[40, 'h24'], [90], [90], [90]])}<p class="app-note">Đang tải lương chuyến…</p></div>` + nav();
+    if (f.error) return h + `<div class="app-body">${alert('danger', 'warn', 'Chưa tải được lương chuyến.', '<button data-act="retry">Thử lại</button>')}<div class="app-emptystate">${ic('wallet', 'app-i40')}<h3>Chưa có số liệu</h3><p>Kiểm tra mạng rồi bấm Thử lại.</p></div></div>` + nav();
+    let b = '';
+    if (S.offline) b += alert('warn', 'noWifi', 'Không có mạng. Đang xem số liệu lúc 09:05.');
+    b += `<div class="app-tabs n2" role="tablist"><button role="tab" aria-selected="${S.pay.tab === 'cur'}" data-act="payTab" data-arg="cur">Kỳ này</button><button role="tab" aria-selected="${S.pay.tab === 'hist'}" data-act="payTab" data-arg="hist">Kỳ đã chốt (${PAY_HIST.length})</button></div>`;
+    if (S.pay.tab === 'hist') {
+      b += `<p class="app-p is-muted">Kỳ đã chốt không đổi được. Có thắc mắc, gọi kế toán.</p>`;
+      b += PAY_HIST.map(p => { const tot = p.base + p.plus - p.minus; return `<article class="app-card app-trip app-mini" data-act="payPeriod" data-arg="${p.id}"><div class="app-trip-head"><span class="app-code" style="color:var(--fg-strong)">${p.name}</span>${badge('success', 'lock', 'Đã trả ' + p.paid)}</div><div class="app-route app-money-v">${vnd(tot)}</div><div class="app-kv"><span>${p.trips} chuyến · thưởng</span> <b>+${vnd(p.plus)}</b> <span>· trừ</span> <b>${p.minus ? '−' + vnd(p.minus) : '0 đ'}</b></div></article>`; }).join('');
+      return h + `<div class="app-body">${b}</div>` + nav();
+    }
+    if (f.empty) {
+      b += `<div class="app-emptystate">${ic('wallet', 'app-i40')}<h3>Kỳ này chưa có chuyến nào được tính</h3><p>Lương chuyến cộng vào khi kế toán quyết toán xong chuyến. Kỳ 01–15/11 chốt ngày 16/11.</p></div>`;
+      return h + `<div class="app-body">${b}</div>` + nav();
+    }
+    const base = PAY.reduce((a, p) => a + p.amt, 0), plus = PAY_ADJ.filter(x => x.k === 'plus').reduce((a, x) => a + x.amt, 0), minus = PAY_ADJ.filter(x => x.k === 'minus').reduce((a, x) => a + x.amt, 0);
+    b += `<section class="app-card app-pay"><span class="app-kick">Tạm tính kỳ 01–15/11/2026</span><b class="app-pay-v">${vnd(base + plus - minus)}</b><span class="app-p is-muted">Chốt ngày 16/11 · trả ngày 20/11 qua chuyển khoản</span>
+      <div class="app-concl"><div class="app-cr"><span>${PAY.length} chuyến đã quyết toán</span><b>${vnd(base)}</b></div><div class="app-cr"><span>Thưởng</span><b class="is-plus">+ ${vnd(plus)}</b></div><div class="app-cr"><span>Khoản trừ</span><b>− ${vnd(minus)}</b></div></div></section>`;
+    b += `<section class="app-card app-xlist"><h2 class="app-h">Theo từng chuyến (${PAY.length})</h2>${PAY.map(p => `<div class="app-xl" data-act="payLine" data-arg="${p.id}"><div class="app-xh">${ic('truck')}<span>${p.id} · ${p.d}</span><b>${vnd(p.amt)}</b></div><small>${p.route} · ${p.kind}</small></div>`).join('')}</section>`;
+    b += `<section class="app-card app-xlist"><h2 class="app-h">Thưởng & khoản trừ</h2>${PAY_ADJ.map((x, n) => `<div class="app-xl" data-act="payAdj" data-arg="${n}"><div class="app-xh">${ic(x.k === 'plus' ? 'plus' : 'warn')}<span>${x.l}</span><b>${x.k === 'plus' ? '+' : '−'} ${vnd(x.amt)}</b></div><div class="app-reason ${x.k === 'plus' ? 'r-ok' : 'r-warn'}">${x.why}</div></div>`).join('')}</section>`;
+    b += `<section class="app-card app-xlist"><h2 class="app-h">Chưa tính (${PAY_PEND.length})</h2><p class="app-p is-muted" style="padding:0 8px">Cộng vào khi kế toán quyết toán xong chuyến.</p>${PAY_PEND.map(p => `<div class="app-xl is-pend" ${p.id === 'CH-0472' ? 'data-act="openTrip" data-arg="CH-0472"' : p.id === 'CH-0469' ? '' : ''}><div class="app-xh">${ic('clock')}<span>${p.id} · ${p.d}</span><b>Chưa tính</b></div><small>${p.route}</small>${badge(p.why === 'Cần bổ sung chứng từ' ? 'warning' : 'neutral', p.why === 'Cần bổ sung chứng từ' ? 'warn' : 'clock', p.why)}</div>`).join('')}</section>`;
+    b += `<button class="app-btn app-btn-secondary" data-act="call" data-arg="acc">${ic('call')}<span>Thắc mắc? Gọi kế toán · Anh Khoa</span></button>`;
+    return h + `<div class="app-body">${b}</div>` + nav();
+  }
+
+  /* ================= DR_10 ================= */
+  function qrSvg(seed, label) {
+    const N = 29, m = [];
+    let x = seed >>> 0; const rnd = () => (x = (Math.imul(x, 1664525) + 1013904223) >>> 0) / 4294967296;
+    for (let r = 0; r < N; r++) { m[r] = []; for (let c = 0; c < N; c++) m[r][c] = rnd() < .47; }
+    const pat = (R, C, size, dark) => { for (let r = -1; r <= size; r++) for (let c = -1; c <= size; c++) { const rr = R + r, cc = C + c; if (rr < 0 || cc < 0 || rr >= N || cc >= N) continue; m[rr][cc] = dark(Math.max(Math.abs(r - (size - 1) / 2), Math.abs(c - (size - 1) / 2))); } };
+    const finder = ring => ring === 3 || ring <= 1;
+    pat(0, 0, 7, finder); pat(0, N - 7, 7, finder); pat(N - 7, 0, 7, finder);
+    for (let i = 8; i < N - 8; i++) { m[6][i] = i % 2 === 0; m[i][6] = i % 2 === 0; }
+    for (let r = -2; r <= 2; r++) for (let c = -2; c <= 2; c++) { const ring = Math.max(Math.abs(r), Math.abs(c)); m[22 + r][22 + c] = ring !== 1; }
+    let d = '';
+    for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) if (m[r][c]) d += `M${c} ${r}h1v1h-1z`;
+    return `<svg class="app-qr" viewBox="-3 -3 ${N + 6} ${N + 6}" shape-rendering="crispEdges" role="img" aria-label="${esc(label)}"><path d="${d}"/></svg>`;
+  }
+  function permitTrip() { const t = trip(); return t && t.step < 9 ? t : Object.values(S.trips).find(x => x.step < 9); }
+  function vDR10() {
+    const f = S.flags, t = permitTrip();
+    const h = topbar({ back: true, backArg: 'dr04', title: 'Giấy vận tải', sub: t ? `${t.id} · ${ME.truck}` : ME.truck });
+    if (f.loading) return h + `<div class="app-body">${skel([[60], [40, 'h24']])}<span class="sk" style="height:236px;width:236px;align-self:center;border-radius:12px"></span>${skel([[40], [90], [40], [80], [40], [85]])}<p class="app-note">Đang mở giấy vận tải…</p></div>`;
+    if (!t) return h + `<div class="app-body"><div class="app-emptystate" style="padding-top:64px">${ic('doc', 'app-i40')}<h3>Chưa có giấy vận tải</h3><p>Giấy vận tải hiện ở đây khi bạn có chuyến đang chạy. Điều độ phát hành trước giờ chạy.</p><button class="app-btn app-btn-secondary" data-act="call">${ic('call')}Gọi điều độ</button></div></div>`;
+    const I = INFO[t.id], no = 'GVT-2611-' + t.id.slice(3), is72 = t.id === 'CH-0472';
+    let b = `<div class="app-hd">${badge('success', 'check', 'Xem được khi không có mạng')}</div>`;
+    if (S.offline) b += alert('neutral', 'noWifi', `Không có mạng — đang hiện bản lưu trên máy lúc ${is72 ? '06:05' : '16:15'}. Vẫn xuất trình được.`);
+    const pf = (l, v) => `<div class="app-pf"><small>${l}</small><b>${v}</b></div>`;
+    b += `<section class="app-card app-permit"><div class="app-ph"><span class="app-kick">Giấy vận tải điện tử</span><b>Số ${no}</b><span>Phát hành ${is72 ? '06:05 13/11/2026' : '16:15 13/11/2026'} · Chị Hằng</span></div>
+      <button class="app-qrbtn" data-act="qrZoom" aria-label="Phóng to mã QR">${qrSvg(parseInt(t.id.slice(3), 10) * 7919, 'Mã QR giấy vận tải ' + no)}<span>${ic('zoom', 'app-i16')} Bấm để phóng to</span></button>
+      <div class="app-pfs">${pf('Đơn vị kinh doanh vận tải', `Công ty TNHH Vận tải Minh Phát · MST ${MST}`)}${pf('Biển số xe', '51C-456.78 · Rơ-moóc 51R-123.45')}${pf('Lái xe', `${ME.name} · GPLX hạng CE`)}${pf('Người thuê vận tải', 'Công ty TNHH Hưng Thịnh')}${pf('Hành trình', I.route)}${pf('Hợp đồng vận chuyển', 'Số 15/2026/HĐVC-HT · ngày 02/01/2026')}${pf('Loại hàng', `${I.kind} khô · ${I.raw}`)}${pf('Khối lượng hàng', is72 && t.step >= 4 ? '24,5 tấn · chủ hàng đã xác nhận lúc 09:12' : '24,5 tấn · chờ xác nhận khi xếp hàng')}</div></section>`;
+    return h + `<div class="app-body">${b}</div><div class="app-foot"><button class="app-btn app-btn-primary" data-act="qrZoom">${ic('qr')}Phóng to mã QR cho CSGT</button></div>`;
+  }
+
+  /* ================= DR_11 ================= */
+  function vDR11() {
+    const f = S.flags, A = S.acct;
+    const h = topbar({ title: 'Tài khoản', sub: `${ME.name} · ${ME.code}` });
+    if (f.loading) return h + `<div class="app-body">${skel([[60, 'h24'], [80]])}${skel([[40], [90, 'h24'], [40], [70, 'h24']])}${skel([[50], [85, 'h24']])}<p class="app-note">Đang tải tài khoản…</p></div>` + nav();
+    let b = '';
+    if (f.error) b += alert('danger', 'warn', 'Chưa tải được thông tin mới. Đang hiện bản lưu lúc 09:05.', '<button data-act="retry">Thử lại</button>');
+    if (S.offline) b += alert('warn', 'noWifi', 'Không có mạng. Thay đổi được lưu và gửi khi có mạng.');
+    b += `<section class="app-card app-prof"><span class="app-ava" aria-hidden="true">NT</span><div><b>${ME.name}</b><span>Tài xế · Minh Phát · TP.HCM</span></div></section>`;
+    b += `<h2 class="app-sec-t">Thông tin cá nhân</h2><section class="app-card app-arows">
+      <button class="app-arow" data-act="changePhone" ${A.phoneReq ? 'disabled' : ''}>${ic('phone')}<span class="app-at"><small>Số điện thoại đăng nhập</small><b>${ME.phone}</b>${A.phoneReq ? `<span class="app-sub2">Chờ admin duyệt số mới: ${A.phoneReq}</span>` : ''}</span><span class="app-aside">${A.phoneReq ? badge('neutral', 'clock', 'Đang chờ') : 'Đổi số ' + ic('chevR', 'app-i16')}</span></button>
+      <div class="app-arow">${ic('user')}<span class="app-at"><small>Mã tài xế</small><b>${ME.code}</b></span></div>
+      <div class="app-arow">${ic('truck')}<span class="app-at"><small>Xe thường lái</small><b>${ME.truck}</b><span class="app-sub2">Rơ-moóc 51R-123.45</span></span></div></section>
+      <p class="app-note" style="text-align:left;padding:0 4px">Đổi số điện thoại hoặc họ tên cần admin công ty duyệt.</p>`;
+    const soon = A.gplxSoon;
+    b += `<h2 class="app-sec-t">Giấy tờ</h2><section class="app-card app-arows"><div class="app-arow">${ic('card')}<span class="app-at"><small>Giấy phép lái xe hạng CE</small><b>Số 790 123 456 789</b><span class="app-sub2">Hạn ${soon ? '05/12/2026' : '20/03/2027'}</span></span><span class="app-aside">${soon ? badge('warning', 'warn', 'Còn 22 ngày') : badge('success', 'check', 'Còn hạn')}</span></div></section>`;
+    if (soon) b += A.gplxSent ? alert('neutral', 'clock', 'Đã gửi ảnh GPLX mới. Admin cập nhật hạn sau khi đối chiếu.')
+      : alert('warn', 'warn', 'GPLX hết hạn <b>05/12/2026</b>. Hết hạn thì không được nhận chuyến. Gia hạn xong, gửi ảnh GPLX mới cho admin.', `<button data-act="gplxNew">${ic('camera')}Gửi ảnh GPLX mới</button>`);
+    b += `<h2 class="app-sec-t">Quyền riêng tư</h2><section class="app-card app-arows">
+      <button class="app-arow" role="switch" aria-checked="${S.consent}" data-act="locToggle">${ic('pin')}<span class="app-at"><b>Chia sẻ vị trí khi chạy chuyến</b><small>${S.consent ? 'Đang bật · chỉ khi chuyến đang chạy' : 'Đang tắt · mốc "Đã đến…" bấm tay'}</small></span><span class="app-switch" aria-hidden="true"></span></button>
+      <button class="app-arow" data-act="policy">${ic('shield')}<span class="app-at"><b>Chính sách dữ liệu vị trí</b><small>Thu khi nào, ai xem, lưu 12 tháng</small></span>${ic('chevR', 'app-chev')}</button></section>`;
+    b += `<h2 class="app-sec-t">Hỗ trợ</h2><section class="app-card app-arows"><button class="app-arow" data-act="call">${ic('call')}<span class="app-at"><b>Gọi điều độ</b><small>Chị Hằng · 0908 xxx 116</small></span>${ic('chevR', 'app-chev')}</button></section>`;
+    b += `<button class="app-btn app-btn-ghost" data-act="logout">${ic('logout')}Đăng xuất khỏi máy này</button><p class="app-ver">Đội Xe tài xế · phiên bản 1.0 (prototype)</p>`;
+    return h + `<div class="app-body">${b}</div>` + nav();
+  }
+
+  /* ================= Layers ================= */
+  function layer() {
+    let h = '';
+    const scrim = '<div class="app-scrim" data-act="close"></div>';
+    const d = S.dlg, sh = S.sheet;
+    if (S.zoom === 'qr') { const t = permitTrip() || t72(); const no = 'GVT-2611-' + t.id.slice(3);
+      return `<div class="app-zoom app-qrzoom" role="dialog" aria-label="Mã QR giấy vận tải"><b>${no}</b>${qrSvg(parseInt(t.id.slice(3), 10) * 7919, 'Mã QR giấy vận tải ' + no)}<p style="font:600 18px/26px var(--font-body);color:var(--fg-strong)">${ME.truck} · ${ME.name}</p><p style="font:500 15px/21px var(--font-body);color:var(--fg-muted)">Đã tăng độ sáng màn hình để dễ quét</p><button class="app-btn app-btn-primary" data-act="close">Đóng</button></div>`; }
+    if (S.zoom) return `<div class="app-zoom" role="dialog" aria-label="Thông tin xuất hoá đơn"><p style="font-size:18px;font-weight:600;color:var(--fg-muted)">Hoá đơn ghi tên:</p><b>${COMPANY}</b><p>MST: ${MST}</p><button class="app-btn app-btn-primary" data-act="close">Đóng</button></div>`;
+    if (d) {
+      const t = trip();
+      let c = '';
+      if (d.kind === 'finish') {
+        const p = t.docs.pod || {};
+        c = `<h2>Hoàn thành chuyến ${t.id}?</h2><ul class="app-checks">
+          <li class="ok">${ic('check')}Phiếu EIR lấy container (${(t.docs.eir1 || {}).pages || 0} trang)</li>
+          <li class="ok">${ic('check')}Chứng từ giao nhận (POD) — ${p.sign ? esc(p.short) + ' đã ký' : (p.pages || 0) + ' trang'}</li>
+          <li class="ok">${ic('check')}Phiếu EIR trả rỗng (${(t.docs.eir2 || {}).pages || 0} trang)</li></ul>
+          <div class="app-sumline">Chi phí đã ghi: ${S.exp.length} khoản · ${vnd(S.exp.reduce((a, e) => a + e.amt, 0))}</div>
+          <div class="app-btns"><button class="app-btn app-btn-primary" data-act="finishOk">${ic('check')}Hoàn thành</button><button class="app-btn app-btn-secondary" data-act="close">Chưa, quay lại</button></div>`;
+      } else if (d.kind === 'missing') {
+        const miss = missingDocs(t);
+        const lbl = { eir1: 'Phiếu EIR lấy container', pod: 'Chứng từ giao nhận (POD)', eir2: 'Phiếu EIR trả rỗng' };
+        c = `<h2>Chưa hoàn thành được</h2><p>Còn thiếu:</p><ul class="app-checks">${miss.map(k => `<li class="no">${ic('x')}${lbl[k]}</li>`).join('')}</ul>
+          <div class="app-btns"><button class="app-btn app-btn-primary" data-act="takeMissing" data-arg="${miss[0]}">${ic('camera')}Chụp ngay</button><button class="app-btn app-btn-secondary" data-act="close">Để sau</button></div>`;
+      } else if (d.kind === 'camDiscard') {
+        const c0 = S.cam, n = c0.pages.length;
+        const msName = c0.from === 'milestone' ? MS[c0.ms].long : '';
+        c = `<h2>${c0.mode === 'sign' ? 'Bỏ chữ ký vừa ký?' : `Bỏ ${n} trang vừa chụp?`}</h2>${msName ? `<p>Mốc '${msName}' sẽ chưa được ghi.</p>` : ''}
+          <div class="app-btns"><button class="app-btn app-btn-primary" data-act="close">${ic('camera')}Chụp tiếp</button><button class="app-btn app-btn-danger-o" data-act="camDiscard">${ic('trash')}Bỏ ảnh</button></div>`;
+      } else if (d.kind === 'noinv') {
+        c = `<h2>Lưu không có hoá đơn?</h2><p>Kế toán có thể không duyệt khoản này nếu thiếu chứng từ.</p>
+          <div class="app-btns"><button class="app-btn app-btn-primary" data-act="close">${ic('camera')}Chụp hoá đơn</button><button class="app-btn app-btn-secondary" data-act="noInvOk">Vẫn lưu</button></div>`;
+      } else if (d.kind === 'discard') {
+        c = `<h2>Bỏ khoản đang ghi?</h2><p>Phần đã nhập sẽ mất.</p><div class="app-btns"><button class="app-btn app-btn-primary" data-act="close">Ghi tiếp</button><button class="app-btn app-btn-danger-o" data-act="exDiscard">Bỏ</button></div>`;
+      } else if (d.kind === 'del') {
+        const ex = S.ex;
+        c = `<h2>Xoá ${expLabel(ex)} ${vnd(ex.amt)}?</h2><p>Khoản này sẽ bị bỏ khỏi chuyến CH-0472.</p><div class="app-btns"><button class="app-btn app-btn-primary" data-act="close">Giữ lại</button><button class="app-btn app-btn-danger-o" data-act="exDelOk">${ic('trash')}Xoá</button></div>`;
+      } else if (d.kind === 'confirm') {
+        const s = settle();
+        c = `<h2>Xác nhận quyết toán CH-0472?</h2><p style="font-size:18px;line-height:26px"><b>${s.diff >= 0 ? `Bạn nộp lại ${vnd(s.diff)} cho công ty.` : `Công ty trả thêm cho bạn ${vnd(-s.diff)}.`}</b></p><p>Sau khi xác nhận, chuyến sẽ khoá, không sửa chi phí được nữa.</p>
+          <div class="app-btns"><button class="app-btn app-btn-primary" data-act="confirmOk">${ic('check')}Xác nhận</button><button class="app-btn app-btn-secondary" data-act="close">Xem lại</button></div>`;
+      } else if (d.kind === 'sysperm') {
+        c = `<span class="app-perm-ic">${ic('pin', 'app-i32')}</span><h2 class="is-c">Cho phép <b>Đội Xe</b> truy cập vị trí của thiết bị này?</h2>
+          <div class="app-perm"><button data-act="permAllow">Trong khi dùng ứng dụng</button><button data-act="permAllow">Chỉ lần này</button><button data-act="permDeny">Không cho phép</button></div><p class="app-note">Hộp thoại của Android</p>`;
+      } else if (d.kind === 'incDiscard') {
+        c = `<h2>Bỏ báo sự cố đang soạn?</h2><p>Ảnh và lời nhắn sẽ mất, điều độ không nhận được.</p><div class="app-btns"><button class="app-btn app-btn-primary" data-act="close">Soạn tiếp</button><button class="app-btn app-btn-danger-o" data-act="incDiscardOk">${ic('trash')}Bỏ</button></div>`;
+      } else if (d.kind === 'withdraw') {
+        c = `<h2>Tắt chia sẻ vị trí?</h2><ul class="app-checks"><li class="wait">${ic('info')}Mốc "Đã đến cảng / kho / bãi" không tự ghi nữa — bạn bấm tay.</li><li class="wait">${ic('info')}Điều độ có thể gọi hỏi bạn đang ở đâu.</li><li class="wait">${ic('info')}Vị trí đã lưu trước đây vẫn giữ tới hết 12 tháng rồi tự xoá.</li></ul>
+          <div class="app-btns"><button class="app-btn app-btn-primary" data-act="close">Giữ bật</button><button class="app-btn app-btn-danger-o" data-act="withdrawOk">Tắt chia sẻ</button></div>`;
+      } else if (d.kind === 'logout') {
+        c = `<h2>Đăng xuất khỏi máy này?</h2><p>Lần sau cần nhập số điện thoại và mã tin nhắn để vào lại.</p>${S.queue.length ? alert('warn', 'warn', `Còn ${S.queue.length} thao tác chưa gửi. Đăng xuất bây giờ sẽ mất.`) : ''}
+          <div class="app-btns"><button class="app-btn app-btn-primary" data-act="close">Ở lại</button><button class="app-btn app-btn-danger-o" data-act="logoutOk">${ic('logout')}Đăng xuất</button></div>`;
+      }
+      h += scrim + `<div class="app-dialog" role="dialog" aria-modal="true">${c}</div>`;
+    } else if (sh) {
+      let c = '';
+      if (sh.kind === 'queue') {
+        c = `<h2>${S.queue.length ? `Đang chờ mạng (${S.queue.length})` : 'Đã gửi hết'}</h2>${S.queue.length ? `<div class="app-qlist">${S.queue.map(x => `<div class="app-qi">${ic('clock')}<span>${esc(x.text)}</span></div>`).join('')}</div>` : '<p>Mọi thao tác đã được gửi lên hệ thống.</p>'}
+          <p class="app-note" style="text-align:left">Có mạng là tự gửi. Giờ ghi nhận là giờ bạn bấm.</p><div class="app-btns">${S.queue.length ? `<button class="app-btn app-btn-primary" data-act="sendNow">${ic('refresh')}Gửi lại ngay</button>` : ''}<button class="app-btn app-btn-secondary" data-act="close">Đóng</button></div>`;
+      } else if (sh.kind === 'loc') {
+        c = `<h2>Vị trí của bạn</h2><ul class="app-checks"><li class="ok">${ic('pin')}Công ty chỉ thấy vị trí của bạn khi chuyến đang chạy.</li><li class="ok">${ic('check')}Chuyến xong là tự tắt.</li><li class="ok">${ic('gear')}Muốn tắt hẳn: vào Tài khoản → Quyền riêng tư.</li></ul><div class="app-btns"><button class="app-btn app-btn-primary" data-act="close">Đã hiểu</button></div>`;
+      } else if (sh.kind === 'details') {
+        const t = trip();
+        c = `<h2>Chi tiết chuyến ${t.id}</h2><ol class="app-tl">${MS.map((m, i) => i < t.step ? `<li class="is-done"><span class="app-dot">${ic('check')}</span>${m.tl}${t.auto[m.k] ? ' <span class="muted">(tự ghi)</span>' : ''}<time>${t.times[m.k] || m.t}</time></li>` : `<li class="is-todo"><span class="app-dot"></span>${m.tl}</li>`).join('')}</ol>
+          <div class="app-dl"><div><span>Container</span><b class="app-code">${INFO[t.id].raw} · 40' khô</b></div><div><span>Rơ-moóc</span><b>51R-123.45</b></div><div><span>Khách hàng</span><b>Cty Hưng Thịnh</b></div><div><span>Trả rỗng</span><b>Depot Phước Long, hạn 08:00 14/11</b></div><div><span>Tạm ứng</span><b>${vnd(INFO[t.id].adv)}</b></div>
+          ${t.id === 'CH-0472' ? S.exp.map(e => `<button data-act="editExp" data-arg="${e.id}"><span style="color:inherit">Chi phí: ${expLabel(e)}</span><b>${vnd(e.amt)} ›</b></button>`).join('') : ''}
+          ${t.docs.eir1 ? `<button data-act="close"><span style="color:inherit">Chứng từ: EIR lấy cont</span><b>${t.docs.eir1.pages} trang ›</b></button>` : ''}</div>
+          <div class="app-btns"><button class="app-btn app-btn-secondary" data-act="close">Đóng</button></div>`;
+      } else if (sh.kind === 'page') {
+        const c0 = S.cam, p = c0.pages[c0.view];
+        c = `<h2>Trang ${c0.view + 1} / ${c0.pages.length}</h2><div class="app-vf" style="flex:none;height:330px;margin:0">${p.src ? `<img class="app-photo" src="${p.src}" alt="">` : art(DOCS[c0.type].art, p.n, p.blur)}</div>
+          <div class="app-2" style="margin:0"><button class="app-btn app-btn-secondary" data-act="retake">${ic('refresh')}Chụp lại</button><button class="app-btn app-btn-danger-o" data-act="delPage">${ic('trash')}Xoá trang</button></div><button class="app-btn app-btn-primary" data-act="close">Giữ</button>`;
+      } else if (sh.kind === 'inv') {
+        const e = S.exp.find(x => x.id === sh.id);
+        c = `<h2>${expLabel(e)} · ${vnd(e.amt)}</h2><p class="muted">Ghi lúc ${e.time} 13/11 · ${e.inv ? 'Hoá đơn 1 trang' : 'Không có hoá đơn'}</p><div class="app-vf" style="flex:none;height:360px;margin:0">${art('inv', 1, e.type === 'other' && S.st.other === 'need')}</div><button class="app-btn app-btn-primary" data-act="close">Đóng</button>`;
+      } else if (sh.kind === 'disagree') {
+        const opts = [['missing', 'Thiếu khoản tôi đã chi'], ['amount', 'Số tiền bị sai'], ['rej', 'Khoản bị không duyệt là sai'], ['other', 'Lý do khác']];
+        c = `<h2>Bạn không đồng ý chỗ nào?</h2>${opts.map(([k, l]) => `<label class="app-opt"><input type="checkbox" data-dis="${k}" ${sh.sel.includes(k) ? 'checked' : ''}>${l}</label>`).join('')}
+          <label class="app-field"><span>Ghi thêm cho kế toán${sh.sel.includes('other') ? ' (bắt buộc)' : ''}</span><textarea class="app-input" id="disNote" placeholder="Ví dụ: Phí bốc xếp tôi trả tiền mặt">${esc(sh.note)}</textarea></label>
+          ${sh.err ? `<p class="app-err" role="alert">${sh.err}</p>` : ''}
+          <div class="app-btns"><button class="app-btn app-btn-primary" data-act="disSend">Gửi cho kế toán</button><button class="app-btn app-btn-secondary" data-act="close">Huỷ</button></div>`;
+      } else if (sh.kind === 'policy') {
+        c = `<h2>Chính sách dữ liệu vị trí</h2>
+          <h3>Thu khi nào</h3><p>Chỉ khi chuyến đang chạy — từ "Bắt đầu chuyến" tới "Hoàn thành". Ngoài giờ chuyến, app không lấy vị trí.</p>
+          <h3>Dùng để làm gì</h3><p>Tự ghi mốc "Đã đến…", điều độ biết xe đang ở đâu, khách theo dõi đúng chuyến của họ.</p>
+          <h3>Ai xem</h3><p>Điều độ và quản lý chi nhánh của Minh Phát. Mỗi lần xem vị trí đều được ghi nhật ký.</p>
+          <h3>Lưu bao lâu</h3><p>Vị trí: 12 tháng rồi tự xoá. Giấy vận tải và hồ sơ an toàn: 3 năm theo quy định.</p>
+          <h3>Quyền của bạn</h3><p>Tắt chia sẻ bất cứ lúc nào trong Tài khoản. Muốn xem hoặc xoá dữ liệu cũ, liên hệ admin công ty.</p>
+          <p class="app-note" style="text-align:left">Cập nhật 01/11/2026</p><div class="app-btns"><button class="app-btn app-btn-primary" data-act="close">Đã hiểu</button></div>`;
+      } else if (sh.kind === 'phone') {
+        c = `<h2>Đổi số điện thoại</h2><p>Số mới cần admin công ty duyệt. Admin sẽ gọi số cũ của bạn để xác nhận, sau đó bạn đăng nhập bằng số mới.</p>
+          <label class="app-field"><span>Số mới</span><input class="app-input app-phone" id="newPhone" type="tel" inputmode="numeric" maxlength="10" placeholder="0912 345 777" value="${esc(sh.val)}"></label>
+          ${sh.err ? `<p class="app-err" role="alert">${sh.err}</p>` : ''}
+          <div class="app-btns"><button class="app-btn app-btn-primary" data-act="phoneSend">Gửi yêu cầu cho admin</button><button class="app-btn app-btn-secondary" data-act="close">Huỷ</button></div>`;
+      } else if (sh.kind === 'payline') {
+        const p = PAY.find(x => x.id === sh.id);
+        c = `<h2>${p.id} · ${p.d}</h2><p class="muted">${p.route} · ${p.kind}</p>
+          <div class="app-dl"><div><span>Cách tính</span><b>${p.how}</b></div><div><span>Quyết toán</span><b>${p.st}/2026</b></div><div><span>Lương chuyến</span><b>${vnd(p.amt)}</b></div></div>
+          <p class="app-note" style="text-align:left">Thấy sai? Gọi kế toán trước ngày chốt 16/11.</p>
+          <div class="app-btns"><button class="app-btn app-btn-primary" data-act="close">Đóng</button><button class="app-btn app-btn-secondary" data-act="call" data-arg="acc">${ic('call')}Gọi kế toán</button></div>`;
+      } else if (sh.kind === 'payadj') {
+        const x = PAY_ADJ[sh.id];
+        c = `<h2>${x.l} · ${x.k === 'plus' ? '+' : '−'} ${vnd(x.amt)}</h2><div class="app-reason ${x.k === 'plus' ? 'r-ok' : 'r-warn'}" style="margin-left:0">${x.why}</div>
+          <div class="app-dl"><div><span>Người ghi</span><b>${x.by}</b></div><div><span>Kỳ</span><b>01–15/11/2026</b></div></div>
+          <div class="app-btns"><button class="app-btn app-btn-primary" data-act="close">Đóng</button><button class="app-btn app-btn-secondary" data-act="call" data-arg="acc">${ic('call')}Gọi kế toán</button></div>`;
+      } else if (sh.kind === 'period') {
+        const p = PAY_HIST.find(x => x.id === sh.id);
+        c = `<h2>${p.name}</h2><div>${badge('success', 'lock', 'Đã chuyển khoản ' + p.paid)}</div>
+          <div class="app-dl"><div><span>Số chuyến</span><b>${p.trips}</b></div><div><span>Lương chuyến</span><b>${vnd(p.base)}</b></div><div><span>Thưởng</span><b>+ ${vnd(p.plus)}</b></div><div><span>Khoản trừ</span><b>${p.minus ? '− ' + vnd(p.minus) : '0 đ'}</b></div><div><span>Thực nhận</span><b style="font-size:19px">${vnd(p.base + p.plus - p.minus)}</b></div><div><span>Chốt kỳ</span><b>${p.close} · Anh Khoa</b></div><div><span>Tài khoản nhận</span><b>VCB ••••5821</b></div></div>
+          ${p.minusWhy ? `<div class="app-reason r-warn" style="margin-left:0">${p.minusWhy}</div>` : ''}
+          <div class="app-btns"><button class="app-btn app-btn-primary" data-act="close">Đóng</button><button class="app-btn app-btn-secondary" data-act="call" data-arg="acc">${ic('call')}Gọi kế toán</button></div>`;
+      }
+      h += scrim + `<div class="app-sheet" role="dialog" aria-modal="true">${c}</div>`;
+    }
+    return h;
+  }
+
+  function undoBar() {
+    const u = S.undo; if (!u || S.screen !== 'dr04') return '';
+    const C = 2 * Math.PI * 11, off = C * (1 - u.left / 10);
+    return `<div class="app-undo" role="status" data-key="${esc(u.trip + u.k + u.text)}">${ic(u.auto ? 'pin' : 'check')}<span class="app-ut">${u.text}</span><button data-act="undo"><svg class="app-ring" viewBox="0 0 28 28" aria-hidden="true"><circle class="bg" cx="14" cy="14" r="11"/><circle class="fg" cx="14" cy="14" r="11" stroke-dasharray="${C}" stroke-dashoffset="${off}"/></svg><span class="app-ul">${u.auto ? 'Sai? ' : ''}Hoàn tác (${u.left})</span></button></div>`;
+  }
+  /* Undo bar enters once, counts down in place, and leaves with an exit animation */
+  function setUndo() {
+    const host = document.getElementById('undo');
+    const cur = host.querySelector('.app-undo:not(.leaving)');
+    const u = S.undo, html = undoBar();
+    if (!html) { if (cur) Shell.dismiss(cur); return; }
+    const key = u.trip + u.k + u.text;
+    if (cur && cur.dataset.key === key) {
+      const C = 2 * Math.PI * 11;
+      cur.querySelector('.app-ring .fg').setAttribute('stroke-dashoffset', C * (1 - u.left / 10));
+      cur.querySelector('.app-ul').textContent = `${u.auto ? 'Sai? ' : ''}Hoàn tác (${u.left})`;
+      return;
+    }
+    if (cur) cur.remove();
+    host.insertAdjacentHTML('beforeend', html);
+  }
+  /* Overlays: animate in when opened, out when closed; re-renders of an open overlay don't replay the entrance */
+  function setLayer() {
+    const host = document.getElementById('layer');
+    const html = layer();
+    const key = S.zoom ? 'zoom' : S.dlg ? 'd:' + S.dlg.kind : S.sheet ? 's:' + S.sheet.kind : '';
+    if (html === lastLayerHTML && key === lastLayerKey) return;
+    const old = Array.from(host.children).filter(el => !el.classList.contains('leaving'));
+    if (!html) old.forEach(el => Shell.dismiss(el));
+    else {
+      const same = key === lastLayerKey, hadScrim = old.some(el => el.classList.contains('app-scrim'));
+      old.forEach(el => el.remove());
+      host.insertAdjacentHTML('beforeend', html);
+      Array.from(host.children).forEach(el => {
+        if (same || (hadScrim && el.classList.contains('app-scrim'))) el.classList.add('app-static');
+      });
+    }
+    lastLayerKey = key; lastLayerHTML = html;
+  }
+
+  function lockLayer() {
+    if (!locked()) return '';
+    const run = Object.values(S.trips).find(t => t.step >= 1 && t.step <= 8);
+    const note = { dr05: 'Ảnh đã chụp vẫn được giữ.', dr06: 'Khoản đang ghi đã được giữ lại.', dr04: 'Mốc "Đã đến…" vẫn tự ghi khi xe tới nơi.', dr07: 'Báo sự cố đang soạn được giữ lại. Gấp thì gọi điều độ.' }[S.screen];
+    return `<div class="app-lock" role="alertdialog" aria-label="Đang lái xe">
+      <span class="app-speed">${ic('truck')}${S.speed > 10 ? 'Tốc độ ' + S.speed + ' km/h' : 'Xe đã dừng'}</span>
+      <div><div class="app-lk-t">Bạn đang lái xe</div><div class="app-lk-h">Dừng xe để thao tác</div></div>
+      ${run ? `<div class="app-lk-dest"><small>Đang đi tới</small><b>${dest(run).short}</b><span>${run.id} · Bước ${run.step + 1}/9: ${MS[run.step].next}</span></div>` : ''}
+      ${note ? `<div class="app-lk-note">${ic('info')}${note}</div>` : ''}
+      ${S.unlockLeft > 0 ? `<div class="app-unl">Xe đã dừng. Mở khoá sau ${S.unlockLeft} giây…</div>` : ''}
+      <button class="app-call" data-act="call">${ic('call')}Gọi điều độ</button></div>`;
+  }
+
+  /* ================= Main render ================= */
+  function render() {
+    const scr = document.getElementById('screen');
+    const dark = S.screen === 'dr05' && S.cam && !S.cam.pick && !S.cam.noperm;
+    scr.classList.toggle('is-dark', !!dark);
+    scr.classList.toggle('is-locked', locked());
+    document.getElementById('sys').className = 'app-sys' + (dark || locked() ? ' is-dark' : '');
+    document.getElementById('sys').innerHTML = `<span>${S.clock}</span><span class="app-sysr">${ic('signal')}${ic(S.offline ? 'noWifi' : 'wifi')}<span class="app-batt"><i></i></span></span>`;
+    const view = document.getElementById('view');
+    const swap = lastScreen && lastScreen !== S.screen; lastScreen = S.screen;
+    view.className = 'app-view' + (dark ? ' is-dark' : '') + (swap ? ' swap' : '');
+    view.innerHTML = { dr01: vDR01, dr02: vDR02, dr03: vDR03, dr04: vDR04, dr05: vDR05, dr06: vDR06, dr07: vDR07, dr08: vDR08, dr09: vDR09, dr10: vDR10, dr11: vDR11 }[S.screen]();
+    setLayer();
+    setUndo();
+    document.getElementById('lock').innerHTML = lockLayer();
+    const tb = ['dr03', 'dr09', 'dr11'].includes(S.screen) ? 100 : S.screen === 'dr01' ? (S.auth.step === 'otp' ? 300 : 120) : S.screen === 'dr02' ? 180 : (S.screen === 'dr07' || S.screen === 'dr10') ? 120 : S.undo && S.screen === 'dr04' ? 108 : (S.screen === 'dr08' || S.screen === 'dr06') ? 170 : S.screen === 'dr05' ? 120 : 28;
+    document.getElementById('toasts').style.setProperty('--toast-b', tb + 'px');
+    if (S.screen === 'dr05' && S.cam && S.cam.mode === 'sign' && !S.cam.pick) setupSig();
+    renderPanel();
+  }
+
+  /* Signature pad */
+  function demoStrokes() {
+    const a = [], b = [], c = [];
+    for (let x = 40; x <= 150; x += 4) a.push([x, 110 - 30 * Math.sin((x - 40) / 18) * Math.exp(-(x - 40) / 160)]);
+    for (let x = 140; x <= 270; x += 4) b.push([x, 105 + 18 * Math.sin((x - 140) / 10) - (x - 140) * .12]);
+    for (let x = 60; x <= 280; x += 8) c.push([x, 138 + (x - 60) * -.05]);
+    return [a, b, c];
+  }
+  function setupSig() {
+    const cv = document.getElementById('sig'); if (!cv) return;
+    const r = cv.getBoundingClientRect(); const k = 2;
+    cv.width = r.width * k; cv.height = r.height * k;
+    const ctx = cv.getContext('2d'); ctx.scale(k, k);
+    ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--info-fg').trim();
+    const draw = s => { ctx.beginPath(); s.forEach((p, i) => i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1])); ctx.stroke(); };
+    S.cam.strokes.forEach(draw);
+    let cur = null;
+    const pt = e => { const b = cv.getBoundingClientRect(); return [e.clientX - b.left, e.clientY - b.top]; };
+    cv.onpointerdown = e => { if (locked()) return; cur = [pt(e)]; S.cam.strokes.push(cur); cv.setPointerCapture(e.pointerId); };
+    cv.onpointermove = e => { if (!cur) return; cur.push(pt(e)); draw(cur.slice(-2)); };
+    cv.onpointerup = () => { cur = null; updSign(); };
+    const nm = document.getElementById('podName');
+    if (nm) nm.oninput = () => { S.cam.name = nm.value; updSign(); };
+  }
+  function updSign() { const b = document.getElementById('signDone'); if (b) b.disabled = !(S.cam.strokes.length && S.cam.name.trim()); }
+
+  /* Toast */
+  function toast(msg, icon, ms) {
+    const host = document.getElementById('toasts');
+    const el = document.createElement('div'); el.className = 'app-toast'; el.innerHTML = ic(icon || 'info') + `<span>${msg}</span>`;
+    host.appendChild(el);
+    const live = () => Array.from(host.children).filter(x => !x.classList.contains('leaving'));
+    while (live().length > 2) Shell.dismiss(live()[0]);
+    setTimeout(() => Shell.dismiss(el), ms || 4000);
+  }
+  function clearToasts() { document.getElementById('toasts').innerHTML = ''; }
+
+  /* ================= Reviewer panel ================= */
+  function renderPanel() {
+    const p = document.getElementById('panel');
+    if (!p.dataset.built) {
+      p.dataset.built = 1;
+      p.innerHTML = `<div><h1>App tài xế — prototype</h1><p>Đủ DR_01–DR_11. Chuyến mẫu CH-0472, MSKU1234567, xe 51C-456.78, tạm ứng 3.000.000 đ.</p></div>
+        <div class="rv-now" id="rvNow"></div>
+        <div class="rv-sec"><h2>Mô phỏng</h2>
+          <label class="rv-sw"><input type="checkbox" id="tgDrive"> Đang lái xe — 40 km/h (&gt; 10 km/h)</label>
+          <label class="rv-sw"><input type="checkbox" id="tgOff"> Mất mạng</label>
+          <label class="rv-sw"><input type="checkbox" id="tgConsent"> Tài xế đã đồng ý chia sẻ vị trí (DR_02)</label>
+          <div class="rv-row"><button class="btn btn-secondary btn-sm" id="evGeo">Xe vào vùng địa điểm</button><button class="btn btn-secondary btn-sm" id="evAcc">Kế toán chốt quyết toán</button><button class="btn btn-secondary btn-sm" id="evNeed">Kế toán yêu cầu bổ sung</button></div>
+          <label class="rv-file">Ảnh thật cho camera (tuỳ chọn) — thay giấy vẽ sẵn<input type="file" accept="image/*" id="rvPhoto"></label>
+        </div>
+        <div class="rv-sec"><h2>Màn hình &amp; trạng thái</h2>${SCREENS.map(([k, l, sts]) => `<div class="rv-scr" data-scr="${k}"><h3>${l}</h3><div class="rv-chips">${sts.map(([s, sl]) => `<a href="#${k}-${s}" data-h="${k}-${s}">${sl}</a>`).join('')}</div></div>`).join('')}</div>
+        <div class="rv-sec"><h2>Luồng thử</h2><p>DR_03 → Mở chuyến → bấm nút mốc lớn → Hoàn tác trong 10 giây. Mốc "Đã lấy container", "Đã giao hàng", "Đã trả rỗng" mở camera (DR_05). Bước 9 "Hoàn thành chuyến" hỏi lại lần hai. Hàng icon "Chi phí" mở DR_06, "Báo sự cố" mở DR_07, "Giấy vận tải" mở DR_10. Thanh dưới: Lương (DR_09), Tài khoản (DR_11). DR_01: mã OTP nào cũng đúng trừ 111111; SĐT phải kết thúc bằng 482.</p></div>`;
+      p.querySelector('#tgDrive').onchange = e => {
+        if (e.target.checked) { S.speed = 40; S.unlockLeft = 0; } else { S.speed = 0; S.unlockLeft = 5; }
+        render();
+      };
+      p.querySelector('#tgOff').onchange = e => { S.offline = e.target.checked; if (!S.offline) flush(); render(); };
+      p.querySelector('#tgConsent').onchange = e => { S.consent = e.target.checked; render(); };
+      p.querySelector('#evGeo').onclick = () => {
+        const t = trip();
+        if (!S.consent) { toast('Tài xế không đồng ý vị trí: không có tự ghi, mốc bấm tay.', 'info'); return; }
+        if (S.screen !== 'dr04' || !MS[t.step] || !MS[t.step].geo) { toast('Mở DR_04 khi mốc tiếp theo là "Đã đến …" để thử tự ghi.', 'info'); return; }
+        recordMs(true); render();
+      };
+      p.querySelector('#evAcc').onclick = () => { const T = t72(); if (!T || T.step !== 9) { toast('Hoàn thành chuyến CH-0472 trước.', 'info'); return; } S.st.status = 'confirm'; S.st.other = 'ok'; render(); toast('Quyết toán CH-0472 chờ bạn xác nhận.', 'bell'); };
+      p.querySelector('#evNeed').onclick = () => { const T = t72(); if (!T || T.step !== 9) { toast('Hoàn thành chuyến CH-0472 trước.', 'info'); return; } S.st.status = 'need'; S.st.other = 'need'; render(); toast('Kế toán cần bổ sung chứng từ cho CH-0472.', 'bell'); };
+      p.querySelector('#rvPhoto').onchange = e => readPhoto(e.target.files[0], false);
+    }
+    p.querySelector('#tgDrive').checked = S.speed > 10;
+    p.querySelector('#tgOff').checked = S.offline;
+    p.querySelector('#tgConsent').checked = S.consent;
+    const curH = location.hash.slice(1);
+    p.querySelectorAll('.rv-scr').forEach(x => x.classList.toggle('on', x.dataset.scr === S.screen));
+    p.querySelectorAll('.rv-chips a').forEach(a => a.setAttribute('aria-current', a.dataset.h === curH && curH.startsWith(S.screen) ? 'true' : 'false'));
+    const sn = SCREENS.find(x => x[0] === S.screen);
+    const stl = (sn[2].find(x => curH === S.screen + '-' + x[0]) || [0, 'đang thao tác'])[1];
+    p.querySelector('#rvNow').innerHTML = `<b>Đang xem:</b> ${sn[1]} — ${stl}`;
+  }
+  function readPhoto(file, captureNow) {
+    if (!file) return;
+    const r = new FileReader();
+    r.onload = () => { photo = r.result; if (captureNow) capture(photo); else render(); };
+    r.readAsDataURL(file);
+  }
+
+  /* ================= Events ================= */
+  const scr = document.getElementById('screen');
+  scr.addEventListener('click', e => {
+    const el = e.target.closest('[data-act]');
+    if (!el || el.disabled) return;
+    if (el.dataset.act === 'scrollList') { const l = document.getElementById('xlist'); if (l) l.scrollIntoView({ behavior: 'smooth' }); return; }
+    e.preventDefault();
+    act(el.dataset.act, el.dataset.arg, el);
+  });
+  /* Top bar gets a soft edge only once the body has scrolled (v1.3 topbar rule) */
+  scr.addEventListener('scroll', e => {
+    const b = e.target; if (!b.classList || !b.classList.contains('app-body')) return;
+    const top = b.parentElement && b.parentElement.querySelector('.app-top');
+    if (top) top.classList.toggle('is-scrolled', b.scrollTop > 2);
+  }, true);
+  scr.addEventListener('change', e => {
+    const t = e.target;
+    if (t.dataset.file === 'cam') readPhoto(t.files[0], true);
+    if (t.dataset.dis) { const sh = S.sheet; const k = t.dataset.dis; sh.sel = t.checked ? sh.sel.concat(k) : sh.sel.filter(x => x !== k); sh.err = ''; const n = document.getElementById('disNote'); if (n) sh.note = n.value; render(); }
+  });
+  scr.addEventListener('input', e => {
+    const t = e.target;
+    if (t.id === 'exOther') { S.ex.other = t.value; const b = document.getElementById('exOtherNext'); if (b) b.disabled = !t.value.trim(); }
+    if (t.id === 'disNote' && S.sheet) S.sheet.note = t.value;
+    if (t.id === 'authPhone') { const v = t.value.replace(/\D/g, '').slice(0, 10); if (v !== t.value) t.value = v; S.auth.phone = v; S.auth.err = ''; const b = document.getElementById('authSend'); if (b) b.disabled = !(/^0\d{9}$/.test(v) && !S.offline); }
+    if (t.id === 'incNote' && S.inc) S.inc.note = t.value;
+    if (t.id === 'newPhone' && S.sheet) S.sheet.val = t.value;
+  });
+
+  setInterval(() => {
+    let dirty = false;
+    if (S.unlockLeft > 0 && S.speed <= 10) { S.unlockLeft--; dirty = true; }
+    if (S.undo && S.screen === 'dr04' && !locked()) {
+      S.undo.left--;
+      if (S.undo.left <= 0) { const end = S.undo.onEnd; S.undo = null; if (end) { end(); return; } dirty = true; }
+      else setUndo();
+    }
+    if (S.screen === 'dr01' && S.auth.step === 'otp' && S.auth.resend > 0) {
+      S.auth.resend--;
+      const el = document.getElementById('otpResend');
+      if (S.auth.resend <= 0) dirty = true; else if (el) el.textContent = `Chưa nhận được? Gửi lại mã sau ${mmss(S.auth.resend)}`;
+    }
+    if (S.screen === 'dr07' && S.inc && S.inc.rec === 'on' && !locked()) {
+      S.inc.recSec++;
+      const el = document.getElementById('recT'); if (el) el.textContent = mmss(S.inc.recSec);
+      if (S.inc.recSec >= 120) { S.inc.rec = 'done'; dirty = true; }
+    }
+    if (S.st.lockLeft > 0 && S.screen === 'dr08') { S.st.lockLeft--; if (!S.dlg && !S.sheet) dirty = true; }
+    if (dirty) render();
+  }, 1000);
+
+  function fromHash() {
+    const [scr0, st0] = location.hash.slice(1).split('-');
+    const sc = SCREENS.find(x => x[0] === scr0) ? scr0 : 'dr03';
+    const list = SCREENS.find(x => x[0] === sc)[2];
+    preset(sc, list.some(x => x[0] === st0) ? st0 : 'default');
+  }
+  window.addEventListener('hashchange', fromHash);
+  fromHash();
+})();
+</script>
+</body>
+</html>

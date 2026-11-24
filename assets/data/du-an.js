@@ -5,7 +5,7 @@
  *         ket_qua (mảng 3 {chi_so, mo_ta} — giá trị kinh doanh nổi bật, câu ngắn; KHÔNG bịa số liệu %, doanh thu…),
  *         use_cases (mảng {ten, mo_ta} — use case nghiệp vụ của prototype, viết theo lợi ích kinh doanh, chỉ những gì prototype có thật),
  *         dich_vu_lien_quan (slug trong DATA_DICH_VU), noi_bat (boolean), playground (trang bấm thử bản mẫu screens/du-an/playground/?app=<id>, tính từ gốc website)
- * linh_vuc: slug lĩnh vực (hospitality / industrial / healthcare) để chọn icon badge (KTP.domainIcon trong global.js).
+ * linh_vuc: slug lĩnh vực (hospitality / industrial / healthcare / logistics) để chọn icon badge (KTP.domainIcon trong global.js).
  * Trường portfolio (CR-02): mang (string[] — chip phân hệ / năng lực, tiếng Anh dùng chung 2 ngôn ngữ),
  *         anh_phu (mảng 2 {anh, anh_alt, anh_alt_en} — ảnh chụp màn hình prototype cho marquee, card, gallery chi tiết).
  * Trường case đồng hành (CR-01, tuỳ chọn): thi_truong / thi_truong_en (khác "Việt Nam" thì hiện badge thị trường),
@@ -311,6 +311,47 @@ const DATA_DU_AN = [
     anh_phu: [
       { anh: "showcase/assets/covers/kiosk-1.jpg", anh_alt: "Danh mục sản phẩm và combo, chọn để đặt trước", anh_alt_en: "Product and bundle catalog, pick items to reserve" },
       { anh: "showcase/assets/covers/kiosk-2.jpg", anh_alt: "Đặt lịch tham quan khoa sản theo số chỗ còn trống", anh_alt_en: "Maternity ward tour booking by available places" }
+    ]
+  },
+  {
+    id: "da-8",
+    slug: "phan-mem-quan-ly-doi-xe-van-tai",
+    ten_du_an: "Phần mềm quản lý đội xe và lãi/lỗ từng chuyến cho doanh nghiệp vận tải",
+    ten_du_an_en: "Fleet management & profit-per-trip software for trucking companies",
+    khach_hang: "Đội Xe (tên đã thay để bảo mật)",
+    khach_hang_en: "Đội Xe (name changed for confidentiality)",
+    nganh: "Vận tải & Logistics",
+    nganh_en: "Transport & Logistics",
+    linh_vuc: "logistics",
+    anh: "showcase/assets/covers/fleet.jpg",
+    anh_alt: "Màn tổng quan quản lý đội xe: lãi gộp tạm tính, doanh thu, chi phí, việc cần xử lý trong ngày và vị trí xe",
+    anh_alt_en: "Fleet management overview: provisional gross profit, revenue, costs, today's to-do list and vehicle positions",
+    tom_tat: "SaaS quản lý đội xe cho doanh nghiệp vận tải hàng hoá 10–100 xe: từ đơn hàng, điều phối, giám sát hành trình đến quyết toán và lãi/lỗ của từng chuyến, kèm app tài xế.",
+    tom_tat_en: "A fleet management SaaS for road freight companies running 10–100 trucks: from orders, dispatch and trip monitoring to settlement and profit per trip, with a driver app.",
+    thach_thuc: "Doanh nghiệp vận tải vừa và nhỏ vẫn điều xe qua điện thoại, Excel và Zalo; chi phí dầu, phí đường, nâng hạ nằm trong giấy tờ của tài xế, nên lãi/lỗ chỉ biết sau khi khoá sổ tháng. Dữ liệu thiết bị giám sát hành trình có sẵn trên xe nhưng không gắn với chuyến và chi phí; giấy tờ xe và giờ lái của tài xế dễ quá hạn mà không ai nhắc.",
+    thach_thuc_en: "Small and mid-sized trucking companies still dispatch by phone, Excel and chat apps; fuel, tolls and lift fees sit in the drivers' paperwork, so profit is only known after the month is closed. The GPS trackers already fitted to every truck aren't linked to trips or costs, and vehicle documents and driving hours lapse with nobody reminding anyone.",
+    giai_phap: "KTP thiết kế SaaS quản lý đội xe lấy chuyến làm trung tâm: đơn vận chuyển thường và container, bảng điều phối ghép đơn vào chuyến rồi gán xe, tài xế hoặc xe ngoài (kiểm tra giấy tờ, giờ lái trước khi gán), bản đồ giám sát lấy dữ liệu từ thiết bị đang lắp sẵn, giờ lái và nhật ký an toàn, nhắc hạn giấy tờ, kế hoạch bảo dưỡng. Mọi khoản chi gắn vào chuyến: tạm ứng, quyết toán theo chứng từ, import và khớp sao kê thu phí, thẻ dầu, hoá đơn điện tử, lương chuyến, đề nghị xuất hoá đơn, công nợ; bảng giá cước và dự toán giá thành giúp báo giá có lãi. App tài xế Android bấm mốc một chạm, chụp chứng từ giao nhận, ghi chi phí, báo sự cố và vẫn dùng được khi mất mạng. Prototype bấm thử được đến từng màn trước khi phát triển thật.",
+    giai_phap_en: "KTP designed a trip-centred fleet management SaaS: general and container shipping orders, a dispatch board that groups orders into trips and assigns vehicles, drivers or subcontractors (checking documents and driving hours first), a live map fed by the trackers already on the trucks, driving hours and a safety log, document expiry reminders and maintenance plans. Every cost is tied to a trip: cash advances, receipt-based settlement, imported and matched toll, fuel-card and e-invoice statements, trip pay, invoice requests, receivables and payables; rate cards and cost estimates keep quotes profitable. The Android driver app has one-tap milestones, proof-of-delivery photos, expense capture and incident reports, and keeps working offline. The prototype is clickable down to every screen before real development starts.",
+    ket_qua: [
+      { chi_so: "Lãi/lỗ từng chuyến", chi_so_en: "Profit per trip", mo_ta: "biết chuyến nào lãi, tuyến nào lỗ ngay khi quyết toán, không đợi khoá sổ tháng", mo_ta_en: "see which trips and routes make money as soon as they're settled, not at month-end" },
+      { chi_so: "Điều phối an toàn", chi_so_en: "Safe dispatch", mo_ta: "cảnh báo xe hết hạn giấy tờ, tài xế sắp vượt giờ lái trước khi gán", mo_ta_en: "flags expired vehicle documents and drivers near their hour limits before assignment" },
+      { chi_so: "Chi phí có chứng từ", chi_so_en: "Every cost backed", mo_ta: "tạm ứng, dầu, phí đường khớp với chứng từ và sao kê", mo_ta_en: "advances, fuel and tolls matched to receipts and statements" }
+    ],
+    use_cases: [
+      { ten: "Biết lãi/lỗ từng chuyến", ten_en: "Know the profit on every trip", mo_ta: "Doanh thu cước trừ dầu, phí đường, nâng hạ, lương chuyến và chi phí khác của chính chuyến đó; báo cáo theo khách hàng, tuyến và xe.", mo_ta_en: "Freight revenue minus the trip's own fuel, tolls, lift fees, trip pay and other costs, reported by customer, route and vehicle." },
+      { ten: "Điều phối nhanh, không gán sai", ten_en: "Faster dispatch, no wrong assignments", mo_ta: "Bảng điều phối theo ngày để ghép đơn vào chuyến, gán xe, tài xế hoặc xe ngoài, kèm cảnh báo giấy tờ quá hạn và giờ lái sắp chạm giới hạn.", mo_ta_en: "A daily dispatch board to group orders into trips and assign vehicles, drivers or subcontractors, with warnings for expired documents and drivers near their hour limits." },
+      { ten: "Quyết toán chuyến gọn", ten_en: "Quick trip settlement", mo_ta: "Tài xế chụp chứng từ trên app, kế toán duyệt từng dòng so với tạm ứng và định mức rồi chốt số tiền phải trả hoặc phải thu.", mo_ta_en: "Drivers photograph receipts in the app; accountants approve each line against the advance and norms, then lock the amount owed either way." },
+      { ten: "Khớp sao kê không cần gõ lại", ten_en: "Statements matched without retyping", mo_ta: "Import file thu phí, thẻ dầu, hoá đơn điện tử; giao dịch tự khớp vào chuyến theo biển số và thời gian.", mo_ta_en: "Import toll, fuel-card and e-invoice files; transactions match to trips by plate and time." },
+      { ten: "Tuân thủ giờ lái và giấy tờ", ten_en: "Stay compliant on hours and documents", mo_ta: "Theo dõi lái liên tục, giờ lái ngày và tuần cùng nhật ký an toàn; nhắc hạn đăng kiểm, bảo hiểm, phù hiệu, giấy phép lái xe trước khi quá hạn.", mo_ta_en: "Track continuous, daily and weekly driving hours with a safety log, and get reminders before inspections, insurance, operating badges and licenses expire." },
+      { ten: "Khách tự theo dõi chuyến", ten_en: "Customers track their own shipments", mo_ta: "Gửi link theo dõi chuyến cho chủ hàng, không cần đăng nhập, bớt cuộc gọi hỏi xe đang ở đâu.", mo_ta_en: "Share a tracking link with the shipper, no login needed, so there are fewer calls asking where the truck is." }
+    ],
+    dich_vu_lien_quan: "phat-trien-phan-mem",
+    noi_bat: false,
+    playground: "screens/du-an/playground/?app=fleet",
+    mang: ["Fleet management", "Dispatch", "Trip P&L", "Driver app"],
+    anh_phu: [
+      { anh: "showcase/assets/covers/fleet-1.jpg", anh_alt: "Bảng điều phối: đơn chờ xếp và các chuyến trong ngày theo trạng thái", anh_alt_en: "Dispatch board: unassigned orders and today's trips by status" },
+      { anh: "showcase/assets/covers/fleet-2.jpg", anh_alt: "Chi tiết chuyến: lộ trình, mốc và lãi gộp của chuyến", anh_alt_en: "Trip detail: route, milestones and the trip's gross profit" }
     ]
   }
 ];

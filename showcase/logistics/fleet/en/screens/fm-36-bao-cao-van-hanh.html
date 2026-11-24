@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Operations report · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  .fresh button { border: 0; background: none; color: var(--primary); font: 500 12.5px var(--font-body); cursor: pointer; padding: 0; display: inline-flex; gap: 4px; align-items: center; }
+  .fresh button .icon { width: 14px; height: 14px; }
+  /* SummaryStrip (như FM_35) */
+  .summary { display: grid; grid-template-columns: minmax(400px, 1.6fr) repeat(4, minmax(0, 1fr)); gap: 6px; padding: 6px; background: var(--surface); border-radius: var(--r-lg); box-shadow: var(--shadow-card); }
+  .sum-main { padding: 18px 22px; background: var(--primary-soft); display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: 16px; border-radius: 8px; border: 0; font: inherit; color: inherit; text-align: left; cursor: pointer; }
+  .sum-main:hover { box-shadow: inset 0 0 0 1px var(--primary-muted); }
+  .sum-main-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .sum-main .k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--side-active); }
+  .sum-main .v { font: 700 var(--text-display)/40px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+  .sum-main .v small { font: 600 18px var(--font-display); color: var(--fg-muted); margin-left: 4px; }
+  .sum-main .row, .sum-item .row { gap: 6px; flex-wrap: wrap; font-size: 12.5px; color: var(--fg-muted); }
+  .sum-spark { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; padding-bottom: 2px; }
+  .sum-spark small { font-size: 11.5px; color: var(--fg-muted); }
+  .sum-item { padding: 18px 16px; display: flex; flex-direction: column; justify-content: center; gap: 4px; min-width: 0; border: 0; border-radius: 8px; background: transparent; font: inherit; color: inherit; text-align: left; cursor: pointer; }
+  .sum-item:hover { background: var(--surface-muted); }
+  .sum-item .k { font-size: 12.5px; color: var(--fg-muted); font-weight: 500; }
+  .sum-item .v { font: 700 24px/30px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .sum-item .v small { font: 600 14px var(--font-body); color: var(--fg-muted); }
+  .delta { display: inline-flex; align-items: center; gap: 3px; font-size: 12.5px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .delta.good { color: var(--success-fg); } .delta.bad { color: var(--danger-fg); } .delta.warn { color: var(--warning-fg); }
+  /* Cards */
+  .card { display: flex; flex-direction: column; min-width: 0; }
+  .card-title { display: flex; align-items: center; gap: 10px; padding: 16px 18px 6px; min-height: 30px; }
+  .card-title h2 { font-size: 16px; white-space: nowrap; }
+  .card-title .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 10px; align-items: center; white-space: nowrap; }
+  .card-foot { margin-top: auto; padding: 6px 18px 14px; font-size: 12.5px; color: var(--fg-muted); display: flex; align-items: center; gap: 8px; }
+  .card-foot .icon { width: 15px; height: 15px; flex: none; }
+  .row2 { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(340px, 1fr); gap: var(--s-4); align-items: stretch; }
+  .row2.even { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  /* BarList chart (giống FM_04) */
+  .barlist { padding: 6px 18px 4px; display: flex; flex-direction: column; gap: 2px; flex: 1; }
+  .bl-row { display: grid; grid-template-columns: 168px minmax(0, 1fr) 128px; gap: 12px; align-items: center; padding: 5px 8px; margin: 0 -8px; font-size: 13px; text-decoration: none !important; color: inherit; border-radius: 8px; }
+  .bl-row:hover { background: var(--surface-muted); }
+  .bl-row .name { min-width: 0; }
+  .bl-row .name b { display: block; font-weight: 500; color: var(--fg-strong); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bl-row .name span { display: block; font-size: 12px; color: var(--fg-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bl-row .val { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+  .bl-row .val small { display: block; font-weight: 400; font-size: 11.5px; color: var(--fg-muted); }
+  #sec-wait .bl-row { flex: 1; }
+  .track { position: relative; height: 22px; }
+  .track .zero { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--border-strong); }
+  .track .grid-l { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--surface-muted); }
+  .track .thr { position: absolute; top: -4px; bottom: -4px; width: 0; border-left: 1.5px dashed var(--fg-subtle); }
+  .track .bar { position: absolute; top: 5px; height: 12px; border-radius: 3px; background: var(--chart-muted); }
+  .track .bar.hi { background: var(--primary); }
+  .track .bar.warn { background: repeating-linear-gradient(45deg, var(--warning-solid) 0 2px, var(--warning-soft) 2px 5px); box-shadow: inset 0 0 0 1px var(--warning-solid); }
+  .track .tick { position: absolute; top: 2px; height: 18px; width: 2px; border-radius: 1px; background: var(--fg-muted); }
+  .bl-axis { display: grid; grid-template-columns: 168px minmax(0, 1fr) 128px; gap: 12px; font-size: 11.5px; color: var(--fg-muted); padding: 2px 0 6px; }
+  .bl-axis .ax { position: relative; height: 14px; }
+  .bl-axis .ax span { position: absolute; transform: translateX(-50%); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .chart-legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--fg-muted); padding: 4px 18px 14px; }
+  .chart-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  .chart-legend i.dash { width: 0; height: 12px; border-left: 1.5px dashed var(--fg-subtle); border-radius: 0; margin-right: 8px; }
+  .chart-legend i.tk { width: 2px; height: 12px; background: var(--fg-muted); }
+  .val-warn { color: var(--warning-fg); }
+  /* Top vượt định mức (ActionQueue) */
+  .queue { padding: 4px 10px 4px; display: flex; flex-direction: column; gap: 2px; flex: 1; justify-content: space-between; }
+  .qi { display: grid; grid-template-columns: 3px 28px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 9px 10px 9px 0; border-radius: 8px; text-decoration: none !important; color: inherit; }
+  .qi .sev { align-self: stretch; margin: 4px 0; border-radius: 0 3px 3px 0; background: var(--warning-solid); }
+  .qi.low .sev { background: transparent; }
+  .qi .rk { width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; background: var(--warning-soft); color: var(--warning-fg); font-weight: 700; font-size: 12.5px; }
+  .qi.low .rk { background: var(--surface-muted); color: var(--neutral-fg); }
+  .qi .t { font-weight: 600; color: var(--fg-strong); font-size: 14px; line-height: 20px; display: flex; gap: 8px; align-items: center; }
+  .qi .d { font-size: 12.5px; color: var(--fg-muted); line-height: 18px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .qi .amt { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+  .qi .amt small { display: block; font-weight: 400; font-size: 12px; color: var(--fg-muted); }
+  /* Bảng */
+  .grid td.right, .grid th.right { text-align: right; }
+  .grid td { font-variant-numeric: tabular-nums; }
+  .grid tbody tr { cursor: pointer; }
+  .grid th[data-sort] { cursor: pointer; user-select: none; }
+  .grid th[aria-sort] { color: var(--primary); }
+  .grid tbody tr:last-child td { border-bottom: 0; }
+  .util { display: flex; align-items: center; gap: 8px; justify-content: flex-end; }
+  .util .cap-bar { width: 72px; }
+  .util .cap-bar i { background: var(--chart-muted); }
+  .util .cap-bar i.hi { background: var(--primary); }
+  .tbl-wrap { border-radius: 0 0 var(--r-lg) var(--r-lg); overflow: hidden; }
+  .foot-note { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--fg-muted); padding: 0 2px; }
+  .foot-note .icon { width: 15px; height: 15px; flex: none; }
+  .formula-tip { border-bottom: 1px dotted var(--border-strong); cursor: help; }
+  @media (max-width: 1200px) { .summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } .sum-main { grid-column: 1 / -1; } .row2, .row2.even { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Reports / Operations</div>
+      <h1>Operations report</h1>
+      <div class="fresh" style="margin-top:6px"><span class="live" aria-hidden="true"></span>Updated 12 min ago · GPS tracker, driver app milestones and refuel log <button type="button" id="refresh"></button></div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-secondary" type="button" id="xlsBtn"></button>
+    </div>
+  </div>
+
+  <div class="filterbar" role="toolbar" aria-label="Filters">
+    <button class="chip on" type="button">Period: Oct 2026 <span class="ic-chev"></span></button>
+    <button class="chip" type="button">Compare to: Sep 2026 <span class="ic-chev"></span></button>
+    <div class="seg" role="group" aria-label="Vehicle type" id="typeSeg"><button type="button" data-type="all" aria-pressed="true">All vehicles</button><button type="button" data-type="Tractor unit" aria-pressed="false">Tractor unit</button><button type="button" data-type="Box truck" aria-pressed="false">Box truck</button></div>
+    <button class="chip" type="button" id="overOnly" aria-pressed="false">Only vehicles over norm</button>
+    <button class="btn btn-ghost btn-sm" type="button" id="clearF">Clear filters</button>
+  </div>
+
+  <div id="view" style="display:contents"></div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_36', title: 'Operations report' });
+document.querySelectorAll('.ic-chev').forEach(e => e.outerHTML = icon('chevron'));
+document.getElementById('xlsBtn').innerHTML = icon('download') + 'Export to Excel';
+document.getElementById('refresh').innerHTML = icon('refresh') + 'Refresh';
+document.getElementById('refresh').onclick = () => toast('Operations figures refreshed');
+
+/* ---------- Floating tooltip (như FM_35) ---------- */
+const TIPS = {}; let tipN = 0;
+const tip = html => { const k = 't' + (tipN++); TIPS[k] = html; return `data-ftip="${k}" tabindex="0"`; };
+const ftip = document.createElement('div'); ftip.className = 'tip-body'; ftip.setAttribute('role', 'tooltip');
+Object.assign(ftip.style, { position: 'fixed', transform: 'none', bottom: 'auto', zIndex: 100 }); document.body.appendChild(ftip);
+function showTip(el) { const h = TIPS[el.dataset.ftip]; if (!h) return; ftip.innerHTML = h; ftip.style.opacity = 1; const r = el.getBoundingClientRect(), w = ftip.offsetWidth, ht = ftip.offsetHeight; ftip.style.left = Math.min(Math.max(8, r.left + r.width / 2 - w / 2), innerWidth - w - 8) + 'px'; let y = r.top - ht - 8; if (y < 8) y = r.bottom + 8; ftip.style.top = y + 'px'; }
+const hideTip = () => { ftip.style.opacity = 0; };
+document.addEventListener('mouseover', e => { const el = e.target.closest('[data-ftip]'); el ? showTip(el) : hideTip(); });
+document.addEventListener('focusin', e => { const el = e.target.closest('[data-ftip]'); el ? showTip(el) : hideTip(); });
+document.addEventListener('scroll', hideTip, true);
+
+/* ---------- Dữ liệu tháng 10/2026, chi nhánh TP.HCM ----------
+   [biển số, loại, tài xế chính, km tổng, km rỗng, l/100km thực tế, định mức, chờ TB (giờ/lượt), lượt chờ, ngày chạy, ngày khả dụng, ghi chú] */
+const PRICE = 20150; // đ/l, giá đổ bình quân kỳ
+const VEH = [
+  ['51C-456.78', 'Tractor unit', 'Đặng Quang Vinh', 8420, 2310, 39.6, 35, 2.6, 52, 27, 31],
+  ['61C-220.14', 'Tractor unit', 'Võ Thành Nhân', 9120, 2010, 38.2, 35, 1.9, 48, 28, 31],
+  ['51C-334.21', 'Tractor unit', 'Võ Thanh Sơn', 7380, 2140, 37.4, 35, 2.2, 44, 24, 31],
+  ['51C-731.80', 'Tractor unit', 'Ngô Đức Trí', 8050, 1690, 36.1, 35, 1.7, 47, 26, 31],
+  ['51D-702.33', 'Box truck', 'Lê Hoàng Phúc', 6240, 1060, 22.9, 22, 0.6, 18, 25, 31],
+  ['51C-310.66', 'Tractor unit', 'Phạm Văn Toàn', 3120, 870, 35.8, 35, 1.6, 19, 13, 22, '9 days in maintenance'],
+  ['51C-412.09', 'Tractor unit', 'Bùi Minh Khoa', 7920, 2380, 35.3, 35, 2.4, 45, 24, 31],
+  ['51D-456.78', 'Tractor unit', 'Trần Minh Đức', 9010, 1890, 34.9, 35, 1.8, 51, 28, 31],
+  ['51C-099.21', 'Tractor unit', 'Phan Thanh Tùng', 2480, 760, 34.8, 35, 1.4, 14, 10, 17, '14 days awaiting inspection'],
+  ['51C-123.45', 'Tractor unit', 'Nguyễn Văn Tuấn', 9480, 1800, 34.6, 35, 1.5, 54, 29, 31],
+  ['51C-645.17', 'Tractor unit', 'Trương Văn Lực', 6610, 1850, 34.2, 35, 2.0, 38, 22, 31],
+  ['51C-588.02', 'Box truck', 'Huỳnh Tấn Lộc', 5980, 960, 21.4, 22, 0.5, 16, 25, 31]
+].map(r => { const [plate, type, driver, km, empty, act, norm, wait, waits, run, avail, note] = r; const dev = (act - norm) / norm * 100, overL = Math.max(0, (act - norm) / 100 * km); return { plate, type, driver, km, empty, act, norm, wait, waits, run, avail, note, dev, overL, overVnd: Math.round(overL) * PRICE, emptyPct: empty / km * 100, util: run / avail * 100 }; });
+const ROUTES = [
+  ['Cát Lái → Sa Đéc', 104, 41.2], ['Cát Lái → VSIP 1 Industrial Park', 186, 31.4], ['ICD Phước Long → Phước Đông Industrial Park', 66, 27.1], ['Sóng Thần Industrial Park → Long An', 58, 24.3],
+  ['Mỹ Phước 3 Industrial Park → Cát Lái', 168, 22.0], ['Đồng An Industrial Park → Cát Lái', 142, 19.6], ['Tân Uyên Industrial Park → Cát Lái', 232, 17.8], ['Bình Tân → Mỹ Tho', 62, 16.5]
+];
+// [địa điểm, loại, số lượt, TB giờ, P90 giờ]
+const WAITS = [['Cát Lái port', 'Port · gate B', 612, 2.08, 3.67], ['VICT port', 'Port', 38, 1.8, 3.08], ['ICD Phước Long', 'ICD', 184, 1.58, 2.83], ['ICD Sóng Thần', 'ICD', 96, 1.17, 2.08], ['Depot Giang Nam', 'Empty depot', 142, 0.92, 1.67], ['Customer warehouse, VSIP 1 Industrial Park', 'Customer warehouse', 186, 0.67, 1.17]];
+const hm = h => { const H = Math.floor(h), M = Math.round((h - H) * 60); return `${H}h${String(M).padStart(2, '0')}`; };
+
+/* ---------- State ---------- */
+let S;
+function reset(o) { S = Object.assign({ type: 'all', over: false, kmBy: 'vehicle', sort: ['dev', -1], loading: false, empty: false, error: false, gaps: false }, o || {}); }
+const vset = () => VEH.filter(v => S.type === 'all' || v.type === S.type);
+const sum = (a, k) => a.reduce((s, x) => s + x[k], 0);
+
+const view = document.getElementById('view');
+function render() {
+  hideTip(); sync();
+  if (S.loading) { view.innerHTML = `<section class="summary"><div class="sum-main" style="cursor:default"><div class="sum-main-text"><span class="sk" style="width:60%"></span><span class="sk" style="width:40%;height:34px;margin-top:8px"></span></div></div>${Array(4).fill('<div class="sum-item" style="cursor:default"><span class="sk" style="width:70%"></span><span class="sk" style="width:50%;height:22px;margin-top:8px"></span></div>').join('')}</section>
+    <div class="row2"><div class="card card-body">${Array(9).fill('<span class="sk" style="height:14px;margin:9px 0"></span>').join('')}</div><div class="card card-body">${Array(6).fill('<span class="sk" style="height:28px;margin:8px 0"></span>').join('')}</div></div>
+    <div class="card"><table class="grid"><tbody>${Array(6).fill('<tr>' + Array(8).fill('<td><span class="sk" style="width:80%"></span></td>').join('') + '</tr>').join('')}</tbody></table></div>`; return; }
+  if (S.error) { view.innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Couldn't load the operations report. Check your connection and try again.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="retry">${icon('refresh')}Retry</button></div></div>`; document.getElementById('retry').onclick = () => { S.error = false; render(); }; return; }
+  if (S.empty) { view.innerHTML = `<div class="card"><div class="empty">${icon('gauge')}<h3>No operations data for this period yet</h3><p>Fuel, km and wait-time figures appear once vehicles run trips and GPS tracker data or driver app milestones come in.</p><button class="btn btn-secondary" type="button" id="prevP">View October 2026</button></div></div>`; document.getElementById('prevP').onclick = () => { S.empty = false; render(); }; return; }
+  view.innerHTML = (S.gaps ? gapsHtml() : '') + summaryHtml() + `<div class="row2">${fuelHtml()}${topHtml()}</div><div class="row2 even">${kmHtml()}${waitHtml()}</div>` + tableHtml() +
+    `<div class="foot-note">${icon('info')}<span>Fuel norms come from <a href="fm-30-tham-so.html">Parameters & fuel price</a> by vehicle type. Empty km is calculated from the GPS tracker route between the "Delivered" milestone and the next trip's "Picked up" milestone.</span></div>`;
+  bind();
+  Shell.countUp(view.querySelectorAll('.sum-main .v'));
+}
+function gapsHtml() {
+  return `<div class="alert alert-warning" role="status">${icon('warn')}<div><b>3 vehicles are missing GPS tracker data for 2–6 days in the period</b> (51C-645.17, 51C-099.21, 51C-412.09). Empty km and wait times for these vehicles are calculated from driver app milestones and may be lower than actual.</div><div class="alert-actions"><a class="btn btn-secondary btn-sm" href="fm-39-tich-hop.html">Check GPS tracker connection</a></div></div>`;
+}
+function spark(vals, w, h) {
+  const max = Math.max(...vals), min = Math.min(...vals), pts = vals.map((v, i) => [4 + i / (vals.length - 1) * (w - 8), h - 4 - (v - min) / (max - min || 1) * (h - 8)]);
+  const d = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' '), last = pts[pts.length - 1];
+  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true"><path d="${d}" fill="none" style="stroke:var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${last[0]}" cy="${last[1]}" r="3" style="fill:var(--primary)"/></svg>`;
+}
+function summaryHtml() {
+  const vs = vset(), km = sum(vs, 'km'), empty = sum(vs, 'empty'), overVnd = sum(vs, 'overVnd'), overL = Math.round(sum(vs, 'overL')), nOver = vs.filter(v => v.dev > 3).length;
+  const fuelL = vs.reduce((s, v) => s + v.act * v.km / 100, 0), normL = vs.reduce((s, v) => s + v.norm * v.km / 100, 0);
+  const waitsN = sum(vs, 'waits'), waitAvg = vs.reduce((s, v) => s + v.wait * v.waits, 0) / waitsN, util = sum(vs, 'run') / sum(vs, 'avail') * 100;
+  const tr = (overVnd / 1e6).toFixed(1);
+  return `<section class="summary" aria-label="Operations summary, October 2026">
+    <button class="sum-main" type="button" data-go="fuel" title="View fuel by vehicle">
+      <span class="sum-main-text"><span class="k">Fuel over norm · Oct</span><span class="v" ${tip(`${fmt.vnd(overL, { bare: 1 })} l over × ${fmt.vnd(PRICE)}/l (average refuel price for the period) = <span class="formula">${fmt.vnd(overVnd)}</span>`)}>${tr}<small>M ₫</small></span> <span class="row"><span>${fmt.vnd(overL, { bare: 1 })} l · ${nOver} vehicles over by &gt; 3%</span><span class="delta bad">▲ 2.4M vs Sep</span></span></span> <span class="sum-spark">${spark([14.2, 16.8, 15.1, 17.9, overVnd / 1e6 - 2.4, overVnd / 1e6], 120, 40)}<small>last 6 months</small></span>
+    </button>
+    <button class="sum-item" type="button" data-go="fuel"><span class="k">Average fuel</span><span class="v">${fmt.dec(fuelL / km * 100)}<small> l/100km</small></span><span class="row">Norm ${fmt.dec(normL / km * 100)} · <span class="delta warn">+${fmt.dec((fuelL - normL) / normL * 100)}%</span></span></button>
+    <button class="sum-item" type="button" data-go="km"><span class="k">Empty km / total km</span><span class="v">${fmt.pct(empty / km * 100)}</span><span class="row">${fmt.vnd(empty, { bare: 1 })} / ${fmt.vnd(km, { bare: 1 })} km</span></button>
+    <button class="sum-item" type="button" data-go="wait"><span class="k">Wait at port/depot</span><span class="v">${hm(waitAvg)}<small> /visit</small></span><span class="row">${fmt.vnd(waitsN, { bare: 1 })} visits · <span class="delta good">▼ 0h06</span></span></button>
+    <button class="sum-item" type="button" data-go="tbl"><span class="k">Vehicle utilization</span><span class="v">${fmt.pct(util)}</span><span class="row">days running / available</span></button>
+  </section>`;
+}
+function fuelHtml() {
+  const vs = vset().slice().sort((a, b) => b.dev - a.dev);
+  const lo = -10, hi = 15, x = v => (Math.max(lo, Math.min(hi, v)) - lo) / (hi - lo) * 100;
+  const rows = vs.map(v => { const a = x(Math.min(0, v.dev)), b = x(Math.max(0, v.dev)), cls = v.dev > 3 ? 'warn' : '';
+    return `<a class="bl-row" href="fm-15-chi-tiet-xe.html?plate=${v.plate}&tab=fuel" title="Open vehicle details ${v.plate}"><div class="name"><b class="code">${v.plate}</b><span>${v.type} · ${v.driver}</span></div>
+      <div class="track">${[-5, 5, 10].map(t => `<span class="grid-l" style="left:${x(t)}%"></span>`).join('')}<span class="zero" style="left:${x(0)}%"></span><span class="thr" style="left:${x(3)}%"></span><span class="bar ${cls}" style="left:${a}%;width:${Math.max(.6, b - a)}%"></span></div>
+      <div class="val ${cls ? 'val-warn' : ''}">${v.dev > 0 ? '+' : v.dev < 0 ? '−' : ''}${fmt.dec(Math.abs(v.dev))}%<small>${fmt.dec(v.act)} / ${fmt.dec(v.norm, 0)} l/100km</small></div></a>`; }).join('');
+  return `<section class="card" id="sec-fuel" aria-label="Actual fuel vs norm">
+    <div class="card-title"><h2>Actual fuel/100km vs. norm</h2><span class="meta">Variance by vehicle · click to open a vehicle</span></div>
+    <div class="barlist"><div class="bl-axis"><span></span><div class="ax">${[-10, -5, 0, 5, 10, 15].map(t => `<span style="left:${x(t)}%">${t > 0 ? '+' : t < 0 ? '−' : ''}${Math.abs(t)}%</span>`).join('')}</div><span></span></div>${rows}</div>
+    <div class="chart-legend"><span><i style="background:var(--chart-muted)"></i>Within tolerance</span><span><i style="background:repeating-linear-gradient(45deg, var(--warning-solid) 0 2px, var(--warning-soft) 2px 5px)"></i>Over norm &gt; 3%</span><span><i class="dash"></i>Tolerance +3%</span></div>
+  </section>`;
+}
+function topHtml() {
+  const top = vset().filter(v => v.overL > 0).sort((a, b) => b.overVnd - a.overVnd).slice(0, 7);
+  return `<section class="card" aria-label="Top over-norm vehicles">
+    <div class="card-title"><h2>Top over-norm vehicles</h2><span class="meta">by excess fuel cost</span></div>
+    <div class="queue">${top.length ? top.map((v, i) => `<a class="qi ${v.dev > 3 ? '' : 'low'}" href="fm-15-chi-tiet-xe.html?plate=${v.plate}&tab=fuel"><span class="sev"></span><span class="rk">${i + 1}</span> <span style="min-width:0"><span class="t"><span class="code">${v.plate}</span>${v.dev > 3 ? `<span class="badge b-warning">${icon('warn')}+${fmt.dec(v.dev)}%</span>` : `<span class="badge b-neutral">+${fmt.dec(v.dev)}%</span>`}</span><span class="d" title="${v.driver} · ${fmt.vnd(v.km, { bare: 1 })} km">${v.driver} · ${fmt.vnd(v.km, { bare: 1 })} km${v.note ? ' · ' + v.note : ''}</span></span> <span class="amt">${fmt.vnd(v.overVnd)}<small>${fmt.vnd(Math.round(v.overL), { bare: 1 })} l over</small></span></a>`).join('') : `<div class="empty" style="padding:32px 8px">${icon('check')}<h3>No vehicles over norm</h3></div>`}</div>
+    <div class="card-foot">${icon('info')}<span>Vehicles over by &gt; 3% two months in a row should have their injectors, tires and driving habits checked.</span></div>
+  </section>`;
+}
+function kmHtml() {
+  const byV = S.kmBy === 'vehicle';
+  const items = byV ? vset().slice().sort((a, b) => b.emptyPct - a.emptyPct).slice(0, 8).map(v => ({ n: v.plate, code: 1, s: `${fmt.vnd(v.empty, { bare: 1 })} / ${fmt.vnd(v.km, { bare: 1 })} km`, p: v.emptyPct, href: `fm-15-chi-tiet-xe.html?plate=${v.plate}&tab=trips` }))
+    : ROUTES.map(([n, trips, p]) => ({ n, s: `${trips} trips`, p, href: 'fm-28-tuyen-duong.html' }));
+  const vs = vset(), avg = sum(vs, 'empty') / sum(vs, 'km') * 100, x = v => v / 50 * 100;
+  return `<section class="card" id="sec-km" aria-label="Empty km out of total km">
+    <div class="card-title"><h2>Empty km / total km</h2><span class="meta"><span class="seg" role="group" aria-label="View empty km by" id="kmSeg"><button type="button" data-km="vehicle" aria-pressed="${byV}">By vehicle</button><button type="button" data-km="route" aria-pressed="${!byV}">By route</button></span></span></div>
+    <div class="barlist"><div class="bl-axis"><span></span><div class="ax">${[0, 10, 20, 30, 40, 50].map(t => `<span style="left:${x(t)}%">${t}%</span>`).join('')}</div><span></span></div>
+    ${items.map(it => `<a class="bl-row" href="${it.href}"><div class="name"><b class="${it.code ? 'code' : ''}" title="${it.n}">${it.n}</b><span>${it.s}</span></div>
+      <div class="track">${[10, 20, 40].map(t => `<span class="grid-l" style="left:${x(t)}%"></span>`).join('')}<span class="zero" style="left:0"></span><span class="thr" style="left:${x(30)}%"></span><span class="tick" style="left:calc(${x(avg)}% - 1px)" title="Fleet average"></span><span class="bar ${it.p > 30 ? 'warn' : ''}" style="left:0;width:${x(it.p)}%"></span></div>
+      <div class="val ${it.p > 30 ? 'val-warn' : ''}">${fmt.pct(it.p)}</div></a>`).join('')}</div>
+    <div class="chart-legend"><span><i style="background:var(--chart-muted)"></i>Empty km</span><span><i style="background:repeating-linear-gradient(45deg, var(--warning-solid) 0 2px, var(--warning-soft) 2px 5px)"></i>Above 30% threshold</span><span><i class="tk"></i>Average ${fmt.pct(avg)}</span>${byV ? `<span style="margin-left:auto">Top 8 vehicles</span>` : `<span style="margin-left:auto"><a href="fm-28-tuyen-duong.html">Routes</a></span>`}</div>
+  </section>`;
+}
+function waitHtml() {
+  const x = v => v / 4 * 100;
+  return `<section class="card" id="sec-wait" aria-label="Wait time at ports and depots">
+    <div class="card-title"><h2>Wait time at ports/depots</h2><span class="meta">from gate arrival to gate exit</span></div>
+    <div class="barlist"><div class="bl-axis"><span></span><div class="ax">${[0, 1, 2, 3, 4].map(t => `<span style="left:${x(t)}%">${t}h</span>`).join('')}</div><span></span></div>
+    ${WAITS.map(([n, s, cnt, avg, p90]) => `<div class="bl-row"><div class="name"><b>${n}</b><span>${s} · ${cnt} visits</span></div>
+      <div class="track">${[1, 3].map(t => `<span class="grid-l" style="left:${x(t)}%"></span>`).join('')}<span class="zero" style="left:0"></span><span class="thr" style="left:${x(2)}%"></span><span class="bar ${avg > 2 ? 'warn' : avg === WAITS[0][3] ? 'hi' : ''}" style="left:0;width:${x(avg)}%"></span><span class="tick" style="left:calc(${x(p90)}% - 1px)" title="P90 ${hm(p90)}"></span></div>
+      <div class="val ${avg > 2 ? 'val-warn' : ''}">${hm(avg)}<small>P90 ${hm(p90)}</small></div></div>`).join('')}</div>
+    <div class="chart-legend"><span><i style="background:var(--chart-muted)"></i>Average per visit</span><span><i class="tk"></i>P90 (9 in 10 visits wait less)</span><span><i class="dash"></i>2h threshold</span></div>
+  </section>`;
+}
+const COLS = [['plate', 'Vehicle', 0], ['driver', 'Main driver', 0], ['km', 'Total km', 1], ['emptyPct', 'Empty km', 1], ['act', 'Fuel l/100km', 1], ['dev', 'Vs. norm', 1], ['overVnd', 'Excess fuel cost', 1], ['wait', 'Avg wait/visit', 1], ['util', 'Utilization', 1]];
+function tableHtml() {
+  let vs = vset(); if (S.over) vs = vs.filter(v => v.dev > 3);
+  const [k, d] = S.sort; vs = vs.slice().sort((a, b) => (typeof a[k] === 'string' ? a[k].localeCompare(b[k]) : a[k] - b[k]) * d);
+  const th = COLS.map(([key, l, r]) => `<th data-sort="${key}" class="${r ? 'right' : ''}" ${k === key ? `aria-sort="${d > 0 ? 'ascending' : 'descending'}"` : ''}>${l}${k === key ? (d > 0 ? ' ▲' : ' ▼') : ''}</th>`).join('');
+  const body = vs.map(v => `<tr data-plate="${v.plate}" tabindex="0">
+    <td><span class="code">${v.plate}</span><span class="cell-sub">${v.type}${v.note ? ' · ' + v.note : ''}</span></td><td>${v.driver}</td>
+    <td class="right">${fmt.vnd(v.km, { bare: 1 })}</td>
+    <td class="right" style="${v.emptyPct > 30 ? 'color:var(--warning-fg);font-weight:600' : ''}">${fmt.pct(v.emptyPct)}</td>
+    <td class="right">${fmt.dec(v.act)}<span class="cell-sub">norm ${fmt.dec(v.norm, 0)}</span></td>
+    <td class="right">${v.dev > 3 ? `<span class="badge b-warning">${icon('warn')}+${fmt.dec(v.dev)}%</span>` : `<span class="muted">${v.dev > 0 ? '+' : v.dev < 0 ? '−' : ''}${fmt.dec(Math.abs(v.dev))}%</span>`}</td>
+    <td class="right">${v.overVnd ? `<span class="formula-tip" ${tip(`${fmt.dec(v.act)} − ${fmt.dec(v.norm, 0)} l/100km × ${fmt.vnd(v.km, { bare: 1 })} km = ${fmt.vnd(Math.round(v.overL), { bare: 1 })} l × ${fmt.vnd(PRICE)}/l`)}>${fmt.vnd(v.overVnd)}</span>` : '<span class="muted">—</span>'}</td>
+    <td class="right" style="${v.wait > 2 ? 'color:var(--warning-fg);font-weight:600' : ''}">${hm(v.wait)}<span class="cell-sub">${v.waits} visits</span></td>
+    <td class="right"><div class="util"><span>${fmt.pct(v.util)}</span><span class="cap-bar"><i class="${v.util >= 85 ? 'hi' : ''}" style="width:${v.util}%"></i></span></div><span class="cell-sub">${v.run}/${v.avail} days</span></td></tr>`).join('');
+  return `<section class="card" id="sec-tbl" aria-label="Details by vehicle">
+    <div class="card-title" style="padding-bottom:12px"><h2>Details by vehicle</h2><span class="count-pill">${vs.length} vehicles</span><span class="meta">Click a row to open Vehicle details · click a column header to sort</span></div>
+    <div class="tbl-wrap grid-wrap"><table class="grid"><thead><tr>${th}</tr></thead><tbody>${body || `<tr><td colspan="9" class="muted" style="cursor:default">No vehicles over norm in this period.</td></tr>`}</tbody></table></div>
+  </section>`;
+}
+function bind() {
+  view.querySelectorAll('[data-go]').forEach(b => b.onclick = () => document.getElementById('sec-' + b.dataset.go).scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  view.querySelectorAll('[data-km]').forEach(b => b.onclick = () => { S.kmBy = b.dataset.km; render(); });
+  view.querySelectorAll('th[data-sort]').forEach(th => th.onclick = () => { const k = th.dataset.sort; S.sort = S.sort[0] === k ? [k, -S.sort[1]] : [k, -1]; render(); });
+  view.querySelectorAll('tr[data-plate]').forEach(tr => { const go = () => location.href = `fm-15-chi-tiet-xe.html?plate=${tr.dataset.plate}`; tr.onclick = go; tr.onkeydown = e => { if (e.key === 'Enter') go(); }; });
+}
+function sync() {
+  document.querySelectorAll('#typeSeg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.type === S.type));
+  const o = document.getElementById('overOnly'); o.classList.toggle('on', S.over); o.setAttribute('aria-pressed', S.over);
+}
+document.querySelectorAll('#typeSeg button').forEach(b => b.onclick = () => { S.type = b.dataset.type; render(); });
+document.getElementById('overOnly').onclick = () => { S.over = !S.over; render(); };
+document.getElementById('clearF').onclick = () => { S.over = false; S.type = 'all'; render(); };
+document.getElementById('xlsBtn').onclick = () => toast(`Generating Excel file (${vset().length} vehicles, October 2026)…`);
+
+Shell.states([['default', 'Default'], ['route', 'Empty km by route'], ['over', 'Only vehicles over norm'], ['gaps', 'Missing GPS tracker data'], ['loading', 'Loading'], ['empty', 'Empty'], ['error', 'Error']], s => {
+  reset({ route: { kmBy: 'route' }, over: { over: true }, gaps: { gaps: true }, loading: { loading: true }, empty: { empty: true }, error: { error: true } }[s]); render();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drivers · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* FM_16 — danh sách tài xế: FilterBar → DataGrid, không KPI (B2) */
+  .page-header .fresh { margin-top: 6px; }
+  .seg .n { font-variant-numeric: tabular-nums; color: var(--fg-subtle); font-weight: 500; }
+  .seg button[aria-pressed="true"] .n { color: var(--side-active); }
+  .listcard { min-width: 0; overflow: hidden; }
+  .listcard .grid tbody tr { cursor: pointer; }
+  .listcard .grid tbody tr:last-child td { border-bottom: 0; }
+  .listcard .grid th:first-child, .listcard .grid td:first-child { padding-left: 18px; }
+  .listcard .grid th:last-child, .listcard .grid td:last-child { padding-right: 14px; }
+  .who { display: flex; align-items: center; gap: 10px; }
+  .who .av { width: 32px; height: 32px; border-radius: 50%; background: var(--surface-muted); color: var(--fg-muted); display: grid; place-items: center; font-size: 12px; font-weight: 600; flex: none; }
+  .who b { font-weight: 600; color: var(--fg-strong); }
+  .hours { display: flex; flex-direction: column; gap: 4px; min-width: 120px; }
+  .hours .t { font-variant-numeric: tabular-nums; font-size: 13px; }
+  .hours .t.warn { color: var(--warning-fg); font-weight: 600; }
+  .hours .bar { height: 6px; border-radius: 3px; background: var(--surface-muted); overflow: hidden; }
+  .hours .bar i { display: block; height: 100%; background: var(--success-solid); }
+  .hours .bar i.warn { background: var(--warning-solid); }
+  .hours .bar i.over { background: var(--danger-solid); }
+  .app-st { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; }
+  .app-st .d { width: 7px; height: 7px; border-radius: 50%; background: var(--success-solid); }
+  .app-st .d.off { background: var(--fg-subtle); }
+  .row-go { color: var(--fg-subtle); }
+  .grid tr:hover .row-go { color: var(--primary); }
+  .foot-note { display: flex; align-items: center; gap: 8px; padding: 10px 18px 14px; font-size: 12.5px; color: var(--fg-muted); }
+  .bulkbar { display: flex; align-items: center; gap: 10px; padding: 10px 18px; background: var(--primary-soft); font-size: 13px; }
+  .drawer.add { width: min(560px, 100vw); }
+  .drawer.add .drawer-head { border-bottom: 0; padding-bottom: 4px; }
+  .drawer.add .drawer-body { gap: 22px; }
+  .fgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 14px; }
+  .fgrid .full { grid-column: 1 / -1; }
+  .field .err { color: var(--danger-fg); font-size: 12px; display: none; }
+  .field.invalid .input { border-color: var(--danger-solid); }
+  .field.invalid .err { display: block; }
+  .hint { font-size: 12.5px; color: var(--fg-muted); }
+  .check { display: flex; gap: 10px; align-items: flex-start; font-size: 13.5px; padding: 10px 12px; border-radius: 8px; background: var(--surface-muted); }
+  .check input { accent-color: var(--primary); margin-top: 3px; }
+  .empty .btn .icon { width: 16px; height: 16px; stroke-width: 1.75; color: inherit; }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Fleet / Drivers</div>
+      <h1>Driver</h1>
+      <div class="fresh" id="fresh"><span class="live" aria-hidden="true"></span><span id="freshTxt">Driving hours updated 2 min ago · GPS tracker</span></div>
+    </div>
+    <div class="actions">
+      <a class="btn btn-secondary" href="fm-03-import.html" id="importBtn"></a>
+      <button class="btn btn-primary" type="button" id="addBtn"></button>
+    </div>
+  </div>
+
+  <div class="filterbar" role="toolbar" aria-label="Filters" id="filters"></div>
+  <div id="alertSlot"></div>
+  <section class="card listcard" aria-label="Driver list" id="listCard"></section>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_16', title: 'Driver' });
+const $ = id => document.getElementById(id);
+$('importBtn').innerHTML = icon('import') + 'Import from Excel';
+$('addBtn').innerHTML = icon('plus') + 'Add driver';
+
+/* Bổ sung cho FM.drivers: trạng thái theo FM.trips, hạn GPLX khớp FM_18 (TX06 hết hạn 05/11/2026, TX05 còn 26 ngày). */
+const EXTRA = {
+  TX01: { phone: '0912 418 678', exp: '14/07/2029', days: 965, st: 'run', sub: 'CH-0458', app: true },
+  TX02: { phone: '0903 552 190', exp: '21/03/2028', days: 495, st: 'run', sub: 'CH-0462', app: true },
+  TX03: { phone: '0938 204 561', exp: '02/09/2030', days: 1390, st: 'run', sub: 'CH-0463', app: true },
+  TX04: { phone: '0977 310 842', exp: '11/05/2031', days: 1641, st: 'free', sub: 'Thủ Đức yard', app: true },
+  TX05: { phone: '0918 667 023', exp: '08/12/2026', days: 26, st: 'run', sub: 'CH-0464', app: true },
+  TX06: { phone: '0909 781 112', exp: '05/11/2026', days: -7, st: 'off', sub: 'Awaiting license renewal', app: false }
+};
+const MORE = [
+  { id: 'TX07', name: 'Đặng Quang Vinh', gplx: 'FC', week: 40.17, phone: '0932 115 806', exp: '19/06/2028', days: 585, st: 'run', sub: 'CH-0457', app: true },
+  { id: 'TX08', name: 'Huỳnh Tấn Lộc', gplx: 'C', week: 26.5, phone: '0985 442 317', exp: '27/01/2029', days: 807, st: 'free', sub: 'Finished CH-0455 at 07:05', app: true },
+  { id: 'TX09', name: 'Ngô Đức Trí', gplx: 'FC', week: 29.0, phone: '0368 905 274', exp: '30/10/2029', days: 1083, st: 'run', sub: 'CH-0459', app: false },
+  { id: 'TX10', name: 'Bùi Văn Sang', gplx: 'FC', week: 0, phone: '0794 238 650', exp: '12/04/2028', days: 517, st: 'off', sub: 'On leave until 15/11', app: true }
+];
+const base = () => FM.drivers.map(d => Object.assign({}, d, EXTRA[d.id])).concat(JSON.parse(JSON.stringify(MORE)));
+let DATA = base();
+const ST = { free: ['Idle', 'b-success', 'check'], run: ['En route', 'b-info', 'pulse'], off: ['Off duty', 'b-neutral', 'dot'] };
+const S = { st: 'all', noApp: false, gplx: false, q: '', mode: 'default' };
+
+const hm = h => { const H = Math.floor(h), m = Math.round((h - H) * 60); return `${H}h${String(m).padStart(2, '0')}`; };
+const initials = n => n.split(' ').slice(-2).map(x => x[0]).join('');
+function stBadge(r) {
+  const m = ST[r.st]; const ic = m[2] === 'pulse' ? '<span class="pulse" aria-hidden="true"></span>' : icon(m[2]);
+  const sub = r.sub.replace(/(CH-\d{4})/, '<a class="code" href="fm-09-chi-tiet-chuyen.html" data-stop>$1</a>');
+  return `<span class="badge ${m[1]}">${ic}${m[0]}</span><span class="cell-sub">${sub}</span>`;
+}
+function gplxCell(r) {
+  if (r.days < 0) return `<b>${r.gplx}</b> <span class="badge b-danger">${icon('block')}Expired ${-r.days} days ago</span><span class="cell-sub num">Expired ${r.exp} · trip assignment blocked</span>`;
+  if (r.days <= 30) return `<b>${r.gplx}</b> <span class="badge b-warning">${icon('warn')}${r.days} days left</span><span class="cell-sub num">Expires ${r.exp}</span>`;
+  return `<b>${r.gplx}</b><span class="cell-sub num">Expires ${r.exp}</span>`;
+}
+function hoursCell(r) {
+  const p = r.week / 48 * 100, k = p > 100 ? 'over' : p >= 80 ? 'warn' : '';
+  return `<div class="hours"><span class="t ${k}">${hm(r.week)} / 48h</span><span class="bar"><i class="${k}" style="width:${Math.min(100, p)}%"></i></span></div>`;
+}
+function appCell(r) {
+  if (r.app) return `<span class="app-st"><span class="d" aria-hidden="true"></span>Activated</span>`;
+  return `<span class="app-st"><span class="d off" aria-hidden="true"></span>Not activated</span><span class="cell-sub"><button class="btn btn-ghost btn-sm" type="button" data-resend="${r.id}" data-stop style="margin-left:-8px">${icon('refresh')}Resend activation link</button></span>`;
+}
+function rows() {
+  return DATA.filter(r => (S.st === 'all' || r.st === S.st) && (!S.noApp || !r.app) && (!S.gplx || r.days <= 30) && (!S.q || (r.name + r.phone.replace(/ /g, '') + r.id + r.sub).toLowerCase().includes(S.q)));
+}
+function renderFilters() {
+  $('filters').style.display = S.mode === 'empty' ? 'none' : '';
+  const cnt = k => DATA.filter(r => r.st === k).length, noApp = DATA.filter(r => !r.app).length, soon = DATA.filter(r => r.days <= 30).length;
+  $('filters').innerHTML = `
+    <div class="seg" role="group" aria-label="Status">${[['all', 'All', DATA.length], ['free', 'Idle', cnt('free')], ['run', 'En route', cnt('run')], ['off', 'Off duty', cnt('off')]].map(([k, l, n]) => `<button type="button" data-st="${k}" aria-pressed="${S.st === k}">${l} <span class="n">${n}</span></button>`).join('')}</div>
+    <button class="chip ${S.noApp ? 'on' : ''}" type="button" id="noAppChip" aria-pressed="${S.noApp}">${icon('phone')}App not activated · ${noApp}</button>
+    <button class="chip ${S.gplx ? 'on' : ''}" type="button" id="gplxChip" aria-pressed="${S.gplx}">${icon('doc')}Driver's license expired / ≤ 30 days · ${soon}</button>
+    ${S.st !== 'all' || S.noApp || S.gplx || S.q ? '<button class="btn btn-ghost btn-sm" type="button" id="clearF">Clear filters</button>' : ''}
+    <label class="search-global" style="max-width:280px;margin-left:auto">${icon('search')}<input id="q" type="search" value="${S.q}" placeholder="Search name, phone, driver ID…" aria-label="Search drivers"></label>`;
+  $('filters').querySelectorAll('[data-st]').forEach(b => b.onclick = () => { S.st = b.dataset.st; renderFilters(); renderList(); });
+  $('noAppChip').onclick = () => { S.noApp = !S.noApp; renderFilters(); renderList(); };
+  $('gplxChip').onclick = () => { S.gplx = !S.gplx; renderFilters(); renderList(); };
+  const c = $('clearF'); if (c) c.onclick = () => { Object.assign(S, { st: 'all', noApp: false, gplx: false, q: '' }); renderFilters(); renderList(); };
+  $('q').oninput = e => { S.q = e.target.value.trim().toLowerCase().replace(/ /g, ''); renderList(); };
+}
+function renderList() {
+  const card = $('listCard');
+  if (S.mode === 'loading') { card.innerHTML = `<div class="grid-wrap"><table class="grid" aria-busy="true"><thead><tr>${Array(7).fill('<th><span class="sk" style="width:70px"></span></th>').join('')}</tr></thead><tbody>${Array(8).fill('<tr>' + Array(7).fill('<td style="height:54px"><span class="sk" style="width:75%"></span></td>').join('') + '</tr>').join('')}</tbody></table></div>`; return; }
+  if (S.mode === 'empty') { card.innerHTML = `<div class="empty">${icon('users')}<h3>No drivers yet</h3><p>Import your driver list from Excel, or add drivers one by one and send each an app activation link.</p><div class="row" style="margin-top:4px"><a class="btn btn-secondary" href="fm-03-import.html">${icon('import')}Import from Excel</a><button class="btn btn-primary" type="button" data-add>${icon('plus')}Add driver</button></div></div>`; card.querySelector('[data-add]').onclick = openAdd; return; }
+  const list = rows();
+  if (!list.length) { card.innerHTML = `<div class="empty">${icon('filter')}<h3>No drivers match the filters</h3><p>Try removing some filters.</p></div>`; return; }
+  const pending = list.filter(r => !r.app);
+  card.innerHTML = (S.noApp && pending.length ? `<div class="bulkbar"><b>${pending.length}</b> drivers haven't activated the app<button class="btn btn-secondary btn-sm" type="button" id="resendAll" style="margin-left:auto">${icon('refresh')}Resend link to all ${pending.length}</button></div>` : '') +
+  `<div class="grid-wrap"><table class="grid" aria-label="Driver list">
+    <thead><tr><th>Full name</th><th>Phone</th><th>License class · expiry</th><th>Status</th><th>Weekly driving</th><th>Driver app</th><th style="width:28px"><span class="sr-only">Open</span></th></tr></thead>
+    <tbody>${list.map(r => `<tr data-id="${r.id}" tabindex="0" aria-label="Open ${r.name}'s profile">
+      <td><div class="who"><span class="av" aria-hidden="true">${initials(r.name)}</span><div><a href="fm-17-chi-tiet-tai-xe.html"><b>${r.name}</b></a><span class="cell-sub">${r.id}${r.usual ? ' · usually drives <span class="code">' + r.usual + '</span>' : ''}</span></div></div></td>
+      <td class="num">${r.phone}</td>
+      <td>${gplxCell(r)}</td>
+      <td>${stBadge(r)}</td>
+      <td>${hoursCell(r)}</td>
+      <td>${appCell(r)}</td>
+      <td class="row-go">${icon('chevron-right')}</td></tr>`).join('')}</tbody></table></div>
+    <div class="foot-note">${icon('info')}<span>${list.length} / ${DATA.length} drivers · HCMC branch. Weekly driving hours count from Monday, 48h limit (from GPS tracker).</span></div>`;
+  card.querySelectorAll('tbody tr').forEach(tr => {
+    tr.onclick = e => { if (e.target.closest('[data-stop]')) return; location.href = 'fm-17-chi-tiet-tai-xe.html'; };
+    tr.onkeydown = e => { if (e.key === 'Enter' && e.target === tr) location.href = 'fm-17-chi-tiet-tai-xe.html'; };
+  });
+  card.querySelectorAll('[data-resend]').forEach(b => b.onclick = () => resend([DATA.find(x => x.id === b.dataset.resend)], b));
+  const ra = $('resendAll'); if (ra) ra.onclick = () => resend(pending, ra);
+}
+function resend(list, btn) {
+  if (S.mode === 'sendfail') { $('alertSlot').innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Couldn't send SMS to <b class="num">${list[0].phone}</b>: rejected by the mobile network (subscriber unreachable). Check the phone number or send the link via Zalo.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="copyLink">${icon('copy')}Copy link</button></div></div>`; $('copyLink').onclick = () => toast('Activation link copied'); return; }
+  btn.disabled = true; btn.innerHTML = icon('check') + 'Sent 09:06';
+  toast(list.length === 1 ? `Activation link sent by SMS to <span class="num">${list[0].phone}</span> (${list[0].name})` : `Activation link sent to ${list.length} drivers`);
+}
+
+/* ---------- Drawer: Thêm tài xế ---------- */
+function closeDrawer() { document.querySelectorAll('.drawer:not(.leaving), .scrim:not(.leaving)').forEach(x => Shell.dismiss(x)); }
+function openAdd() {
+  closeDrawer();
+  const s = document.createElement('div'); s.className = 'scrim'; s.onclick = closeDrawer;
+  const d = document.createElement('aside'); d.className = 'drawer add'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'addTitle');
+  d.innerHTML = `
+    <div class="drawer-head"><div class="row"><h2 id="addTitle">Add driver</h2><button class="icon-btn" type="button" data-x aria-label="Close (Esc)" style="margin-left:auto">${icon('x', 'lg')}</button></div>
+      <p class="hint">Many drivers? <a href="fm-03-import.html">Import from Excel</a> is faster.</p></div>
+    <div class="drawer-body">
+      <div class="stack" style="gap:10px"><div class="section-title"><h3>Info</h3></div>
+        <div class="fgrid">
+          <label class="field full" id="fName"><span>Full name *</span><input class="input" id="nameIn" placeholder="e.g. Trương Văn Khoa" aria-describedby="nameErr"><small class="err" id="nameErr">Enter the driver's full name.</small></label>
+          <label class="field" id="fPhone"><span>Phone number *</span><input class="input num" id="phoneIn" placeholder="VD: 0912 345 678" aria-describedby="phoneErr"><small class="err" id="phoneErr">Phone number must be 10 digits, starting with 0.</small></label>
+          <label class="field"><span>Citizen ID number</span><input class="input num" placeholder="12 digits"></label>
+        </div><p class="hint">${icon('lock')} Citizen ID is visible only to Owner/Admin and Accountant.</p></div>
+      <div class="stack" style="gap:10px"><div class="section-title"><h3>Driver's license</h3></div>
+        <div class="fgrid">
+          <label class="field"><span>Class *</span><select class="input"><option>CE</option><option>C</option><option>FC</option><option>C1</option></select></label>
+          <label class="field"><span>Expiry *</span><input class="input num" placeholder="dd/mm/yyyy"></label>
+          <label class="field"><span>License number</span><input class="input num" placeholder="12 digits"></label>
+          <div class="field"><span>License photo</span><button class="btn btn-secondary" type="button" data-file style="justify-content:flex-start">${icon('upload')}Choose file</button></div>
+        </div></div>
+      <div class="stack" style="gap:10px"><div class="section-title"><h3>Default pay</h3></div>
+        <label class="field"><span>Calculation method</span><select class="input"><option>Flat route pay (route pay table)</option><option>By trip</option><option>By km</option><option>Fixed + trip allowance</option></select></label>
+        <p class="hint">Used to generate pay lines after settlement (FM_25). Editable per trip.</p></div>
+      <label class="check"><input type="checkbox" checked id="sendLink"><span>Send the driver app activation link by SMS right after saving<span class="cell-sub">The driver opens the link, sets a PIN and consents to location sharing during trips.</span></span></label>
+    </div>
+    <div class="drawer-foot"><button class="btn btn-secondary" type="button" data-x>Cancel</button><button class="btn btn-primary" type="button" id="saveBtn">Save driver</button></div>`;
+  document.body.append(s, d);
+  d.querySelectorAll('[data-x]').forEach(b => b.onclick = closeDrawer);
+  d.querySelector('[data-file]').onclick = e => { e.currentTarget.innerHTML = icon('check') + 'gplx-mat-truoc.jpg'; };
+  const nm = d.querySelector('#nameIn'), ph = d.querySelector('#phoneIn'); nm.focus();
+  nm.oninput = () => d.querySelector('#fName').classList.remove('invalid'); ph.oninput = () => d.querySelector('#fPhone').classList.remove('invalid');
+  d.querySelector('#saveBtn').onclick = () => {
+    const okN = nm.value.trim().length > 2, digits = ph.value.replace(/\D/g, ''), okP = /^0\d{9}$/.test(digits);
+    d.querySelector('#fName').classList.toggle('invalid', !okN); d.querySelector('#fPhone').classList.toggle('invalid', !okP);
+    if (!okN) { nm.focus(); return; } if (!okP) { ph.focus(); return; }
+    const rec = { id: 'TX11', name: nm.value.trim(), gplx: 'CE', week: 0, phone: digits.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3'), exp: '—', days: 999, st: 'free', sub: 'Just added', app: false };
+    DATA.unshift(rec); closeDrawer(); renderFilters(); renderList();
+    toast(`Added ${rec.name}${d.querySelector('#sendLink').checked ? ' · activation link sent' : ''}`, { undo: () => { DATA = DATA.filter(x => x !== rec); renderFilters(); renderList(); } });
+  };
+}
+$('addBtn').onclick = openAdd;
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); if (e.key === '/' && !e.target.matches('input,select,textarea')) { e.preventDefault(); $('q').focus(); } });
+
+Shell.states([['default', 'Default'], ['noapp', 'App not activated'], ['add', 'Add driver (drawer)'], ['sendfail', 'Link send failed'], ['loading', 'Loading'], ['empty', 'Empty'], ['error', 'Error']], st => {
+  closeDrawer(); DATA = base(); Object.assign(S, { st: 'all', noApp: false, gplx: false, q: '', mode: 'default' });
+  $('alertSlot').innerHTML = '';
+  $('fresh').querySelector('.live').classList.toggle('warn', st === 'error');
+  $('freshTxt').textContent = st === 'error' ? 'Couldn\'t get driving hours from the GPS tracker · last data 09:40' : 'Driving hours updated 2 min ago · GPS tracker';
+  if (st === 'noapp' || st === 'sendfail') S.noApp = true;
+  if (st === 'loading' || st === 'empty' || st === 'sendfail') S.mode = st;
+  renderFilters(); renderList();
+  if (st === 'sendfail') resend([DATA.find(x => x.id === 'TX06')]);
+  if (st === 'add') openAdd();
+  if (st === 'error') $('alertSlot').innerHTML = `<div class="alert alert-warning" role="alert">${icon('refresh')}<div>Couldn't connect to the GPS tracker. The weekly driving hours column shows the last data from 09:40; check driving hours before assigning long trips.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" onclick="location.reload()">Retry</button></div></div>`;
+});
+</script>
+</body>
+</html>

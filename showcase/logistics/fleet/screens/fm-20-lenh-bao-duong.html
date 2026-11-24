@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lệnh bảo dưỡng · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  .page-header h1 { display: flex; align-items: center; gap: 10px; }
+  .page-header h1 .badge { font-family: var(--font-body); }
+  .page-header .sub { color: var(--fg-muted); font-size: 13px; margin-top: 4px; }
+  .card-title { display: flex; align-items: center; gap: 8px; padding: 16px 18px 6px; }
+  .card-title h2 { font-size: 16px; }
+  .card-title .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 10px; align-items: center; }
+
+  /* Stepper: 3 bước, không viền thẻ; nối bằng đường mảnh là dữ liệu tiến trình */
+  .stepper { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 16px 20px; gap: 0; }
+  .step { display: flex; gap: 12px; align-items: flex-start; position: relative; padding-right: 16px; }
+  .step:not(:last-child)::after { content: ""; position: absolute; left: 40px; right: 16px; top: 14px; height: 2px; border-radius: 1px; background: var(--surface-muted); }
+  .step.done:not(:last-child)::after { background: var(--primary); }
+  .step .dotc { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; flex: none; background: var(--surface-muted); color: var(--fg-muted); font: 600 13px var(--font-body); position: relative; z-index: 1; }
+  .step.done .dotc { background: var(--primary); color: var(--on-primary); }
+  .step.cur .dotc { background: var(--primary-soft); color: var(--side-active); box-shadow: 0 0 0 2px var(--primary); }
+  .step .txt { display: flex; flex-direction: column; gap: 2px; background: var(--surface); padding-right: 10px; position: relative; z-index: 1; margin-top: 3px; }
+  .step .txt b { font-size: 14px; color: var(--fg-strong); font-weight: 600; }
+  .step .txt span { font-size: 12.5px; color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+  .step:not(.done):not(.cur) .txt b { color: var(--fg-muted); font-weight: 500; }
+
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: var(--s-4); align-items: start; }
+  .col { display: flex; flex-direction: column; gap: var(--s-4); min-width: 0; }
+  .grid tbody tr:last-child td { border-bottom: 0; }
+  .grid tfoot td { border-bottom: 0; }
+  .items { list-style: none; margin: 0; padding: 4px 8px 10px; display: flex; flex-direction: column; gap: 2px; }
+  .it { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto 120px; gap: 12px; align-items: center; padding: 9px 10px; border-radius: 8px; }
+  .it:hover { background: var(--surface-muted); }
+  .it input { accent-color: var(--primary); width: 16px; height: 16px; }
+  .it .nm { font-weight: 500; color: var(--fg-strong); }
+  .it .nm.ok { text-decoration: line-through; text-decoration-color: var(--fg-subtle); color: var(--fg-muted); }
+  .it .ds { font-size: 12.5px; color: var(--fg-muted); line-height: 17px; }
+  .it .amt { text-align: right; font-variant-numeric: tabular-nums; }
+  .it .st { width: 16px; height: 16px; color: var(--success-fg); }
+  .foot-act { display: flex; gap: 8px; padding: 0 16px 14px; align-items: center; }
+  .qty { width: 72px; height: 30px; text-align: right; }
+  .sum { list-style: none; margin: 0; padding: 4px 18px 6px; display: flex; flex-direction: column; gap: 2px; }
+  .sum li { display: flex; justify-content: space-between; gap: 12px; padding: 5px 0; font-size: 13.5px; font-variant-numeric: tabular-nums; }
+  .sum li.tot { margin-top: 4px; padding: 10px 12px; background: var(--primary-soft); border-radius: 8px; align-items: baseline; }
+  .sum li.tot span { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--side-active); }
+  .sum li.tot b { font: 700 24px/30px var(--font-display); color: var(--fg-strong); }
+  .inv { display: flex; align-items: center; gap: 12px; margin: 6px 18px 16px; padding: 10px 12px; border-radius: 8px; background: var(--surface-muted); }
+  .inv .ic { width: 36px; height: 36px; border-radius: 8px; background: var(--surface); display: grid; place-items: center; color: var(--fg-muted); flex: none; }
+  .inv .grow b { display: block; font-weight: 600; color: var(--fg-strong); font-size: 13.5px; }
+  .inv .grow span { font-size: 12.5px; color: var(--fg-muted); }
+  .drop { margin: 6px 18px 16px; padding: 16px; border-radius: 8px; border: 1px dashed var(--border-strong); display: flex; align-items: center; gap: 12px; color: var(--fg-muted); font-size: 13px; background: var(--surface); }
+  .drop .icon { width: 22px; height: 22px; color: var(--fg-subtle); }
+
+  .kv { list-style: none; margin: 0; padding: 4px 18px 14px; display: flex; flex-direction: column; gap: 10px; }
+  .kv li { display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 10px; font-size: 13.5px; align-items: baseline; }
+  .kv li > span:first-child { color: var(--fg-muted); font-size: 12.5px; }
+  .kv .num { font-variant-numeric: tabular-nums; }
+  .kv .seg { height: 30px; }
+  .kv .seg button { white-space: nowrap; padding: 0 8px; }
+  .next { list-style: none; margin: 0; padding: 2px 18px 6px; display: flex; flex-direction: column; gap: 6px; }
+  .next li { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; }
+  .next li b { font-weight: 600; font-variant-numeric: tabular-nums; color: var(--fg-strong); white-space: nowrap; }
+  .side-note { padding: 6px 18px 16px; font-size: 12.5px; color: var(--fg-muted); line-height: 17px; }
+  .act-list { list-style: none; margin: 0; padding: 4px 18px 16px; display: flex; flex-direction: column; gap: 12px; }
+  .act-list li { display: grid; grid-template-columns: 10px minmax(0, 1fr); gap: 10px; font-size: 13px; }
+  .act-list li i { width: 8px; height: 8px; border-radius: 50%; background: var(--neutral-solid); margin-top: 6px; }
+  .act-list li.p i { background: var(--primary); }
+  .act-list small { display: block; color: var(--fg-muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .mlist { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; }
+  .mlist li { display: flex; justify-content: space-between; gap: 12px; padding: 6px 10px; border-radius: 6px; font-size: 13px; }
+  .mlist li b { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .mlist li.h { background: var(--surface-muted); font-weight: 600; }
+  .modal { width: min(520px, calc(100vw - 32px)); }
+  @media (max-width: 1200px) { .layout { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb"><a href="fm-19-bao-duong.html">Đội xe / Bảo dưỡng</a> / Lệnh bảo dưỡng</div>
+      <h1 id="h1"></h1>
+      <div class="sub" id="sub"></div>
+    </div>
+    <div class="actions" id="actions"></div>
+  </div>
+  <div id="body" style="display:flex;flex-direction:column;gap:16px"></div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_19', title: 'Lệnh bảo dưỡng LBD-0118' });
+const V = n => fmt.vnd(n), B = n => fmt.vnd(n, { bare: 1 });
+const N = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+/* ---------- Dữ liệu: khớp FM.vehicles (51C-310.66 đang bảo dưỡng đến 14/11 tại Xưởng Linh Trung) ---------- */
+const VEH = FM.vehicles.find(v => v.plate === '51C-310.66');
+let O;
+function reset() {
+  O = {
+    id: 'LBD-0118', plate: VEH.plate, st: 'doing', ext: true, shop: VEH.where, kmIn: 186540, kmOut: null,
+    created: '11/11/2026 08:10', inAt: '11/11/2026 14:00', planOut: '14/11/2026 17:00', outAt: null, owner: 'Phạm Thanh Phong',
+    items: [
+      { id: 1, name: 'Thay nhớt máy', src: 'plan', cyc: 10000, desc: 'Kế hoạch · mốc 186.300 km (quá 240 km)', labor: 250000, ok: true },
+      { id: 2, name: 'Thay lọc nhớt, lọc dầu', src: 'plan', cyc: 10000, desc: 'Kế hoạch · mốc 186.300 km', labor: 150000, ok: true },
+      { id: 3, name: 'Đảo lốp (10 lốp)', src: 'plan', cyc: 20000, desc: 'Kế hoạch · mốc 188.000 km, làm sớm cùng đợt', labor: 500000, ok: false },
+      { id: 4, name: 'Kiểm tra phanh', src: 'plan', months: 3, desc: 'Kế hoạch · mốc 08/11/2026 (quá 4 ngày)', labor: 200000, ok: true },
+      { id: 5, name: 'Thay má phanh trục 2', src: 'extra', desc: 'Phát sinh · má phanh mòn còn 3 mm khi kiểm tra', labor: 600000, ok: false }
+    ],
+    parts: [
+      { name: 'Nhớt động cơ 15W-40', item: 1, qty: 38, unit: 'lít', price: 95000 },
+      { name: 'Lọc nhớt', item: 2, qty: 2, unit: 'cái', price: 285000 },
+      { name: 'Lọc dầu (nhiên liệu)', item: 2, qty: 2, unit: 'cái', price: 320000 },
+      { name: 'Má phanh trục 2', item: 5, qty: 1, unit: 'bộ', price: 1850000 }
+    ],
+    invoice: { no: '0001284', date: '12/11/2026', amt: 9207000 },
+    log: [
+      ['p', 'Xưởng Linh Trung gửi hoá đơn 0001284', '12/11/2026 10:15 · Phạm Thanh Phong tải lên'],
+      ['', 'Thêm hạng mục phát sinh: Thay má phanh trục 2', '12/11/2026 09:02 · Phạm Thanh Phong'],
+      ['p', 'Chuyển sang Đang sửa · xe bị chặn gán ở Điều phối', '11/11/2026 14:00 · km vào xưởng 186.540 (GSHT)'],
+      ['', 'Tạo lệnh từ kế hoạch bảo dưỡng (4 hạng mục)', '11/11/2026 08:10 · Phạm Thanh Phong']
+    ]
+  };
+}
+const tot = () => { const parts = O.parts.reduce((s, p) => s + p.qty * p.price, 0), labor = O.items.reduce((s, i) => s + i.labor, 0); const pre = parts + labor; return { parts, labor, vat: Math.round(pre * .1), all: Math.round(pre * 1.1) }; };
+const ST = { open: ['b-neutral', 'dot', 'Mở'], doing: ['b-info', 'wrench', 'Đang sửa'], done: ['b-success', 'check', 'Hoàn thành'] };
+const addMonths = (s, m) => { const [d, mo, y] = s.split(' ')[0].split('/').map(Number); const dt = new Date(y, mo - 1 + m, d); return String(dt.getDate()).padStart(2, '0') + '/' + String(dt.getMonth() + 1).padStart(2, '0') + '/' + dt.getFullYear(); };
+function nextMarks(kmOut, dateOut) {
+  return O.items.filter(i => i.src === 'plan').map(i => [i.name.replace(' (10 lốp)', ''), i.cyc ? N(kmOut + i.cyc) + ' km' : addMonths(dateOut, i.months)]);
+}
+
+/* ---------- Tooltip nổi ---------- */
+const TIPS = {}; let tipN = 0;
+const tip = html => { const k = 't' + (tipN++); TIPS[k] = html; return `data-ftip="${k}"`; };
+const ftip = document.createElement('div'); ftip.className = 'tip-body'; ftip.setAttribute('role', 'tooltip');
+Object.assign(ftip.style, { position: 'fixed', transform: 'none', bottom: 'auto', zIndex: 100 }); document.body.appendChild(ftip);
+function showTip(el) { const h = TIPS[el.dataset.ftip]; if (!h) return; ftip.innerHTML = h; ftip.style.opacity = 1; const r = el.getBoundingClientRect(), w = ftip.offsetWidth, ht = ftip.offsetHeight; ftip.style.left = Math.min(Math.max(8, r.left + r.width / 2 - w / 2), innerWidth - w - 8) + 'px'; let y = r.top - ht - 8; if (y < 8) y = r.bottom + 8; ftip.style.top = y + 'px'; }
+const hideTip = () => { ftip.style.opacity = 0; };
+document.addEventListener('mouseover', e => { const el = e.target.closest('[data-ftip]'); el ? showTip(el) : hideTip(); });
+document.addEventListener('focusin', e => { const el = e.target.closest('[data-ftip]'); el ? showTip(el) : hideTip(); });
+
+/* ---------- Render ---------- */
+const body = document.getElementById('body');
+let errMsg = '';
+function header() {
+  const s = ST[O.st];
+  document.getElementById('h1').innerHTML = `<span class="code">${O.id}</span> · <span class="code">${O.plate}</span><span class="badge ${s[0]}">${icon(s[1])}${s[2]}</span>`;
+  document.getElementById('sub').textContent = `Bảo dưỡng định kỳ 10.000 km + đảo lốp, kiểm tra phanh · Tạo từ kế hoạch bảo dưỡng bởi ${O.owner}, ${O.created}`;
+  const can = O.st !== 'doing' || (O.invoice || !O.ext);
+  const pending = O.items.filter(i => !i.ok).length;
+  document.getElementById('actions').innerHTML = `<button class="btn btn-secondary" type="button" id="printBtn">${icon('doc')}In lệnh</button>` + (
+    O.st === 'open' ? `<button class="btn btn-primary" type="button" id="startBtn">${icon('wrench')}Đưa xe vào xưởng</button>`
+    : O.st === 'doing' ? `<span ${can ? '' : tip('Lệnh ở xưởng ngoài cần đính kèm hoá đơn trước khi hoàn thành')} tabindex="${can ? -1 : 0}"><button class="btn btn-primary" type="button" id="doneBtn" ${can ? '' : 'disabled'}>${icon('check')}Hoàn thành lệnh</button></span>`
+    : `<span class="badge b-neutral" style="height:36px;padding:0 12px">${icon('lock')}Đã khoá · ${O.outAt}</span>`);
+}
+function stepper() {
+  const idx = { open: 0, doing: 1, done: 2 }[O.st];
+  const steps = [['Mở', `Tạo ${O.created}`], ['Đang sửa', O.inAt ? `Vào xưởng ${O.inAt}` : 'Chưa vào xưởng'], ['Hoàn thành', O.outAt ? `Ra xưởng ${O.outAt}` : `Dự kiến ${O.planOut}`]];
+  return `<section class="card" aria-label="Tiến trình lệnh"><ol class="stepper" style="margin:0;list-style:none">${steps.map(([t, d], i) => {
+    const cls = i < idx || (O.st === 'done' && i === 2) ? 'done' : i === idx ? 'cur' : '';
+    return `<li class="step ${cls}" ${i === idx ? 'aria-current="step"' : ''}><span class="dotc">${cls === 'done' ? icon('check') : i + 1}</span><span class="txt"><b>${t}</b><span>${d}</span></span></li>`; }).join('')}</ol></section>`;
+}
+function banner() {
+  if (errMsg) return `<div class="alert alert-danger" role="alert">${icon('block')}<div>${errMsg}</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="retry">${icon('refresh')}Thử lại</button></div></div>`;
+  if (O.st === 'doing') return `<div class="alert alert-info" role="status">${icon('block')}<div><b>Xe ${O.plate} đang ở trạng thái Bảo dưỡng và bị chặn gán ở Điều phối</b> đến khi lệnh hoàn thành. Không có chuyến nào đã gán cho xe từ nay đến ${O.planOut.split(' ')[0]}.</div><div class="alert-actions"><a class="btn btn-secondary btn-sm" href="fm-08-dieu-phoi.html">Xem lịch xe</a></div></div>`;
+  if (O.st === 'open') return `<div class="alert alert-info" role="status">${icon('info')}<div>Xe vẫn gán chuyến được khi lệnh còn <b>Mở</b>. Khi chuyển sang <b>Đang sửa</b>, xe tự chuyển sang Bảo dưỡng và bị chặn gán ở Điều phối.</div></div>`;
+  const t = tot();
+  return `<div class="alert alert-success" role="status">${icon('check')}<div>Đã hoàn thành ${O.outAt}. Km ra xưởng ${N(O.kmOut)} km đã cập nhật vào kế hoạch, ${V(t.all)} đã ghi vào chi phí xe ${O.plate} tháng 11/2026. Xe đã gán chuyến lại được.</div><div class="alert-actions"><a class="btn btn-secondary btn-sm" href="fm-19-bao-duong.html">Xem kế hoạch</a><a class="btn btn-secondary btn-sm" href="fm-15-chi-tiet-xe.html">Chi phí xe</a></div></div>`;
+}
+function itemsCard(edit) {
+  const done = O.items.filter(i => i.ok).length;
+  if (!O.items.length) return `<section class="card"><div class="card-title"><h2>Hạng mục công việc</h2></div><div class="empty">${icon('wrench')}<h3>Lệnh chưa có hạng mục</h3><p>Chọn hạng mục từ kế hoạch bảo dưỡng của xe hoặc thêm hạng mục sửa chữa phát sinh.</p><button class="btn btn-primary" type="button" id="fromPlan">${icon('plus')}Lấy từ kế hoạch (4 việc đến hạn)</button></div></section>`;
+  return `<section class="card" aria-label="Hạng mục">
+    <div class="card-title"><h2>Hạng mục công việc</h2><span class="count-pill">${O.items.length}</span><span class="meta">${O.st === 'doing' ? `Đã xong ${done}/${O.items.length}` : O.st === 'done' ? 'Đã xong tất cả' : 'Đánh dấu xong khi xe ở xưởng'}</span></div>
+    <ul class="items">${O.items.map(i => `<li class="it">
+        ${O.st === 'doing' ? `<input type="checkbox" data-ok="${i.id}" ${i.ok ? 'checked' : ''} aria-label="Đã xong ${i.name}">` : O.st === 'done' ? icon('check', 'st') : `<span class="muted">${icon('dot')}</span>`}
+        <div><div class="nm ${O.st === 'doing' && i.ok ? 'ok' : ''}">${i.name}</div><div class="ds">${i.desc}</div></div>
+        <span class="badge ${i.src === 'plan' ? 'b-neutral' : 'b-warning'}">${i.src === 'plan' ? icon('calendar') + 'Theo kế hoạch' : icon('warn') + 'Phát sinh'}</span>
+        <span class="amt"><span class="sm muted">Tiền công</span><br>${V(i.labor)}</span></li>`).join('')}</ul>
+    ${edit ? `<div class="foot-act"><button class="btn btn-ghost btn-sm" type="button" id="addItem">${icon('plus')}Thêm hạng mục phát sinh</button></div>` : ''}
+  </section>`;
+}
+function partsCard(edit) {
+  if (!O.items.length) return '';
+  const t = tot();
+  return `<section class="card" aria-label="Phụ tùng">
+    <div class="card-title"><h2>Phụ tùng &amp; vật tư</h2><span class="count-pill">${O.parts.length}</span><span class="meta">${O.ext ? 'Xưởng ngoài cung cấp' : 'Xuất kho nội bộ'}</span></div>
+    <div class="grid-wrap" style="padding-top:6px"><table class="grid">
+      <thead><tr><th>Phụ tùng</th><th>Cho hạng mục</th><th class="right">Số lượng</th><th>ĐVT</th><th class="right">Đơn giá</th><th class="right">Thành tiền</th></tr></thead>
+      <tbody>${O.parts.map((p, k) => `<tr><td><b style="font-weight:500;color:var(--fg-strong)">${p.name}</b></td><td class="muted">${O.items.find(i => i.id === p.item).name}</td>
+        <td class="right num">${edit ? `<input class="input qty num" data-q="${k}" value="${p.qty}" inputmode="numeric" aria-label="Số lượng ${p.name}">` : p.qty}</td><td class="muted">${p.unit}</td>
+        <td class="right num">${B(p.price)}</td><td class="right num" data-line="${k}">${B(p.qty * p.price)}</td></tr>`).join('')}</tbody>
+      <tfoot><tr><td colspan="5">Tổng phụ tùng</td><td class="right num" id="partsTot">${V(t.parts)}</td></tr></tfoot>
+    </table></div>
+    ${edit ? `<div class="foot-act" style="padding-top:10px"><button class="btn btn-ghost btn-sm" type="button" id="addPart">${icon('plus')}Thêm phụ tùng</button></div>` : '<div style="height:8px"></div>'}
+  </section>`;
+}
+function costCard() {
+  if (!O.items.length) return '';
+  const t = tot(), inv = O.invoice, diff = inv ? inv.amt - t.all : 0;
+  return `<section class="card" aria-label="Chi phí và hoá đơn">
+    <div class="card-title"><h2>Chi phí &amp; hoá đơn</h2>${O.st === 'done' ? `<span class="meta">${icon('lock')}Đã ghi vào chi phí xe</span>` : ''}</div>
+    <ul class="sum">
+      <li><span>Phụ tùng &amp; vật tư</span><span id="cParts">${V(t.parts)}</span></li>
+      <li><span>Tiền công (${O.items.length} hạng mục)</span><span>${V(t.labor)}</span></li>
+      <li><span>VAT 10%</span><span id="cVat">${V(t.vat)}</span></li>
+      <li class="tot"><span>Tổng chi phí lệnh</span><b id="cAll">${V(t.all)}</b></li>
+    </ul>
+    ${inv ? `<div class="inv"><span class="ic">${icon('doc', 'lg')}</span><div class="grow"><b>Hoá đơn ${inv.no} · ${O.shop}</b><span class="num">${inv.date} · ${V(inv.amt)} · ${diff === 0 ? 'khớp tổng lệnh' : `chênh ${diff > 0 ? '+' : '−'}${V(Math.abs(diff))} so với lệnh`}</span></div>
+      ${diff === 0 ? `<span class="badge b-success">${icon('check')}Khớp</span>` : `<span class="badge b-warning">${icon('warn')}Chênh lệch</span>`}<button class="btn btn-ghost btn-sm" type="button" id="viewInv">${icon('eye')}Xem</button></div>`
+      : `<div class="drop">${icon('upload')}<div class="grow">${O.ext ? '<b style="color:var(--fg)">Chưa có hoá đơn.</b> Xưởng ngoài cần hoá đơn để hoàn thành lệnh. Kéo thả PDF/ảnh vào đây.' : 'Xưởng nội bộ không bắt buộc hoá đơn. Có thể đính kèm phiếu xuất kho.'}</div><button class="btn btn-secondary btn-sm" type="button" id="upInv">${icon('upload')}Tải hoá đơn</button></div>`}
+  </section>`;
+}
+function sideHtml(edit) {
+  const t = tot();
+  const marks = nextMarks(O.kmOut || 186552, O.outAt || '12/11/2026 16:30');
+  return `<section class="card" aria-label="Xe và xưởng">
+      <div class="card-title"><h2>Xe &amp; xưởng</h2></div>
+      <ul class="kv">
+        <li><span>Xe</span><span><a class="code" href="fm-15-chi-tiet-xe.html">${O.plate}</a> · ${VEH.type}</span></li>
+        <li><span>Km vào xưởng</span><span class="num">${O.st === 'open' ? '<span class="muted">Ghi khi vào xưởng</span>' : N(O.kmIn) + ' km <span class="sm muted">· GSHT</span>'}</span></li>
+        ${O.kmOut ? `<li><span>Km ra xưởng</span><span class="num">${N(O.kmOut)} km</span></li>` : ''}
+        <li><span>Loại xưởng</span><span>${edit && O.st === 'open' ? `<span class="seg" role="group" aria-label="Loại xưởng"><button type="button" data-w="0" aria-pressed="${!O.ext}">Nội bộ</button><button type="button" data-w="1" aria-pressed="${O.ext}">Xưởng ngoài</button></span>` : O.ext ? 'Xưởng ngoài' : 'Nội bộ'}</span></li>
+        <li><span>Xưởng</span><span>${O.shop}<span class="cell-sub">${O.ext ? 'Linh Trung, TP. Thủ Đức' : 'Bãi Thủ Đức'}</span></span></li>
+        <li><span>Vào xưởng</span><span class="num">${O.inAt || '<span class="muted">—</span>'}</span></li>
+        <li><span>Ra xưởng</span><span class="num">${O.outAt || O.planOut.replace('/2026', '') + ' <span class="sm muted">· dự kiến</span>'}</span></li>
+        <li><span>Phụ trách</span><span>${O.owner}</span></li>
+      </ul>
+    </section>
+    <section class="card" aria-label="Khi hoàn thành">
+      <div class="card-title"><h2>${O.st === 'done' ? 'Đã cập nhật' : 'Khi hoàn thành'}</h2></div>
+      <div class="side-note" style="padding-bottom:6px">Mốc kế tiếp${O.st === 'done' ? '' : ' (tính từ km ra xưởng)'}:</div>
+      <ul class="next">${marks.map(([a, b]) => `<li><span>${a}</span><b>${b}</b></li>`).join('')}</ul>
+      <div class="side-note">${O.st === 'done' ? `Đã ghi <b class="num" style="color:var(--fg)">${V(t.all)}</b> vào chi phí xe ${O.plate} kỳ 11/2026.` : `Ghi <b class="num" style="color:var(--fg)">${V(t.all)}</b> vào chi phí xe ${O.plate} kỳ 11/2026 và bỏ chặn gán ở Điều phối.`}</div>
+    </section>
+    <section class="card" aria-label="Lịch sử">
+      <div class="card-title"><h2>Lịch sử</h2></div>
+      <ul class="act-list">${O.log.map(([c, a, b]) => `<li class="${c}"><i></i><div>${a}<small>${b}</small></div></li>`).join('')}</ul>
+    </section>`;
+}
+function render() {
+  hideTip(); header();
+  const edit = O.st !== 'done';
+  body.innerHTML = stepper() + banner() + `<div class="layout"><div class="col">${itemsCard(edit)}${partsCard(edit)}${costCard()}</div><aside class="col">${sideHtml(edit)}</aside></div>`;
+  bind();
+}
+function bind() {
+  const on = (id, f) => { const el = document.getElementById(id); if (el) el.onclick = f; };
+  on('startBtn', openStart); on('doneBtn', openDone);
+  on('printBtn', () => toast('Đã tạo bản in lệnh LBD-0118 (PDF)'));
+  on('viewInv', () => toast('Mở hoá đơn 0001284.pdf'));
+  on('upInv', () => { O.invoice = { no: '0001284', date: '12/11/2026', amt: tot().all }; O.log.unshift(['p', 'Tải lên hoá đơn 0001284', '12/11/2026 · Phạm Thanh Phong']); render(); toast('Đã đính kèm hoá đơn 0001284 · khớp tổng lệnh'); });
+  on('retry', () => { errMsg = ''; render(); toast('Đã lưu số lượng phụ tùng'); });
+  on('fromPlan', () => { reset(); O.st = 'open'; O.inAt = null; O.items = O.items.filter(i => i.src === 'plan'); O.parts = O.parts.filter(p => p.item !== 5); O.invoice = null; O.log = O.log.slice(-1); render(); toast('Đã thêm 4 hạng mục từ kế hoạch'); });
+  on('addItem', openAddItem);
+  on('addPart', () => toast('Chọn phụ tùng từ danh mục (chưa có trong prototype)'));
+  body.querySelectorAll('[data-ok]').forEach(c => c.onchange = () => { const i = O.items.find(x => x.id === +c.dataset.ok); i.ok = c.checked; render(); });
+  body.querySelectorAll('[data-w]').forEach(b => b.onclick = () => { O.ext = b.dataset.w === '1'; O.shop = O.ext ? 'Xưởng Linh Trung' : 'Xưởng nội bộ Thủ Đức'; render(); });
+  body.querySelectorAll('[data-q]').forEach(inp => inp.oninput = () => {
+    const k = +inp.dataset.q, v = +inp.value.replace(/\D/g, ''); O.parts[k].qty = v; inp.value = v || '';
+    const t = tot(); body.querySelector(`[data-line="${k}"]`).textContent = B(v * O.parts[k].price);
+    document.getElementById('partsTot').textContent = V(t.parts); document.getElementById('cParts').textContent = V(t.parts); document.getElementById('cVat').textContent = V(t.vat); document.getElementById('cAll').textContent = V(t.all);
+  });
+}
+
+/* ---------- Modal ---------- */
+function modal(html, onReady) {
+  closeModal(); hideTip();
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim'; s.id = 'mScrim'; s.onclick = closeModal;
+  const m = document.createElement('div'); m.className = 'modal'; m.id = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.innerHTML = html;
+  document.body.append(s, m); m.querySelectorAll('[data-x]').forEach(b => b.onclick = closeModal); onReady && onReady(m);
+}
+function closeModal() { ['modal', 'mScrim'].forEach(id => { const e = document.getElementById(id); if (e) { e.removeAttribute('id'); Shell.dismiss(e); } }); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+function openStart() {
+  modal(`<h2>Đưa ${O.plate} vào xưởng?</h2>
+    <div class="form-row"><label class="field"><span>Ngày giờ vào xưởng</span><input class="input num" id="sAt" value="11/11/2026 14:00"></label><label class="field"><span>Km vào xưởng</span><input class="input num right" id="sKm" value="186.540"></label></div>
+    <p class="sm muted">Km lấy từ GSHT lúc 13:52. Sửa nếu đồng hồ xe khác.</p>
+    <div class="alert alert-info">${icon('block')}<div>Xe chuyển sang <b>Bảo dưỡng</b> và bị chặn gán ở Điều phối đến khi lệnh hoàn thành. Không có chuyến nào đã gán cho xe trong thời gian này.</div></div>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Quay lại</button><button class="btn btn-primary" type="button" id="sOk">Vào xưởng</button></div>`, m => {
+    m.querySelector('#sOk').onclick = () => { const prev = JSON.stringify(O); O.st = 'doing'; O.inAt = m.querySelector('#sAt').value; O.kmIn = +m.querySelector('#sKm').value.replace(/\D/g, ''); O.log.unshift(['p', 'Chuyển sang Đang sửa · xe bị chặn gán ở Điều phối', O.inAt + ' · km vào xưởng ' + N(O.kmIn)]); closeModal(); render();
+      toast(`${O.plate} đã vào xưởng · bị chặn gán ở Điều phối`, { undo: () => { O = JSON.parse(prev); render(); } }); };
+  });
+}
+function openDone() {
+  const t = tot(), pend = O.items.filter(i => !i.ok);
+  modal(`<h2>Hoàn thành ${O.id}?</h2>
+    <div class="form-row"><label class="field"><span>Ngày giờ ra xưởng</span><input class="input num" id="dAt" value="12/11/2026 16:30"></label><label class="field"><span>Km ra xưởng</span><input class="input num right" id="dKm" value="186.552"></label></div>
+    ${pend.length ? `<div class="alert alert-warning">${icon('warn')}<div>Còn ${pend.length} hạng mục chưa đánh dấu xong: ${pend.map(i => i.name).join(', ')}. Hoàn thành sẽ đánh dấu xong tất cả.</div></div>` : ''}
+    <ul class="mlist" id="dList"></ul>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Quay lại</button><button class="btn btn-primary" type="button" id="dOk">Hoàn thành lệnh</button></div>`, m => {
+    const km = m.querySelector('#dKm'), at = m.querySelector('#dAt');
+    const draw = () => { const k = +km.value.replace(/\D/g, '') || 0; m.querySelector('#dList').innerHTML = `<li class="h"><span>Mốc kế tiếp</span><span></span></li>` + nextMarks(k, at.value).map(([a, b]) => `<li><span>${a}</span><b>${b}</b></li>`).join('') + `<li class="h"><span>Ghi vào chi phí xe ${O.plate} · 11/2026</span><b>${V(t.all)}</b></li>`; };
+    km.oninput = () => { const v = +km.value.replace(/\D/g, ''); km.value = v ? N(v) : ''; draw(); }; at.oninput = draw; draw();
+    m.querySelector('#dOk').onclick = () => {
+      const prev = JSON.stringify(O);
+      O.st = 'done'; O.kmOut = +km.value.replace(/\D/g, ''); O.outAt = at.value; O.items.forEach(i => i.ok = true);
+      O.log.unshift(['p', `Hoàn thành · cập nhật mốc kế tiếp, ghi ${V(t.all)} vào chi phí xe, bỏ chặn gán`, O.outAt + ' · km ra xưởng ' + N(O.kmOut)]);
+      closeModal(); render(); toast(`Đã hoàn thành ${O.id}. ${O.plate} gán chuyến lại được.`, { undo: () => { O = JSON.parse(prev); render(); } });
+    };
+  });
+}
+function openAddItem() {
+  modal(`<h2>Thêm hạng mục phát sinh</h2>
+    <label class="field"><span>Hạng mục</span><input class="input" id="aN" placeholder="VD: Thay bóng đèn pha trái"></label>
+    <div class="form-row"><label class="field"><span>Tiền công (đ)</span><input class="input num right" id="aL" placeholder="0"></label><label class="field"><span>Lý do / phát hiện</span><input class="input" id="aD" placeholder="Phát hiện khi kiểm tra"></label></div>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Huỷ</button><button class="btn btn-primary" type="button" id="aOk" disabled>Thêm</button></div>`, m => {
+    const n = m.querySelector('#aN'), l = m.querySelector('#aL'), ok = m.querySelector('#aOk');
+    n.oninput = () => ok.disabled = !n.value.trim(); l.oninput = () => { const v = +l.value.replace(/\D/g, ''); l.value = v ? N(v) : ''; }; n.focus();
+    ok.onclick = () => { O.items.push({ id: O.items.length + 1, name: n.value.trim(), src: 'extra', desc: 'Phát sinh · ' + (m.querySelector('#aD').value.trim() || 'không ghi lý do'), labor: +l.value.replace(/\D/g, '') || 0, ok: false }); closeModal(); render(); toast('Đã thêm hạng mục phát sinh'); };
+  });
+}
+
+/* ---------- States ---------- */
+Shell.states([['open', 'Mở'], ['default', 'Đang sửa'], ['noinv', 'Thiếu hoá đơn'], ['complete', 'Xác nhận hoàn thành'], ['done', 'Hoàn thành'], ['loading', 'Đang tải'], ['empty', 'Trống'], ['error', 'Lỗi lưu']], s => {
+  closeModal(); reset(); errMsg = '';
+  if (s === 'open') { O.st = 'open'; O.inAt = null; O.items = O.items.filter(i => i.src === 'plan'); O.items.forEach(i => i.ok = false); O.parts = O.parts.filter(p => p.item !== 5); O.invoice = null; O.log = O.log.slice(-1); }
+  if (s === 'noinv') { O.invoice = null; O.log.shift(); }
+  if (s === 'done') { O.st = 'done'; O.kmOut = 186552; O.outAt = '12/11/2026 16:30'; O.items.forEach(i => i.ok = true); O.log.unshift(['p', 'Hoàn thành · cập nhật mốc kế tiếp, ghi 9.207.000 đ vào chi phí xe, bỏ chặn gán', '12/11/2026 16:30 · km ra xưởng 186.552']); }
+  if (s === 'empty') { O.st = 'open'; O.inAt = null; O.items = []; O.parts = []; O.invoice = null; O.log = [['', 'Tạo lệnh trống', '12/11/2026 08:40 · Phạm Thanh Phong']]; }
+  if (s === 'error') errMsg = 'Chưa lưu được số lượng phụ tùng "Nhớt động cơ 15W-40". Kiểm tra kết nối rồi thử lại. Thay đổi vẫn giữ trên màn hình.';
+  if (s === 'loading') {
+    document.getElementById('h1').innerHTML = '<span class="sk" style="width:280px;height:22px"></span>'; document.getElementById('sub').innerHTML = '<span class="sk" style="width:420px;margin-top:6px"></span>'; document.getElementById('actions').innerHTML = '';
+    body.innerHTML = `<section class="card"><div class="stepper">${Array(3).fill('<div class="step"><span class="sk" style="width:28px;height:28px;border-radius:50%"></span><span class="sk" style="width:120px;margin-top:8px"></span></div>').join('')}</div></section>
+      <div class="layout"><div class="col"><section class="card"><div class="card-title"><span class="sk" style="width:180px;height:16px"></span></div><div style="padding:8px 18px 16px;display:flex;flex-direction:column;gap:14px">${Array(5).fill('<span class="sk"></span>').join('')}</div></section><section class="card"><table class="grid"><tbody>${Array(4).fill('<tr>' + Array(6).fill('<td><span class="sk" style="width:70%"></span></td>').join('') + '</tr>').join('')}</tbody></table></section></div>
+      <aside class="col"><section class="card"><div style="padding:18px;display:flex;flex-direction:column;gap:14px">${Array(7).fill('<span class="sk"></span>').join('')}</div></section></aside></div>`;
+    return;
+  }
+  render();
+  if (s === 'complete') openDone();
+});
+</script>
+</body>
+</html>

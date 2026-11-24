@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shipping orders · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  .sub-head { margin-top: 4px; font-size: var(--text-sm); color: var(--fg-muted); }
+  .tabs .count-pill { padding: 0 7px; font-size: 11.5px; }
+  .tabs button[aria-selected="true"] .count-pill { background: var(--primary-soft); color: var(--side-active); }
+  .filterbar .select { height: 30px; font-size: 12.5px; padding: 0 28px 0 10px; appearance: none; -webkit-appearance: none; border-radius: 15px; cursor: pointer; }
+  .filterbar .select-wrap > .icon { right: 9px; }
+  .filterbar .select.on { background: var(--primary-soft); border-color: var(--primary); color: var(--primary); }
+  .list-card { min-width: 0; display: flex; flex-direction: column; }
+  .list-card .grid-wrap { max-height: calc(100vh - 330px); overflow: auto; }
+  .grid tbody tr { cursor: pointer; }
+  .grid tr.is-cancelled td { color: var(--fg-muted); }
+  .grid tr.is-cancelled .route-x { text-decoration: line-through; }
+  .grid td.route { white-space: normal; min-width: 180px; max-width: 230px; }
+  .cust { max-width: 190px; overflow: hidden; text-overflow: ellipsis; }
+  .trip-links { display: flex; flex-wrap: nowrap; gap: 4px 6px; align-items: center; }
+  .trip-links .frac { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--fg-strong); }
+  .mini-cap { display: inline-block; width: 36px; height: 5px; border-radius: 3px; background: var(--surface-muted); box-shadow: inset 0 0 0 1px var(--border); overflow: hidden; vertical-align: middle; }
+  .mini-cap i { display: block; height: 100%; background: var(--info-solid); }
+  .list-foot { display: flex; align-items: center; gap: 12px; padding: 10px 16px 12px; font-size: 12.5px; color: var(--fg-muted); margin-top: auto; }
+  .list-foot b { color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .hl-match { background: var(--warning-soft); color: var(--warning-fg); border-radius: 3px; padding: 0 2px; }
+  .match-note { display: block; font-size: 11.5px; color: var(--accent-fg); }
+  /* Drawer */
+  .drawer { width: min(560px, 100vw); }
+  .dl { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 8px 12px; margin: 0; font-size: 13.5px; }
+  .dl dt { color: var(--fg-muted); }
+  .dl dd { margin: 0; min-width: 0; }
+  .trip-row { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; background: var(--surface-muted); }
+  .trip-row:hover { background: var(--primary-soft); }
+  .trip-row .grow { display: flex; flex-direction: column; }
+  .trip-row.todo { background: transparent; box-shadow: inset 0 0 0 1px var(--border-strong); }
+  .empty .btn .icon { width: 16px; height: 16px; stroke-width: 1.75; color: inherit; }
+  .empty p { max-width: 560px; }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Operations / Shipping orders</div>
+      <h1>Shipping orders</h1>
+      <div class="sub-head" id="subHead">November 2026 · HCMC branch</div>
+    </div>
+    <div class="actions">
+      <a class="btn btn-secondary" href="fm-03-import.html" id="btnImport">Import Excel</a> <a class="btn btn-primary" href="fm-07-tao-don.html" id="btnNew">Create order <kbd>N</kbd></a>
+    </div>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Order status" id="statusTabs"></div>
+
+  <div class="filterbar" role="toolbar" aria-label="Order filters">
+    <span class="select-wrap"><select class="select" id="fDate" aria-label="Date range">
+      <option value="all">Date: All of November</option><option value="today">Today · 12/11</option><option value="tomorrow">Tomorrow · 13/11</option><option value="past">Before 12/11</option>
+    </select><span id="icChev1"></span></span>
+    <span class="select-wrap"><select class="select" id="fCust" aria-label="Customer"><option value="">Customer: All</option></select><span id="icChev2"></span></span>
+    <div class="seg" role="group" aria-label="Order type" id="fType">
+      <button type="button" aria-pressed="true" data-type="all">All</button>
+      <button type="button" aria-pressed="false" data-type="Standard">Standard</button>
+      <button type="button" aria-pressed="false" data-type="Container">Container</button>
+    </div>
+    <button class="btn btn-ghost btn-sm" type="button" id="clearF" style="display:none">Clear filters</button>
+    <label class="search-global" style="max-width:340px;margin-left:auto"><span id="icSearch"></span><input id="q" type="search" placeholder="Search order ID, container no., booking no.…" aria-label="Search orders"></label>
+  </div>
+
+  <div id="slot"></div>
+
+  <section class="card list-card" aria-label="Order list" id="listCard"></section>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_06', title: 'Shipping orders' });
+const $ = id => document.getElementById(id);
+$('icChev1').outerHTML = icon('chevron'); $('icChev2').outerHTML = icon('chevron'); $('icSearch').outerHTML = icon('search');
+$('btnImport').insertAdjacentHTML('afterbegin', icon('upload'));
+$('btnNew').insertAdjacentHTML('afterbegin', icon('plus'));
+
+/* status: new | partial | planned | running | done | cancelled */
+const SM = {
+  new: ['New', 'b-neutral', 'dot'], partial: ['Partially planned', 'b-warning', 'route'], planned: ['Planned', 'b-info', 'check'],
+  running: ['In progress', 'b-info', 'pulse'], done: ['Completed', 'b-success', 'check'], cancelled: ['Cancelled', 'b-neutral', 'x']
+};
+const badge = s => { const m = SM[s]; return `<span class="badge ${m[1]}" ${s === 'cancelled' ? 'style="text-decoration:line-through"' : ''}>${m[2] === 'pulse' ? '<span class="pulse" aria-hidden="true"></span>' : icon(m[2])}${m[0]}</span>`; };
+
+/* Đơn chờ xếp từ FM.pendingOrders + đơn đã lập chuyến (khớp FM.trips) */
+const extra = {
+  'DH-1125': { st: 'partial', date: '12/11', need: 2, trips: ['CH-0458'], price: 7600000, booking: 'HCMSGN2611087', conts: ['TCLU 4421087', 'TCLU 4421093'] },
+  'DH-1131': { st: 'new', date: '12/11', need: 1, trips: [], price: 4200000, booking: 'MLB2611342', conts: ['MSKU 7731060'] },
+  'DH-1133': { st: 'new', date: '12/11', need: 1, trips: [], price: 2600000 },
+  'DH-1134': { st: 'new', date: '12/11', need: 2, trips: [], price: 6600000, booking: 'HPB2611077', conts: ['HLXU 2211015', 'HLXU 2211021'] },
+  'DH-1136': { st: 'new', date: '12/11', need: 1, trips: [], price: 3900000 },
+  'DH-1138': { st: 'new', date: '12/11', need: 1, trips: [], price: 9500000, booking: 'VHC2611019', conts: ['SEGU 9012351'] },
+  'DH-1140': { st: 'new', date: '12/11', need: 1, trips: [], price: 2300000 }
+};
+const ORDERS = FM.pendingOrders.map(o => Object.assign({ id: o.id, customer: o.customer, type: o.type, route: o.route, cargo: o.cargo, pickup: o.pickup }, extra[o.id])).concat([
+  { id: 'DH-1124', customer: 'Tân Cảng Logistics', type: 'Container', route: 'ICD Phước Long → Phước Đông Industrial Park → Cát Lái', cargo: "1×40' · 24.5 t", pickup: '05:30 12/11', st: 'planned', date: '12/11', need: 1, trips: ['CH-0461'], price: 5200000, booking: 'TCL2611188', conts: ['TCLU 4421102'] },
+  { id: 'DH-1126', customer: 'Gỗ Minh Long', type: 'Container', route: 'Mỹ Phước 3 Industrial Park → Cát Lái', cargo: "1×40' · 22.0 t", pickup: '06:00 12/11', st: 'planned', date: '12/11', need: 1, trips: ['CH-0462'], price: 4200000, booking: 'MLB2611330', conts: ['MSKU 7731045'] },
+  { id: 'DH-1128', customer: 'Thủy sản Vĩnh Hoàn', type: 'Container', route: 'Cát Lái → Sa Đéc', cargo: "1×40' reefer · 26.0 t", pickup: '07:30 12/11', st: 'planned', date: '12/11', need: 1, trips: ['CH-0464'], price: 9500000, booking: 'VHC2611011', conts: ['SEGU 9012334'] },
+  { id: 'DH-1132', customer: 'Bao bì Phương Nam', type: 'Standard', route: 'Sóng Thần Industrial Park → Bến Lức', cargo: 'LTL · 3.5 t · 12 packages', pickup: '13:00 12/11', st: 'planned', date: '12/11', need: 1, trips: ['CH-0466'], price: 2300000 },
+  { id: 'DH-1127', customer: 'Bao bì Phương Nam', type: 'Standard', route: 'Sóng Thần Industrial Park → Long An', cargo: 'LTL · 3.5 t · 14 packages', pickup: '07:00 12/11', st: 'running', date: '12/11', need: 1, trips: ['CH-0463'], price: 2400000, note: 'Shares a trip with 1 other order' },
+  { id: 'DH-1129', customer: 'Gỗ Minh Long', type: 'Container', route: 'Mỹ Phước 3 Industrial Park → Cát Lái', cargo: "1×40' · 22.0 t", pickup: '08:00 12/11', st: 'running', date: '12/11', need: 1, trips: ['CH-0459'], price: 4200000, booking: 'MLB2611335', conts: ['MSKU 7731052'] },
+  { id: 'DH-1123', customer: 'Thép Hòa Phát Bình Dương', type: 'Container', route: 'Đồng An Industrial Park → Cát Lái', cargo: "1×20' · 21.0 t", pickup: '04:00 12/11', st: 'running', date: '12/11', need: 1, trips: ['CH-0457'], price: 3300000, booking: 'HPB2611064', conts: ['HLXU 2210983'] },
+  { id: 'DH-1122', customer: 'Nhựa Duy Tân', type: 'Standard', route: 'Bình Tân → Mỹ Tho', cargo: 'LTL · 12.0 t', pickup: '03:30 12/11', st: 'done', date: '12/11', need: 1, trips: ['CH-0455'], price: 3900000 },
+  { id: 'DH-1121', customer: 'Tân Cảng Logistics', type: 'Container', route: 'Cát Lái → VSIP 1 Industrial Park', cargo: "1×40' · 23.0 t", pickup: '01:00 12/11', st: 'done', date: '12/11', need: 1, trips: ['CH-0452'], price: 3600000, booking: 'TCL2611171', conts: ['TCLU 4419920'] },
+  { id: 'DH-1130', customer: 'Thép Hòa Phát Bình Dương', type: 'Container', route: 'Đồng An Industrial Park → Cát Lái', cargo: "1×20' · 21.0 t", pickup: '09:00 12/11', st: 'cancelled', date: '12/11', need: 1, trips: ['CH-0460'], price: 3300000, booking: 'HPB2611070', conts: ['HLXU 2211004'], note: 'Customer rescheduled' },
+  { id: 'DH-1118', customer: 'Gỗ Minh Long', type: 'Container', route: 'Mỹ Phước 3 Industrial Park → Cát Lái', cargo: "1×40' · 22.0 t", pickup: '05:00 10/11', st: 'done', date: '10/11', need: 1, trips: ['CH-0431'], price: 4200000, booking: 'MLB2611301', conts: ['MSKU 7730011'] },
+  { id: 'DH-1142', customer: 'Nhựa Duy Tân', type: 'Standard', route: 'Bình Tân → Cần Thơ', cargo: 'LTL · 9.0 t', pickup: '06:00 13/11', st: 'new', date: '13/11', need: 1, trips: [], price: 5400000 },
+  { id: 'DH-1143', customer: 'Tân Cảng Logistics', type: 'Container', route: 'Cát Lái → Tân Uyên Industrial Park', cargo: "2×40' · 2×24.0 t", pickup: '07:00 13/11', st: 'new', date: '13/11', need: 2, trips: [], price: 7600000, booking: 'TCL2611215', conts: ['TCLU 4421130', 'TCLU 4421146'] }
+]);
+const ORDER_IDX = o => ['partial', 'new', 'planned', 'running', 'done', 'cancelled'].indexOf(o.st);
+ORDERS.sort((a, b) => ORDER_IDX(a) - ORDER_IDX(b) || a.id.localeCompare(b.id));
+
+const F = { st: 'all', date: 'all', cust: '', type: 'all', q: '' };
+let data = ORDERS.map(o => Object.assign({}, o));
+const custs = [...new Set(ORDERS.map(o => o.customer))].sort((a, b) => a.localeCompare(b, 'vi'));
+$('fCust').insertAdjacentHTML('beforeend', custs.map(c => `<option>${c}</option>`).join(''));
+
+function base() {
+  return data.filter(o => (F.type === 'all' || o.type === F.type) && (!F.cust || o.customer === F.cust) &&
+    (F.date === 'all' || (F.date === 'today' && o.date === '12/11') || (F.date === 'tomorrow' && o.date === '13/11') || (F.date === 'past' && o.date === '10/11')) &&
+    (!F.q || hit(o)));
+}
+function hit(o) { const q = F.q; return o.id.toLowerCase().includes(q) || (o.booking || '').toLowerCase().includes(q) || (o.conts || []).some(c => c.toLowerCase().replace(/\s/g, '').includes(q.replace(/\s/g, ''))) || o.customer.toLowerCase().includes(q); }
+function matchNote(o) {
+  if (!F.q) return '';
+  const q = F.q.replace(/\s/g, '');
+  const c = (o.conts || []).find(c => c.toLowerCase().replace(/\s/g, '').includes(q));
+  if (c && !o.id.toLowerCase().includes(F.q)) return `<span class="match-note">Matches container ${c}</span>`;
+  if ((o.booking || '').toLowerCase().includes(F.q)) return `<span class="match-note">Matches booking ${o.booking}</span>`;
+  return '';
+}
+
+function renderTabs() {
+  const rows = base();
+  const tabs = [['all', 'All'], ['new', 'New'], ['partial', 'Partially planned'], ['planned', 'Planned'], ['running', 'In progress'], ['done', 'Completed'], ['cancelled', 'Cancelled']];
+  $('statusTabs').innerHTML = tabs.map(([k, l]) => `<button role="tab" type="button" data-st="${k}" aria-selected="${F.st === k}">${l}<span class="count-pill">${k === 'all' ? rows.length : rows.filter(o => o.st === k).length}</span></button>`).join('');
+  $('statusTabs').querySelectorAll('[data-st]').forEach(b => b.onclick = () => { F.st = b.dataset.st; render(); });
+}
+
+function tripsCell(o) {
+  const n = o.trips.length;
+  if (o.st === 'cancelled') return `<span class="muted num">Trips: ${n} · cancelled</span>`;
+  const links = o.trips.map(t => `<a class="code" href="fm-09-chi-tiet-chuyen.html" title="Open trip ${t}">${t}</a>`).join('');
+  if (!n) return `<div class="trip-links"><span class="frac">0/${o.need}</span><a class="sm" href="fm-08-dieu-phoi.html" title="Open Dispatch to plan trips">Plan trips →</a></div>`;
+  return `<div class="trip-links"><span class="frac">${n}/${o.need}</span>${links}${n < o.need ? `<a class="sm" href="fm-08-dieu-phoi.html">+ plan more</a>` : ''}</div>`;
+}
+
+function renderList() {
+  const rows = base().filter(o => F.st === 'all' || o.st === F.st);
+  const card = $('listCard');
+  if (!rows.length) { card.innerHTML = noResult(); bindEmpty(); return; }
+  const total = rows.filter(o => o.st !== 'cancelled').reduce((s, o) => s + o.price, 0);
+  card.innerHTML = `<div class="grid-wrap"><table class="grid" aria-label="Shipping orders">
+    <thead><tr><th>Order ID · Type</th><th>Customer</th><th>Route</th><th class="right">Pickup</th><th>Trips</th><th>Status</th><th class="right">Freight rate</th></tr></thead>
+    <tbody>${rows.map(o => `<tr data-id="${o.id}" class="${o.st === 'cancelled' ? 'is-cancelled' : ''}" tabindex="0">
+      <td><b class="code">${o.id}</b><span class="cell-sub" style="margin-top:3px">${o.type === 'Container' ? `<span class="badge b-accent" style="height:18px">${icon('container')}Container</span>` : '<span class="badge b-outline" style="height:18px">Standard</span>'}</span></td>
+      <td><div class="cust" title="${o.customer}">${o.customer}</div><span class="cell-sub">${o.cargo}</span></td>
+      <td class="route">${o.route}${o.booking ? `<span class="cell-sub num">Booking ${o.booking}</span>` : ''}${matchNote(o)}</td>
+      <td class="right num">${o.pickup.split(' ')[0]}<span class="cell-sub">${o.pickup.split(' ')[1]}</span></td>
+      <td>${tripsCell(o)}</td>
+      <td>${badge(o.st)}${o.note ? `<span class="cell-sub">${o.note}</span>` : ''}</td>
+      <td class="right num">${fmt.vnd(o.price)}</td>
+    </tr>`).join('')}</tbody></table></div>
+    <div class="list-foot"><span>Showing <b>${rows.length}</b> / ${data.length} orders</span><span>·</span><span>Total freight (excl. cancelled orders) <b>${fmt.vnd(total)}</b></span><span style="margin-left:auto">Click a row to view the order. <kbd>/</kbd> quick search</span></div>`;
+  card.querySelectorAll('tbody tr').forEach(tr => {
+    tr.onclick = e => { if (e.target.closest('a')) return; openDrawer(tr.dataset.id); };
+    tr.onkeydown = e => { if (e.key === 'Enter') openDrawer(tr.dataset.id); };
+  });
+}
+function noResult() {
+  return `<div class="empty">${icon('search')}<h3>No orders match the filters</h3><p>Try searching by order ID (DH-1125), container number (TCLU 4421087) or booking number.</p><button class="btn btn-secondary" type="button" data-clear>Clear filters</button></div>`;
+}
+function bindEmpty() { const b = document.querySelector('[data-clear]'); if (b) b.onclick = clearFilters; }
+function clearFilters() {
+  Object.assign(F, { st: 'all', date: 'all', cust: '', type: 'all', q: '' });
+  $('fDate').value = 'all'; $('fCust').value = ''; $('q').value = '';
+  document.querySelectorAll('#fType button').forEach(b => b.setAttribute('aria-pressed', b.dataset.type === 'all'));
+  render();
+}
+function render() {
+  renderTabs(); renderList();
+  const active = F.date !== 'all' || F.cust || F.type !== 'all' || F.q;
+  $('clearF').style.display = active ? '' : 'none';
+  $('fDate').classList.toggle('on', F.date !== 'all'); $('fCust').classList.toggle('on', !!F.cust);
+}
+
+/* ---------- Drawer: xem nhanh đơn ---------- */
+function closeDrawer() { const d = $('drawer'); if (d) { d.id = ''; Shell.dismiss(d); const s = $('drScrim'); if (s) { s.id = ''; Shell.dismiss(s); } } }
+function openDrawer(id) {
+  closeDrawer();
+  const o = data.find(x => x.id === id); if (!o) return;
+  const s = document.createElement('div'); s.className = 'scrim'; s.id = 'drScrim'; s.onclick = closeDrawer;
+  const d = document.createElement('aside'); d.className = 'drawer'; d.id = 'drawer'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'drTitle');
+  const trips = o.trips.map(tid => { const t = FM.trips.find(x => x.id === tid) || {}; return `<a class="trip-row" href="fm-09-chi-tiet-chuyen.html" style="text-decoration:none;color:inherit"><span class="code">${tid}</span><span class="grow"><span>${t.vehicle ? `<span class="code">${t.vehicle}</span> · ${t.driver}` : '<span class="muted">No vehicle or driver assigned</span>'}</span><span class="cell-sub">${t.last || ''}</span></span>${t.status ? FM.statusBadge(t.status) : ''}${icon('chevron-right')}</a>`; }).join('');
+  const missing = o.st === 'cancelled' ? 0 : o.need - o.trips.length;
+  const todo = Array.from({ length: Math.max(0, missing) }, (_, i) => `<a class="trip-row todo" href="fm-08-dieu-phoi.html" style="text-decoration:none;color:inherit"><span class="muted">Trip ${o.trips.length + i + 1}</span><span class="grow"><span>Not planned yet${o.conts && o.conts[o.trips.length + i] ? ` · container <span class="code">${o.conts[o.trips.length + i]}</span>` : ''}</span></span><span class="btn btn-ghost btn-sm">Plan trip</span></a>`).join('');
+  const canEdit = ['new', 'partial', 'planned'].includes(o.st);
+  d.innerHTML = `<div class="drawer-head"><div class="row"><h2 id="drTitle">Order <span class="code">${o.id}</span></h2>${badge(o.st)}<button class="icon-btn" id="drClose" aria-label="Close (Esc)" style="margin-left:auto">${icon('x', 'lg')}</button></div></div>
+    <div class="drawer-body">
+      <dl class="dl">
+        <dt>Customer</dt><dd>${o.customer}</dd>
+        <dt>Type</dt><dd>${o.type === 'Container' ? 'Container' : 'General cargo'} · ${o.cargo}</dd>
+        <dt>Route</dt><dd>${o.route}</dd>
+        <dt>Pickup</dt><dd class="num">${o.pickup}/2026</dd>
+        ${o.booking ? `<dt>Booking no.</dt><dd class="code">${o.booking}</dd><dt>Container no.</dt><dd class="code">${o.conts.join(', ')}</dd>` : ''}
+        <dt>Freight rate</dt><dd class="num"><b>${fmt.vnd(o.price)}</b> <span class="muted sm">excl. VAT · per rate card</span></dd>
+      </dl>
+      <div class="stack" style="gap:8px"><div class="section-title"><h3>Trips for this order</h3><span class="count-pill">${o.trips.length}/${o.need}</span></div>${trips}${todo}${!trips && !todo ? '<p class="muted sm">Order cancelled, no trips.</p>' : ''}</div>
+      ${o.st === 'cancelled' ? `<div class="alert alert-info">${icon('info')}<div>Order cancelled on 11/11/2026 · reason: ${o.note.toLowerCase()}. The order and its documents are kept, not deleted.</div></div>` : ''}
+    </div>
+    <div class="drawer-foot">
+      ${canEdit ? `<button class="btn btn-ghost" type="button" id="cancelOrder" style="margin-right:auto;color:var(--destructive)">Cancel order</button>` : '<span style="margin-right:auto"></span>'}
+      ${canEdit ? `<a class="btn btn-secondary" href="fm-07-tao-don.html">${icon('pen')}Edit order</a>` : `<span class="tip"><button class="btn btn-secondary" type="button" disabled>${icon('pen')}Edit order</button><span class="tip-body right">Orders that are in progress or closed can't be edited.</span></span>`}
+      ${missing > 0 ? `<a class="btn btn-primary" href="fm-08-dieu-phoi.html">Plan trips (${missing})</a>` : ''}
+    </div>`;
+  document.body.append(s, d);
+  $('drClose').onclick = closeDrawer; $('drClose').focus();
+  const c = $('cancelOrder'); if (c) c.onclick = () => confirmCancel(o);
+}
+function confirmCancel(o) {
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim';
+  const m = document.createElement('div'); m.className = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true');
+  m.innerHTML = `<h2>Cancel order ${o.id}?</h2><p class="muted">${o.trips.length ? `${o.trips.length} planned trip(s) (${o.trips.join(', ')}) will be set to Cancelled; undisbursed cash advances will be cancelled.` : 'This order has no trips yet.'} The order is still kept for reconciliation.</p>
+    <label class="field"><span>Cancellation reason *</span><input class="input" id="cReason" placeholder="e.g. Customer rescheduled to 15/11"></label>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Back</button><button class="btn btn-danger" type="button" data-ok disabled>Cancel order</button></div>`;
+  document.body.append(s, m);
+  const close = () => { Shell.dismiss(s); Shell.dismiss(m); };
+  const ok = m.querySelector('[data-ok]'); m.querySelector('#cReason').oninput = e => ok.disabled = !e.target.value.trim();
+  m.querySelector('[data-x]').onclick = close; s.onclick = close; m.querySelector('#cReason').focus();
+  ok.onclick = () => { const prev = o.st; o.st = 'cancelled'; o.note = m.querySelector('#cReason').value.trim(); close(); closeDrawer(); render(); toast(`Order <span class="code">${o.id}</span> cancelled`, { undo: () => { o.st = prev; o.note = ''; render(); } }); };
+}
+
+/* ---------- Bind filters ---------- */
+$('fDate').onchange = e => { F.date = e.target.value; render(); };
+$('fCust').onchange = e => { F.cust = e.target.value; render(); };
+document.querySelectorAll('#fType button').forEach(b => b.onclick = () => { F.type = b.dataset.type; document.querySelectorAll('#fType button').forEach(x => x.setAttribute('aria-pressed', x === b)); render(); });
+$('q').oninput = e => { F.q = e.target.value.trim().toLowerCase(); render(); };
+$('clearF').onclick = clearFilters;
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeDrawer(); return; }
+  if (e.target.matches('input, textarea, select')) return;
+  if (e.key === '/') { e.preventDefault(); $('q').focus(); }
+  if (e.key === 'n' || e.key === 'N') location.href = 'fm-07-tao-don.html';
+});
+
+/* ---------- Prototype states ---------- */
+Shell.states([['default', 'Default'], ['search', 'Container search'], ['drawer', 'View order'], ['noresult', 'No matches'], ['loading', 'Loading'], ['empty', 'Empty'], ['error', 'Error']], s => {
+  closeDrawer(); data = ORDERS.map(o => Object.assign({}, o));
+  Object.assign(F, { st: 'all', date: 'all', cust: '', type: 'all', q: '' }); $('fDate').value = 'all'; $('fCust').value = ''; $('q').value = '';
+  document.querySelectorAll('#fType button').forEach(b => b.setAttribute('aria-pressed', b.dataset.type === 'all'));
+  $('slot').innerHTML = ''; $('subHead').textContent = 'November 2026 · HCMC branch';
+  if (s === 'search') { F.q = 'tclu4421093'; $('q').value = 'TCLU4421093'; }
+  if (s === 'noresult') { F.q = 'dh-0999'; $('q').value = 'DH-0999'; }
+  render();
+  if (s === 'drawer') openDrawer('DH-1125');
+  if (s === 'loading') $('listCard').innerHTML = `<div class="grid-wrap"><table class="grid"><thead><tr>${Array(8).fill('<th><span class="sk" style="width:70px"></span></th>').join('')}</tr></thead><tbody>${Array(9).fill('<tr>' + Array(8).fill('<td><span class="sk" style="width:80%"></span><span class="sk" style="width:50%;margin-top:6px;height:9px"></span></td>').join('') + '</tr>').join('')}</tbody></table></div>`;
+  if (s === 'empty') {
+    data = []; render();
+    $('subHead').textContent = 'No orders yet';
+    $('listCard').innerHTML = `<div class="empty">${icon('order')}<h3>No shipping orders yet</h3><p>Create your first order, or bulk-import from the Excel order file you already use.</p><div class="row"><a class="btn btn-secondary" href="fm-03-import.html">${icon('upload')}Import Excel</a><a class="btn btn-primary" href="fm-07-tao-don.html">${icon('plus')}Create order</a></div></div>`;
+  }
+  if (s === 'error') {
+    $('slot').innerHTML = `<div class="alert alert-warning" role="alert">${icon('refresh')}<div>Couldn't load the order list. The data below was saved at 09:02 and may be out of date.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" onclick="location.reload()">Retry</button></div></div>`;
+  }
+});
+</script>
+</body>
+</html>

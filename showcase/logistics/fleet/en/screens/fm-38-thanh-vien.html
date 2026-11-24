@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Members & permissions · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* Sub-nav Cài đặt (giống hệt ở FM_38–41) */
+  .set-layout { display: grid; grid-template-columns: 216px minmax(0, 1fr); gap: var(--s-6); align-items: start; }
+  .set-nav { position: sticky; top: 72px; display: flex; flex-direction: column; gap: 2px; }
+  .set-nav .set-g { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--side-fg-muted); padding: 2px 10px 8px; }
+  .set-nav a { display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 10px; border-radius: 8px; color: var(--fg); font: 500 13.5px var(--font-body); text-decoration: none !important; white-space: nowrap; transition: background-color var(--d-1) var(--ease-std), color var(--d-1) var(--ease-std); }
+  .set-nav a .icon { color: var(--fg-muted); flex: none; }
+  .set-nav a:hover { background: var(--surface-muted); }
+  .set-nav a[aria-current] { background: var(--primary-soft); color: var(--side-active); font-weight: 600; }
+  .set-nav a[aria-current] .icon { color: var(--side-active); }
+  .set-main { display: flex; flex-direction: column; gap: var(--s-4); min-width: 0; }
+  @media (max-width: 1100px) { .set-layout { grid-template-columns: 1fr; } .set-nav { position: static; flex-direction: row; flex-wrap: wrap; } .set-nav .set-g { display: none; } }
+  .card { display: flex; flex-direction: column; min-width: 0; }
+  .card-title { display: flex; align-items: center; gap: 10px; padding: 16px 18px 12px; min-height: 30px; }
+  .card-title h2 { font-size: 16px; white-space: nowrap; }
+  .card-title .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 10px; align-items: center; }
+  .card-foot { padding: 10px 18px 14px; font-size: 12.5px; color: var(--fg-muted); display: flex; align-items: center; gap: 8px; }
+  .card-foot .icon { width: 15px; height: 15px; flex: none; }
+  .tbl-wrap { border-radius: 0 0 var(--r-lg) var(--r-lg); overflow: hidden; }
+  .grid tbody tr:last-child td { border-bottom: 0; }
+  .grid td.right, .grid th.right { text-align: right; }
+  .grid tbody tr.click { cursor: pointer; }
+  .who { display: flex; align-items: center; gap: 10px; }
+  .who .avatar { width: 32px; height: 32px; flex: none; }
+  .who b { display: block; font-weight: 600; color: var(--fg-strong); }
+  .bchips { display: flex; gap: 4px; flex-wrap: nowrap; }
+  .bchip { display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: var(--r-sm); background: var(--surface-muted); color: var(--neutral-fg); font-size: 12.5px; font-weight: 500; white-space: nowrap; }
+  .bchip.all { background: var(--primary-soft); color: var(--side-active); }
+  .filterbar .search-global { max-width: 280px; }
+  /* Ma trận quyền */
+  .mx th.role { text-align: center; white-space: normal; line-height: 15px; }
+  .mx td.c { text-align: center; padding: 6px 8px; }
+  .lv { display: inline-flex; align-items: center; justify-content: center; gap: 4px; min-width: 72px; height: 26px; padding: 0 8px; border-radius: var(--r-sm); border: 1px dashed transparent; background: none; font: 500 12.5px var(--font-body); cursor: pointer; color: var(--fg-muted); }
+  .lv:hover:not([disabled]) { border-color: var(--border-strong); }
+  .lv[data-v="0"] { color: var(--fg-subtle); }
+  .lv[data-v="1"] { background: var(--surface-muted); color: var(--neutral-fg); }
+  .lv[data-v="2"] { background: var(--info-soft); color: var(--info-fg); }
+  .lv[data-v="3"] { background: var(--primary-soft); color: var(--side-active); font-weight: 600; }
+  .lv[disabled] { cursor: default; }
+  .lv .icon { width: 12px; height: 12px; }
+  .lv.chg { box-shadow: 0 0 0 2px var(--warning-solid); }
+  .mx td.mod b { display: block; font-weight: 500; color: var(--fg-strong); }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; font-size: 12.5px; color: var(--fg-muted); }
+  .savebar { position: sticky; bottom: 16px; z-index: 5; display: flex; align-items: center; gap: 10px; padding: 10px 12px 10px 16px; background: var(--fg-strong); color: #fff; border-radius: var(--r-lg); box-shadow: var(--shadow-pop); font-size: 13.5px; }
+  .savebar .btn-secondary { background: transparent; color: #fff; border-color: rgba(255,255,255,.35); }
+  .savebar .btn-secondary:hover { background: rgba(255,255,255,.08); }
+  /* Drawer */
+  .drawer { width: min(520px, 100vw); }
+  .drawer-head { border-bottom: 0; padding-bottom: 0; }
+  .drawer-head .top { display: flex; align-items: flex-start; gap: 12px; }
+  .drawer-head .top h2 { font-size: 18px; }
+  .lbl { font-size: 12.5px; font-weight: 600; color: var(--fg-muted); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 8px; }
+  .opt { display: flex; gap: 10px; align-items: flex-start; padding: 9px 12px; border-radius: 8px; cursor: pointer; }
+  .opt:hover { background: var(--surface-muted); }
+  .opt:has(input:checked) { background: var(--primary-soft); }
+  .opt input { margin-top: 3px; accent-color: var(--primary); width: 16px; height: 16px; flex: none; }
+  .opt b { display: block; font-size: 13.5px; color: var(--fg-strong); font-weight: 600; }
+  .opt small { display: block; font-size: 12.5px; color: var(--fg-muted); line-height: 17px; margin-top: 1px; }
+  .opts { display: flex; flex-direction: column; gap: 2px; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .form-grid .full { grid-column: 1 / -1; }
+  .modal-head { display: flex; align-items: center; gap: 8px; }
+  .modal-head h2 { font-size: 17px; }
+  .modal-foot { display: flex; gap: 8px; justify-content: flex-end; }
+  /* Toggle */
+  .tg { position: relative; width: 36px; height: 20px; flex: none; border-radius: 10px; background: var(--border-strong); border: 0; cursor: pointer; transition: background-color var(--d-1) var(--ease-std); }
+  .tg::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: var(--surface); box-shadow: 0 1px 2px rgba(15,23,42,.2); transition: transform var(--d-2) var(--ease-out); }
+  .tg[aria-checked="true"] { background: var(--primary); }
+  .tg[aria-checked="true"]::after { transform: translateX(16px); }
+  .rule { display: flex; gap: 14px; align-items: flex-start; padding: 4px 18px 16px; }
+  .rule b { display: block; color: var(--fg-strong); font-size: 14px; }
+  .rule p { font-size: 13px; color: var(--fg-muted); line-height: 19px; margin-top: 2px; }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="set-layout">
+    <nav class="set-nav" aria-label="Settings">
+      <div class="set-g">Settings</div>
+      <a href="fm-38-thanh-vien.html" data-k="members" data-ic="users">Members &amp; permissions</a> <a href="fm-38-thanh-vien.html#chi-nhanh" data-k="branches" data-ic="branch">Branches</a> <a href="fm-39-tich-hop.html" data-k="integrations" data-ic="link">Integrations</a> <a href="fm-40-quyen-rieng-tu.html" data-k="privacy" data-ic="shield">Privacy &amp; audit log</a> <a href="fm-41-goi-dich-vu.html" data-k="plan" data-ic="receipt">Plan</a>
+    </nav>
+    <div class="set-main">
+      <div class="page-header">
+        <div><div class="crumb">Settings / <span id="crumbT"></span></div><h1 id="pageT"></h1></div>
+        <div class="actions" id="pageA"></div>
+      </div>
+      <div id="view" style="display:contents"></div>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_38', title: 'Members & permissions' });
+/* Sub-nav Cài đặt (giống hệt ở FM_38–41) */
+function setNav(k) { document.querySelectorAll('.set-nav a').forEach(a => { if (!a.querySelector('.icon')) a.insertAdjacentHTML('afterbegin', Shell.icon(a.dataset.ic)); a.dataset.k === k ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'); }); }
+
+/* ---------- Dữ liệu: Công ty TNHH Vận tải Phát Đạt ---------- */
+const ROLES = [
+  ['admin', 'Owner / Admin', 'Full access, sees all branches, manages members and the plan'],
+  ['dispatch', 'Dispatcher', 'Orders, dispatch, waybills, trip monitoring'],
+  ['acct', 'Accountant', 'Cash advances, settlements, invoices, receivables & payables, financial reports'],
+  ['fleet', 'Fleet manager', 'Vehicles, drivers, documents, maintenance, driving hours'],
+  ['view', 'View only', 'Views the lists and reports they\'re granted; can\'t edit']
+];
+const BR = [
+  { code: 'HCM', name: 'TP.HCM', addr: '125 Xa lộ Hà Nội, Phước Long A Ward, Thủ Đức City, HCMC', yard: 'Thủ Đức yard', veh: 26, drv: 28, main: 1 },
+  { code: 'BD', name: 'Bình Dương', addr: 'Street No. 6, Sóng Thần 1 Industrial Park, Dĩ An City, Bình Dương', yard: 'Sóng Thần yard', veh: 12, drv: 13 },
+  { code: 'HP', name: 'Hải Phòng', addr: '38 Đình Vũ, Đông Hải 2 Ward, Hải An District, Hải Phòng', yard: 'Đình Vũ yard', veh: 14, drv: 15 }
+];
+const MEM = [
+  ['Hoàng Văn Hùng', 'hung.hv@phatdat.vn', 'admin', ['*'], 'active', 'Online now'],
+  ['Nguyễn Thị Lan', 'lan.nt@phatdat.vn', 'dispatch', ['HCM'], 'active', '5 min ago'],
+  ['Mai Hương', 'mai.ketoan@phatdat.vn', 'acct', ['HCM', 'BD'], 'active', 'Today 08:12'],
+  ['Trần Thanh Phong', 'phong.tt@phatdat.vn', 'fleet', ['HCM', 'BD'], 'active', 'Yesterday 17:40'],
+  ['Lý Quốc Khánh', 'khanh.lq@phatdat.vn', 'dispatch', ['BD'], 'active', 'Today 07:55'],
+  ['Đỗ Thị Hạnh', 'hanh.dt@phatdat.vn', 'dispatch', ['HP'], 'active', 'Today 06:30'],
+  ['Phạm Thu Trang', 'trang.pt@phatdat.vn', 'acct', ['HP'], 'invited', 'Invited 10/11/2026'],
+  ['Ngô Minh Quân', 'quan.nm@phatdat.vn', 'view', ['HCM'], 'active', '08/11/2026'],
+  ['Vũ Đức Anh', 'anh.vd@phatdat.vn', 'dispatch', ['HCM'], 'locked', 'Locked since 01/11/2026']
+].map(([name, email, role, br, st, last]) => ({ name, email, role, br, st, last }));
+// [module, mô tả, mức tối đa (1 Xem, 2 Sửa, 3 Duyệt), quyền theo vai trò admin/dispatch/acct/fleet/view]
+const MODS = [
+  ['Shipping orders', 'Create, edit, cancel orders', 2, [2, 2, 1, 1, 1]],
+  ['Dispatch & trips', 'Assign vehicles and drivers, consolidate orders', 2, [2, 2, 1, 1, 1]],
+  ['Waybill', 'Issue, print, revoke', 2, [2, 2, 1, 1, 1]],
+  ['Map & vehicle locations', 'Every location view is logged', 1, [1, 1, 0, 1, 0]],
+  ['Driving hours & safety', 'Approve = record violation actions', 3, [3, 1, 0, 3, 1]],
+  ['Vehicles, drivers & documents', 'Profiles and document expiry', 2, [2, 1, 1, 2, 1]],
+  ['Maintenance', 'Approve = approve repair work orders', 3, [3, 0, 1, 3, 1]],
+  ['Cash advance', 'Approve = approve cash advance payouts', 3, [3, 2, 3, 1, 0]],
+  ['Settlement & costs', 'Approve = lock trip settlements', 3, [3, 1, 3, 1, 0]],
+  ['Invoices, receivables & payables', 'Approve = issue invoices', 3, [3, 0, 3, 0, 1]],
+  ['Rate cards & cost estimates', 'Approve = apply new rate cards', 3, [3, 1, 2, 0, 1]],
+  ['P&L report', 'Financial figures', 1, [1, 0, 1, 0, 1]],
+  ['Operations & compliance reports', '', 1, [1, 1, 1, 1, 1]],
+  ['Settings & members', 'Members, integrations, plan', 2, [2, 0, 0, 0, 0]]
+];
+const ORIG = MODS.map(m => m[3].slice());
+const LV = ['—', 'View', 'Edit', 'Approve'];
+const roleName = k => ROLES.find(r => r[0] === k)[1];
+const ini = n => { const p = n.split(' '); return (p[p.length - 1][0] + (p.length > 1 ? p[0][0] : '')).toUpperCase(); };
+
+let S;
+function reset(o) { S = Object.assign({ panel: 'members', tab: 'list', q: '', roleF: 'all', loading: false, empty: false, error: false, noperm: false }, o || {}); }
+const view = document.getElementById('view');
+
+function header() {
+  const br = S.panel === 'branches';
+  document.getElementById('crumbT').textContent = br ? 'Branch' : 'Members & permissions';
+  document.getElementById('pageT').textContent = br ? 'Branch' : 'Members & permissions';
+  document.title = (br ? 'Branch' : 'Members & permissions') + ' · Đội Xe';
+  const a = document.getElementById('pageA');
+  a.innerHTML = S.noperm || S.loading || S.error ? '' : br ? `<button class="btn btn-primary" type="button" id="addBr">${icon('plus')}Add branch</button>` : `<button class="btn btn-primary" type="button" id="invite">${icon('plus')}Invite member</button>`;
+  const ib = document.getElementById('invite'); if (ib) ib.onclick = () => openMember(null);
+  const ab = document.getElementById('addBr'); if (ab) ab.onclick = () => openBranch(null);
+  setNav(br ? 'branches' : 'members');
+}
+function render() {
+  header();
+  if (S.loading) { view.innerHTML = `<div class="card"><div class="card-body"><span class="sk" style="width:240px;height:28px"></span></div><table class="grid"><tbody>${Array(7).fill('<tr>' + Array(5).fill('<td><span class="sk" style="width:80%"></span></td>').join('') + '</tr>').join('')}</tbody></table></div>`; return; }
+  if (S.error) { view.innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Couldn't load the ${S.panel === 'branches' ? 'branch' : 'member'} list. Try again in a few minutes.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="retry">${icon('refresh')}Retry</button></div></div>`; document.getElementById('retry').onclick = () => { S.error = false; render(); }; return; }
+  if (S.noperm) { view.innerHTML = `<div class="card"><div class="empty">${icon('lock')}<h3>Only the Owner / Admin can manage members and branches</h3><p>You're signed in with the Dispatcher role. Contact Hoàng Văn Hùng if you need different permissions.</p><a class="btn btn-secondary" href="fm-04-tong-quan.html">Back to Overview</a></div></div>`; return; }
+  if (S.panel === 'branches') { view.innerHTML = branchesHtml(); bindBranches(); return; }
+  view.innerHTML = `<div class="tabs" role="tablist"><button role="tab" type="button" data-tab="list" aria-selected="${S.tab === 'list'}">${icon('users')}Members <span class="count-pill">${S.empty ? 1 : MEM.length}</span></button><button role="tab" type="button" data-tab="roles" aria-selected="${S.tab === 'roles'}">${icon('shield')}Roles & permissions</button></div>` + (S.tab === 'list' ? membersHtml() : rolesHtml());
+  view.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { S.tab = b.dataset.tab; render(); });
+  S.tab === 'list' ? bindMembers() : bindRoles();
+}
+function brChips(br) { return br[0] === '*' ? '<span class="bchip all">All branches</span>' : br.map(c => `<span class="bchip">${BR.find(b => b.code === c).name}</span>`).join(''); }
+function stBadge(m) { return m.st === 'active' ? `<span class="badge b-success">${icon('check')}Active</span>` : m.st === 'invited' ? `<span class="badge b-info">${icon('clock')}Invite pending</span>` : `<span class="badge b-neutral">${icon('lock')}Locked</span>`; }
+function membersHtml() {
+  if (S.empty) return `<div class="card"><div class="empty">${icon('users')}<h3>You're the only member of the company so far</h3><p>Invite dispatchers, accountants and fleet managers to work with you. Each person only sees the branches they're assigned to.</p><button class="btn btn-primary" type="button" id="inv2">${icon('plus')}Invite member</button></div></div>`;
+  const q = S.q.toLowerCase(), rs = MEM.filter(m => (S.roleF === 'all' || m.role === S.roleF) && (!q || (m.name + m.email).toLowerCase().includes(q)));
+  return `<div class="card">
+    <div class="card-title"><div class="filterbar" style="flex:1"><label class="search-global">${icon('search')}<input id="q" type="search" placeholder="Search name or email" value="${S.q}" aria-label="Search members"></label>
+      <select class="input" id="roleF" style="height:30px" aria-label="Filter by role"><option value="all">All roles</option>${ROLES.map(r => `<option value="${r[0]}" ${S.roleF === r[0] ? 'selected' : ''}>${r[1]}</option>`).join('')}</select></div>
+      <span class="meta">${rs.length} / ${MEM.length} members</span></div>
+    <div class="tbl-wrap"><table class="grid"><thead><tr><th>Members</th><th>Role</th><th>Branch</th><th>Status</th><th>Last sign-in</th><th><span class="sr-only">Actions</span></th></tr></thead>
+      <tbody>${rs.map(m => `<tr class="click" data-m="${m.email}" tabindex="0"><td><div class="who"><span class="avatar">${ini(m.name)}</span><span><b>${m.name}${m.email.startsWith('hung') ? ' <span class="muted sm" style="font-weight:400">(you)</span>' : ''}</b><span class="cell-sub">${m.email}</span></span></div></td>
+        <td>${roleName(m.role)}</td><td><div class="bchips">${brChips(m.br)}</div></td><td>${stBadge(m)}</td><td class="muted">${m.last}</td>
+        <td class="right">${m.st === 'invited' ? `<button class="btn btn-ghost btn-sm" type="button" data-resend="${m.email}">Resend invite</button>` : ''}<button class="btn btn-ghost btn-sm" type="button" data-edit="${m.email}">Edit</button></td></tr>`).join('') || '<tr><td colspan="6" class="muted">No members match the filters.</td></tr>'}</tbody></table></div></div>
+    <div class="card-foot" style="padding:0 2px">${icon('info')}<span>Owner / Admin sees all branches by default. Other roles only see their assigned branches; the "All branches" picker at the top of the page only appears for people with two or more branches.</span></div>`;
+}
+function bindMembers() {
+  const i2 = document.getElementById('inv2'); if (i2) { i2.onclick = () => openMember(null); return; }
+  const q = document.getElementById('q'); q.oninput = () => { S.q = q.value; const pos = q.selectionStart; render(); const n = document.getElementById('q'); n.focus(); n.setSelectionRange(pos, pos); };
+  document.getElementById('roleF').onchange = e => { S.roleF = e.target.value; render(); };
+  view.querySelectorAll('tr[data-m]').forEach(tr => { tr.onclick = e => { if (e.target.closest('[data-resend]')) return; openMember(tr.dataset.m); }; tr.onkeydown = e => { if (e.key === 'Enter') openMember(tr.dataset.m); }; });
+  view.querySelectorAll('[data-resend]').forEach(b => b.onclick = () => toast(`Invite resent to ${b.dataset.resend}`));
+}
+function rolesHtml() {
+  const dirty = MODS.some((m, i) => m[3].some((v, j) => v !== ORIG[i][j]));
+  return `<div class="card">
+    <div class="card-title"><h2>Permission matrix by module</h2><span class="meta legend"><span><span class="lv" data-v="1" style="min-width:0;cursor:default">View</span></span><span><span class="lv" data-v="2" style="min-width:0;cursor:default">Edit</span> includes View</span><span><span class="lv" data-v="3" style="min-width:0;cursor:default">Approve</span> includes Edit</span><span>Click a cell to change the level</span></span></div>
+    <div class="tbl-wrap grid-wrap"><table class="grid mx"><thead><tr><th style="width:260px">Module</th>${ROLES.map(r => `<th class="role" title="${r[2]}">${r[1]}<span class="cell-sub" style="text-transform:none;letter-spacing:0;font-weight:400">${MEM.filter(m => m.role === r[0]).length} assigned</span></th>`).join('')}</tr></thead>
+      <tbody>${MODS.map((m, i) => `<tr><td class="mod"><b>${m[0]}</b>${m[1] ? `<span class="cell-sub">${m[1]}</span>` : ''}</td>${m[3].map((v, j) => `<td class="c"><button class="lv ${v !== ORIG[i][j] ? 'chg' : ''}" type="button" data-i="${i}" data-j="${j}" data-v="${v}" ${j === 0 ? 'disabled title="Owner / Admin always has full access"' : `aria-label="${m[0]}, ${ROLES[j][1]}: ${LV[v]}"`}>${j === 0 ? icon('lock') : ''}${LV[v]}</button></td>`).join('')}</tr>`).join('')}</tbody></table></div></div>
+    ${dirty ? `<div class="savebar" role="status">${icon('warn')}<span>You have unsaved changes. They apply to all members with the same role the next time they load a page.</span><span style="flex:1"></span><button class="btn btn-secondary btn-sm" type="button" id="undoMx">Discard changes</button><button class="btn btn-primary btn-sm" type="button" id="saveMx">Save permissions</button></div>` : ''}
+    <div class="card-foot" style="padding:0 2px">${icon('info')}<span>Every permission change is recorded in the <a href="fm-40-quyen-rieng-tu.html#log">audit log</a>.</span></div>`;
+}
+function bindRoles() {
+  view.querySelectorAll('.lv[data-i]:not([disabled])').forEach(b => b.onclick = () => { const m = MODS[+b.dataset.i], j = +b.dataset.j; m[3][j] = (m[3][j] + 1) % (m[2] + 1); render(); });
+  const u = document.getElementById('undoMx'); if (u) u.onclick = () => { MODS.forEach((m, i) => m[3] = ORIG[i].slice()); render(); };
+  const s = document.getElementById('saveMx'); if (s) s.onclick = () => { MODS.forEach((m, i) => ORIG[i] = m[3].slice()); render(); toast('Permission matrix saved · logged as "Permission change"'); };
+}
+function branchesHtml() {
+  return `<div class="card"><div class="tbl-wrap" style="border-radius:var(--r-lg)"><table class="grid"><thead><tr><th>Code</th><th>Branch / yard name</th><th>Address</th><th class="right">Vehicle</th><th class="right">Driver</th><th class="right">Members</th><th><span class="sr-only">Actions</span></th></tr></thead>
+    <tbody>${BR.map(b => `<tr class="click" data-br="${b.code}" tabindex="0"><td><span class="code" style="font-weight:600">${b.code}</span></td><td><b style="font-weight:600">${b.name}</b>${b.main ? ' <span class="badge b-neutral" style="margin-left:4px">Head office</span>' : ''}<span class="cell-sub">${b.yard}</span></td>
+      <td><span style="display:block;max-width:360px;overflow:hidden;text-overflow:ellipsis" title="${b.addr}">${b.addr}</span></td><td class="right num">${b.veh}</td><td class="right num">${b.drv}</td><td class="right num">${MEM.filter(m => m.br[0] === '*' || m.br.includes(b.code)).length}</td>
+      <td class="right"><button class="btn btn-ghost btn-sm" type="button">Edit</button></td></tr>`).join('')}</tbody>
+    <tfoot><tr><td></td><td>Total: 3 branches</td><td></td><td class="right num">${BR.reduce((s, b) => s + b.veh, 0)}</td><td class="right num">${BR.reduce((s, b) => s + b.drv, 0)}</td><td class="right num">${MEM.length}</td><td></td></tr></tfoot></table></div></div>
+    <div class="card"><div class="card-title"><h2>Borrowing vehicles and drivers between branches</h2></div>
+      <div class="rule"><button class="tg" type="button" role="switch" aria-checked="true" id="borrow" aria-label="Allow cross-branch trip assignment"></button>
+        <div><b>Allow cross-branch trip assignment</b><p>Dispatchers see idle vehicles and drivers from other branches when assigning trips (with a branch label). Costs belong to the trip; revenue belongs to the order's branch. The P&L report has a Branch dimension.</p>
+        <p style="margin-top:8px"><span class="badge b-neutral">${icon('info')}TBD</span> <span class="sm">Internal accounting policy between branches (transfer pricing for borrowed vehicles and drivers).</span></p></div></div>
+      <div class="card-foot" style="padding-top:0">${icon('info')}<span>Each vehicle, trailer, driver and order belongs to exactly one branch. Change a vehicle's branch in <a href="fm-14-xe.html">Vehicles & trailers</a>.</span></div></div>`;
+}
+function bindBranches() {
+  view.querySelectorAll('tr[data-br]').forEach(tr => { tr.onclick = () => openBranch(tr.dataset.br); tr.onkeydown = e => { if (e.key === 'Enter') openBranch(tr.dataset.br); }; });
+  const t = document.getElementById('borrow'); t.onclick = () => { const on = t.getAttribute('aria-checked') !== 'true'; t.setAttribute('aria-checked', on); toast(on ? 'Cross-branch trip assignment enabled' : 'Cross-branch trip assignment turned off', { undo: () => t.setAttribute('aria-checked', !on) }); };
+}
+
+/* ---------- Drawer ---------- */
+function drawer(html) {
+  closeDrawer(true);
+  const s = document.createElement('div'); s.className = 'scrim'; s.id = 'drScrim'; s.onclick = () => closeDrawer();
+  const d = document.createElement('aside'); d.className = 'drawer'; d.id = 'drawer'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'drT');
+  d.innerHTML = html; document.body.append(s, d);
+  d.querySelectorAll('[data-close]').forEach(b => b.onclick = () => closeDrawer());
+  return d;
+}
+function closeDrawer(now) { ['drawer', 'drScrim', 'modal', 'mScrim'].forEach(id => { const e = document.getElementById(id); if (e) { e.id = ''; now ? e.remove() : Shell.dismiss(e); } }); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+function openMember(email) {
+  const m = MEM.find(x => x.email === email), isNew = !m, role = m ? m.role : 'dispatch', br = m ? m.br : ['HCM'], all = br[0] === '*';
+  const d = drawer(`<div class="drawer-head"><div class="top"><div><div class="muted sm">${isNew ? 'New member' : m.email}</div><h2 id="drT">${isNew ? 'Invite members' : m.name}</h2></div><button class="icon-btn" style="margin-left:auto" type="button" aria-label="Close" data-close>${icon('x')}</button></div></div>
+    <div class="drawer-body">
+      ${isNew ? `<div class="form-grid"><label class="field"><span>Full name</span><input class="input" placeholder="e.g. Lê Văn Bình"></label><label class="field"><span>Email or phone number</span><input class="input" placeholder="binh.lv@phatdat.vn"></label></div>` : ''}
+      <div><div class="lbl">Role</div><div class="opts">${ROLES.map(r => `<label class="opt"><input type="radio" name="role" value="${r[0]}" ${r[0] === role ? 'checked' : ''}><span><b>${r[1]}</b><small>${r[2]}</small></span></label>`).join('')}</div>
+        <p class="sm muted" style="margin-top:6px">Detailed permissions for each role: <a href="javascript:void(0)" id="toRoles">Roles & permissions</a>.</p></div>
+      <div><div class="lbl">Assigned branches</div><div class="opts" id="brOpts">${BR.map(b => `<label class="opt"><input type="checkbox" value="${b.code}" ${all || br.includes(b.code) ? 'checked' : ''} ${role === 'admin' ? 'disabled' : ''}><span><b>${b.name}</b><small>${b.yard} · ${b.veh} vehicles</small></span></label>`).join('')}</div>
+        <p class="sm muted" id="brNote" style="margin-top:6px">${role === 'admin' ? 'Owner / Admin sees all branches by default.' : 'You can assign one or more branches.'}</p></div>
+      ${!isNew && m.role !== 'admin' ? `<div><div class="lbl">Account</div><button class="btn btn-secondary" type="button" id="lockBtn">${icon('lock')}${m.st === 'locked' ? 'Unlock account' : 'Lock account'}</button></div>` : ''}
+    </div>
+    <div class="drawer-foot"><span style="flex:1"></span><button class="btn btn-secondary" type="button" data-close>Cancel</button><button class="btn btn-primary" type="button" id="drSave">${isNew ? 'Send invite' : 'Save changes'}</button></div>`);
+  d.querySelectorAll('input[name="role"]').forEach(r => r.onchange = () => { const adm = r.value === 'admin'; d.querySelectorAll('#brOpts input').forEach(c => { c.disabled = adm; if (adm) c.checked = true; }); d.querySelector('#brNote').textContent = adm ? 'Owner / Admin sees all branches by default.' : 'You can assign one or more branches.'; });
+  d.querySelector('#toRoles').onclick = () => { closeDrawer(); S.tab = 'roles'; render(); };
+  const lk = d.querySelector('#lockBtn'); if (lk) lk.onclick = () => confirmLock(m);
+  d.querySelector('#drSave').onclick = () => {
+    const r = d.querySelector('input[name="role"]:checked').value, b = [...d.querySelectorAll('#brOpts input:checked')].map(c => c.value);
+    if (r !== 'admin' && !b.length) { toast('Select at least one branch'); return; }
+    if (isNew) { const [n, e] = [...d.querySelectorAll('.form-grid input')].map(i => i.value.trim()); MEM.push({ name: n || 'Lê Văn Bình', email: e || 'binh.lv@phatdat.vn', role: r, br: r === 'admin' ? ['*'] : b, st: 'invited', last: 'Invited 12/11/2026' }); closeDrawer(); render(); toast(`Invite sent to ${e || 'binh.lv@phatdat.vn'}`); return; }
+    const prev = { role: m.role, br: m.br }; m.role = r; m.br = r === 'admin' ? ['*'] : b; closeDrawer(); render(); toast(`Updated ${m.name}'s permissions`, { undo: () => { Object.assign(m, prev); render(); } });
+  };
+}
+function confirmLock(m) {
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim'; s.id = 'mScrim';
+  const md = document.createElement('div'); md.className = 'modal'; md.id = 'modal'; md.setAttribute('role', 'alertdialog'); md.setAttribute('aria-modal', 'true');
+  const unlock = m.st === 'locked';
+  md.innerHTML = `<div class="modal-head">${icon('lock')}<h2>${unlock ? 'Unlock' : 'Lock'} ${m.name}'s account?</h2></div><p class="muted">${unlock ? 'They\'ll be able to sign in again with their previous role and branches.' : 'They\'ll be signed out immediately and won\'t be able to sign in. Data they created is kept.'}</p>
+    <div class="modal-foot"><button class="btn btn-secondary" type="button" id="mC">Cancel</button><button class="btn ${unlock ? 'btn-primary' : 'btn-danger'}" type="button" id="mOk">${unlock ? 'Unlock' : 'Lock account'}</button></div>`;
+  document.body.append(s, md);
+  const close = () => { ['modal', 'mScrim'].forEach(id => { const e = document.getElementById(id); if (e) { e.id = ''; Shell.dismiss(e); } }); };
+  s.onclick = md.querySelector('#mC').onclick = close;
+  md.querySelector('#mOk').onclick = () => { m.st = unlock ? 'active' : 'locked'; m.last = unlock ? '—' : 'Locked since 12/11/2026'; close(); closeDrawer(); render(); toast(`${m.name}'s account ${unlock ? 'unlocked' : 'locked'}`); };
+}
+function openBranch(code) {
+  const b = BR.find(x => x.code === code), isNew = !b;
+  const d = drawer(`<div class="drawer-head"><div class="top"><div><div class="muted sm">${isNew ? 'New branch' : 'Code ' + b.code}</div><h2 id="drT">${isNew ? 'Add branch' : 'Branch ' + b.name}</h2></div><button class="icon-btn" style="margin-left:auto" type="button" aria-label="Close" data-close>${icon('x')}</button></div></div>
+    <div class="drawer-body"><div class="form-grid">
+      <label class="field"><span>Branch name</span><input class="input" value="${isNew ? '' : b.name}" placeholder="e.g. Đồng Nai"></label>
+      <label class="field"><span>Code</span><input class="input code" value="${isNew ? '' : b.code}" placeholder="DN" maxlength="5" ${isNew ? '' : 'readonly title="The code is used in document numbers and can\'t be changed"'}></label>
+      <label class="field full"><span>Main yard</span><input class="input" value="${isNew ? '' : b.yard}" placeholder="e.g. Biên Hoà yard"></label>
+      <label class="field full"><span>Address</span><textarea class="input" rows="2" placeholder="House number, street, ward/commune, province/city">${isNew ? '' : b.addr}</textarea></label></div>
+      ${isNew ? '' : `<div class="alert alert-info">${icon('info')}<div>${b.veh} vehicles and ${b.drv} drivers belong to this branch. Move vehicles to another branch in Vehicles & trailers.</div></div>`}</div>
+    <div class="drawer-foot"><span style="flex:1"></span><button class="btn btn-secondary" type="button" data-close>Cancel</button><button class="btn btn-primary" type="button" id="drSave">${isNew ? 'Add branch' : 'Save'}</button></div>`);
+  d.querySelector('#drSave').onclick = () => { closeDrawer(); toast(isNew ? 'Branch added' : `${b.name} branch saved`); };
+}
+
+const ST = Shell.states([['default', 'Members'], ['roles', 'Roles & permissions'], ['edit', 'Edit member'], ['invite', 'Invite members'], ['chi-nhanh', 'Branch'], ['loading', 'Loading'], ['empty', 'Empty'], ['error', 'Error'], ['noperm', 'No permission']], s => {
+  closeDrawer(true);
+  reset({ roles: { tab: 'roles' }, 'chi-nhanh': { panel: 'branches' }, loading: { loading: true }, empty: { empty: true }, error: { error: true }, noperm: { noperm: true } }[s]); render();
+  if (s === 'edit') openMember('mai.ketoan@phatdat.vn');
+  if (s === 'invite') openMember(null);
+});
+// Sub-nav "Chi nhánh" là anchor #chi-nhanh trên cùng trang
+addEventListener('hashchange', () => ST.set(location.hash.slice(1) || 'default'));
+document.querySelector('.set-nav a[data-k="members"]').addEventListener('click', e => { if (S.panel === 'branches') { e.preventDefault(); history.replaceState(null, '', location.pathname); ST.set('default'); } });
+</script>
+</body>
+</html>

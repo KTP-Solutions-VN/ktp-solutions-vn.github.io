@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Waybills · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  .sub-head { margin-top: 4px; font-size: var(--text-sm); color: var(--fg-muted); display: flex; align-items: center; gap: 6px; }
+  .tabs .count-pill { padding: 0 7px; font-size: 11.5px; }
+  .tabs button[aria-selected="true"] .count-pill { background: var(--primary-soft); color: var(--side-active); }
+  .filterbar .select { height: 30px; font-size: 12.5px; padding: 0 28px 0 10px; appearance: none; -webkit-appearance: none; border-radius: 15px; cursor: pointer; }
+  .filterbar .select-wrap > .icon { right: 9px; }
+  .md { display: grid; grid-template-columns: minmax(0, 1fr) 500px; gap: var(--s-4); align-items: stretch; }
+  .list-card { min-width: 0; display: flex; flex-direction: column; }
+  .list-card .grid-wrap { flex: 1; }
+  .grid tbody tr { cursor: pointer; }
+  .grid tr.is-cancelled td { color: var(--fg-muted); }
+  .wrapcell { white-space: normal !important; min-width: 140px; }
+  .list-card .grid td, .list-card .grid th { padding-left: 10px; padding-right: 10px; }
+  .list-foot { display: flex; align-items: center; gap: 6px; padding: 10px 16px 12px; font-size: 12.5px; color: var(--fg-muted); margin-top: auto; }
+  /* Preview */
+  .pv { display: flex; flex-direction: column; min-width: 0; position: sticky; top: calc(var(--header-h) + 16px); max-height: calc(100vh - var(--header-h) - 32px); }
+  .pv-head { display: flex; align-items: center; gap: 8px; padding: 14px 16px 8px; flex-wrap: wrap; }
+  .pv-head h2 { font-size: 15px; }
+  .pv-body { overflow-y: auto; padding: 4px 16px 16px; display: flex; flex-direction: column; gap: 14px; }
+  .pv-actions { display: flex; gap: 8px; align-items: center; padding: 2px 16px 12px; flex-wrap: wrap; }
+  .pv-actions .sp { flex: 1; }
+  .paper-bg { background: var(--surface-muted); border-radius: 8px; padding: 14px; }
+  .paper { background: var(--surface); border-radius: 6px; box-shadow: var(--shadow-card); padding: 18px 20px 16px; font-size: 13px; line-height: 18px; position: relative; }
+  .paper.void::after { content: "ĐÃ HUỶ"; position: absolute; top: 42%; left: 50%; transform: translate(-50%, -50%) rotate(-14deg); font: 700 44px/1 var(--font-display); color: var(--danger-solid); opacity: .16; letter-spacing: .1em; pointer-events: none; }
+  .paper-top { display: grid; grid-template-columns: minmax(0, 1fr) 92px; gap: 14px; align-items: start; }
+  .paper .org { font-size: 11.5px; color: var(--fg-muted); text-transform: uppercase; letter-spacing: .04em; font-weight: 600; }
+  .paper h3 { font: 700 17px/22px var(--font-display); letter-spacing: .04em; margin-top: 4px; }
+  .paper .no { font-size: 12.5px; color: var(--fg-muted); margin-top: 2px; }
+  .qr { width: 92px; height: 92px; display: block; }
+  .qr-cap { font-size: 10.5px; color: var(--fg-muted); text-align: center; margin-top: 2px; line-height: 13px; }
+  .qr-wrap.draft .qr { opacity: .18; }
+  .qr-wrap { position: relative; }
+  .qr-wrap .qr-over { position: absolute; inset: 0 0 16px; display: grid; place-items: center; font-size: 11px; font-weight: 600; color: var(--fg-muted); text-align: center; line-height: 14px; }
+  .pf { display: grid; grid-template-columns: 20px 132px minmax(0, 1fr); gap: 2px 6px; margin: 14px 0 0; }
+  .pf > div { display: contents; }
+  .pf dt { color: var(--fg-muted); }
+  .pf .n { color: var(--fg-subtle); font-variant-numeric: tabular-nums; }
+  .pf dd { margin: 0 0 6px; color: var(--fg-strong); min-width: 0; }
+  .pf dd.miss { color: var(--danger-fg); font-weight: 500; }
+  .wconf { margin-top: 10px; padding: 10px 12px; border-radius: 6px; background: var(--surface-muted); display: grid; grid-template-columns: minmax(0, 1fr) 120px; gap: 10px; align-items: center; }
+  .wconf .t { font-size: 11.5px; color: var(--fg-muted); text-transform: uppercase; letter-spacing: .04em; font-weight: 600; }
+  .wconf b { font-variant-numeric: tabular-nums; }
+  .sig { width: 120px; height: 46px; display: block; background: var(--surface); border-radius: 4px; }
+  .paper-foot { margin-top: 12px; font-size: 11.5px; color: var(--fg-muted); display: flex; gap: 6px; align-items: center; }
+  .hist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; font-size: 12.5px; }
+  .hist li { display: grid; grid-template-columns: 82px minmax(0, 1fr); gap: 8px; padding: 4px 6px; border-radius: 6px; }
+  .hist li:hover { background: var(--surface-muted); }
+  .hist .when { color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+  .open-note { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: 8px; background: var(--warning-soft); color: var(--warning-fg); font-size: 12.5px; line-height: 17px; }
+  .open-note .badge { background: var(--surface); color: var(--warning-fg); flex: none; }
+  @media (max-width: 1280px) { .md { grid-template-columns: 1fr; } .pv { position: static; max-height: none; } }
+  .empty .btn .icon { width: 16px; height: 16px; stroke-width: 1.75; color: inherit; }
+  .empty p { max-width: 560px; }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Operations / Waybills</div>
+      <h1>E-waybills</h1>
+      <div class="sub-head"><span id="icLock"></span>Archived for at least 3 years · can't be deleted, only cancelled and reissued</div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-secondary" type="button" id="btnExport">Export list</button>
+      <button class="btn btn-primary" type="button" id="btnBulk">Issue all eligible</button>
+    </div>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Waybill status" id="tabs"></div>
+
+  <div class="filterbar" role="toolbar" aria-label="Filters">
+    <span class="select-wrap"><select class="select" id="fDate" aria-label="Issue date"><option>Today · 12/11/2026</option><option>Last 7 days</option><option>November 2026</option><option>Search archive (3 years)</option></select><span id="icChev"></span></span>
+    <button class="chip" type="button" id="fWait" aria-pressed="false">Pending weight confirmation</button>
+    <label class="search-global" style="max-width:320px;margin-left:auto"><span id="icSearch"></span><input id="q" type="search" placeholder="Search waybill no., trip ID, plate…" aria-label="Search waybills"></label>
+  </div>
+
+  <div id="slot"></div>
+
+  <div class="md" id="md">
+    <section class="card list-card" aria-label="Waybill list" id="listCard"></section>
+    <section class="card pv" aria-label="Waybill preview" id="pv"></section>
+  </div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_11', title: 'Waybill' });
+const $ = id => document.getElementById(id);
+$('icLock').outerHTML = icon('lock'); $('icChev').outerHTML = icon('chevron'); $('icSearch').outerHTML = icon('search');
+$('btnExport').insertAdjacentHTML('afterbegin', icon('download'));
+$('btnBulk').insertAdjacentHTML('afterbegin', icon('qr'));
+
+const ORG = 'Công ty TNHH Vận tải Phát Đạt';
+/* st: draft | blocked | issued | cancelled ; w: confirmed | waiting */
+const TPL = [
+  { id: 'GVT-2611-0458', trip: 'CH-0458', orders: ['DH-1125'], st: 'issued', at: '12/11 06:52', w: 'confirmed', wAt: '12/11 07:41', wBy: 'Warehouse keeper Phạm Thị Hạnh (Tân Uyên Industrial Park)', wHow: 'Signed in the driver app', wVal: 24.5,
+    hirer: 'Tân Cảng Logistics', recv: 'Cát Lái port · Tân Cảng Sài Gòn', contract: 'No. 15/2026/HĐVC-TCL · 02/01/2026', cargo: "40' dry container · TCLU 4421087", tons: 24.5,
+    hist: [['12/11 07:41', 'Warehouse keeper Phạm Thị Hạnh signed off on 24.5 t in the driver app'], ['12/11 06:58', 'Nguyễn Văn Tuấn opened the waybill in the app (DR_10)'], ['12/11 06:52', 'Lê Văn Hải issued the waybill'], ['11/11 16:20', 'System created a draft when the vehicle and driver were assigned']] },
+  { id: 'GVT-2611-0462', trip: 'CH-0462', orders: ['DH-1126'], st: 'draft', at: null, w: 'waiting',
+    hirer: 'Gỗ Minh Long', recv: 'Cát Lái port · Tân Cảng Sài Gòn', contract: 'No. 08/2026/HĐVC-GML · 15/03/2026', cargo: "40' container, plywood · MSKU 7731045", tons: 22.0,
+    hist: [['12/11 05:41', 'Trần Minh Đức accepted the trip'], ['11/11 17:05', 'Lê Văn Hải assigned the vehicle, chose "Assign only, issue later"']] },
+  { id: 'GVT-2611-0463', trip: 'CH-0463', orders: ['DH-1127', 'DH-1133'], st: 'issued', at: '12/11 06:40', w: 'confirmed', wAt: '12/11 07:22', wBy: 'Bao bì Phương Nam warehouse (Sóng Thần)', wHow: 'Warehouse release slip photo', wVal: 7.5, multi: true,
+    hirer: 'Bao bì Phương Nam', recv: 'Customer warehouses in Long An (2 delivery points)', contract: 'No. 21/2026/HĐVC-PN · 10/02/2026', cargo: 'Carton packaging · 32 packages (2 combined orders)', tons: 7.5,
+    hist: [['12/11 07:22', 'Driver photographed the warehouse release slip, confirmed 7.5 t'], ['12/11 06:40', 'Lê Văn Hải issued the waybill'], ['11/11 18:10', 'Combined DH-1127 + DH-1133 into CH-0463']] },
+  { id: 'GVT-2611-0464', trip: 'CH-0464', orders: ['DH-1128'], st: 'blocked', at: null, w: 'waiting', block: 'Trailer 51R-088.12 insurance expired 28/10/2026',
+    hirer: 'Thủy sản Vĩnh Hoàn', recv: 'Vĩnh Hoàn factory · Sa Đéc Industrial Park', contract: 'No. 03/2026/HĐVC-VH · 05/01/2026', cargo: "40' reefer container · SEGU 9012334", tons: 26.0,
+    hist: [['12/11 06:58', 'Lê Văn Hải assigned vehicle and driver · issue blocked']] },
+  { id: 'GVT-2611-0459', trip: 'CH-0459', orders: ['DH-1129'], st: 'issued', at: '12/11 07:30', w: 'confirmed', wAt: '12/11 08:44', wBy: 'Gỗ Minh Long · Loading crew', wHow: 'Weigh ticket photo', wVal: 22.0,
+    hirer: 'Gỗ Minh Long', recv: 'Cát Lái port · Tân Cảng Sài Gòn', contract: 'No. 08/2026/HĐVC-GML · 15/03/2026', cargo: "40' container, plywood · MSKU 7731052", tons: 22.0,
+    hist: [['12/11 09:01', 'Weigh ticket photo synced (taken 08:44 while offline)'], ['12/11 07:30', 'Lê Văn Hải issued the waybill']] },
+  { id: 'GVT-2611-0457', trip: 'CH-0457', orders: ['DH-1123'], st: 'issued', at: '12/11 03:41', w: 'confirmed', wAt: '12/11 04:35', wBy: 'Thép Hòa Phát Đồng An warehouse', wHow: 'Signed in the driver app', wVal: 21.0,
+    hirer: 'Thép Hòa Phát Bình Dương', recv: 'Cát Lái port · Tân Cảng Sài Gòn', contract: 'No. 11/2026/HĐVC-HP · 20/01/2026', cargo: "20' container, steel coils · HLXU 2210983", tons: 21.0,
+    hist: [['12/11 04:35', 'Đồng An warehouse signed off on 21.0 t'], ['12/11 03:41', 'Lê Văn Hải issued the waybill']] },
+  { id: 'GVT-2611-0455', trip: 'CH-0455', orders: ['DH-1122'], st: 'issued', at: '12/11 03:12', w: 'confirmed', wAt: '12/11 03:50', wBy: 'Nhựa Duy Tân Bình Tân warehouse', wHow: 'Signed in the driver app', wVal: 12.0, done: true,
+    hirer: 'Nhựa Duy Tân', recv: 'Duy Tân Mỹ Tho dealer', contract: 'No. 05/2026/HĐVC-DT · 12/01/2026', cargo: 'Household plastics · 240 packages', tons: 12.0,
+    hist: [['12/11 07:05', 'Trip completed · waybill archived'], ['12/11 03:12', 'Lê Văn Hải issued the waybill']] },
+  { id: 'GVT-2611-0452', trip: 'CH-0452', orders: ['DH-1121'], st: 'issued', at: '12/11 00:44', w: 'confirmed', wAt: '12/11 01:30', wBy: 'Cát Lái port · export yard', wHow: 'EIR photo', wVal: 23.0, done: true,
+    hirer: 'Tân Cảng Logistics', recv: 'Customer warehouse, VSIP 1 Industrial Park', contract: 'No. 15/2026/HĐVC-TCL · 02/01/2026', cargo: "40' dry container · TCLU 4419920", tons: 23.0,
+    hist: [['12/11 04:52', 'Trip completed · waybill archived'], ['12/11 00:44', 'Lê Văn Hải issued the waybill']] },
+  { id: 'GVT-2611-0460', trip: 'CH-0460', orders: ['DH-1130'], st: 'cancelled', at: '12/11 07:02', w: 'waiting', cancelNote: 'Customer rescheduled · cancelled 12/11 08:15 by Lê Văn Hải',
+    hirer: 'Thép Hòa Phát Bình Dương', recv: 'Cát Lái port · Tân Cảng Sài Gòn', contract: 'No. 11/2026/HĐVC-HP · 20/01/2026', cargo: "20' container, steel coils · HLXU 2211004", tons: 21.0, vehicleOverride: '51C-588.02', driverOverride: 'Huỳnh Tấn Lộc',
+    hist: [['12/11 08:15', 'Lê Văn Hải cancelled the waybill · reason: customer rescheduled'], ['12/11 07:02', 'Lê Văn Hải issued the waybill']] }
+];
+TPL.forEach(g => { const t = FM.trips.find(x => x.id === g.trip); Object.assign(g, { vehicle: g.vehicleOverride || t.vehicle, trailer: t.trailer, driver: g.driverOverride || t.driver, route: t.route, pick: t.pick, drop: t.drop, type: t.type }); });
+const GPLX = { 'Nguyễn Văn Tuấn': 'CE · 790112345678', 'Trần Minh Đức': 'CE · 790123456781', 'Lê Hoàng Phúc': 'CE · 790134567812', 'Võ Thành Nhân': 'CE · 790145678123', 'Ngô Đức Trí': 'CE · 790156781234', 'Đặng Quang Vinh': 'CE · 790167812345', 'Huỳnh Tấn Lộc': 'C · 790178123456' };
+
+let G = [], sel = 'GVT-2611-0458', tab = 'all', onlyWait = false, q = '';
+const SB = {
+  draft: `<span class="badge b-neutral">${icon('pen')}To issue</span>`,
+  blocked: `<span class="badge b-danger">${icon('block')}Issue blocked</span>`,
+  issued: `<span class="badge b-success">${icon('check')}Issued</span>`,
+  cancelled: `<span class="badge b-neutral" style="text-decoration:line-through">${icon('x')}Cancelled</span>`
+};
+const stBadge = g => g.st === 'issued' && g.done ? `<span class="badge b-neutral">${icon('lock')}Archived · trip done</span>` : SB[g.st];
+const wBadge = g => g.st === 'cancelled' ? '<span class="muted">—</span>' : g.w === 'confirmed'
+  ? `<span class="badge b-success">${icon('check')}${fmt.dec(g.wVal)} t</span>`
+  : `<span class="badge b-warning">${icon('clock')}Pending confirmation</span>`;
+
+function rows() {
+  return G.filter(g => (tab === 'all' || (tab === 'draft' ? ['draft', 'blocked'].includes(g.st) : g.st === tab)) && (!onlyWait || (g.w === 'waiting' && g.st !== 'cancelled')) &&
+    (!q || (g.id + g.trip + g.vehicle + g.driver + g.hirer).toLowerCase().includes(q)));
+}
+function renderTabs() {
+  const n = k => G.filter(g => k === 'all' || (k === 'draft' ? ['draft', 'blocked'].includes(g.st) : g.st === k)).length;
+  $('tabs').innerHTML = [['all', 'All'], ['draft', 'To issue'], ['issued', 'Issued'], ['cancelled', 'Cancelled']].map(([k, l]) => `<button role="tab" type="button" data-tab="${k}" aria-selected="${tab === k}">${l}<span class="count-pill">${n(k)}</span></button>`).join('');
+  $('tabs').querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { tab = b.dataset.tab; render(); });
+  const ready = G.filter(g => g.st === 'draft').length;
+  $('btnBulk').disabled = !ready; $('btnBulk').lastChild.textContent = ready ? `Issue eligible waybills (${ready})` : 'No waybills to issue';
+}
+function renderList() {
+  const r = rows();
+  if (!r.length) { $('listCard').innerHTML = `<div class="empty">${icon('search')}<h3>No waybills match the filters</h3><p>Try searching by waybill no., trip ID or plate.</p></div>`; return; }
+  $('listCard').innerHTML = `<div class="grid-wrap"><table class="grid" aria-label="Waybill">
+    <thead><tr><th>Waybill no. · Trip</th><th>Vehicle · Driver</th><th>Hirer · Route</th><th>Status · Loaded weight</th></tr></thead>
+    <tbody>${r.map(g => `<tr data-id="${g.id}" class="${g.id === sel ? 'selected' : ''} ${g.st === 'cancelled' ? 'is-cancelled' : ''}" tabindex="0">
+      <td><b class="code">${g.id}</b><span class="cell-sub"><a class="code" href="fm-09-chi-tiet-chuyen.html">${g.trip}</a>${g.multi ? ' · 2 combined orders' : ''}</span></td>
+      <td><span class="code">${g.vehicle}</span><span class="cell-sub">${g.driver}</span></td>
+      <td class="wrapcell">${g.hirer}<span class="cell-sub">${g.route}</span></td>
+      <td>${stBadge(g)}<span class="cell-sub" style="margin-top:4px">${g.st === 'cancelled' ? (g.at ? 'Issue ' + g.at : '') : g.w === 'confirmed' ? `<span class="pos">${icon('check')}</span> Loaded <b class="num">${fmt.dec(g.wVal)} t</b>` : `<span style="color:var(--warning-fg)">${icon('clock')} Pending weight confirmation</span>`}</span></td>
+    </tr>`).join('')}</tbody></table></div>
+    <div class="list-foot">${icon('info')}Issued waybills show in the driver app (DR_10) for presenting at roadside checks.</div>`;
+  $('listCard').querySelectorAll('tbody tr').forEach(tr => {
+    const pick = () => { sel = tr.dataset.id; renderList(); renderPreview(); };
+    tr.onclick = e => { if (!e.target.closest('a')) pick(); }; tr.onkeydown = e => { if (e.key === 'Enter') pick(); };
+  });
+}
+
+/* Deterministic pseudo-QR (not scannable) */
+function qr(seed) {
+  const N = 25, c = 92 / N; let h = 0; for (const ch of seed) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+  const rnd = () => { h ^= h << 13; h >>>= 0; h ^= h >> 17; h ^= h << 5; h >>>= 0; return h / 4294967296; };
+  const finder = (x, y) => `<rect x="${x * c}" y="${y * c}" width="${7 * c}" height="${7 * c}" style="fill:var(--fg-strong)"/><rect x="${(x + 1) * c}" y="${(y + 1) * c}" width="${5 * c}" height="${5 * c}" style="fill:var(--surface)"/><rect x="${(x + 2) * c}" y="${(y + 2) * c}" width="${3 * c}" height="${3 * c}" style="fill:var(--fg-strong)"/>`;
+  let cells = '';
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+    const inF = (x < 8 && y < 8) || (x > N - 9 && y < 8) || (x < 8 && y > N - 9);
+    if (!inF && rnd() > .52) cells += `<rect x="${(x * c).toFixed(2)}" y="${(y * c).toFixed(2)}" width="${c.toFixed(2)}" height="${c.toFixed(2)}"/>`;
+  }
+  return `<svg class="qr" viewBox="0 0 92 92" role="img" aria-label="QR code to look up waybill ${seed}"><rect width="92" height="92" style="fill:var(--surface)"/><g style="fill:var(--fg-strong)">${cells}</g>${finder(0, 0)}${finder(N - 7, 0)}${finder(0, N - 7)}</svg>`;
+}
+const sigSvg = `<svg class="sig" viewBox="0 0 120 46" role="img" aria-label="Confirmation signature"><path d="M10 32c8-14 14-20 18-12s-6 14 2 8 10-18 16-10-2 12 6 6 8-10 14-4 6 4 14-2 8-6 16-4" fill="none" style="stroke:var(--fg-strong)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 38h92" style="stroke:var(--border-strong)" stroke-dasharray="2 3"/></svg>`;
+
+function renderPreview() {
+  const g = G.find(x => x.id === sel); const pv = $('pv');
+  if (!g) { pv.innerHTML = `<div class="empty">${icon('doc')}<h3>Select a waybill to view</h3></div>`; return; }
+  const isDraft = g.st === 'draft' || g.st === 'blocked';
+  const keep = g.at ? `12/11/2029` : null;
+  const F = [
+    ['Transport operator', ORG],
+    ['License plate', `<span class="code">${g.vehicle}</span>${g.trailer ? ` · trailer <span class="code">${g.trailer}</span>` : ''}`],
+    ['Driver', `${g.driver} · GPLX ${GPLX[g.driver] || '—'}`],
+    ['Hirer', g.hirer],
+    ['Consignee', g.recv],
+    ['Route', `${g.route}<br><span class="muted num">Departs ${g.pick} · ETA ${g.drop} on 12/11/2026</span>`],
+    ['Contract no. & date', g.contract],
+    ['Cargo type', g.cargo],
+    ['Cargo weight', `<span class="num">${fmt.dec(g.tons)} t</span>`]
+  ];
+  const wconf = g.st === 'cancelled' ? '' : g.w === 'confirmed'
+    ? `<div class="wconf"><div><div class="t">Loaded weight confirmation</div><div style="margin-top:4px"><b>${fmt.dec(g.wVal)} t</b> · ${g.wBy}</div><div class="muted sm num" style="margin-top:2px">${g.wHow} · ${g.wAt}</div></div>${g.wHow.startsWith('Signed') ? sigSvg : `<span class="badge b-outline" style="justify-self:end">${icon('camera')}View photo</span>`}</div>`
+    : `<div class="wconf"><div><div class="t">Loaded weight confirmation</div><div style="margin-top:4px">Not yet. Once loading is done, the driver photographs the slip or gets the shipper's signature in the app.</div></div><span class="badge b-warning" style="justify-self:end">${icon('clock')}Pending confirmation</span></div>`;
+  pv.innerHTML = `<div class="pv-head"><h2>Preview</h2>${stBadge(g)}${keep ? `<span class="tip" style="margin-left:auto"><span class="badge b-outline" tabindex="0">${icon('lock')}Kept until ${keep}</span><span class="tip-body right">Waybills are kept for at least 3 years from the issue date. No one can delete them, not even an Admin; if a waybill is wrong, cancel it and issue a new one.</span></span>` : ''}</div>
+    <div class="pv-actions">
+      ${g.st === 'issued' && !g.done ? `<button class="btn btn-ghost" type="button" id="aCancel" style="color:var(--destructive)">Cancel waybill</button>` : ''}
+      <span class="sp"></span>
+      ${g.st !== 'blocked' && g.st !== 'draft' ? `<a class="btn btn-ghost" href="driver-app.html">${icon('phone')}View in app</a>` : ''}
+      <button class="btn btn-secondary" type="button" id="aPdf" ${isDraft ? 'disabled title="Only issued waybills can be printed"' : ''}>${icon('download')}Print backup PDF</button>
+      ${g.st === 'draft' ? `<button class="btn btn-primary" type="button" id="aIssue">${icon('qr')}Issue</button>` : ''}
+      ${g.st === 'blocked' ? `<span class="tip"><button class="btn btn-primary" type="button" disabled>${icon('qr')}Issue</button><span class="tip-body right">${g.block}.</span></span>` : ''}
+    </div>
+    <div class="pv-body">
+      ${g.st === 'blocked' ? `<div class="alert alert-danger" role="alert">${icon('block')}<div><b>Can't issue:</b> ${g.block}. Change the trailer or update the insurance before issuing.</div><div class="alert-actions"><a class="btn btn-secondary btn-sm" href="fm-08-dieu-phoi.html#drawer">Change trailer</a></div></div>` : ''}
+      ${g.multi ? `<div class="open-note"><span class="badge">${icon('info')}TBD</span><div>Trip combining 2 orders (DH-1127, DH-1133): issuing <b>one waybill for the whole trip</b>. Not yet decided whether each order needs its own waybill; waiting for the regulation to be confirmed before the production version.</div></div>` : ''}
+      ${g.st === 'cancelled' ? `<div class="alert alert-info">${icon('info')}<div>${g.cancelNote}. Cancelled waybills are still archived and can be looked up by QR (status shows Cancelled).</div></div>` : ''}
+      <div class="paper-bg"><article class="paper ${g.st === 'cancelled' ? 'void' : ''}" aria-label="Waybill ${g.id}">
+        <div class="paper-top">
+          <div><div class="org">${ORG}</div><h3>WAYBILL</h3><div class="no">No. <span class="code">${g.id}</span> · ${g.at ? `issued <span class="num">${g.at.replace(' ', '/2026 ')}</span>` : '<b>Draft, not issued</b>'}</div>
+            <div class="no">Trip <span class="code">${g.trip}</span> · Order <span class="code">${g.orders.join(', ')}</span></div></div>
+          <div class="qr-wrap ${isDraft ? 'draft' : ''}">${qr(g.id)}${isDraft ? '<span class="qr-over">QR available after issue</span>' : ''}<div class="qr-cap">Scan to verify</div></div>
+        </div>
+        <dl class="pf">${F.map(([k, v], i) => `<div><span class="n">${i + 1}.</span><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>
+        ${wconf}
+        <div class="paper-foot">${icon('phone')}${g.st === 'issued' ? 'Showing in the driver app, ready to present at checks.' : g.st === 'cancelled' ? 'Removed from the driver app.' : 'Appears in the driver app only after issue.'}</div>
+      </article></div>
+      <div class="stack" style="gap:6px"><div class="section-title"><h3>History</h3><span class="muted sm">read-only</span></div><ul class="hist">${g.hist.map(([w, t]) => `<li><span class="when">${w}</span><span>${t}</span></li>`).join('')}</ul></div>
+    </div>`;
+  const pdf = $('aPdf'); if (pdf && !pdf.disabled) pdf.onclick = () => toast(`Created PDF <span class="code">${g.id}.pdf</span> · print it and carry it in case the app can't be used`);
+  const iss = $('aIssue'); if (iss) iss.onclick = () => confirmIssue([g]);
+  const c = $('aCancel'); if (c) c.onclick = () => confirmCancel(g);
+}
+function modal(html, onOk, needInput) {
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim';
+  const m = document.createElement('div'); m.className = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.innerHTML = html;
+  document.body.append(s, m); const close = () => { Shell.dismiss(s); Shell.dismiss(m); };
+  const ok = m.querySelector('[data-ok]'), inp = m.querySelector('input');
+  if (needInput) { ok.disabled = true; inp.oninput = () => ok.disabled = !inp.value.trim(); inp.focus(); } else ok.focus();
+  m.querySelector('[data-x]').onclick = close; s.onclick = close; ok.onclick = () => { close(); onOk(inp && inp.value.trim()); };
+}
+function confirmIssue(list) {
+  modal(`<h2>Issue ${list.length > 1 ? list.length + ' waybills' : 'waybill ' + list[0].id}?</h2><p class="muted">The waybill will appear in the driver app with a QR code. It can't be edited once issued; to change it, cancel it and issue a new one. Waybills are kept for at least 3 years.</p>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Back</button><button class="btn btn-primary" type="button" data-ok>Issue</button></div>`, () => {
+    list.forEach(g => { g.st = 'issued'; g.at = '12/11 09:06'; g.hist.unshift(['12/11 09:06', 'Lê Văn Hải issued the waybill']); });
+    sel = list[0].id; render();
+    toast(list.length > 1 ? `Issued ${list.length} waybills` : `Issued <span class="code">${list[0].id}</span> · driver ${list[0].driver} has been notified`);
+  });
+}
+function confirmCancel(g) {
+  modal(`<h2>Cancel waybill ${g.id}?</h2><p class="muted">The waybill is removed from the driver app but stays archived; a QR lookup will show "Cancelled". It can't be deleted.</p>
+    <label class="field"><span>Cancellation reason *</span><input class="input" placeholder="e.g. Vehicle changed after a breakdown en route"></label>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Back</button><button class="btn btn-danger" type="button" data-ok>Cancel waybill</button></div>`, reason => {
+    const prev = JSON.parse(JSON.stringify(g));
+    g.st = 'cancelled'; g.cancelNote = `${reason} · cancelled 12/11 09:06 by Lê Văn Hải`; g.hist.unshift(['12/11 09:06', 'Lê Văn Hải cancelled the waybill · reason: ' + reason.toLowerCase()]); render();
+    toast(`Cancelled <span class="code">${g.id}</span>`, { undo: () => { Object.assign(g, prev); render(); } });
+  }, true);
+}
+function render() { $('slot').innerHTML = ''; renderTabs(); renderList(); renderPreview(); }
+
+$('fWait').onclick = e => { onlyWait = !onlyWait; e.currentTarget.classList.toggle('on', onlyWait); e.currentTarget.setAttribute('aria-pressed', onlyWait); render(); };
+$('q').oninput = e => { q = e.target.value.trim().toLowerCase(); render(); };
+$('btnBulk').onclick = () => { const l = G.filter(g => g.st === 'draft'); if (l.length) confirmIssue(l); };
+$('btnExport').onclick = () => toast('Exported the waybill list for 12/11/2026 (Excel)');
+document.addEventListener('keydown', e => {
+  if (e.target.matches('input, textarea, select')) return;
+  if (e.key === '/') { e.preventDefault(); $('q').focus(); }
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { const r = rows(), i = r.findIndex(g => g.id === sel); const n = r[Math.max(0, Math.min(r.length - 1, i + (e.key === 'ArrowDown' ? 1 : -1)))]; if (n) { e.preventDefault(); sel = n.id; renderList(); renderPreview(); } }
+});
+
+Shell.states([['default', 'Default'], ['draft', 'To issue'], ['blocked', 'Blocked'], ['multi', 'Combined orders (TBD)'], ['cancelled', 'Cancelled'], ['loading', 'Loading'], ['empty', 'Empty'], ['error', 'Error']], s => {
+  G = JSON.parse(JSON.stringify(TPL)); tab = 'all'; onlyWait = false; q = ''; $('q').value = ''; $('fWait').classList.remove('on');
+  sel = { draft: 'GVT-2611-0462', blocked: 'GVT-2611-0464', multi: 'GVT-2611-0463', cancelled: 'GVT-2611-0460' }[s] || 'GVT-2611-0458';
+  $('md').style.display = ''; render();
+  if (s === 'loading') {
+    $('listCard').innerHTML = `<table class="grid"><thead><tr>${Array(5).fill('<th><span class="sk" style="width:80px"></span></th>').join('')}</tr></thead><tbody>${Array(8).fill('<tr>' + Array(5).fill('<td><span class="sk" style="width:80%"></span><span class="sk" style="width:50%;margin-top:6px;height:9px"></span></td>').join('') + '</tr>').join('')}</tbody></table>`;
+    $('pv').innerHTML = `<div class="pv-head"><span class="sk" style="width:120px"></span></div><div class="pv-body"><div class="paper-bg"><div class="paper stack">${Array(10).fill('<span class="sk"></span>').join('')}</div></div></div>`;
+  }
+  if (s === 'empty') {
+    G = []; renderTabs();
+    $('md').style.display = 'none';
+    $('slot').innerHTML = `<section class="card"><div class="empty">${icon('qr')}<h3>No waybills yet today</h3><p>Waybills are created automatically when a vehicle and driver are assigned to a trip on the Dispatch screen.</p><a class="btn btn-primary" href="fm-08-dieu-phoi.html">Open Dispatch</a></div></section>`;
+  }
+  if (s === 'error') $('slot').innerHTML = `<div class="alert alert-warning" role="alert">${icon('refresh')}<div>Can't connect to the server. New waybills can't be issued for now; issued waybills still show in the driver app (even offline).</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" onclick="location.reload()">Retry</button></div></div>`;
+});
+</script>
+</body>
+</html>

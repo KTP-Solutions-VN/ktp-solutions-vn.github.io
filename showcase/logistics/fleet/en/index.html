@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Đội Xe · Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="assets/css/app.css">
+<style>
+  .top { background: var(--nav-bg); color: var(--nav-fg); }
+  .top-in { max-width: 1180px; margin: 0 auto; padding-block: 36px 30px; padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 14px; }
+  .top .brand { padding: 0; border: 0; height: auto; color: #FFFFFF; }
+  .top h1 { color: #fff; font-size: 28px; line-height: 36px; max-width: 760px; }
+  .top p { max-width: 720px; color: var(--nav-fg); line-height: 22px; }
+  .top .row .btn-secondary { background: transparent; color: #fff; border-color: rgba(255,255,255,.3); }
+  .top .row .btn-secondary:hover { background: rgba(255,255,255,.08); }
+  .facts { display: flex; gap: 22px; flex-wrap: wrap; font-size: 13px; color: var(--nav-fg-muted); }
+  .facts b { color: #fff; font: 700 18px var(--font-display); display: block; font-variant-numeric: tabular-nums; }
+  .page { max-width: 1180px; margin: 0 auto; padding-block: 28px 64px; padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 28px; }
+  .flows { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+  .flow { padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; }
+  .flow .who { font-size: 12.5px; color: var(--fg-muted); }
+  .flow ol { margin: 0; padding-left: 18px; font-size: 13.5px; line-height: 21px; color: var(--fg); }
+  .screens { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 14px; }
+  .sgroup h3 { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 14px; display: flex; align-items: center; gap: 8px; }
+  .sgroup ul { list-style: none; margin: 0; padding: 6px; }
+  .sgroup li a, .sgroup li span.na { display: grid; grid-template-columns: 64px 1fr auto; gap: 10px; align-items: center; padding: 8px 10px; border-radius: var(--r-md); color: var(--fg); font-size: 13.5px; }
+  .sgroup li a:hover { background: var(--primary-soft); text-decoration: none; }
+  .sgroup li span.na { color: var(--fg-muted); }
+  .sid { font-size: 12px; font-weight: 600; color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+  .note { font-size: 13px; color: var(--fg-muted); line-height: 20px; max-width: 820px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <span class="brand"><span class="brand-mark" id="mark"></span><span>Đội Xe<small>Fleet Management · Prototype v0.1</small></span></span>
+    <h1>Fleet management and per-trip profit and loss for trucking companies with 10–100 vehicles</h1>
+    <p>Click-through prototype for usability testing, Round 2. Sample data (HCMC branch, 12/11/2026), not real data. Each screen has a <b>State</b> bar in the bottom-left corner for viewing empty, loading, error… states. Switch roles in the top-right corner of each screen.</p>
+    <div class="row wrap">
+      <a class="btn btn-primary" href="screens/fm-08-dieu-phoi.html">Open dispatch board</a> <a class="btn btn-secondary" href="screens/fm-04-tong-quan.html">Overview</a> <a class="btn btn-secondary" href="screens/driver-app.html">Driver app</a>
+    </div>
+    <div class="facts"><span><b>13</b>screens with specs</span><span><b>10</b>web screens + 5 driver app screens</span><span><b>4</b>office roles</span></div>
+  </div>
+</header>
+<main class="page">
+  <section class="stack" style="gap:12px">
+    <h2>Test scenarios (from the Round 2 test plan)</h2>
+    <div class="flows">
+      <div class="card flow"><b>Dispatcher · planning vehicles for tomorrow</b><span class="who">Persona: Lan</span><ol><li><a href="screens/fm-07-tao-don.html">Create an order</a> for a 40' export container, check the estimated cost</li><li><a href="screens/fm-08-dieu-phoi.html">Dispatch</a>: drag an LTL order into a trip heading the same way</li><li>Assign a vehicle to CH-0461 and run into a driver over the weekly driving limit</li><li>Open the <a href="screens/fm-08-dieu-phoi.html#timeline">Vehicle schedule</a> to find an idle vehicle</li></ol></div>
+      <div class="card flow"><b>Driver · running a container trip</b><span class="who">Persona: Tuấn</span><ol><li><a href="screens/driver-app.html">Driver app</a>: accept CH-0472</li><li>Tap milestones, photograph the pickup EIR, log a refuel</li><li>Try driving mode and going offline</li><li>Review the settlement and confirm the amount to pay back</li></ol></div>
+      <div class="card flow"><b>Accountant · trip settlement</b><span class="who">Persona: Mai</span><ol><li><a href="screens/fm-22-quyet-toan.html">Settlement</a> CH-0431: handle duplicate lines and over-norm items</li><li>Finalize and send to the driver for confirmation</li></ol></div>
+      <div class="card flow"><b>Owner · finding out why profit dropped</b><span class="who">Persona: Hùng</span><ol><li><a href="screens/fm-04-tong-quan.html">Overview</a>: monthly KPIs, low-margin routes</li><li><a href="screens/fm-35-bao-cao-pl.html">P&amp;L report</a> by route, drill down to trips</li><li><a href="screens/fm-09-chi-tiet-chuyen.html">Trip details</a>: estimate vs actual</li></ol></div>
+    </div>
+  </section>
+  <section class="stack" style="gap:12px">
+    <h2>Screens by menu group</h2>
+    <div class="screens" id="screens"></div>
+    <p class="note">All 53 screens in the function list. Screens with detailed specs: FM_03, 04, 07, 08, 09, 10, 22, 35 and DR_03–06, 08; the rest are built directly from the function list. Specs and design decisions are in <span class="code">fleet-management-design/deliver/</span>; the visual identity is in <span class="code">deliver/DESIGN.md</span>.</p>
+  </section>
+</main>
+<script src="assets/js/shell.js"></script>
+<script>
+document.getElementById('mark').innerHTML = Shell.icon('truck');
+const G = [
+  ['home', 'Overview', [['FM_04', 'Overview', 'fm-04-tong-quan.html'], ['FM_05', 'Alert center', 'fm-05-canh-bao.html']]],
+  ['dispatch', 'Operations & monitoring', [['FM_06', 'Shipping order list', 'fm-06-don-van-chuyen.html'], ['FM_07', 'Create / edit shipping order', 'fm-07-tao-don.html'], ['FM_08', 'Dispatch board', 'fm-08-dieu-phoi.html'], ['FM_10', 'Assign vehicle & driver (drawer)', 'fm-08-dieu-phoi.html#drawer'], ['FM_09', 'Trip details', 'fm-09-chi-tiet-chuyen.html'], ['FM_11', 'Waybill', 'fm-11-giay-van-tai.html'], ['FM_12', 'Live map', 'fm-12-ban-do.html'], ['FM_13', 'Driving hours & safety log', 'fm-13-gio-lai.html'], ['FM_42', 'Trip tracking (customer link)', 'fm-42-theo-doi.html']]],
+  ['truck', 'Fleet & maintenance', [['FM_14', 'Vehicles & trailers', 'fm-14-xe.html'], ['FM_15', 'Vehicle details', 'fm-15-chi-tiet-xe.html'], ['FM_16', 'Driver', 'fm-16-tai-xe.html'], ['FM_17', 'Driver details', 'fm-17-chi-tiet-tai-xe.html'], ['FM_18', 'Documents & expiry', 'fm-18-giay-to.html'], ['FM_19', 'Maintenance plan', 'fm-19-bao-duong.html'], ['FM_20', 'Maintenance / repair work order', 'fm-20-lenh-bao-duong.html']]],
+  ['wallet', 'Finance', [['FM_21', 'Cash advance', 'fm-21-tam-ung.html'], ['FM_22', 'Trip settlement', 'fm-22-quyet-toan.html'], ['FM_23', 'Import costs', 'fm-23-import-chi-phi.html'], ['FM_24', 'Transaction matching', 'fm-24-khop-giao-dich.html'], ['FM_25', 'Trip pay', 'fm-25-luong-chuyen.html'], ['FM_26', 'Invoices', 'fm-26-hoa-don.html'], ['FM_27', 'Receivables & payables', 'fm-27-cong-no.html']]],
+  ['tag', 'Freight rates & master data', [['FM_28', 'Routes', 'fm-28-tuyen-duong.html'], ['FM_29', 'Rate card', 'fm-29-bang-gia.html'], ['FM_30', 'Cost parameters & fuel price', 'fm-30-tham-so.html'], ['FM_31', 'Cost estimate', 'fm-31-du-toan.html'], ['FM_32', 'Customer', 'fm-32-danh-muc.html#khach'], ['FM_33', 'Subcontractors', 'fm-32-danh-muc.html#nhaxe'], ['FM_34', 'Location', 'fm-32-danh-muc.html#diadiem']]],
+  ['chart', 'Reports & settings', [['FM_35', 'P&L report', 'fm-35-bao-cao-pl.html'], ['FM_36', 'Operations report', 'fm-36-bao-cao-van-hanh.html'], ['FM_37', 'Compliance report', 'fm-37-bao-cao-tuan-thu.html'], ['FM_38', 'Members, permissions & branches', 'fm-38-thanh-vien.html'], ['FM_39', 'Integrations', 'fm-39-tich-hop.html'], ['FM_40', 'Privacy & audit log', 'fm-40-quyen-rieng-tu.html'], ['FM_41', 'Plan', 'fm-41-goi-dich-vu.html']]],
+  ['import', 'Setup & data import', [['FM_02', 'Company setup', 'fm-02-thiet-lap.html'], ['FM_03', 'Import data from Excel', 'fm-03-import.html']]],
+  ['phone', 'Driver app (Android)', [['DR_03', 'Trip list', 'driver-app.html#dr03'], ['DR_04', 'Trip details & milestones', 'driver-app.html#dr04'], ['DR_05', 'Capture documents', 'driver-app.html#dr05'], ['DR_06', 'Log costs', 'driver-app.html#dr06'], ['DR_07', 'Report incident', 'driver-app.html#dr07'], ['DR_08', 'Settlement & confirmation', 'driver-app.html#dr08'], ['DR_09', 'Trip pay', 'driver-app.html#dr09'], ['DR_10', 'Waybill', 'driver-app.html#dr10'], ['DR_11', 'Account', 'driver-app.html#dr11'], ['DR_02', 'Location data consent', 'driver-app.html#dr02']]]
+];
+document.getElementById('screens').innerHTML = G.map(([ic, name, items]) => `<div class="card sgroup"><h3>${Shell.icon(ic)}${name}</h3><ul>${items.map(([id, label, href]) => `<li>${href ? `<a href="screens/${href}"><span class="sid">${id}</span><span>${label}</span>${Shell.icon('chevron')}</a>` : `<span class="na"><span class="sid">${id}</span><span>${label}</span><span class="badge b-neutral">Not built</span></span>`}</li>`).join('')}</ul></div>`).join('');
+</script>
+</body>
+</html>

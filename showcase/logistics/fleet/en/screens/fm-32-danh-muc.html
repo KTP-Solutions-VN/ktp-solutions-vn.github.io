@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Master data · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* FM_32–34 Danh mục: Khách hàng / Nhà xe ngoài / Địa điểm */
+  .page-tabs { margin-top: -4px; }
+  .page-tabs button .count-pill { font-size: 11.5px; }
+  .gridcard { min-width: 0; overflow: hidden; }
+  .gridcard .grid tbody tr { cursor: pointer; }
+  .gridcard .grid tbody tr:last-child td { border-bottom: 0; }
+  .grid td.wrap { white-space: normal; min-width: 220px; max-width: 300px; }
+  .grid td.go { width: 36px; color: var(--fg-subtle); }
+  .grid tr:hover td.go { color: var(--primary); }
+  .grid b.nm { font-weight: 500; color: var(--fg-strong); }
+  .card-foot { display: flex; align-items: flex-start; gap: 8px; padding: 10px 16px 14px; font-size: 12.5px; color: var(--fg-muted); line-height: 17px; }
+  .card-foot .icon { margin-top: 1px; }
+  .filterbar .right-note { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); }
+  .t-badge .icon { width: 13px; height: 13px; }
+  .hidden { display: none !important; }
+
+  .drawer.cat-dr { width: min(600px, 100vw); }
+  .drawer-head { border-bottom: 0; padding-bottom: 4px; }
+  .drawer-body { gap: 20px; }
+  .drawer-foot { border-top: 0; box-shadow: 0 -1px 0 var(--border); }
+  .fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 14px; }
+  .fgrid .full { grid-column: 1 / -1; }
+  .fgrid .input, .fgrid .select { width: 100%; }
+  .sec-h { display: flex; align-items: center; gap: 8px; }
+  .sec-h h3 { font-size: 14px; }
+  .unit-in { display: flex; align-items: center; height: 34px; border: 1px solid var(--border-strong); border-radius: var(--r-md); background: var(--surface); padding: 0 10px; gap: 6px; }
+  .unit-in:focus-within { border-color: var(--ring); box-shadow: 0 0 0 3px var(--primary-soft); }
+  .unit-in input { border: 0; outline: 0; font: 13.5px var(--font-body); color: var(--fg); width: 100%; min-width: 0; text-align: right; font-variant-numeric: tabular-nums; background: transparent; }
+  .unit-in span { color: var(--fg-muted); font-size: 12.5px; }
+  .geo { display: block; width: 100%; height: 200px; border-radius: 8px; }
+  .linkrow { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; background: var(--surface-muted); color: var(--fg); text-decoration: none !important; }
+  .linkrow:hover { background: var(--primary-soft); }
+  .linkrow .icon:last-child { margin-left: auto; color: var(--fg-subtle); }
+  .open-note { font-size: 12.5px; color: var(--fg-muted); display: flex; gap: 6px; align-items: flex-start; line-height: 17px; }
+  .open-note .icon { margin-top: 1px; flex: none; }
+  .empty .btn .icon { width: 16px; height: 16px; stroke-width: 1.75; color: inherit; }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">System / Master data</div>
+      <h1>Master data</h1>
+    </div>
+    <div class="actions">
+      <a class="btn btn-secondary" href="fm-03-import.html" id="btnImport"></a>
+      <button class="btn btn-primary" type="button" id="btnNew"></button>
+    </div>
+  </div>
+
+  <div class="tabs page-tabs" role="tablist" aria-label="Master data type" id="tabs"></div>
+
+  <div class="filterbar" role="toolbar" aria-label="Filter" id="filters"></div>
+
+  <div id="errSlot"></div>
+
+  <section class="card gridcard" id="listCard" aria-live="polite"></section>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_32', title: 'Master data' });
+const $ = id => document.getElementById(id);
+$('btnImport').innerHTML = icon('import') + 'Import from Excel';
+
+/* ---------- Dữ liệu mẫu (khách khớp data.js, bảng giá khớp FM_29) ---------- */
+const CUST = [
+  { id: 'KH-001', name: 'Tân Cảng Logistics', mst: '0312345678', addr: '5th Floor, 18 Nguyễn Văn Hưởng, Thảo Điền Ward, Thủ Đức City, HCMC', contact: 'Trần Thu Hà', phone: '0903 412 588', email: 'ketoan@tancanglog.vn', pay: 45, price: 'TCL-2026', trips: 70 },
+  { id: 'KH-002', name: 'Gỗ Minh Long', mst: '3700123456', addr: 'Lot C5, Mỹ Phước 3 Industrial Park, Bến Cát Town, Bình Dương', contact: 'Lê Văn Sang', phone: '0913 220 714', email: 'xuatkhau@gominhlong.vn', pay: 30, price: 'GML-2026', trips: 15 },
+  { id: 'KH-003', name: 'Bao bì Phương Nam', mst: '0309876543', addr: 'Street No. 6, Sóng Thần 1 Industrial Park, Dĩ An City, Bình Dương', contact: 'Nguyễn Thị Mai', phone: '0988 106 342', email: 'mua.hang@baobiphuongnam.vn', pay: 15, price: 'BBPN-2026', trips: 14 },
+  { id: 'KH-004', name: 'Thép Hòa Phát Bình Dương', mst: '3702845116', addr: 'N6 Street, Đồng An Industrial Park, Thuận An City, Bình Dương', contact: 'Phạm Quang Huy', phone: '0937 551 208', email: 'logistics.bd@thephpbd.vn', pay: 30, price: 'HPBD-2026', trips: 12 },
+  { id: 'KH-005', name: 'Nhựa Duy Tân', mst: '0301234567', addr: '298 Hồ Học Lãm, An Lạc Ward, Bình Tân District, HCMC', contact: 'Võ Minh Tâm', phone: '0909 774 130', email: 'kho@nhuaduytan.vn', pay: 30, price: 'NDT-2026', trips: 11 },
+  { id: 'KH-006', name: 'Thủy sản Vĩnh Hoàn', mst: '1400112623', addr: 'QL30, Ward 11, Cao Lãnh City, Đồng Tháp', contact: 'Đỗ Thanh Phong', phone: '0918 605 471', email: 'shipping@vinhhoanfish.vn', pay: 30, price: 'VHC-2026', trips: 9 }
+];
+const VENDORS = [
+  { id: 'NX-01', name: 'Minh Phát carrier', mst: '3702119087', contact: 'Trương Minh Phát', phone: '0912 336 805', bank: 'Vietcombank', acc: '0071 0004 52', ref: 2900000, refNote: "40' container Bình Dương → Cát Lái", trips: 7 },
+  { id: 'NX-02', name: 'Vận tải Hưng Thịnh', mst: '0314557902', contact: 'Lý Văn Hưng', phone: '0938 772 019', bank: 'ACB', acc: '2189 6631', ref: 3200000, refNote: "40' container Cát Lái → Tây Ninh", trips: 4 },
+  { id: 'NX-03', name: 'Vận tải Phúc An', mst: '1101876543', contact: 'Nguyễn Phúc An', phone: '0977 140 662', bank: 'BIDV', acc: '6401 0002 7781', ref: 1500000, refNote: '15 t truck, inner city', trips: 2 },
+  { id: 'NX-04', name: 'Logistics Sao Nam', mst: '0316221470', contact: 'Hồ Thị Ngọc', phone: '0903 998 251', bank: 'Techcombank', acc: '1903 5520 1149', ref: 5100000, refNote: "40' reefer container Cát Lái → Sa Đéc", trips: 0 }
+];
+// type: kho | cang | depot | bai · src: 'sys' (có sẵn) | 'user'
+const PLACES = [
+  { name: 'Cát Lái port', type: 'cang', reg: 'hcm', addr: 'Nguyễn Thị Định, Cát Lái Ward, Thủ Đức City, HCMC', lat: 10.7590, lng: 106.7880, r: 800, src: 'sys' },
+  { name: 'Hiệp Phước port', type: 'cang', reg: 'hcm', addr: 'Hiệp Phước Industrial Park, Nhà Bè District, HCMC', lat: 10.6230, lng: 106.7560, r: 700, src: 'sys' },
+  { name: 'TCIT Cái Mép port', type: 'cang', reg: 'hcm', addr: 'Tân Phước Ward, Phú Mỹ Town, Bà Rịa – Vũng Tàu', lat: 10.5230, lng: 107.0280, r: 800, src: 'sys' },
+  { name: 'CMIT Cái Mép port', type: 'cang', reg: 'hcm', addr: 'Tân Phước Ward, Phú Mỹ Town, Bà Rịa – Vũng Tàu', lat: 10.5320, lng: 107.0230, r: 800, src: 'sys' },
+  { name: 'Gemalink Cái Mép port', type: 'cang', reg: 'hcm', addr: 'Phước Hòa Ward, Phú Mỹ Town, Bà Rịa – Vũng Tàu', lat: 10.5100, lng: 107.0350, r: 800, src: 'sys' },
+  { name: 'ICD Phước Long', type: 'depot', reg: 'hcm', addr: 'Lã Xuân Oai Street, Phước Long A Ward, Thủ Đức City, HCMC', lat: 10.8170, lng: 106.7720, r: 400, src: 'sys' },
+  { name: 'ICD Sóng Thần', type: 'depot', reg: 'hcm', addr: 'Sóng Thần 2 Industrial Park, Dĩ An City, Bình Dương', lat: 10.8930, lng: 106.7550, r: 500, src: 'sys' },
+  { name: 'ICD Tân Cảng Long Bình', type: 'depot', reg: 'hcm', addr: 'Long Bình Ward, Biên Hòa City, Đồng Nai', lat: 10.9300, lng: 106.8800, r: 600, src: 'sys' },
+  { name: 'Chùa Vẽ port', type: 'cang', reg: 'hp', addr: 'Đông Hải 1 Ward, Hải An District, Hải Phòng', lat: 20.8640, lng: 106.7330, r: 700, src: 'sys' },
+  { name: 'Tân Vũ port', type: 'cang', reg: 'hp', addr: 'Đình Vũ Economic Zone, Hải An District, Hải Phòng', lat: 20.8380, lng: 106.7680, r: 800, src: 'sys' },
+  { name: 'Nam Đình Vũ port', type: 'cang', reg: 'hp', addr: 'Đình Vũ Economic Zone, Hải An District, Hải Phòng', lat: 20.8150, lng: 106.8050, r: 800, src: 'sys' },
+  { name: 'Lạch Huyện port (HICT)', type: 'cang', reg: 'hp', addr: 'Cát Hải Island, Cát Hải District, Hải Phòng', lat: 20.8150, lng: 106.9050, r: 900, src: 'sys' },
+  { name: 'Đình Vũ depot', type: 'depot', reg: 'hp', addr: 'Đình Vũ Economic Zone, Hải An District, Hải Phòng', lat: 20.8450, lng: 106.7800, r: 400, src: 'sys' },
+  { name: 'Tân Cảng warehouse – Phước Đông Industrial Park', type: 'kho', reg: 'hcm', addr: 'Phước Đông Industrial Park, Gò Dầu District, Tây Ninh', lat: 11.0870, lng: 106.3230, r: 300, src: 'user', cust: 'Tân Cảng Logistics' },
+  { name: 'Gỗ Minh Long warehouse', type: 'kho', reg: 'hcm', addr: 'Lot C5, Mỹ Phước 3 Industrial Park, Bến Cát Town, Bình Dương', lat: 11.1200, lng: 106.6110, r: 250, src: 'user', cust: 'Gỗ Minh Long' },
+  { name: 'Nhựa Duy Tân warehouse', type: 'kho', reg: 'hcm', addr: '298 Hồ Học Lãm, Bình Tân District, HCMC', lat: 10.7330, lng: 106.6080, r: 200, src: 'user', cust: 'Nhựa Duy Tân' },
+  { name: 'Vĩnh Hoàn cold store – Sa Đéc', type: 'kho', reg: 'hcm', addr: 'Sa Đéc Industrial Park, Sa Đéc City, Đồng Tháp', lat: 10.3040, lng: 105.7580, r: 300, src: 'user', cust: 'Thủy sản Vĩnh Hoàn' },
+  { name: 'Thủ Đức yard', type: 'bai', reg: 'hcm', addr: 'Hà Nội Highway, Linh Trung Ward, Thủ Đức City, HCMC', lat: 10.8700, lng: 106.7860, r: 200, src: 'user' },
+  { name: 'Bình Dương yard', type: 'bai', reg: 'hcm', addr: 'ĐT743, Bình Hòa Ward, Thuận An City, Bình Dương', lat: 10.9030, lng: 106.7280, r: 200, src: 'user' }
+];
+const TYPE = { kho: ['Customer warehouse', 'b-neutral', 'box'], cang: ['Port', 'b-accent', 'container'], depot: ['Depot / ICD', 'b-info', 'tray'], bai: ['Truck yard', 'b-outline', 'truck'] };
+const TABS = [['khach', 'Customer', CUST, 'users', 'FM_32'], ['nhaxe', 'Subcontractors', VENDORS, 'truck', 'FM_33'], ['diadiem', 'Location', PLACES, 'pin', 'FM_34']];
+
+let tab = 'khach', F = { q: '', type: 'all', reg: 'all' }, mode = 'default';
+const hash0 = location.hash.slice(1);
+if (TABS.some(t => t[0] === hash0)) tab = hash0;
+addEventListener('hashchange', () => { const h = location.hash.slice(1); if (TABS.some(t => t[0] === h) && h !== tab) { tab = h; F = { q: '', type: 'all', reg: 'all' }; render(); } });
+
+/* ---------- Tabs & filters ---------- */
+function renderTabs() {
+  $('tabs').innerHTML = TABS.map(([k, l, arr]) => `<button role="tab" aria-selected="${k === tab}" data-tab="${k}" id="tab-${k}">${l} <span class="count-pill">${mode === 'empty' ? 0 : arr.length}</span></button>`).join('');
+  $('tabs').querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { tab = b.dataset.tab; F = { q: '', type: 'all', reg: 'all' }; history.replaceState(null, '', '#' + tab); render(); });
+  $('btnNew').innerHTML = icon('plus') + ({ khach: 'Add customer', nhaxe: 'Add subcontractor', diadiem: 'Add location' })[tab];
+}
+function renderFilters() {
+  const ph = ({ khach: 'Search name, tax ID, contact…', nhaxe: 'Search subcontractor name, tax ID…', diadiem: 'Search name, address…' })[tab];
+  $('filters').innerHTML = `<label class="search-global" style="max-width:300px">${icon('search')}<input id="q" type="search" placeholder="${ph}" aria-label="Search master data" value="${F.q}"></label>` +
+    (tab === 'diadiem' ? `<div class="seg" role="group" aria-label="Location type">${[['all', 'All'], ['kho', 'Customer warehouse'], ['cang', 'Port'], ['depot', 'Depot / ICD'], ['bai', 'Truck yard']].map(([k, l]) => `<button type="button" data-ty="${k}" aria-pressed="${F.type === k}">${l}</button>`).join('')}</div>
+      <div class="seg" role="group" aria-label="Region">${[['all', 'All regions'], ['hcm', 'HCMC – Cái Mép'], ['hp', 'Hải Phòng']].map(([k, l]) => `<button type="button" data-rg="${k}" aria-pressed="${F.reg === k}">${l}</button>`).join('')}</div>` :
+     tab === 'khach' ? `<span class="right-note">Payment terms are used to calculate aging in <a href="fm-27-cong-no.html">Receivables & payables</a></span>` : `<span class="right-note">Reference rates are suggested when assigning subcontracted trucks in <a href="fm-08-dieu-phoi.html">Dispatch</a></span>`);
+  const q = $('q'); q.oninput = e => { F.q = e.target.value.trim().toLowerCase(); renderList(); };
+  $('filters').querySelectorAll('[data-ty]').forEach(b => b.onclick = () => { F.type = b.dataset.ty; $('filters').querySelectorAll('[data-ty]').forEach(x => x.setAttribute('aria-pressed', x === b)); renderList(); });
+  $('filters').querySelectorAll('[data-rg]').forEach(b => b.onclick = () => { F.reg = b.dataset.rg; $('filters').querySelectorAll('[data-rg]').forEach(x => x.setAttribute('aria-pressed', x === b)); renderList(); });
+}
+
+/* ---------- Lists ---------- */
+const go = `<td class="go">${icon('chevron-right')}</td>`;
+const mask = a => '•••• ' + a.replace(/\s/g, '').slice(-4);
+function renderList() {
+  const L = $('listCard');
+  if (tab === 'khach') {
+    const rows = CUST.filter(c => !F.q || (c.name + c.mst + c.contact).toLowerCase().includes(F.q));
+    if (!rows.length) return noMatch();
+    L.innerHTML = `<div class="grid-wrap"><table class="grid" aria-labelledby="tab-khach"><thead><tr><th>Customer</th><th>Tax ID</th><th>Billing address</th><th>Contact</th><th class="right">Payment terms</th><th>Rate card in use</th><th></th></tr></thead>
+      <tbody>${rows.map(c => `<tr data-i="${CUST.indexOf(c)}" tabindex="0"><td><b class="nm">${c.name}</b><span class="cell-sub code">${c.id}</span></td><td class="num">${c.mst}</td><td class="wrap">${c.addr}</td>
+        <td>${c.contact}<span class="cell-sub num">${c.phone}</span></td><td class="right num">${c.pay} days</td>
+        <td><a class="code" href="fm-29-bang-gia.html#${c.price}" onclick="event.stopPropagation()">${c.price}</a><span class="cell-sub">${c.price === 'TCL-2026' ? '<span style="color:var(--warning-fg)">Fixed-rate contract, no FSC</span>' : 'With FSC'}</span></td>${go}</tr>`).join('')}</tbody></table></div>
+      <div class="card-foot">${icon('info')}<span>${rows.length} customers · Tax IDs are checked for the 10- or 13-digit format on save. Customers are shared across orders (FM_07), invoices (FM_26) and receivables (FM_27).</span></div>`;
+  } else if (tab === 'nhaxe') {
+    const rows = VENDORS.filter(v => !F.q || (v.name + v.mst + v.contact).toLowerCase().includes(F.q));
+    if (!rows.length) return noMatch();
+    L.innerHTML = `<div class="grid-wrap"><table class="grid" aria-labelledby="tab-nhaxe"><thead><tr><th>Carrier</th><th>Tax ID</th><th>Contact</th><th>Bank account</th><th class="right">Reference hire rate</th><th class="right">Hired trips (30 days)</th><th></th></tr></thead>
+      <tbody>${rows.map(v => `<tr data-i="${VENDORS.indexOf(v)}" tabindex="0"><td><b class="nm">${v.name}</b><span class="cell-sub code">${v.id}</span></td><td class="num">${v.mst}</td>
+        <td>${v.contact}<span class="cell-sub num">${v.phone}</span></td><td>${v.bank}<span class="cell-sub num">${mask(v.acc)}</span></td>
+        <td class="right num"><b style="font-weight:600">${fmt.vnd(v.ref)}</b><span class="cell-sub">${v.refNote}</span></td><td class="right num">${v.trips || '<span class="muted">—</span>'}</td>${go}</tr>`).join('')}</tbody></table></div>
+      <div class="card-foot">${icon('info')}<span>Hiring subcontracted trucks creates payables to the subcontractor. The system has no documents or driving hours for subcontracted trucks, so dispatchers are responsible for checking them.</span></div>`;
+  } else {
+    const rows = PLACES.filter(p => (F.type === 'all' || p.type === F.type) && (F.reg === 'all' || p.reg === F.reg) && (!F.q || (p.name + p.addr).toLowerCase().includes(F.q)));
+    if (!rows.length) return noMatch();
+    L.innerHTML = `<div class="grid-wrap"><table class="grid" aria-labelledby="tab-diadiem"><thead><tr><th>Location</th><th>Type</th><th>Address</th><th class="right">Coordinates</th><th class="right">Geofence radius</th><th>Source</th><th></th></tr></thead>
+      <tbody>${rows.map(p => `<tr data-i="${PLACES.indexOf(p)}" tabindex="0"><td><b class="nm">${p.name}</b>${p.cust ? `<span class="cell-sub">${p.cust}</span>` : `<span class="cell-sub">${p.reg === 'hp' ? 'Hải Phòng' : 'HCMC – Cái Mép'}</span>`}</td>
+        <td><span class="badge ${TYPE[p.type][1]} t-badge">${icon(TYPE[p.type][2])}${TYPE[p.type][0]}</span></td><td class="wrap">${p.addr}</td>
+        <td class="right num">${fmt.dec(p.lat, 4)} · ${fmt.dec(p.lng, 4)}</td><td class="right num">${fmt.vnd(p.r, { bare: 1 })} m</td>
+        <td>${p.src === 'sys' ? `<span class="badge b-neutral">${icon('book')}Built-in</span>` : '<span class="muted">User-added</span>'}</td>${go}</tr>`).join('')}</tbody></table></div>
+      <div class="card-foot">${icon('info')}<span>${rows.length} / ${PLACES.length} locations. Major ports and depots in Hải Phòng and HCMC – Cái Mép are preloaded when a company is created. <b style="font-weight:600;color:var(--fg)">To be decided:</b> the data source for the list and coordinates; the current figures were entered manually and must be verified before geofences are used to log arrivals/departures automatically.</span></div>`;
+  }
+  L.querySelectorAll('tbody tr').forEach(tr => { tr.onclick = () => openDrawer(+tr.dataset.i); tr.onkeydown = e => { if (e.key === 'Enter') openDrawer(+tr.dataset.i); }; });
+}
+function noMatch() { $('listCard').innerHTML = `<div class="empty">${icon('search')}<h3>No matching results</h3><p>Try removing some filters or searching with different terms.</p><button class="btn btn-secondary" type="button" id="clr">Clear filters</button></div>`; $('clr').onclick = () => { F = { q: '', type: 'all', reg: 'all' }; renderFilters(); renderList(); }; }
+
+/* ---------- Drawer ---------- */
+function closeDrawer(instant) { [$('drawer'), $('drScrim')].forEach(x => { if (!x) return; x.id = ''; instant ? x.remove() : Shell.dismiss(x); }); }
+function field(label, val, opts) { opts = opts || {}; return `<label class="field ${opts.full ? 'full' : ''}"><span>${label}</span>${opts.html || `<input class="input ${opts.num ? 'num' : ''}" value="${val}" ${opts.ph ? `placeholder="${opts.ph}"` : ''}>`}</label>`; }
+function geoSvg(p) {
+  const r = Math.max(24, Math.min(80, p.r / 10));
+  return `<svg class="geo" viewBox="0 0 520 200" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Geofence with a ${p.r} m radius around ${p.name}">
+    <rect width="520" height="200" style="fill:var(--surface-muted)"/>
+    <g fill="none" style="stroke:var(--border-strong)" stroke-width="1.5"><path d="M0 120 C120 110 220 140 520 100"/><path d="M180 0 L220 200"/><path d="M360 0 C340 60 380 140 350 200"/></g>
+    <path d="M-10 170 C 100 160 200 190 530 160" fill="none" style="stroke:var(--info-soft)" stroke-width="18"/>
+    <circle cx="260" cy="100" r="${r}" style="fill:var(--primary-soft);stroke:var(--primary)" stroke-width="1.5" stroke-dasharray="5 4" fill-opacity=".7"/>
+    <circle cx="260" cy="100" r="5" style="fill:var(--primary)"/>
+    <text x="${260 + r + 6}" y="104" font-size="11" style="fill:var(--fg-muted)">${fmt.vnd(p.r, { bare: 1 })} m</text>
+  </svg>`;
+}
+function openDrawer(i, isNew) {
+  closeDrawer(true);
+  const s = document.createElement('div'); s.className = 'scrim'; s.id = 'drScrim'; s.onclick = () => closeDrawer();
+  const d = document.createElement('aside'); d.className = 'drawer cat-dr'; d.id = 'drawer'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'drTitle');
+  let body, title, sub;
+  if (tab === 'khach') {
+    const c = isNew ? { name: '', mst: '', addr: '', contact: '', phone: '', email: '', pay: 30, price: '' } : CUST[i];
+    title = isNew ? 'Add customer' : c.name; sub = isNew ? 'FM_32 · Customers' : `${c.id} · ${c.trips} trips in the last 30 days`;
+    body = `<div class="fgrid">${field('Customer name *', c.name, { full: 1, ph: 'e.g. Công ty TNHH Gỗ Minh Long' })}${field('Tax ID *', c.mst, { num: 1, ph: '10 or 13 digits' })}${field('Payment terms', '', { html: `<span class="unit-in"><input value="${c.pay}" aria-label="Payment terms"><span>days</span></span>` })}
+        ${field('Billing address *', c.addr, { full: 1 })}</div>
+      <div class="sec-h"><h3>Contact</h3></div>
+      <div class="fgrid">${field('Contact person', c.contact)}${field('Phone', c.phone, { num: 1 })}${field('Invoice email', c.email, { full: 1 })}</div>
+      <div class="sec-h"><h3>Rate card in use</h3></div>
+      ${c.price ? `<a class="linkrow" href="fm-29-bang-gia.html#${c.price}">${icon('tag')}<span><b class="code">${c.price}</b> · ${c.price === 'TCL-2026' ? 'Fixed-rate contract, no fuel surcharge' : 'formula-based fuel surcharge'}</span>${icon('chevron-right')}</a>` : `<div class="row"><span class="sm muted">No rate card yet. Orders for this customer will need rates entered manually.</span><a class="btn btn-ghost btn-sm" href="fm-29-bang-gia.html" style="margin-left:auto">${icon('plus')}Create rate card</a></div>`}`;
+  } else if (tab === 'nhaxe') {
+    const v = isNew ? { name: '', mst: '', contact: '', phone: '', bank: 'Vietcombank', acc: '', ref: '', refNote: '' } : VENDORS[i];
+    title = isNew ? 'Add subcontractor' : v.name; sub = isNew ? 'FM_33 · Subcontractors' : `${v.id} · ${v.trips} hired trips in the last 30 days`;
+    body = `<div class="fgrid">${field('Subcontractor name *', v.name, { full: 1 })}${field('Tax ID', v.mst, { num: 1 })}${field('Contact person', v.contact)}${field('Phone *', v.phone, { num: 1 })}</div>
+      <div class="sec-h"><h3>Bank account</h3><span class="sm muted" style="margin-left:auto">Used when paying payables</span></div>
+      <div class="fgrid">${field('Bank', '', { html: `<select class="select"><option>${v.bank}</option><option>Vietcombank</option><option>BIDV</option><option>ACB</option><option>Techcombank</option></select>` })}${field('Account number', v.acc, { num: 1 })}${field('Account holder', v.name ? v.name.toUpperCase() : '', { full: 1 })}</div>
+      <div class="sec-h"><h3>Reference hire rate</h3></div>
+      <div class="fgrid">${field('Rate', '', { html: `<span class="unit-in"><input value="${v.ref ? fmt.vnd(v.ref, { bare: 1 }) : ''}" aria-label="Reference hire rate"><span>₫/trip</span></span>` })}${field('Applies to', v.refNote, { ph: "e.g. 40' container Bình Dương → Cát Lái" })}</div>
+      <p class="sm muted">The reference rate is only a suggestion when assigning subcontracted trucks; the actual rate is entered on each trip.</p>`;
+  } else {
+    const p = isNew ? { name: '', type: 'kho', reg: 'hcm', addr: '', lat: 10.8, lng: 106.7, r: 300, src: 'user' } : PLACES[i];
+    title = isNew ? 'Add location' : p.name; sub = isNew ? 'FM_34 · Locations' : `${TYPE[p.type][0]} · ${p.src === 'sys' ? 'built into the system' : 'user-added'}`;
+    body = `${p.src === 'sys' ? `<div class="open-note">${icon('book')}<span>Built-in location. You can edit the geofence radius for your company; the name and coordinates follow the shared list. <b style="font-weight:600;color:var(--fg)">To be decided:</b> the list source.</span></div>` : ''}
+      <div class="fgrid">${field('Location name *', p.name, { full: 1 })}${field('Type *', '', { html: `<select class="select">${Object.entries(TYPE).map(([k, t]) => `<option ${k === p.type ? 'selected' : ''}>${t[0]}</option>`).join('')}</select>` })}${field('Customer (if a customer warehouse)', p.cust || '', { ph: 'Optional' })}
+        ${field('Address *', p.addr, { full: 1 })}${field('Latitude', fmt.dec(p.lat, 4), { num: 1 })}${field('Longitude', fmt.dec(p.lng, 4), { num: 1 })}</div>
+      <div class="sec-h"><h3>Geofence</h3><span class="sm muted" style="margin-left:auto">Logs vehicle arrival/departure automatically when entering/leaving the zone</span></div>
+      ${geoSvg(p)}
+      <div class="row" style="gap:12px"><input type="range" min="100" max="1500" step="50" value="${p.r}" id="rad" style="flex:1;accent-color:var(--primary)" aria-label="Geofence radius"><span class="unit-in" style="width:120px"><input id="radN" value="${p.r}" aria-label="Radius (m)"><span>m</span></span></div>
+      <p class="sm muted">Tip: port 700–900 m, depot 400–600 m, customer warehouse 200–300 m. A radius that's too small can miss milestones when the GPS tracker drifts.</p>`;
+  }
+  d.innerHTML = `<div class="drawer-head"><div class="row"><span class="sm muted">${sub}</span><button class="icon-btn" id="drClose" aria-label="Close (Esc)" style="margin-left:auto">${icon('x', 'lg')}</button></div><h2 id="drTitle">${title || ' '}</h2></div>
+    <div class="drawer-body">${body}</div>
+    <div class="drawer-foot">${!isNew ? `<button class="btn btn-ghost" type="button" id="drArchive" style="margin-right:auto">Deactivate</button>` : ''}<button class="btn btn-secondary" type="button" id="drCancel">Cancel</button><button class="btn btn-primary" type="button" id="drSave">${isNew ? 'Add' : 'Save'}</button></div>`;
+  document.body.append(s, d);
+  d.querySelector('#drClose').onclick = () => closeDrawer(); d.querySelector('#drCancel').onclick = () => closeDrawer();
+  d.querySelector('#drSave').onclick = () => { closeDrawer(); toast(isNew ? 'Added to master data' : `Saved ${title}`); };
+  const ar = d.querySelector('#drArchive'); if (ar) ar.onclick = () => { closeDrawer(); toast(`Deactivated ${title}. Existing data is kept.`, { undo: () => {} }); };
+  const rad = d.querySelector('#rad'); if (rad) { const p = PLACES[i] || { r: 300, name: '' }; const sync = v => { d.querySelector('#radN').value = v; const tmp = { ...p, r: +v }; d.querySelector('.geo').outerHTML = geoSvg(tmp); }; rad.oninput = () => sync(rad.value); d.querySelector('#radN').onchange = e => { rad.value = e.target.value; sync(e.target.value); }; }
+  d.querySelector('#drClose').focus();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+$('btnNew').onclick = () => openDrawer(null, true);
+
+/* ---------- Render & states ---------- */
+function render() { renderTabs(); renderFilters(); if (mode === 'default') renderList(); }
+function skeleton() { $('listCard').innerHTML = `<div class="grid-wrap"><table class="grid"><thead><tr>${Array(6).fill('<th><span class="sk" style="width:70px"></span></th>').join('')}</tr></thead><tbody>${Array(7).fill('<tr>' + Array(6).fill('<td><span class="sk" style="width:80%"></span><span class="sk" style="width:50%;margin-top:6px;height:9px"></span></td>').join('') + '</tr>').join('')}</tbody></table></div>`; }
+Shell.states([['default', 'Default'], ['drawer', 'Edit (drawer)'], ['loading', 'Loading'], ['empty', 'Empty'], ['error', 'Error']], s => {
+  closeDrawer(true); $('errSlot').innerHTML = ''; mode = s === 'drawer' ? 'default' : s;
+  renderTabs(); renderFilters();
+  $('filters').classList.toggle('hidden', s === 'empty');
+  if (s === 'loading') skeleton();
+  else if (s === 'empty') {
+    const E = { khach: ['users', 'No customers', 'Add customers with a tax ID and billing address to create orders and issue invoices.'], nhaxe: ['truck', 'No subcontractors', 'Add subcontractors to hire trucks when your own fleet is short.'], diadiem: ['pin', 'No locations', 'Load the list of major ports and depots in Hải Phòng and HCMC – Cái Mép, then add customer warehouses.'] }[tab];
+    $('listCard').innerHTML = `<div class="empty">${icon(E[0])}<h3>${E[1]}</h3><p>${E[2]}</p><div class="row" style="justify-content:center"><a class="btn btn-secondary" href="fm-03-import.html">${icon('import')}Import from Excel</a><button class="btn btn-primary" type="button" onclick="openDrawer(null,true)">${icon('plus')}${E[1].replace('No', 'Add')}</button></div></div>`;
+  } else if (s === 'error') {
+    $('errSlot').innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Couldn't load master data. Check your connection and try again.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" onclick="location.hash='${tab}';location.reload()">Retry</button></div></div>`;
+    $('listCard').innerHTML = `<div class="empty">${icon('pin')}<h3>Can't display master data yet</h3><p>Data will reappear once the connection is stable.</p></div>`;
+  } else renderList();
+  if (s === 'drawer') openDrawer(tab === 'diadiem' ? 0 : 0);
+  if (s === 'default' && location.hash.slice(1) !== tab) history.replaceState(null, '', '#' + tab);
+});
+</script>
+</body>
+</html>

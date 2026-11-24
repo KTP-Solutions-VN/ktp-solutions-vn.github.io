@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cost parameters & fuel price · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* FM_30 Tham số giá thành & giá dầu — form chia section, không viền */
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: var(--s-4); align-items: start; }
+  .form { display: flex; flex-direction: column; }
+  .sec { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 24px; padding: 22px 24px; scroll-margin-top: calc(var(--header-h) + 16px); }
+  .sec + .sec { padding-top: 10px; }
+  .sec-l h2 { font-size: 15px; line-height: 22px; }
+  .sec-l p { font-size: 12.5px; color: var(--fg-muted); line-height: 18px; margin-top: 4px; }
+  .sec-l .used { margin-top: 8px; display: flex; flex-direction: column; gap: 2px; font-size: 12.5px; }
+  .sec-r { min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+  .unit-in { display: inline-flex; align-items: center; height: 34px; border: 1px solid var(--border-strong); border-radius: var(--r-md); background: var(--surface); padding: 0 10px; gap: 6px; }
+  .unit-in:hover { border-color: var(--fg-subtle); }
+  .unit-in:focus-within { border-color: var(--ring); box-shadow: 0 0 0 3px var(--primary-soft); }
+  .unit-in input { border: 0; outline: 0; font: 13.5px var(--font-body); color: var(--fg); width: 100%; min-width: 0; text-align: right; font-variant-numeric: tabular-nums; background: transparent; }
+  .unit-in span { color: var(--fg-muted); font-size: 12.5px; white-space: nowrap; }
+  .unit-in.sm { height: 30px; }
+  .unit-in.changed { border-color: var(--primary); background: var(--primary-soft); }
+  .unit-in.changed input { color: var(--side-active); font-weight: 600; }
+  fieldset[disabled] .unit-in { background: var(--surface-muted); border-color: transparent; }
+  fieldset[disabled] .btn { background: var(--surface-muted); color: var(--fg-subtle); border-color: var(--border); cursor: not-allowed; }
+  fieldset[disabled] .rcard { cursor: not-allowed; }
+  fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+
+  .diesel { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: center; padding: 16px 18px; background: var(--primary-soft); border-radius: 8px; }
+  .diesel .k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--side-active); }
+  .diesel .v { font: 700 var(--text-display)/40px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+  .diesel .v small { font: 600 16px var(--font-display); color: var(--fg-muted); margin-left: 4px; }
+  .diesel .d { font-size: 12.5px; color: var(--fg-muted); display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .delta-up { color: var(--warning-fg); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .newp { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; }
+  .open-note { font-size: 12.5px; color: var(--fg-muted); display: flex; gap: 6px; align-items: flex-start; line-height: 17px; }
+  .open-note .icon { margin-top: 1px; flex: none; }
+  .ptbl th, .ptbl td { padding: 6px 10px; }
+  .ptbl th { border-bottom: 0; }
+  .ptbl th:first-child { border-radius: var(--r-md) 0 0 var(--r-md); }
+  .ptbl th:last-child { border-radius: 0 var(--r-md) var(--r-md) 0; }
+  .ptbl tbody tr:last-child td { border-bottom: 0; }
+  .ptbl tr:hover td { background: transparent; }
+  .ptbl .unit-in { width: 130px; }
+  .calc { font-size: 12.5px; color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+  .rcards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .rcard { display: flex; gap: 10px; align-items: flex-start; padding: 12px; border-radius: 8px; background: var(--surface-muted); cursor: pointer; font-size: 13px; line-height: 18px; transition: background-color var(--d-1), box-shadow var(--d-1); }
+  .rcard:hover { background: var(--surface); box-shadow: inset 0 0 0 1px var(--border-strong); }
+  .rcard:has(input:checked) { background: var(--primary-soft); box-shadow: inset 0 0 0 1.5px var(--primary); }
+  .rcard input { accent-color: var(--primary); margin-top: 2px; }
+  .rcard b { display: block; font-weight: 600; color: var(--fg-strong); }
+  .rcard small { display: block; color: var(--fg-muted); font-size: 12px; margin-top: 2px; }
+  .rcard .badge { margin-top: 6px; height: 20px; font-size: 12px; }
+
+  .side { position: sticky; top: calc(var(--header-h) + 16px); display: flex; flex-direction: column; gap: var(--s-4); }
+  .card-title { display: flex; align-items: center; gap: 10px; padding: 16px 18px 6px; }
+  .card-title h2 { font-size: 15px; }
+  .toc { list-style: none; margin: 0; padding: 4px 8px 12px; display: flex; flex-direction: column; gap: 1px; }
+  .toc a { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 6px; color: var(--fg); font-size: 13px; text-decoration: none; }
+  .toc a:hover { background: var(--surface-muted); }
+  .toc a .dot-c { width: 6px; height: 6px; border-radius: 50%; background: var(--primary); margin-left: auto; }
+  .hist { list-style: none; margin: 0; padding: 4px 18px 8px; display: flex; flex-direction: column; gap: 14px; max-height: 460px; overflow-y: auto; }
+  .hist li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; font-size: 13px; line-height: 18px; }
+  .hist .av { width: 28px; height: 28px; border-radius: 50%; background: var(--surface-muted); color: var(--fg-muted); display: grid; place-items: center; font: 600 11px var(--font-body); }
+  .hist .w { color: var(--fg-muted); font-size: 12px; margin-top: 2px; }
+  .hist .ch { font-variant-numeric: tabular-nums; }
+  .hist .ch s { color: var(--fg-muted); }
+  .hist-foot { padding: 6px 18px 16px; font-size: 12.5px; color: var(--fg-muted); }
+
+  .savebar { position: sticky; bottom: 0; z-index: 15; margin: 0 calc(-1 * var(--s-6)) calc(-1 * var(--s-6)); padding: 12px var(--s-6); background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); box-shadow: 0 -1px 0 var(--border); display: flex; gap: 8px; align-items: center; justify-content: flex-end; }
+  .savebar .info { margin-right: auto; font-size: 13px; color: var(--fg-muted); display: flex; gap: 8px; align-items: center; }
+  .hidden { display: none !important; }
+  @media (max-width: 1180px) { .layout { grid-template-columns: 1fr; } .side { position: static; } .sec { grid-template-columns: 1fr; gap: 12px; } .rcards { grid-template-columns: 1fr; } }
+  .empty .btn .icon { width: 16px; height: 16px; stroke-width: 1.75; color: inherit; }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Freight rates / Cost parameters &amp; fuel price</div>
+      <h1>Cost parameters &amp; fuel price</h1>
+      <div class="sm muted" style="margin-top:6px">Default values for cost estimates (FM_31), the expected cost when creating orders (FM_07) and trip P&amp;L (FM_09).</div>
+    </div>
+    <div class="actions">
+      <a class="btn btn-secondary" href="fm-31-du-toan.html" id="btnTry"></a>
+    </div>
+  </div>
+
+  <div id="topSlot"></div>
+
+  <div class="layout" id="layout">
+    <form class="card form" id="form" onsubmit="return false" aria-label="Cost parameters"></form>
+    <aside class="side">
+      <section class="card" aria-labelledby="tocT"><div class="card-title"><h2 id="tocT">Sections</h2></div><ul class="toc" id="toc"></ul></section>
+      <section class="card" aria-labelledby="hT" id="histCard"></section>
+    </aside>
+  </div>
+
+  <div class="savebar hidden" id="savebar">
+    <span class="info" id="saveInfo"></span>
+    <button class="btn btn-secondary" type="button" id="discard">Discard changes</button>
+    <button class="btn btn-primary" type="button" id="save">Save parameters <kbd>Ctrl+S</kbd></button>
+  </div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_30', title: 'Cost parameters & fuel price' });
+const $ = id => document.getElementById(id);
+$('btnTry').innerHTML = icon('formula') + 'Estimate cost';
+const nf = n => fmt.vnd(n, { bare: 1 });
+const parse = v => { const n = parseFloat(String(v).replace(/,/g, '')); return isNaN(n) ? null : n; };
+
+/* ---------- Tham số mẫu (khớp FM_07, FM_29, FM_31) ---------- */
+const BASE = {
+  diesel: 20150, dieselPrev: 19000, dieselFrom: '05/11/2026',
+  periods: [['05/11/2026', 20150], ['22/10/2026', 19000], ['08/10/2026', 19320], ['24/09/2026', 18870], ['10/09/2026', 18600]],
+  norm: [['Tractor unit + 20\' dry container', 34, 28], ['Tractor unit + 40\' dry / high-cube container', 38, 30], ['Tractor unit + 20\' reefer container', 36, 28, 'Includes diesel-powered reefer unit'], ['Tractor unit + 40\' reefer container', 40, 30, 'Includes diesel-powered reefer unit'], ['15 t box truck', 25, 20], ['8 t box truck', 18, 15]],
+  wage: [['Tractor unit', 'Up to 120 km', 450000], ['Tractor unit', '121–300 km', 600000], ['Tractor unit', 'Over 300 km', 900000], ['Truck', 'Up to 100 km', 400000], ['Truck', '101–250 km', 450000], ['Truck', 'Over 250 km', 650000]],
+  dep: [['51C-123.45', 'Tractor unit (2021)', 1248000000, 8, 300], ['51D-456.78', 'Tractor unit (2022)', 1248000000, 8, 300], ['51C-456.78', 'Tractor unit (2020)', 1152000000, 8, 300], ['51C-731.80', 'Tractor unit (2019)', 1080000000, 8, 300], ['61C-220.14', 'Tractor unit (2023)', 1296000000, 8, 300], ['51D-702.33', '15 t box truck (2021)', 912000000, 8, 300], ['51C-588.02', '15 t box truck (2020)', 912000000, 8, 300]],
+  fixMonth: 98000000, kmMonth: 98000,
+  thr: 5, alloc: 'klkm'
+};
+let V, dirty = new Set(), readonly = false;
+const HIST = [
+  ['MH', 'Mai Hương', '06/11/2026 08:40', 'Reference fuel price', '<s>19,000</s> → <b>20,150 ₫/l</b> · period 05/11/2026'],
+  ['MH', 'Mai Hương', '23/10/2026 08:15', 'Reference fuel price', '<s>19,320</s> → <b>19,000 ₫/l</b> · period 22/10/2026'],
+  ['HV', 'Hoàng Văn Hải', '01/10/2026 16:02', 'Consolidated trip allocation basis', '<s>Weight</s> → <b>Weight × km</b>'],
+  ['PT', 'Phạm Thanh Tùng', '15/09/2026 10:30', 'Fuel norm · 40\' reefer container', '<s>38</s> → <b>40 l/100km</b> loaded'],
+  ['HV', 'Hoàng Văn Hải', '01/09/2026 09:12', 'Fixed cost/km', '<s>950</s> → <b>1,000 ₫/km</b>'],
+  ['HV', 'Hoàng Văn Hải', '01/06/2026 09:00', 'Margin alert threshold', '<s>3%</s> → <b>5%</b>']
+];
+const SECS = [['dau', 'Reference fuel price'], ['dinhmuc', 'Fuel norm'], ['luong', 'Default trip pay'], ['khauhao', 'Depreciation by vehicle'], ['codinh', 'Fixed cost/km'], ['nguong', 'Margin alert threshold'], ['phanbo', 'Consolidated trip allocation']];
+
+function reset() { V = JSON.parse(JSON.stringify(BASE)); V.newPrice = ''; V.newDate = '19/11/2026'; dirty = new Set(); }
+function inp(key, val, unit, opts) {
+  opts = opts || {};
+  return `<span class="unit-in ${opts.sm ? 'sm' : ''} ${dirty.has(key) ? 'changed' : ''}" ${opts.w ? `style="width:${opts.w}px"` : ''}><input data-k="${key}" value="${val}" inputmode="decimal" aria-label="${opts.label || key}"><span>${unit}</span></span>`;
+}
+function used(list) { return `<div class="used">${list.map(([t, h]) => `<a href="${h}">${t}</a>`).join('')}</div>`; }
+const depDay = r => Math.round(r[2] / r[3] / r[4] / 1000) * 1000;
+
+function renderForm() {
+  const pct = (V.diesel - V.dieselPrev) / V.dieselPrev * 100;
+  $('form').innerHTML = `<fieldset ${readonly ? 'disabled' : ''}>
+  <section class="sec" id="dau">
+    <div class="sec-l"><h2>Reference fuel price</h2><p>Price of DO 0.05S diesel, used to calculate the expected fuel cost and the fuel surcharge. Enter it at each new fuel price adjustment.</p>${used([['Fuel surcharge (FM_29)', 'fm-29-bang-gia.html'], ['Fuel price simulation (FM_31)', 'fm-31-du-toan.html#sim']])}</div>
+    <div class="sec-r">
+      <div class="diesel"><div><div class="k">Effective from ${V.dieselFrom}</div><div class="v" id="dieselV">${nf(V.diesel)}<small>₫/l</small></div>
+        <div class="d"><span class="delta-up">▲ ${nf(V.diesel - V.dieselPrev)} ₫/l (${fmt.pct(pct)})</span><span>vs period 22/10/2026 · entered by Mai Hương on 06/11/2026</span></div></div>
+        <div class="stack" style="align-items:flex-end;gap:4px"><span class="sm muted">Vs contract base price 18,600 ₫/l</span><b class="num" style="font-size:15px;color:var(--fg-strong)">+${fmt.pct((V.diesel - 18600) / 18600 * 100)} → FSC 3.0%</b></div></div>
+      <div class="newp">
+        <label class="field"><span>New adjustment period · start date</span><input class="input" data-k="newDate" value="${V.newDate}" style="width:150px" aria-label="New period start date"></label>
+        <label class="field"><span>New fuel price</span>${inp('newPrice', V.newPrice, '₫/l', { w: 160, label: 'New fuel price' })}</label>
+        <button class="btn btn-secondary" type="button" id="applyNew" style="height:34px">Apply new period</button>
+      </div>
+      <div class="open-note">${icon('info')}<span><b style="font-weight:600;color:var(--fg)">To be decided:</b> whether to pull the fuel price automatically from official sources (price announcements by the Ministry of Industry and Trade and the Ministry of Finance, Petrolimex Zone 1 list prices). Accountants currently enter it manually after each period.</span></div>
+      <details><summary class="sm" style="cursor:pointer;color:var(--primary);font-weight:500">Last 5 periods</summary>
+        <table class="grid ptbl" style="margin-top:8px;max-width:360px"><thead><tr><th>Period</th><th class="right">Price ₫/l</th><th class="right">Change</th></tr></thead><tbody>${V.periods.map((p, i) => { const n = V.periods[i + 1]; const d = n ? p[1] - n[1] : 0; return `<tr><td class="num">${p[0]}</td><td class="right num">${nf(p[1])}</td><td class="right num" style="color:${d > 0 ? 'var(--warning-fg)' : 'var(--fg-muted)'}">${n ? (d > 0 ? '+' : '−') + nf(Math.abs(d)) : '—'}</td></tr>`; }).join('')}</tbody></table></details>
+    </div>
+  </section>
+
+  <section class="sec" id="dinhmuc">
+    <div class="sec-l"><h2>Fuel norms by vehicle type</h2><p>Liters/100 km, split into loaded and empty legs. For vehicles with their own norm, edit it in the vehicle profile (FM_15).</p></div>
+    <div class="sec-r"><table class="grid ptbl"><thead><tr><th>Vehicle type</th><th class="right">Loaded</th><th class="right">Empty</th></tr></thead>
+      <tbody>${V.norm.map((r, i) => `<tr><td>${r[0]}${r[3] ? `<span class="cell-sub">${r[3]}</span>` : ''}</td><td class="right">${inp('norm' + i + 'a', r[1], 'l/100km', { sm: 1, label: r[0] + ' loaded' })}</td><td class="right">${inp('norm' + i + 'b', r[2], 'l/100km', { sm: 1, label: r[0] + ' empty' })}</td></tr>`).join('')}</tbody></table>
+      <p class="calc">Example: 105 km loaded × 38 + 105 km empty × 30 = 71.4 l × ${nf(V.diesel)} ₫/l = ${fmt.vnd(Math.round(71.4 * V.diesel / 100) * 100)} (route TN-01, 40' container).</p></div>
+  </section>
+
+  <section class="sec" id="luong">
+    <div class="sec-l"><h2>Default trip pay</h2><p>By vehicle type and round-trip km. Routes with their own pay table use the route's values; actual pay is calculated in FM_25.</p>${used([['Trip pay (FM_25)', 'fm-25-luong-chuyen.html']])}</div>
+    <div class="sec-r"><table class="grid ptbl"><thead><tr><th>Vehicle type</th><th>Round-trip km</th><th class="right">Pay/trip</th></tr></thead>
+      <tbody>${V.wage.map((r, i) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="right">${inp('wage' + i, nf(r[2]), '₫', { sm: 1, label: 'Pay ' + r[0] + ' ' + r[1] })}</td></tr>`).join('')}</tbody></table></div>
+  </section>
+
+  <section class="sec" id="khauhao">
+    <div class="sec-l"><h2>Depreciation/day by vehicle</h2><p>Purchase cost ÷ years ÷ operating days/year. Trips under 300 km round trip count as 0.5 day; trips over 300 km count as 1 day.</p>${used([['Vehicles & trailers (FM_14)', 'fm-14-xe.html']])}</div>
+    <div class="sec-r"><table class="grid ptbl"><thead><tr><th>Vehicle</th><th class="right">Purchase cost</th><th class="right">Depreciation/day</th></tr></thead>
+      <tbody>${V.dep.map((r, i) => `<tr><td><b class="code">${r[0]}</b><span class="cell-sub">${r[1]}</span></td><td class="right num">${fmt.vnd(r[2])}<span class="cell-sub">${r[3]} years · ${r[4]} days/year</span></td><td class="right num"><b style="font-weight:600">${fmt.vnd(depDay(r))}</b></td></tr>`).join('')}</tbody></table>
+      <p class="calc">Vehicles without a purchase cost use the default for their type: tractor unit 520,000 ₫/day, 15 t box truck 380,000 ₫/day.</p></div>
+  </section>
+
+  <section class="sec" id="codinh">
+    <div class="sec-l"><h2>Fixed cost allocated/km</h2><p>Office salaries, yard rent, insurance, GPS tracker fees… spread over the expected km driven in the month.</p></div>
+    <div class="sec-r"><div class="row wrap" style="gap:12px;align-items:flex-end">
+      <label class="field"><span>Fixed costs/month</span>${inp('fixMonth', nf(V.fixMonth), '₫', { w: 190, label: 'Fixed costs per month' })}</label>
+      <span class="muted" style="padding-bottom:8px">÷</span>
+      <label class="field"><span>Expected km/month</span>${inp('kmMonth', nf(V.kmMonth), 'km', { w: 150, label: 'Expected km per month' })}</label>
+      <span class="muted" style="padding-bottom:8px">=</span>
+      <div class="field"><span>Allocation</span><b class="num" id="fixKm" style="font-size:17px;line-height:34px;color:var(--fg-strong)">${nf(Math.round(V.fixMonth / V.kmMonth))} ₫/km</b></div>
+    </div></div>
+  </section>
+
+  <section class="sec" id="nguong">
+    <div class="sec-l"><h2>Margin alert threshold</h2><p>Orders, routes or customers with a margin below the threshold are highlighted in Overview, Create order and the P&amp;L report.</p>${used([['Overview (FM_04)', 'fm-04-tong-quan.html'], ['P&L report (FM_35)', 'fm-35-bao-cao-pl.html']])}</div>
+    <div class="sec-r"><div class="row" style="gap:12px">${inp('thr', fmt.dec(V.thr, 0), '%', { w: 110, label: 'Margin threshold' })}<span class="sm muted">Default 5%. Below 0% always shows as a loss.</span></div>
+      <p class="calc">At the current threshold: 3 routes are below it (TN-01, BD-01, TG-01).</p></div>
+  </section>
+
+  <section class="sec" id="phanbo">
+    <div class="sec-l"><h2>Allocation for consolidated multi-order trips</h2><p>How trip costs are split across orders (to get P&amp;L by customer) when one trip carries several orders.</p></div>
+    <div class="sec-r"><div class="rcards" role="radiogroup" aria-label="Allocation basis">${[['kl', 'Weight', 'By tonnage of each order'], ['klkm', 'Weight × km', 'By tonnes × km each order travels on the trip'], ['diem', 'Delivery points', 'Split evenly by number of delivery points']].map(([k, t, d]) => `<label class="rcard"><input type="radio" name="alloc" value="${k}" ${V.alloc === k ? 'checked' : ''}><span><b>${t}</b><small>${d}</small>${k === 'klkm' ? '<span class="badge b-neutral">Default</span>' : ''}</span></label>`).join('')}</div>
+      <p class="calc">Example CH-0463 (2 consolidated orders): DH-1133 4.0 t × 52 km and DH-1140 3.5 t × 38 km → cost split ${V.alloc === 'kl' ? '53% / 47%' : V.alloc === 'diem' ? '50% / 50%' : '61% / 39%'}.</p>
+      <div class="open-note">${icon('info')}<span><b style="font-weight:600;color:var(--fg)">To be decided:</b> the system-wide default basis. Changing the basis only applies to trips not yet settled.</span></div></div>
+  </section>
+  </fieldset>`;
+  bindForm();
+}
+function bindForm() {
+  $('form').querySelectorAll('input[data-k]').forEach(el => el.addEventListener('input', () => {
+    const k = el.dataset.k, v = el.value;
+    if (k === 'newPrice' || k === 'newDate') { V[k] = v; return; }
+    dirty.add(k); el.closest('.unit-in').classList.add('changed');
+    if (k === 'fixMonth' || k === 'kmMonth') { V[k] = parse(v) || 0; $('fixKm').textContent = (V.kmMonth ? nf(Math.round(V.fixMonth / V.kmMonth)) : '—') + ' ₫/km'; }
+    if (k === 'thr') V.thr = parse(v) || 0;
+    syncBar();
+  }));
+  $('form').querySelectorAll('input[name=alloc]').forEach(r => r.onchange = () => { V.alloc = r.value; if (V.alloc !== BASE.alloc) dirty.add('alloc'); else dirty.delete('alloc'); renderForm(); syncBar(); });
+  $('applyNew').onclick = () => {
+    const p = parse(V.newPrice);
+    if (!p) { toast('Enter the new fuel price before applying'); $('form').querySelector('[data-k=newPrice]').focus(); return; }
+    openPeriodModal(p);
+  };
+}
+function openPeriodModal(p) {
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim';
+  const m = document.createElement('div'); m.className = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true');
+  const d = p - V.diesel;
+  m.innerHTML = `<h2>Apply fuel price ${nf(p)} ₫/l from ${V.newDate}?</h2>
+    <p class="muted">${d >= 0 ? 'Up' : 'Down'} ${nf(Math.abs(d))} ₫/l vs the current period. This change will:</p>
+    <ul style="margin:0;padding-left:18px;line-height:22px;font-size:13.5px"><li>Recalculate the expected cost of orders created from ${V.newDate}</li><li>Recalculate the fuel surcharge for the 5 rate cards with FSC</li><li>Leave settled trips unchanged</li></ul>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Back</button><button class="btn btn-primary" type="button" data-ok>Apply</button></div>`;
+  document.body.append(s, m);
+  const close = () => { Shell.dismiss(s); Shell.dismiss(m); };
+  s.onclick = close; m.querySelector('[data-x]').onclick = close; m.querySelector('[data-x]').focus();
+  m.querySelector('[data-ok]').onclick = () => {
+    close(); const prev = JSON.parse(JSON.stringify(V));
+    V.periods.unshift([V.newDate, p]); V.dieselPrev = V.diesel; V.diesel = p; V.dieselFrom = V.newDate; V.newPrice = '';
+    HIST.unshift(['LN', 'You', '12/11/2026 ' + new Date().toTimeString().slice(0, 5), 'Reference fuel price', `<s>${nf(prev.diesel)}</s> → <b>${nf(p)} ₫/l</b> · period ${prev.newDate}`]);
+    renderForm(); renderHist();
+    toast(`Applied fuel price ${nf(p)} ₫/l from ${prev.newDate}`, { undo: () => { V = prev; HIST.shift(); renderForm(); renderHist(); } });
+  };
+}
+function syncBar() {
+  const n = dirty.size;
+  $('savebar').classList.toggle('hidden', !n || readonly);
+  $('saveInfo').innerHTML = `${icon('pen')}<span><b class="num" style="color:var(--fg-strong)">${n}</b> unsaved changes · apply to new orders; settled trips aren't recalculated</span>`;
+}
+function renderHist() {
+  $('histCard').innerHTML = `<div class="card-title"><h2 id="hT">Change history</h2><span class="count-pill">${HIST.length}</span></div>
+    <ul class="hist">${HIST.map(([av, who, when, what, ch]) => `<li><span class="av">${av}</span><div><div><b style="font-weight:600">${what}</b></div><div class="ch">${ch}</div><div class="w">${who} · ${when}</div></div></li>`).join('')}</ul>
+    <div class="hist-foot">Also recorded in the audit log (FM_40).</div>`;
+}
+function renderToc() { $('toc').innerHTML = SECS.map(([id, t]) => `<li><a href="#${id}" data-sec="${id}">${t}</a></li>`).join(''); $('toc').querySelectorAll('a').forEach(a => a.onclick = e => { e.preventDefault(); const el = $(a.dataset.sec); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }); }
+$('discard').onclick = () => { const prev = JSON.parse(JSON.stringify(V)), pd = new Set(dirty); reset(); renderForm(); syncBar(); toast('Changes discarded', { undo: () => { V = prev; dirty = pd; renderForm(); syncBar(); } }); };
+$('save').onclick = () => { const n = dirty.size; HIST.unshift(['LN', 'You', '12/11/2026 ' + new Date().toTimeString().slice(0, 5), `${n} parameters`, [...dirty].includes('alloc') ? '<b>Allocation: Weight × km → ' + ({ kl: 'Weight', diem: 'Delivery points', klkm: 'Weight × km' })[V.alloc] + '</b>' : '<b>Updated</b>']); Object.assign(BASE, JSON.parse(JSON.stringify(V))); dirty = new Set(); renderForm(); renderHist(); syncBar(); toast(`Saved ${n} parameter changes`); };
+document.addEventListener('keydown', e => { if (e.ctrlKey && (e.key === 's' || e.key === 'S')) { e.preventDefault(); if (dirty.size && !readonly) $('save').click(); } if (e.key === 'Escape') document.querySelectorAll('.modal:not(.leaving), .modal-scrim:not(.leaving)').forEach(x => Shell.dismiss(x)); });
+
+/* ---------- States ---------- */
+const SECKEYS = SECS.map(s => s[0]);
+function skeleton() {
+  $('form').innerHTML = Array(4).fill(`<div class="sec"><div><span class="sk" style="width:70%;height:14px"></span><span class="sk" style="width:90%;margin-top:10px;height:9px"></span><span class="sk" style="width:60%;margin-top:6px;height:9px"></span></div><div class="stack" style="gap:12px">${Array(4).fill('<span class="sk"></span>').join('')}</div></div>`).join('');
+  $('histCard').innerHTML = `<div class="card-title"><span class="sk" style="width:120px"></span></div><div style="padding:8px 18px 18px;display:flex;flex-direction:column;gap:14px">${Array(5).fill('<span class="sk"></span>').join('')}</div>`;
+}
+const hashSec = location.hash.slice(1);
+Shell.states([['default', 'Default'], ['dirty', 'Unsaved changes'], ['readonly', 'View only (Dispatcher)'], ['loading', 'Loading'], ['empty', 'Not set up'], ['error', 'Error']], s => {
+  reset(); readonly = s === 'readonly'; $('topSlot').innerHTML = ''; $('layout').classList.remove('hidden');
+  renderToc();
+  if (s === 'loading') { skeleton(); syncBar(); return; }
+  if (s === 'error') { $('layout').classList.add('hidden'); $('topSlot').innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Couldn't load cost parameters. Cost estimates and expected costs on new orders temporarily use the last saved parameter set (06/11/2026).</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" onclick="location.hash='';location.reload()">Retry</button></div></div>`; syncBar(); return; }
+  if (s === 'empty') { $('layout').classList.add('hidden'); $('topSlot').innerHTML = `<section class="card"><div class="empty">${icon('fuel')}<h3>Cost parameters not set up</h3><p>Start with the default set for a container fleet in HCMC, then adjust it to your actual figures.</p><button class="btn btn-primary" type="button" onclick="Shell.toast('Default parameter set loaded');location.hash='';location.reload()">Use default set</button></div></section>`; syncBar(); return; }
+  if (s === 'readonly') $('topSlot').innerHTML = `<div class="alert alert-info">${icon('lock')}<div>You're viewing as Dispatcher. Only Accountant and Owner/Admin roles can edit cost parameters.</div></div>`;
+  if (s === 'dirty') { V.norm[1][1] = 39; V.alloc = 'kl'; dirty = new Set(['norm1a', 'alloc']); }
+  renderForm(); renderHist(); syncBar();
+  if (SECKEYS.includes(hashSec)) setTimeout(() => { const el = $(hashSec); if (el) el.scrollIntoView({ block: 'start' }); }, 50);
+});
+</script>
+</body>
+</html>

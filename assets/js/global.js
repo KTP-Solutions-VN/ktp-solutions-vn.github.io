@@ -5,14 +5,15 @@
 
 /* ---- Helper dùng chung cho script của từng trang (khai báo ngoài IIFE để gọi được ngay khi nạp) ----
    KTP.en(text)        → thuộc tính data-en="…" (chữ tiếng Anh cho nút VI/EN), rỗng nếu không có bản dịch
-   KTP.domainIcon(slug) → icon SVG theo lĩnh vực dự án (hospitality / industrial / healthcare)
+   KTP.domainIcon(slug) → icon SVG theo lĩnh vực dự án (hospitality / industrial / healthcare / logistics)
    KTP.domainBadge(da)  → badge lĩnh vực có icon, chữ song ngữ (da: 1 phần tử DATA_DU_AN) */
 var KTP = (function () {
   var esc = function (s) { return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); };
   var ICONS = {
     hospitality: '<path d="M2 20V6"/><path d="M2 13h20v7"/><path d="M22 13v-1a3 3 0 0 0-3-3h-8v4"/><circle cx="6.5" cy="10" r="2"/>',
     industrial: '<path d="M2 20h20"/><path d="M4 20V10l5 3v-3l5 3V5h4v15"/><path d="M8 17h1M12 17h1"/>',
-    healthcare: '<path d="M20.4 4.6a5.4 5.4 0 0 0-7.6 0L12 5.4l-.8-.8a5.4 5.4 0 0 0-7.6 7.6L12 20.6l8.4-8.4a5.4 5.4 0 0 0 0-7.6z"/><path d="M3.5 12h4l1.5-2.5 3 5 1.5-2.5h7"/>'
+    healthcare: '<path d="M20.4 4.6a5.4 5.4 0 0 0-7.6 0L12 5.4l-.8-.8a5.4 5.4 0 0 0-7.6 7.6L12 20.6l8.4-8.4a5.4 5.4 0 0 0 0-7.6z"/><path d="M3.5 12h4l1.5-2.5 3 5 1.5-2.5h7"/>',
+    logistics: '<path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/>'
   };
   function en(text) { return text ? ' data-en="' + esc(text) + '"' : ''; }
   function domainIcon(slug) {

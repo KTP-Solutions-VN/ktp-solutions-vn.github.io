@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy & audit log · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* Sub-nav Cài đặt (giống hệt ở FM_38–41) */
+  .set-layout { display: grid; grid-template-columns: 216px minmax(0, 1fr); gap: var(--s-6); align-items: start; }
+  .set-nav { position: sticky; top: 72px; display: flex; flex-direction: column; gap: 2px; }
+  .set-nav .set-g { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--side-fg-muted); padding: 2px 10px 8px; }
+  .set-nav a { display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 10px; border-radius: 8px; color: var(--fg); font: 500 13.5px var(--font-body); text-decoration: none !important; white-space: nowrap; transition: background-color var(--d-1) var(--ease-std), color var(--d-1) var(--ease-std); }
+  .set-nav a .icon { color: var(--fg-muted); flex: none; }
+  .set-nav a:hover { background: var(--surface-muted); }
+  .set-nav a[aria-current] { background: var(--primary-soft); color: var(--side-active); font-weight: 600; }
+  .set-nav a[aria-current] .icon { color: var(--side-active); }
+  .set-main { display: flex; flex-direction: column; gap: var(--s-4); min-width: 0; }
+  @media (max-width: 1100px) { .set-layout { grid-template-columns: 1fr; } .set-nav { position: static; flex-direction: row; flex-wrap: wrap; } .set-nav .set-g { display: none; } }
+  .card { display: flex; flex-direction: column; min-width: 0; }
+  .card-title { display: flex; align-items: center; gap: 10px; padding: 16px 18px 10px; min-height: 30px; }
+  .card-title h2 { font-size: 16px; white-space: nowrap; }
+  .card-title .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 10px; align-items: center; }
+  .card-foot { padding: 8px 18px 16px; display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--fg-muted); }
+  .card-foot .icon { width: 15px; height: 15px; flex: none; }
+  .tbl-wrap { border-radius: 0 0 var(--r-lg) var(--r-lg); overflow-x: auto; }
+  .grid tbody tr:last-child td { border-bottom: 0; }
+  .grid td { font-variant-numeric: tabular-nums; }
+  /* Chính sách lưu trữ */
+  .ret { display: flex; flex-direction: column; gap: 2px; padding: 0 10px 6px; }
+  .rt { display: grid; grid-template-columns: 36px minmax(0, 1fr) 220px; gap: 14px; align-items: center; padding: 12px 8px; border-radius: 8px; }
+  .rt:hover { background: var(--surface-muted); }
+  .rt .ic { width: 36px; height: 36px; border-radius: 8px; display: grid; place-items: center; background: var(--surface-muted); color: var(--fg-muted); }
+  .rt:hover .ic { background: var(--surface); }
+  .rt b { display: block; font-weight: 600; color: var(--fg-strong); font-size: 14px; }
+  .rt small { display: block; font-size: 12.5px; color: var(--fg-muted); line-height: 18px; }
+  .rt .val { display: flex; justify-content: flex-end; align-items: center; gap: 8px; }
+  .rt .val .input { width: 140px; }
+  .locked { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; border-radius: var(--r-md); background: var(--surface-muted); color: var(--fg); font-weight: 600; font-size: 13.5px; width: 140px; box-sizing: border-box; }
+  .locked .icon { color: var(--fg-muted); width: 15px; height: 15px; }
+  .rt.changed { background: var(--warning-soft); }
+  .side { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: var(--s-4); align-items: stretch; }
+  .facts { display: flex; flex-direction: column; gap: 4px; padding: 0 18px 8px; }
+  .fact { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; font-size: 13.5px; }
+  .fact span { color: var(--fg-muted); }
+  .fact b { font-weight: 600; color: var(--fg-strong); text-align: right; font-variant-numeric: tabular-nums; }
+  .savebar { display: flex; align-items: center; gap: 10px; padding: 10px 12px 10px 16px; margin: 4px 18px 16px; background: var(--fg-strong); color: #fff; border-radius: var(--r-lg); font-size: 13.5px; }
+  .savebar .btn-secondary { background: transparent; color: #fff; border-color: rgba(255,255,255,.35); }
+  /* Consent */
+  .cstrip { display: flex; gap: 6px; padding: 0 18px 12px; }
+  .cs { padding: 10px 14px; border-radius: 8px; background: var(--surface-muted); min-width: 140px; }
+  .cs.main { background: var(--primary-soft); }
+  .cs b { display: block; font: 700 22px/28px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .cs.main b { color: var(--side-active); }
+  .cs span { font-size: 12.5px; color: var(--fg-muted); }
+  .modal-head { display: flex; align-items: center; gap: 8px; }
+  .modal-head h2 { font-size: 17px; }
+  .modal-foot { display: flex; gap: 8px; justify-content: flex-end; }
+  .chk { display: flex; align-items: flex-start; gap: 8px; font-size: 13.5px; }
+  .chk input { accent-color: var(--primary); width: 16px; height: 16px; margin-top: 2px; }
+  .act-b { white-space: nowrap; }
+  @media (max-width: 1200px) { .side { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="set-layout">
+    <nav class="set-nav" aria-label="Settings">
+      <div class="set-g">Settings</div>
+      <a href="fm-38-thanh-vien.html" data-k="members" data-ic="users">Members &amp; permissions</a> <a href="fm-38-thanh-vien.html#chi-nhanh" data-k="branches" data-ic="branch">Branches</a> <a href="fm-39-tich-hop.html" data-k="integrations" data-ic="link">Integrations</a> <a href="fm-40-quyen-rieng-tu.html" data-k="privacy" data-ic="shield">Privacy &amp; audit log</a> <a href="fm-41-goi-dich-vu.html" data-k="plan" data-ic="receipt">Plan</a>
+    </nav>
+    <div class="set-main">
+      <div class="page-header">
+        <div><div class="crumb">Settings / Privacy & audit log</div><h1>Privacy & audit log</h1></div>
+        <div class="actions" id="pageA"></div>
+      </div>
+      <div class="tabs" role="tablist" id="tabs"></div>
+      <div id="view" style="display:contents"></div>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_38', title: 'Privacy & audit log' });
+/* Sub-nav Cài đặt (giống hệt ở FM_38–41) */
+function setNav(k) { document.querySelectorAll('.set-nav a').forEach(a => { if (!a.querySelector('.icon')) a.insertAdjacentHTML('afterbegin', Shell.icon(a.dataset.ic)); a.dataset.k === k ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'); }); }
+setNav('privacy');
+
+const LOC_OPTS = [6, 12, 24, 36];
+let SAVED_LOC = 12;
+// [tài xế, SĐT, trạng thái agree|withdrawn|pending, ngày, phiên bản, ghi chú]
+const CONS = [
+  ['Nguyễn Văn Tuấn', '0903 •••• 218', 'agree', '15/09/2026', 'v1.2'],
+  ['Trần Minh Đức', '0918 •••• 402', 'agree', '15/09/2026', 'v1.2'],
+  ['Lê Hoàng Phúc', '0937 •••• 651', 'agree', '16/09/2026', 'v1.2'],
+  ['Võ Thành Nhân', '0909 •••• 117', 'agree', '16/09/2026', 'v1.2'],
+  ['Đặng Quang Vinh', '0988 •••• 530', 'agree', '18/09/2026', 'v1.2'],
+  ['Ngô Đức Trí', '0971 •••• 804', 'agree', '20/09/2026', 'v1.2'],
+  ['Phan Thanh Tùng', '0932 •••• 276', 'withdrawn', '08/11/2026', 'v1.2', 'App stopped sending location; trip milestones are tapped manually and vehicle location comes from the GPS tracker'],
+  ['Huỳnh Tấn Lộc', '0905 •••• 993', 'agree', '22/09/2026', 'v1.2'],
+  ['Bùi Minh Khoa', '0912 •••• 045', 'agree', '02/10/2026', 'v1.2'],
+  ['Trương Văn Lực', '0868 •••• 371', 'pending', 'Sent 05/11/2026', 'v1.2', 'Hasn\'t opened the app since being invited'],
+  ['Đặng Văn Hiếu', '0396 •••• 728', 'pending', 'Sent 30/10/2026', 'v1.2', 'Driver\'s license expired; not taking trips'],
+  ['Võ Thanh Sơn', '0947 •••• 160', 'agree', '25/09/2026', 'v1.1', 'Needs to re-confirm under terms v1.2']
+];
+// [thời gian, người, vai trò, loại, đối tượng, chi tiết, IP]
+const LOG = [
+  ['12/11/2026 10:21', 'Nguyễn Thị Lan', 'Dispatcher', 'view', 'CH-0458 · 51C-123.45', 'Viewed live location during trip', '113.161.42.18'],
+  ['12/11/2026 09:47', 'Mai Hương', 'Accountant', 'export', 'P&L report Oct 2026', 'Exported 1,146 trips to Excel', '113.161.42.21'],
+  ['12/11/2026 08:30', 'Hoàng Văn Hùng', 'Owner / Admin', 'perm', 'Phạm Thu Trang', 'Invited as Accountant · Hải Phòng branch', '14.232.88.4'],
+  ['11/11/2026 17:05', 'Mai Hương', 'Accountant', 'settle', 'CH-0431', 'Approved and locked settlement · 8,420,000 ₫', '113.161.42.21'],
+  ['11/11/2026 16:52', 'Mai Hương', 'Accountant', 'unlock', 'CH-0427', 'Edited cost after lock: toll 245,000 → 290,000 ₫ · reason: missing An Sương toll ticket', '113.161.42.21'],
+  ['11/11/2026 15:10', 'Trần Thanh Phong', 'Fleet manager', 'view', 'Route playback 51C-456.78', 'Viewed route for 28/10 (during trip CH-0438)', '113.161.42.30'],
+  ['10/11/2026 11:02', 'Hoàng Văn Hùng', 'Owner / Admin', 'perm', 'Dispatcher role', 'Cash advance: View → Edit', '14.232.88.4'],
+  ['10/11/2026 09:15', 'Nguyễn Thị Lan', 'Dispatcher', 'export', 'Compliance report Oct 2026', 'Exported internal template (Excel)', '113.161.42.18'],
+  ['09/11/2026 14:40', 'Mai Hương', 'Accountant', 'settle', 'CH-0424, CH-0425, CH-0426', 'Bulk-approved 3 settlements · 21,380,000 ₫', '113.161.42.21'],
+  ['08/11/2026 07:58', 'Phan Thanh Tùng', 'Driver', 'perm', 'Location data consent', 'Withdrew consent in the driver app', 'App · 4G']
+];
+const KIND = { view: ['Location view', 'b-info', 'eye'], unlock: ['Edit after lock', 'b-warning', 'lock'], settle: ['Settlement approval', 'b-success', 'check'], export: ['Data export', 'b-neutral', 'download'], perm: ['Permission change', 'b-accent', 'shield'] };
+
+let S;
+function reset(o) { S = Object.assign({ tab: 'policy', loc: SAVED_LOC, cf: 'all', lk: 'all', loading: false, error: false, empty: false }, o || {}); }
+const view = document.getElementById('view');
+
+function render() {
+  const T = [['policy', 'Retention policy', 'clock'], ['consent', 'Driver consent', 'users'], ['log', 'Audit log', 'list']];
+  document.getElementById('tabs').innerHTML = T.map(([k, l, ic]) => `<button role="tab" type="button" data-tab="${k}" aria-selected="${S.tab === k}">${icon(ic)}${l}</button>`).join('');
+  document.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { S.tab = b.dataset.tab; history.replaceState(null, '', '#' + (S.tab === 'policy' ? 'default' : S.tab)); render(); });
+  const pa = document.getElementById('pageA'); pa.innerHTML = S.tab === 'log' && !S.loading && !S.error ? `<button class="btn btn-secondary" type="button" id="expLog">${icon('download')}Export log</button>` : '';
+  const el = document.getElementById('expLog'); if (el) el.onclick = () => toast('Generating the log file… This export is also recorded in the log.');
+  if (S.loading) { view.innerHTML = `<div class="card card-body">${Array(5).fill('<div style="display:flex;gap:14px;align-items:center;margin:10px 0"><span class="sk" style="width:36px;height:36px"></span><span style="flex:1"><span class="sk" style="width:40%"></span><span class="sk" style="width:70%;margin-top:6px"></span></span><span class="sk" style="width:140px;height:34px"></span></div>').join('')}</div>`; return; }
+  if (S.error) { view.innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Couldn't load privacy settings. Try again in a few minutes.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="retry">${icon('refresh')}Retry</button></div></div>`; document.getElementById('retry').onclick = () => { S.error = false; render(); }; return; }
+  view.innerHTML = S.tab === 'policy' ? policyHtml() : S.tab === 'consent' ? consentHtml() : logHtml();
+  bind();
+}
+function policyHtml() {
+  const ch = S.loc !== SAVED_LOC;
+  const lockRow = (ic, t, d) => `<div class="rt"><span class="ic">${icon(ic)}</span><span><b>${t}</b><small>${d}</small></span><span class="val"><span class="badge b-neutral" title="Period set by regulation; can't be changed">Required</span><span class="locked">${icon('lock')}3 years</span></span></div>`;
+  return `<div class="side"><section class="card" aria-label="Data retention period">
+    <div class="card-title"><h2>Data retention period</h2><span class="meta">Applies to all 3 branches</span></div>
+    <div class="ret">
+      <div class="rt ${ch ? 'changed' : ''}"><span class="ic">${icon('pin')}</span><span><b>Vehicle location & routes</b><small>From GPS trackers and the driver app, recorded only during trips. Used for route playback, empty km and speed. Default 12 months.</small></span> <span class="val"><select class="input" id="locSel" aria-label="Location retention period">${LOC_OPTS.map(m => `<option value="${m}" ${m === S.loc ? 'selected' : ''}>${m} months</option>`).join('')}</select></span></div>
+      ${lockRow('shield', 'Safety records', 'Driving hours, speed violations, violation action log.')}
+      ${lockRow('qr', 'Waybill', 'Issued e-waybills, including revoked ones.')}
+    </div>
+    ${ch ? `<div class="savebar" role="status">${icon('warn')}<span>${S.loc < SAVED_LOC ? `Locations older than ${S.loc} months will be permanently deleted.` : `Keeping locations longer uses more storage.`}</span><span style="flex:1"></span><button class="btn btn-secondary btn-sm" type="button" id="undoLoc">Discard changes</button><button class="btn btn-primary btn-sm" type="button" id="saveLoc">Save</button></div>` : ''}
+    <div class="card-foot" style="margin-top:auto">${icon('info')}<span>Data past its retention period is deleted automatically at 00:00 on the 1st of each month. Expense receipt photos are kept as accounting documents.</span></div>
+  </section>
+  <section class="card" aria-label="Storage status">
+    <div class="card-title"><h2>Status</h2></div>
+    <div class="facts"><div class="fact"><span>Oldest stored location</span><b>12/11/2025</b></div><div class="fact"><span>Last deletion</span><b>01/11/2026</b></div><div class="fact"><span>Deleted in that run</span><b>1.8M location points</b></div><div class="fact"><span>Next deletion</span><b>01/12/2026</b></div><div class="fact"><span>Oldest safety record</span><b>15/09/2026</b></div></div>
+    <div class="card-foot" style="margin-top:auto">${icon('lock')}<span>Only the Owner / Admin can change retention periods. Every change is logged.</span></div>
+  </section></div>`;
+}
+function consentHtml() {
+  const n = k => CONS.filter(c => c[2] === k).length, rs = CONS.filter(c => S.cf === 'all' || c[2] === S.cf);
+  const B = { agree: `<span class="badge b-success">${icon('check')}Consented</span>`, withdrawn: `<span class="badge b-warning">${icon('x')}Consent withdrawn</span>`, pending: `<span class="badge b-neutral">${icon('clock')}No response</span>` };
+  return `<section class="card" aria-label="Consent to location data processing">
+    <div class="card-title"><h2>Consent to location data processing</h2><span class="meta">Drivers give or withdraw consent in the driver app</span></div>
+    <div class="cstrip"><div class="cs main"><b>${n('agree')}/${CONS.length}</b><span>drivers consented</span></div><div class="cs"><b>${n('withdrawn')}</b><span>withdrew consent</span></div><div class="cs"><b>${n('pending')}</b><span>no response</span></div>
+      <div style="margin-left:auto;align-self:center"><div class="seg" role="group" aria-label="Filter by status" id="cfSeg">${[['all', 'All'], ['agree', 'Consented'], ['withdrawn', 'Withdrawn'], ['pending', 'No response']].map(([k, l]) => `<button type="button" data-cf="${k}" aria-pressed="${S.cf === k}">${l}</button>`).join('')}</div></div></div>
+    <div class="tbl-wrap"><table class="grid"><thead><tr><th>Driver</th><th>Status</th><th>Date</th><th>Terms</th><th>Note</th><th><span class="sr-only">Actions</span></th></tr></thead>
+      <tbody>${rs.map(c => `<tr><td><a href="fm-17-chi-tiet-tai-xe.html" style="font-weight:600">${c[0]}</a><span class="cell-sub">${c[1]}</span></td><td>${B[c[2]]}</td><td>${c[3]}</td><td>${c[4] === 'v1.2' ? 'v1.2' : `<span style="color:var(--warning-fg);font-weight:600">${c[4]}</span>`}</td>
+        <td class="muted" style="white-space:normal;max-width:340px">${c[5] || '—'}</td><td style="text-align:right">${c[2] === 'pending' || c[4] !== 'v1.2' ? `<button class="btn btn-ghost btn-sm" type="button" data-resend="${c[0]}">Resend request</button>` : ''}</td></tr>`).join('')}</tbody></table></div>
+    <div class="card-foot">${icon('info')}<span>Drivers who withdraw consent can still run trips: the app sends no location and milestones are tapped manually. The v1.2 terms can be read in the driver app.</span></div>
+  </section>`;
+}
+function logHtml() {
+  const rs = S.empty ? [] : LOG.filter(l => S.lk === 'all' || l[3] === S.lk);
+  return `<div class="filterbar" role="toolbar" aria-label="Filter log"><button class="chip on" type="button">Last 7 days ${icon('chevron')}</button><button class="chip" type="button">Performed by ${icon('chevron')}</button>
+      <div class="seg" role="group" aria-label="Action type">${[['all', 'All']].concat(Object.entries(KIND).map(([k, v]) => [k, v[0]])).map(([k, l]) => `<button type="button" data-lk="${k}" aria-pressed="${S.lk === k}">${l}</button>`).join('')}</div></div>
+    <section class="card" aria-label="Audit log">
+    ${rs.length ? `<div class="tbl-wrap" style="border-radius:var(--r-lg)"><table class="grid"><thead><tr><th>Time · source</th><th>Performed by</th><th>Action</th><th>Subject</th><th>Details</th></tr></thead>
+      <tbody>${rs.map(l => { const k = KIND[l[3]]; return `<tr><td>${l[0]}<span class="cell-sub code">${l[6]}</span></td><td><b style="font-weight:600">${l[1]}</b><span class="cell-sub">${l[2]}</span></td><td class="act-b"><span class="badge ${k[1]}">${icon(k[2])}${k[0]}</span></td><td style="white-space:normal;min-width:150px">${/^CH-/.test(l[4]) ? `<a class="code" href="fm-09-chi-tiet-chuyen.html">${l[4]}</a>` : l[4]}</td><td style="white-space:normal">${l[5]}</td></tr>`; }).join('')}</tbody></table></div>`
+      : `<div class="empty">${icon('list')}<h3>No activity matches the filters</h3><p>Try a wider time range or select "All".</p><button class="btn btn-secondary" type="button" id="clrLog">Clear filters</button></div>`}
+    </section>
+    <div class="card-foot" style="padding:0 2px">${icon('lock')}<span>The log is append-only: no one can edit or delete entries, not even the Owner / Admin.</span></div>`;
+}
+function bind() {
+  const ls = document.getElementById('locSel'); if (ls) ls.onchange = () => { S.loc = +ls.value; render(); };
+  const u = document.getElementById('undoLoc'); if (u) u.onclick = () => { S.loc = SAVED_LOC; render(); };
+  const sv = document.getElementById('saveLoc'); if (sv) sv.onclick = () => S.loc < SAVED_LOC ? confirmReduce() : doSave();
+  view.querySelectorAll('[data-cf]').forEach(b => b.onclick = () => { S.cf = b.dataset.cf; render(); });
+  view.querySelectorAll('[data-resend]').forEach(b => b.onclick = () => toast(`Consent request resent to ${b.dataset.resend} via app and SMS`));
+  view.querySelectorAll('[data-lk]').forEach(b => b.onclick = () => { S.lk = b.dataset.lk; render(); });
+  const cl = document.getElementById('clrLog'); if (cl) cl.onclick = () => { S.lk = 'all'; S.empty = false; render(); };
+}
+function doSave() { const prev = SAVED_LOC; SAVED_LOC = S.loc; render(); toast(`Saved: keep locations for ${S.loc} months · logged`, { undo: () => { SAVED_LOC = prev; S.loc = prev; render(); } }); }
+function confirmReduce() {
+  closeModal(true);
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim'; s.id = 'mScrim';
+  const m = document.createElement('div'); m.className = 'modal'; m.id = 'modal'; m.setAttribute('role', 'alertdialog'); m.setAttribute('aria-modal', 'true'); m.setAttribute('aria-labelledby', 'mT');
+  m.innerHTML = `<div class="modal-head">${icon('warn')}<h2 id="mT">Shorten location retention to ${S.loc} months?</h2></div>
+    <p class="muted">At 00:00 on 01/12/2026, locations and routes before <b style="color:var(--fg-strong)">01/${S.loc === 6 ? '06' : '12'}/2026</b> will be permanently deleted (about ${S.loc === 6 ? '9,6' : '0'}M points). This can't be undone. Route playback and empty-km reports for that period will no longer be available.</p>
+    <p class="muted">Safety records and waybills are still kept for 3 years.</p>
+    <label class="chk"><input type="checkbox" id="ack">I understand deleted data can't be recovered</label>
+    <div class="modal-foot"><button class="btn btn-secondary" type="button" id="mC">Cancel</button><button class="btn btn-danger" type="button" id="mOk" disabled>Shorten to ${S.loc} months</button></div>`;
+  document.body.append(s, m);
+  s.onclick = m.querySelector('#mC').onclick = () => closeModal();
+  m.querySelector('#ack').onchange = e => { m.querySelector('#mOk').disabled = !e.target.checked; };
+  m.querySelector('#mOk').onclick = () => { closeModal(); doSave(); };
+}
+function closeModal(now) { ['modal', 'mScrim'].forEach(id => { const e = document.getElementById(id); if (e) { e.id = ''; now ? e.remove() : Shell.dismiss(e); } }); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+Shell.states([['default', 'Retention policy'], ['consent', 'Driver consent'], ['log', 'Audit log'], ['confirm', 'Confirm shorter retention'], ['loading', 'Loading'], ['empty', 'Empty log'], ['error', 'Error']], s => {
+  closeModal(true); SAVED_LOC = 12;
+  reset({ consent: { tab: 'consent' }, log: { tab: 'log' }, confirm: { loc: 6 }, empty: { tab: 'log', empty: true, lk: 'unlock' }, loading: { loading: true }, error: { error: true } }[s]); render();
+  if (s === 'confirm') confirmReduce();
+});
+</script>
+</body>
+</html>

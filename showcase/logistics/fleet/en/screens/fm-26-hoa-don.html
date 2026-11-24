@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Invoices · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  #app-content > * { flex: none; }
+  .page-header .sub { color: var(--fg-muted); font-size: 13px; margin-top: 4px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .prov { display: inline-flex; align-items: center; gap: 6px; }
+  .prov .dotc { width: 7px; height: 7px; border-radius: 50%; background: var(--success-solid); }
+  .prov.off .dotc { background: var(--neutral-solid); }
+  .inbox { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: var(--s-4); align-items: start; }
+  .queue { position: sticky; top: calc(var(--header-h) + 16px); display: flex; flex-direction: column; }
+  .card-title { display: flex; align-items: center; gap: 8px; padding: 16px 18px 6px; }
+  .card-title h2 { font-size: 16px; }
+  .card-title .meta { margin-left: auto; display: inline-flex; gap: 8px; align-items: center; }
+  .qfilter { padding: 6px 12px 4px; }
+  .qfilter .seg { width: 100%; display: flex; }
+  .qfilter .seg button { flex: 1; justify-content: center; padding: 0 6px; }
+  .list { padding: 4px 8px 8px; display: flex; flex-direction: column; gap: 2px; max-height: calc(100vh - 300px); overflow-y: auto; }
+  .qi { display: block; width: 100%; text-align: left; border: 0; border-radius: 8px; background: transparent; padding: 9px 10px 9px 14px; font: inherit; color: inherit; cursor: pointer; position: relative; }
+  .qi:hover { background: var(--surface-muted); }
+  .qi::before { content: ""; position: absolute; left: 0; top: 8px; bottom: 8px; width: 3px; border-radius: 0 3px 3px 0; background: transparent; }
+  .qi.on { background: var(--primary-soft); }
+  .qi.on::before { background: var(--primary); }
+  .qi .l1 { display: flex; gap: 6px; align-items: baseline; font-size: 13.5px; font-weight: 600; }
+  .qi .l1 .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .qi .l1 .num { margin-left: auto; font-weight: 600; white-space: nowrap; }
+  .qi .l2 { white-space: nowrap; font-size: 12.5px; color: var(--fg-muted); display: flex; gap: 6px; align-items: center; margin-top: 3px; }
+  .qi .l2 .badge { height: 20px; font-size: 11.5px; padding: 0 6px; margin-left: auto; }
+  .qi .l2 .badge .icon { width: 12px; height: 12px; }
+  .work { display: flex; flex-direction: column; gap: var(--s-4); min-width: 0; }
+  .ihead { display: flex; align-items: flex-start; gap: 16px; padding: 16px 18px 8px; flex-wrap: wrap; }
+  .ihead h2 { font-size: 18px; }
+  .ihead .meta { font-size: 13px; color: var(--fg-muted); margin-top: 3px; }
+  .ihead .act { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+  .facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; padding: 4px 12px 12px; }
+  .facts > div { padding: 10px 12px; border-radius: 8px; background: var(--surface-muted); display: flex; flex-direction: column; gap: 2px; font-size: 13px; min-width: 0; }
+  .facts .k { font-size: 12px; color: var(--fg-muted); }
+  .facts b { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  table.lines td { padding: 8px 12px; height: 50px; }
+  table.lines tbody tr:last-child td { border-bottom: 0; }
+  .auto { display: inline-flex; align-items: center; gap: 3px; font-size: 11.5px; color: var(--fg-muted); }
+  .auto .icon { width: 12px; height: 12px; }
+  .totals { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 16px; padding: 12px 18px 18px; align-items: end; }
+  .tot { display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; font-size: 13.5px; }
+  .tot .num { text-align: right; }
+  .tot .grand { font: 700 20px/26px var(--font-display); color: var(--fg-strong); }
+  .tot .gl { align-self: center; font-weight: 600; }
+  .excl { font-size: 12.5px; color: var(--fg-muted); display: flex; flex-direction: column; gap: 4px; }
+  .explain { position: relative; padding: 2px 0 2px 12px; font-size: 13px; line-height: 18px; }
+  .explain::before { content: ""; position: absolute; left: 0; top: 2px; bottom: 2px; width: 3px; border-radius: 2px; background: var(--warning-solid); }
+  .fix ol { margin: 6px 0 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
+  .errcode { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .gm td { height: 48px; }
+  .gm input[type=checkbox] { accent-color: var(--primary); width: 15px; height: 15px; }
+  .drawer { width: min(640px, 100vw); }
+  .modal .sumlist { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; font-size: 13.5px; }
+  .issued { display: flex; align-items: center; gap: 12px; padding: 0 18px 12px; flex-wrap: wrap; font-size: 13px; }
+  @media (max-width: 1200px) { .inbox { grid-template-columns: 1fr; } .queue { position: static; } .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Finance / Invoices</div>
+      <h1>Invoices</h1>
+      <div class="sub"><span class="prov" id="prov"></span></div>
+    </div>
+    <div class="actions">
+      <label class="sr-only" for="period">Period</label>
+      <select class="select" id="period" style="height:36px"><option>Period 01/11 – 15/11/2026</option><option>October 2026</option></select>
+      <button class="btn btn-primary" type="button" id="btnGather"></button>
+    </div>
+  </div>
+  <div id="slot"></div>
+  <div id="view"></div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_26', title: 'Invoices' });
+const $ = id => document.getElementById(id);
+$('btnGather').innerHTML = `${icon('plus')}Create requests from trips with POD`;
+
+const VAT = 0.08;
+const CUST = {
+  'Tân Cảng Logistics': { mst: '0305813046', addr: '722 Điện Biên Phủ, Ward 22, Bình Thạnh District, HCMC', email: 'ketoan@tancanglogistics.vn' },
+  'Gỗ Minh Long': { mst: '3700812455', addr: 'Mỹ Phước 3 Industrial Park, Bến Cát, Bình Dương', email: 'ketoan@gominhlong.vn' },
+  'Bao bì Phương Nam': { mst: '0312904518', addr: 'Sóng Thần 2 Industrial Park, Dĩ An, Bình Dương', email: 'kt@baobiphuongnam.vn' },
+  'Nhựa Duy Tân': { mst: '0301472690', addr: '298 Hồ Học Lãm, Bình Tân, HCMC', email: 'ap@duytan.com' },
+  'Thép Hòa Phát Bình Dương': { mst: '3700775340', addr: 'Đồng An Industrial Park, Thuận An, Bình Dương', email: 'ketoan.hpbd@hoaphat.com.vn' }
+};
+// Dòng chuyến: mã, ngày, hành trình, biển số, container, đơn giá
+const L = (id, d, route, plate, cont, price) => ({ id, d, route, plate, cont, price });
+const INV0 = [
+  { id: 'DN-2611-014', cust: 'Tân Cảng Logistics', st: 'draft', lines: [
+    L('CH-0402', '02/11', 'Cát Lái → VSIP 1 Industrial Park', '51D-456.78', 'TCLU 4418831', 3650000), L('CH-0409', '03/11', 'Tân Uyên Industrial Park → Cát Lái', '51C-123.45', 'TCLU 4419002', 4120000),
+    L('CH-0415', '04/11', 'ICD Phước Long → Phước Đông Industrial Park', '51C-456.78', 'TCLU 4419215', 4380000), L('CH-0421', '06/11', 'Cát Lái → VSIP 1 Industrial Park', '51D-456.78', 'TCLU 4419530', 3650000),
+    L('CH-0428', '08/11', 'Tân Uyên Industrial Park → Cát Lái', '51C-123.45', 'TCLU 4419704', 4120000), L('CH-0444', '10/11', 'Cát Lái → VSIP 1 Industrial Park', '51C-731.80', 'TCLU 4419866', 3650000),
+    L('CH-0452', '12/11', 'Cát Lái → VSIP 1 Industrial Park', '51D-456.78', 'TCLU 4419920', 3650000)], excl: [['CH-0458', 'in progress'], ['CH-0447', 'no POD yet']] },
+  { id: 'DN-2611-013', cust: 'Gỗ Minh Long', st: 'error', err: 'buyer', lines: [
+    L('CH-0405', '02/11', 'Mỹ Phước 3 Industrial Park → Cát Lái', '51C-731.80', 'MSKU 7729810', 4250000), L('CH-0418', '05/11', 'Mỹ Phước 3 Industrial Park → Cát Lái', '51C-123.45', 'MSKU 7729944', 4250000),
+    L('CH-0431', '10/11', 'Mỹ Phước 3 Industrial Park → Cát Lái', '51C-123.45', 'MSKU 7730011', 4250000)], excl: [] },
+  { id: 'DN-2611-012', cust: 'Nhựa Duy Tân', st: 'issued', no: '00000187', sign: '1C26TDX', at: '11/11/2026 16:42', lookup: 'B7K2-9QX4', cqt: '00A3F2C61E7B4D0E9A51C2D8F4B6E1A7', lines: [
+    L('CH-0412', '03/11', 'Bình Tân → Mỹ Tho', '51C-588.02', '—', 2950000), L('CH-0426', '07/11', 'Bình Tân → Mỹ Tho', '51C-588.02', '—', 2950000), L('CH-0455', '12/11', 'Bình Tân → Mỹ Tho', '51C-588.02', '—', 2950000)], excl: [] },
+  { id: 'DN-2611-011', cust: 'Bao bì Phương Nam', st: 'issued', no: '00000186', sign: '1C26TDX', at: '10/11/2026 09:15', lookup: 'M3P8-2HD6', cqt: '00A3F1B5C27D4E1F8B60A3C9E5D7F2B8', lines: [
+    L('CH-0401', '01/11', 'Sóng Thần Industrial Park → Long An', '51D-702.33', '—', 2400000), L('CH-0417', '05/11', 'Sóng Thần Industrial Park → Bến Lức', '51D-702.33', '—', 1850000)], excl: [] },
+  { id: 'DN-2611-010', cust: 'Thép Hòa Phát Bình Dương', st: 'error', err: 'number', lines: [
+    L('CH-0407', '02/11', 'Đồng An Industrial Park → Cát Lái', '51C-456.78', 'HLXU 2209871', 3480000), L('CH-0433', '09/11', 'Đồng An Industrial Park → Cát Lái', '51C-456.78', 'HLXU 2210402', 3480000)], excl: [['CH-0457', 'incident, not completed']] }
+];
+const ERR = {
+  buyer: { code: 'ERR_BUYER_TAXCODE', msg: 'Buyer tax ID 3700812455 is invalid or inactive in the General Department of Taxation system.', fix: ['Check Gỗ Minh Long\'s tax ID in customer master data (look it up at tracuunnt.gdt.gov.vn)', 'If the customer changed its tax ID or company name, update it, then click Retry issuing', 'The request stays in Draft; no invoice number has been used'], link: ['fm-32-danh-muc.html', 'Open customer master data'] },
+  number: { code: 'ERR_INVOICE_RANGE', msg: 'Series 1C26TDX has run out of its allocated number range (00000001 – 00000200 already used on Viettel S-Invoice).', fix: ['Register an additional number range / new series on the Viettel S-Invoice portal', 'Select the new series under Integrations → E-invoice', 'Click Retry issuing'], link: ['fm-39-tich-hop.html', 'Open e-invoice integration'] }
+};
+const STM = { draft: ['Draft', 'b-neutral', 'pen'], issued: ['Issued', 'b-success', 'check'], error: ['Issuing failed', 'b-danger', 'block'], sending: ['Sending', 'b-info', 'refresh'] };
+const ELIG = [['Tân Cảng Logistics', 7, 26690000, true], ['Gỗ Minh Long', 3, 12750000, true], ['Thủy sản Vĩnh Hoàn', 4, 19600000, false], ['Bao bì Phương Nam', 3, 6100000, false], ['Thép Hòa Phát Bình Dương', 2, 6960000, true]];
+
+let S;
+function reset() { S = { inv: INV0.map(x => ({ ...x, lines: x.lines.map(l => ({ ...l })) })), cur: 'DN-2611-014', f: 'all', connected: true, loading: false, err: false, empty: false }; }
+const sub = i => i.lines.reduce((a, l) => a + l.price, 0);
+const cur = () => S.inv.find(x => x.id === S.cur);
+
+function renderProv() {
+  $('prov').className = 'prov' + (S.connected ? '' : ' off');
+  $('prov').innerHTML = S.connected ? `<span class="dotc"></span>Issuing via <b>Viettel S-Invoice</b> · series 1C26TDX · <a href="fm-39-tich-hop.html">Change in Integrations</a>` : `<span class="dotc"></span>No e-invoice provider connected · <a href="fm-39-tich-hop.html">Connect</a>`;
+}
+function render() {
+  renderProv(); $('slot').innerHTML = '';
+  const v = $('view');
+  if (S.loading) { v.innerHTML = `<div class="inbox"><section class="card queue"><div class="card-title"><span class="sk" style="width:120px"></span></div><div class="list">${Array(5).fill('<div class="qi"><span class="sk" style="width:80%"></span><span class="sk" style="width:50%;margin-top:8px"></span></div>').join('')}</div></section><section class="card"><div class="ihead"><span class="sk" style="width:260px;height:18px"></span></div><table class="grid"><tbody>${Array(7).fill('<tr>' + Array(7).fill('<td><span class="sk" style="width:75%"></span></td>').join('') + '</tr>').join('')}</tbody></table></section></div>`; return; }
+  if (S.err) { $('slot').innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Couldn't load the invoice list. Check your network connection and try again.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="retry">${icon('refresh')}Retry</button></div></div>`; $('retry').onclick = () => { S.err = false; render(); }; v.innerHTML = ''; return; }
+  if (S.empty) { v.innerHTML = `<section class="card"><div class="empty">${icon('invoice')}<h3>No invoice requests in this period yet</h3><p>Completed trips with POD are grouped by customer into invoice requests.</p><button class="btn btn-primary" type="button" id="g2">Create requests from trips with POD</button><a class="sm" href="fm-22-quyet-toan.html">View trips without POD in Settlement</a></div></section>`; $('g2').onclick = openGather; return; }
+  const list = S.inv.filter(i => S.f === 'all' || i.st === S.f || (S.f === 'error' && i.st === 'error'));
+  const n = k => S.inv.filter(i => i.st === k).length;
+  v.innerHTML = `<div class="inbox">
+    <section class="card queue" aria-label="Invoice requests">
+      <div class="card-title"><h2>Requests</h2><span class="count-pill">${S.inv.length}</span></div>
+      <div class="qfilter"><div class="seg" role="group" aria-label="Filter by status">${[['all', 'All'], ['draft', 'Draft ' + n('draft')], ['error', 'Error ' + n('error')], ['issued', 'Issued ' + n('issued')]].map(([k, l]) => `<button type="button" data-f="${k}" aria-pressed="${S.f === k}">${l}</button>`).join('')}</div></div>
+      <div class="list">${list.map(i => { const m = STM[i.st]; return `<button class="qi ${i.id === S.cur ? 'on' : ''}" type="button" data-id="${i.id}"><span class="l1"><span class="nm">${i.cust}</span><span class="num">${fmt.short(sub(i) * (1 + VAT))}</span></span><span class="l2"><span class="code">${i.id}</span>· ${i.lines.length} trips<span class="badge ${m[1]}">${icon(m[2])}${m[0]}</span></span></button>`; }).join('') || '<p class="sm muted" style="padding:12px">No requests.</p>'}</div>
+    </section>
+    <div class="work" id="work"></div></div>`;
+  v.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { S.f = b.dataset.f; render(); });
+  v.querySelectorAll('[data-id]').forEach(b => b.onclick = () => { S.cur = b.dataset.id; render(); });
+  detail();
+}
+function detail() {
+  const i = cur(), c = CUST[i.cust], m = STM[i.st], s = sub(i), vat = Math.round(s * VAT);
+  const w = $('work');
+  const locked = i.st === 'issued' || i.st === 'sending';
+  let banner = '';
+  if (i.st === 'error') { const e = ERR[i.err]; banner = `<div class="alert alert-danger" role="alert">${icon('block')}<div class="fix"><div><b>Viettel S-Invoice rejected the invoice</b> · error code <span class="errcode">${e.code}</span> · 11/11/2026 17:05</div><div>“${e.msg}”</div><b style="display:block;margin-top:8px">How to fix</b><ol>${e.fix.map(x => `<li>${x}</li>`).join('')}</ol></div><div class="alert-actions"><a class="btn btn-secondary btn-sm" href="${e.link[0]}">${e.link[1]}</a></div></div>`; }
+  if (i.st === 'draft' && !S.connected) banner = `<div class="alert alert-info">${icon('info')}<div>No e-invoice provider connected. Export an XML/Excel file in the Viettel S-Invoice or MISA meInvoice template, then import it into that software. After issuing it there, record the invoice number so receivables can be tracked.</div><div class="alert-actions"><a class="btn btn-secondary btn-sm" href="fm-39-tich-hop.html">${icon('link')}Connect</a></div></div>`;
+  let act;
+  if (i.st === 'issued') act = `<button class="btn btn-secondary" type="button" id="pdf">${icon('download')}Download PDF</button><button class="btn btn-secondary" type="button" id="mail">Resend email</button><a class="btn btn-primary" href="fm-27-cong-no.html">View receivables</a>`;
+  else if (i.st === 'sending') act = `<button class="btn btn-primary" type="button" disabled>${icon('refresh')}Sending to Viettel S-Invoice…</button>`;
+  else if (!S.connected) act = `<button class="btn btn-secondary" type="button" id="recNo">Record issued invoice no.</button><button class="btn btn-primary" type="button" id="export">${icon('download')}Export invoice file</button>`;
+  else act = `<button class="btn btn-secondary" type="button" id="export">${icon('download')}Export</button><button class="btn btn-primary" type="button" id="issue">${i.st === 'error' ? 'Retry issuing' : 'Issue via Viettel S-Invoice'}</button>`;
+  w.innerHTML = `${banner}
+    <section class="card">
+      <div class="ihead"><div><div class="row" style="gap:10px"><h2>${i.cust}</h2><span class="badge ${m[1]}">${icon(m[2])}${m[0]}</span></div><div class="meta"><span class="code">${i.id}</span> · period 01/11 – 15/11/2026 · ${i.lines.length} trips with POD</div></div><div class="act">${act}</div></div>
+      ${i.st === 'issued' ? `<div class="issued"><span>Invoice no. <b class="code">${i.no}</b> · series <b class="code">${i.sign}</b></span><span class="muted">Issued ${i.at} · lookup code <span class="code">${i.lookup}</span></span><span class="tip"><span class="badge b-outline" tabindex="0">${icon('shield')}Tax authority code received</span><span class="tip-body right">Tax authority code: <span class="formula">${i.cqt}</span></span></span></div>` : ''}
+      <div class="facts"><div><span class="k">Tax ID</span><b class="num">${c.mst}</b></div><div style="grid-column:span 2"><span class="k">Address</span><b title="${c.addr}">${c.addr}</b></div><div><span class="k">Invoice email</span><b title="${c.email}">${c.email}</b></div></div>
+      <div class="grid-wrap"><table class="grid lines"><thead><tr><th>#</th><th>Date</th><th>Trip ID</th><th>Description (route)</th><th>Plate · container</th><th class="right">Amount</th>${locked ? '' : '<th></th>'}</tr></thead>
+      <tbody>${i.lines.map((l, k) => `<tr><td class="num muted">${k + 1}</td><td class="num">${l.d}</td><td><a class="code" href="fm-09-chi-tiet-chuyen.html">${l.id}</a></td><td style="white-space:normal">Freight charge: ${l.route}</td><td><span class="code">${l.plate}</span>${l.cont !== '—' ? `<span class="cell-sub code">${l.cont}</span>` : ''}</td><td class="right num">${fmt.vnd(l.price, { bare: 1 })}</td>${locked ? '' : `<td class="right"><button class="btn btn-ghost btn-sm" type="button" data-rm="${k}" aria-label="Remove ${l.id} from invoice" title="Remove from invoice">${icon('x')}</button></td>`}</tr>`).join('')}</tbody></table></div>
+      <div class="totals">
+        <div class="excl">${i.excl.length ? `<div class="explain">Excluded: ${i.excl.map(([id, why]) => `<a class="code" href="fm-09-chi-tiet-chuyen.html">${id}</a> (${why})`).join(', ')}. Only completed trips with POD are included.</div>` : ''}<span class="auto" style="font-size:12.5px">${icon('sparkle')}Route, plate and container are filled in from the trip. Unit price comes from the freight rate agreed on the order.</span></div>
+        <div class="tot"><span class="muted">Freight subtotal</span><span class="num">${fmt.vnd(s)}</span><span class="muted">VAT <select class="select" id="vat" style="height:26px;margin-left:4px" ${locked ? 'disabled' : ''}><option>8%</option><option>10%</option></select></span><span class="num">${fmt.vnd(vat)}</span><span class="gl">Total payable</span><span class="num grand">${fmt.vnd(s + vat)}</span></div>
+      </div>
+    </section>`;
+  w.querySelectorAll('[data-rm]').forEach(b => b.onclick = () => { const k = +b.dataset.rm, l = i.lines.splice(k, 1)[0]; render(); toast(`Removed ${l.id} from ${i.id}`, { undo: () => { i.lines.splice(k, 0, l); render(); } }); });
+  const on = (id, f) => { const e = $(id); if (e) e.onclick = f; };
+  on('pdf', () => toast(`Downloaded "HD-${i.no}.pdf"`));
+  on('mail', () => toast(`Resent invoice ${i.no} to ${c.email}`));
+  on('export', () => exportModal(i));
+  on('recNo', () => toast('Enter the number of an invoice issued outside the system (prototype)'));
+  on('issue', () => issueModal(i));
+}
+function modal(html) {
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim';
+  const m = document.createElement('div'); m.className = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.style.width = 'min(500px, calc(100vw - 32px))';
+  m.innerHTML = html; document.body.append(s, m);
+  const close = () => { Shell.dismiss(s); Shell.dismiss(m); };
+  s.onclick = close; m.querySelectorAll('[data-x]').forEach(b => b.onclick = close); m.querySelector('[data-x]').focus();
+  return { m, close };
+}
+function issueModal(i) {
+  const s = sub(i), t = s + Math.round(s * VAT);
+  const { m, close } = modal(`<h2>Issue the invoice to ${i.cust}?</h2>
+    <ul class="sumlist"><li><b class="num">${i.lines.length}</b> freight lines, total payable <b class="num">${fmt.vnd(t)}</b></li><li>Sent via Viettel S-Invoice with automatic digital signing, series <span class="code">1C26TDX</span></li><li>Email to ${CUST[i.cust].email}</li></ul>
+    <p class="sm muted">Issued invoices can't be edited. To make changes, issue an adjustment or replacement invoice.</p>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Review again</button><button class="btn btn-primary" type="button" id="go">Issue</button></div>`);
+  m.querySelector('#go').onclick = () => {
+    close(); const prev = i.st; i.st = 'sending'; render();
+    setTimeout(() => {
+      if (i.err === 'number') { i.st = 'error'; render(); toast('Viettel S-Invoice rejected: number range used up'); return; }
+      Object.assign(i, { st: 'issued', no: '00000188', sign: '1C26TDX', at: '12/11/2026 09:14', lookup: 'R5T1-7WN3', cqt: '00A3F4D72E8C4B1A9F62B3D0C6E8A1F9' }); delete i.err; render(); toast(`Issued invoice no. 00000188 to ${i.cust}`);
+    }, 1300);
+  };
+}
+function exportModal(i) {
+  const { m, close } = modal(`<h2>Export invoice file ${i.id}</h2>
+    <label class="field"><span>Format</span><select class="select" id="fmtSel" style="width:100%"><option>XML (Viettel S-Invoice template)</option><option>Excel (MISA meInvoice template)</option><option>Excel statement (for customer reconciliation)</option></select></label>
+    <p class="sm muted">The file includes buyer details, ${i.lines.length} freight lines with plate and route, and 8% VAT.</p>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Cancel</button><button class="btn btn-primary" type="button" id="go">${icon('download')}Download file</button></div>`);
+  m.querySelector('#go').onclick = () => { const f = m.querySelector('#fmtSel').value; close(); toast(`Downloaded "${i.id}${f.startsWith('XML') ? '.xml' : '.xlsx'}"`); };
+}
+/* Gom chuyến */
+function openGather() {
+  const s = document.createElement('div'); s.className = 'scrim'; s.id = 'drScrim';
+  const d = document.createElement('aside'); d.className = 'drawer'; d.id = 'drawer'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true');
+  const pick = new Set(ELIG.filter(e => !e[3]).map(e => e[0]));
+  const close = () => { Shell.dismiss(s); Shell.dismiss(d); }; s.onclick = close;
+  const draw = () => {
+    const tot = ELIG.filter(e => pick.has(e[0])).reduce((a, e) => a + e[2], 0);
+    d.innerHTML = `<div class="drawer-head"><div class="row"><h2>Create invoice requests</h2><button class="icon-btn" id="x" aria-label="Close" style="margin-left:auto">${icon('x', 'lg')}</button></div>
+      <div class="row wrap" style="gap:12px"><label class="field" style="width:220px"><span>Period</span><select class="select"><option>01/11 – 15/11/2026</option><option>November 2026</option></select></label><label class="field" style="width:220px"><span>Group by</span><select class="select"><option>Customer</option><option>Customer + route</option></select></label></div></div>
+      <div class="drawer-body"><p class="sm muted">Completed trips with POD that aren't on any invoice yet. One request per customer; each line fills in the plate and route automatically.</p>
+      <div class="grid-wrap"><table class="grid gm"><thead><tr><th style="width:36px"></th><th>Customer</th><th class="right">Trips with POD</th><th class="right">Freight amount</th><th></th></tr></thead><tbody>
+      ${ELIG.map(e => `<tr><td><input type="checkbox" data-c="${e[0]}" ${pick.has(e[0]) ? 'checked' : ''} ${e[3] ? 'disabled' : ''} aria-label="Select ${e[0]}"></td><td>${e[0]}</td><td class="right num">${e[1]}</td><td class="right num">${fmt.vnd(e[2])}</td><td>${e[3] ? `<span class="badge b-neutral">${icon('pen')}Created</span>` : ''}</td></tr>`).join('')}</tbody></table></div>
+      <div class="alert alert-info">${icon('info')}<div>5 completed trips have <b>no POD yet</b>, so they can't be included. <a href="fm-22-quyet-toan.html">View list</a></div></div></div>
+      <div class="drawer-foot"><span class="sm muted" style="margin-right:auto">${pick.size} customers · <b class="num">${fmt.vnd(tot)}</b> before tax</span><button class="btn btn-secondary" type="button" id="c">Cancel</button><button class="btn btn-primary" type="button" id="ok" ${pick.size ? '' : 'disabled'}>Create ${pick.size} draft requests</button></div>`;
+    d.querySelector('#x').onclick = close; d.querySelector('#c').onclick = close;
+    d.querySelectorAll('[data-c]').forEach(c => c.onchange = () => { c.checked ? pick.add(c.dataset.c) : pick.delete(c.dataset.c); draw(); });
+    d.querySelector('#ok').onclick = () => {
+      const added = [...pick].map((cu, k) => ({ id: 'DN-2611-0' + (15 + k), cust: cu, st: 'draft', lines: cu === 'Thủy sản Vĩnh Hoàn' ? [L('CH-0411', '03/11', 'Cát Lái → Sa Đéc', '61C-220.14', 'SEGU 9010022', 4900000), L('CH-0424', '06/11', 'Cát Lái → Sa Đéc', '61C-220.14', 'SEGU 9010391', 4900000), L('CH-0436', '08/11', 'Cát Lái → Sa Đéc', '61C-220.14', 'SEGU 9010655', 4900000), L('CH-0449', '11/11', 'Cát Lái → Sa Đéc', '61C-220.14', 'SEGU 9011208', 4900000)] : [L('CH-0438', '09/11', 'Sóng Thần Industrial Park → Long An', '51D-702.33', '—', 2400000), L('CH-0442', '10/11', 'Sóng Thần Industrial Park → Bến Lức', '51D-702.33', '—', 1850000), L('CH-0450', '11/11', 'Sóng Thần Industrial Park → Long An', '51D-702.33', '—', 1850000)], excl: [] }));
+      CUST['Thủy sản Vĩnh Hoàn'] = { mst: '1400112623', addr: 'QL30, Ward 11, Cao Lãnh City, Đồng Tháp', email: 'ketoan@vinhhoan.com' };
+      S.inv.unshift(...added); S.cur = added[0].id; S.f = 'all'; close(); render(); toast(`Created ${added.length} draft requests`);
+    };
+  };
+  document.body.append(s, d); draw(); d.querySelector('#x').focus({ preventScroll: true });
+}
+$('btnGather').onclick = openGather;
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.drawer:not(.leaving), .scrim:not(.leaving), .modal:not(.leaving)').forEach(x => Shell.dismiss(x)); });
+
+Shell.states([['default', 'Default (Draft)'], ['issued', 'Issued'], ['error', 'Issuing failed'], ['noint', 'No e-invoice integration'], ['gather', 'Group trips'], ['loading', 'Loading'], ['empty', 'Empty'], ['fail', 'Load error']], st => {
+  document.querySelectorAll('.drawer, .scrim, .modal').forEach(x => x.remove());
+  reset();
+  if (st === 'issued') S.cur = 'DN-2611-012';
+  if (st === 'error') S.cur = 'DN-2611-013';
+  if (st === 'noint') S.connected = false;
+  if (st === 'loading') S.loading = true;
+  if (st === 'empty') S.empty = true;
+  if (st === 'fail') S.err = true;
+  render();
+  if (st === 'gather') openGather();
+});
+</script>
+</body>
+</html>

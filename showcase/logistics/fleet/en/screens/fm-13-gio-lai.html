@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Driving hours &amp; safety log · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  .head-meta { display: flex; align-items: center; gap: 10px; margin-top: 4px; flex-wrap: wrap; }
+  .tabs .count-pill { padding: 0 7px; font-size: 11.5px; }
+  .tabs button[aria-selected="true"] .count-pill { background: var(--primary-soft); color: var(--side-active); }
+  .filterbar .select { height: 30px; font-size: 12.5px; padding: 0 28px 0 10px; appearance: none; -webkit-appearance: none; border-radius: 15px; cursor: pointer; }
+  .filterbar .select-wrap > .icon { right: 9px; }
+  .sumline { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; color: var(--fg-muted); }
+  .tbl-card { min-width: 0; display: flex; flex-direction: column; }
+  .grid tbody tr { cursor: pointer; }
+  .meter { display: flex; flex-direction: column; gap: 4px; min-width: 116px; }
+  .grid td.restc { white-space: normal; min-width: 110px; max-width: 140px; font-size: 12.5px; line-height: 16px; }
+  .meter .bar { height: 6px; border-radius: 3px; background: var(--surface-muted); overflow: hidden; position: relative; box-shadow: inset 0 0 0 1px var(--border); }
+  .meter .bar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px; }
+  .meter .bar.ok i { background: var(--success-solid); }
+  .meter .bar.warn i { background: var(--warning-solid); }
+  .meter .bar.over i { background: var(--danger-solid); }
+  .meter .bar::after { content: ""; position: absolute; left: 80%; top: 0; bottom: 0; width: 1px; background: var(--border-strong); }
+  .meter .txt { font-size: 12.5px; font-variant-numeric: tabular-nums; color: var(--fg-muted); display: flex; gap: 4px; align-items: baseline; }
+  .meter .txt b { font-size: 13.5px; color: var(--fg-strong); font-weight: 600; }
+  .meter .txt b.warn { color: var(--warning-fg); }
+  .meter .txt b.over { color: var(--danger-fg); }
+  .nodata { display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: var(--r-sm); font-size: 12.5px; color: var(--fg-muted); background: repeating-linear-gradient(-45deg, var(--surface-muted) 0 5px, var(--surface) 5px 10px); box-shadow: inset 0 0 0 1px var(--border); white-space: nowrap; }
+  .tfoot { display: flex; align-items: center; gap: 8px; padding: 10px 16px 12px; font-size: 12.5px; color: var(--fg-muted); margin-top: auto; flex-wrap: wrap; }
+  .wrapcell { white-space: normal !important; min-width: 200px; max-width: 300px; }
+  .open-note { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: 8px; background: var(--warning-soft); color: var(--warning-fg); font-size: 12.5px; line-height: 17px; }
+  .open-note .badge { background: var(--surface); color: var(--warning-fg); flex: none; }
+  .sev { display: inline-block; width: 3px; height: 30px; border-radius: 2px; vertical-align: middle; margin-right: 8px; }
+  /* Drawer */
+  .drawer { width: min(600px, 100vw); }
+  .dayline { position: relative; height: 34px; border-radius: 6px; background: var(--surface-muted); overflow: hidden; }
+  .dayline i { position: absolute; top: 6px; bottom: 6px; border-radius: 3px; background: var(--info-solid); }
+  .dayline i.over { background: var(--danger-solid); }
+  .dayline .now { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--fg-strong); }
+  .dayscale { display: flex; justify-content: space-between; font-size: 11px; color: var(--fg-muted); font-variant-numeric: tabular-nums; margin-top: 4px; }
+  .wk svg { display: block; width: 100%; height: auto; }
+  .kv { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 6px; }
+  .kv > div { padding: 10px 12px; border-radius: 8px; background: var(--surface-muted); }
+  .kv .k { font-size: 12px; color: var(--fg-muted); }
+  .kv .v { font: 700 18px/24px var(--font-display); font-variant-numeric: tabular-nums; }
+  .kv .v small { font: 500 12px var(--font-body); color: var(--fg-muted); margin-left: 2px; }
+  .empty .btn .icon { width: 16px; height: 16px; stroke-width: 1.75; color: inherit; }
+  .empty p { max-width: 560px; }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Operations / Driving hours &amp; safety</div>
+      <h1>Driving hours &amp; safety log</h1>
+      <div class="head-meta"><span class="fresh" id="fresh"></span></div>
+    </div>
+    <div class="actions" id="hActions"></div>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Description" id="tabs"></div>
+  <div class="filterbar" role="toolbar" aria-label="Filters" id="fbar"></div>
+  <div id="slot"></div>
+  <section class="card tbl-card" id="tbl" aria-live="polite"></section>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_13', title: 'Driving hours & safety' });
+const $ = id => document.getElementById(id);
+const fh = h => { const H = Math.floor(h + 1e-6), m = Math.round((h - H) * 60); return `${H}h${String(m).padStart(2, '0')}`; };
+
+/* Giờ lái: dữ liệu GSHT. null = Không đủ dữ liệu (không ước lượng). FM.drivers giữ nguyên tuần/hôm nay; tài xế đang chạy chuyến cộng phần lái từ sáng. */
+const D = FM.drivers;
+const base = [
+  { id: 'TX01', trip: 'CH-0458', veh: '51C-123.45', cont: 0.18, today: 2.48, week: D[0].week + 2.48, rest: '15-min break at 08:40', state: 'Driving', blocks: [[5.5, 6.08], [6.33, 7.47], [8.27, 8.67], [8.92, 9.1]] },
+  { id: 'TX02', trip: 'CH-0462', veh: '51D-456.78', cont: 1.33, today: D[1].today, week: D[1].week, rest: '1h10 break after CH-0452', state: 'Driving', note: '3h30 left this week, trip needs 6h10', blocks: [[1, 1.83], [7.77, 9.1]] },
+  { id: 'TX03', trip: 'CH-0463', veh: '51D-702.33', cont: 1.92, today: 1.92, week: D[2].week + 1.92, rest: 'Overnight rest', state: 'Driving', blocks: [[7.17, 9.1]] },
+  { id: 'TX04', trip: null, veh: null, cont: 0, today: D[3].today, week: D[3].week, rest: '—', state: 'No trip', blocks: [] },
+  { id: 'TX05', trip: 'CH-0464', veh: '61C-220.14', cont: 0, today: D[4].today, week: D[4].week, rest: 'Resting for 25 min', state: 'Waiting to depart', note: '2h30 left today, trip needs 6h10', blocks: [[0.5, 3.9], [4.25, 8.35]] },
+  { id: 'TX06', trip: null, veh: null, cont: 0, today: D[5].today, week: D[5].week, rest: '—', state: 'Driver\'s license expired', blocks: [] },
+  { id: 'TX07', name: 'Đặng Quang Vinh', trip: 'CH-0457', veh: '51C-456.78', cont: 3.33, today: 5.1, week: 41.2, rest: '20-min break at 05:45', state: 'Incident · stuck at port', blocks: [[0.5, 2.3], [2.6, 5.75], [6.08, 9.1]] },
+  { id: 'TX08', name: 'Ngô Đức Trí', trip: 'CH-0459', veh: '51C-731.80', cont: 4.2, today: 4.2, week: 30.5, rest: 'No break since 04:50', state: 'Driving', late: 'GPS tracker sync delayed 17 min', blocks: [[4.83, 9.03]] },
+  { id: 'TX09', name: 'Trần Văn Hùng', trip: 'CH-0471', veh: '61C-245.18', cont: 1.67, today: 3.83, week: 48.83, rest: '30-min break at 07:00', state: 'Driving', blocks: [[3.25, 5.4], [7.5, 9.1]] },
+  { id: 'TX10', name: 'Huỳnh Tấn Lộc', trip: null, veh: '51C-588.02', cont: 0, today: 3.58, week: 27.0, rest: 'Resting since 07:05', state: 'Finished CH-0455', blocks: [[3.5, 7.08]] },
+  { id: 'TX11', name: 'Bùi Văn Khoa', trip: 'CH-0467', veh: '51C-415.92', cont: null, today: null, week: null, rest: '—', state: 'En route', why: 'Vehicle 51C-415.92 has had no GPS tracker signal since 09:18. The system doesn\'t estimate driving hours when data is missing.' },
+  { id: 'TX12', name: 'Đỗ Văn Lâm', ext: 'Subcontracted truck · Minh Phát carrier', trip: 'CH-0461', veh: '51C-654.32', cont: null, today: null, week: null, rest: '—', state: 'Assigned', why: 'Subcontracted trucks have no GPS tracker data in the system. The carrier is responsible for its drivers\' hours.' }
+].map(r => { const d = D.find(x => x.id === r.id); return Object.assign({ name: d ? d.name : r.name, gplx: d ? d.gplx : 'CE' }, r); });
+const LIM = { cont: 4, today: 10, week: 48 };
+const lvl = (v, k) => v == null ? 'na' : v > LIM[k] ? 'over' : v / LIM[k] >= .8 ? 'warn' : 'ok';
+const rank = r => { const l = ['cont', 'today', 'week'].map(k => lvl(r[k], k)); return l.includes('over') ? 0 : l.includes('warn') ? 1 : l.includes('na') ? 2 : 3; };
+
+let LOG0 = [
+  { t: '12/11/2026 09:58', d: 'Ngô Đức Trí', v: '51C-731.80', trip: 'CH-0459', type: 'Driving hours', detail: 'Continuous driving 4h12, over 4h', src: 'GPS', by: 'Lê Văn Hải (Dispatcher)', act: 'Called to request a 15-min break at Bến Cát rest stop', st: 'watch', sev: 'danger' },
+  { t: '12/11/2026 09:18', d: 'Bùi Văn Khoa', v: '51C-415.92', trip: 'CH-0467', type: 'Device not working', detail: 'GPS tracker signal lost on QL13', src: 'Alerts (FM_05)', by: 'Lê Văn Hải (Dispatcher)', act: 'Contacted the driver to check the device back at the yard', st: 'open', sev: 'warning' },
+  { t: '12/11/2026 08:30', d: 'Trần Văn Hùng', v: '61C-245.18', trip: 'CH-0471', type: 'Driving hours', detail: 'Weekly driving 48h50, over 48h', src: 'GPS', by: 'Phạm Thị Thanh (Fleet manager)', act: 'Driver\'s assistant drives the return leg; no more trips this week', st: 'watch', sev: 'danger' },
+  { t: '12/11/2026 07:12', d: 'Nguyễn Văn Tuấn', v: '51C-123.45', trip: 'CH-0458', type: 'Speed', detail: '68/60 km/h on ĐT 746, 40 s', src: 'GPS', by: 'Lê Văn Hải (Dispatcher)', act: 'Phone reminder', st: 'done', sev: 'warning' },
+  { t: '11/11/2026 17:05', d: 'Trần Minh Đức', v: '51D-456.78', trip: 'CH-0462', type: 'Driving hours', detail: 'Trip assigned beyond 48h/week (projected 50h40)', src: 'Dispatch (FM_10)', by: 'Lê Văn Hải (Dispatcher)', act: 'Reason: added a second driver for the return leg', st: 'done', sev: 'warning' },
+  { t: '10/11/2026 11:02', d: 'Lê Hoàng Phúc', v: '51D-702.33', trip: 'CH-0447', type: 'Route deviation', detail: '3.2 km off the registered route', src: 'GPS', by: 'Lê Văn Hải (Dispatcher)', act: 'Driver explained a temporary truck ban on the road; accepted', st: 'done', sev: 'neutral' },
+  { t: '08/11/2026 22:40', d: 'Đặng Quang Vinh', v: '51C-456.78', trip: 'CH-0421', type: 'Speed', detail: '74/70 km/h HCMC – Trung Lương expressway, 2 min', src: 'GPS', by: 'Phạm Thị Thanh (Fleet manager)', act: 'Second verbal warning; November safety bonus deducted', st: 'done', sev: 'warning' },
+  { t: '05/11/2026 03:15', d: 'Võ Thành Nhân', v: '61C-220.14', trip: 'CH-0398', type: 'Driving hours', detail: 'Continuous driving 4h25, over 4h', src: 'GPS', by: 'Lê Văn Hải (Dispatcher)', act: 'Verbal warning; noted in monthly review', st: 'done', sev: 'danger' },
+  { t: '28/10/2026 14:10', d: '—', v: '51C-099.21', trip: null, type: 'Device not working', detail: 'GPS tracker sent no data for 6 h', src: 'Alerts (FM_05)', by: 'Phạm Thị Thanh (Fleet manager)', act: 'Device SIM replaced; working again', st: 'done', sev: 'neutral' },
+  { t: '14/03/2024 05:20', d: 'Huỳnh Tấn Lộc', v: '51C-588.02', trip: 'CH-0012', type: 'Speed', detail: '65/60 km/h QL1A, 1 min', src: 'GPS', by: 'Phạm Thị Thanh (Fleet manager)', act: 'Verbal warning', st: 'done', sev: 'warning', old: true }
+];
+const S = { tab: 'hours', hf: 'all', q: '', lf: 'all', nogsht: false };
+let LOG = [];
+
+function meter(v, k, why) {
+  if (v == null) return `<span class="tip"><span class="nodata" tabindex="0">${icon('info')}Insufficient data</span><span class="tip-body left">${why}</span></span>`;
+  const l = lvl(v, k), pct = Math.min(100, v / LIM[k] * 100);
+  return `<div class="meter"><div class="txt"><b class="${l === 'ok' ? '' : l}">${fh(v)}</b>/ ${LIM[k]}h${l === 'over' ? ` · <span class="neg">over by ${fh(v - LIM[k])}</span>` : l === 'warn' ? ` · ${fh(LIM[k] - v)} left` : ''}</div><div class="bar ${l}" role="meter" aria-valuemin="0" aria-valuemax="${LIM[k]}" aria-valuenow="${v.toFixed(2)}" aria-label="${k}"><i style="width:${pct}%"></i></div></div>`;
+}
+function rowsH() {
+  const all = base.map(r => S.nogsht ? Object.assign({}, r, { cont: null, today: null, week: null, why: 'GPS tracker not connected. The system doesn\'t estimate driving hours from the driver app.' }) : r);
+  return all.filter(r => (S.hf === 'all' || (S.hf === 'attn' && rank(r) <= 1) || (S.hf === 'na' && rank(r) === 2)) && (!S.q || (r.name + (r.veh || '') + (r.trip || '')).toLowerCase().includes(S.q))).sort((a, b) => rank(a) - rank(b));
+}
+function renderTabs() {
+  const attn = S.nogsht ? 0 : base.filter(r => rank(r) <= 1).length;
+  $('tabs').innerHTML = [['hours', 'Driving hours', attn], ['log', 'Safety log', LOG.filter(l => l.st !== 'done').length]].map(([k, l, n]) => `<button role="tab" type="button" data-tab="${k}" aria-selected="${S.tab === k}">${l}<span class="count-pill" title="${k === 'hours' ? 'Needs attention' : 'Not closed'}">${n}</span></button>`).join('');
+  $('tabs').querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { S.tab = b.dataset.tab; render(); });
+}
+function renderHead() {
+  $('fresh').innerHTML = S.tab === 'hours'
+    ? (S.nogsht ? `<span class="live warn" aria-hidden="true"></span>GPS tracker not connected · no driving-hours data` : `<span class="live" aria-hidden="true"></span>Updated 1 min ago · GPS tracker · week starts Monday 09/11/2026`)
+    : `${icon('lock')}Kept for at least 3 years · can't be deleted · oldest record 03/2024`;
+  $('hActions').innerHTML = S.tab === 'hours'
+    ? `<a class="btn btn-secondary" href="fm-12-ban-do.html">${icon('map')}Live map</a>`
+    : `<button class="btn btn-secondary" type="button" id="addLog">${icon('plus')}Log violation</button><button class="btn btn-primary" type="button" id="export">${icon('download')}Export</button>`;
+  const a = $('addLog'); if (a) a.onclick = () => addModal();
+  const e = $('export'); if (e) e.onclick = exportModal;
+}
+function renderFilter() {
+  if (S.tab === 'hours') {
+    $('fbar').innerHTML = `<div class="seg" role="group" aria-label="Filter">${[['all', 'All'], ['attn', 'Needs attention'], ['na', 'Insufficient data']].map(([k, l]) => `<button type="button" data-hf="${k}" aria-pressed="${S.hf === k}">${l}</button>`).join('')}</div>
+      <span class="sumline">${icon('info')}Limits: 4h continuous · 10h/day · 48h/week. Yellow at ≥ 80%, red when exceeded.</span>
+      <label class="search-global" style="max-width:280px;margin-left:auto">${icon('search')}<input id="q" type="search" placeholder="Search driver, plate, trip…" value="${S.q}" aria-label="Search drivers"></label>`;
+    $('fbar').querySelectorAll('[data-hf]').forEach(b => b.onclick = () => { S.hf = b.dataset.hf; render(); });
+  } else {
+    $('fbar').innerHTML = `<span class="select-wrap"><select class="select" aria-label="Time range"><option>Last 30 days</option><option>November 2026</option><option>Year 2026</option><option>All (3 years)</option></select>${icon('chevron')}</span>
+      ${['all', 'Driving hours', 'Speed', 'Route deviation', 'Device not working'].map(k => `<button class="chip ${S.lf === k ? 'on' : ''}" type="button" data-lf="${k}" aria-pressed="${S.lf === k}">${k === 'all' ? 'All types' : k}</button>`).join('')}
+      <label class="search-global" style="max-width:260px;margin-left:auto">${icon('search')}<input id="q" type="search" placeholder="Search driver, plate, trip…" value="${S.q}" aria-label="Search the log"></label>`;
+    $('fbar').querySelectorAll('[data-lf]').forEach(b => b.onclick = () => { S.lf = b.dataset.lf; render(); });
+  }
+  $('q').oninput = e => { S.q = e.target.value.trim().toLowerCase(); renderBody(); };
+}
+function renderHours() {
+  const r = rowsH();
+  if (!r.length) { $('tbl').innerHTML = `<div class="empty">${icon('users')}<h3>No drivers match the filters</h3></div>`; return; }
+  $('tbl').innerHTML = `${S.nogsht ? '' : ''}<div class="grid-wrap"><table class="grid" aria-label="Driving hours by driver">
+    <thead><tr><th>Driver</th><th>Trip · status</th><th>Continuous driving</th><th>Today</th><th>This week</th><th>Last break</th></tr></thead>
+    <tbody>${r.map(x => `<tr data-id="${x.id}" tabindex="0">
+      <td><b style="font-weight:600">${x.name}</b><span class="cell-sub">${x.ext || `GPLX ${x.gplx}`}${x.veh ? ` · <span class="code">${x.veh}</span>` : ''}</span></td>
+      <td>${x.trip ? `<a class="code" href="fm-09-chi-tiet-chuyen.html">${x.trip}</a>` : '<span class="muted">—</span>'}<span class="cell-sub">${x.state}${x.late && !S.nogsht ? ` · <span style="color:var(--warning-fg)">${x.late}</span>` : ''}</span>${x.note && !S.nogsht ? `<span class="cell-sub"><span class="badge b-warning" style="height:auto;min-height:18px;padding:2px 6px;margin-top:3px;white-space:normal;line-height:14px;max-width:190px;align-items:flex-start">${icon('warn')}${x.note}</span></span>` : ''}</td>
+      <td>${meter(x.cont, 'cont', x.why)}</td>
+      <td>${meter(x.today, 'today', x.why)}</td>
+      <td>${meter(x.week, 'week', x.why)}</td>
+      <td class="restc">${x.cont == null ? '<span class="muted">—</span>' : x.rest}</td>
+    </tr>`).join('')}</tbody></table></div>
+    <div class="tfoot">${icon('shield')}Source: driving time recorded by the GPS tracker. Without tracker data the system shows "Insufficient data" instead of estimating. Truck drivers must rest at least 15 min between driving periods. Click a row for details.</div>`;
+  $('tbl').querySelectorAll('tbody tr').forEach(tr => { tr.onclick = e => { if (!e.target.closest('a')) openDrawer(tr.dataset.id); }; tr.onkeydown = e => { if (e.key === 'Enter') openDrawer(tr.dataset.id); }; });
+}
+const ST = { open: '<span class="badge b-warning">Open</span>', watch: '<span class="badge b-info">Monitoring</span>', done: `<span class="badge b-success">${icon('check')}Resolved</span>` };
+const TYPEB = { 'Driving hours': 'clock', 'Speed': 'gauge', 'Route deviation': 'route', 'Device not working': 'block' };
+function renderLog() {
+  const r = LOG.filter(l => (S.lf === 'all' || l.type === S.lf) && (!S.q || (l.d + l.v + (l.trip || '')).toLowerCase().includes(S.q)));
+  $('tbl').innerHTML = !r.length ? `<div class="empty">${icon('book')}<h3>No violations in this period</h3><p>Safety alerts from the Alert center (FM_05) are recorded here automatically.</p></div>` : `<div class="grid-wrap"><table class="grid" aria-label="Safety log">
+    <thead><tr><th>Time</th><th>Driver · Vehicle</th><th>Violation</th><th>Source</th><th>Warned by · Action</th><th>Status</th></tr></thead>
+    <tbody>${r.map(l => `<tr style="cursor:default">
+      <td class="num"><span class="sev" style="background:var(--${l.sev === 'neutral' ? 'neutral' : l.sev}-solid)" aria-hidden="true"></span>${l.t.slice(0, 10)}<span class="cell-sub" style="padding-left:11px">${l.t.slice(11)}</span></td>
+      <td>${l.d}<span class="cell-sub"><span class="code">${l.v}</span>${l.trip ? ` · <a class="code" href="fm-09-chi-tiet-chuyen.html">${l.trip}</a>` : ''}</span></td>
+      <td class="wrapcell"><span class="row" style="gap:6px;font-weight:500">${icon(TYPEB[l.type])}${l.type}</span><span class="cell-sub">${l.detail}</span></td>
+      <td class="sm">${l.src}</td>
+      <td class="wrapcell">${l.by}<span class="cell-sub">${l.act}</span></td>
+      <td>${ST[l.st]}${l.old ? `<span class="cell-sub">Kept until 14/03/2027</span>` : ''}</td>
+    </tr>`).join('')}</tbody></table></div>
+    <div class="tfoot">${icon('lock')}Records can't be edited or deleted; you can only add notes. Kept for at least 3 years for inspections by the authorities.</div>`;
+}
+function renderBody() { S.tab === 'hours' ? renderHours() : renderLog(); }
+function render() {
+  renderTabs(); renderHead(); renderFilter();
+  $('slot').innerHTML = S.tab === 'log' ? `<div class="open-note"><span class="badge">${icon('info')}TBD</span><div>Whether violation data from AI cameras under Decree 319/2026 (applies 2027–2028) will flow into the log: TBD, depends on the tracker vendor integration.</div></div>`
+    : S.nogsht ? `<div class="alert alert-info">${icon('link')}<div>No tracker vendor is connected, so there's no driving-time data. The system doesn't estimate it from the driver app.</div><div class="alert-actions"><a class="btn btn-secondary btn-sm" href="fm-39-tich-hop.html">Connect GPS tracker</a></div></div>` : '';
+  renderBody();
+}
+
+/* ---------- Drawer chi tiết tài xế ---------- */
+function closeDrawer() { const d = $('drawer'); if (d) { d.id = ''; Shell.dismiss(d); const s = $('drScrim'); if (s) { s.id = ''; Shell.dismiss(s); } } }
+function weekChart(r) {
+  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const prev = r.week - r.today, split = [0.32, 0.35, 0.33].map(k => prev * k);
+  const vals = [...split, r.today, null, null, null], w = 520, h = 160, L = 28, B = 22, max = 14, y = v => h - B - v / max * (h - B - 10), bw = 36, x = i => L + 10 + i * ((w - L - 20) / 7);
+  return `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Driving hours by day of the week">${[0, 5, 10].map(v => `<line x1="${L}" x2="${w}" y1="${y(v)}" y2="${y(v)}" style="stroke:${v ? (v === 10 ? 'var(--danger-solid)' : 'var(--surface-muted)') : 'var(--border-strong)'}" ${v === 10 ? 'stroke-dasharray="4 4"' : ''}/><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end" font-size="10.5" style="fill:var(--fg-muted)">${v}h</text>`).join('')}
+    ${vals.map((v, i) => `<text x="${x(i) + bw / 2}" y="${h - 6}" text-anchor="middle" font-size="11" style="fill:${i === 3 ? 'var(--fg-strong)' : 'var(--fg-muted)'}" font-weight="${i === 3 ? 600 : 400}">${days[i]}</text>${v == null ? '' : `<rect x="${x(i)}" y="${y(v)}" width="${bw}" height="${y(0) - y(v)}" rx="3" style="fill:${i === 3 ? 'var(--primary)' : 'var(--chart-muted)'}" ${i === 3 ? 'stroke-dasharray="3 3"' : ''}/><text x="${x(i) + bw / 2}" y="${y(v) - 5}" text-anchor="middle" font-size="11" font-weight="600" style="fill:var(--fg-strong)">${fh(v)}</text>`}`).join('')}
+    <text x="${w - 4}" y="${y(10) - 5}" text-anchor="end" font-size="10.5" style="fill:var(--danger-fg)">limit 10h/day</text></svg>`;
+}
+function openDrawer(id) {
+  closeDrawer();
+  const r0 = base.find(x => x.id === id), r = S.nogsht ? Object.assign({}, r0, { cont: null, today: null, week: null, why: 'GPS tracker not connected.' }) : r0;
+  const s = document.createElement('div'); s.className = 'scrim'; s.id = 'drScrim'; s.onclick = closeDrawer;
+  const d = document.createElement('aside'); d.className = 'drawer'; d.id = 'drawer'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'drT');
+  const na = r.cont == null;
+  const logs = LOG.filter(l => l.d === r.name);
+  d.innerHTML = `<div class="drawer-head"><div class="row"><h2 id="drT">${r.name}</h2><span class="muted sm">${r.ext || 'GPLX ' + r.gplx}</span><button class="icon-btn" id="drX" aria-label="Close (Esc)" style="margin-left:auto">${icon('x', 'lg')}</button></div>
+      <div class="row sm muted">${r.trip ? `Trip <a class="code" href="fm-09-chi-tiet-chuyen.html">${r.trip}</a> · ` : ''}${r.state}${r.veh ? ` · <span class="code">${r.veh}</span>` : ''}</div></div>
+    <div class="drawer-body">
+      ${na ? `<div class="empty" style="padding:24px 8px">${icon('info')}<h3>Insufficient data</h3><p>${r.why}</p></div>` : `
+      <div class="kv"><div><div class="k">Continuous driving</div><div class="v" style="color:${lvl(r.cont, 'cont') === 'over' ? 'var(--danger-fg)' : lvl(r.cont, 'cont') === 'warn' ? 'var(--warning-fg)' : 'inherit'}">${fh(r.cont)}<small>/ 4h</small></div></div><div><div class="k">Today</div><div class="v">${fh(r.today)}<small>/ 10h</small></div></div><div><div class="k">This week</div><div class="v" style="color:${lvl(r.week, 'week') === 'over' ? 'var(--danger-fg)' : lvl(r.week, 'week') === 'warn' ? 'var(--warning-fg)' : 'inherit'}">${fh(r.week)}<small>/ 48h</small></div></div></div>
+      <div class="stack" style="gap:6px"><div class="section-title"><h3>Today 12/11</h3><span class="muted sm">blue blocks = driving, gaps = rest</span></div>
+        <div class="dayline">${(r.blocks || []).map(([a, b]) => `<i class="${b - a > 4 ? 'over' : ''}" style="left:${a / 24 * 100}%;width:${(b - a) / 24 * 100}%" title="${fh(a).replace('h', ':')} – ${fh(b).replace('h', ':')}"></i>`).join('')}<span class="now" style="left:${9.1 / 24 * 100}%" title="Now 09:06"></span></div>
+        <div class="dayscale"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div></div>
+      <div class="stack wk" style="gap:6px"><div class="section-title"><h3>Week of 09/11</h3><span class="muted sm">Thursday (today) in progress</span></div>${weekChart(r)}</div>`}
+      <div class="stack" style="gap:6px"><div class="section-title"><h3>Safety log</h3><span class="count-pill">${logs.length}</span></div>
+        ${logs.length ? logs.map(l => `<div class="row sm" style="align-items:flex-start;gap:10px;padding:6px 0"><span class="num muted" style="width:92px;flex:none">${l.t.slice(0, 10)}</span><span class="grow"><b style="font-weight:600">${l.type}</b> · ${l.detail}<span class="cell-sub">${l.act}</span></span>${ST[l.st]}</div>`).join('') : '<p class="muted sm">No violations yet.</p>'}
+      </div>
+    </div>
+    <div class="drawer-foot"><a class="btn btn-ghost" href="fm-17-chi-tiet-tai-xe.html" style="margin-right:auto">Driver profile</a>${r.veh && r.trip ? `<a class="btn btn-secondary" href="fm-12-ban-do.html">${icon('map')}View on map</a>` : ''}<button class="btn btn-primary" type="button" id="remind">${icon('bell')}Log warning</button></div>`;
+  document.body.append(s, d); $('drX').onclick = closeDrawer; $('drX').focus();
+  $('remind').onclick = () => addModal(r);
+}
+
+/* ---------- Modals ---------- */
+function modal(html, onOk) {
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim';
+  const m = document.createElement('div'); m.className = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.innerHTML = html;
+  document.body.append(s, m); const close = () => { Shell.dismiss(s); Shell.dismiss(m); };
+  m.querySelector('[data-x]').onclick = close; s.onclick = close; m.querySelector('[data-ok]').onclick = () => { if (onOk(m) !== false) close(); };
+  const f = m.querySelector('input, select, textarea'); if (f) f.focus({ preventScroll: true });
+  return m;
+}
+function addModal(r) {
+  const over = r && ['cont', 'today', 'week'].find(k => lvl(r[k], k) === 'over' || lvl(r[k], k) === 'warn');
+  modal(`<h2>${r ? 'Log warning · ' + r.name : 'Log violation'}</h2>
+    ${r ? '' : `<label class="field"><span>Driver *</span><select class="input">${base.map(x => `<option>${x.name}</option>`).join('')}</select></label>`}
+    <label class="field"><span>Violation type *</span><select class="input" id="mType">${Object.keys(TYPEB).map(k => `<option>${k}</option>`).join('')}</select></label>
+    <label class="field"><span>Details *</span><input class="input" id="mDet" value="${r && over ? `${{ cont: 'Continuous driving', today: 'Daily driving', week: 'Weekly driving' }[over]} ${fh(r[over])}` : ''}" placeholder="e.g. 68/60 km/h on ĐT 746"></label>
+    <label class="field"><span>Action taken *</span><textarea class="input" id="mAct" rows="2" placeholder="e.g. Called to request a 15-min break"></textarea></label>
+    <p class="sm muted">Warned by: Lê Văn Hải (Dispatcher) · 12/11/2026 09:06. This record can't be deleted.</p>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Cancel</button><button class="btn btn-primary" type="button" data-ok>Save to log</button></div>`, m => {
+    const det = m.querySelector('#mDet').value.trim(), act = m.querySelector('#mAct').value.trim();
+    if (!det || !act) { m.querySelector(!det ? '#mDet' : '#mAct').focus(); toast('Enter the details and the action taken'); return false; }
+    const who = r || base[0];
+    LOG.unshift({ t: '12/11/2026 09:06', d: who.name, v: who.veh || '—', trip: who.trip, type: m.querySelector('#mType').value, detail: det, src: 'Manual', by: 'Lê Văn Hải (Dispatcher)', act, st: 'watch', sev: 'warning' });
+    closeDrawer(); render(); toast(`Added to the safety log · ${who.name}`);
+  });
+}
+function exportModal() {
+  modal(`<h2>Export safety log</h2>
+    <div class="row" style="gap:10px"><label class="field grow"><span>From</span><input class="input num" value="01/01/2026"></label><label class="field grow"><span>To</span><input class="input num" value="12/11/2026"></label></div>
+    <div class="field"><span>Format</span><div class="seg" role="group" aria-label="Format" id="fmtSeg"><button type="button" aria-pressed="true">Excel</button><button type="button" aria-pressed="false">PDF</button></div></div>
+    <label class="field"><span>Export purpose *</span><input class="input" id="eWhy" value="Periodic inspection by the authorities"></label>
+    <p class="sm muted">Includes violations, who issued warnings, times and actions taken. Exports are logged (FM_40).</p>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Cancel</button><button class="btn btn-primary" type="button" data-ok>${icon('download')}Export</button></div>`, m => {
+    const f = m.querySelector('#fmtSeg [aria-pressed="true"]').textContent;
+    toast(`Exported nhat-ky-an-toan_01-01_12-11-2026.${f === 'Excel' ? 'xlsx' : 'pdf'} · ${LOG.length} records`);
+  });
+  document.querySelectorAll('#fmtSeg button').forEach(b => b.onclick = () => document.querySelectorAll('#fmtSeg button').forEach(x => x.setAttribute('aria-pressed', x === b)));
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); if (e.target.matches('input, textarea, select')) return; if (e.key === '/') { e.preventDefault(); $('q').focus(); } });
+
+Shell.states([['default', 'Driving hours'], ['attn', 'Needs attention'], ['drawer', 'Driver details'], ['nogsht', 'No GPS tracker'], ['log', 'Safety log'], ['export', 'Export'], ['loading', 'Loading'], ['empty', 'Empty'], ['error', 'Error']], s => {
+  closeDrawer(); document.querySelectorAll('.modal, .modal-scrim').forEach(x => x.remove());
+  LOG = LOG0.map(l => Object.assign({}, l));
+  Object.assign(S, { tab: ['log', 'export'].includes(s) ? 'log' : 'hours', hf: s === 'attn' ? 'attn' : 'all', q: '', lf: 'all', nogsht: s === 'nogsht' });
+  render();
+  if (s === 'drawer') openDrawer('TX08');
+  if (s === 'export') exportModal();
+  if (s === 'loading') { $('fresh').innerHTML = 'Loading GPS tracker data…'; $('tbl').innerHTML = `<table class="grid"><thead><tr>${Array(6).fill('<th><span class="sk" style="width:80px"></span></th>').join('')}</tr></thead><tbody>${Array(8).fill('<tr>' + Array(6).fill('<td><span class="sk" style="width:80%"></span><span class="sk" style="width:55%;margin-top:6px;height:6px"></span></td>').join('') + '</tr>').join('')}</tbody></table>`; }
+  if (s === 'empty') $('tbl').innerHTML = `<div class="empty">${icon('users')}<h3>No drivers yet</h3><p>Add drivers to track driving hours and the safety log.</p><a class="btn btn-primary" href="fm-16-tai-xe.html">${icon('plus')}Add driver</a></div>`;
+  if (s === 'error') { $('fresh').innerHTML = `<span class="live warn" aria-hidden="true"></span>GPS tracker data last received 08:40 · may be out of date`; $('slot').innerHTML = `<div class="alert alert-warning" role="alert">${icon('refresh')}<div>Couldn't fetch new driving-hours data from the tracker vendor. Figures below are as of 08:40.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" onclick="location.reload()">Retry</button></div></div>`; }
+});
+</script>
+</body>
+</html>

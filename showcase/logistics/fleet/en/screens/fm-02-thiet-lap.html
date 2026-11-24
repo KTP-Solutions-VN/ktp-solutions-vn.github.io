@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Company setup · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* FM_02 — wizard full-page, không sidebar */
+  .wz-top { height: var(--header-h); display: flex; align-items: center; gap: 16px; padding: 0 32px; position: sticky; top: 0; z-index: 20; background: var(--bg); }
+  .wz-brand { display: flex; align-items: center; gap: 10px; color: var(--fg-strong); font: 700 15px/1 var(--font-display); text-decoration: none !important; }
+  .wz-top .title { font-size: 13.5px; color: var(--fg-muted); }
+  .wz-top .spacer { flex: 1; }
+  .trial-pill { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 13px; background: var(--primary-soft); color: var(--side-active); font-size: 12.5px; font-weight: 500; }
+
+  .wz { display: grid; grid-template-columns: 280px minmax(0, 760px); gap: 40px; justify-content: center; padding: 24px 32px 96px; align-items: start; }
+  .steps { position: sticky; top: 80px; display: flex; flex-direction: column; gap: 24px; }
+  .steps h1 { font-size: 22px; }
+  .steps .lead { font-size: 13.5px; color: var(--fg-muted); margin-top: 6px; line-height: 20px; }
+  .steps ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+  .st { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 12px; align-items: start; padding: 10px; border-radius: 8px; border: 0; background: none; width: 100%; text-align: left; font: inherit; color: inherit; cursor: pointer; position: relative; }
+  .st:hover:not([disabled]) { background: var(--surface-muted); }
+  .st[disabled] { cursor: default; }
+  .st .n { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font: 600 13px var(--font-body); background: var(--surface); color: var(--fg-muted); box-shadow: inset 0 0 0 1.5px var(--border-strong); }
+  .st b { display: block; font-weight: 600; color: var(--fg-strong); font-size: 14px; line-height: 20px; }
+  .st small { display: block; font-size: 12.5px; color: var(--fg-muted); line-height: 17px; margin-top: 2px; }
+  .st.cur { background: var(--primary-soft); }
+  .st.cur .n { background: var(--primary); color: var(--on-primary); box-shadow: none; }
+  .st.cur b { color: var(--side-active); }
+  .st.done .n { background: var(--success-soft); color: var(--success-fg); box-shadow: none; }
+  .st.skip .n { background: var(--surface-muted); color: var(--fg-muted); box-shadow: none; }
+  .st:not(:last-child)::after { content: ""; position: absolute; left: 23px; top: 42px; height: calc(100% - 34px); width: 1.5px; background: var(--border); }
+  .help { font-size: 12.5px; color: var(--fg-muted); display: flex; gap: 8px; align-items: flex-start; padding: 0 10px; line-height: 18px; }
+
+  .wz-card { display: flex; flex-direction: column; }
+  .wz-head { padding: 24px 28px 4px; display: flex; flex-direction: column; gap: 6px; }
+  .wz-head .k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--fg-muted); display: flex; gap: 8px; align-items: center; }
+  .wz-head h2 { font-size: 20px; line-height: 28px; }
+  .wz-head p { color: var(--fg-muted); }
+  .wz-body { padding: 20px 28px 8px; display: flex; flex-direction: column; gap: 20px; }
+  .wz-foot { display: flex; align-items: center; gap: 8px; padding: 20px 28px 24px; margin-top: 8px; }
+  .wz-foot .grow { flex: 1; }
+  .fgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 16px; }
+  .fgrid .full { grid-column: 1 / -1; }
+  .field .input, .field .select { width: 100%; height: 36px; }
+  .field .req { color: var(--danger-fg); margin-left: 2px; }
+  .field .hint { font-size: 12.5px; color: var(--fg-muted); }
+  .field .err { font-size: 12.5px; color: var(--danger-fg); display: flex; gap: 6px; align-items: center; }
+  .input.invalid { border-color: var(--danger-solid); }
+  .in-btn { display: flex; gap: 8px; }
+  .in-btn .input { flex: 1; }
+  .unit { position: relative; display: flex; }
+  .unit .input { padding-right: 70px; text-align: right; font-variant-numeric: tabular-nums; }
+  .unit em { position: absolute; right: 10px; top: 0; height: 36px; display: flex; align-items: center; font-style: normal; font-size: 12.5px; color: var(--fg-muted); pointer-events: none; }
+  .section-h { display: flex; align-items: baseline; gap: 10px; }
+  .section-h h3 { font-size: 15px; }
+  .section-h .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); }
+  .autofill { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--success-fg); }
+
+  /* Radio/Card — loại hình */
+  .rcards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+  .rc { display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: var(--r-lg); border: 1px solid var(--border-strong); background: var(--surface); cursor: pointer; text-align: left; font: inherit; color: inherit; transition: border-color var(--d-1), background-color var(--d-1); }
+  .rc:hover { background: var(--surface-muted); }
+  .rc[aria-checked="true"] { border-color: var(--primary); background: var(--primary-soft); box-shadow: inset 0 0 0 1px var(--primary); }
+  .rc .top { display: flex; align-items: center; gap: 10px; }
+  .rc .ico { width: 36px; height: 36px; border-radius: 8px; display: grid; place-items: center; background: var(--surface-muted); color: var(--fg-muted); }
+  .rc.ct .ico { background: var(--accent-soft2); color: var(--accent-fg); }
+  .rc[aria-checked="true"] .ico { background: var(--surface); color: var(--primary); }
+  .rc.ct[aria-checked="true"] .ico { color: var(--accent); }
+  .rc b { font-weight: 600; color: var(--fg-strong); font-size: 14.5px; }
+  .rc p { font-size: 12.5px; line-height: 18px; color: var(--fg-muted); }
+  .rc .radio { margin-left: auto; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--border-strong); display: grid; place-items: center; flex: none; }
+  .rc[aria-checked="true"] .radio { border-color: var(--primary); }
+  .rc[aria-checked="true"] .radio::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--primary); }
+  .effect { padding: 14px 16px; border-radius: 8px; background: var(--surface-muted); display: flex; flex-direction: column; gap: 10px; }
+  .effect h4 { margin: 0; font-size: 13px; font-weight: 600; color: var(--fg-strong); }
+  .effect ul { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 20px; font-size: 13px; }
+  .effect li { display: flex; gap: 8px; align-items: center; }
+  .effect li .icon { color: var(--success-fg); }
+  .effect li.off { color: var(--fg-muted); }
+  .effect li.off .icon { color: var(--fg-subtle); }
+
+  /* Quy mô */
+  .field .seg { align-self: flex-start; }
+  .counts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .params { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 16px; }
+  .src { font-size: 12px; color: var(--fg-muted); }
+
+  /* Mời */
+  .inv { display: flex; flex-direction: column; gap: 8px; }
+  .inv-row { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) 34px; gap: 8px; align-items: center; }
+  .inv-row .input, .inv-row .select { width: 100%; height: 36px; }
+  .inv-head { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) 34px; gap: 8px; font-size: 12.5px; font-weight: 500; color: var(--fg-muted); }
+  .roles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 20px; font-size: 12.5px; color: var(--fg-muted); line-height: 18px; }
+  .roles b { color: var(--fg); font-weight: 600; }
+  .check { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; }
+  .check input { width: 16px; height: 16px; accent-color: var(--primary); margin: 0; }
+
+  /* Hoàn tất */
+  .done-hero { padding: 32px 28px 8px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+  .done-ic { width: 48px; height: 48px; border-radius: 12px; background: var(--success-soft); color: var(--success-fg); display: grid; place-items: center; }
+  .done-ic .icon { width: 24px; height: 24px; stroke-width: 2.25; }
+  .done-hero h2 { font-size: 22px; line-height: 30px; }
+  .recap { list-style: none; margin: 0; padding: 0 20px; display: flex; flex-direction: column; gap: 2px; }
+  .recap li { display: grid; grid-template-columns: 20px 160px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 8px; border-radius: 8px; font-size: 13.5px; }
+  .recap li:hover { background: var(--surface-muted); }
+  .recap .icon { color: var(--success-fg); }
+  .recap li.skip .icon { color: var(--fg-subtle); }
+  .recap .k { color: var(--fg-muted); }
+  .next { margin: 12px 28px 0; padding: 18px; border-radius: 10px; background: var(--primary-soft); display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 14px; align-items: center; }
+  .next .ico { width: 40px; height: 40px; border-radius: 10px; background: var(--surface); color: var(--primary); display: grid; place-items: center; }
+  .next b { color: var(--fg-strong); display: block; }
+  .next span { font-size: 13px; color: var(--fg-muted); }
+  .open-note { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; line-height: 16px; color: var(--fg-muted); }
+  .open-note .badge { height: 18px; font-size: 11px; padding: 0 6px; flex: none; }
+  .wz-card.swap > * { animation: swapIn 200ms var(--ease-std) both; }
+  @media (max-width: 1000px) { .wz { grid-template-columns: minmax(0, 1fr); } .steps { position: static; } .rcards, .counts { grid-template-columns: minmax(0, 1fr); } }
+</style>
+</head>
+<body>
+<header class="wz-top">
+  <a class="wz-brand" href="../index.html"><span class="brand-mark" id="brandMark"></span>Đội Xe</a> <span class="title">Company setup</span> <span class="spacer"></span> <span class="trial-pill" id="trialPill"></span> <a class="btn btn-ghost" href="fm-04-tong-quan.html" id="later">Save and finish later</a>
+</header>
+<div class="wz">
+  <aside class="steps">
+    <div><h1>Company setup</h1><p class="lead">About 3 min. Only step 1 is required; the others can be skipped and done later in Settings.</p></div>
+    <ol id="stepList"></ol>
+    <p class="help" id="help"></p>
+  </aside>
+  <main><section class="card wz-card" id="stepCard" aria-live="polite"></section></main>
+</div>
+<div class="toast-host" id="toastHost" aria-live="polite"></div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+const $ = id => document.getElementById(id);
+$('brandMark').innerHTML = icon('truck');
+$('trialPill').innerHTML = icon('clock') + 'Trial: 14 days left';
+$('help').innerHTML = icon('phone') + '<span>Need help with setup? Call <b class="num">1900 6868</b> (8:00–20:00) or chat with us.</span>';
+
+const STEPS = [
+  ['Company details', 'Name, tax ID, address'],
+  ['Transport type', 'General cargo, container or both'],
+  ['Fleet size and parameters', 'Vehicle count, norms, fuel price'],
+  ['Invite members', 'Dispatchers, accountants, fleet managers']
+];
+const S = {
+  step: 0, status: ['cur', 'todo', 'todo', 'todo'],
+  co: { mst: '0314728391', name: 'Công ty TNHH Vận tải Phát Đạt', short: 'Vận tải Phát Đạt', addr: '18 Street No. 7, Linh Trung Ward, Thủ Đức City, HCMC', branch: 'TP.HCM', phone: '028 3896 4521', email: 'ketoan@phatdat.vn' },
+  type: 'both', size: '11–30', counts: [6, 22, 24],
+  params: [['Fuel price (DO 0.05S)', 20150, '₫/l', 'Petrolimex zone 1, pricing period 11/11/2026'], ['Box truck fuel norm', 25, 'l/100km', 'Default for 8–15 t trucks'], ['Tractor unit fuel norm', 38, 'l/100km', 'Default for tractor units with a trailer'], ['Default flat trip pay', 1200000, '₫/trip', 'Used when the route has no flat pay of its own'], ['Allocated fixed costs', 450000, '₫/vehicle/day', 'Depreciation, insurance, road usage fees, GPS tracker'], ['Margin alert threshold', 5, '%', 'Routes/customers below the threshold show in orange']],
+  invites: [['0903 214 667', 'Dispatcher'], ['mai.ketoan@phatdat.vn', 'Accountant'], ['0977 508 132', 'Fleet manager']],
+  sms: true, mstErr: null, looked: false
+};
+const ROLES = ['Owner / Admin', 'Dispatcher', 'Accountant', 'Fleet manager'];
+const openNote = t => `<div class="open-note"><span class="badge b-neutral">TBD</span><span>${t}</span></div>`;
+
+function renderSteps() {
+  $('stepList').innerHTML = STEPS.map(([t, d], i) => {
+    const st = S.step === 'done' ? (S.status[i] === 'skip' ? 'skip' : 'done') : (i === S.step ? 'cur' : S.status[i]);
+    const reach = S.step === 'done' || i <= S.step || S.status[i] !== 'todo';
+    const sub = st === 'skip' ? 'Skipped · finish later in Settings' : st === 'done' && i !== S.step ? (i === 0 ? S.co.short : i === 1 ? typeLabel() : i === 2 ? S.size + ' vehicles' : S.invites.filter(r => r[0]).length + ' invites') : d;
+    return `<li><button type="button" class="st ${st}" data-step="${i}" ${reach && S.step !== 'done' ? '' : 'disabled'} ${i === S.step ? 'aria-current="step"' : ''}><span class="n">${st === 'done' ? icon('check') : st === 'skip' ? icon('chevron-right') : i + 1}</span><span><b>${t}${i === 0 ? '' : ''}</b><small>${sub}</small></span></button></li>`;
+  }).join('');
+  const later = $('later');
+  const step1ok = S.status[0] === 'done';
+  later.classList.toggle('is-disabled', !step1ok && S.step !== 'done');
+  later.title = step1ok ? 'Save what you\'ve entered and go to Overview' : 'Complete step 1 first';
+  later.style.display = S.step === 'done' ? 'none' : '';
+}
+const typeLabel = () => ({ normal: 'General cargo', container: 'Container', both: 'General cargo and container' })[S.type];
+
+/* ---------- Nội dung từng bước ---------- */
+const B = [
+  function company() {
+    const c = S.co, e = S.mstErr;
+    return { k: 'Required', title: 'Company details', sub: 'Used on waybills, invoices and the tracking links sent to customers.',
+      body: `<div class="fgrid">
+        <label class="field full"><span>Tax ID<span class="req">*</span></span> <span class="in-btn"><input class="input num ${e ? 'invalid' : ''}" id="fMst" value="${c.mst}" inputmode="numeric" ${e ? 'aria-describedby="eMst"' : ''}><button class="btn btn-secondary" type="button" id="lookup">${icon('search')}Look up tax ID</button></span>
+          ${e ? `<span class="err" id="eMst">${icon('block')}${e}</span>` : S.looked ? `<span class="autofill">${icon('check')}Name and address filled in from tax registration data. Check them before continuing.</span>` : `<span class="hint">10 digits, or 13 digits for a branch (0314728391-001).</span>`}</label>
+        <label class="field full"><span>Full company name<span class="req">*</span></span><input class="input" id="fName" value="${c.name}"></label>
+        <label class="field"><span>Display name</span><input class="input" id="fShort" value="${c.short}"><span class="hint">Shown in the driver app and on the customer tracking page.</span></label>
+        <label class="field"><span>First branch<span class="req">*</span></span><select class="select" id="fBranch">${['TP.HCM', 'Bình Dương', 'Đồng Nai', 'Bà Rịa – Vũng Tàu', 'Hải Phòng', 'Hà Nội'].map(x => `<option ${x === c.branch ? 'selected' : ''}>${x}</option>`).join('')}</select><span class="hint">Add more branches later in Settings.</span></label>
+        <label class="field full"><span>Head office address<span class="req">*</span></span><input class="input" id="fAddr" value="${c.addr}"></label>
+        <label class="field"><span>Company phone</span><input class="input num" value="${c.phone}"></label>
+        <label class="field"><span>Invoice email</span><input class="input" value="${c.email}"></label>
+      </div>
+      ${e ? `<div class="alert alert-danger" role="alert">${icon('block')}<div><b>Can't create a company with this tax ID.</b> If you work for that company, ask its Owner / Admin to invite you. If the tax ID was registered by mistake, call 1900 6868 to verify.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" data-toast="Verification request sent. We'll call you back within 4 business hours">Request verification</button></div></div>` : ''}` };
+  },
+  function type() {
+    const opt = [['normal', 'box', 'General cargo', 'Box trucks, LTL loads, multiple drop-offs.'], ['container', 'container', 'Container', 'Tractor units, trailers, empty pickups and port drop-offs.'], ['both', 'truck', 'Both', 'You run both box trucks and container tractor units.']];
+    const ct = S.type !== 'normal', nm = S.type !== 'container';
+    const eff = [[ct, 'Container no., booking and shipping line on Create order'], [ct, 'Countdown to the empty return deadline (cut-off)'], [ct, 'EIR at empty pickup and drop-off'], [nm, 'Multiple drop-offs in one trip'], [nm, 'Consolidate LTL loads by remaining capacity'], [true, 'Documents, driving hours, settlement, P&amp;L']];
+    return { k: 'Step 2 / 4', title: 'What kind of cargo does your company carry?', sub: 'This decides which fields appear on the Create order and Dispatch screens. You can change it later in Settings.',
+      body: `<div class="rcards" role="radiogroup" aria-label="Transport type">${opt.map(([k, ic, t, d]) => `<button type="button" class="rc ${k === 'container' ? 'ct' : ''}" role="radio" aria-checked="${S.type === k}" data-type="${k}"><span class="top"><span class="ico">${icon(ic, 'lg')}</span><span class="radio" aria-hidden="true"></span></span><b>${t}</b><p>${d}</p></button>`).join('')}</div>
+        <div class="effect"><h4>With "${typeLabel()}" selected, the system will</h4><ul>${eff.map(([on, t]) => `<li class="${on ? '' : 'off'}">${icon(on ? 'check' : 'x')}${on ? '' : 'Hidden: '}${t}</li>`).join('')}</ul></div>` };
+  },
+  function size() {
+    return { k: 'Step 3 / 4', title: 'Fleet size and cost parameters', sub: 'Used to estimate trip costs from day one. The figures below are common defaults and can be changed at any time.',
+      body: `<div class="field"><span>Number of vehicles</span><div class="seg" role="group" aria-label="Vehicle count">${['1–10', '11–30', '31–60', '61–100', 'Over 100'].map(x => `<button type="button" aria-pressed="${S.size === x}" data-size="${x}">${x} vehicles</button>`).join('')}</div></div>
+        <div class="counts">${[['Box truck', 'vehicles', S.type === 'container'], ['Tractor unit', 'vehicles', S.type === 'normal'], ['Trailer', 'units', S.type === 'normal']].map(([l, u, off], i) => `<label class="field"><span>${l}</span><span class="unit"><input class="input" value="${off ? 0 : S.counts[i]}" inputmode="numeric" ${off ? 'disabled' : ''}><em>${u}</em></span></label>`).join('')}</div>
+        <div class="section-h"><h3>Default cost parameters</h3><span class="meta"><button class="btn btn-ghost btn-sm" type="button" data-toast="Defaults restored">${icon('undo')}Restore defaults</button></span></div>
+        <div class="params">${S.params.map(([l, v, u, src]) => `<label class="field"><span>${l}</span><span class="unit"><input class="input" style="padding-right:${u.length * 7 + 22}px" value="${u === '%' || u === 'l/100km' ? fmt.dec(v, 0) : fmt.vnd(v, { bare: 1 })}" inputmode="numeric"><em>${u}</em></span><span class="src">${src}</span></label>`).join('')}</div>
+        <div class="alert alert-info">${icon('info')}<div>Fuel prices are updated with each Ministry of Industry and Trade pricing period. You can adjust them later in <a href="fm-30-tham-so.html">Cost parameters &amp; fuel price</a>.</div></div>` };
+  },
+  function invite(empty) {
+    const rows = empty ? [] : S.invites;
+    return { k: 'Step 4 / 4', title: 'Invite your team', sub: 'Everyone signs in with their own phone number or email and only sees the work for their role.',
+      body: rows.length ? `<div class="inv"><div class="inv-head"><span>Phone or email</span><span>Role</span><span></span></div>
+          ${rows.map(([v, r], i) => `<div class="inv-row"><input class="input" value="${v}" data-inv="${i}" aria-label="Phone or email of person ${i + 1}"><select class="select" aria-label="Role">${ROLES.map(x => `<option ${x === r ? 'selected' : ''}>${x}</option>`).join('')}</select><button class="icon-btn" type="button" data-del="${i}" aria-label="Remove this row">${icon('x')}</button></div>`).join('')}
+          <div><button class="btn btn-ghost btn-sm" type="button" id="addInv">${icon('plus')}Add person</button></div></div>`
+        : `<div class="empty" style="padding:28px 16px">${icon('users')}<h3>No one invited yet</h3><p>You can start on your own and invite dispatchers and accountants later in Settings.</p><button class="btn btn-secondary" type="button" id="addInv">${icon('plus')}Add person</button></div>`,
+      extra: `<div class="roles"><span><b>Dispatcher:</b> create orders, assign vehicles, track trips, alerts.</span><span><b>Accountant:</b> settlements, cash advances, invoices, receivables &amp; payables.</span><span><b>Fleet manager:</b> vehicles, documents, maintenance.</span><span><b>Owner / Admin:</b> sees everything, P&amp;L, permissions.</span></div>
+        <label class="check"><input type="checkbox" id="sms" ${S.sms ? 'checked' : ''}>Send invites by SMS and email with a sign-in link</label>
+        <div class="alert alert-info">${icon('phone')}<div>Drivers don't need an invite here. Once you import your driver list, they sign in to the driver app with their own phone numbers.</div></div>` };
+  }
+];
+
+function render(opts) {
+  opts = opts || {};
+  renderSteps();
+  const card = $('stepCard');
+  if (S.step === 'done') return renderDone();
+  const i = S.step, d = B[i](opts.empty);
+  const last = i === 3;
+  card.innerHTML = `<div class="wz-head"><span class="k">${i === 0 ? `<span class="badge b-neutral">Step 1 / 4</span><span>Required</span>` : d.k}</span><h2>${d.title}</h2><p>${d.sub}</p></div>
+    <div class="wz-body">${d.body}${d.extra || ''}</div>
+    <div class="wz-foot">${i > 0 ? `<button class="btn btn-secondary" type="button" id="back">Back</button>` : `<a class="btn btn-ghost" href="fm-01-dang-nhap.html">Sign out</a>`}
+      <span class="grow"></span>
+      ${i > 0 ? `<button class="btn btn-ghost" type="button" id="skip">Skip this step</button>` : ''}
+      <button class="btn btn-primary" type="button" id="next">${last ? (opts.empty ? 'Done' : 'Send invites and finish') : 'Continue'}${last ? '' : icon('chevron-right')}</button></div>`;
+  Shell.flash(card, 'swap');
+}
+
+function renderDone() {
+  const ok = i => S.status[i] !== 'skip';
+  const rec = [['Company', `${S.co.short} · Tax ID <span class="num">${S.co.mst}</span>`, true], ['Transport type', typeLabel(), ok(1)], ['Fleet size', `${S.size} vehicles · fuel price <span class="num">20,150 ₫/l</span>`, ok(2)], ['Members', `<span class="num">${S.invites.length}</span> invites sent by SMS and email`, ok(3)]];
+  $('stepCard').innerHTML = `<div class="done-hero"><span class="done-ic">${icon('check')}</span><h2>${S.co.short} is ready</h2><p class="muted">Your trial runs until <b class="num">26/11/2026</b>. Recommended next step: add your vehicles, drivers and documents.</p></div>
+    <ul class="recap">${rec.map(([k, v, on]) => `<li class="${on ? '' : 'skip'}">${icon(on ? 'check' : 'dot')}<span class="k">${k}</span><span>${on ? v : '<span class="muted">Skipped</span>'}</span>${on ? '' : `<a class="btn btn-ghost btn-sm" href="fm-38-thanh-vien.html">Set up in Settings</a>`}</li>`).join('')}</ul>
+    <div class="next"><span class="ico">${icon('import', 'lg')}</span><div><b>Import vehicles, drivers and documents from Excel</b><span>Use the file you already have; the system recognizes your column names automatically. Right after, you'll see which documents are expiring soon.</span></div><a class="btn btn-primary" href="fm-03-import.html">${icon('upload')}Import from Excel</a></div>
+    <div class="wz-foot"><span class="sm muted">Or add vehicles one by one later.</span><span class="grow"></span><a class="btn btn-secondary" href="fm-04-tong-quan.html">Go to Overview</a></div>`;
+  Shell.flash($('stepCard'), 'swap');
+}
+
+function validateStep1() {
+  const m = $('fMst').value.replace(/\s/g, '');
+  if (!/^\d{10}(-\d{3})?$/.test(m)) { S.mstErr = 'A tax ID has 10 digits, or 10 digits plus "-xxx" for a branch.'; render(); $('fMst').focus(); return false; }
+  if (S.taken && m === S.taken) { S.mstErr = 'Tax ID ' + m + ' is already registered to another company on Đội Xe.'; render(); $('fMst').focus(); return false; }
+  if (!$('fName').value.trim() || !$('fAddr').value.trim()) { toast('Enter the company name and address'); return false; }
+  S.co.mst = m; S.co.name = $('fName').value; S.co.short = $('fShort').value || S.co.name; S.co.addr = $('fAddr').value; S.co.branch = $('fBranch').value; S.mstErr = null;
+  return true;
+}
+function goTo(n) { S.step = n; render(); window.scrollTo({ top: 0 }); }
+
+document.addEventListener('click', e => {
+  const t = e.target;
+  const st = t.closest('[data-step]'); if (st && !st.disabled) { const n = +st.dataset.step; if (S.step === 0 && n > 0 && !validateStep1()) return; if (S.step === 0) S.status[0] = 'done'; return goTo(n); }
+  if (t.closest('#next')) {
+    if (S.step === 0 && !validateStep1()) return;
+    if (S.step === 0) toast('Company details saved');
+    S.status[S.step] = 'done';
+    if (S.step === 3) { if (S.invites.length) toast(`Sent ${S.invites.length} invites`); return goTo('done'); }
+    return goTo(S.step + 1);
+  }
+  if (t.closest('#skip')) { S.status[S.step] = 'skip'; return S.step === 3 ? goTo('done') : goTo(S.step + 1); }
+  if (t.closest('#back')) return goTo(S.step - 1);
+  if (t.closest('#lookup')) { S.looked = true; S.mstErr = null; render(); return toast('Looked up tax ID 0314728391 · active'); }
+  const ty = t.closest('[data-type]'); if (ty) { S.type = ty.dataset.type; return render(); }
+  const sz = t.closest('[data-size]'); if (sz) { S.size = sz.dataset.size; sz.parentElement.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b === sz)); return; }
+  const dl = t.closest('[data-del]'); if (dl) { const i = +dl.dataset.del, row = S.invites[i]; S.invites.splice(i, 1); render(); return toast('Removed 1 invite', { undo: () => { S.invites.splice(i, 0, row); render(); } }); }
+  if (t.closest('#addInv')) { S.invites.push(['', 'Dispatcher']); render(); const ins = document.querySelectorAll('[data-inv]'); ins[ins.length - 1].focus(); return; }
+  const ts = t.closest('[data-toast]'); if (ts) return toast(ts.dataset.toast);
+  if (t.closest('#later.is-disabled')) { e.preventDefault(); toast('Complete step 1 first; the later steps can be done any time'); }
+});
+document.addEventListener('input', e => { const i = e.target.dataset && e.target.dataset.inv; if (i != null) S.invites[+i][0] = e.target.value; });
+document.addEventListener('change', e => { if (e.target.id === 'sms') S.sms = e.target.checked; });
+
+function skeleton() {
+  renderSteps();
+  $('stepCard').innerHTML = `<div class="wz-head"><span class="sk" style="width:90px"></span><span class="sk" style="width:45%;height:22px;margin-top:6px"></span><span class="sk" style="width:70%"></span></div>
+    <div class="wz-body"><div class="fgrid">${Array(6).fill('<div class="stack"><span class="sk" style="width:40%"></span><span class="sk" style="height:36px"></span></div>').join('')}</div></div>
+    <div class="wz-foot"><span class="sk" style="width:90px;height:36px"></span><span class="grow"></span><span class="sk" style="width:120px;height:36px"></span></div>`;
+}
+
+Shell.states([['default', 'Step 1'], ['s2', 'Step 2'], ['s3', 'Step 3'], ['s4', 'Step 4'], ['done', 'Done'], ['skipped', 'Done (skipped)'], ['loading', 'Loading'], ['empty', 'No one invited yet'], ['error', 'Duplicate tax ID']], s => {
+  S.mstErr = null; S.taken = null; S.looked = false; S.status = ['todo', 'todo', 'todo', 'todo'];
+  const upto = n => { for (let i = 0; i < n; i++) S.status[i] = 'done'; };
+  if (s === 'default') { S.step = 0; render(); }
+  else if (s === 's2') { upto(1); S.step = 1; render(); }
+  else if (s === 's3') { upto(2); S.step = 2; render(); }
+  else if (s === 's4') { upto(3); S.step = 3; render(); }
+  else if (s === 'done') { upto(4); S.step = 'done'; render(); }
+  else if (s === 'skipped') { upto(4); S.status[2] = 'skip'; S.status[3] = 'skip'; S.step = 'done'; render(); }
+  else if (s === 'loading') { S.step = 0; skeleton(); }
+  else if (s === 'empty') { upto(3); S.step = 3; render({ empty: true }); }
+  else if (s === 'error') { S.step = 0; S.taken = '0314728391'; S.mstErr = 'Tax ID 0314728391 is already registered to another company on Đội Xe.'; render(); }
+});
+</script>
+</body>
+</html>

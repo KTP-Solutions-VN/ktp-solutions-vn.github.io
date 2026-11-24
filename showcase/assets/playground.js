@@ -4,7 +4,8 @@
  * URL (query param để mỗi prototype là 1 trang riêng với title, description, canonical, JSON-LD riêng):
  *   ?app=<prototype>                     playground của 1 prototype (màn đầu: màn thật của sản phẩm)
  *   ?app=<prototype>&screen=<màn>        <màn> là đường dẫn trong thư mục prototype (CRM: route); canonical trỏ về ?app=<prototype>
- * Không có ?app → về trang Dự án (lọc lĩnh vực ở đó). Ngôn ngữ dùng chung key localStorage "ktp_lang" với website.
+ * Không có ?app → về trang Dự án (lọc lĩnh vực ở đó). Ngôn ngữ dùng chung key localStorage "ktp_lang" với website;
+ * prototype có bản tiếng Anh riêng (p.en, VD Fleet) thì khung xem mở bản đó khi đang ở EN.
  */
 (function () {
   const $ = s => document.querySelector(s);
@@ -35,7 +36,8 @@
   const BASE = window.PG_BASE || "", PROJ = window.PG_PROJECTS || "../"; // đường dẫn tương đối từ trang playground
   const byId = Object.fromEntries(P.map(p => [p.id, p])), dom = Object.fromEntries(D.map(d => [d.slug, d]));
   const flat = p => p._flat || (p._flat = p.groups.flatMap(g => g.screens.map(s => ({...s, g}))));
-  const urlOf = (p, u) => BASE + p.dir + "/" + u;
+  const pdir = p => p.dir + "/" + (lang === "en" && p.en ? p.en : ""); // prototype có bản tiếng Anh riêng (p.en, VD Fleet): mở bản đó khi đang xem EN
+  const urlOf = (p, u) => BASE + pdir(p) + u;
   const key = s => s.u.replace(/^\?__p=/, ""); // giá trị ?screen=: đường dẫn màn (CRM: route, VD /jobs/kanban)
   const state = {p: null, i: 0, w: +store.get("pg.w", 1440), q: "", allOpen: null}; // allOpen: null = tự mở nhóm đang xem
 
@@ -150,11 +152,12 @@
   $("#frame").addEventListener("load", () => {
     $("#loading").classList.remove("is-on");
     try { // người xem bấm link trong prototype: đánh dấu màn tương ứng trong danh sách (cùng origin nên đọc được)
-      const loc = $("#frame").contentWindow.location, base = new URL(BASE + state.p.dir + "/", location.href).pathname;
+      const loc = $("#frame").contentWindow.location, base = new URL(BASE + pdir(state.p), location.href).pathname;
       if (!loc.pathname.startsWith(base)) return;
       let rel = loc.pathname.slice(base.length);
       if (state.p.id === "crm") rel = "?__p=/" + rel; // CRM: màn trong danh sách ghi dạng ?__p=/<route>
-      const i = flat(state.p).findIndex(s => s.u === rel);
+      const all = flat(state.p), withHash = all.findIndex(s => s.u === rel + loc.hash); // màn mở theo #hash (Fleet: driver-app.html#dr04)
+      const i = withHash >= 0 ? withHash : all.findIndex(s => s.u === rel);
       if (i >= 0 && i !== state.i) { state.i = i; $("#frame").dataset.src = urlOf(state.p, flat(state.p)[i].u); setScreenUrl(true); renderSide(); renderStage(); setMeta(meta()); }
     } catch (e) { /* khác origin: bỏ qua */ }
   });

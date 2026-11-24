@@ -49,10 +49,21 @@ DOMAINS = [
                "en": "Healthcare e-commerce suite for hospitals, clinics and pharmacy chains: storefront for medical products and service packages, appointment booking, membership and loyalty points, back-office for orders, refunds, promotions, content and reports, a pharmacy counter POS and a self-service kiosk for events and hospital lobbies."},
      "keywords": ["phần mềm quản lý bệnh viện", "phần mềm quản lý phòng khám", "phần mềm quản lý nhà thuốc", "phần mềm POS nhà thuốc",
                   "website bán hàng y tế", "thương mại điện tử y tế", "healthcare e-commerce", "pharmacy POS software", "clinic booking system", "kiosk tự phục vụ bệnh viện", "hospital self-service kiosk"]},
+    {"slug": "logistics", "name": {"vi": "Vận tải & Logistics", "en": "Transport & Logistics"}, "short": {"vi": "Vận tải", "en": "Logistics"},
+     "h": {"vi": "Phần mềm quản lý đội xe & vận tải hàng hoá", "en": "Fleet & road freight management software"},
+     "title": {"vi": "Phần mềm quản lý đội xe, vận tải: điều phối, GSHT, lãi/lỗ từng chuyến", "en": "Fleet & trucking management software: dispatch, GPS tracking, profit per trip"},
+     "desc": {"vi": "Demo phần mềm quản lý đội xe do KTP Solutions xây dựng cho doanh nghiệp vận tải hàng hoá: đơn vận chuyển, điều phối xe và tài xế, bản đồ giám sát GSHT, giờ lái, giấy tờ và bảo dưỡng, tạm ứng, quyết toán, lãi/lỗ từng chuyến và app tài xế.",
+              "en": "Fleet management software demo by KTP Solutions for road freight companies: shipping orders, vehicle and driver dispatch, GPS-tracker live map, driving hours, documents and maintenance, cash advances, trip settlement, profit per trip and a driver app."},
+     "intro": {"vi": "Phần mềm quản lý đội xe cho doanh nghiệp vận tải hàng hoá 10–100 xe (xe tải, đầu kéo container): đơn vận chuyển thường và container, bảng điều phối và gán xe, tài xế, bản đồ giám sát từ thiết bị GSHT, giờ lái và nhật ký an toàn, giấy tờ và nhắc hạn, bảo dưỡng, tạm ứng và quyết toán chuyến, lương chuyến, hoá đơn, công nợ, bảng giá cước, báo cáo lãi/lỗ từng chuyến và app tài xế Android.",
+               "en": "Fleet management software for road freight companies running 10–100 trucks (box trucks, container tractor units): general and container shipping orders, a dispatch board with vehicle and driver assignment, a live map from GPS trackers, driving hours and safety log, documents with expiry reminders, maintenance, cash advances and trip settlement, trip pay, invoices, receivables and payables, rate cards, profit and loss per trip and an Android driver app."},
+     "keywords": ["phần mềm quản lý đội xe", "phần mềm quản lý vận tải", "phần mềm điều phối xe", "TMS vận tải", "quản lý xe container", "quản lý chi phí chuyến xe",
+                  "app tài xế", "fleet management software", "transport management system", "trucking dispatch software"]},
 ]
 
 # Thứ tự hiển thị trong playground. dom: slug lĩnh vực; short: tên ngắn ("Khách sạn · PMS"); seo: tiêu đề / mô tả trang ?app=<id>.
 # dir: thư mục prototype (tương đối với showcase/), hub: trang mục lục, heading: thẻ tiêu đề dùng làm nhóm trong trang mục lục.
+# hub_js: trang mục lục liệt kê màn bằng mảng JS G = [[icon, nhóm, [[mã, tên màn, file], …]], …] (Fleet).
+# en: thư mục bản tiếng Anh trong prototype (sinh bởi _tools/i18n_prototype.py); playground mở bản này khi website đang ở EN.
 PRODUCTS = [
     {"id": "pms", "dom": "hospitality", "short": "PMS", "name": "Azura Manager PMS",
      "seo": {"vi": "Phần mềm quản lý khách sạn, resort, villa (PMS)", "en": "Hotel & resort property management system (PMS)"},
@@ -89,6 +100,11 @@ PRODUCTS = [
      "desc": {"vi": "Kiosk cảm ứng tự phục vụ cho bệnh viện, phòng khám tại sự kiện và sảnh tiếp đón: xem và đặt trước sản phẩm, combo, đặt lịch tham quan khoa sản, đăng ký gói thai sản, lớp học tiền sản – chăm sóc bé và hội viên, không cần tài khoản.",
               "en": "Touch-screen self-service kiosk for hospitals and clinics at events and in visitor areas: browse and reserve products and bundles, book maternity ward tours, sign up for maternity packages, birth & parenting classes and membership, no account needed."},
      "dir": "medical/kiosk", "hub": "index.html", "heading": r'<h2[^>]*>(?:<svg.*?</svg>)?', "zip": "medical/kiosk.zip", "accent": "#0E7490"},
+    {"id": "fleet", "dom": "logistics", "short": "Fleet", "name": "Đội Xe Fleet Management",
+     "seo": {"vi": "Phần mềm quản lý đội xe, điều phối vận tải và lãi/lỗ từng chuyến", "en": "Fleet management, trucking dispatch & profit-per-trip software"},
+     "desc": {"vi": "Phần mềm quản lý đội xe cho doanh nghiệp vận tải hàng hoá: đơn vận chuyển, điều phối xe và tài xế, bản đồ giám sát, giờ lái, giấy tờ, bảo dưỡng, tạm ứng, quyết toán, lương chuyến, hoá đơn, công nợ, bảng giá cước, báo cáo lãi/lỗ và app tài xế.",
+              "en": "Fleet management software for road freight companies: shipping orders, vehicle and driver dispatch, live map, driving hours, documents, maintenance, cash advances, settlement, trip pay, invoices, receivables, rate cards, P&L reports and a driver app."},
+     "dir": "logistics/fleet", "hub": "index.html", "hub_js": True, "en": "en/", "zip": "logistics/fleet.zip", "accent": "#4F46E5"},
 ]
 DOM = {d["slug"]: d for d in DOMAINS}
 
@@ -149,6 +165,26 @@ def static_screens(p):
         for f in sorted(root.glob("*/*.html"), key=lambda f: (f.parent.name != "dashboard", f.parent.name)):  # dashboard lên đầu
             if f.parent.name != "assets":
                 add(SCREENS, f.relative_to(root).as_posix())
+    return list(groups.values())
+
+
+def hub_array(path):
+    """[(tên nhóm, [(mã, tên màn, file#hash), …]), …] từ mảng G trong trang mục lục (chuỗi JS nháy đơn)."""
+    body = re.search(r"const G = \[(.*?)\n\];", path.read_text(encoding="utf-8"), re.S).group(1)
+    s = r"'((?:[^'\\]|\\.)*)'"
+    un = lambda x: re.sub(r"\\(.)", r"\1", x)
+    return [(un(m.group(1)), [(c, un(t), f) for c, t, f in re.findall(rf"\['([A-Z]+_\d+)', {s}, '([^']+)'", m.group(2))])
+            for m in re.finditer(rf"\['[\w-]+', {s}, \[(.*?)\]\]", body, re.S)]
+
+
+def hub_js_screens(p):
+    """Fleet: nhóm + màn theo đúng thứ tự mục lục; tên tiếng Anh lấy từ mục lục bản en/ (cùng cấu trúc)."""
+    root = SC / p["dir"]
+    vi, en = hub_array(root / p["hub"]), hub_array(root / p["en"] / p["hub"])
+    groups, put = grouped()
+    for (g_vi, items), (g_en, items_en) in zip(vi, en):
+        for (_, t_vi, f), (_, t_en, _) in zip(items, items_en):
+            put({"vi": g_vi, "en": g_en}, {"t": {"vi": t_vi, "en": t_en}, "u": "screens/" + f})
     return list(groups.values())
 
 
@@ -214,8 +250,8 @@ def drop_entry(groups):
 
 data = []
 for p in PRODUCTS:
-    groups = drop_entry(crm_screens(p) if p["id"] == "crm" else static_screens(p))
-    item = {k: p[k] for k in ("id", "dom", "short", "name", "seo", "desc", "dir", "accent")}
+    groups = drop_entry(crm_screens(p) if p["id"] == "crm" else hub_js_screens(p) if p.get("hub_js") else static_screens(p))
+    item = {k: p[k] for k in ("id", "dom", "short", "name", "seo", "desc", "dir", "accent", "en") if k in p}
     item["cover"] = f"assets/covers/{p['id']}.jpg"
     item["groups"] = groups
     data.append(item)

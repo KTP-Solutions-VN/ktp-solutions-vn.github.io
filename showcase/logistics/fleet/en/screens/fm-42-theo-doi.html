@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trip tracking CH-0458 · Vận tải Phát Đạt</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* FM_42 — trang công khai cho khách: không đăng nhập, không shell app. Chỉ mốc, ETA, POD. */
+  body { min-height: 100vh; }
+  .pub-top { display: flex; align-items: center; gap: 12px; max-width: 1040px; margin: 0 auto; padding: 20px 24px 8px; }
+  .op-logo { width: 36px; height: 36px; border-radius: 8px; background: var(--fg-strong); color: var(--surface); display: grid; place-items: center; font: 700 14px var(--font-display); flex: none; }
+  .op b { display: block; font: 700 15px/20px var(--font-display); color: var(--fg-strong); }
+  .op span { font-size: 12.5px; color: var(--fg-muted); }
+  .pub-top .spacer { flex: 1; }
+  .pub-top .hot { font-size: 13px; color: var(--fg-muted); display: inline-flex; gap: 6px; align-items: center; }
+  .pub-top .hot a { font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  .pub { max-width: 1040px; margin: 0 auto; padding: 16px 24px 120px; display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; align-items: start; }
+  .pub > .main { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .pub > .aside { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+
+  .hero { padding: 24px 24px 22px; display: flex; flex-direction: column; gap: 14px; }
+  .hero .trip { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 13px; color: var(--fg-muted); }
+  .hero .eta-k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--fg-muted); }
+  .hero .eta { font: 700 var(--text-display)/40px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+  .hero .eta small { font: 600 16px var(--font-display); color: var(--fg-muted); margin-left: 6px; letter-spacing: 0; }
+  .hero .where { font-size: 15px; color: var(--fg); }
+  .route { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; font-size: 13.5px; }
+  .route b { font-weight: 600; color: var(--fg-strong); }
+  .route small { display: block; font-size: 12px; color: var(--fg-muted); }
+  .route .end { text-align: right; }
+  .route .arrow { justify-self: center; display: inline-flex; }
+
+  /* Thanh tiến độ mốc (ngang) */
+  .prog { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; }
+  .prog i { height: 6px; border-radius: 3px; background: var(--surface-muted); }
+  .prog i.on { background: var(--primary); }
+  .prog i.now { background: repeating-linear-gradient(45deg, var(--primary) 0 4px, var(--primary-soft) 4px 8px); }
+  .prog i.ok { background: var(--success-solid); }
+
+  .card-title { display: flex; align-items: center; gap: 10px; padding: 18px 20px 6px; }
+  .card-title h2 { font-size: 16px; }
+  .card-title .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); }
+
+  /* Timeline mốc (dọc) */
+  .tl { list-style: none; margin: 0; padding: 10px 20px 20px; }
+  .tl li { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; gap: 14px; position: relative; padding-bottom: 20px; }
+  .tl li:last-child { padding-bottom: 0; }
+  .tl li:not(:last-child)::before { content: ""; position: absolute; left: 13px; top: 30px; bottom: 2px; width: 2px; border-radius: 1px; background: var(--border); }
+  .tl li.done:not(:last-child)::before { background: var(--success-solid); opacity: .45; }
+  .tl .dot { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--border-strong); color: var(--fg-subtle); }
+  .tl .done .dot { background: var(--success-soft); color: var(--success-fg); box-shadow: none; }
+  .tl .now .dot { background: var(--primary); color: var(--on-primary); box-shadow: 0 0 0 4px var(--primary-soft); }
+  .tl b { display: block; font-weight: 600; color: var(--fg-strong); line-height: 20px; }
+  .tl .todo b { color: var(--fg-muted); font-weight: 500; }
+  .tl .sub { font-size: 12.5px; color: var(--fg-muted); line-height: 18px; }
+  .tl time { font-size: 13px; font-variant-numeric: tabular-nums; color: var(--fg); text-align: right; white-space: nowrap; line-height: 20px; }
+  .tl time small { display: block; font-size: 12px; color: var(--fg-muted); }
+  .tl .todo time { color: var(--fg-muted); }
+
+  /* POD */
+  .docs { list-style: none; margin: 0; padding: 6px 12px 12px; display: flex; flex-direction: column; gap: 2px; }
+  .doc { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 10px 8px; border-radius: 8px; }
+  .doc:hover { background: var(--surface-muted); }
+  .thumb { width: 56px; height: 68px; border-radius: 6px; background: var(--surface-muted); display: flex; flex-direction: column; gap: 5px; padding: 9px 8px; }
+  .thumb i { display: block; height: 4px; border-radius: 2px; background: var(--border-strong); }
+  .thumb i.s { width: 60%; } .thumb i.sig { margin-top: auto; width: 45%; height: 8px; background: none; border-bottom: 1.5px solid var(--fg-subtle); border-radius: 0; }
+  .doc b { display: block; font-weight: 600; color: var(--fg-strong); }
+  .doc span { font-size: 12.5px; color: var(--fg-muted); }
+  .doc .acts { display: flex; gap: 6px; }
+
+  .kv { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 10px 12px; padding: 8px 20px 20px; margin: 0; font-size: 13.5px; }
+  .kv dt { color: var(--fg-muted); }
+  .kv dd { margin: 0; color: var(--fg); min-width: 0; }
+  .privacy { padding: 16px 20px; display: flex; flex-direction: column; gap: 10px; font-size: 12.5px; color: var(--fg-muted); line-height: 18px; }
+  .privacy .row { align-items: flex-start; gap: 8px; }
+  .privacy .icon { margin-top: 1px; flex: none; }
+  .foot { grid-column: 1 / -1; text-align: center; font-size: 12px; color: var(--fg-muted); padding-top: 8px; }
+  .proto-note { grid-column: 1 / -1; border: 1px dashed var(--border-strong); border-radius: 8px; padding: 10px 12px; font-size: 12px; color: var(--fg-muted); display: flex; gap: 8px; align-items: flex-start; }
+  .proto-note .badge { height: 18px; font-size: 11px; padding: 0 6px; flex: none; }
+
+  .expired { grid-column: 1 / -1; max-width: 520px; width: 100%; justify-self: center; padding: 40px 32px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .expired .ic { width: 52px; height: 52px; border-radius: 14px; background: var(--surface-muted); color: var(--fg-muted); display: grid; place-items: center; }
+  .expired .ic .icon { width: 26px; height: 26px; }
+  .expired h1 { font-size: 22px; }
+  .expired p { color: var(--fg-muted); max-width: 400px; }
+  .expired .row { justify-content: center; flex-wrap: wrap; margin-top: 6px; }
+
+  @media (max-width: 860px) {
+    .pub { grid-template-columns: minmax(0, 1fr); padding: 8px 16px 140px; }
+    .pub-top { padding: 14px 16px 4px; }
+    .pub-top .hot span.lbl { display: none; }
+    .hero { padding: 20px 18px; }
+    .hero .eta { font-size: 32px; line-height: 38px; }
+    .tl { padding: 8px 16px 18px; }
+    .card-title { padding: 16px 16px 6px; }
+    .kv { padding: 8px 16px 18px; grid-template-columns: 100px minmax(0, 1fr); }
+    .docs { padding: 6px 8px 10px; }
+    .doc { grid-template-columns: 44px minmax(0, 1fr); }
+    .doc .acts { grid-column: 1 / -1; }
+    .doc .acts .btn { flex: 1; }
+    .thumb { width: 44px; height: 54px; padding: 7px 6px; gap: 4px; }
+    .route { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+    .route .arrow { display: none; }
+    .route .end { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<header class="pub-top">
+  <span class="op-logo" aria-hidden="true">PĐ</span>
+  <div class="op"><b>Vận tải Phát Đạt</b><span>Shipment tracking</span></div>
+  <span class="spacer"></span>
+  <span class="hot" id="hot"></span>
+</header>
+<main class="pub" id="pub" aria-live="polite"></main>
+<div class="toast-host" id="toastHost" aria-live="polite"></div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, toast } = Shell;
+const $ = id => document.getElementById(id);
+$('hot').innerHTML = `${icon('phone')}<span class="lbl">Support:</span><a href="tel:02838964521">028 3896 4521</a>`;
+
+/* Chuyến CH-0458 (khớp FM_09): Tân Cảng Logistics · KCN Tân Uyên → Cảng Cát Lái · TCLU 4421087 */
+const M = [
+  ['Truck dispatched', 'Vận tải Phát Đạt has assigned a truck to this trip', '05:41', null],
+  ['Empty container picked up', 'Depot Phước Long', '07:18', 'KH 07:00'],
+  ['Loaded', 'Tân Cảng Logistics warehouse, Tân Uyên Industrial Park', '09:41', 'KH 09:30'],
+  ['Heading to port', 'On the way to Cát Lái port', null, null],
+  ['Dropped off at port', 'Cát Lái port, Thủ Đức City', null, 'KH 13:00']
+];
+
+function timeline(mode) {
+  // mode: run | done | wait
+  const now = mode === 'run' ? 3 : mode === 'wait' ? 0 : 99;
+  return M.map(([t, sub, at, plan], i) => {
+    let st = i < now ? 'done' : i === now ? 'now' : 'todo';
+    if (mode === 'wait' && i === 0) st = 'now';
+    let time = '';
+    if (st === 'done') time = `<time>${mode === 'done' && i === 3 ? '13:20' : mode === 'done' && i === 4 ? '15:15' : at}<small>${mode === 'done' && i === 4 ? '12/11' : '12/11'}</small></time>`;
+    else if (st === 'now' && mode === 'run') time = `<time>Expected<small>12:40–13:10</small></time>`;
+    else if (st === 'now') time = `<time>Expected<small>before 05:30</small></time>`;
+    else time = `<time>${plan ? 'Expected' : ''}<small>${plan ? plan.replace('KH ', '') : ''}</small></time>`;
+    const label = mode === 'done' && i === 3 ? 'Arrived at port' : mode === 'wait' && i === 0 ? 'Awaiting truck assignment' : t;
+    const s = mode === 'done' && i === 3 ? 'Entered Cát Lái port gate' : mode === 'wait' && i === 0 ? 'Trip starts at 05:30, 12/11/2026' : sub;
+    return `<li class="${st}"><span class="dot">${st === 'done' ? icon('check') : st === 'now' ? icon(mode === 'wait' ? 'clock' : 'truck') : ''}</span><div><b>${label}</b><span class="sub">${s}</span></div>${time}</li>`;
+  }).join('');
+}
+
+function shipment() {
+  return `<section class="card"><div class="card-title"><h2>Shipment</h2></div>
+    <dl class="kv"><dt>Customer</dt><dd>Tân Cảng Logistics</dd><dt>Order ID</dt><dd><span class="code">DH-1125</span></dd><dt>Trip ID</dt><dd><span class="code">CH-0458</span></dd>
+    <dt>Container</dt><dd><span class="code">TCLU 4421087</span> · 40' dry</dd><dt>Booking</dt><dd><span class="code">HCMSGN2611087</span> · ONE</dd><dt>Cargo</dt><dd><span class="num">24.5 t</span></dd><dt>Vehicle</dt><dd><span class="code">51C-123.45</span></dd></dl></section>`;
+}
+function privacy(mode) {
+  return `<section class="card privacy"><div class="row">${icon('lock')}<span>This link is only for trip <span class="code">CH-0458</span> and doesn't require sign-in. ${mode === 'done' ? 'Expires on <b class="num">19/11/2026</b> (7 days after completion).' : 'Expires 7 days after the trip is completed.'}</span></div>
+    <div class="row">${icon('shield')}<span>To protect the driver, this page doesn't show the truck's exact location or the driver's phone number. For help, please call the Vận tải Phát Đạt dispatcher.</span></div></section>`;
+}
+const route = `<div class="route"><div><b>Tân Uyên Industrial Park</b><small>Bình Dương</small></div><span class="arrow muted">${icon('chevron-right')}</span><div class="end"><b>Cát Lái port</b><small>Thủ Đức City, HCMC</small></div></div>`;
+const foot = `<p class="foot">Tracking page provided by Vận tải Phát Đạt via Đội Xe · Vietnam time (GMT+7)</p>`;
+const note = `<div class="proto-note"><span class="badge b-neutral">TBD</span><span>Whether to show customers the truck's approximate location (by district). The prototype doesn't show location yet. This note only appears in the prototype.</span></div>`;
+
+function render(mode) {
+  const pub = $('pub');
+  if (mode === 'expired') {
+    document.title = 'Link expired · Vận tải Phát Đạt';
+    pub.innerHTML = `<section class="card expired"><span class="ic">${icon('clock')}</span><h1>Tracking link expired</h1>
+      <p>The link for trip <span class="code">CH-0458</span> expired on <b class="num">19/11/2026</b>, 7 days after the trip was completed. Contact Vận tải Phát Đạt for a new link or a copy of the delivery documents.</p>
+      <div class="row"><a class="btn btn-primary" href="tel:02838964521">${icon('phone')}Call 028 3896 4521</a><a class="btn btn-secondary" href="mailto:dieudo@phatdat.vn">Email the dispatcher</a></div></section>${foot}`;
+    return;
+  }
+  document.title = 'Trip tracking CH-0458 · Vận tải Phát Đạt';
+  if (mode === 'loading') {
+    pub.innerHTML = `<div class="main"><section class="card hero"><span class="sk" style="width:40%"></span><span class="sk" style="width:60%;height:36px"></span><span class="sk" style="width:50%"></span><span class="sk" style="height:6px"></span></section>
+      <section class="card"><div class="card-title"><span class="sk" style="width:120px"></span></div><div style="padding:12px 20px 20px;display:flex;flex-direction:column;gap:22px">${Array(5).fill('<div class="row" style="gap:14px"><span class="sk" style="width:28px;height:28px;border-radius:50%"></span><div class="stack grow"><span class="sk" style="width:45%"></span><span class="sk" style="width:65%;height:10px"></span></div></div>').join('')}</div></section></div>
+      <div class="aside"><section class="card"><div class="card-title"><span class="sk" style="width:80px"></span></div><div style="padding:12px 20px 20px;display:flex;flex-direction:column;gap:12px">${Array(6).fill('<span class="sk"></span>').join('')}</div></section></div>`;
+    return;
+  }
+  if (mode === 'error') {
+    pub.innerHTML = `<div class="main" style="grid-column:1/-1"><section class="card hero"><div class="alert alert-warning" role="alert">${icon('refresh')}<div><b>Couldn't load trip details.</b> The network may be unstable. Try again in a few minutes; your link is still valid.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="retry">Retry</button></div></div></section></div>${foot}`;
+    return;
+  }
+  const run = mode === 'run', done = mode === 'done', wait = mode === 'wait';
+  const badge = done ? `<span class="badge b-success">${icon('check')}Delivered</span>` : run ? `<span class="badge b-info"><span class="pulse" aria-hidden="true"></span>In transit</span>` : `<span class="badge b-neutral">${icon('clock')}Not started</span>`;
+  const prog = M.map((_, i) => `<i class="${done ? 'ok' : run ? (i < 3 ? 'on' : i === 3 ? 'now' : '') : ''}"></i>`).join('');
+  const hero = `<section class="card hero" aria-labelledby="eta">
+      <div class="trip">${badge}<span>Trip <span class="code">CH-0458</span> · Container <span class="code">TCLU 4421087</span></span></div>
+      <div><div class="eta-k">${done ? 'Completed at' : run ? 'Expected arrival at Cát Lái port' : 'Expected start'}</div>
+        <div class="eta" id="eta">${done ? '15:15' : run ? '12:40–13:10' : '05:30'}<small>${done || run ? 'today, 12/11' : 'on 12/11/2026'}</small></div></div>
+      ${route}
+      <div class="prog" role="img" aria-label="${done ? '5/5 milestones passed' : run ? '3/5 milestones passed, heading to port' : 'No milestones passed yet'}">${prog}</div>
+      <div class="fresh"><span class="live" aria-hidden="true"></span>${done ? 'Trip ended · last updated 15:41' : run ? 'Updated at 10:05 · ETA based on current progress' : 'Updated at 22:10, 11/11'}</div>
+    </section>`;
+  const tl = `<section class="card"><div class="card-title"><h2>Trip milestones</h2><span class="meta">Actual times</span></div><ol class="tl">${timeline(mode)}</ol></section>`;
+  const pod = done ? `<section class="card"><div class="card-title"><h2>Delivery documents</h2><span class="meta">2 files</span></div><ul class="docs">
+      <li class="doc"><span class="thumb" aria-hidden="true"><i></i><i class="s"></i><i></i><i class="s"></i><i class="sig"></i></span><div><b>Delivery receipt (POD)</b><span>Signed by recipient · 09:55, 12/11/2026</span></div><div class="acts"><button class="btn btn-secondary btn-sm" type="button" data-t="Opening delivery receipt">${icon('eye')}View</button><button class="btn btn-secondary btn-sm" type="button" data-t="Downloaded POD-CH-0458.pdf">${icon('download')}Download PDF</button></div></li>
+      <li class="doc"><span class="thumb" aria-hidden="true"><i class="s"></i><i></i><i></i><i class="s"></i><i class="sig"></i></span><div><b>Drop-off EIR</b><span>Cát Lái port · <span class="code">TCLU 4421087</span> · 15:15</span></div><div class="acts"><button class="btn btn-secondary btn-sm" type="button" data-t="Opening EIR">${icon('eye')}View</button><button class="btn btn-secondary btn-sm" type="button" data-t="Downloaded EIR-TCLU4421087.pdf">${icon('download')}Download PDF</button></div></li></ul></section>` : '';
+  pub.innerHTML = `<div class="main">${hero}${pod}${tl}</div><div class="aside">${shipment()}${privacy(mode)}</div>${run || wait ? note : ''}${foot}`;
+}
+
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-t]'); if (t) return toast(t.dataset.t);
+  if (e.target.closest('#retry')) { render('loading'); setTimeout(() => render('run'), 900); }
+});
+Shell.states([['default', 'En route'], ['done', 'Completed (POD)'], ['expired', 'Link expired'], ['loading', 'Loading'], ['empty', 'Not started'], ['error', 'Load error']], s => {
+  render(s === 'default' ? 'run' : s === 'empty' ? 'wait' : s);
+});
+</script>
+</body>
+</html>

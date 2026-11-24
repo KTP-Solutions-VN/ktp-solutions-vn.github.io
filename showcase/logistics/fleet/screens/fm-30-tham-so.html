@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tham số giá thành & giá dầu · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* FM_30 Tham số giá thành & giá dầu — form chia section, không viền */
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: var(--s-4); align-items: start; }
+  .form { display: flex; flex-direction: column; }
+  .sec { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 24px; padding: 22px 24px; scroll-margin-top: calc(var(--header-h) + 16px); }
+  .sec + .sec { padding-top: 10px; }
+  .sec-l h2 { font-size: 15px; line-height: 22px; }
+  .sec-l p { font-size: 12.5px; color: var(--fg-muted); line-height: 18px; margin-top: 4px; }
+  .sec-l .used { margin-top: 8px; display: flex; flex-direction: column; gap: 2px; font-size: 12.5px; }
+  .sec-r { min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+  .unit-in { display: inline-flex; align-items: center; height: 34px; border: 1px solid var(--border-strong); border-radius: var(--r-md); background: var(--surface); padding: 0 10px; gap: 6px; }
+  .unit-in:hover { border-color: var(--fg-subtle); }
+  .unit-in:focus-within { border-color: var(--ring); box-shadow: 0 0 0 3px var(--primary-soft); }
+  .unit-in input { border: 0; outline: 0; font: 13.5px var(--font-body); color: var(--fg); width: 100%; min-width: 0; text-align: right; font-variant-numeric: tabular-nums; background: transparent; }
+  .unit-in span { color: var(--fg-muted); font-size: 12.5px; white-space: nowrap; }
+  .unit-in.sm { height: 30px; }
+  .unit-in.changed { border-color: var(--primary); background: var(--primary-soft); }
+  .unit-in.changed input { color: var(--side-active); font-weight: 600; }
+  fieldset[disabled] .unit-in { background: var(--surface-muted); border-color: transparent; }
+  fieldset[disabled] .btn { background: var(--surface-muted); color: var(--fg-subtle); border-color: var(--border); cursor: not-allowed; }
+  fieldset[disabled] .rcard { cursor: not-allowed; }
+  fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+
+  .diesel { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: center; padding: 16px 18px; background: var(--primary-soft); border-radius: 8px; }
+  .diesel .k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--side-active); }
+  .diesel .v { font: 700 var(--text-display)/40px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+  .diesel .v small { font: 600 16px var(--font-display); color: var(--fg-muted); margin-left: 4px; }
+  .diesel .d { font-size: 12.5px; color: var(--fg-muted); display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .delta-up { color: var(--warning-fg); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .newp { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; }
+  .open-note { font-size: 12.5px; color: var(--fg-muted); display: flex; gap: 6px; align-items: flex-start; line-height: 17px; }
+  .open-note .icon { margin-top: 1px; flex: none; }
+  .ptbl th, .ptbl td { padding: 6px 10px; }
+  .ptbl th { border-bottom: 0; }
+  .ptbl th:first-child { border-radius: var(--r-md) 0 0 var(--r-md); }
+  .ptbl th:last-child { border-radius: 0 var(--r-md) var(--r-md) 0; }
+  .ptbl tbody tr:last-child td { border-bottom: 0; }
+  .ptbl tr:hover td { background: transparent; }
+  .ptbl .unit-in { width: 130px; }
+  .calc { font-size: 12.5px; color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+  .rcards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .rcard { display: flex; gap: 10px; align-items: flex-start; padding: 12px; border-radius: 8px; background: var(--surface-muted); cursor: pointer; font-size: 13px; line-height: 18px; transition: background-color var(--d-1), box-shadow var(--d-1); }
+  .rcard:hover { background: var(--surface); box-shadow: inset 0 0 0 1px var(--border-strong); }
+  .rcard:has(input:checked) { background: var(--primary-soft); box-shadow: inset 0 0 0 1.5px var(--primary); }
+  .rcard input { accent-color: var(--primary); margin-top: 2px; }
+  .rcard b { display: block; font-weight: 600; color: var(--fg-strong); }
+  .rcard small { display: block; color: var(--fg-muted); font-size: 12px; margin-top: 2px; }
+  .rcard .badge { margin-top: 6px; height: 20px; font-size: 12px; }
+
+  .side { position: sticky; top: calc(var(--header-h) + 16px); display: flex; flex-direction: column; gap: var(--s-4); }
+  .card-title { display: flex; align-items: center; gap: 10px; padding: 16px 18px 6px; }
+  .card-title h2 { font-size: 15px; }
+  .toc { list-style: none; margin: 0; padding: 4px 8px 12px; display: flex; flex-direction: column; gap: 1px; }
+  .toc a { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 6px; color: var(--fg); font-size: 13px; text-decoration: none; }
+  .toc a:hover { background: var(--surface-muted); }
+  .toc a .dot-c { width: 6px; height: 6px; border-radius: 50%; background: var(--primary); margin-left: auto; }
+  .hist { list-style: none; margin: 0; padding: 4px 18px 8px; display: flex; flex-direction: column; gap: 14px; max-height: 460px; overflow-y: auto; }
+  .hist li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; font-size: 13px; line-height: 18px; }
+  .hist .av { width: 28px; height: 28px; border-radius: 50%; background: var(--surface-muted); color: var(--fg-muted); display: grid; place-items: center; font: 600 11px var(--font-body); }
+  .hist .w { color: var(--fg-muted); font-size: 12px; margin-top: 2px; }
+  .hist .ch { font-variant-numeric: tabular-nums; }
+  .hist .ch s { color: var(--fg-muted); }
+  .hist-foot { padding: 6px 18px 16px; font-size: 12.5px; color: var(--fg-muted); }
+
+  .savebar { position: sticky; bottom: 0; z-index: 15; margin: 0 calc(-1 * var(--s-6)) calc(-1 * var(--s-6)); padding: 12px var(--s-6); background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(6px); box-shadow: 0 -1px 0 var(--border); display: flex; gap: 8px; align-items: center; justify-content: flex-end; }
+  .savebar .info { margin-right: auto; font-size: 13px; color: var(--fg-muted); display: flex; gap: 8px; align-items: center; }
+  .hidden { display: none !important; }
+  @media (max-width: 1180px) { .layout { grid-template-columns: 1fr; } .side { position: static; } .sec { grid-template-columns: 1fr; gap: 12px; } .rcards { grid-template-columns: 1fr; } }
+  .empty .btn .icon { width: 16px; height: 16px; stroke-width: 1.75; color: inherit; }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Giá cước / Tham số giá thành &amp; giá dầu</div>
+      <h1>Tham số giá thành &amp; giá dầu</h1>
+      <div class="sm muted" style="margin-top:6px">Giá trị mặc định cho dự toán giá thành (FM_31), giá thành dự kiến khi tạo đơn (FM_07) và P&amp;L chuyến (FM_09).</div>
+    </div>
+    <div class="actions">
+      <a class="btn btn-secondary" href="fm-31-du-toan.html" id="btnTry"></a>
+    </div>
+  </div>
+
+  <div id="topSlot"></div>
+
+  <div class="layout" id="layout">
+    <form class="card form" id="form" onsubmit="return false" aria-label="Tham số giá thành"></form>
+    <aside class="side">
+      <section class="card" aria-labelledby="tocT"><div class="card-title"><h2 id="tocT">Mục</h2></div><ul class="toc" id="toc"></ul></section>
+      <section class="card" aria-labelledby="hT" id="histCard"></section>
+    </aside>
+  </div>
+
+  <div class="savebar hidden" id="savebar">
+    <span class="info" id="saveInfo"></span>
+    <button class="btn btn-secondary" type="button" id="discard">Huỷ thay đổi</button>
+    <button class="btn btn-primary" type="button" id="save">Lưu tham số <kbd>Ctrl+S</kbd></button>
+  </div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_30', title: 'Tham số giá thành & giá dầu' });
+const $ = id => document.getElementById(id);
+$('btnTry').innerHTML = icon('formula') + 'Tính thử giá thành';
+const nf = n => fmt.vnd(n, { bare: 1 });
+const parse = v => { const n = parseFloat(String(v).replace(/\./g, '').replace(',', '.')); return isNaN(n) ? null : n; };
+
+/* ---------- Tham số mẫu (khớp FM_07, FM_29, FM_31) ---------- */
+const BASE = {
+  diesel: 20150, dieselPrev: 19000, dieselFrom: '05/11/2026',
+  periods: [['05/11/2026', 20150], ['22/10/2026', 19000], ['08/10/2026', 19320], ['24/09/2026', 18870], ['10/09/2026', 18600]],
+  norm: [['Đầu kéo + cont 20\' khô', 34, 28], ['Đầu kéo + cont 40\' khô / cao', 38, 30], ['Đầu kéo + cont 20\' lạnh', 36, 28, 'Gồm máy lạnh chạy dầu'], ['Đầu kéo + cont 40\' lạnh', 40, 30, 'Gồm máy lạnh chạy dầu'], ['Xe tải thùng 15 tấn', 25, 20], ['Xe tải thùng 8 tấn', 18, 15]],
+  wage: [['Đầu kéo', 'Đến 120 km', 450000], ['Đầu kéo', '121–300 km', 600000], ['Đầu kéo', 'Trên 300 km', 900000], ['Xe tải', 'Đến 100 km', 400000], ['Xe tải', '101–250 km', 450000], ['Xe tải', 'Trên 250 km', 650000]],
+  dep: [['51C-123.45', 'Đầu kéo 2021', 1248000000, 8, 300], ['51D-456.78', 'Đầu kéo 2022', 1248000000, 8, 300], ['51C-456.78', 'Đầu kéo 2020', 1152000000, 8, 300], ['51C-731.80', 'Đầu kéo 2019', 1080000000, 8, 300], ['61C-220.14', 'Đầu kéo 2023', 1296000000, 8, 300], ['51D-702.33', 'Xe tải thùng 15 tấn 2021', 912000000, 8, 300], ['51C-588.02', 'Xe tải thùng 15 tấn 2020', 912000000, 8, 300]],
+  fixMonth: 98000000, kmMonth: 98000,
+  thr: 5, alloc: 'klkm'
+};
+let V, dirty = new Set(), readonly = false;
+const HIST = [
+  ['MH', 'Mai Hương', '06/11/2026 08:40', 'Giá dầu tham chiếu', '<s>19.000</s> → <b>20.150 đ/l</b> · kỳ 05/11/2026'],
+  ['MH', 'Mai Hương', '23/10/2026 08:15', 'Giá dầu tham chiếu', '<s>19.320</s> → <b>19.000 đ/l</b> · kỳ 22/10/2026'],
+  ['HV', 'Hoàng Văn Hải', '01/10/2026 16:02', 'Tiêu chí phân bổ chuyến ghép', '<s>Khối lượng</s> → <b>Khối lượng × km</b>'],
+  ['PT', 'Phạm Thanh Tùng', '15/09/2026 10:30', 'Định mức dầu · cont 40\' lạnh', '<s>38</s> → <b>40 l/100km</b> có hàng'],
+  ['HV', 'Hoàng Văn Hải', '01/09/2026 09:12', 'Chi phí cố định/km', '<s>950</s> → <b>1.000 đ/km</b>'],
+  ['HV', 'Hoàng Văn Hải', '01/06/2026 09:00', 'Ngưỡng biên cảnh báo', '<s>3%</s> → <b>5%</b>']
+];
+const SECS = [['dau', 'Giá dầu tham chiếu'], ['dinhmuc', 'Định mức dầu'], ['luong', 'Lương chuyến mặc định'], ['khauhao', 'Khấu hao theo xe'], ['codinh', 'Chi phí cố định/km'], ['nguong', 'Ngưỡng biên cảnh báo'], ['phanbo', 'Phân bổ chuyến ghép']];
+
+function reset() { V = JSON.parse(JSON.stringify(BASE)); V.newPrice = ''; V.newDate = '19/11/2026'; dirty = new Set(); }
+function inp(key, val, unit, opts) {
+  opts = opts || {};
+  return `<span class="unit-in ${opts.sm ? 'sm' : ''} ${dirty.has(key) ? 'changed' : ''}" ${opts.w ? `style="width:${opts.w}px"` : ''}><input data-k="${key}" value="${val}" inputmode="decimal" aria-label="${opts.label || key}"><span>${unit}</span></span>`;
+}
+function used(list) { return `<div class="used">${list.map(([t, h]) => `<a href="${h}">${t}</a>`).join('')}</div>`; }
+const depDay = r => Math.round(r[2] / r[3] / r[4] / 1000) * 1000;
+
+function renderForm() {
+  const pct = (V.diesel - V.dieselPrev) / V.dieselPrev * 100;
+  $('form').innerHTML = `<fieldset ${readonly ? 'disabled' : ''}>
+  <section class="sec" id="dau">
+    <div class="sec-l"><h2>Giá dầu tham chiếu</h2><p>Giá dầu DO 0,05S dùng để tính chi phí dầu dự kiến và phụ phí nhiên liệu. Nhập khi có kỳ điều chỉnh giá xăng dầu mới.</p>${used([['Phụ phí nhiên liệu (FM_29)', 'fm-29-bang-gia.html'], ['Mô phỏng giá dầu (FM_31)', 'fm-31-du-toan.html#sim']])}</div>
+    <div class="sec-r">
+      <div class="diesel"><div><div class="k">Đang áp dụng từ ${V.dieselFrom}</div><div class="v" id="dieselV">${nf(V.diesel)}<small>đ/l</small></div>
+        <div class="d"><span class="delta-up">▲ ${nf(V.diesel - V.dieselPrev)} đ/l (${fmt.pct(pct)})</span><span>so với kỳ 22/10/2026 · nhập bởi Mai Hương 06/11/2026</span></div></div>
+        <div class="stack" style="align-items:flex-end;gap:4px"><span class="sm muted">So với giá gốc hợp đồng 18.600 đ/l</span><b class="num" style="font-size:15px;color:var(--fg-strong)">+${fmt.pct((V.diesel - 18600) / 18600 * 100)} → PPNL 3,0%</b></div></div>
+      <div class="newp">
+        <label class="field"><span>Kỳ điều chỉnh mới · từ ngày</span><input class="input" data-k="newDate" value="${V.newDate}" style="width:150px" aria-label="Ngày áp dụng kỳ mới"></label>
+        <label class="field"><span>Giá dầu mới</span>${inp('newPrice', V.newPrice, 'đ/l', { w: 160, label: 'Giá dầu mới' })}</label>
+        <button class="btn btn-secondary" type="button" id="applyNew" style="height:34px">Áp dụng kỳ mới</button>
+      </div>
+      <div class="open-note">${icon('info')}<span><b style="font-weight:600;color:var(--fg)">Chưa chốt:</b> có lấy tự động giá dầu từ nguồn công bố (thông cáo điều hành giá của Liên Bộ Công Thương – Tài chính, giá niêm yết Petrolimex vùng 1) hay không. Hiện kế toán nhập tay sau mỗi kỳ.</span></div>
+      <details><summary class="sm" style="cursor:pointer;color:var(--primary);font-weight:500">5 kỳ gần nhất</summary>
+        <table class="grid ptbl" style="margin-top:8px;max-width:360px"><thead><tr><th>Kỳ</th><th class="right">Giá đ/l</th><th class="right">Thay đổi</th></tr></thead><tbody>${V.periods.map((p, i) => { const n = V.periods[i + 1]; const d = n ? p[1] - n[1] : 0; return `<tr><td class="num">${p[0]}</td><td class="right num">${nf(p[1])}</td><td class="right num" style="color:${d > 0 ? 'var(--warning-fg)' : 'var(--fg-muted)'}">${n ? (d > 0 ? '+' : '−') + nf(Math.abs(d)) : '—'}</td></tr>`; }).join('')}</tbody></table></details>
+    </div>
+  </section>
+
+  <section class="sec" id="dinhmuc">
+    <div class="sec-l"><h2>Định mức dầu theo loại xe</h2><p>Lít/100 km, tách chiều có hàng và chiều rỗng. Xe có định mức riêng thì sửa ở hồ sơ xe (FM_15).</p></div>
+    <div class="sec-r"><table class="grid ptbl"><thead><tr><th>Loại xe</th><th class="right">Có hàng</th><th class="right">Rỗng</th></tr></thead>
+      <tbody>${V.norm.map((r, i) => `<tr><td>${r[0]}${r[3] ? `<span class="cell-sub">${r[3]}</span>` : ''}</td><td class="right">${inp('norm' + i + 'a', r[1], 'l/100km', { sm: 1, label: r[0] + ' có hàng' })}</td><td class="right">${inp('norm' + i + 'b', r[2], 'l/100km', { sm: 1, label: r[0] + ' rỗng' })}</td></tr>`).join('')}</tbody></table>
+      <p class="calc">Ví dụ: 105 km có hàng × 38 + 105 km rỗng × 30 = 71,4 l × ${nf(V.diesel)} đ/l = ${fmt.vnd(Math.round(71.4 * V.diesel / 100) * 100)} (tuyến TN-01, cont 40').</p></div>
+  </section>
+
+  <section class="sec" id="luong">
+    <div class="sec-l"><h2>Lương chuyến mặc định</h2><p>Theo loại xe và km cả vòng. Tuyến có bảng lương riêng sẽ dùng giá trị của tuyến; tính lương thực tế ở FM_25.</p>${used([['Lương chuyến (FM_25)', 'fm-25-luong-chuyen.html']])}</div>
+    <div class="sec-r"><table class="grid ptbl"><thead><tr><th>Loại xe</th><th>Km cả vòng</th><th class="right">Lương/chuyến</th></tr></thead>
+      <tbody>${V.wage.map((r, i) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="right">${inp('wage' + i, nf(r[2]), 'đ', { sm: 1, label: 'Lương ' + r[0] + ' ' + r[1] })}</td></tr>`).join('')}</tbody></table></div>
+  </section>
+
+  <section class="sec" id="khauhao">
+    <div class="sec-l"><h2>Khấu hao/ngày theo xe</h2><p>Nguyên giá ÷ số năm ÷ ngày chạy/năm. Chuyến dưới 300 km cả vòng tính 0,5 ngày, trên 300 km tính 1 ngày.</p>${used([['Xe & rơ-moóc (FM_14)', 'fm-14-xe.html']])}</div>
+    <div class="sec-r"><table class="grid ptbl"><thead><tr><th>Xe</th><th class="right">Nguyên giá</th><th class="right">Khấu hao/ngày</th></tr></thead>
+      <tbody>${V.dep.map((r, i) => `<tr><td><b class="code">${r[0]}</b><span class="cell-sub">${r[1]}</span></td><td class="right num">${fmt.vnd(r[2])}<span class="cell-sub">${r[3]} năm · ${r[4]} ngày/năm</span></td><td class="right num"><b style="font-weight:600">${fmt.vnd(depDay(r))}</b></td></tr>`).join('')}</tbody></table>
+      <p class="calc">Xe chưa có nguyên giá dùng mặc định theo loại: đầu kéo 520.000 đ/ngày, xe tải thùng 15 tấn 380.000 đ/ngày.</p></div>
+  </section>
+
+  <section class="sec" id="codinh">
+    <div class="sec-l"><h2>Chi phí cố định phân bổ/km</h2><p>Lương văn phòng, thuê bãi, bảo hiểm, phí GSHT… chia theo km chạy dự kiến trong tháng.</p></div>
+    <div class="sec-r"><div class="row wrap" style="gap:12px;align-items:flex-end">
+      <label class="field"><span>Chi phí cố định/tháng</span>${inp('fixMonth', nf(V.fixMonth), 'đ', { w: 190, label: 'Chi phí cố định mỗi tháng' })}</label>
+      <span class="muted" style="padding-bottom:8px">÷</span>
+      <label class="field"><span>Km dự kiến/tháng</span>${inp('kmMonth', nf(V.kmMonth), 'km', { w: 150, label: 'Km dự kiến mỗi tháng' })}</label>
+      <span class="muted" style="padding-bottom:8px">=</span>
+      <div class="field"><span>Phân bổ</span><b class="num" id="fixKm" style="font-size:17px;line-height:34px;color:var(--fg-strong)">${nf(Math.round(V.fixMonth / V.kmMonth))} đ/km</b></div>
+    </div></div>
+  </section>
+
+  <section class="sec" id="nguong">
+    <div class="sec-l"><h2>Ngưỡng biên cảnh báo</h2><p>Đơn, tuyến hoặc khách có biên dưới ngưỡng được tô cảnh báo ở Tổng quan, Tạo đơn và Báo cáo P&amp;L.</p>${used([['Tổng quan (FM_04)', 'fm-04-tong-quan.html'], ['Báo cáo P&L (FM_35)', 'fm-35-bao-cao-pl.html']])}</div>
+    <div class="sec-r"><div class="row" style="gap:12px">${inp('thr', fmt.dec(V.thr, 0), '%', { w: 110, label: 'Ngưỡng biên' })}<span class="sm muted">Mặc định 5%. Dưới 0% luôn hiện là lỗ.</span></div>
+      <p class="calc">Với ngưỡng hiện tại: 3 tuyến đang dưới ngưỡng (TN-01, BD-01, TG-01).</p></div>
+  </section>
+
+  <section class="sec" id="phanbo">
+    <div class="sec-l"><h2>Phân bổ chuyến ghép nhiều đơn</h2><p>Cách chia chi phí chuyến cho từng đơn (để ra P&amp;L theo khách) khi một chuyến chở nhiều đơn.</p></div>
+    <div class="sec-r"><div class="rcards" role="radiogroup" aria-label="Tiêu chí phân bổ">${[['kl', 'Khối lượng', 'Theo tấn của từng đơn'], ['klkm', 'Khối lượng × km', 'Theo tấn × km đơn đi trên chuyến'], ['diem', 'Số điểm giao', 'Chia đều theo số điểm giao']].map(([k, t, d]) => `<label class="rcard"><input type="radio" name="alloc" value="${k}" ${V.alloc === k ? 'checked' : ''}><span><b>${t}</b><small>${d}</small>${k === 'klkm' ? '<span class="badge b-neutral">Mặc định</span>' : ''}</span></label>`).join('')}</div>
+      <p class="calc">Ví dụ CH-0463 (2 đơn ghép): DH-1133 4,0 tấn × 52 km và DH-1140 3,5 tấn × 38 km → chia chi phí ${V.alloc === 'kl' ? '53% / 47%' : V.alloc === 'diem' ? '50% / 50%' : '61% / 39%'}.</p>
+      <div class="open-note">${icon('info')}<span><b style="font-weight:600;color:var(--fg)">Chưa chốt:</b> tiêu chí mặc định cho toàn hệ thống. Đổi tiêu chí chỉ áp cho chuyến chưa quyết toán.</span></div></div>
+  </section>
+  </fieldset>`;
+  bindForm();
+}
+function bindForm() {
+  $('form').querySelectorAll('input[data-k]').forEach(el => el.addEventListener('input', () => {
+    const k = el.dataset.k, v = el.value;
+    if (k === 'newPrice' || k === 'newDate') { V[k] = v; return; }
+    dirty.add(k); el.closest('.unit-in').classList.add('changed');
+    if (k === 'fixMonth' || k === 'kmMonth') { V[k] = parse(v) || 0; $('fixKm').textContent = (V.kmMonth ? nf(Math.round(V.fixMonth / V.kmMonth)) : '—') + ' đ/km'; }
+    if (k === 'thr') V.thr = parse(v) || 0;
+    syncBar();
+  }));
+  $('form').querySelectorAll('input[name=alloc]').forEach(r => r.onchange = () => { V.alloc = r.value; if (V.alloc !== BASE.alloc) dirty.add('alloc'); else dirty.delete('alloc'); renderForm(); syncBar(); });
+  $('applyNew').onclick = () => {
+    const p = parse(V.newPrice);
+    if (!p) { toast('Nhập giá dầu mới trước khi áp dụng'); $('form').querySelector('[data-k=newPrice]').focus(); return; }
+    openPeriodModal(p);
+  };
+}
+function openPeriodModal(p) {
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim';
+  const m = document.createElement('div'); m.className = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true');
+  const d = p - V.diesel;
+  m.innerHTML = `<h2>Áp dụng giá dầu ${nf(p)} đ/l từ ${V.newDate}?</h2>
+    <p class="muted">${d >= 0 ? 'Tăng' : 'Giảm'} ${nf(Math.abs(d))} đ/l so với kỳ hiện tại. Thay đổi sẽ:</p>
+    <ul style="margin:0;padding-left:18px;line-height:22px;font-size:13.5px"><li>Tính lại giá thành dự kiến của đơn tạo từ ${V.newDate}</li><li>Tính lại phụ phí nhiên liệu cho 5 bảng giá có PPNL</li><li>Không đổi chuyến đã quyết toán</li></ul>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Quay lại</button><button class="btn btn-primary" type="button" data-ok>Áp dụng</button></div>`;
+  document.body.append(s, m);
+  const close = () => { Shell.dismiss(s); Shell.dismiss(m); };
+  s.onclick = close; m.querySelector('[data-x]').onclick = close; m.querySelector('[data-x]').focus();
+  m.querySelector('[data-ok]').onclick = () => {
+    close(); const prev = JSON.parse(JSON.stringify(V));
+    V.periods.unshift([V.newDate, p]); V.dieselPrev = V.diesel; V.diesel = p; V.dieselFrom = V.newDate; V.newPrice = '';
+    HIST.unshift(['LN', 'Bạn', '12/11/2026 ' + new Date().toTimeString().slice(0, 5), 'Giá dầu tham chiếu', `<s>${nf(prev.diesel)}</s> → <b>${nf(p)} đ/l</b> · kỳ ${prev.newDate}`]);
+    renderForm(); renderHist();
+    toast(`Đã áp dụng giá dầu ${nf(p)} đ/l từ ${prev.newDate}`, { undo: () => { V = prev; HIST.shift(); renderForm(); renderHist(); } });
+  };
+}
+function syncBar() {
+  const n = dirty.size;
+  $('savebar').classList.toggle('hidden', !n || readonly);
+  $('saveInfo').innerHTML = `${icon('pen')}<span><b class="num" style="color:var(--fg-strong)">${n}</b> thay đổi chưa lưu · áp cho đơn tạo mới, không tính lại chuyến đã quyết toán</span>`;
+}
+function renderHist() {
+  $('histCard').innerHTML = `<div class="card-title"><h2 id="hT">Lịch sử thay đổi</h2><span class="count-pill">${HIST.length}</span></div>
+    <ul class="hist">${HIST.map(([av, who, when, what, ch]) => `<li><span class="av">${av}</span><div><div><b style="font-weight:600">${what}</b></div><div class="ch">${ch}</div><div class="w">${who} · ${when}</div></div></li>`).join('')}</ul>
+    <div class="hist-foot">Lưu kèm nhật ký hệ thống (FM_40).</div>`;
+}
+function renderToc() { $('toc').innerHTML = SECS.map(([id, t]) => `<li><a href="#${id}" data-sec="${id}">${t}</a></li>`).join(''); $('toc').querySelectorAll('a').forEach(a => a.onclick = e => { e.preventDefault(); const el = $(a.dataset.sec); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }); }
+$('discard').onclick = () => { const prev = JSON.parse(JSON.stringify(V)), pd = new Set(dirty); reset(); renderForm(); syncBar(); toast('Đã huỷ thay đổi', { undo: () => { V = prev; dirty = pd; renderForm(); syncBar(); } }); };
+$('save').onclick = () => { const n = dirty.size; HIST.unshift(['LN', 'Bạn', '12/11/2026 ' + new Date().toTimeString().slice(0, 5), `${n} tham số`, [...dirty].includes('alloc') ? '<b>Phân bổ: Khối lượng × km → ' + ({ kl: 'Khối lượng', diem: 'Số điểm giao', klkm: 'Khối lượng × km' })[V.alloc] + '</b>' : '<b>Đã cập nhật</b>']); Object.assign(BASE, JSON.parse(JSON.stringify(V))); dirty = new Set(); renderForm(); renderHist(); syncBar(); toast(`Đã lưu ${n} thay đổi tham số`); };
+document.addEventListener('keydown', e => { if (e.ctrlKey && (e.key === 's' || e.key === 'S')) { e.preventDefault(); if (dirty.size && !readonly) $('save').click(); } if (e.key === 'Escape') document.querySelectorAll('.modal:not(.leaving), .modal-scrim:not(.leaving)').forEach(x => Shell.dismiss(x)); });
+
+/* ---------- States ---------- */
+const SECKEYS = SECS.map(s => s[0]);
+function skeleton() {
+  $('form').innerHTML = Array(4).fill(`<div class="sec"><div><span class="sk" style="width:70%;height:14px"></span><span class="sk" style="width:90%;margin-top:10px;height:9px"></span><span class="sk" style="width:60%;margin-top:6px;height:9px"></span></div><div class="stack" style="gap:12px">${Array(4).fill('<span class="sk"></span>').join('')}</div></div>`).join('');
+  $('histCard').innerHTML = `<div class="card-title"><span class="sk" style="width:120px"></span></div><div style="padding:8px 18px 18px;display:flex;flex-direction:column;gap:14px">${Array(5).fill('<span class="sk"></span>').join('')}</div>`;
+}
+const hashSec = location.hash.slice(1);
+Shell.states([['default', 'Mặc định'], ['dirty', 'Có thay đổi chưa lưu'], ['readonly', 'Chỉ xem (Điều độ)'], ['loading', 'Đang tải'], ['empty', 'Chưa thiết lập'], ['error', 'Lỗi']], s => {
+  reset(); readonly = s === 'readonly'; $('topSlot').innerHTML = ''; $('layout').classList.remove('hidden');
+  renderToc();
+  if (s === 'loading') { skeleton(); syncBar(); return; }
+  if (s === 'error') { $('layout').classList.add('hidden'); $('topSlot').innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Không tải được tham số giá thành. Dự toán và giá thành dự kiến khi tạo đơn tạm dùng bộ tham số lưu lần cuối (06/11/2026).</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" onclick="location.hash='';location.reload()">Thử lại</button></div></div>`; syncBar(); return; }
+  if (s === 'empty') { $('layout').classList.add('hidden'); $('topSlot').innerHTML = `<section class="card"><div class="empty">${icon('fuel')}<h3>Chưa thiết lập tham số giá thành</h3><p>Bắt đầu bằng bộ giá trị mặc định cho đội xe container tại TP.HCM, sau đó chỉnh theo số liệu thực tế của bạn.</p><button class="btn btn-primary" type="button" onclick="Shell.toast('Đã nạp bộ tham số mặc định');location.hash='';location.reload()">Dùng bộ mặc định</button></div></section>`; syncBar(); return; }
+  if (s === 'readonly') $('topSlot').innerHTML = `<div class="alert alert-info">${icon('lock')}<div>Bạn đang xem với vai trò Điều độ. Chỉ Kế toán và Chủ DN/Admin sửa được tham số giá thành.</div></div>`;
+  if (s === 'dirty') { V.norm[1][1] = 39; V.alloc = 'kl'; dirty = new Set(['norm1a', 'alloc']); }
+  renderForm(); renderHist(); syncBar();
+  if (SECKEYS.includes(hashSec)) setTimeout(() => { const el = $(hashSec); if (el) el.scrollIntoView({ block: 'start' }); }, 50);
+});
+</script>
+</body>
+</html>

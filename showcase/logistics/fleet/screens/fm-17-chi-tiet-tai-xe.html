@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nguyễn Văn Tuấn · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* FM_17 — hồ sơ tài xế, cùng giải phẫu với FM_15 / FM_09 */
+  .ent-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--s-4); row-gap: 14px; align-items: end; }
+  .ent-head .crumb { font-size: var(--text-sm); color: var(--fg-muted); margin-bottom: 4px; }
+  .ent-head .crumb a { color: var(--fg-muted); }
+  .ent-title { display: flex; align-items: center; gap: 14px; }
+  .ent-av { width: 48px; height: 48px; border-radius: 50%; background: var(--primary-soft); color: var(--primary); display: grid; place-items: center; flex: none; font: 700 16px var(--font-display); }
+  .eh-meta { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .eh-meta .fresh { margin-left: 8px; }
+  .ent-head .actions { display: flex; gap: var(--s-2); align-items: center; }
+  .eh-attrs { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 10px 36px; margin: 0; }
+  .eh-attrs div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .eh-attrs dt { font-size: 12px; color: var(--fg-muted); }
+  .eh-attrs dd { margin: 0; font-size: 13.5px; font-weight: 500; color: var(--fg-strong); white-space: nowrap; }
+  .card-title { display: flex; align-items: center; gap: 10px; padding: 16px 18px 6px; min-width: 0; }
+  .card-title h2 { font-size: 16px; white-space: nowrap; }
+  .card-title .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 8px; align-items: center; }
+  .tabpanel { display: flex; flex-direction: column; gap: var(--s-4); }
+  .prof { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4); align-items: stretch; }
+  .prof > .card { display: flex; flex-direction: column; min-width: 0; }
+  .dl { display: flex; flex-direction: column; padding: 2px 18px 14px; margin: 0; }
+  .dl div { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 10px; padding: 6px 0; font-size: 13.5px; line-height: 19px; align-items: center; }
+  .dl dt { color: var(--fg-muted); font-size: var(--text-sm); }
+  .dl dd { margin: 0; min-width: 0; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .c-foot { display: flex; align-items: center; gap: 8px; padding: 6px 18px 16px; font-size: 12.5px; color: var(--fg-muted); margin-top: auto; }
+  .masked { letter-spacing: .08em; font-variant-numeric: tabular-nums; font-weight: 500; }
+  .lockline { display: flex; gap: 10px; align-items: flex-start; margin: 4px 18px 14px; padding: 10px 12px; border-radius: 8px; background: var(--surface-muted); font-size: 13px; color: var(--fg-muted); }
+  .lockline .icon { margin-top: 1px; color: var(--fg-muted); }
+  .pay { margin: 4px 12px 0; padding: 14px 16px; border-radius: 8px; background: var(--primary-soft); display: flex; flex-direction: column; gap: 2px; }
+  .pay .k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--side-active); }
+  .pay .v { font: 600 16px/24px var(--font-display); color: var(--fg-strong); }
+  .mini { width: calc(100% - 36px); margin: 10px 18px 0; border-collapse: collapse; font-size: 13px; }
+  .mini td { padding: 5px 0; }
+  .mini td + td { text-align: right; font-variant-numeric: tabular-nums; }
+  .listcard { overflow: hidden; }
+  .listcard .grid th:first-child, .listcard .grid td:first-child { padding-left: 18px; }
+  .listcard .grid th:last-child, .listcard .grid td:last-child { padding-right: 18px; }
+  .listcard .grid tbody tr:last-child td { border-bottom: 0; }
+  .wrapcell { white-space: normal !important; min-width: 200px; }
+  /* Nhật ký an toàn: dòng có vạch mức độ, không tô nền (B3) */
+  .sev { position: relative; padding-left: 12px; }
+  .sev::before { content: ""; position: absolute; left: 0; top: 2px; bottom: 2px; width: 3px; border-radius: 2px; background: var(--chart-muted); }
+  .sev.warn::before { background: var(--warning-solid); }
+  .sev.danger::before { background: var(--danger-solid); }
+  /* Đồng ý vị trí */
+  .consent { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: var(--s-4); align-items: stretch; }
+  .consent > .card { display: flex; flex-direction: column; min-width: 0; }
+  .cstate { margin: 4px 12px 0; padding: 16px; border-radius: 8px; background: var(--surface-muted); display: flex; flex-direction: column; gap: 6px; }
+  .cstate.on { background: var(--success-soft); }
+  .cstate .big { font: 700 20px/26px var(--font-display); color: var(--fg-strong); display: flex; align-items: center; gap: 8px; }
+  .cstate.on .big { color: var(--success-fg); }
+  .cstate p { font-size: 13px; color: var(--fg-muted); }
+  .tl { list-style: none; margin: 0; padding: 4px 8px 12px; display: flex; flex-direction: column; gap: 2px; }
+  .tl li { position: relative; padding: 8px 10px 8px 28px; border-radius: 8px; font-size: 13px; line-height: 18px; }
+  .tl li:hover { background: var(--surface-muted); }
+  .tl li::before { content: ""; position: absolute; left: 11px; top: 14px; width: 7px; height: 7px; border-radius: 50%; background: var(--chart-muted); }
+  .tl li.k-on::before { background: var(--success-solid); }
+  .tl li.k-off::before { background: var(--fg-muted); }
+  .tl .when { color: var(--fg-muted); font-size: 12px; }
+  .bullets { margin: 6px 18px 0; padding-left: 18px; font-size: 13px; color: var(--fg); display: flex; flex-direction: column; gap: 4px; }
+  .empty .btn .icon { width: 16px; height: 16px; stroke-width: 1.75; color: inherit; }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div id="page" style="display:contents"></div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_16', title: 'Nguyễn Văn Tuấn' });
+const $ = id => document.getElementById(id);
+const D = Object.assign({}, FM.drivers.find(d => d.id === 'TX01'), { phone: '0912 418 678', cccd: '079088012678', since: '03/2021' });
+const ROLE = Shell.role();
+const CAN_PII = ROLE === 'Chủ DN / Admin' || ROLE === 'Kế toán';
+const S = { tab: 'profile', loading: false, error: false, empty: false, revoked: false, showId: false };
+
+const hm = h => { const H = Math.floor(h), m = Math.round((h - H) * 60); return `${H}h${String(m).padStart(2, '0')}`; };
+function headerHtml() {
+  const consent = S.revoked ? `<span class="badge b-neutral">${icon('pin')}Đã rút đồng ý vị trí</span>` : '';
+  return `<div class="ent-head">
+    <div style="min-width:0">
+      <div class="crumb">Đội xe / <a href="fm-16-tai-xe.html">Tài xế</a> / ${D.name}</div>
+      <div class="ent-title"><span class="ent-av" aria-hidden="true">VT</span><div style="min-width:0">
+        <h1>${D.name}</h1>
+        <div class="eh-meta"><span class="badge b-info"><span class="pulse" aria-hidden="true"></span>Đang chạy <a class="code" href="fm-09-chi-tiet-chuyen.html" style="color:inherit;text-decoration:underline">CH-0458</a></span><span class="badge b-success">${icon('phone')}App đã kích hoạt</span>${consent}<span class="fresh"><span class="live" aria-hidden="true"></span>Giờ lái cập nhật 2 phút trước · GSHT</span></div>
+      </div></div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-ghost" type="button" id="editBtn">${icon('pen')}Sửa hồ sơ</button>
+      <a class="btn btn-secondary" href="tel:${D.phone.replace(/ /g, '')}">${icon('phone')}Gọi ${D.phone}</a>
+    </div>
+    <dl class="eh-attrs" aria-label="Thuộc tính chính">
+      <div><dt>Mã tài xế</dt><dd>${D.id}</dd></div>
+      <div><dt>GPLX</dt><dd class="num">Hạng CE · hạn 14/07/2029</dd></div>
+      <div><dt>Thường lái</dt><dd><a class="code" href="fm-15-chi-tiet-xe.html">${D.usual}</a></dd></div>
+      <div><dt>Giờ lái tuần</dt><dd class="num">${hm(D.week)} / 48h</dd></div>
+      <div><dt>Tạm ứng đang giữ</dt><dd class="num">${fmt.vnd(D.advanceHeld)}</dd></div>
+      <div><dt>Vào làm</dt><dd class="num">${D.since}</dd></div>
+    </dl>
+  </div>`;
+}
+function tabsHtml() {
+  return `<div class="tabs" role="tablist" aria-label="Hồ sơ tài xế">${[['profile', 'Hồ sơ'], ['trips', 'Chuyến'], ['settle', 'Quyết toán'], ['pay', 'Lương chuyến'], ['safety', 'Vi phạm & an toàn'], ['consent', 'Đồng ý vị trí']].map(([k, l]) => `<button role="tab" type="button" data-tab="${k}" aria-selected="${S.tab === k}">${l}${k === 'safety' ? ' <span class="count-pill">2</span>' : ''}</button>`).join('')}</div>`;
+}
+function cccdRow() {
+  if (!CAN_PII) return `<div><dt>CCCD</dt><dd><span class="masked">079 ••• ••• •••</span></dd></div>`;
+  return `<div><dt>CCCD</dt><dd><span class="masked">${S.showId ? D.cccd.replace(/(\d{3})(\d{3})(\d{3})(\d{3})/, '$1 $2 $3 $4') : '079 ••• ••• 678'}</span><button class="btn btn-ghost btn-sm" type="button" id="showId">${icon('eye')}${S.showId ? 'Ẩn' : 'Hiện'}</button></dd></div>`;
+}
+function profileHtml() {
+  return `<div class="prof">
+    <section class="card"><div class="card-title"><h2>Giấy tờ cá nhân</h2><span class="meta">${icon('lock')}Dữ liệu cá nhân</span></div>
+      <dl class="dl">${cccdRow()}
+        ${CAN_PII ? `<div><dt>Ngày cấp · nơi cấp</dt><dd class="num">12/04/2021 · Cục CS QLHC về TTXH</dd></div><div><dt>Ngày sinh</dt><dd class="num">18/09/1988</dd></div><div><dt>Địa chỉ thường trú</dt><dd>P. Linh Trung, TP. Thủ Đức, TP.HCM</dd></div><div><dt>Ảnh CCCD</dt><dd><a href="javascript:void(0)">${icon('doc')} 2 mặt · JPG</a></dd></div>` : ''}
+      </dl>
+      ${CAN_PII ? `<div class="c-foot">${icon('eye')}<span>Mỗi lần hiện số CCCD được ghi vào <a href="fm-40-quyen-rieng-tu.html">nhật ký truy cập</a>.</span></div>` : `<div class="lockline">${icon('lock')}<span>Số CCCD, ngày sinh và địa chỉ chỉ Chủ DN/Admin và Kế toán xem được. Bạn đang xem với vai trò <b>${ROLE}</b>.</span></div>`}
+    </section>
+    <section class="card"><div class="card-title"><h2>Liên hệ &amp; ngân hàng</h2></div>
+      <dl class="dl">
+        <div><dt>Số điện thoại</dt><dd class="num">${D.phone}</dd></div>
+        <div><dt>Người liên hệ khẩn</dt><dd>Trần Thị Hoa (vợ) · <span class="num">0937 220 415</span></dd></div>
+        <div><dt>Tài khoản nhận lương</dt><dd class="num">${CAN_PII ? 'Vietcombank · 0071 0004 18678' : 'Vietcombank · •••• 8678'}</dd></div>
+        <div><dt>Chi nhánh</dt><dd>TP.HCM · Bãi Thủ Đức</dd></div>
+      </dl>
+    </section>
+    <section class="card"><div class="card-title"><h2>Giấy phép lái xe</h2><span class="meta"><a href="fm-18-giay-to.html">Giấy tờ &amp; hạn</a></span></div>
+      <dl class="dl">
+        <div><dt>Hạng</dt><dd><b>CE</b><span class="muted sm">đầu kéo, sơ mi rơ-moóc</span></dd></div>
+        <div><dt>Số GPLX</dt><dd class="num">790 188 042 316</dd></div>
+        <div><dt>Hạn</dt><dd class="num">14/07/2029 <span class="muted sm">còn hơn 2 năm</span></dd></div>
+        <div><dt>Ảnh GPLX</dt><dd><a href="javascript:void(0)">${icon('doc')} 2 mặt · JPG</a></dd></div>
+      </dl>
+      <div class="card-title" style="padding-top:4px"><h2 style="font-size:14px">Chứng nhận tập huấn nghiệp vụ</h2></div>
+      <dl class="dl">
+        <div><dt>Số chứng nhận</dt><dd class="num">TH-2024-03381</dd></div>
+        <div><dt>Ngày cấp · hạn</dt><dd class="num">22/05/2024 · 22/05/2027</dd></div>
+        <div><dt>Đơn vị tập huấn</dt><dd>Sở GTVT TP.HCM</dd></div>
+      </dl>
+    </section>
+    <section class="card"><div class="card-title"><h2>Cách tính lương mặc định</h2><span class="meta"><a href="fm-25-luong-chuyen.html">Lương chuyến</a></span></div>
+      <div class="pay"><span class="k">Khoán theo tuyến</span><span class="v">Bảng lương tuyến + phụ cấp chuyến 100.000 đ</span></div>
+      <table class="mini" aria-label="Ví dụ lương tuyến"><tbody>
+        <tr><td>KCN Tân Uyên → Cát Lái</td><td>650.000 đ/chuyến</td></tr>
+        <tr><td>KCN Mỹ Phước 3 → Cát Lái</td><td>650.000 đ/chuyến</td></tr>
+        <tr><td>Cát Lái → Sa Đéc</td><td>1.150.000 đ/chuyến</td></tr>
+        <tr><td>Tuyến chưa có trong bảng</td><td>2.400 đ/km</td></tr></tbody></table>
+      <div class="c-foot">Áp dụng từ 01/01/2026 · sửa được từng chuyến khi quyết toán</div>
+    </section>
+  </div>`;
+}
+const empty = (ic, t, p, a) => `<section class="card"><div class="empty">${icon(ic)}<h3>${t}</h3><p>${p}</p>${a || ''}</div></section>`;
+function tripsHtml() {
+  if (S.empty) return empty('route', 'Chưa có chuyến nào', 'Chuyến của tài xế hiện ở đây sau khi được gán ở Điều phối.', '<a class="btn btn-primary" href="fm-08-dieu-phoi.html">Mở Điều phối</a>');
+  const T = [['CH-0458', '12/11', 'Tân Cảng Logistics', 'KCN Tân Uyên → Cát Lái', '51C-123.45', 'running', '—'], ['CH-0449', '11/11', 'Thép Hòa Phát Bình Dương', 'KCN Đồng An → Cát Lái', '51C-123.45', 'done', '4h50'], ['CH-0431', '10/11', 'Gỗ Minh Long', 'KCN Mỹ Phước 3 → Cát Lái', '51C-123.45', 'settled', '6h40'], ['CH-0424', '08/11', 'Tân Cảng Logistics', 'Cát Lái → KCN VSIP 1', '51C-123.45', 'settled', '3h55'], ['CH-0409', '05/11', 'Gỗ Minh Long', 'KCN Mỹ Phước 3 → Cát Lái', '51C-123.45', 'settled', '6h20']];
+  return `<section class="card listcard"><div class="card-title"><h2>Chuyến</h2><span class="meta">Tháng 11/2026 · 21 chuyến</span></div>
+    <div class="grid-wrap"><table class="grid"><thead><tr><th>Mã chuyến</th><th>Ngày</th><th>Khách hàng · Tuyến</th><th>Xe</th><th class="right">Thời gian lái</th><th>Trạng thái</th></tr></thead>
+    <tbody>${T.map(t => `<tr><td><a class="code" href="fm-09-chi-tiet-chuyen.html">${t[0]}</a></td><td class="num">${t[1]}</td><td class="wrapcell">${t[2]}<span class="cell-sub">${t[3]}</span></td><td><a class="code" href="fm-15-chi-tiet-xe.html">${t[4]}</a></td><td class="right num">${t[6]}</td><td>${FM.statusBadge(t[5])}</td></tr>`).join('')}</tbody></table></div>
+    <div class="c-foot" style="padding-top:12px">Hiện 5 / 21 chuyến. <a href="fm-08-dieu-phoi.html">Xem ở Điều phối</a></div></section>`;
+}
+function settleHtml() {
+  if (S.empty) return empty('receipt', 'Chưa có quyết toán', 'Quyết toán xuất hiện khi chuyến hoàn thành.');
+  const R = [['CH-0449', '11/11', 2600000, 2318500, 'wait'], ['CH-0431', '11/11', 2400000, 2512000, 'ok'], ['CH-0424', '09/11', 1800000, 1695000, 'ok'], ['CH-0409', '06/11', 2400000, 2381000, 'ok']];
+  return `<section class="card listcard"><div class="card-title"><h2>Quyết toán</h2><span class="meta">Đang giữ tạm ứng <b class="num" style="color:var(--fg-strong)">${fmt.vnd(D.advanceHeld)}</b></span></div>
+    <div class="grid-wrap"><table class="grid"><thead><tr><th>Chuyến</th><th>Ngày</th><th class="right">Tạm ứng</th><th class="right">Chi thực tế</th><th class="right">Chênh lệch</th><th>Trạng thái</th><th></th></tr></thead>
+    <tbody>${R.map(r => { const d = r[2] - r[3]; return `<tr><td><a class="code" href="fm-09-chi-tiet-chuyen.html">${r[0]}</a></td><td class="num">${r[1]}</td><td class="right num">${fmt.vnd(r[2])}</td><td class="right num">${fmt.vnd(r[3])}</td><td class="right num">${d >= 0 ? 'Tài xế hoàn ' + fmt.vnd(d) : 'Công ty trả ' + fmt.vnd(-d)}</td><td>${r[4] === 'wait' ? `<span class="badge b-neutral">${icon('clock')}Chờ quyết toán</span>` : `<span class="badge b-success">${icon('lock')}Đã quyết toán</span>`}</td><td class="right"><a class="btn btn-ghost btn-sm" href="fm-22-quyet-toan.html">${r[4] === 'wait' ? 'Quyết toán' : 'Xem'}</a></td></tr>`; }).join('')}</tbody></table></div></section>`;
+}
+function payHtml() {
+  if (S.empty) return empty('coins', 'Chưa có lương chuyến', 'Mỗi chuyến đã quyết toán sinh một dòng lương.');
+  const P = [['CH-0431', 'KCN Mỹ Phước 3 → Cát Lái', 650000, 100000, 0, ''], ['CH-0424', 'Cát Lái → KCN VSIP 1', 550000, 100000, 0, ''], ['CH-0409', 'KCN Mỹ Phước 3 → Cát Lái', 650000, 100000, -50000, 'Trễ trả rỗng, phạt depot']];
+  const tot = P.reduce((s, p) => s + p[2] + p[3] + p[4], 0);
+  return `<section class="card listcard"><div class="card-title"><h2>Lương chuyến kỳ 01–15/11</h2><span class="meta">Tạm tính <b class="num" style="color:var(--fg-strong)">${fmt.vnd(tot)}</b> · <a href="fm-25-luong-chuyen.html">Bảng lương kỳ</a></span></div>
+    <div class="grid-wrap"><table class="grid"><thead><tr><th>Chuyến</th><th>Tuyến</th><th class="right">Lương tuyến</th><th class="right">Phụ cấp</th><th class="right">Thưởng / trừ</th><th class="right">Cộng</th></tr></thead>
+    <tbody>${P.map(p => `<tr><td><a class="code" href="fm-09-chi-tiet-chuyen.html">${p[0]}</a></td><td>${p[1]}</td><td class="right num">${fmt.vnd(p[2])}</td><td class="right num">${fmt.vnd(p[3])}</td><td class="right num ${p[4] < 0 ? 'neg' : ''}">${p[4] ? fmt.vnd(p[4]) + `<span class="cell-sub">${p[5]}</span>` : '—'}</td><td class="right num"><b>${fmt.vnd(p[2] + p[3] + p[4])}</b></td></tr>`).join('')}</tbody></table></div>
+    <div class="c-foot" style="padding-top:12px">CH-0449 chưa quyết toán nên chưa có dòng lương. Tài xế thấy cùng số liệu trong app (mục Tiền của tôi).</div></section>`;
+}
+function safetyHtml() {
+  if (S.empty) return empty('shield', 'Chưa có vi phạm', 'Vi phạm giờ lái, tốc độ, lệch tuyến từ GSHT sẽ ghi ở đây.');
+  const L = [['warn', '08/11 14:12', 'Lái liên tục 4h18 (vượt 4h)', 'GSHT · 51C-123.45 · CH-0424', 'Lê Thị Ngọc nhắc qua điện thoại, tài xế nghỉ 20 phút tại trạm Dầu Giây', 'Đã xử lý'], ['warn', '02/11 06:40', 'Quá tốc độ 68/60 km/h, 3 phút', 'GSHT · QL13 đoạn Bình Dương', 'Nhắc nhở bằng văn bản', 'Đã xử lý'], ['', '15/10 10:05', 'GSHT mất tín hiệu 42 phút', 'GSHT · 51C-123.45', 'Lỗi thiết bị, hãng Bình Anh đã thay SIM', 'Không tính lỗi tài xế']];
+  return `<section class="card listcard"><div class="card-title"><h2>Vi phạm &amp; nhật ký an toàn</h2><span class="meta">90 ngày gần nhất · <a href="fm-13-gio-lai.html">Giờ lái &amp; nhật ký an toàn</a></span></div>
+    <div class="grid-wrap"><table class="grid"><thead><tr><th>Thời điểm</th><th>Sự việc</th><th>Biện pháp xử lý</th><th>Kết quả</th></tr></thead>
+    <tbody>${L.map(l => `<tr><td class="num">${l[1]}</td><td class="wrapcell"><div class="sev ${l[0]}"><b style="font-weight:500">${l[2]}</b><span class="cell-sub">${l[3]}</span></div></td><td class="wrapcell">${l[4]}</td><td>${l[5] === 'Đã xử lý' ? `<span class="badge b-success">${icon('check')}${l[5]}</span>` : `<span class="badge b-neutral">${l[5]}</span>`}</td></tr>`).join('')}</tbody></table></div>
+    <div class="c-foot" style="padding-top:12px">Nhật ký lưu tối thiểu 3 năm, xuất được khi cơ quan chức năng kiểm tra.</div></section>`;
+}
+function consentHtml() {
+  const hist = [['k-on', '15/08/2026 07:12', 'Đồng ý lại theo chính sách v2', 'Trong app · bản chính sách 2.0 (bổ sung chia sẻ ETA cho khách)'], ['k-on', '04/03/2025 18:30', 'Đồng ý lần đầu khi kích hoạt app', 'Trong app · bản chính sách 1.0']];
+  if (S.revoked) hist.unshift(['k-off', '12/11/2026 09:06', 'Rút lại đồng ý', 'Do Lê Thị Ngọc ghi nhận theo yêu cầu của tài xế qua điện thoại']);
+  return `<div class="consent">
+    <section class="card"><div class="card-title"><h2>Trạng thái hiện tại</h2></div>
+      <div class="cstate ${S.revoked ? '' : 'on'}"><span class="big">${icon(S.revoked ? 'block' : 'check', 'lg')}${S.revoked ? 'Đã rút đồng ý' : 'Đang đồng ý'}</span><p>${S.revoked ? 'Từ 12/11/2026 09:06. App ngừng gửi vị trí; mốc chuyến chỉ lấy từ GSHT và thao tác bấm mốc.' : 'Từ 15/08/2026 · chính sách v2. Vị trí điện thoại chỉ được thu khi đang trong chuyến.'}</p></div>
+      <ul class="bullets"><li>Không thu vị trí ngoài giờ chuyến, kể cả khi app mở.</li><li>Rút lại không ảnh hưởng lương hay quyền nhận chuyến.</li><li>Dữ liệu vị trí lưu 12 tháng rồi tự xoá.</li></ul>
+      <div class="c-foot">${S.revoked ? '' : `<button class="btn btn-secondary btn-sm" type="button" id="revokeBtn">Ghi nhận rút lại</button>`}<a href="fm-40-quyen-rieng-tu.html" style="margin-left:auto">Chính sách quyền riêng tư</a></div>
+    </section>
+    <section class="card"><div class="card-title"><h2>Lịch sử đồng ý</h2></div>
+      <ul class="tl">${hist.map(h => `<li class="${h[0]}"><b style="font-weight:600">${h[2]}</b> <span class="when num">· ${h[1]}</span><div class="when">${h[3]}</div></li>`).join('')}</ul>
+    </section></div>`;
+}
+
+const page = $('page');
+function render() {
+  if (S.error) { page.innerHTML = headerHtml() + `<div class="alert alert-danger" role="alert">${icon('block')}<div>Không tải được hồ sơ tài xế. Kiểm tra kết nối mạng rồi thử lại.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" onclick="location.reload()">Thử lại</button></div></div>`; bind(); return; }
+  page.innerHTML = headerHtml() + tabsHtml() + `<div class="tabpanel" role="tabpanel" id="panel"></div>`;
+  const p = $('panel');
+  if (S.loading) p.innerHTML = `<div class="prof">${Array(4).fill('<section class="card" style="padding:18px;gap:14px;display:flex;flex-direction:column"><span class="sk" style="width:40%;height:16px"></span>' + Array(5).fill('<span class="sk" style="width:85%"></span>').join('') + '</section>').join('')}</div>`;
+  else p.innerHTML = { profile: profileHtml, trips: tripsHtml, settle: settleHtml, pay: payHtml, safety: safetyHtml, consent: consentHtml }[S.tab]();
+  bind();
+}
+function bind() {
+  page.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { S.tab = b.dataset.tab; render(); });
+  const sh = $('showId'); if (sh) sh.onclick = () => { S.showId = !S.showId; render(); if (S.showId) toast('Đã ghi nhật ký: xem số CCCD lúc 09:06'); };
+  const e = $('editBtn'); if (e) e.onclick = () => toast('Sửa hồ sơ: dùng chung form với Thêm tài xế (FM_16)');
+  const r = $('revokeBtn'); if (r) r.onclick = revokeModal;
+}
+function closeModal() { document.querySelectorAll('.modal:not(.leaving), .scrim:not(.leaving)').forEach(x => Shell.dismiss(x)); }
+function revokeModal() {
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim'; s.onclick = closeModal;
+  const m = document.createElement('div'); m.className = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true');
+  m.innerHTML = `<h2>Ghi nhận rút lại đồng ý vị trí?</h2><p class="muted">App của ${D.name} sẽ ngừng gửi vị trí ngay, kể cả trong chuyến CH-0458 đang chạy. Mốc chuyến vẫn lấy từ GSHT. Tài xế được thông báo trong app.</p>
+    <label class="field"><span>Ghi chú *</span><textarea class="input" rows="2" id="rvNote">Tài xế yêu cầu qua điện thoại lúc 09:05</textarea></label>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Quay lại</button><button class="btn btn-primary" type="button" data-ok>Ghi nhận rút lại</button></div>`;
+  document.body.append(s, m);
+  m.querySelector('[data-x]').onclick = closeModal;
+  m.querySelector('[data-ok]').onclick = () => { closeModal(); S.revoked = true; render(); toast('Đã ghi nhận rút lại đồng ý vị trí', { undo: () => { S.revoked = false; render(); } }); };
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+Shell.states([['default', 'Mặc định'], ['trips', 'Chuyến'], ['settle', 'Quyết toán'], ['pay', 'Lương chuyến'], ['safety', 'Vi phạm'], ['consent', 'Đồng ý vị trí'], ['revoked', 'Đã rút đồng ý'], ['loading', 'Đang tải'], ['empty', 'Trống (tài xế mới)'], ['error', 'Lỗi']], st => {
+  closeModal();
+  Object.assign(S, { tab: 'profile', loading: st === 'loading', error: st === 'error', empty: st === 'empty', revoked: st === 'revoked', showId: false });
+  if (['trips', 'settle', 'pay', 'safety', 'consent'].includes(st)) S.tab = st;
+  if (st === 'revoked') S.tab = 'consent';
+  if (st === 'empty') S.tab = 'trips';
+  render();
+});
+</script>
+</body>
+</html>

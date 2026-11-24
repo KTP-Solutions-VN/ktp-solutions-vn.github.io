@@ -1,0 +1,725 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trip details · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* FM_09 v2 — Motive-style entity view (research/ui-competitive-audit.md §4.3, checklist B1–B9) */
+  /* Entity header */
+  .ent-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--s-4); row-gap: 14px; align-items: end; }
+  .ent-head .crumb { font-size: var(--text-sm); color: var(--fg-muted); margin-bottom: 4px; }
+  .ent-head .crumb a { color: var(--fg-muted); }
+  .eh-meta { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .eh-meta .fresh { margin-left: 8px; }
+  .ent-head .actions { display: flex; gap: var(--s-2); align-items: center; flex-wrap: wrap; }
+  .eh-attrs { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 10px 32px; margin: 0; }
+  .eh-attrs div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .eh-attrs dt { font-size: 12px; color: var(--fg-muted); }
+  .eh-attrs dd { margin: 0; font-size: 13.5px; font-weight: 500; color: var(--fg-strong); white-space: nowrap; }
+  .fresh { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--fg-muted); white-space: nowrap; }
+  .fresh .live { width: 7px; height: 7px; border-radius: 50%; background: var(--success-solid); }
+  .fresh.stale .live { background: var(--warning-solid); }
+  /* Card anatomy (như FM_04) */
+  .card-title { display: flex; align-items: center; gap: 10px; padding: 16px 18px 6px; min-width: 0; }
+  .card-title h2 { font-size: 16px; white-space: nowrap; }
+  .card-title .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 8px; align-items: center; min-width: 0; }
+  .card-title .meta.ell { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .card-head { padding: 16px 18px 8px; }
+  .card-head h2 { font-size: 16px; }
+  .card-head .tools { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+  .q-foot { display: flex; align-items: center; gap: 8px; padding: 10px 18px 16px; font-size: 12.5px; color: var(--fg-muted); margin-top: auto; }
+  .tabpanel { display: flex; flex-direction: column; gap: var(--s-4); }
+  /* Bố cục 2 cột: panel trái + nội dung lớn bên phải; thẻ cùng hàng cao bằng nhau (B4) */
+  .ov { display: grid; grid-template-columns: 384px minmax(0, 1fr); gap: var(--s-4); align-items: stretch; }
+  .ov > .col { display: flex; flex-direction: column; gap: var(--s-4); min-width: 0; }
+  .ov > .col > .card { display: flex; flex-direction: column; }
+  .ov > .col > .card.grow { flex: 1; }
+  .ov > .card { display: flex; flex-direction: column; min-width: 0; }
+  /* Tình trạng "Now" */
+  .now { padding: 6px 18px 4px; display: flex; flex-direction: column; gap: 10px; }
+  .steps { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 4px; }
+  .steps i { height: 6px; border-radius: 3px; background: var(--surface-muted); }
+  .steps i.done { background: var(--primary); }
+  .steps i.cur { background: repeating-linear-gradient(45deg, var(--primary) 0 3px, var(--primary-muted) 3px 6px); }
+  .now-line b { display: block; font-weight: 600; color: var(--fg-strong); font-size: 14px; line-height: 20px; }
+  .now-line span { font-size: 12.5px; color: var(--fg-muted); line-height: 18px; }
+  .mini-pl { padding: 6px 18px 0; display: flex; flex-direction: column; }
+  .mrow { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 5px 0; font-size: 13px; }
+  .mrow .k { color: var(--fg-muted); }
+  .mrow .v { font-weight: 600; color: var(--fg-strong); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .mrow.hero .v { font: 700 20px/26px var(--font-display); color: var(--fg-strong); }
+  .mrow.hero .v.neg { color: var(--danger-fg); }
+  .mrow.hero .v small { font: 500 12.5px var(--font-body); color: var(--fg-muted); margin-left: 4px; }
+  .dl { display: flex; flex-direction: column; padding: 2px 18px 12px; margin: 0; }
+  .dl div { display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 10px; padding: 6px 0; font-size: 13.5px; line-height: 19px; }
+  .dl dt { color: var(--fg-muted); font-size: var(--text-sm); padding-top: 1px; }
+  .dl dd { margin: 0; min-width: 0; }
+  .late { color: var(--warning-fg); font-weight: 600; display: inline-flex; gap: 4px; align-items: center; }
+  .stage-n { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--primary-soft); color: var(--primary); font-weight: 600; font-size: 12px; margin-right: 8px; }
+  .stage-n.pending { background: var(--surface-muted); color: var(--fg-muted); }
+  .linkbtn { border: 0; background: none; padding: 0; font: inherit; color: var(--primary); cursor: pointer; display: inline-flex; gap: 4px; align-items: center; }
+  .linkbtn:hover { text-decoration: underline; }
+  .hist { list-style: none; margin: 0; padding: 4px 8px 12px; display: flex; flex-direction: column; gap: 2px; }
+  .hist li { position: relative; padding: 7px 10px 7px 26px; border-radius: 8px; font-size: 13px; line-height: 18px; }
+  .hist li:hover { background: var(--surface-muted); }
+  .hist li::before { content: ""; position: absolute; left: 10px; top: 13px; width: 7px; height: 7px; border-radius: 50%; background: var(--chart-muted); }
+  .hist li.k-status::before { background: var(--primary); }
+  .hist li.k-cost::before { background: var(--success-solid); }
+  .hist li.k-doc::before { background: var(--accent); }
+  .hist .when { color: var(--fg-muted); font-size: 12px; }
+  .stages .grid th, .stages .grid td { padding-left: 10px; padding-right: 10px; }
+  .stages .grid th:first-child, .stages .grid td:first-child { padding-left: 18px; }
+  .seg-pad { padding: 8px 18px 4px; }
+  .count-pill { font: 600 12px var(--font-body); background: var(--surface-muted); color: var(--fg-muted); border-radius: 10px; padding: 1px 8px; font-variant-numeric: tabular-nums; }
+  /* Bản đồ: lớn, giãn lấp chiều cao thẻ */
+  .mapwrap { position: relative; flex: 1 1 auto; min-height: 420px; margin: 4px 12px 0; border-radius: var(--r-md); background: var(--surface-muted); overflow: hidden; }
+  .mapwrap svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .mk { cursor: pointer; }
+  .mk:focus { outline: none; }
+  .mk:focus-visible circle, .mk.on circle { stroke: var(--ring); stroke-width: 3; }
+  .pop { position: absolute; transform: translate(-50%, calc(-100% - 18px)); background: var(--surface); border-radius: var(--r-md); box-shadow: var(--shadow-pop); padding: 8px 10px; font-size: 12.5px; line-height: 17px; width: max-content; max-width: 260px; z-index: 3; }
+  .pop b { display: block; font-weight: 600; margin-bottom: 2px; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; font-size: 12px; color: var(--fg-muted); padding: 10px 18px 14px; }
+  .legend svg { vertical-align: -2px; margin-right: 4px; }
+  .stats { padding: 2px 8px 8px; display: flex; flex-direction: column; gap: 2px; }
+  .stat { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 9px 10px; border-radius: 8px; }
+  .stat .k { color: var(--fg-muted); font-size: 13px; }
+  .stat .v { font: 600 18px/24px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; text-align: right; }
+  .stat .v small { display: block; font: 400 12px/16px var(--font-body); color: var(--fg-muted); }
+  .vlist { list-style: none; margin: 0; padding: 2px 8px 8px; display: flex; flex-direction: column; gap: 2px; }
+  .vi { display: grid; grid-template-columns: 3px minmax(0, 1fr); gap: 10px; padding: 8px 10px 8px 0; border-radius: 8px; cursor: pointer; }
+  .vi:hover, .vi.selected { background: var(--surface-muted); }
+  .vi:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; }
+  .vi .sev { background: var(--warning-solid); border-radius: 0 3px 3px 0; margin: 2px 0; }
+  .vi b { display: block; font-weight: 600; font-size: 13.5px; color: var(--fg-strong); }
+  .vi .d { display: block; font-size: 12.5px; color: var(--fg-muted); line-height: 18px; }
+  .grid tr.clickable { cursor: pointer; }
+  /* P&L — SummaryStrip (đúng một số chính) */
+  .summary { display: grid; grid-template-columns: minmax(380px, 1.7fr) repeat(3, minmax(0, 1fr)); gap: 6px; padding: 6px; background: var(--surface); border-radius: var(--r-lg); box-shadow: var(--shadow-card); }
+  .sum-main { padding: 18px 22px; background: var(--primary-soft); display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: 16px; border-radius: 8px; }
+  .sum-main-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .sum-main .k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--side-active); }
+  .sum-main .v { font: 700 var(--text-display)/40px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+  .sum-main .v.neg { color: var(--danger-fg); }
+  .sum-main .v small { font: 600 18px var(--font-display); color: var(--fg-muted); margin-left: 4px; }
+  .sum-main .row { gap: 6px; flex-wrap: wrap; font-size: 12.5px; color: var(--fg-muted); }
+  .sum-side { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; padding-bottom: 4px; font-size: 12.5px; color: var(--fg-muted); text-align: right; white-space: nowrap; }
+  .sum-side b { font-weight: 600; color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .sum-item { padding: 18px 16px; display: flex; flex-direction: column; justify-content: center; gap: 4px; min-width: 0; border-radius: 8px; border: 0; background: none; font: inherit; color: inherit; text-align: left; cursor: pointer; }
+  .sum-item:hover { background: var(--surface-muted); }
+  .sum-item .k { font-size: 12.5px; color: var(--fg-muted); font-weight: 500; }
+  .sum-item .v { font: 700 24px/30px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .sum-item .v small { font: 600 14px var(--font-body); color: var(--fg-muted); margin-left: 3px; }
+  .sum-item .d { font-size: 12.5px; color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+  .delta { display: inline-flex; align-items: center; gap: 3px; font-weight: 600; }
+  .delta.bad { color: var(--danger-fg); } .delta.good { color: var(--success-fg); } .delta.warn { color: var(--warning-fg); }
+  .pl-toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  table.pl { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13.5px; }
+  .pl th { background: var(--surface-muted); color: var(--fg-muted); font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; text-align: right; padding: 8px 18px; }
+  .pl th:first-child { text-align: left; }
+  .pl td { padding: 7px 18px; border-bottom: 1px solid var(--border); text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .pl td:first-child { text-align: left; }
+  .pl tbody tr:last-child td { border-bottom: 0; }
+  .pl col.c1 { width: 40%; }
+  .pl tr.grp td { font-weight: 600; font-size: 11.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--fg-muted); padding-top: 16px; padding-bottom: 6px; }
+  .pl tr.sub td { font-weight: 600; }
+  .pl tr.res td { font-weight: 700; background: var(--surface-muted); font-size: 14px; }
+  .pl tr.hl td { background: color-mix(in srgb, var(--warning-soft) 45%, var(--surface)); }
+  .pl tr.hl td:first-child { box-shadow: inset 2px 0 0 var(--warning-solid); }
+  .pl tr.expand td { background: var(--surface); padding: 0 18px 8px 38px; }
+  .pl .cellnum { border-bottom: 1px dotted var(--border-strong); cursor: help; }
+  .pl .actbtn { border: 0; background: none; font: inherit; color: inherit; padding: 0; cursor: pointer; border-bottom: 1px dotted var(--primary); }
+  .pl .actbtn:hover { color: var(--primary); }
+  .pl .up { color: var(--warning-fg); font-size: 11px; margin-right: 2px; }
+  .mini { width: 100%; font-size: 12.5px; border-collapse: collapse; }
+  .mini td { border: 0 !important; padding: 3px 0 !important; background: none !important; font-weight: 400 !important; }
+  .src { display: inline-flex; align-items: center; gap: 6px; }
+  .src .icon { color: var(--fg-muted); }
+  .amt-input { width: 120px; text-align: right; height: 30px; }
+  .docbtn { border: 1px solid var(--border-strong); background: var(--surface); border-radius: var(--r-sm); height: 26px; padding: 0 8px; display: inline-flex; align-items: center; gap: 5px; cursor: pointer; font: 500 12px var(--font-body); color: var(--fg); }
+  .docbtn:hover { border-color: var(--primary); color: var(--primary); }
+  /* Documents */
+  .dname { max-width: 250px; overflow: hidden; text-overflow: ellipsis; }
+  .docs-split { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: var(--s-4); align-items: stretch; }
+  .docs-split > .card { display: flex; flex-direction: column; min-width: 0; }
+  .paper-stage { background: var(--surface-muted); min-height: 420px; flex: 1; display: grid; place-items: center; overflow: hidden; margin: 4px 12px 0; border-radius: var(--r-md); }
+  .drawer .paper-stage { margin: 0; border-radius: 0; }
+  .paper { width: 250px; background: var(--surface); border: 1px solid var(--border-strong); box-shadow: var(--shadow-pop); padding: 16px 16px 18px; font-size: 11px; line-height: 15px; color: var(--fg); transition: transform .15s; }
+  .paper h4 { margin: 0 0 6px; font: 700 12px var(--font-display); text-align: center; text-transform: uppercase; }
+  .paper .ln { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px dashed var(--border); padding: 3px 0; }
+  .paper .tot { font-weight: 700; border-bottom: 0; padding-top: 6px; }
+  .paper .sig { margin-top: 10px; display: flex; justify-content: space-between; color: var(--fg-muted); }
+  .viewer-bar { display: flex; gap: 6px; align-items: center; padding: 10px 12px 12px; flex-wrap: wrap; }
+  .share-url { display: flex; gap: 8px; }
+  .share-url .input { flex: 1; font-variant-numeric: tabular-nums; background: var(--surface-muted); }
+  .kv { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .kv > div { background: var(--surface-muted); border-radius: var(--r-md); padding: 10px 12px; font-size: 13px; }
+  .kv h4 { margin: 0 0 6px; font-size: 12.5px; font-weight: 600; display: flex; gap: 6px; align-items: center; }
+  .kv ul { margin: 0; padding-left: 18px; color: var(--fg-muted); }
+  .drawer.narrow { width: min(480px, 100vw); }
+  .drawer.doc { width: min(520px, 100vw); }
+  @media (max-width: 1200px) { .ov, .docs-split { grid-template-columns: 1fr; } .summary { grid-template-columns: repeat(3, minmax(0, 1fr)); } .sum-main { grid-column: 1 / -1; } .ent-head { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div id="page" style="display:contents"></div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_08', title: 'Trip details CH-0458' });
+const V = n => fmt.vnd(n, { bare: 1 });
+const sgn = n => n > 0 ? '+' + V(n) : n < 0 ? V(n) : '0';
+const P = (a, b) => fmt.pct(a / b * 100);
+const NA = 'href="javascript:void(0)" title="not in this prototype"';
+
+/* ---------- Floating tooltip (không bị cắt trong vùng cuộn) ---------- */
+const TIPS = {}; let tipN = 0;
+const tip = html => { const k = 't' + (tipN++); TIPS[k] = html; return `data-ftip="${k}"`; };
+const ftip = document.createElement('div'); ftip.className = 'tip-body'; ftip.setAttribute('role', 'tooltip');
+Object.assign(ftip.style, { position: 'fixed', transform: 'none', bottom: 'auto', zIndex: 100 }); document.body.appendChild(ftip);
+function showTip(el) { const h = TIPS[el.dataset.ftip]; if (!h) return; ftip.innerHTML = h; ftip.style.opacity = 1; const r = el.getBoundingClientRect(), w = ftip.offsetWidth, ht = ftip.offsetHeight; ftip.style.left = Math.min(Math.max(8, r.left + r.width / 2 - w / 2), innerWidth - w - 8) + 'px'; let y = r.top - ht - 8; if (y < 8) y = r.bottom + 8; ftip.style.top = y + 'px'; }
+const hideTip = () => { ftip.style.opacity = 0; };
+document.addEventListener('mouseover', e => { const el = e.target.closest('[data-ftip]'); el ? showTip(el) : hideTip(); });
+document.addEventListener('focusin', e => { const el = e.target.closest('[data-ftip]'); el ? showTip(el) : hideTip(); });
+document.addEventListener('scroll', hideTip, true);
+
+/* ---------- Dữ liệu chuyến ---------- */
+const CATS = [['fuel', 'Fuel'], ['toll', 'Tolls'], ['lift', 'Lift-on/lift-off fee'], ['salary', 'Trip pay'], ['other', 'Handling & other']];
+const SRC = { phone: ['phone', 'Driver'], tray: ['tray', 'Import ETC'], formula: ['formula', 'Norm'], pen: ['pen', 'Manual entry'] };
+const TRIPS = {
+  'CH-0458': {
+    id: 'CH-0458', route: 'Tân Uyên Industrial Park → Cát Lái', container: true, sumLoad: "1×40' · 24.5 t",
+    info: [['Customer', 'Tân Cảng Logistics'], ['Order', '<span class="code">DH-1125</span> (1×40\' · <span class="num">24.5 t</span>)'], ['Type', 'Export container'], ['Container no.', '<span class="code">TCLU 4421087</span> · Booking: <span class="code">HCMSGN2611087</span>'], ['Shipping line', 'ONE'], ['Vehicle', '<span class="code">51C-123.45</span> · Tractor unit'], ['Trailer', '<span class="code">51R-123.45</span>'], ['Driver', 'Nguyễn Văn Tuấn · <span class="num">0912 ••• 678</span>'], ['Waybill', '<span class="code">GVT-2611-0458</span> (issued <span class="num">12/11 06:52</span>)'], ['Cash advance', '<span class="num">2,500,000 ₫</span> (paid out)']],
+    stages: [
+      { k: 'Empty pickup', place: 'Depot Phước Long', plan: '12/11 07:00', act: '07:18', diff: 18, doc: 'EIR', docId: 'd2' },
+      { k: 'Stuffing', place: 'Tân Uyên Industrial Park (Tân Cảng Logistics warehouse)', plan: '12/11 09:30', act: '09:41', diff: 11 },
+      { k: 'Drop at port', place: 'Cát Lái port', plan: '12/11 13:00', act: '15:15', diff: 135, sync: 'Tapped on device 15:15, synced 15:41', doc: 'EIR', docId: 'd3' }
+    ],
+    rev: [['Freight', 4200000, 'Tân Cảng Logistics rate card · Tân Uyên Industrial Park → Cát Lái · 40\' = <span class="formula">4,200,000 ₫</span>'], ['Lift-on/lift-off surcharge', 1160000, 'Pass-through per port invoice: empty lift-on <span class="formula">580,000</span> + laden lift-off <span class="formula">580,000</span>'], ['Fuel surcharge', 140000, 'Fuel price this period 20,150 ₫/l is above the 19,000 ₫/l threshold → surcharge <span class="formula">140,000 ₫</span> per contract']],
+    est: { fuel: 727400, toll: 280000, lift: 1160000, salary: 1200000, other: 0 },
+    estTip: { fuel: '<span class="formula">95 km × 38 l/100km × 20,150 ₫/l ≈ 727,400 ₫</span>', toll: 'ĐT 741 toll station <span class="formula">140,000</span> + Hà Nội Highway <span class="formula">140,000</span> (40\' truck, class 4)', lift: 'Empty lift-on at Depot Phước Long <span class="formula">580,000</span> + Laden lift-off at Cát Lái <span class="formula">580,000</span>', salary: 'Flat route pay Tân Uyên–Cát Lái 40\' = <span class="formula">1,200,000 ₫</span>', other: 'No handling estimate for container cargo' },
+    actTip: { fuel: '44 l refueled at Tân Uyên fuel station, 12/11 08:20 · 98 km actual → <span class="formula">44.9 l/100km</span> (norm 38)' },
+    lines: [
+      { id: 'L1', src: 'phone', cat: 'fuel', type: 'Fuel', desc: '44 l · km 182,460', amt: 886600, doc: 'img', docId: 'd5', inv: ['Invoice 0004512 · Tân Uyên fuel station', [['DO 0.05S diesel', '44 l'], ['Unit price', '20,150 ₫/l']], 886600] },
+      { id: 'L2', src: 'tray', cat: 'toll', type: 'Tolls', desc: 'ĐT 741 toll station · 1 pass', amt: 140000, doc: 'pdf', docId: 'd6' },
+      { id: 'L3', src: 'tray', cat: 'toll', type: 'Tolls', desc: 'Hà Nội Highway toll station · 1 pass', amt: 140000, doc: 'pdf', docId: 'd6' },
+      { id: 'L4', src: 'phone', cat: 'lift', type: 'Lift-on/lift-off', desc: 'Empty lift-on at Depot Phước Long', amt: 580000, doc: 'img', docId: 'd7', inv: ['Receipt 26-118734 · Depot Phước Long', [['Empty lift-on 40\'', '×1'], ['Container', 'TCLU 4421087']], 580000] },
+      { id: 'L5', src: 'phone', cat: 'lift', type: 'Lift-on/lift-off', desc: 'Laden lift-off at Cát Lái port', amt: 580000, doc: 'img', docId: 'd8', inv: ['Receipt 26-552190 · Tân Cảng Cát Lái', [['Laden lift-off 40\'', '×1'], ['Container', 'TCLU 4421087']], 580000] },
+      { id: 'L6', src: 'formula', cat: 'salary', type: 'Trip pay', desc: 'Flat route pay Tân Uyên–Cát Lái 40\'', amt: 1200000, doc: null },
+      { id: 'L7', src: 'phone', cat: 'other', type: 'Other', desc: 'Cát Lái port gate ticket', amt: 50000, doc: 'img', docId: 'd9', inv: ['Gate ticket 0281940 · Cát Lái port', [['Gate entry ticket', '1 entry']], 50000] },
+      { id: 'L8', src: 'pen', cat: 'other', type: 'Other', desc: 'Port waiting fee 2h15 (receipt attached to EIR)', amt: 100000, doc: null }
+    ],
+    alloc: { dep: 700000, perKm: 9000, kmEst: 95, kmAct: 98 },
+    km: { total: 98, empty: 41, loaded: 57, stop: '3h05', stopNote: 'port wait 2h15', viol: 1 },
+    history: [
+      ['15/11 10:24', 'Trần Thị Mai (Accountant)', 'Settlement finalized, driver confirmed', 'cost', 3],
+      ['12/11 15:50', 'Lê Văn Hải', 'Edited milestone "Drop at port" on the driver\'s behalf: 15:15', 'status', 3],
+      ['12/11 13:40', 'Nguyễn Văn Tuấn (App)', 'Reported incident: Stuck at port', 'status', 3],
+      ['12/11 06:52', 'System', 'Issued waybill GVT-2611-0458', 'doc', 0],
+      ['11/11 16:20', 'Lê Văn Hải', 'Assigned 51C-123.45 · Nguyễn Văn Tuấn', 'status', 0],
+      ['11/11 16:05', 'Lê Văn Hải (Dispatcher)', 'Created trip from DH-1125', 'status', 0]
+    ],
+    docs: [
+      { id: 'd1', type: 'Waybill', f: 'gvt', name: 'GVT-2611-0458', at: '12/11 06:52', by: 'System', st: '<span class="badge b-success">' + icon('check') + 'Active</span>', need: 0 },
+      { id: 'd2', type: 'EIR (empty pickup)', f: 'eir', name: 'TCLU 4421087', at: '12/11 07:18', by: 'Nguyễn Văn Tuấn', st: ok(), need: 1 },
+      { id: 'd4', type: 'POD', f: 'pod', name: 'Tân Cảng Logistics delivery receipt', at: '12/11 09:55', by: 'Nguyễn Văn Tuấn', st: '<span class="badge b-success">' + icon('check') + 'Signed</span>', need: 2 },
+      { id: 'd3', type: 'EIR (drop at port)', f: 'eir', name: 'Cát Lái', at: '12/11 15:15', by: 'Nguyễn Văn Tuấn', st: ok(), need: 3 },
+      { id: 'd5', type: 'Cost invoice', f: 'inv', name: 'Invoice 0004512 · Tân Uyên fuel station', at: '12/11 08:21', by: 'Nguyễn Văn Tuấn', st: ok(), need: 1 },
+      { id: 'd7', type: 'Cost invoice', f: 'inv', name: 'Receipt 26-118734 · Depot Phước Long', at: '12/11 07:20', by: 'Nguyễn Văn Tuấn', st: ok(), need: 1 },
+      { id: 'd8', type: 'Cost invoice', f: 'inv', name: 'Receipt 26-552190 · Cát Lái', at: '12/11 15:18', by: 'Nguyễn Văn Tuấn', st: ok(), need: 3 },
+      { id: 'd9', type: 'Cost invoice', f: 'inv', name: 'Gate ticket 0281940 · Cát Lái', at: '12/11 12:58', by: 'Nguyễn Văn Tuấn', st: ok(), need: 3 },
+      { id: 'd6', type: 'Cost invoice', f: 'inv', name: 'ETC statement 11/2026 · 2 transactions', at: '13/11 02:00', by: 'Import ETC', st: ok(), need: 3 }
+    ],
+    map: {
+      start: { x: 250, y: 232, label: 'Thủ Đức yard' },
+      pts: [{ x: 402, y: 270, label: 'Depot Phước Long', pop: ['1 · Empty pickup', 'Arrived 07:10 · Departed 07:22', 'Stopped 12 min'] }, { x: 330, y: 62, label: 'Tân Uyên Industrial Park', pop: ['2 · Stuffing', 'Arrived 09:35 · Departed 10:13', 'Stopped 38 min'] }, { x: 566, y: 300, label: 'Cát Lái port', pop: ['3 · Drop at port', 'Arrived 13:00 · Dropped off 15:15', 'Port wait 2h15 (port congestion)'] }],
+      gsht: [['M250,232 C300,252 352,264 402,270', 0], ['M402,270 C424,226 392,196 366,150 S334,96 330,62', 0], ['M330,62 C352,84 380,100 396,122 C424,170 470,214 500,244 S544,290 566,300', 1]],
+      viol: { x: 396, y: 122, pop: ['Speeding · 12/11 11:02', '68 km/h (limit 60) on ĐT 746', 'Duration 40 s'] },
+      src: 'Source: GPS tracker (Bình Anh) · updated 12/11 16:02'
+    },
+    viol: [['12/11 11:02', 'Speeding', '68/60 km/h on ĐT 746, 40 s', 'Driver reminded (Lê Văn Hải)']],
+    lockTip: 'Locked 15/11/2026 10:24 by Trần Thị Mai (Accountant)', settledOn: '15/11/2026'
+  },
+  'CH-0471': {
+    id: 'CH-0471', route: 'VSIP 1 Industrial Park → Tân Uyên Industrial Park → Sóng Thần warehouse', container: false,
+    info: [['Customer', 'Bao bì Phương Nam · Nhựa Duy Tân'], ['Order', '<span class="code">DH-1141</span> (<span class="num">8.0 t</span>) · <span class="code">DH-1146</span> (<span class="num">5.0 t</span>)'], ['Type', 'General cargo · 2 orders combined'], ['Cargo', 'Carton packaging · plastic pellets'], ['Vehicle', '<span class="code">61C-245.18</span> · 15 t box truck'], ['Trailer', '—'], ['Driver', 'Trần Văn Hùng · <span class="num">0938 ••• 214</span>'], ['Waybill', '<span class="code">GVT-2611-0471</span> (issued <span class="num">12/11 07:05</span>)'], ['Cash advance', '<span class="num">1,000,000 ₫</span> (paid out)'], ['Load', '<span class="num">13.0 / 15.0 t</span>']],
+    stages: [
+      { k: 'Pickup', place: 'VSIP 1 Industrial Park', plan: '12/11 07:30', act: '07:42', diff: 12 },
+      { k: 'Delivery DH-1141', place: 'Tân Uyên Industrial Park (Bao bì Phương Nam warehouse)', plan: '12/11 09:00', act: '09:05', diff: 5, doc: 'POD', docId: 'e2' },
+      { k: 'Delivery DH-1146', place: 'Sóng Thần warehouse (Nhựa Duy Tân)', plan: '12/11 10:30', act: '10:52', diff: 22, doc: 'POD', docId: 'e3' }
+    ],
+    rev: [['Freight DH-1141', 1650000, 'Bao bì Phương Nam rate card · VSIP 1 → Tân Uyên · 8.0 t'], ['Freight DH-1146', 1050000, 'Nhựa Duy Tân rate card · VSIP 1 → Sóng Thần · 5.0 t']],
+    est: { fuel: 376800, toll: 60000, lift: 0, salary: 900000, other: 450000 },
+    estTip: { fuel: '<span class="formula">85 km × 22 l/100km × 20,150 ₫/l ≈ 376,800 ₫</span>', toll: 'ĐT 743 toll station · class 2 truck', lift: 'General cargo, no lift-on/lift-off', salary: 'Flat route pay for 2 combined delivery points = <span class="formula">900,000 ₫</span>', other: 'Handling at 2 delivery points: <span class="formula">250,000 + 200,000</span>' },
+    actTip: { fuel: '19 l refueled at VSIP fuel station, 12/11 07:20 · 85 km → <span class="formula">22.4 l/100km</span> (norm 22)' },
+    lines: [
+      { id: 'M1', src: 'phone', cat: 'fuel', type: 'Fuel', desc: '19 l · km 96,210', amt: 382850, doc: 'img', docId: 'e4', inv: ['Invoice 0019873 · VSIP fuel station', [['DO 0.05S diesel', '19 l'], ['Unit price', '20,150 ₫/l']], 382850] },
+      { id: 'M2', src: 'tray', cat: 'toll', type: 'Tolls', desc: 'ĐT 743 toll station · 1 pass', amt: 60000, doc: 'pdf', docId: 'e4' },
+      { id: 'M3', src: 'formula', cat: 'salary', type: 'Trip pay', desc: 'Flat pay for 2 combined delivery points', amt: 900000, doc: null },
+      { id: 'M4', src: 'phone', cat: 'other', type: 'Handling', desc: 'Bao bì Phương Nam warehouse', amt: 250000, doc: 'img', docId: 'e5', inv: ['Handling receipt 0412', [['Handling', '8.0 t']], 250000] },
+      { id: 'M5', src: 'phone', cat: 'other', type: 'Handling', desc: 'Sóng Thần warehouse', amt: 200000, doc: 'img', docId: 'e6', inv: ['Handling receipt 1187', [['Handling', '5.0 t']], 200000] }
+    ],
+    alloc: { dep: 250000, perKm: 6000, kmEst: 85, kmAct: 85 },
+    km: { total: 85, empty: 0, loaded: 85, stop: '1h20', stopNote: 'handling at 2 points', viol: 0 },
+    history: [['12/11 10:52', 'Trần Văn Hùng (App)', 'Complete trip', 'status', 0], ['12/11 09:05', 'Trần Văn Hùng (App)', 'Delivered DH-1141 · POD photo taken', 'doc', 0], ['12/11 07:05', 'System', 'Issued waybill GVT-2611-0471', 'doc', 0], ['11/11 17:10', 'Lê Văn Hải (Dispatcher)', 'Combined DH-1141 + DH-1146 into CH-0471', 'status', 0]],
+    docs: [
+      { id: 'e1', type: 'Waybill', f: 'gvt', name: 'GVT-2611-0471', at: '12/11 07:05', by: 'System', st: '<span class="badge b-success">' + icon('check') + 'Active</span>' },
+      { id: 'e2', type: 'POD', f: 'pod', name: 'Delivery receipt DH-1141', at: '12/11 09:05', by: 'Trần Văn Hùng', st: '<span class="badge b-success">' + icon('check') + 'Signed</span>' },
+      { id: 'e3', type: 'POD', f: 'pod', name: 'Delivery receipt DH-1146', at: '12/11 10:52', by: 'Trần Văn Hùng', st: '<span class="badge b-success">' + icon('check') + 'Signed</span>' },
+      { id: 'e4', type: 'Cost invoice', f: 'inv', name: 'Invoice 0019873 · VSIP fuel station', at: '12/11 07:21', by: 'Trần Văn Hùng', st: ok() },
+      { id: 'e5', type: 'Cost invoice', f: 'inv', name: 'Handling receipt 0412', at: '12/11 09:10', by: 'Trần Văn Hùng', st: ok() },
+      { id: 'e6', type: 'Cost invoice', f: 'inv', name: 'Handling receipt 1187', at: '12/11 10:55', by: 'Trần Văn Hùng', st: ok() }
+    ],
+    map: {
+      start: null,
+      pts: [{ x: 250, y: 250, label: 'VSIP 1 Industrial Park', pop: ['1 · Pickup', 'Arrived 07:30 · Departed 08:02', 'Stopped 32 min'] }, { x: 330, y: 62, label: 'Tân Uyên Industrial Park', pop: ['2 · Delivery DH-1141', 'Arrived 08:58 · Departed 09:20', 'Stopped 22 min'] }, { x: 200, y: 150, label: 'Sóng Thần warehouse', pop: ['3 · Delivery DH-1146', 'Arrived 10:30 · Departed 10:56', 'Stopped 26 min'] }],
+      gsht: [['M250,250 C280,200 300,120 330,62', 1], ['M330,62 C290,90 240,110 200,150', 1]],
+      viol: null, src: 'Source: GPS tracker (Bình Anh) · updated 12/11 11:04'
+    },
+    viol: [],
+    multi: true
+  }
+};
+function ok() { return '<span class="badge b-success">' + Shell.icon('check') + 'Valid</span>'; }
+
+/* ---------- State ---------- */
+let S;
+function reset(over) {
+  S = Object.assign({ trip: 'CH-0458', status: 'settled', tab: 'overview', mode: 'gross', unlocked: false, gsht: true, gshtError: false, histF: 'all', docF: 'All', docSel: 'd4', expand: null, pop: null, loading: false, noperm: false, noDocs: false, linkRevoked: false }, over || {});
+  T = JSON.parse(JSON.stringify(TRIPS[S.trip]));
+  if (S.status === 'running') { T.lines = T.lines.filter(l => ['L1', 'L2', 'L4', 'L6'].includes(l.id)); }
+  T.lines.forEach(l => l.ap = S.status === 'settled' ? 'ok' : S.status === 'running' ? 'wait' : (['L1', 'L5', 'L7', 'L8'].includes(l.id) ? 'wait' : 'ok'));
+}
+let T;
+const progress = () => S.status === 'running' ? 2 : ['accepted', 'assigned'].includes(S.status) ? 0 : 3;
+const settled = () => S.status === 'settled';
+const editable = () => !settled() || S.unlocked;
+
+function actByCat() { const a = { fuel: 0, toll: 0, lift: 0, salary: 0, other: 0 }; T.lines.forEach(l => a[l.cat] += +l.amt); return a; }
+function calc() {
+  const rev = T.rev.reduce((s, r) => s + r[1], 0);
+  const est = Object.values(T.est).reduce((s, v) => s + v, 0);
+  const actC = actByCat(); const act = Object.values(actC).reduce((s, v) => s + v, 0);
+  const a = T.alloc, fixE = a.kmEst * a.perKm, fixA = a.kmAct * a.perKm;
+  return { rev, est, actC, act, gE: rev - est, gA: rev - act, fixE, fixA, nE: rev - est - a.dep - fixE, nA: rev - act - a.dep - fixA };
+}
+
+/* ---------- Render ---------- */
+const page = document.getElementById('page');
+function render() {
+  hideTip();
+  if (S.noperm) { page.innerHTML = headerHtml(true) + `<div class="card"><div class="empty">${icon('lock')}<h3>You don't have permission to view this trip</h3><p>Trip CH-0458 belongs to the HCMC branch. Contact an admin to get access.</p></div></div>`; bindHeader(); return; }
+  page.innerHTML = headerHtml() + `<div id="alertSlot"></div>` + tabsHtml() + `<div class="tabpanel" id="panel" role="tabpanel"></div>`;
+  bindHeader(); renderPanel();
+}
+const inf = k => (T.info.find(x => x[0] === k) || [])[1];
+const isRun = () => S.status === 'running' || progress() === 0;
+function headerHtml(min) {
+  const st = FM.statusBadge(S.status);
+  const lock = settled() && !S.unlocked ? `<span class="badge b-neutral" tabindex="0" ${tip(T.lockTip)}>${icon('lock')}Costs locked</span>` : S.unlocked ? `<span class="badge b-warning">${icon('lock')}Unlocked</span>` : '';
+  const inc = T.id === 'CH-0458' && progress() === 3 ? `<button class="badge b-warning" style="border:0;cursor:pointer" id="incBadge" type="button">${icon('warn')}Incident: Stuck at port 2h15</button>` : '';
+  const fresh = S.gshtError ? `<span class="fresh stale"><span class="live" aria-hidden="true"></span>GPS tracker disconnected · using app milestones</span>` : `<span class="fresh"><span class="live" aria-hidden="true"></span>Updated 2 min ago · GPS tracker</span>`;
+  const pr = progress(), km = pr === 0 ? '0 km' : S.status === 'running' ? '62 / ~95 km' : `${T.km.total} km`;
+  const attrs = [['Customer', inf('Customer')], ['Order', inf('Order')], ['Vehicle', inf('Vehicle')], ['Driver', (inf('Driver') || '').split(' · ')[0]], T.container ? ['Container', `<span class="code">TCLU 4421087</span>`] : ['Load', inf('Load')], ['Distance', `<span class="num">${km}</span>`]].filter(a => a[1]);
+  return `<div class="ent-head">
+    <div style="min-width:0">
+      <div class="crumb">Operations / <a href="fm-08-dieu-phoi.html">Dispatch</a> / ${T.id}</div>
+      <h1><span class="code">${T.id}</span> · ${T.route}</h1>
+      ${min ? '' : `<div class="eh-meta">${st}${lock}${inc}${fresh}</div>`}
+    </div>
+    ${min ? '' : `<div class="actions">
+      <button class="btn btn-ghost" type="button" id="dlAll">${icon('download')}Print / Download documents</button>
+      <button class="btn btn-secondary" type="button" id="shareBtn">${icon('external')}Share tracking link</button>
+      ${S.status === 'done' ? `<a class="btn btn-primary" href="fm-22-quyet-toan.html">${icon('receipt')}Open settlement</a>` : ''}
+    </div>
+    <dl class="eh-attrs" aria-label="Key attributes">${attrs.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>`}
+  </div>`;
+}
+/* SummaryStrip của tab Chi phí & P&L: một số chính (lãi) + 3 ô phụ */
+function summaryHtml() {
+  if (S.loading) return `<section class="summary" aria-busy="true"><div class="sum-main"><div class="sum-main-text"><span class="sk" style="width:120px"></span><span class="sk" style="width:220px;height:36px"></span></div></div>${Array(3).fill('<div class="sum-item"><span class="sk" style="width:80px"></span><span class="sk" style="width:120px;height:24px"></span></div>').join('')}</section>`;
+  const c = calc(), run = isRun(), alloc = S.mode === 'alloc';
+  const pv = alloc ? (run ? c.nE : c.nA) : (run ? c.gE : c.gA);
+  const pe = alloc ? c.nE : c.gE;
+  const low = pv / c.rev * 100 < 5, dCost = c.act - c.est;
+  return `<section class="summary" aria-label="Trip P&L summary">
+    <div class="sum-main">
+      <div class="sum-main-text">
+        <span class="k">${alloc ? 'Profit after allocation' : 'Trip gross profit'}${run ? ' · estimate' : ''}</span> <span class="v ${pv < 0 ? 'neg' : ''}">${V(pv)}<small>₫</small></span> <span class="row">Margin <b class="num ${low ? 'neg' : ''}" style="${low ? '' : 'color:var(--fg-strong)'}">${P(pv, c.rev)}</b>${low ? `<span class="badge b-warning">${icon('warn')}Below 5% threshold</span>` : ''}</span>
+      </div>
+      ${run ? '' : `<div class="sum-side"><span>Estimate <b>${V(pe)} ₫</b></span><span class="delta ${pv - pe < 0 ? 'bad' : 'good'}">${pv - pe < 0 ? '▼' : '▲'} ${sgn(pv - pe)} ₫</span></div>`}
+    </div>
+    <button class="sum-item" type="button" data-scroll="rev"><span class="k">Revenue</span><span class="v">${V(c.rev)}<small>₫</small></span><span class="d">${T.rev.length} items · ${T.multi ? '2 orders' : '1 order'}</span></button>
+    <button class="sum-item" type="button" data-scroll="cost"><span class="k">Variable costs${run ? ' · estimate' : ''}</span><span class="v">${V(run ? c.est : c.act)}<small>₫</small></span><span class="d">${run ? 'Actuals are provisional' : `<span class="delta ${dCost > 0 ? 'bad' : 'good'}">${dCost > 0 ? '▲ ' : ''}${sgn(dCost)}</span> vs. estimate`}</span></button>
+    <button class="sum-item" type="button" data-go="journey"><span class="k">Distance</span><span class="v">${progress() === 0 ? '0' : S.status === 'running' ? '62' : T.km.total}<small>km</small></span><span class="d">${run ? (progress() === 0 ? 'not started' : 'in progress') + ' · expected 95 km' : `empty ${T.km.empty} · loaded ${T.km.loaded} km`}</span></button>
+  </section>`;
+}
+function tabsHtml() {
+  const n = S.noDocs ? 0 : T.docs.length;
+  return `<div class="tabs" role="tablist" aria-label="Trip sections">${[['overview', 'Overview & legs'], ['journey', 'Route'], ['pl', 'Costs & P&L'], ['docs', `Documents (${n})`]].map(([k, l]) => `<button role="tab" type="button" data-tab="${k}" aria-selected="${S.tab === k}">${l}</button>`).join('')}</div>`;
+}
+function bindHeader() {
+  const sb = document.getElementById('shareBtn'); if (sb) sb.onclick = openShare;
+  const dl = document.getElementById('dlAll'); if (dl) dl.onclick = () => toast(`Generating CH-0458_chung-tu.zip (${T.docs.length} files)…`);
+  const ib = document.getElementById('incBadge'); if (ib) ib.onclick = () => { setTab('overview'); const r = document.getElementById('stage-3'); if (r) { r.scrollIntoView({ block: 'center' }); r.classList.add('selected'); } };
+  page.querySelectorAll('[data-go]').forEach(b => b.onclick = () => setTab(b.dataset.go));
+  page.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => setTab(b.dataset.tab));
+}
+function setTab(t) {
+  S.tab = t; S.pop = null;
+  page.querySelectorAll('[data-tab]').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === t));
+  try { const u = new URL(location.href); u.searchParams.set('tab', t); history.replaceState(null, '', u.pathname + u.search + location.hash); } catch (e) {}
+  renderPanel();
+}
+function renderPanel() {
+  const p = document.getElementById('panel'); if (!p) return;
+  document.getElementById('alertSlot').innerHTML = '';
+  ({ overview: renderOverview, journey: renderJourney, pl: renderPL, docs: renderDocs })[S.tab](p);
+}
+
+/* ---------- Bản đồ lộ trình (dùng chung cho Tổng quan & Hành trình) ---------- */
+const noGsht = () => !S.gsht || S.gshtError;
+function mapParts(full) {
+  const m = T.map, pr = progress(), noG = noGsht();
+  /* Đường nền vẽ tràn ra ngoài viewBox để bản đồ giãn theo chiều cao vẫn kín khung */
+  const roads = `<path d="M-400,360 L0,330 C160,300 260,330 420,250 S640,180 720,200 L1120,240" stroke="var(--info-soft)" stroke-width="16" fill="none"/>
+    <text x="640" y="176" font-size="11" fill="var(--fg-subtle)">Đồng Nai River</text>
+    <g stroke="var(--border-strong)" stroke-width="3" fill="none" opacity=".7"><path d="M60,-300 L120,40 C200,90 240,170 250,232 S300,330 360,380 L430,720"/><path d="M330,-300 L330,62 C360,100 400,130 420,180 S520,280 600,330 L720,360 L1120,420"/><path d="M-400,190 L0,200 C100,210 200,220 250,232 L402,270 L560,300 L1120,330"/><path d="M200,150 C150,130 80,120 0,110 L-400,80"/></g>
+    <g font-size="11" fill="var(--fg-subtle)"><text x="140" y="70">QL13</text><text x="446" y="140">ĐT 746</text><text x="80" y="198">Hà Nội Highway</text><text x="600" y="352">Ring Road 2</text></g>`;
+  const segs = noG ? (() => { const pts = [m.start, ...m.pts].filter(Boolean); const out = []; for (let i = 1; i < pts.length; i++) out.push([`M${pts[i - 1].x},${pts[i - 1].y} L${pts[i].x},${pts[i].y}`, T.id === 'CH-0458' ? (i === pts.length - 1 ? 1 : 0) : 1]); return out; })() : m.gsht;
+  const segEls = segs.map(([d, loaded], i) => { const future = pr < 3 && i === segs.length - 1; return `<path d="${d}" fill="none" stroke="${future ? 'var(--fg-subtle)' : loaded ? 'var(--primary)' : 'var(--neutral-solid)'}" stroke-width="${loaded && !future ? 4 : 3}" ${!loaded || future ? `stroke-dasharray="${future ? '2 6' : '8 6'}"` : ''} stroke-linecap="round"/>`; }).join('');
+  const start = m.start ? `<g><rect x="${m.start.x - 6}" y="${m.start.y - 6}" width="12" height="12" rx="2" fill="var(--surface)" stroke="var(--neutral-solid)" stroke-width="2"/><text x="${m.start.x - 10}" y="${m.start.y + 22}" font-size="11.5" fill="var(--fg-muted)" text-anchor="middle">${m.start.label}</text></g>` : '';
+  const pts = m.pts.map((pt, i) => { const done = i < pr; return `<g class="mk ${S.pop === 'p' + i ? 'on' : ''}" data-pop="p${i}" tabindex="0" role="button" aria-label="Leg ${i + 1}: ${pt.label}"><circle cx="${pt.x}" cy="${pt.y}" r="12" fill="${done ? 'var(--primary)' : 'var(--surface)'}" stroke="${done ? 'var(--surface)' : 'var(--fg-subtle)'}" stroke-width="2"/><text x="${pt.x}" y="${pt.y + 4}" font-size="12" font-weight="700" text-anchor="middle" fill="${done ? 'var(--on-primary)' : 'var(--fg-muted)'}">${i + 1}</text><text x="${pt.x + 18}" y="${pt.y + 4}" font-size="12" font-weight="600" fill="var(--fg)">${pt.label}</text></g>`; }).join('');
+  const vio = m.viol && !noG && pr === 3 ? `<g class="mk ${S.pop === 'v' ? 'on' : ''}" data-pop="v" tabindex="0" role="button" aria-label="Speeding violation"><circle cx="${m.viol.x}" cy="${m.viol.y}" r="11" fill="var(--warning-solid)" stroke="var(--surface)" stroke-width="2"/><path d="M${m.viol.x},${m.viol.y - 5} v6 M${m.viol.x},${m.viol.y + 4} v.5" stroke="var(--on-primary)" stroke-width="2.4" stroke-linecap="round"/></g>` : '';
+  const popData = S.pop === 'v' && m.viol ? [m.viol.x, m.viol.y, m.viol.pop] : S.pop && S.pop[0] === 'p' ? [m.pts[+S.pop.slice(1)].x, m.pts[+S.pop.slice(1)].y, m.pts[+S.pop.slice(1)].pop] : null;
+  const pop = popData ? `<div class="pop" data-x="${popData[0]}" data-y="${popData[1]}"><b>${popData[2][0]}</b>${popData[2].slice(1).join('<br>')}</div>` : '';
+  const wrap = `<div class="mapwrap"><svg viewBox="0 0 720 380" role="img" aria-label="Route ${T.route}">${roads}${segEls}${start}${pts}${vio}</svg>${pop}</div>`;
+  const legend = `<div class="legend"><span><svg width="26" height="8"><path d="M1,4 H25" stroke="var(--primary)" stroke-width="4"/></svg>Loaded</span><span><svg width="26" height="8"><path d="M1,4 H25" stroke="var(--neutral-solid)" stroke-width="3" stroke-dasharray="6 4"/></svg>Empty</span>${pr < 3 ? `<span><svg width="26" height="8"><path d="M1,4 H25" stroke="var(--fg-subtle)" stroke-width="3" stroke-dasharray="2 5"/></svg>Upcoming</span>` : ''}<span><svg width="14" height="14"><circle cx="7" cy="7" r="6" fill="var(--warning-solid)"/></svg>Violation</span>${full ? `<span style="margin-left:auto">Locations shown only for the trip duration · click a point to see time, speed and stop duration</span>` : `<span style="margin-left:auto">Click a point to see arrival, departure and stop duration</span>`}</div>`;
+  const src = noG ? 'App milestones · no detailed route' : m.src.replace('Source: ', '');
+  return { wrap, legend, src };
+}
+/* Đặt popup theo toạ độ SVG thật (bản đồ giãn theo khung nên không dùng % cố định) */
+function placePop(root) {
+  const pop = root.querySelector('.pop'); if (!pop) return;
+  const wrap = pop.parentElement, svg = wrap.querySelector('svg'), m = svg.getScreenCTM(); if (!m) return;
+  const pt = svg.createSVGPoint(); pt.x = +pop.dataset.x; pt.y = +pop.dataset.y;
+  const q = pt.matrixTransform(m), r = wrap.getBoundingClientRect();
+  pop.style.left = (q.x - r.left) + 'px'; pop.style.top = (q.y - r.top) + 'px';
+}
+addEventListener('resize', () => { const p = document.getElementById('panel'); if (p) placePop(p); });
+function bindMap(p, rerender) {
+  p.querySelectorAll('[data-pop]').forEach(g => { const f = () => { S.pop = S.pop === g.dataset.pop ? null : g.dataset.pop; rerender(); }; g.onclick = f; g.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); f(); } }; });
+  placePop(p);
+}
+const mapCard = (label, full) => { const mp = mapParts(full); return `<section class="card map-card" aria-label="${label}"><div class="card-title"><h2>Route</h2><span class="meta ell" title="${mp.src}">${mp.src}</span></div>${mp.wrap}${mp.legend}</section>`; };
+const mapSkeleton = `<section class="card"><div class="card-title"><span class="sk" style="width:120px"></span></div><div class="mapwrap"><span class="sk" style="position:absolute;inset:0;height:auto;border-radius:0"></span></div><div class="legend"><span class="sk" style="width:240px"></span></div></section>`;
+
+/* ---------- Tab: Tổng quan & chặng ---------- */
+const dur = m => m < 60 ? `+${m} min` : `+${Math.floor(m / 60)}h${String(m % 60).padStart(2, '0')}`;
+function nowCard() {
+  const pr = progress(), n = T.stages.length, c = calc(), run = isRun();
+  let title, sub;
+  if (pr === 0) { title = 'Not started'; sub = `${T.stages[0].k} · ${T.stages[0].place} · planned ${T.stages[0].plan}`; }
+  else if (pr < n) { const s = T.stages[pr]; title = `Heading to: ${s.k}`; sub = `${s.place} · planned ${s.plan}`; }
+  else { const s = T.stages[n - 1]; title = `Completed · ${s.k} at <span class="num">${s.act}</span>`; sub = s.diff > 30 ? `<span class="late">${icon('clock')}${dur(s.diff).slice(1)} late vs. plan</span>` : `${s.place} · on schedule`; }
+  const gp = run ? c.gE : c.gA, low = gp / c.rev * 100 < 5;
+  return `<section class="card" aria-label="Trip status">
+    <div class="card-title"><h2>Status</h2><span class="meta num">${pr}/${n} milestones</span></div>
+    <div class="now">
+      <div class="steps" aria-hidden="true">${T.stages.map((s, i) => `<i class="${i < pr ? 'done' : i === pr && S.status === 'running' ? 'cur' : ''}"></i>`).join('')}</div>
+      <div class="now-line"><b>${title}</b><span>${sub}</span></div>
+    </div>
+    <div class="mini-pl">
+      <div class="mrow"><span class="k">Revenue</span><span class="v">${V(c.rev)} ₫</span></div>
+      <div class="mrow"><span class="k">Variable costs${run ? ' · estimate' : ''}</span><span class="v">${V(run ? c.est : c.act)} ₫</span></div>
+      <div class="mrow hero"><span class="k">Gross profit${run ? ' · estimate' : ''}</span><span class="v ${gp < 0 ? 'neg' : ''}">${V(gp)} ₫<small class="${low ? 'neg' : ''}">${P(gp, c.rev)}</small></span></div>
+    </div>
+    <div class="q-foot"><button class="linkbtn" type="button" data-go="pl">View costs &amp; P&amp;L →</button></div>
+  </section>`;
+}
+function renderOverview(p) {
+  if (S.loading) { p.innerHTML = `<div class="ov"><div class="col"><section class="card card-body stack">${Array(5).fill('<span class="sk"></span>').join('')}</section><section class="card card-body stack grow">${Array(8).fill('<span class="sk"></span>').join('')}</section></div>${mapSkeleton}</div><section class="card"><div class="card-head"><span class="sk" style="width:160px"></span></div><table class="grid"><tbody>${Array(3).fill('<tr>' + Array(7).fill('<td><span class="sk" style="width:80%"></span></td>').join('') + '</tr>').join('')}</tbody></table></section>`; return; }
+  const pr = progress();
+  const cd = T.container && pr < 3 ? `<span class="badge b-warning" ${tip('Empty return due 13/11 07:00 per the delivery order from shipping line ONE')} tabindex="0">${icon('clock')}Empty return due: 18 h left</span>` : '';
+  const histAll = T.history.filter(h => h[4] <= pr && (S.histF === 'all' || h[3] === S.histF)), hist = S.histMore ? histAll : histAll.slice(0, 3);
+  p.innerHTML = `<div class="ov">
+    <div class="col">
+      ${nowCard()}
+      <section class="card grow" aria-label="Trip info">
+        <div class="card-title"><h2>Trip info</h2></div>
+        <dl class="dl">${T.info.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>
+      </section>
+    </div>
+    ${mapCard('Route map', false)}
+  </div>
+  <div class="ov">
+    <section class="card" aria-label="Trip history">
+      <div class="card-title"><h2>Trip history</h2></div>
+      <div class="seg-pad"><div class="seg" role="group" aria-label="Filter history">${[['all', 'All'], ['status', 'Status'], ['cost', 'Costs'], ['doc', 'Documents']].map(([k, l]) => `<button type="button" data-hf="${k}" aria-pressed="${S.histF === k}">${l}</button>`).join('')}</div></div>
+      <ul class="hist">${hist.length ? hist.map(h => `<li class="k-${h[3]}"><div class="when num">${h[0]} · ${h[1]}</div>${h[2]}</li>`).join('') : '<li class="muted">No items.</li>'}</ul>
+      ${histAll.length > 3 ? `<div class="q-foot"><button class="linkbtn" type="button" id="histMore">${S.histMore ? 'Collapse' : `View all (${histAll.length})`}</button></div>` : ''}
+    </section>
+    <section class="card stages" aria-label="Legs and milestones">
+      <div class="card-head"><h2>Legs &amp; milestones</h2><span class="muted sm num">${pr}/${T.stages.length} milestones recorded</span><div class="tools">${cd}</div></div>
+      <div class="grid-wrap"><table class="grid">
+        <thead><tr><th>Legs</th><th>Location</th><th class="right">Planned</th><th class="right">Actual</th><th class="right">Variance</th><th>Source</th><th>Documents</th></tr></thead>
+        <tbody>${T.stages.map((s, i) => { const done = i < pr; const late = done && s.diff > 30;
+          return `<tr id="stage-${i + 1}">
+            <td><span class="stage-n ${done ? '' : 'pending'}">${i + 1}</span>${s.k}</td>
+            <td style="white-space:normal;min-width:120px">${s.place}</td>
+            <td class="right num">${s.plan}</td>
+            <td class="right num">${done ? s.act : '<span class="muted">—</span>'}</td>
+            <td class="right num">${!done ? '<span class="muted">—</span>' : late ? `<span class="late">${icon('clock')}${dur(s.diff)}</span>` : `<span class="muted">${dur(s.diff)}</span>`}</td>
+            <td>${!done ? `<span class="muted">${i === pr ? 'En route' : 'Not reached'}</span>` : `App${s.sync ? ` <span class="badge b-warning" tabindex="0" style="height:20px;padding:0 5px;vertical-align:1px" aria-label="Sync delayed" ${tip('Sync delayed · ' + s.sync)}>${icon('refresh')}</span>` : ''}`}</td>
+            <td>${done && s.doc ? `<button class="linkbtn" type="button" data-doc="${s.docId}">${icon('camera')}${s.doc} <span class="pos">${icon('check')}</span></button>` : '<span class="muted">—</span>'}</td>
+          </tr>`; }).join('')}</tbody></table></div>
+      <div class="q-foot">${icon('info')}Actual times are when the driver tapped in the app · variances &gt; 30 min are flagged</div>
+    </section>
+  </div>`;
+  p.querySelectorAll('[data-hf]').forEach(b => b.onclick = () => { S.histF = b.dataset.hf; renderOverview(p); });
+  const hm = document.getElementById('histMore'); if (hm) hm.onclick = () => { S.histMore = !S.histMore; renderOverview(p); };
+  p.querySelectorAll('[data-doc]').forEach(b => b.onclick = () => { S.docSel = b.dataset.doc; S.docF = 'All'; setTab('docs'); });
+  p.querySelectorAll('[data-go]').forEach(b => b.onclick = () => setTab(b.dataset.go));
+  bindMap(p, () => renderOverview(p));
+}
+
+/* ---------- Tab: Hành trình ---------- */
+function renderJourney(p) {
+  const slot = document.getElementById('alertSlot');
+  if (S.gshtError) slot.innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Couldn't load the route from the GPS tracker (Bình Anh). Showing milestones from the app.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="retry">${icon('refresh')}Retry</button></div></div>`;
+  const noG = noGsht();
+  if (S.loading) { p.innerHTML = `<div class="ov"><div class="col"><section class="card card-body stack grow">${Array(6).fill('<span class="sk"></span>').join('')}</section></div>${mapSkeleton}</div>`; return; }
+  const pr = progress(), k = T.km, hasV = T.viol.length && pr === 3;
+  p.innerHTML = `<div class="alert alert-info">${icon('info')}<div>You're viewing location data. This view is recorded in the audit log.</div></div>
+  <div class="ov">
+    <div class="col">
+      <section class="card" aria-label="Journey stats">
+        <div class="card-title"><h2>Journey stats</h2></div>
+        <div class="stats">
+          <div class="stat"><span class="k">Loaded km</span><span class="v">${pr < 3 ? '21' : k.loaded}</span></div>
+          <div class="stat"><span class="k">Empty km</span><span class="v">${noG ? '<span style="font:500 13px var(--font-body);color:var(--fg-muted)">Not enough data</span>' : `${k.empty}<small>${Math.round(k.empty / k.total * 100)}% of total distance</small>`}</span></div>
+          <div class="stat"><span class="k">Stop / wait time</span><span class="v">${pr < 3 ? '50 min' : k.stop}<small>${pr < 3 ? 'empty pickup 12 min · stuffing 38 min' : k.stopNote}</small></span></div>
+          <div class="stat"><span class="k">Violations</span><span class="v">${pr === 3 ? k.viol : 0}${k.viol && pr === 3 ? '<small>synced with the safety log</small>' : ''}</span></div>
+        </div>
+      </section>
+      <section class="card grow" aria-label="Violations on this trip">
+        <div class="card-title"><h2>Violations on this trip</h2>${hasV ? `<span class="meta"><span class="count-pill num">${T.viol.length}</span></span>` : ''}</div>
+        ${hasV ? `<ul class="vlist">${T.viol.map(v => `<li class="vi ${S.pop === 'v' ? 'selected' : ''}" data-vrow tabindex="0" role="button"><span class="sev" aria-hidden="true"></span><div><b>${v[1]} · <span class="num">${v[0]}</span></b><span class="d">${v[2]}</span><span class="d"><span class="pos">${icon('check')}</span> ${v[3]}</span></div></li>`).join('')}</ul>` : `<p class="muted sm" style="padding:6px 18px 16px;margin:0">No violations on this trip.</p>`}
+        ${hasV ? `<div class="q-foot">Click a violation to see its location on the map</div>` : ''}
+      </section>
+    </div>
+    ${mapCard('Journey map', true)}
+  </div>`;
+  bindMap(p, () => renderJourney(p));
+  p.querySelectorAll('[data-vrow]').forEach(r => { r.onclick = () => { S.pop = 'v'; renderJourney(p); }; r.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); r.click(); } }; });
+  const rt = document.getElementById('retry'); if (rt) rt.onclick = () => { S.gshtError = false; S.gsht = true; render(); toast('GPS tracker route reloaded'); };
+}
+
+/* ---------- Tab: Chi phí & P&L ---------- */
+const AP = { ok: ['b-success', 'check', 'Approved'], wait: ['b-neutral', 'clock', 'Pending approval'] };
+function renderPL(p) {
+  const slot = document.getElementById('alertSlot');
+  const run = S.status === 'running' || progress() === 0;
+  if (S.loading) { p.innerHTML = summaryHtml() + `<div class="card card-body stack">${Array(8).fill('<span class="sk"></span>').join('')}</div>`; return; }
+  let lockAlert = '';
+  if (settled() && !S.unlocked) lockAlert = `<div class="alert alert-info">${icon('lock')}<div>Trip settled on ${T.settledOn || '15/11/2026'}. Costs and revenue are locked.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="unlockBtn">Unlock to edit</button></div></div>`;
+  else if (S.unlocked) lockAlert = `<div class="alert alert-warning" role="status">${icon('warn')}<div>Unlocked by Phạm Thu Hà — remember to lock it again after editing.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="relockBtn">${icon('lock')}Lock again</button></div></div>`;
+  else if (S.status === 'done') lockAlert = `<div class="alert alert-warning">${icon('warn')}<div>Trip not settled yet. Actual figures may change.</div><div class="alert-actions"><a class="btn btn-secondary btn-sm" href="fm-22-quyet-toan.html">Open settlement</a></div></div>`;
+  else if (run) lockAlert = `<div class="alert alert-info">${icon('info')}<div>Trip in progress. The Actual column is <b>provisional</b>, based on recorded cost lines not yet approved.</div></div>`;
+  const multi = T.multi ? `<div class="alert alert-info">${icon('info')}<div>This trip carries 2 orders. Trip costs are allocated by weight × km: <b>DH-1141</b> (8.0 t × 42 km) <b class="num">61%</b> · <b>DH-1146</b> (5.0 t × 43 km) <b class="num">39%</b>.</div><div class="alert-actions"><button class="btn btn-ghost btn-sm" type="button" ${tip(`<table class="mini" style="color:inherit"><tr><td>DH-1141</td><td style="text-align:right"><span class="formula">8.0 t × 42 km = 336</span></td><td style="text-align:right;padding-left:10px!important"><span class="formula">61%</span></td></tr><tr><td>DH-1146</td><td style="text-align:right"><span class="formula">5.0 t × 43 km = 215</span></td><td style="text-align:right;padding-left:10px!important"><span class="formula">39%</span></td></tr><tr><td>Total</td><td style="text-align:right"><span class="formula">551</span></td><td></td></tr></table>Actual variable costs ${V(calc().act)} ₫ → DH-1141 ${V(Math.round(calc().act * 336 / 551))} ₫ · DH-1146 ${V(calc().act - Math.round(calc().act * 336 / 551))} ₫`)}>View calculation</button></div></div>` : '';
+  const c = calc(), alloc = S.mode === 'alloc';
+  const actLbl = run ? 'Actual (provisional)' : 'Actual';
+  const row = (label, e, a, o) => {
+    o = o || {}; const d = a - e; const big = o.cost && Math.abs(d) >= 100000 && (e === 0 || Math.abs(d) / e >= .1);
+    const dPct = e ? ` (${d > 0 ? '+' : '−'}${Math.round(Math.abs(d / e * 100))}%)` : '';
+    const dCls = d === 0 ? 'muted' : (o.cost ? (d > 0 ? 'neg' : 'pos') : (d < 0 ? 'neg' : 'pos'));
+    const aCell = o.cat ? `<button class="actbtn num" type="button" data-exp="${o.cat}" aria-expanded="${S.expand === o.cat}" ${tip((T.actTip && T.actTip[o.cat]) || `${T.lines.filter(l => l.cat === o.cat).length} cost lines · click to view`)}>${V(a)}</button>` : `<span class="cellnum" tabindex="0" ${tip(o.aTip || o.eTip || label)}>${V(a)}</span>`;
+    return `<tr class="${o.cls || ''} ${big ? 'hl' : ''}"><td>${big ? '<span class="up" aria-label="Over estimate">▲</span>' : ''}${label}${o.badge || ''}</td>
+      <td>${o.cat === 'fuel' ? `<span class="muted" style="vertical-align:-3px;margin-right:4px">${icon('info')}</span>` : ''}<span class="cellnum" tabindex="0" ${tip(o.eTip || 'Estimate at trip creation')}>${V(e)}</span>${o.eP ? ` <span class="muted">(${o.eP})</span>` : ''}</td>
+      <td>${aCell}${o.aP ? ` <span class="${o.aPcls || 'muted'}">(${o.aP})</span>` : ''}</td>
+      <td class="${dCls}">${sgn(d)}${o.cost && d && e && o.cls !== 'sub' ? dPct : ''}</td></tr>` +
+      (o.cat && S.expand === o.cat ? `<tr class="expand"><td colspan="4"><table class="mini">${T.lines.filter(l => l.cat === o.cat).map(l => `<tr><td><span class="src">${icon(SRC[l.src][0])}${SRC[l.src][1]}</span> · ${l.desc}</td><td style="text-align:right" class="num">${V(l.amt)} ₫</td></tr>`).join('') || '<tr><td class="muted">No cost lines yet.</td></tr>'}</table></td></tr>` : '');
+  };
+  const nLow = (run ? c.nE : c.nA) / c.rev * 100 < 5;
+  const gLow = (run ? c.gE : c.gA) / c.rev * 100 < 5;
+  const lowBadge = ` <span class="badge b-warning" style="margin-left:6px">${icon('warn')}Margin below 5%</span>`;
+  const body = `
+    <tr class="grp" id="pl-rev"><td colspan="4">Revenue</td></tr>
+    ${T.rev.map(r => row(r[0], r[1], r[1], { eTip: r[2], aTip: r[2] })).join('')}
+    ${row('Total revenue', c.rev, c.rev, { cls: 'sub', eTip: T.rev.map(r => `${r[0]} <span class="formula">${V(r[1])}</span>`).join(' + ') + ` = <span class="formula">${V(c.rev)} ₫</span>` })}
+    <tr class="grp" id="pl-cost"><td colspan="4">Variable costs</td></tr>
+    ${CATS.map(([k, l]) => row(l, T.est[k], c.actC[k], { cost: 1, cat: k, eTip: T.estTip[k] })).join('')}
+    ${row('Total variable costs', c.est, c.act, { cost: 1, cls: 'sub', eTip: 'Fuel + tolls + lift-on/lift-off + trip pay + handling & other', aTip: `Total of ${T.lines.length} cost lines = <span class="formula">${V(c.act)} ₫</span>` })}
+    ${row('Trip gross profit', c.gE, c.gA, { cls: alloc ? 'sub' : 'res', eP: P(c.gE, c.rev), aP: P(c.gA, c.rev), eTip: `Revenue <span class="formula">${V(c.rev)}</span> − variable costs <span class="formula">${V(c.est)}</span> = <span class="formula">${V(c.gE)} ₫</span>`, aTip: `Revenue <span class="formula">${V(c.rev)}</span> − variable costs <span class="formula">${V(c.act)}</span> = <span class="formula">${V(c.gA)} ₫</span>`, badge: !alloc && gLow ? lowBadge : '' })}
+    ${alloc ? `<tr class="grp"><td colspan="4">Allocation</td></tr>
+      ${row('Vehicle & trailer depreciation', T.alloc.dep, T.alloc.dep, { cost: 1, eTip: 'Depreciation/day of tractor unit + trailer × 1 day (default value)' })}
+      ${row(`Fixed costs (${V(T.alloc.perKm)} ₫/km)`, c.fixE, c.fixA, { cost: 1, eTip: `<span class="formula">${T.alloc.kmEst} km × ${V(T.alloc.perKm)} ₫/km = ${V(c.fixE)} ₫</span>`, aTip: `<span class="formula">${T.alloc.kmAct} km × ${V(T.alloc.perKm)} ₫/km = ${V(c.fixA)} ₫</span> (default value)` })}
+      ${row('Profit after allocation', c.nE, c.nA, { cls: 'res', eP: P(c.nE, c.rev), aP: P(c.nA, c.rev), aPcls: nLow ? 'neg' : 'muted', eTip: `Gross profit <span class="formula">${V(c.gE)}</span> − depreciation <span class="formula">${V(T.alloc.dep)}</span> − fixed <span class="formula">${V(c.fixE)}</span>`, aTip: `Gross profit <span class="formula">${V(c.gA)}</span> − depreciation <span class="formula">${V(T.alloc.dep)}</span> − fixed <span class="formula">${V(c.fixA)}</span> = <span class="formula">${V(c.nA)} ₫</span>`, badge: nLow ? lowBadge : '' })}` : ''}`;
+  const ed = editable() && !run;
+  p.innerHTML = `${summaryHtml()}${lockAlert}${multi}
+  <section class="card" aria-label="Trip profit & loss">
+    <div class="card-head pl-toolbar">
+      <h2>Trip profit & loss</h2>
+      <div class="seg" role="group" aria-label="Profit view"><button type="button" data-mode="gross" aria-pressed="${!alloc}">Trip gross profit</button><button type="button" data-mode="alloc" aria-pressed="${alloc}">Profit after allocation</button></div>
+      <span class="badge b-warning" tabindex="0" style="margin-left:auto" ${tip('Fixed cost/km and depreciation/day haven\'t been adjusted yet. Profit after allocation may not reflect actual figures.')}>${icon('info')}Using default values — <a ${NA} style="color:inherit;text-decoration:underline">Update</a></span>
+    </div>
+    <div class="grid-wrap"><table class="pl"><colgroup><col class="c1"><col><col><col></colgroup>
+      <thead><tr><th>Item</th><th>Estimate</th><th>${actLbl}</th><th>Variance</th></tr></thead>
+      <tbody>${body}</tbody></table></div>
+    <div class="legend"><span><span class="up">▲</span> Variance ≥ 10% and ≥ 100,000 ₫ vs. estimate</span><span>Amounts in ₫ · hover a number to see how it's calculated · click an Actual number to see its cost lines</span></div>
+  </section>
+  <section class="card" aria-label="Cost lines">
+    <div class="card-head"><h2>Cost lines <span class="muted num">(${T.lines.length})</span></h2><div class="tools">${ed ? `<button class="btn btn-secondary btn-sm" type="button" id="addCost">${icon('plus')}Add cost</button>` : ''}</div></div>
+    <div class="grid-wrap"><table class="grid"><thead><tr><th>Source</th><th>Type</th><th>Description</th><th class="right">Amount (₫)</th><th>Documents</th><th>Approval status</th></tr></thead>
+      <tbody>${T.lines.map(l => `<tr data-line="${l.id}">
+        <td><span class="src">${icon(SRC[l.src][0])}${SRC[l.src][1]}</span></td><td>${l.type}</td><td style="white-space:normal">${l.desc}</td>
+        <td class="right num">${S.unlocked && l.src !== 'formula' ? `<input class="input amt-input num" value="${V(l.amt)}" data-amt="${l.id}" aria-label="Amount ${l.desc}">` : V(l.amt)}</td>
+        <td>${l.doc ? `<button class="docbtn" type="button" data-view="${l.id}" aria-label="View document ${l.desc}">${icon(l.doc === 'img' ? 'camera' : 'doc')}${l.doc === 'img' ? 'Photo' : 'PDF'}</button>` : '<span class="muted">—</span>'}</td>
+        <td><span class="badge ${AP[l.ap][0]}">${icon(AP[l.ap][1])}${AP[l.ap][2]}</span></td></tr>`).join('')}</tbody>
+      <tfoot><tr><td colspan="3">Total</td><td class="right num">${V(c.act)}</td><td colspan="2"></td></tr></tfoot></table></div>
+  </section>`;
+  p.querySelectorAll('[data-mode]').forEach(b => b.onclick = () => { S.mode = b.dataset.mode; renderPL(p); });
+  p.querySelectorAll('[data-exp]').forEach(b => b.onclick = () => { S.expand = S.expand === b.dataset.exp ? null : b.dataset.exp; renderPL(p); });
+  p.querySelectorAll('[data-view]').forEach(b => b.onclick = () => openDocViewer(b.dataset.view));
+  p.querySelectorAll('[data-amt]').forEach(inp => inp.onchange = () => { const l = T.lines.find(x => x.id === inp.dataset.amt); const v = +inp.value.replace(/\D/g, ''); if (!isNaN(v)) { l.amt = v; renderPL(p); toast(`Updated ${l.desc}: ${V(v)} ₫`); } });
+  p.querySelectorAll('[data-go]').forEach(b => b.onclick = () => setTab(b.dataset.go));
+  p.querySelectorAll('[data-scroll]').forEach(b => b.onclick = () => { const r = document.getElementById('pl-' + b.dataset.scroll); if (r) r.scrollIntoView({ block: 'start', behavior: 'smooth' }); });
+  const ub = document.getElementById('unlockBtn'); if (ub) ub.onclick = openUnlock;
+  const rl = document.getElementById('relockBtn'); if (rl) rl.onclick = () => { S.unlocked = false; render(); toast('Trip costs locked again'); };
+  const ac = document.getElementById('addCost'); if (ac) ac.onclick = () => { T.lines.push({ id: 'N' + T.lines.length, src: 'pen', cat: 'other', type: 'Other', desc: 'New manual line', amt: 0, doc: null, ap: 'wait' }); renderPL(p); const ins = p.querySelectorAll('[data-amt]'); if (ins.length) ins[ins.length - 1].focus(); else toast('Manual line added'); };
+}
+
+/* ---------- Tab: Chứng từ ---------- */
+function paperHtml(d, line) {
+  if (line && line.inv) return `<h4>${line.inv[0].split(' · ')[1] || 'Invoices'}</h4><div class="muted" style="text-align:center;margin-bottom:6px">${line.inv[0].split(' · ')[0]}</div>${line.inv[1].map(([a, b]) => `<div class="ln"><span>${a}</span><span class="num">${b}</span></div>`).join('')}<div class="ln tot"><span>Total</span><span class="num">${V(line.inv[2])} ₫</span></div><div class="sig"><span>Buyer: Transport Co.</span><span>Paid</span></div>`;
+  if (!d) return '';
+  if (d.f === 'pod') return `<h4>Delivery receipt</h4><div class="ln"><span>Trip</span><span class="code">${T.id}</span></div><div class="ln"><span>Receiver</span><span>${T.id === 'CH-0458' ? 'Tân Cảng Logistics' : d.name.slice(-7)}</span></div><div class="ln"><span>Cargo</span><span class="num">${T.id === 'CH-0458' ? "1×40' · 24.5 t" : 'complete, packaging intact'}</span></div><div class="ln"><span>Delivery time</span><span class="num">${d.at}</span></div><div class="sig"><span>Delivered by</span><span>Received by</span></div><svg viewBox="0 0 220 40" width="100%" height="40" aria-label="Signature"><path d="M8,30 C20,8 30,34 42,18 S60,26 70,14" stroke="var(--fg-muted)" fill="none" stroke-width="1.5"/><path d="M140,28 C150,6 162,32 172,16 S190,30 206,12" stroke="var(--primary)" fill="none" stroke-width="1.5"/></svg>`;
+  if (d.f === 'gvt') return `<h4>Waybill</h4><div class="muted" style="text-align:center;margin-bottom:6px" class="code">${d.name}</div><div class="ln"><span>Vehicle</span><span class="code">${T.id === 'CH-0458' ? '51C-123.45' : '61C-245.18'}</span></div><div class="ln"><span>Driver</span><span>${T.id === 'CH-0458' ? 'Nguyễn Văn Tuấn' : 'Trần Văn Hùng'}</span></div><div class="ln"><span>Route</span><span>${T.route.split(' → ')[0]} →</span></div><div class="ln"><span>Issued</span><span class="num">${d.at}</span></div><div class="sig"><span>Lookup QR code</span><span>System</span></div>`;
+  if (d.f === 'eir') return `<h4>EIR</h4><div class="ln"><span>Container</span><span class="code">TCLU 4421087</span></div><div class="ln"><span>Type</span><span>40' HC</span></div><div class="ln"><span>Condition</span><span>Good, no damage</span></div><div class="ln"><span>Time</span><span class="num">${d.at}</span></div><div class="sig"><span>Driver</span><span>Surveyor</span></div>`;
+  const l = T.lines.find(x => x.docId === d.id && x.inv); if (l) return paperHtml(null, l);
+  return `<h4>ETC statement</h4>${T.lines.filter(x => x.src === 'tray').map(x => `<div class="ln"><span>${x.desc}</span><span class="num">${V(x.amt)}</span></div>`).join('')}<div class="ln tot"><span>Total</span><span class="num">${V(T.lines.filter(x => x.src === 'tray').reduce((s, x) => s + x.amt, 0))} ₫</span></div>`;
+}
+let zoom = 1, rot = 0;
+function viewerBar() { return `<button class="icon-btn" type="button" data-z="-1" aria-label="Zoom out">−</button><span class="num sm muted" style="min-width:40px;text-align:center">${Math.round(zoom * 100)}%</span><button class="icon-btn" type="button" data-z="1" aria-label="Zoom in">${icon('plus')}</button><button class="icon-btn" type="button" data-rot aria-label="Rotate">${icon('refresh')}</button>`; }
+function bindViewer(root, rerender) {
+  root.querySelectorAll('[data-z]').forEach(b => b.onclick = () => { zoom = Math.min(2, Math.max(.6, zoom + (+b.dataset.z) * .2)); rerender(); });
+  root.querySelectorAll('[data-rot]').forEach(b => b.onclick = () => { rot = (rot + 90) % 360; rerender(); });
+}
+function renderDocs(p) {
+  if (S.noDocs) { p.innerHTML = `<div class="card"><div class="empty">${icon('camera')}<h3>No documents yet</h3><p>PODs, EIRs and cost invoices will appear here once the driver photographs them in the app.</p></div></div>`; return; }
+  const types = ['All', 'Waybill', 'POD', 'EIR', 'Cost invoice'];
+  const list = T.docs.filter(d => S.docF === 'All' || d.type.startsWith(S.docF));
+  const sel = T.docs.find(d => d.id === S.docSel) || T.docs[0];
+  p.innerHTML = `<div class="docs-split">
+    <section class="card" aria-label="Document list" style="min-width:0">
+      <div class="card-head" style="flex-wrap:wrap">${types.map(t => `<button class="chip ${S.docF === t ? 'on' : ''}" type="button" data-df="${t}">${t}</button>`).join('')}<div class="tools"><button class="btn btn-secondary btn-sm" type="button" id="zipBtn">${icon('download')}Download all (.zip)</button></div></div>
+      <div class="grid-wrap"><table class="grid"><thead><tr><th>Type</th><th>Name / number</th><th class="right">Time</th><th>Uploaded by</th><th>Status</th></tr></thead>
+      <tbody>${list.map(d => `<tr class="clickable ${d.id === sel.id ? 'selected' : ''}" data-dsel="${d.id}" tabindex="0"><td>${d.type}</td><td class="dname" title="${d.name}">${d.f === 'gvt' || d.f === 'eir' ? `<span class="code">${d.name}</span>` : d.name}</td><td class="right num">${d.at}</td><td>${d.by}</td><td>${d.st}</td></tr>`).join('')}</tbody></table></div>
+      <p class="sm muted" style="padding:12px 18px 16px;margin:auto 0 0">Waybills and their superseded versions are kept for at least 3 years and can't be deleted.</p>
+    </section>
+    <section class="card viewer" aria-label="Document viewer">
+      <div class="card-head"><h2 style="font-size:14px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${sel.type} · ${sel.name}</h2></div>
+      <div class="paper-stage"><div class="paper" style="transform:scale(${zoom}) rotate(${rot}deg)">${paperHtml(sel)}</div></div>
+      <div class="viewer-bar">${viewerBar()}<span style="flex:1"></span><button class="btn btn-secondary btn-sm" type="button" id="dlOne">${icon('download')}Download</button><button class="btn btn-secondary btn-sm" type="button" id="printOne">Print</button></div>
+    </section>
+  </div>`;
+  p.querySelectorAll('[data-df]').forEach(b => b.onclick = () => { S.docF = b.dataset.df; renderDocs(p); });
+  p.querySelectorAll('[data-dsel]').forEach(r => { r.onclick = () => { S.docSel = r.dataset.dsel; renderDocs(p); }; r.onkeydown = e => { if (e.key === 'Enter') r.click(); }; });
+  bindViewer(p, () => renderDocs(p));
+  document.getElementById('zipBtn').onclick = () => toast(`Generating ${T.id}_chung-tu.zip (${T.docs.length} files)…`);
+  document.getElementById('dlOne').onclick = () => toast(`Downloaded ${sel.name}`);
+  document.getElementById('printOne').onclick = () => toast('Sent to printer');
+}
+
+/* ---------- Drawer: xem chứng từ dòng chi phí (EL-28) ---------- */
+function closeOverlays() { document.querySelectorAll('.drawer:not(.leaving), .scrim:not(.leaving), .modal:not(.leaving)').forEach(x => { x.removeAttribute('id'); Shell.dismiss(x); }); }
+function openDocViewer(lineId) {
+  closeOverlays(); zoom = 1; rot = 0;
+  const withDoc = T.lines.filter(l => l.doc); let i = withDoc.findIndex(l => l.id === lineId);
+  const s = document.createElement('div'); s.className = 'scrim'; s.onclick = closeOverlays;
+  const d = document.createElement('aside'); d.className = 'drawer doc'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true');
+  document.body.append(s, d);
+  const draw = () => { const l = withDoc[i]; const doc = T.docs.find(x => x.id === l.docId);
+    d.innerHTML = `<div class="drawer-head"><div class="row"><h2>${l.inv ? l.inv[0] : doc.name} · <span class="num">${V(l.amt)} ₫</span></h2><button class="icon-btn" id="dvClose" aria-label="Close (Esc)" style="margin-left:auto">${icon('x', 'lg')}</button></div><div class="row sm muted"><span class="src">${icon(SRC[l.src][0])}${SRC[l.src][1]}</span> · ${l.type} · ${l.desc}</div></div>
+      <div class="drawer-body" style="padding:0"><div class="paper-stage" style="height:100%;min-height:420px"><div class="paper" style="transform:scale(${zoom}) rotate(${rot}deg)">${paperHtml(doc, l)}</div></div></div>
+      <div class="drawer-foot" style="justify-content:space-between">${`<div class="row">${viewerBar()}</div>`}<div class="row"><button class="btn btn-secondary btn-sm" type="button" id="dvPrev" ${i === 0 ? 'disabled' : ''}>← Previous</button><span class="sm muted num">${i + 1}/${withDoc.length}</span><button class="btn btn-secondary btn-sm" type="button" id="dvNext" ${i === withDoc.length - 1 ? 'disabled' : ''}>Next →</button></div></div>`;
+    d.querySelector('#dvClose').onclick = closeOverlays; d.querySelector('#dvPrev').onclick = () => { i--; draw(); }; d.querySelector('#dvNext').onclick = () => { i++; draw(); }; bindViewer(d, draw); };
+  draw(); d.querySelector('#dvClose').focus();
+}
+
+/* ---------- Drawer: chia sẻ link (EL-40) ---------- */
+function openShare() {
+  closeOverlays();
+  const s = document.createElement('div'); s.className = 'scrim'; s.onclick = closeOverlays;
+  const d = document.createElement('aside'); d.className = 'drawer narrow'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'shTitle');
+  document.body.append(s, d);
+  const draw = () => {
+    d.innerHTML = `<div class="drawer-head"><div class="row"><h2 id="shTitle">Share tracking link</h2><button class="icon-btn" id="shClose" aria-label="Close (Esc)" style="margin-left:auto">${icon('x', 'lg')}</button></div><p class="sm muted">${T.id} · ${T.route}</p></div>
+    <div class="drawer-body">
+      ${S.linkRevoked ? `<div class="alert alert-warning">${icon('warn')}<div>The old link has been revoked. Customers who open it will see "Link expired".</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="newLink">Create new link</button></div></div>` : ''}
+      <label class="field"><span>Tracking link</span><div class="share-url"><input class="input" readonly value="https://theodoi.fleet.vn/t/${S.linkRevoked ? '—' : '8KQ2-X7PM'}" aria-label="Tracking link" ${S.linkRevoked ? 'style="text-decoration:line-through"' : ''}><button class="btn btn-secondary" type="button" id="copyLink" ${S.linkRevoked ? 'disabled' : ''}>${icon('copy')}Copy link</button></div></label>
+      <div class="kv">
+        <div><h4><span class="pos">${icon('check')}</span>Customer sees</h4><ul><li>Milestone status</li><li>Estimated arrival time</li><li>POD once completed</li></ul></div>
+        <div><h4><span class="neg">${icon('block')}</span>Customer doesn't see</h4><ul><li>Exact vehicle location</li><li>Driver phone</li></ul></div>
+      </div>
+      <div class="row sm"><span class="muted">${icon('clock')}</span><span>Link expires: 7 days after the trip is completed (<b class="num">19/11/2026</b>)</span></div>
+    </div>
+    <div class="drawer-foot" style="justify-content:space-between"><a class="btn btn-ghost" ${NA}>${icon('external')}View as customer</a><button class="btn btn-danger" type="button" id="revoke" ${S.linkRevoked ? 'disabled' : ''}>Revoke link</button></div>`;
+    d.querySelector('#shClose').onclick = closeOverlays;
+    const cp = d.querySelector('#copyLink'); cp.onclick = () => { try { navigator.clipboard.writeText('https://theodoi.fleet.vn/t/8KQ2-X7PM'); } catch (e) {} toast('Tracking link copied'); };
+    d.querySelector('#revoke').onclick = () => confirmModal('Revoke tracking link?', 'Customers holding this link will no longer be able to view it. You can create a new link later.', 'Revoke link', () => { S.linkRevoked = true; draw(); toast('Tracking link revoked'); }, true);
+    const nl = d.querySelector('#newLink'); if (nl) nl.onclick = () => { S.linkRevoked = false; draw(); toast('New link created'); };
+  };
+  draw(); d.querySelector('#shClose').focus();
+}
+
+/* ---------- Modal ---------- */
+function confirmModal(title, body, okLabel, onOk, keepDrawer) {
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim';
+  const m = document.createElement('div'); m.className = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true');
+  m.innerHTML = `<h2>${title}</h2><p class="muted">${body}</p><div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Back</button><button class="btn btn-danger" type="button" data-ok>${okLabel}</button></div>`;
+  document.body.append(s, m); const close = () => { Shell.dismiss(s); Shell.dismiss(m); };
+  m.querySelector('[data-x]').onclick = close; s.onclick = close; m.querySelector('[data-ok]').onclick = () => { close(); onOk(); }; m.querySelector('[data-x]').focus();
+}
+function openUnlock() {
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim';
+  const m = document.createElement('div'); m.className = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.setAttribute('aria-labelledby', 'ulT');
+  m.innerHTML = `<h2 id="ulT">Unlock costs for trip ${T.id}?</h2><p class="muted">The trip's P&amp;L will change in reports already viewed. This action is recorded in the audit log.</p>
+    <label class="field"><span>Reason for unlocking (required)</span><textarea class="input" id="ulReason" rows="3" placeholder="e.g. lift-on/lift-off invoice entered with the wrong amount"></textarea></label>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Back</button><button class="btn btn-danger" type="button" id="ulOk" disabled>Unlock</button></div>`;
+  document.body.append(s, m); const close = () => { Shell.dismiss(s); Shell.dismiss(m); };
+  m.querySelector('[data-x]').onclick = close; s.onclick = close;
+  const r = m.querySelector('#ulReason'), okb = m.querySelector('#ulOk'); r.oninput = () => okb.disabled = !r.value.trim(); r.focus();
+  okb.onclick = () => { close(); S.unlocked = true; T.history.unshift(['16/11 09:12', 'Phạm Thu Hà (Chief accountant)', 'Unlocked costs: ' + r.value.trim(), 'cost', 3]); render(); toast('Costs unlocked. The reason has been recorded in the trip history.'); };
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOverlays(); });
+
+/* ---------- Prototype states ---------- */
+Shell.states([
+  ['default', 'Default'], ['running', 'En route'], ['done', 'Completed'], ['journey', 'Route'], ['journey-nogsht', 'No GPS tracker'],
+  ['pl-gross', 'P&L: gross profit'], ['pl-alloc', 'P&L: after allocation'], ['multi', 'Multiple orders combined'], ['unlocked', 'Unlocked'], ['docs', 'Documents'],
+  ['share', 'Share link'], ['loading', 'Loading'], ['empty', 'Empty (documents)'], ['error', 'GPS tracker error'], ['noperm', 'No permission']
+], s => {
+  closeOverlays();
+  const map = {
+    default: {}, running: { status: 'running' }, done: { status: 'done' }, journey: { tab: 'journey' }, 'journey-nogsht': { tab: 'journey', gsht: false },
+    'pl-gross': { tab: 'pl' }, 'pl-alloc': { tab: 'pl', mode: 'alloc' }, multi: { trip: 'CH-0471', status: 'done', tab: 'pl', docSel: 'e2' }, unlocked: { tab: 'pl', unlocked: true },
+    docs: { tab: 'docs', docSel: 'd4' }, share: {}, loading: { loading: true }, empty: { tab: 'docs', status: 'accepted', noDocs: true }, error: { tab: 'journey', gshtError: true }, noperm: { noperm: true }
+  };
+  reset(map[s]);
+  if (s === 'running') { /* giữ tab Tổng quan */ }
+  render();
+  if (s === 'share') openShare();
+});
+try { const t = new URL(location.href).searchParams.get('tab'); if (t && !location.hash && ['overview', 'journey', 'pl', 'docs'].includes(t)) setTab(t); } catch (e) {}
+</script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Overview · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* FM_04 v2 — exception-first dashboard (research/ui-competitive-audit.md §4.1) */
+  .fresh { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--fg-muted); }
+  .fresh .live { width: 7px; height: 7px; border-radius: 50%; background: var(--success-solid); }
+  .fresh button { border: 0; background: none; color: var(--primary); font: 500 12.5px var(--font-body); cursor: pointer; padding: 0; display: inline-flex; gap: 4px; align-items: center; }
+
+  /* SummaryStrip */
+  .summary { display: grid; grid-template-columns: minmax(420px, 1.7fr) repeat(4, minmax(0, 1fr)); gap: 6px; padding: 6px; background: var(--surface); border-radius: var(--r-lg); box-shadow: var(--shadow-card); }
+  .sum-main { padding: 18px 22px; background: var(--primary-soft); display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: 16px; border-radius: 8px; }
+  .sum-main-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .sum-spark { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; padding-bottom: 2px; }
+  .sum-spark small { font-size: 11.5px; color: var(--fg-muted); }
+  .why { font-size: 12.5px; font-weight: 500; color: var(--side-active); cursor: help; text-decoration: underline dotted; text-underline-offset: 3px; }
+  .sum-main .k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--side-active); }
+  .sum-main .v { font: 700 var(--text-display)/40px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+  .sum-main .v small { font: 600 18px var(--font-display); color: var(--fg-muted); margin-left: 4px; }
+  .sum-main .row { gap: 6px; flex-wrap: wrap; font-size: 12.5px; }
+  .sum-item { padding: 18px 16px; display: flex; flex-direction: column; justify-content: center; gap: 4px; min-width: 0; text-decoration: none !important; color: inherit; }
+  .sum-item { border-radius: 8px; }
+  .sum-item:hover { background: var(--surface-muted); }
+  .sum-item .k { font-size: 12.5px; color: var(--fg-muted); font-weight: 500; }
+  .sum-item .v { font: 700 24px/30px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .sum-item .v small { font: 600 14px var(--font-body); color: var(--fg-muted); }
+  .delta { display: inline-flex; align-items: center; gap: 3px; font-size: 12.5px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .delta.up-good, .delta.down-good { color: var(--success-fg); }
+  .delta.up-bad, .delta.down-bad { color: var(--danger-fg); }
+  .delta.warn { color: var(--warning-fg); }
+  .delta + span { font-size: 12.5px; color: var(--fg-muted); }
+  .spark { display: block; margin-top: 4px; }
+
+  .dash { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: var(--s-4); align-items: stretch; }
+  .dash > .card { display: flex; flex-direction: column; min-width: 0; }
+  .dash > .card > .q-foot, .dash > .card > .chart-legend { margin-top: auto; }
+  .card-title { display: flex; align-items: center; gap: 10px; padding: 16px 18px 6px; }
+  .card-title h2 { font-size: 16px; }
+  .card-title .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 10px; align-items: center; }
+  .count-pill { font: 600 12px var(--font-body); background: var(--surface-muted); color: var(--fg-muted); border-radius: 10px; padding: 1px 8px; font-variant-numeric: tabular-nums; }
+
+  /* ActionQueue */
+  .queue { list-style: none; margin: 0; padding: 4px 8px; display: flex; flex-direction: column; gap: 2px; }
+  .qi { display: grid; grid-template-columns: 3px 32px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 10px 10px 0; border-radius: 8px; }
+  
+  .qi .sev { align-self: stretch; margin: 4px 0; border-radius: 0 3px 3px 0; }
+  .qi.danger .sev { background: var(--danger-solid); } .qi.warning .sev { background: var(--warning-solid); } .qi.neutral .sev { background: transparent; }
+  .qi .ic { width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; }
+  .qi.danger .ic { background: var(--danger-soft); color: var(--danger-fg); } .qi.warning .ic { background: var(--warning-soft); color: var(--warning-fg); } .qi.neutral .ic { background: var(--surface-muted); color: var(--neutral-fg); }
+  .qi .t { font-weight: 600; color: var(--fg-strong); font-size: 14px; line-height: 20px; }
+  .qi .t .num { font-variant-numeric: tabular-nums; }
+  .qi .d { font-size: 12.5px; color: var(--fg-muted); line-height: 18px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .qi .act { display: flex; gap: 6px; }
+  .q-foot { display: flex; align-items: center; gap: 8px; padding: 8px 18px 16px; font-size: 12.5px; color: var(--fg-muted); }
+
+  /* Fleet now */
+  .fleet-body { padding: 14px 18px 16px; display: flex; flex-direction: column; gap: 12px; flex: 1; min-height: 0; }
+  .stackbar { display: flex; height: 10px; border-radius: 5px; overflow: hidden; gap: 2px; }
+  .stackbar i { display: block; height: 100%; }
+  .legend-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 16px; font-size: 13px; }
+  .legend-grid span { display: flex; align-items: center; gap: 8px; }
+  .legend-grid b { margin-left: auto; font-variant-numeric: tabular-nums; color: var(--fg-strong); }
+  .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+  .minimap { border-radius: var(--r-md); border: 0; overflow: hidden; display: block; width: 100%; flex: 1 1 0; min-height: 200px; height: 100%; }
+
+  /* BarList */
+  .barlist { padding: 12px 18px 6px; display: flex; flex-direction: column; gap: 2px; flex: 1; justify-content: center; }
+  .bl-row { display: grid; grid-template-columns: minmax(150px, 1.1fr) minmax(0, 1.6fr) 64px; gap: 12px; align-items: center; padding: 7px 0; font-size: 13.5px; text-decoration: none !important; color: inherit; border-radius: var(--r-sm); }
+  .bl-row:hover { background: var(--surface-muted); }
+  .bl-row .name { min-width: 0; }
+  .bl-row .name b { display: block; font-weight: 500; color: var(--fg-strong); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bl-row .name span { font-size: 12px; color: var(--fg-muted); }
+  .track { position: relative; height: 22px; }
+  .track .zero { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--border-strong); }
+  .track .thr { position: absolute; top: -4px; bottom: -4px; width: 0; border-left: 1.5px dashed var(--fg-subtle); }
+  .track .bar { position: absolute; top: 5px; height: 12px; border-radius: 3px; }
+  .bl-row .pct { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .bl-axis { display: grid; grid-template-columns: minmax(150px, 1.1fr) minmax(0, 1.6fr) 64px; gap: 12px; font-size: 11.5px; color: var(--fg-muted); padding: 2px 0 10px; }
+  .bl-axis .ax { position: relative; height: 14px; }
+  .bl-axis .ax span { position: absolute; transform: translateX(-50%); font-variant-numeric: tabular-nums; }
+
+  .chart-wrap { padding: 8px 12px 12px; flex: 1; display: flex; align-items: center; }
+  .chart-wrap svg { display: block; width: 100%; height: auto; }
+  .chart-legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--fg-muted); padding: 0 18px 14px; }
+  .chart-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  .hidden { display: none !important; }
+  @media (max-width: 1200px) { .summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } .sum-main { grid-column: 1 / -1; border-right: 0; border-bottom: 1px solid var(--border); } .sum-item + .sum-item { border-left: 0; } .dash { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <h1>Overview</h1>
+      <div class="fresh" style="margin-top:6px"><span class="live" aria-hidden="true"></span>Updated 2 min ago · GPS tracker and settlements <button type="button" id="refresh"></button></div>
+    </div>
+    <div class="actions">
+      <div class="seg" role="group" aria-label="Reporting period"><button type="button" aria-pressed="true">This month</button><button type="button" aria-pressed="false">This quarter</button></div>
+      <a class="btn btn-primary" href="fm-07-tao-don.html" id="ctaNew"></a>
+    </div>
+  </div>
+
+  <section class="summary" id="summary" aria-label="November 2026 summary"></section>
+
+  <div class="dash" id="row1">
+    <section class="card" id="queueCard" aria-labelledby="qTitle"></section>
+    <section class="card" id="fleetCard" aria-labelledby="fTitle"></section>
+  </div>
+  <div class="dash" id="row2">
+    <section class="card" id="marginCard" aria-labelledby="mTitle"></section>
+    <section class="card" id="trendCard" aria-labelledby="tTitle"></section>
+  </div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_04', title: 'Overview' });
+document.getElementById('refresh').innerHTML = icon('refresh') + 'Refresh';
+document.getElementById('ctaNew').innerHTML = icon('plus') + 'Create order <kbd>N</kbd>';
+const $ = id => document.getElementById(id);
+
+/* ---------- Data (mẫu, khớp các màn khác) ---------- */
+const QUEUE = [
+  { sev: 'danger', ic: 'warn', t: 'Incident: <span class="code">CH-0457</span> stuck at Cát Lái port for <span class="num">1h20</span>', d: 'Đặng Quang Vinh · 51C-456.78 · reported at 07:40 via driver app', act: [['Open trip', 'fm-09-chi-tiet-chuyen.html', 1]], role: ['admin', 'dispatch'] },
+  { sev: 'danger', ic: 'block', t: '<span class="num">3</span> expired documents blocking trip assignment', d: 'Inspection 51C-099.21 · Trailer insurance 51R-088.12 · Driver\'s license Đặng Văn Hiếu', act: [['Renew', null, 0]], role: ['admin', 'dispatch'] },
+  { sev: 'warning', ic: 'dispatch', t: '<span class="num">5</span> trips with no vehicle assigned', d: 'Earliest pickup 13:00 today (CH-0466, Sóng Thần Industrial Park → Bến Lức)', act: [['Assign vehicle', 'fm-08-dieu-phoi.html', 1]], role: ['admin', 'dispatch'] },
+  { sev: 'warning', ic: 'container', t: '<span class="num">2</span> containers nearing the empty return deadline', d: 'CH-0457: 6 h left · CH-0464: 9 h left', act: [['View', 'fm-08-dieu-phoi.html', 0]], role: ['admin', 'dispatch'] },
+  { sev: 'warning', ic: 'clock', t: '<span class="num">2</span> drivers nearing their driving hour limit', d: 'Trần Minh Đức: 3h30 left this week · Võ Thành Nhân: 2h30 left today', act: [['View', null, 0]], role: ['admin', 'dispatch'] },
+  { sev: 'neutral', ic: 'receipt', t: '<span class="num">14</span> trips pending settlement', d: 'Oldest 6 days (CH-0391) · 4 trips missing receipts', act: [['Approve', 'fm-22-quyet-toan.html', 1]], role: ['admin', 'acct'] },
+  { sev: 'neutral', ic: 'wallet', t: '<span class="num">86.5M ₫</span> in unsettled cash advances', d: '11 drivers · oldest: Nguyễn Văn Tuấn 1,200,000 ₫ since 08/11', act: [['View', null, 0]], role: ['acct'] },
+  { sev: 'neutral', ic: 'invoice', t: '<span class="num">3</span> customers owing for over 60 days', d: 'Gỗ Minh Long 412M ₫ · Nhựa Duy Tân 96M ₫ · Bao bì Phương Nam 58M ₫', act: [['View receivables', null, 0]], role: ['acct'] },
+  { sev: 'neutral', ic: 'wrench', t: '<span class="num">1</span> vehicle overdue for maintenance', d: '51C-731.80 is 1,200 km past its oil change mark', act: [['Schedule', null, 0]], role: ['admin', 'dispatch'] }
+];
+const ROUTES = [
+  ['Cát Lái → Phước Đông Industrial Park', 18, -2.6], ['Tân Uyên Industrial Park → Cát Lái', 24, 3.0], ['Bình Tân → Mỹ Tho', 11, 4.3], ['Mỹ Phước 3 Industrial Park → Cát Lái', 15, 5.9], ['Cát Lái → Sa Đéc', 9, 8.4]
+];
+const MONTHS = [['Jun', 3.6, 0.27], ['Jul', 3.9, 0.29], ['Aug', 3.8, 0.25], ['Sep', 4.0, 0.31], ['Oct', 4.1, 0.30], ['Nov', 1.84, 0.13, true]];
+
+/* ---------- SummaryStrip ---------- */
+function spark(vals, w, h, color) {
+  const max = Math.max(...vals), min = Math.min(...vals), pts = vals.map((v, i) => [4 + i / (vals.length - 1) * (w - 8), h - 4 - (v - min) / (max - min || 1) * (h - 8)]);
+  const d = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+  const last = pts[pts.length - 1];
+  return `<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true"><path d="${d}" fill="none" style="stroke:${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${last[0]}" cy="${last[1]}" r="3" style="fill:${color}"/></svg>`;
+}
+function renderSummary(role) {
+  const items = role === 'dispatch'
+    ? [['Trips today', '32', '<span class="delta up-good">17 in progress</span><span>· 9 done</span>', 'fm-08-dieu-phoi.html'], ['Unassigned', '5', '<span class="delta warn">earliest 13:00</span>', 'fm-08-dieu-phoi.html'], ['Vehicles available', '8<small> / 28</small>', '<span>2 in maintenance</span>', null], ['On time this week', '94%', '<span class="delta up-good">▲ 2 pts</span>', null]]
+    : role === 'acct'
+    ? [['Pending settlement', '14', '<span class="delta warn">oldest 6 days</span>', 'fm-22-quyet-toan.html'], ['Outstanding cash advances', '86.5<small>M ₫</small>', '<span>11 drivers</span>', null], ['Receivables', '2.31<small>B ₫</small>', '<span class="delta down-bad">566M overdue</span>', null], ['Invoices to issue', '23', '<span>trips with POD</span>', null]]
+    : [['Revenue', '1.84<small>B ₫</small>', '<span class="delta up-good">▲ 6.1%</span><span>vs. last year</span>', 'fm-35-bao-cao-pl.html'], ['Costs', '1.71<small>B ₫</small>', '<span class="delta up-bad">▲ 9.4%</span><span>outpacing revenue</span>', 'fm-35-bao-cao-pl.html'], ['Trips today', '32', '<span>18 in progress · 5 unassigned</span>', 'fm-08-dieu-phoi.html'], ['Vehicles on trip', '18<small> / 28</small>', '<span>8 idle · 2 in maintenance</span>', null]];
+  const main = role === 'dispatch'
+    ? `<div class="sum-main-text"><div class="k">Needs attention today</div><div class="v">${QUEUE.filter(q => q.role.includes('dispatch')).length}<small>items</small></div><div class="row"><span class="delta up-bad">2 urgent</span><span>· 6 resolved since this morning</span></div></div>`
+    : role === 'acct'
+    ? `<div class="sum-main-text"><div class="k">November gross profit · provisional</div><div class="v">132<small>M ₫</small></div><div class="row"><span>23 trips not yet settled; figures may change</span></div></div>`
+    : `<div class="sum-main-text"><div class="k">November gross profit · provisional</div><div class="v">132<small>M ₫</small></div>
+         <div class="row"><span class="delta down-bad">▼ 1.8 pts</span><span>· margin 7.2% ·</span> <span class="tip"><span class="why" tabindex="0">Why?</span><span class="tip-body left">Fuel costs rose 11% (fuel price +1,150 ₫/l since 05/11) while 62% of fixed-rate contracts still have no fuel surcharge.</span></span></div></div>
+       <div class="sum-spark">${spark([8.1, 7.4, 6.6, 7.8, 9.0, 7.2], 120, 40, 'var(--primary)')}<small>6-month margin · Oct: 9.0%</small></div>`;
+  $('summary').innerHTML = `<div class="sum-main">${main}</div>` + items.map(([k, v, d, href]) => `<${href ? `a href="${href}"` : 'div'} class="sum-item"><span class="k">${k}</span><span class="v">${v}</span><span class="row" style="gap:6px">${d}</span></${href ? 'a' : 'div'}>`).join('');
+  Shell.countUp([...document.querySelectorAll('#summary .v')]);
+}
+
+/* ---------- ActionQueue ---------- */
+function renderQueue(role) {
+  const list = QUEUE.filter(q => q.role.includes(role));
+  const urgent = list.filter(q => q.sev === 'danger').length;
+  $('queueCard').innerHTML = `<div class="card-title"><h2 id="qTitle">Needs attention today</h2><span class="count-pill">${list.length}</span>${urgent ? `<span class="badge b-danger">${icon('warn')}${urgent} urgent</span>` : ''}<span class="meta">Sorted by severity</span></div>
+    <ul class="queue">${list.map(q => `<li class="qi ${q.sev}"><span class="sev" aria-hidden="true"></span><span class="ic">${icon(q.ic)}</span>
+      <div style="min-width:0"><div class="t">${q.t}</div><div class="d" title="${q.d}">${q.d}</div></div>
+      <div class="act">${q.act.map(([l, href, primary]) => href ? `<a class="btn ${primary ? 'btn-secondary' : 'btn-ghost'} btn-sm" href="${href}">${l}</a>` : `<button class="btn btn-ghost btn-sm" type="button" title="This screen is not in this prototype">${l}</button>`).join('')}</div></li>`).join('')}</ul>
+    <div class="q-foot">${icon('check')}6 items resolved since 06:00 · <a href="javascript:void(0)" title="Alert center is not in this prototype">View all alerts</a></div>`;
+}
+
+/* ---------- Fleet now ---------- */
+function renderFleet() {
+  const S = [['En route', 17, 'var(--info-solid)'], ['Idle', 8, 'var(--success-solid)'], ['Maintenance', 2, 'var(--neutral-solid)'], ['Signal lost', 1, 'var(--warning-solid)']];
+  const dots = [[118,92,'info'],[136,104,'info'],[150,82,'info'],[176,118,'info'],[204,96,'info'],[226,132,'info'],[258,88,'info'],[284,140,'info'],[300,110,'info'],[96,150,'info'],[320,74,'info'],[242,164,'info'],[188,176,'info'],[150,190,'info'],[270,60,'info'],[338,128,'info'],[214,62,'info'],[128,128,'warning'],
+    [86,106,'success'],[90,112,'success'],[96,100,'success'],[92,118,'success'],[100,108,'success'],[352,170,'success'],[356,176,'success'],[60,186,'success'],[104,66,'neutral'],[110,70,'neutral']];
+  const col = { info: 'var(--info-solid)', success: 'var(--success-solid)', warning: 'var(--warning-solid)', neutral: 'var(--neutral-solid)' };
+  $('fleetCard').innerHTML = `<div class="card-title"><h2 id="fTitle">Fleet right now</h2><span class="meta">28 vehicles · GPS 10:05</span></div>
+    <div class="fleet-body">
+      <div class="stackbar" role="img" aria-label="17 on trip, 8 idle, 2 in maintenance, 1 signal lost">${S.map(([, n, c]) => `<i style="flex:${n};background:${c}"></i>`).join('')}</div>
+      <div class="legend-grid">${S.map(([l, n, c]) => `<span><i class="dot" style="background:${c}"></i>${l}<b>${n}</b></span>`).join('')}</div>
+      <svg class="minimap" viewBox="0 0 400 220" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Vehicle positions around HCMC and Bình Dương">
+        <rect width="400" height="220" style="fill:var(--surface-muted)"/>
+        <path d="M-10 150 C 60 140, 90 175, 150 160 S 250 120, 300 150 S 370 200, 420 185" fill="none" style="stroke:var(--info-soft)" stroke-width="16" stroke-linecap="round"/>
+        <path d="M 210 -10 C 220 40, 240 70, 250 120" fill="none" style="stroke:var(--info-soft)" stroke-width="9" stroke-linecap="round"/>
+        <g fill="none" style="stroke:var(--border-strong)" stroke-width="1.5"><path d="M0 100 L400 96"/><path d="M60 0 L120 220"/><path d="M180 0 L170 220"/><path d="M0 40 C 120 60, 260 30, 400 54"/><path d="M290 0 L330 220"/></g>
+        <g font-family="Inter, sans-serif" font-size="10" style="fill:var(--fg-muted)"><text x="300" y="196">Cát Lái</text><text x="74" y="58">Thủ Đức yard</text><text x="300" y="40">Bình Dương</text><text x="36" y="200">Bình Tân</text></g>
+        <rect x="292" y="176" width="22" height="10" rx="2" style="fill:var(--accent-soft2);stroke:var(--accent)"/>
+        ${dots.map(([x, y, s]) => `<circle cx="${x}" cy="${y}" r="${s === 'warning' ? 5 : 4}" style="fill:${col[s]};stroke:var(--surface)" stroke-width="1.5"/>`).join('')}
+        <circle cx="128" cy="128" r="9" fill="none" style="stroke:var(--warning-solid)" stroke-width="1.5" stroke-dasharray="2 2"/>
+      </svg>
+      <div class="row" style="justify-content:space-between"><span class="sm muted">Locations are shown only while vehicles are on a trip.</span><a class="btn btn-ghost btn-sm" href="javascript:void(0)" title="Live map is not in this prototype">${icon('map')}Open map</a></div>
+    </div>`;
+}
+
+/* ---------- Margin BarList ---------- */
+function renderMargin() {
+  const MIN = -4, MAX = 10, x = v => (v - MIN) / (MAX - MIN) * 100;
+  const tone = v => v < 0 ? 'var(--danger-solid)' : v < 5 ? 'var(--warning-solid)' : 'var(--primary)';
+  const tcol = v => v < 0 ? 'var(--danger-fg)' : v < 5 ? 'var(--warning-fg)' : 'var(--fg-strong)';
+  $('marginCard').innerHTML = `<div class="card-title"><h2 id="mTitle">Profit margin by route</h2><span class="meta"><span class="seg" role="group" aria-label="Xem theo"><button type="button" aria-pressed="true">Route</button><button type="button" aria-pressed="false">Customer</button></span></span></div>
+    <div class="barlist">${ROUTES.map(([n, trips, m]) => { const a = x(Math.min(0, m)), b = x(Math.max(0, m)); return `<a class="bl-row" href="fm-35-bao-cao-pl.html"><div class="name"><b>${n}</b><span>${trips} trips</span></div>
+      <div class="track"><span class="zero" style="left:${x(0)}%"></span><span class="thr" style="left:${x(5)}%"></span><span class="bar" style="left:${a}%;width:${b - a}%;background:${tone(m)}"></span></div>
+      <span class="pct" style="color:${tcol(m)}">${fmt.pct(m)}</span></a>`; }).join('')}
+      <div class="bl-axis"><span></span><div class="ax">${[-4, 0, 5, 10].map(v => `<span style="left:${x(v)}%">${v === 5 ? '5% threshold' : v + '%'}</span>`).join('')}</div><span></span></div>
+    </div>
+    <div class="q-foot">${icon('info')}3 routes are below the 5% threshold; 2 of them have fixed-rate contracts with no fuel surcharge applied yet.</div>`;
+}
+
+/* ---------- Trend chart ---------- */
+function renderTrend() {
+  const W = 520, H = 280, L = 34, R = 12, T = 24, B = 30, max = 5, ph = H - T - B, bw = 34;
+  const step = (W - L - R) / MONTHS.length, y = v => T + ph - v / max * ph;
+  const grid = [0, 1, 2, 3, 4, 5].map(v => `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" style="stroke:${v ? 'var(--surface-muted)' : 'var(--border-strong)'}" stroke-width="1"/><text x="${L - 8}" y="${y(v) + 3.5}" text-anchor="end" style="fill:var(--fg-muted)" font-size="10.5">${v}</text>`).join('');
+  const bars = MONTHS.map(([m, rev, gp, partial], i) => {
+    const cx = L + step * i + step / 2, x0 = cx - bw / 2, isLast = i === MONTHS.length - 2;
+    const fill = partial ? 'none' : isLast ? 'var(--primary)' : 'var(--chart-muted)';
+    return `<g><rect x="${x0}" y="${y(rev)}" width="${bw}" height="${ph - (y(rev) - T)}" rx="3" style="fill:${fill};${partial ? 'stroke:var(--primary);stroke-dasharray:4 3;' : ''}" stroke-width="1.5"/>
+      <rect x="${x0}" y="${y(gp)}" width="${bw}" height="${ph - (y(gp) - T)}" rx="2" style="fill:var(--accent)"/>
+      <text x="${cx}" y="${y(rev) - 6}" text-anchor="middle" font-size="11" font-weight="${isLast || partial ? 700 : 500}" style="fill:${isLast || partial ? 'var(--fg-strong)' : 'var(--fg-muted)'}">${fmt.dec(rev, 2).replace(/0$/, '')}</text>
+      <text x="${cx}" y="${H - 10}" text-anchor="middle" font-size="11" style="fill:var(--fg-muted)">${m}${partial ? '*' : ''}</text></g>`;
+  }).join('');
+  $('trendCard').innerHTML = `<div class="card-title"><h2 id="tTitle">Revenue and gross profit, last 6 months</h2><span class="meta">B ₫</span></div>
+    <div class="chart-wrap"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Revenue June to November (B ₫): 3.6; 3.9; 3.8; 4.0; 4.1; November provisional 1.84">${grid}${bars}</svg></div>
+    <div class="chart-legend"><span><i style="background:var(--chart-muted)"></i>Revenue</span><span><i style="background:var(--primary)"></i>Latest closed month</span><span><i style="background:var(--accent)"></i>Gross profit</span><span><i style="border:1.5px dashed var(--primary)"></i>Nov, provisional to 12/11</span></div>`;
+}
+
+/* ---------- Layout by role & states ---------- */
+const roleMap = { 'Owner / Admin': 'admin', 'Dispatcher': 'dispatch', 'Accountant': 'acct', 'Fleet manager': 'dispatch' };
+function renderAll(role) {
+  renderSummary(role); renderQueue(role); renderFleet(); renderMargin(); renderTrend();
+  const r1 = $('row1'), r2 = $('row2');
+  // Điều độ: hàng đợi + đội xe lên đầu, tài chính thu gọn; Kế toán: hàng đợi + biên; Admin: đủ
+  $('fleetCard').classList.toggle('hidden', role === 'acct');
+  $('trendCard').classList.toggle('hidden', role === 'dispatch');
+  $('marginCard').classList.toggle('hidden', role === 'dispatch');
+  if (role === 'acct') r1.appendChild($('marginCard')); else r2.insertBefore($('marginCard'), $('trendCard'));
+  r2.classList.toggle('hidden', role === 'dispatch');
+}
+function skeleton() {
+  $('summary').innerHTML = `<div class="sum-main"><span class="sk" style="width:60%"></span><span class="sk" style="width:40%;height:34px;margin-top:8px"></span></div>` + Array(4).fill('<div class="sum-item"><span class="sk" style="width:70%"></span><span class="sk" style="width:50%;height:22px;margin-top:8px"></span></div>').join('');
+  ['queueCard', 'fleetCard', 'marginCard', 'trendCard'].forEach(id => $(id).innerHTML = `<div class="card-title"><span class="sk" style="width:180px"></span></div><div style="padding:18px;display:flex;flex-direction:column;gap:14px">${Array(4).fill('<span class="sk"></span>').join('')}</div>`);
+}
+Shell.states([['default', 'Owner'], ['dispatch', 'Dispatcher'], ['acct', 'Accountant'], ['loading', 'Loading'], ['empty', 'No vehicles'], ['error', 'GPS tracker error']], s => {
+  ['row1', 'row2', 'summary'].forEach(id => $(id).classList.remove('hidden'));
+  if (s === 'loading') { skeleton(); return; }
+  const role = s === 'dispatch' ? 'dispatch' : s === 'acct' ? 'acct' : 'admin';
+  renderAll(role);
+  if (s === 'empty') {
+    $('summary').classList.add('hidden'); $('row2').classList.add('hidden'); $('fleetCard').classList.add('hidden');
+    $('queueCard').innerHTML = `<div class="empty">${icon('truck')}<h3>No vehicles yet</h3><p>Import your vehicles, drivers and documents from Excel to get started. The system will immediately flag any documents that are about to expire.</p><a class="btn btn-primary" href="fm-03-import.html">${icon('import')}Import from Excel</a></div>`;
+  }
+  if (s === 'error') $('fleetCard').innerHTML = `<div class="card-title"><h2>Fleet right now</h2></div><div style="padding:16px 18px"><div class="alert alert-warning" role="alert">${icon('refresh')}<div>Couldn't get locations from the tracker vendor (last update 09:42). Trip and financial figures are still accurate.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button">Retry</button></div></div></div>`;
+});
+$('refresh').addEventListener('click', () => toast('Figures refreshed'));
+</script>
+</body>
+</html>

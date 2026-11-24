@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* FM_01 — layout auth: không shell, 2 cột (giới thiệu ngắn · thẻ form) */
+  body { min-height: 100vh; }
+  .auth { min-height: 100vh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .auth-side { padding: 40px 56px 72px; display: flex; flex-direction: column; gap: 40px; }
+  .auth-brand { display: flex; align-items: center; gap: 10px; color: var(--fg-strong); font: 700 16px/1 var(--font-display); text-decoration: none !important; }
+  .auth-brand .brand-mark { width: 32px; height: 32px; }
+  .auth-brand small { display: block; font: 500 11px/1 var(--font-body); color: var(--side-fg-muted); margin-top: 4px; letter-spacing: .04em; text-transform: uppercase; }
+  .pitch { margin-top: auto; margin-bottom: auto; max-width: 480px; display: flex; flex-direction: column; gap: 28px; }
+  .pitch h1 { font-size: 30px; line-height: 38px; letter-spacing: -.01em; }
+  .pitch > p { font-size: 15px; line-height: 24px; color: var(--fg-muted); margin-top: -12px; }
+  .points { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
+  .points li { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 14px; align-items: start; }
+  .points .ic { width: 36px; height: 36px; border-radius: 8px; background: var(--surface); box-shadow: var(--shadow-card); color: var(--primary); display: grid; place-items: center; }
+  .points b { display: block; color: var(--fg-strong); font-weight: 600; }
+  .points span { font-size: 13px; color: var(--fg-muted); line-height: 19px; }
+  .side-foot { font-size: 12.5px; color: var(--fg-muted); display: flex; gap: 16px; }
+
+  .auth-main { display: grid; place-items: center; padding: 40px 24px; background: var(--surface-muted); }
+  .auth-card { width: min(440px, 100%); padding: 28px 32px 24px; display: flex; flex-direction: column; gap: 18px; }
+  .auth-card h2 { font-size: 20px; line-height: 28px; }
+  .auth-card .sub { color: var(--fg-muted); font-size: 13.5px; margin-top: 4px; }
+  .auth-card .tabs { margin: -4px 0 0; }
+  .auth-card .tabs button { flex: 1; justify-content: center; }
+  .auth-card .seg { width: 100%; }
+  .auth-card .seg button { flex: 1; justify-content: center; }
+  .auth-card .field .input { height: 40px; font-size: 14px; }
+  .pw { position: relative; display: flex; }
+  .pw .input { flex: 1; padding-right: 40px; }
+  .pw .icon-btn { position: absolute; right: 3px; top: 3px; }
+  .btn-block { width: 100%; height: 40px; font-size: 14px; }
+  .row-between { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 13px; }
+  .check { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--fg); cursor: pointer; }
+  .check input { width: 16px; height: 16px; accent-color: var(--primary); margin: 0; }
+  .alt { text-align: center; font-size: 13px; color: var(--fg-muted); }
+  .link-btn { border: 0; background: none; padding: 0; font: 500 13px var(--font-body); color: var(--primary); cursor: pointer; }
+  .link-btn:hover { text-decoration: underline; }
+  .link-btn[disabled] { color: var(--fg-muted); cursor: default; text-decoration: none; }
+  .err { font-size: 12.5px; color: var(--danger-fg); display: flex; gap: 6px; align-items: center; }
+  .err[hidden] { display: none; }
+  .field .input { width: 100%; }
+  .grid2 > * { min-width: 0; }
+  .input.invalid { border-color: var(--danger-solid); }
+  .hint { font-size: 12.5px; color: var(--fg-muted); }
+  .back { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; }
+  .back .icon { transform: rotate(180deg); }
+
+  /* OTP */
+  .otp { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+  .otp input { height: 48px; text-align: center; font: 600 20px var(--font-body); font-variant-numeric: tabular-nums; padding: 0; }
+
+  /* Chọn công ty (Radio/Card) */
+  .co-list { display: flex; flex-direction: column; gap: 8px; }
+  .co { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 12px; border-radius: 8px; border: 1px solid var(--border-strong); background: var(--surface); cursor: pointer; text-align: left; font: inherit; color: inherit; width: 100%; transition: background-color var(--d-1), border-color var(--d-1); }
+  .co:hover { background: var(--surface-muted); }
+  .co[aria-checked="true"] { border-color: var(--primary); background: var(--primary-soft); }
+  .co .logo { width: 40px; height: 40px; border-radius: 8px; background: var(--surface-muted); color: var(--fg-muted); display: grid; place-items: center; font: 700 14px var(--font-display); }
+  .co[aria-checked="true"] .logo { background: var(--surface); color: var(--primary); }
+  .co b { display: block; color: var(--fg-strong); font-weight: 600; }
+  .co small { display: block; font-size: 12.5px; line-height: 17px; color: var(--fg-muted); }
+  .co small:not(.meta) { color: var(--fg); font-weight: 500; }
+  .radio { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--border-strong); display: grid; place-items: center; }
+  .co[aria-checked="true"] .radio { border-color: var(--primary); }
+  .co[aria-checked="true"] .radio::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--primary); }
+
+  /* Dùng thử */
+  .trial { display: flex; flex-direction: column; gap: 8px; padding: 12px 14px; border-radius: 8px; background: var(--primary-soft); font-size: 13px; }
+  .trial .row { gap: 8px; color: var(--fg); }
+  .trial .row .icon { color: var(--primary); }
+  .open-note { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; line-height: 16px; color: var(--fg-muted); }
+  .open-note .badge { height: 18px; font-size: 11px; padding: 0 6px; flex: none; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .terms { font-size: 12px; color: var(--fg-muted); text-align: center; }
+  .spin { width: 16px; height: 16px; border-radius: 50%; border: 2px solid color-mix(in srgb, var(--on-primary) 40%, transparent); border-top-color: var(--on-primary); animation: spin .8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .card-enter { animation: riseIn var(--d-3) var(--ease-out) both; }
+  @media (max-width: 960px) { .auth { grid-template-columns: minmax(0, 1fr); } .auth-main { grid-template-columns: minmax(0, 1fr); padding: 24px 16px 96px; } .auth-card { padding: 22px 18px; justify-self: center; } .auth-side { display: none; } .auth-main { background: var(--bg); } }
+</style>
+</head>
+<body>
+<div class="auth">
+  <aside class="auth-side" aria-label="About">
+    <a class="auth-brand" href="../index.html"><span class="brand-mark" id="brandMark"></span><span>Đội Xe<small>Fleet Management</small></span></a>
+    <div class="pitch">
+      <h1>Know which trips make money and which lose it, the same day</h1>
+      <p>Dispatch, documents, driving hours and trip settlement in one system for trucking companies with 10–100 vehicles.</p>
+      <ul class="points" id="points"></ul>
+    </div>
+    <div class="side-foot"><span>© 2026 Đội Xe</span><a href="javascript:void(0)">Terms</a><a href="javascript:void(0)">Privacy policy</a><span>Support: 1900 6868</span></div>
+  </aside>
+  <main class="auth-main">
+    <section class="card auth-card" id="card" aria-live="polite"></section>
+  </main>
+</div>
+<div class="toast-host" id="toastHost" aria-live="polite"></div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, toast } = Shell;
+const $ = id => document.getElementById(id);
+$('brandMark').innerHTML = icon('truck');
+$('points').innerHTML = [
+  ['dispatch', 'Assign vehicles without violations', 'Blocked instantly when documents have expired, the truck is overloaded or the driver is nearly out of driving hours.'],
+  ['receipt', 'Same-day trip settlement', 'Drivers photograph receipts in the app; accountants approve each cost line.'],
+  ['chart', 'Gross profit by trip, route and customer', 'Provisional figures as soon as a trip is completed, no waiting for the month-end close.']
+].map(([ic, b, s]) => `<li><span class="ic">${icon(ic, 'lg')}</span><div><b>${b}</b><span>${s}</span></div></li>`).join('');
+
+/* ---------- Trạng thái form ---------- */
+const S = { mode: 'pw', id: '0912 345 678', fails: 0, company: 'PD', otpLeft: 45, name: '', coName: '' };
+const MAX_FAILS = 5;
+const COMPANIES = [
+  { k: 'PD', logo: 'PĐ', name: 'Vận tải Phát Đạt', role: 'Owner / Admin', meta: 'HCMC, Bình Dương · 28 vehicles' },
+  { k: 'NS', logo: 'NS', name: 'Logistics Nam Sông Hậu', role: 'Dispatcher', meta: 'Cần Thơ · 14 vehicles · trial: 9 days left' }
+];
+let otpTimer;
+const card = $('card');
+const openNote = t => `<div class="open-note"><span class="badge b-neutral">TBD</span><span>${t}</span></div>`;
+const backBtn = (to, label) => `<button class="link-btn back" type="button" data-go="${to}">${icon('chevron-right')}${label || 'Back'}</button>`;
+
+function tabs(active) {
+  return `<div class="tabs" role="tablist"><button type="button" role="tab" aria-selected="${active === 'login'}" data-go="login">Log in</button><button type="button" role="tab" aria-selected="${active === 'signup'}" data-go="signup">14-day trial</button></div>`;
+}
+
+const V = {
+  login(opt) {
+    opt = opt || {};
+    const left = MAX_FAILS - S.fails;
+    return `${tabs('login')}
+      <div><h2>Log in</h2><p class="sub">Use the phone number or email registered with your company.</p></div>
+      ${opt.error ? `<div class="alert alert-warning" role="alert">${icon('refresh')}<div>Can't connect to the server. Check your network and try again; what you entered is still here.</div></div>` : ''}
+      <form class="stack" style="gap:14px" id="fLogin" novalidate>
+        <label class="field"><span>Phone number or email</span><input class="input" id="iId" autocomplete="username" value="${opt.notFound ? '0938 112 405' : S.id}" ${opt.notFound ? 'aria-describedby="eId"' : ''}>
+          ${opt.notFound ? `<span class="err" id="eId">${icon('info')}No account found with this number.</span>` : ''}</label>
+        ${opt.notFound ? `<div class="trial"><div class="row">${icon('sparkle')}<b>Is your company new to Đội Xe?</b></div><span class="muted">Create a 14-day trial account with this phone number. No payment card needed.</span><div><button class="btn btn-secondary btn-sm" type="button" data-go="signup">Start a trial with 0938 112 405</button></div></div>` : ''}
+        <div class="seg" role="group" aria-label="Sign-in method"><button type="button" aria-pressed="${S.mode === 'pw'}" data-mode="pw">Password</button><button type="button" aria-pressed="${S.mode === 'otp'}" data-mode="otp">OTP via SMS</button></div>
+        ${S.mode === 'pw' ? `<label class="field"><span>Password</span><span class="pw"><input class="input ${opt.wrong ? 'invalid' : ''}" id="iPw" type="password" autocomplete="current-password" value="${opt.wrong ? '' : 'phatdat2026'}" ${opt.wrong ? 'aria-describedby="ePw"' : ''}><button class="icon-btn" type="button" id="eye" aria-label="Show password">${icon('eye')}</button></span>
+          ${opt.wrong ? `<span class="err" id="ePw">${icon('warn')}Wrong password. <b class="num">${left}</b> attempts left before a 15-min lock.</span>` : ''}</label>
+          <div class="row-between"><label class="check"><input type="checkbox" checked>Remember me on this device</label><button class="link-btn" type="button" data-go="otp" data-reason="reset">Forgot password?</button></div>`
+        : `<p class="hint">A 6-digit code is sent to the phone number above. It's valid for 5 min.</p>`}
+        <button class="btn btn-primary btn-block" type="submit" id="bLogin">${S.mode === 'pw' ? 'Log in' : 'Send OTP'}</button>
+      </form>
+      <p class="alt">Don't have an account? <button class="link-btn" type="button" data-go="signup">Try free for 14 days</button></p>`;
+  },
+  otp(reason) {
+    return `${backBtn('login')}
+      <div><h2>${reason === 'signup' ? 'Verify phone number' : reason === 'reset' ? 'Reset password' : 'Enter OTP code'}</h2><p class="sub">We sent a 6-digit code to <b class="num">${reason === 'signup' ? '0938 ••• 405' : '0912 ••• 678'}</b> by SMS.</p></div>
+      <form class="stack" style="gap:14px" id="fOtp" novalidate>
+        <div class="otp" role="group" aria-label="6-digit OTP">${Array.from({ length: 6 }, (_, i) => `<input class="input" inputmode="numeric" maxlength="1" aria-label="Digit ${i + 1}" data-i="${i}">`).join('')}</div>
+        <span class="err" id="eOtp" hidden>${icon('warn')}The code must have 6 digits.</span>
+        <div class="row-between"><span class="hint" id="otpCd">Resend code in <b class="num">0:${String(S.otpLeft).padStart(2, '0')}</b></span><button class="link-btn" type="button" id="resend" disabled>Resend code</button></div>
+        <button class="btn btn-primary btn-block" type="submit" data-reason="${reason || ''}">${reason === 'signup' ? 'Confirm and set up company' : reason === 'reset' ? 'Continue to set a new password' : 'Log in'}</button>
+      </form>
+      <p class="alt">Didn't get the SMS? <button class="link-btn" type="button" data-toast="Code sent by email to h***g@phatdat.vn">Send by email</button></p>`;
+  },
+  locked() {
+    return `${tabs('login')}
+      <div><h2>Log in</h2><p class="sub">Use the phone number or email registered with your company.</p></div>
+      <div class="alert alert-danger" role="alert">${icon('lock')}<div><b>Account locked until 10:42</b><br>The wrong password was entered 5 times in a row. You can reset your password with an OTP right now.</div></div>
+      <label class="field"><span>Phone number or email</span><input class="input" value="${S.id}" disabled></label>
+      <button class="btn btn-primary btn-block" type="button" data-go="otp" data-reason="reset">Reset password with OTP</button>
+      <p class="alt">Wasn't this you? <button class="link-btn" type="button" data-toast="Your company's Owner / Admin has been notified">Notify your company admin</button></p>`;
+  },
+  company() {
+    return `${backBtn('login', 'Sign out')}
+      <div><h2>Choose company</h2><p class="sub">Account <b class="num">0912 345 678</b> belongs to 2 companies. You can switch later from the account menu.</p></div>
+      <div class="co-list" role="radiogroup" aria-label="Company">${COMPANIES.map(c => `<button type="button" class="co" role="radio" aria-checked="${S.company === c.k}" data-co="${c.k}"><span class="logo">${c.logo}</span><span style="min-width:0"><b>${c.name}</b><small>${c.role}</small><small class="meta">${c.meta}</small></span><span class="radio" aria-hidden="true"></span></button>`).join('')}</div>
+      <label class="check"><input type="checkbox">Always open this company when I sign in</label>
+      <a class="btn btn-primary btn-block" href="fm-04-tong-quan.html" id="goCo">Continue to ${COMPANIES.find(c => c.k === S.company).name}</a> ${openNote('Company picker when one person belongs to several companies: not yet decided whether it\'s in the MVP.')}`;
+  },
+  signup(opt) {
+    opt = opt || {};
+    return `${tabs('signup')}
+      <div><h2>14-day trial</h2><p class="sub">Create an account for your company. You'll be the Owner / Admin.</p></div>
+      <div class="trial"><div class="row">${icon('check')}Free for 14 days, no payment card needed</div><div class="row">${icon('check')}All features: dispatch, documents, settlement, P&amp;L</div><div class="row">${icon('check')}Import vehicles and drivers from your existing Excel files</div></div>
+      <form class="stack" style="gap:14px" id="fSignup" novalidate>
+        <div class="grid2"><label class="field"><span>Full name</span><input class="input" id="sName" value="${S.name}" autocomplete="name" placeholder="Hồ Văn Hùng"></label>
+        <label class="field"><span>Phone number or email</span><input class="input" id="sId" value="${opt.prefill || ''}" autocomplete="username" placeholder="0938 112 405"></label></div>
+        <label class="field"><span>Company name</span><input class="input" id="sCo" value="${S.coName}" placeholder="Công ty TNHH Vận tải Phát Đạt"><span class="hint">You'll enter the tax ID and address in the next step.</span></label>
+        <span class="err" id="eSign" hidden>${icon('warn')}Enter your full name, phone/email and company name.</span>
+        <button class="btn btn-primary btn-block" type="submit">Get OTP</button>
+      </form>
+      <p class="terms">By clicking "Get OTP", you agree to the <a href="javascript:void(0)">Terms</a> and <a href="javascript:void(0)">Privacy policy</a>.</p>
+      ${openNote('Trial length (14 days) and the vehicle limit during the trial are not final.')}`;
+  },
+  loading() {
+    return `<div class="row" style="gap:16px"><span class="sk" style="width:50%;height:20px"></span><span class="sk" style="width:50%;height:20px"></span></div>
+      <div class="stack"><span class="sk" style="width:40%;height:20px"></span><span class="sk" style="width:80%"></span></div>
+      ${Array(2).fill('<div class="stack"><span class="sk" style="width:35%"></span><span class="sk" style="height:40px"></span></div>').join('')}
+      <span class="sk" style="height:36px"></span><span class="sk" style="height:40px;background:var(--primary-soft)"></span>`;
+  }
+};
+
+let view = 'login';
+function go(v, arg) {
+  clearInterval(otpTimer);
+  view = v;
+  card.innerHTML = typeof V[v] === 'function' ? V[v](arg) : '';
+  card.classList.remove('card-enter'); void card.offsetWidth; card.classList.add('card-enter');
+  if (v === 'otp') startOtp();
+  const first = card.querySelector('.otp input, #sName:placeholder-shown, #iPw.invalid');
+  if (first && v !== 'loading') first.focus({ preventScroll: true });
+}
+
+function startOtp() {
+  S.otpLeft = 45;
+  const ins = [...card.querySelectorAll('.otp input')];
+  ins.forEach((inp, i) => {
+    inp.addEventListener('input', () => { inp.value = inp.value.replace(/\D/g, '').slice(-1); if (inp.value && ins[i + 1]) ins[i + 1].focus(); });
+    inp.addEventListener('keydown', e => { if (e.key === 'Backspace' && !inp.value && ins[i - 1]) ins[i - 1].focus(); });
+    inp.addEventListener('paste', e => { const t = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, 6); if (t.length) { e.preventDefault(); ins.forEach((x, j) => x.value = t[j] || ''); (ins[t.length] || ins[5]).focus(); } });
+  });
+  otpTimer = setInterval(() => {
+    S.otpLeft--; const cd = $('otpCd'); if (!cd) return clearInterval(otpTimer);
+    if (S.otpLeft <= 0) { clearInterval(otpTimer); cd.textContent = 'Didn\'t get the code?'; $('resend').disabled = false; return; }
+    cd.innerHTML = `Resend code in <b class="num">0:${String(S.otpLeft).padStart(2, '0')}</b>`;
+  }, 1000);
+}
+
+function busy(btn, label) { btn.disabled = true; btn.innerHTML = `<span class="spin" aria-hidden="true"></span>${label}`; }
+
+/* ---------- Sự kiện ---------- */
+card.addEventListener('click', e => {
+  const g = e.target.closest('[data-go]');
+  if (g) { e.preventDefault(); if (g.dataset.go === 'signup' && g.textContent.includes('0938')) return go('signup', { prefill: '0938 112 405' }); return go(g.dataset.go, g.dataset.reason); }
+  const m = e.target.closest('[data-mode]'); if (m) { S.mode = m.dataset.mode; S.id = $('iId').value; return go('login'); }
+  const c = e.target.closest('[data-co]'); if (c) { S.company = c.dataset.co; return go('company'); }
+  const t = e.target.closest('[data-toast]'); if (t) return toast(t.dataset.toast);
+  if (e.target.closest('#eye')) { const p = $('iPw'); const show = p.type === 'password'; p.type = show ? 'text' : 'password'; e.target.closest('#eye').setAttribute('aria-label', show ? 'Hide password' : 'Show password'); }
+  if (e.target.closest('#resend')) { toast('OTP resent'); go('otp', card.querySelector('#fOtp button[type=submit]').dataset.reason); }
+});
+card.addEventListener('submit', e => {
+  e.preventDefault();
+  const f = e.target;
+  if (f.id === 'fLogin') {
+    S.id = $('iId').value;
+    if (S.mode === 'otp') { busy($('bLogin'), 'Sending code…'); return setTimeout(() => go('otp', 'login'), 600); }
+    const pw = $('iPw').value;
+    if (pw.length < 8) { S.fails++; return S.fails >= MAX_FAILS ? go('locked') : go('login', { wrong: true }); }
+    busy($('bLogin'), 'Signing in…'); setTimeout(() => { S.fails = 0; go('company'); }, 700);
+  }
+  if (f.id === 'fOtp') {
+    const code = [...f.querySelectorAll('.otp input')].map(x => x.value).join('');
+    if (code.length < 6) { $('eOtp').hidden = false; f.querySelectorAll('.otp input').forEach(x => !x.value && x.classList.add('invalid')); return; }
+    const reason = f.querySelector('button[type=submit]').dataset.reason, btn = f.querySelector('button[type=submit]');
+    busy(btn, 'Verifying…');
+    setTimeout(() => {
+      if (reason === 'signup') location.href = 'fm-02-thiet-lap.html';
+      else if (reason === 'reset') { toast('Verified. Set a new password in the next step'); S.fails = 0; go('login'); }
+      else go('company');
+    }, 700);
+  }
+  if (f.id === 'fSignup') {
+    S.name = $('sName').value.trim(); S.coName = $('sCo').value.trim(); const id = $('sId').value.trim();
+    if (!S.name || !S.coName || !id) { $('eSign').hidden = false; [['sName', S.name], ['sId', id], ['sCo', S.coName]].forEach(([k, v]) => $(k).classList.toggle('invalid', !v)); return; }
+    go('otp', 'signup');
+  }
+});
+
+Shell.states([['default', 'Log in'], ['otp', 'Enter OTP'], ['wrong', 'Wrong password'], ['locked', 'Locked'], ['company', 'Choose company'], ['signup', 'Sign up'], ['loading', 'Loading'], ['empty', 'No account'], ['error', 'Connection error']], s => {
+  S.mode = 'pw';
+  if (s === 'default') { S.fails = 0; go('login'); }
+  else if (s === 'otp') go('otp', 'login');
+  else if (s === 'wrong') { S.fails = 3; go('login', { wrong: true }); }
+  else if (s === 'locked') { S.fails = 5; go('locked'); }
+  else if (s === 'company') go('company');
+  else if (s === 'signup') go('signup');
+  else if (s === 'loading') go('loading');
+  else if (s === 'empty') go('login', { notFound: true });
+  else if (s === 'error') go('login', { error: true });
+});
+</script>
+</body>
+</html>

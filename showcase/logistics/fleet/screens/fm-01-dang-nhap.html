@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Đăng nhập · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* FM_01 — layout auth: không shell, 2 cột (giới thiệu ngắn · thẻ form) */
+  body { min-height: 100vh; }
+  .auth { min-height: 100vh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .auth-side { padding: 40px 56px 72px; display: flex; flex-direction: column; gap: 40px; }
+  .auth-brand { display: flex; align-items: center; gap: 10px; color: var(--fg-strong); font: 700 16px/1 var(--font-display); text-decoration: none !important; }
+  .auth-brand .brand-mark { width: 32px; height: 32px; }
+  .auth-brand small { display: block; font: 500 11px/1 var(--font-body); color: var(--side-fg-muted); margin-top: 4px; letter-spacing: .04em; text-transform: uppercase; }
+  .pitch { margin-top: auto; margin-bottom: auto; max-width: 480px; display: flex; flex-direction: column; gap: 28px; }
+  .pitch h1 { font-size: 30px; line-height: 38px; letter-spacing: -.01em; }
+  .pitch > p { font-size: 15px; line-height: 24px; color: var(--fg-muted); margin-top: -12px; }
+  .points { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
+  .points li { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 14px; align-items: start; }
+  .points .ic { width: 36px; height: 36px; border-radius: 8px; background: var(--surface); box-shadow: var(--shadow-card); color: var(--primary); display: grid; place-items: center; }
+  .points b { display: block; color: var(--fg-strong); font-weight: 600; }
+  .points span { font-size: 13px; color: var(--fg-muted); line-height: 19px; }
+  .side-foot { font-size: 12.5px; color: var(--fg-muted); display: flex; gap: 16px; }
+
+  .auth-main { display: grid; place-items: center; padding: 40px 24px; background: var(--surface-muted); }
+  .auth-card { width: min(440px, 100%); padding: 28px 32px 24px; display: flex; flex-direction: column; gap: 18px; }
+  .auth-card h2 { font-size: 20px; line-height: 28px; }
+  .auth-card .sub { color: var(--fg-muted); font-size: 13.5px; margin-top: 4px; }
+  .auth-card .tabs { margin: -4px 0 0; }
+  .auth-card .tabs button { flex: 1; justify-content: center; }
+  .auth-card .seg { width: 100%; }
+  .auth-card .seg button { flex: 1; justify-content: center; }
+  .auth-card .field .input { height: 40px; font-size: 14px; }
+  .pw { position: relative; display: flex; }
+  .pw .input { flex: 1; padding-right: 40px; }
+  .pw .icon-btn { position: absolute; right: 3px; top: 3px; }
+  .btn-block { width: 100%; height: 40px; font-size: 14px; }
+  .row-between { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 13px; }
+  .check { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--fg); cursor: pointer; }
+  .check input { width: 16px; height: 16px; accent-color: var(--primary); margin: 0; }
+  .alt { text-align: center; font-size: 13px; color: var(--fg-muted); }
+  .link-btn { border: 0; background: none; padding: 0; font: 500 13px var(--font-body); color: var(--primary); cursor: pointer; }
+  .link-btn:hover { text-decoration: underline; }
+  .link-btn[disabled] { color: var(--fg-muted); cursor: default; text-decoration: none; }
+  .err { font-size: 12.5px; color: var(--danger-fg); display: flex; gap: 6px; align-items: center; }
+  .err[hidden] { display: none; }
+  .field .input { width: 100%; }
+  .grid2 > * { min-width: 0; }
+  .input.invalid { border-color: var(--danger-solid); }
+  .hint { font-size: 12.5px; color: var(--fg-muted); }
+  .back { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; }
+  .back .icon { transform: rotate(180deg); }
+
+  /* OTP */
+  .otp { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+  .otp input { height: 48px; text-align: center; font: 600 20px var(--font-body); font-variant-numeric: tabular-nums; padding: 0; }
+
+  /* Chọn công ty (Radio/Card) */
+  .co-list { display: flex; flex-direction: column; gap: 8px; }
+  .co { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 12px; border-radius: 8px; border: 1px solid var(--border-strong); background: var(--surface); cursor: pointer; text-align: left; font: inherit; color: inherit; width: 100%; transition: background-color var(--d-1), border-color var(--d-1); }
+  .co:hover { background: var(--surface-muted); }
+  .co[aria-checked="true"] { border-color: var(--primary); background: var(--primary-soft); }
+  .co .logo { width: 40px; height: 40px; border-radius: 8px; background: var(--surface-muted); color: var(--fg-muted); display: grid; place-items: center; font: 700 14px var(--font-display); }
+  .co[aria-checked="true"] .logo { background: var(--surface); color: var(--primary); }
+  .co b { display: block; color: var(--fg-strong); font-weight: 600; }
+  .co small { display: block; font-size: 12.5px; line-height: 17px; color: var(--fg-muted); }
+  .co small:not(.meta) { color: var(--fg); font-weight: 500; }
+  .radio { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--border-strong); display: grid; place-items: center; }
+  .co[aria-checked="true"] .radio { border-color: var(--primary); }
+  .co[aria-checked="true"] .radio::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--primary); }
+
+  /* Dùng thử */
+  .trial { display: flex; flex-direction: column; gap: 8px; padding: 12px 14px; border-radius: 8px; background: var(--primary-soft); font-size: 13px; }
+  .trial .row { gap: 8px; color: var(--fg); }
+  .trial .row .icon { color: var(--primary); }
+  .open-note { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; line-height: 16px; color: var(--fg-muted); }
+  .open-note .badge { height: 18px; font-size: 11px; padding: 0 6px; flex: none; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .terms { font-size: 12px; color: var(--fg-muted); text-align: center; }
+  .spin { width: 16px; height: 16px; border-radius: 50%; border: 2px solid color-mix(in srgb, var(--on-primary) 40%, transparent); border-top-color: var(--on-primary); animation: spin .8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .card-enter { animation: riseIn var(--d-3) var(--ease-out) both; }
+  @media (max-width: 960px) { .auth { grid-template-columns: minmax(0, 1fr); } .auth-main { grid-template-columns: minmax(0, 1fr); padding: 24px 16px 96px; } .auth-card { padding: 22px 18px; justify-self: center; } .auth-side { display: none; } .auth-main { background: var(--bg); } }
+</style>
+</head>
+<body>
+<div class="auth">
+  <aside class="auth-side" aria-label="Giới thiệu">
+    <a class="auth-brand" href="../index.html"><span class="brand-mark" id="brandMark"></span><span>Đội Xe<small>Fleet Management</small></span></a>
+    <div class="pitch">
+      <h1>Chuyến nào lời, chuyến nào lỗ, biết ngay trong ngày</h1>
+      <p>Điều độ, giấy tờ, giờ lái và quyết toán chuyến trên một hệ thống cho công ty vận tải 10–100 xe.</p>
+      <ul class="points" id="points"></ul>
+    </div>
+    <div class="side-foot"><span>© 2026 Đội Xe</span><a href="javascript:void(0)">Điều khoản</a><a href="javascript:void(0)">Chính sách bảo mật</a><span>Hỗ trợ: 1900 6868</span></div>
+  </aside>
+  <main class="auth-main">
+    <section class="card auth-card" id="card" aria-live="polite"></section>
+  </main>
+</div>
+<div class="toast-host" id="toastHost" aria-live="polite"></div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, toast } = Shell;
+const $ = id => document.getElementById(id);
+$('brandMark').innerHTML = icon('truck');
+$('points').innerHTML = [
+  ['dispatch', 'Gán xe không vi phạm', 'Chặn ngay khi giấy tờ quá hạn, vượt tải hoặc tài xế sắp hết giờ lái.'],
+  ['receipt', 'Quyết toán chuyến trong ngày', 'Tài xế chụp hoá đơn trên app, kế toán duyệt từng dòng chi phí.'],
+  ['chart', 'Lãi gộp theo chuyến, tuyến, khách', 'Số tạm tính có ngay khi chuyến hoàn thành, không đợi khoá sổ tháng.']
+].map(([ic, b, s]) => `<li><span class="ic">${icon(ic, 'lg')}</span><div><b>${b}</b><span>${s}</span></div></li>`).join('');
+
+/* ---------- Trạng thái form ---------- */
+const S = { mode: 'pw', id: '0912 345 678', fails: 0, company: 'PD', otpLeft: 45, name: '', coName: '' };
+const MAX_FAILS = 5;
+const COMPANIES = [
+  { k: 'PD', logo: 'PĐ', name: 'Vận tải Phát Đạt', role: 'Chủ DN / Admin', meta: 'TP.HCM, Bình Dương · 28 xe' },
+  { k: 'NS', logo: 'NS', name: 'Logistics Nam Sông Hậu', role: 'Điều độ', meta: 'Cần Thơ · 14 xe · dùng thử còn 9 ngày' }
+];
+let otpTimer;
+const card = $('card');
+const openNote = t => `<div class="open-note"><span class="badge b-neutral">Chưa chốt</span><span>${t}</span></div>`;
+const backBtn = (to, label) => `<button class="link-btn back" type="button" data-go="${to}">${icon('chevron-right')}${label || 'Quay lại'}</button>`;
+
+function tabs(active) {
+  return `<div class="tabs" role="tablist"><button type="button" role="tab" aria-selected="${active === 'login'}" data-go="login">Đăng nhập</button><button type="button" role="tab" aria-selected="${active === 'signup'}" data-go="signup">Dùng thử 14 ngày</button></div>`;
+}
+
+const V = {
+  login(opt) {
+    opt = opt || {};
+    const left = MAX_FAILS - S.fails;
+    return `${tabs('login')}
+      <div><h2>Đăng nhập</h2><p class="sub">Dùng số điện thoại hoặc email đã đăng ký với công ty.</p></div>
+      ${opt.error ? `<div class="alert alert-warning" role="alert">${icon('refresh')}<div>Không kết nối được máy chủ. Kiểm tra mạng rồi thử lại, dữ liệu bạn nhập vẫn còn.</div></div>` : ''}
+      <form class="stack" style="gap:14px" id="fLogin" novalidate>
+        <label class="field"><span>Số điện thoại hoặc email</span><input class="input" id="iId" autocomplete="username" value="${opt.notFound ? '0938 112 405' : S.id}" ${opt.notFound ? 'aria-describedby="eId"' : ''}>
+          ${opt.notFound ? `<span class="err" id="eId">${icon('info')}Chưa có tài khoản nào với số này.</span>` : ''}</label>
+        ${opt.notFound ? `<div class="trial"><div class="row">${icon('sparkle')}<b>Công ty bạn chưa dùng Đội Xe?</b></div><span class="muted">Tạo tài khoản dùng thử 14 ngày bằng chính số điện thoại này, không cần thẻ thanh toán.</span><div><button class="btn btn-secondary btn-sm" type="button" data-go="signup">Dùng thử với số 0938 112 405</button></div></div>` : ''}
+        <div class="seg" role="group" aria-label="Cách đăng nhập"><button type="button" aria-pressed="${S.mode === 'pw'}" data-mode="pw">Mật khẩu</button><button type="button" aria-pressed="${S.mode === 'otp'}" data-mode="otp">Mã OTP qua SMS</button></div>
+        ${S.mode === 'pw' ? `<label class="field"><span>Mật khẩu</span><span class="pw"><input class="input ${opt.wrong ? 'invalid' : ''}" id="iPw" type="password" autocomplete="current-password" value="${opt.wrong ? '' : 'phatdat2026'}" ${opt.wrong ? 'aria-describedby="ePw"' : ''}><button class="icon-btn" type="button" id="eye" aria-label="Hiện mật khẩu">${icon('eye')}</button></span>
+          ${opt.wrong ? `<span class="err" id="ePw">${icon('warn')}Sai mật khẩu. Còn <b class="num">${left}</b> lần thử trước khi tạm khoá 15 phút.</span>` : ''}</label>
+          <div class="row-between"><label class="check"><input type="checkbox" checked>Ghi nhớ trên máy này</label><button class="link-btn" type="button" data-go="otp" data-reason="reset">Quên mật khẩu?</button></div>`
+        : `<p class="hint">Mã gồm 6 số, gửi đến số điện thoại ở trên. Mã có hiệu lực 5 phút.</p>`}
+        <button class="btn btn-primary btn-block" type="submit" id="bLogin">${S.mode === 'pw' ? 'Đăng nhập' : 'Gửi mã OTP'}</button>
+      </form>
+      <p class="alt">Chưa có tài khoản? <button class="link-btn" type="button" data-go="signup">Dùng thử miễn phí 14 ngày</button></p>`;
+  },
+  otp(reason) {
+    return `${backBtn('login')}
+      <div><h2>${reason === 'signup' ? 'Xác thực số điện thoại' : reason === 'reset' ? 'Đặt lại mật khẩu' : 'Nhập mã OTP'}</h2><p class="sub">Đã gửi mã 6 số đến <b class="num">${reason === 'signup' ? '0938 ••• 405' : '0912 ••• 678'}</b> qua SMS.</p></div>
+      <form class="stack" style="gap:14px" id="fOtp" novalidate>
+        <div class="otp" role="group" aria-label="Mã OTP 6 số">${Array.from({ length: 6 }, (_, i) => `<input class="input" inputmode="numeric" maxlength="1" aria-label="Số thứ ${i + 1}" data-i="${i}">`).join('')}</div>
+        <span class="err" id="eOtp" hidden>${icon('warn')}Mã chưa đủ 6 số.</span>
+        <div class="row-between"><span class="hint" id="otpCd">Gửi lại mã sau <b class="num">0:${String(S.otpLeft).padStart(2, '0')}</b></span><button class="link-btn" type="button" id="resend" disabled>Gửi lại mã</button></div>
+        <button class="btn btn-primary btn-block" type="submit" data-reason="${reason || ''}">${reason === 'signup' ? 'Xác nhận và thiết lập công ty' : reason === 'reset' ? 'Tiếp tục đặt mật khẩu mới' : 'Đăng nhập'}</button>
+      </form>
+      <p class="alt">Không nhận được SMS? <button class="link-btn" type="button" data-toast="Đã gửi mã qua email h***g@phatdat.vn">Gửi qua email</button></p>`;
+  },
+  locked() {
+    return `${tabs('login')}
+      <div><h2>Đăng nhập</h2><p class="sub">Dùng số điện thoại hoặc email đã đăng ký với công ty.</p></div>
+      <div class="alert alert-danger" role="alert">${icon('lock')}<div><b>Tài khoản tạm khoá đến 10:42</b><br>Đã nhập sai mật khẩu 5 lần liên tiếp. Bạn có thể đặt lại mật khẩu bằng mã OTP ngay bây giờ.</div></div>
+      <label class="field"><span>Số điện thoại hoặc email</span><input class="input" value="${S.id}" disabled></label>
+      <button class="btn btn-primary btn-block" type="button" data-go="otp" data-reason="reset">Đặt lại mật khẩu bằng OTP</button>
+      <p class="alt">Không phải bạn đăng nhập? <button class="link-btn" type="button" data-toast="Đã báo Chủ DN / Admin của công ty">Báo cho quản trị công ty</button></p>`;
+  },
+  company() {
+    return `${backBtn('login', 'Đăng xuất')}
+      <div><h2>Chọn công ty</h2><p class="sub">Tài khoản <b class="num">0912 345 678</b> thuộc 2 công ty. Bạn đổi được sau ở menu tài khoản.</p></div>
+      <div class="co-list" role="radiogroup" aria-label="Công ty">${COMPANIES.map(c => `<button type="button" class="co" role="radio" aria-checked="${S.company === c.k}" data-co="${c.k}"><span class="logo">${c.logo}</span><span style="min-width:0"><b>${c.name}</b><small>${c.role}</small><small class="meta">${c.meta}</small></span><span class="radio" aria-hidden="true"></span></button>`).join('')}</div>
+      <label class="check"><input type="checkbox">Luôn vào công ty này khi đăng nhập</label>
+      <a class="btn btn-primary btn-block" href="fm-04-tong-quan.html" id="goCo">Vào ${COMPANIES.find(c => c.k === S.company).name}</a>
+      ${openNote('Chọn công ty khi một người thuộc nhiều công ty: chưa chốt có làm ở MVP không.')}`;
+  },
+  signup(opt) {
+    opt = opt || {};
+    return `${tabs('signup')}
+      <div><h2>Dùng thử 14 ngày</h2><p class="sub">Tạo tài khoản cho công ty. Bạn sẽ là Chủ DN / Admin.</p></div>
+      <div class="trial"><div class="row">${icon('check')}Miễn phí 14 ngày, không cần thẻ thanh toán</div><div class="row">${icon('check')}Đủ tính năng: điều phối, giấy tờ, quyết toán, P&amp;L</div><div class="row">${icon('check')}Nhập xe và tài xế từ Excel có sẵn</div></div>
+      <form class="stack" style="gap:14px" id="fSignup" novalidate>
+        <div class="grid2"><label class="field"><span>Họ và tên</span><input class="input" id="sName" value="${S.name}" autocomplete="name" placeholder="Hồ Văn Hùng"></label>
+        <label class="field"><span>Số điện thoại hoặc email</span><input class="input" id="sId" value="${opt.prefill || ''}" autocomplete="username" placeholder="0938 112 405"></label></div>
+        <label class="field"><span>Tên công ty</span><input class="input" id="sCo" value="${S.coName}" placeholder="Công ty TNHH Vận tải Phát Đạt"><span class="hint">Mã số thuế và địa chỉ nhập ở bước sau.</span></label>
+        <span class="err" id="eSign" hidden>${icon('warn')}Nhập đủ họ tên, số điện thoại/email và tên công ty.</span>
+        <button class="btn btn-primary btn-block" type="submit">Nhận mã OTP</button>
+      </form>
+      <p class="terms">Bấm "Nhận mã OTP" là bạn đồng ý với <a href="javascript:void(0)">Điều khoản</a> và <a href="javascript:void(0)">Chính sách bảo mật</a>.</p>
+      ${openNote('Độ dài dùng thử (14 ngày) và giới hạn số xe khi dùng thử chưa chốt.')}`;
+  },
+  loading() {
+    return `<div class="row" style="gap:16px"><span class="sk" style="width:50%;height:20px"></span><span class="sk" style="width:50%;height:20px"></span></div>
+      <div class="stack"><span class="sk" style="width:40%;height:20px"></span><span class="sk" style="width:80%"></span></div>
+      ${Array(2).fill('<div class="stack"><span class="sk" style="width:35%"></span><span class="sk" style="height:40px"></span></div>').join('')}
+      <span class="sk" style="height:36px"></span><span class="sk" style="height:40px;background:var(--primary-soft)"></span>`;
+  }
+};
+
+let view = 'login';
+function go(v, arg) {
+  clearInterval(otpTimer);
+  view = v;
+  card.innerHTML = typeof V[v] === 'function' ? V[v](arg) : '';
+  card.classList.remove('card-enter'); void card.offsetWidth; card.classList.add('card-enter');
+  if (v === 'otp') startOtp();
+  const first = card.querySelector('.otp input, #sName:placeholder-shown, #iPw.invalid');
+  if (first && v !== 'loading') first.focus({ preventScroll: true });
+}
+
+function startOtp() {
+  S.otpLeft = 45;
+  const ins = [...card.querySelectorAll('.otp input')];
+  ins.forEach((inp, i) => {
+    inp.addEventListener('input', () => { inp.value = inp.value.replace(/\D/g, '').slice(-1); if (inp.value && ins[i + 1]) ins[i + 1].focus(); });
+    inp.addEventListener('keydown', e => { if (e.key === 'Backspace' && !inp.value && ins[i - 1]) ins[i - 1].focus(); });
+    inp.addEventListener('paste', e => { const t = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, 6); if (t.length) { e.preventDefault(); ins.forEach((x, j) => x.value = t[j] || ''); (ins[t.length] || ins[5]).focus(); } });
+  });
+  otpTimer = setInterval(() => {
+    S.otpLeft--; const cd = $('otpCd'); if (!cd) return clearInterval(otpTimer);
+    if (S.otpLeft <= 0) { clearInterval(otpTimer); cd.textContent = 'Chưa nhận được mã?'; $('resend').disabled = false; return; }
+    cd.innerHTML = `Gửi lại mã sau <b class="num">0:${String(S.otpLeft).padStart(2, '0')}</b>`;
+  }, 1000);
+}
+
+function busy(btn, label) { btn.disabled = true; btn.innerHTML = `<span class="spin" aria-hidden="true"></span>${label}`; }
+
+/* ---------- Sự kiện ---------- */
+card.addEventListener('click', e => {
+  const g = e.target.closest('[data-go]');
+  if (g) { e.preventDefault(); if (g.dataset.go === 'signup' && g.textContent.includes('0938')) return go('signup', { prefill: '0938 112 405' }); return go(g.dataset.go, g.dataset.reason); }
+  const m = e.target.closest('[data-mode]'); if (m) { S.mode = m.dataset.mode; S.id = $('iId').value; return go('login'); }
+  const c = e.target.closest('[data-co]'); if (c) { S.company = c.dataset.co; return go('company'); }
+  const t = e.target.closest('[data-toast]'); if (t) return toast(t.dataset.toast);
+  if (e.target.closest('#eye')) { const p = $('iPw'); const show = p.type === 'password'; p.type = show ? 'text' : 'password'; e.target.closest('#eye').setAttribute('aria-label', show ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'); }
+  if (e.target.closest('#resend')) { toast('Đã gửi lại mã OTP'); go('otp', card.querySelector('#fOtp button[type=submit]').dataset.reason); }
+});
+card.addEventListener('submit', e => {
+  e.preventDefault();
+  const f = e.target;
+  if (f.id === 'fLogin') {
+    S.id = $('iId').value;
+    if (S.mode === 'otp') { busy($('bLogin'), 'Đang gửi mã…'); return setTimeout(() => go('otp', 'login'), 600); }
+    const pw = $('iPw').value;
+    if (pw.length < 8) { S.fails++; return S.fails >= MAX_FAILS ? go('locked') : go('login', { wrong: true }); }
+    busy($('bLogin'), 'Đang đăng nhập…'); setTimeout(() => { S.fails = 0; go('company'); }, 700);
+  }
+  if (f.id === 'fOtp') {
+    const code = [...f.querySelectorAll('.otp input')].map(x => x.value).join('');
+    if (code.length < 6) { $('eOtp').hidden = false; f.querySelectorAll('.otp input').forEach(x => !x.value && x.classList.add('invalid')); return; }
+    const reason = f.querySelector('button[type=submit]').dataset.reason, btn = f.querySelector('button[type=submit]');
+    busy(btn, 'Đang xác thực…');
+    setTimeout(() => {
+      if (reason === 'signup') location.href = 'fm-02-thiet-lap.html';
+      else if (reason === 'reset') { toast('Đã xác thực. Đặt mật khẩu mới ở bước tiếp theo'); S.fails = 0; go('login'); }
+      else go('company');
+    }, 700);
+  }
+  if (f.id === 'fSignup') {
+    S.name = $('sName').value.trim(); S.coName = $('sCo').value.trim(); const id = $('sId').value.trim();
+    if (!S.name || !S.coName || !id) { $('eSign').hidden = false; [['sName', S.name], ['sId', id], ['sCo', S.coName]].forEach(([k, v]) => $(k).classList.toggle('invalid', !v)); return; }
+    go('otp', 'signup');
+  }
+});
+
+Shell.states([['default', 'Đăng nhập'], ['otp', 'Nhập OTP'], ['wrong', 'Sai mật khẩu'], ['locked', 'Đã khoá'], ['company', 'Chọn công ty'], ['signup', 'Đăng ký'], ['loading', 'Đang tải'], ['empty', 'Chưa có tài khoản'], ['error', 'Lỗi kết nối']], s => {
+  S.mode = 'pw';
+  if (s === 'default') { S.fails = 0; go('login'); }
+  else if (s === 'otp') go('otp', 'login');
+  else if (s === 'wrong') { S.fails = 3; go('login', { wrong: true }); }
+  else if (s === 'locked') { S.fails = 5; go('locked'); }
+  else if (s === 'company') go('company');
+  else if (s === 'signup') go('signup');
+  else if (s === 'loading') go('loading');
+  else if (s === 'empty') go('login', { notFound: true });
+  else if (s === 'error') go('login', { error: true });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Xe & rơ-moóc · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* FM_14 — danh sách tài sản: FilterBar → DataGrid toàn chiều rộng (DESIGN §5), không KPI (B2: màn thao tác) */
+  .page-header .fresh { margin-top: 6px; }
+  .tabs .count-pill { margin-left: 2px; }
+  .tabs button[aria-selected="true"] .count-pill { background: var(--primary-soft); color: var(--primary); }
+  .seg .n { font-variant-numeric: tabular-nums; color: var(--fg-subtle); font-weight: 500; }
+  .seg button[aria-pressed="true"] .n { color: var(--side-active); }
+  .listcard { min-width: 0; overflow: hidden; }
+  .listcard .grid tbody tr { cursor: pointer; }
+  .listcard .grid tbody tr:last-child td { border-bottom: 0; }
+  .listcard .grid th:first-child, .listcard .grid td:first-child { padding-left: 18px; }
+  .listcard .grid th:last-child, .listcard .grid td:last-child { padding-right: 14px; }
+  .plate { font-weight: 600; color: var(--fg-strong); }
+  .gsht { display: inline-flex; align-items: center; gap: 6px; }
+  .gsht .d { width: 7px; height: 7px; border-radius: 50%; background: var(--success-solid); flex: none; }
+  .gsht .d.warn { background: var(--warning-solid); }
+  .gsht .d.off { background: var(--fg-subtle); }
+  .row-go { color: var(--fg-subtle); }
+  .grid tr:hover .row-go { color: var(--primary); }
+  .foot-note { display: flex; align-items: center; gap: 8px; padding: 10px 18px 14px; font-size: 12.5px; color: var(--fg-muted); }
+  /* Drawer thêm mới */
+  .drawer.add { width: min(600px, 100vw); }
+  .drawer.add .drawer-head { border-bottom: 0; padding-bottom: 4px; }
+  .drawer.add .drawer-body { gap: 22px; }
+  .fgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 14px; }
+  .fgrid .full { grid-column: 1 / -1; }
+  .unit { display: flex; align-items: center; gap: 8px; }
+  .unit .input { flex: 1; }
+  .unit span { color: var(--fg-muted); font-size: 13px; white-space: nowrap; }
+  .field .err { color: var(--danger-fg); font-size: 12px; display: none; }
+  .field.invalid .input { border-color: var(--danger-solid); }
+  .field.invalid .err { display: block; }
+  .doc-rows { display: flex; flex-direction: column; gap: 6px; }
+  .doc-row { display: grid; grid-template-columns: minmax(0, 1fr) 150px auto; gap: 10px; align-items: center; padding: 6px 8px 6px 10px; border-radius: 8px; background: var(--surface-muted); font-size: 13px; }
+  .doc-row .input { height: 30px; }
+  .hint { font-size: 12.5px; color: var(--fg-muted); }
+  .empty .btn .icon { width: 16px; height: 16px; stroke-width: 1.75; color: inherit; }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Đội xe / Xe &amp; rơ-moóc</div>
+      <h1>Xe &amp; rơ-moóc</h1>
+      <div class="fresh" id="fresh"><span class="live" aria-hidden="true"></span><span id="freshTxt">Km và tín hiệu cập nhật 2 phút trước · GSHT</span></div>
+    </div>
+    <div class="actions">
+      <a class="btn btn-secondary" href="fm-03-import.html" id="importBtn"></a>
+      <button class="btn btn-primary" type="button" id="addBtn"></button>
+    </div>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Loại tài sản" id="tabs"></div>
+
+  <div class="filterbar" role="toolbar" aria-label="Bộ lọc" id="filters"></div>
+
+  <div id="alertSlot"></div>
+
+  <section class="card listcard" aria-label="Danh sách" id="listCard"></section>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_14', title: 'Xe & rơ-moóc' });
+const $ = id => document.getElementById(id);
+$('importBtn').innerHTML = icon('import') + 'Import từ Excel';
+
+/* Dữ liệu riêng của màn: trạng thái vận hành, giấy tờ gần hết hạn nhất, GSHT, km.
+   Giấy tờ khớp FM_18 (hôm nay 12/11/2026): quá hạn / ≤30 ngày mới có badge. */
+const VX = {
+  '51C-123.45': { brand: 'Hyundai Xcient GT · 2021', op: 'run', opSub: 'CH-0458', doc: ['BH vật chất', '17/11/2026', 5], g: ['Bình Anh', 'ok', '2 phút trước'], kmNow: 186420 },
+  '51D-456.78': { brand: 'Hyundai HD1000 · 2019', op: 'run', opSub: 'CH-0462', doc: ['Đăng kiểm', '24/11/2026', 12], g: ['Bình Anh', 'ok', '1 phút trước'], kmNow: 241905 },
+  '51C-099.21': { brand: 'Howo A7 · 2018', op: 'stop', opSub: 'Chờ đăng kiểm lại', doc: ['Đăng kiểm', '02/11/2026', -10], g: ['Bình Anh', 'ok', '1 giờ trước · đỗ bãi'], kmNow: 312077 },
+  '51C-310.66': { brand: 'Freightliner Cascadia · 2017', op: 'maint', opSub: 'Đến 14/11 · Xưởng Linh Trung', doc: ['BH TNDS', '21/01/2027', 70], g: ['Bình Anh', 'warn', 'Mất tín hiệu 2 ngày'], kmNow: 158330 },
+  '61C-220.14': { brand: 'International Prostar · 2018', op: 'run', opSub: 'CH-0464', doc: ['Phù hiệu xe tải', '03/12/2026', 21], g: ['Vietmap', 'ok', '3 phút trước'], kmNow: 97412 },
+  '51C-456.78': { brand: 'Hyundai Xcient · 2020', op: 'run', opSub: 'CH-0457', doc: ['BH TNDS', '10/12/2026', 28], g: ['Bình Anh', 'ok', '2 phút trước'], kmNow: 205118 },
+  '51D-702.33': { brand: 'Isuzu FVM · 2020', op: 'run', opSub: 'CH-0463', doc: ['Đăng kiểm', '15/02/2027', 95], g: ['Vietmap', 'ok', '4 phút trước'], kmNow: 74260 },
+  '51C-588.02': { brand: 'Hino FL · 2019', op: 'ready', opSub: 'Bãi Thủ Đức', doc: ['BH TNDS', '30/03/2027', 138], g: ['Vietmap', 'ok', '25 phút trước · đỗ bãi'], kmNow: 132840, extra: { plate: '51C-588.02', type: 'Xe tải thùng', cap: 15.0 } },
+  '51C-731.80': { brand: 'Chenglong H7 · 2022', op: 'run', opSub: 'CH-0459', doc: ['Đăng kiểm', '08/01/2027', 57], g: ['Bình Anh', 'warn', 'Đồng bộ trễ 17 phút'], kmNow: 88905, extra: { plate: '51C-731.80', type: 'Đầu kéo', cap: 30.0 } },
+  '51C-640.27': { brand: 'Hyundai Xcient GT · 2023', op: 'ready', opSub: 'Bãi Thủ Đức', doc: ['Đăng kiểm', '30/05/2027', 199], g: ['Bình Anh', 'ok', '12 phút trước · đỗ bãi'], kmNow: 41206, extra: { plate: '51C-640.27', type: 'Đầu kéo', cap: 30.0 } }
+};
+const RX = {
+  '51R-123.45': { op: 'run', opSub: 'Kéo bởi 51C-123.45 · CH-0458', doc: ['Đăng kiểm', '18/04/2027', 157] },
+  '51R-204.90': { op: 'run', opSub: 'Kéo bởi 51D-456.78 · CH-0462', doc: ['Đăng kiểm', '26/11/2026', 14] },
+  '51R-088.12': { op: 'stop', opSub: 'Đang gán CH-0464 · cần đổi', doc: ['BH TNDS', '28/10/2026', -15] },
+  '51R-077.30': { op: 'ready', opSub: 'Bãi Thủ Đức', doc: ['Đăng kiểm', '09/03/2027', 117] },
+  '51R-310.41': { op: 'run', opSub: 'Kéo bởi 51C-731.80 · CH-0459', doc: ['BH TNDS', '22/02/2027', 102], extra: { plate: '51R-310.41', type: 'Sơ mi rơ-moóc 40\'', cap: 32.0 } }
+};
+const OP = { ready: ['Sẵn sàng', 'b-success', 'check'], run: ['Đang chạy', 'b-info', 'pulse'], maint: ['Bảo dưỡng', 'b-neutral', 'wrench'], stop: ['Ngừng hoạt động', 'b-outline', 'block'] };
+const base = () => ({
+  xe: FM.vehicles.map(v => Object.assign({}, v, VX[v.plate])).concat(Object.values(VX).filter(x => x.extra).map(x => Object.assign({}, x.extra, x))),
+  rm: FM.trailers.map(v => Object.assign({}, v, RX[v.plate])).concat(Object.values(RX).filter(x => x.extra).map(x => Object.assign({}, x.extra, x)))
+});
+let DATA = base();
+const S = { tab: 'xe', op: 'all', docSoon: false, type: 'all', q: '', mode: 'default' };
+
+function opBadge(r) {
+  const m = OP[r.op]; const ic = m[2] === 'pulse' ? '<span class="pulse" aria-hidden="true"></span>' : icon(m[2]);
+  const sub = r.op === 'run' && /^CH-/.test(r.opSub) ? `<a class="code" href="fm-09-chi-tiet-chuyen.html" data-stop>${r.opSub}</a>` : r.opSub.replace(/(CH-\d{4})/, '<a class="code" href="fm-09-chi-tiet-chuyen.html" data-stop>$1</a>');
+  return `<span class="badge ${m[1]}">${ic}${m[0]}</span><span class="cell-sub">${sub}</span>`;
+}
+function docCell(d) {
+  const [name, date, days] = d;
+  if (days < 0) return `<span class="badge b-danger">${icon('block')}${name} quá hạn ${-days} ngày</span><span class="cell-sub num">Hạn ${date} · chặn gán chuyến</span>`;
+  if (days <= 30) return `<span class="badge b-warning">${icon('warn')}${name} còn ${days} ngày</span><span class="cell-sub num">Hạn ${date}</span>`;
+  return `<span>${name}</span><span class="cell-sub num">Hạn ${date}</span>`;
+}
+function gshtCell(g) {
+  if (!g) return '<span class="muted">—</span>';
+  return `<span class="gsht"><span class="d ${g[1] === 'warn' ? 'warn' : ''}" aria-hidden="true"></span>${g[0]}</span><span class="cell-sub" style="${g[1] === 'warn' ? 'color:var(--warning-fg)' : ''}">${g[2]}</span>`;
+}
+
+function rows() {
+  return DATA[S.tab].filter(r => (S.op === 'all' || r.op === S.op) && (!S.docSoon || r.doc[2] <= 30) && (S.type === 'all' || r.type === S.type) &&
+    (!S.q || (r.plate + r.type + (r.brand || '') + r.opSub).toLowerCase().includes(S.q)));
+}
+function renderTabs() {
+  $('tabs').innerHTML = [['xe', 'Xe', 'truck'], ['rm', 'Rơ-moóc', 'container']].map(([k, l, ic]) => `<button role="tab" type="button" data-tab="${k}" aria-selected="${S.tab === k}">${icon(ic)}${l}<span class="count-pill">${S.mode === 'empty' ? 0 : DATA[k].length}</span></button>`).join('');
+  $('tabs').querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { S.tab = b.dataset.tab; S.op = 'all'; S.type = 'all'; S.docSoon = false; S.q = ''; renderAll(); });
+  $('addBtn').innerHTML = icon('plus') + (S.tab === 'xe' ? 'Thêm xe' : 'Thêm rơ-moóc');
+}
+function renderFilters() {
+  $('filters').style.display = S.mode === 'empty' ? 'none' : '';
+  const all = DATA[S.tab], cnt = k => all.filter(r => r.op === k).length;
+  const types = [...new Set(all.map(r => r.type))];
+  const soon = all.filter(r => r.doc[2] <= 30).length;
+  $('filters').innerHTML = `
+    <div class="seg" role="group" aria-label="Trạng thái">${[['all', 'Tất cả', all.length], ['ready', 'Sẵn sàng', cnt('ready')], ['run', 'Đang chạy', cnt('run')], ['maint', 'Bảo dưỡng', cnt('maint')], ['stop', 'Ngừng hoạt động', cnt('stop')]].map(([k, l, n]) => `<button type="button" data-op="${k}" aria-pressed="${S.op === k}">${l} <span class="n">${n}</span></button>`).join('')}</div>
+    <div class="select-wrap"><select class="select" id="typeSel" aria-label="Loại" style="height:30px;padding-right:30px;appearance:none;-webkit-appearance:none"><option value="all">Loại: Tất cả</option>${types.map(t => `<option ${S.type === t ? 'selected' : ''} value="${t}">${t}</option>`).join('')}</select>${icon('chevron')}</div>
+    <button class="chip ${S.docSoon ? 'on' : ''}" type="button" id="docChip" aria-pressed="${S.docSoon}">${icon('doc')}Giấy tờ quá hạn / ≤ 30 ngày · ${soon}</button>
+    ${S.op !== 'all' || S.docSoon || S.type !== 'all' || S.q ? '<button class="btn btn-ghost btn-sm" type="button" id="clearF">Xoá lọc</button>' : ''}
+    <label class="search-global" style="max-width:280px;margin-left:auto">${icon('search')}<input id="q" type="search" value="${S.q}" placeholder="Tìm biển số, hãng xe…" aria-label="Tìm ${S.tab === 'xe' ? 'xe' : 'rơ-moóc'}"></label>`;
+  $('filters').querySelectorAll('[data-op]').forEach(b => b.onclick = () => { S.op = b.dataset.op; renderFilters(); renderList(); });
+  $('typeSel').onchange = e => { S.type = e.target.value; renderFilters(); renderList(); };
+  $('docChip').onclick = () => { S.docSoon = !S.docSoon; renderFilters(); renderList(); };
+  const c = $('clearF'); if (c) c.onclick = () => { S.op = 'all'; S.docSoon = false; S.type = 'all'; S.q = ''; renderFilters(); renderList(); };
+  $('q').oninput = e => { S.q = e.target.value.trim().toLowerCase(); renderList(); };
+}
+function renderList() {
+  const card = $('listCard');
+  if (S.mode === 'loading') { card.innerHTML = skel(); return; }
+  if (S.mode === 'empty') { card.innerHTML = emptyFirst(); bindEmpty(); return; }
+  const list = rows();
+  if (!list.length) { card.innerHTML = `<div class="empty">${icon('filter')}<h3>Không có ${S.tab === 'xe' ? 'xe' : 'rơ-moóc'} khớp bộ lọc</h3><p>Thử bỏ bớt điều kiện lọc.</p><button class="btn btn-secondary" type="button" onclick="document.getElementById('clearF').click()">Xoá lọc</button></div>`; return; }
+  const xe = S.tab === 'xe';
+  card.innerHTML = `<div class="grid-wrap"><table class="grid" aria-label="${xe ? 'Danh sách xe' : 'Danh sách rơ-moóc'}">
+    <thead><tr><th>Biển số</th><th>Loại</th><th class="right">Tải trọng</th><th>Trạng thái</th><th>Giấy tờ gần hết hạn nhất</th>${xe ? '<th>Thiết bị GSHT</th><th class="right">Km hiện tại</th>' : ''}<th style="width:28px"><span class="sr-only">Mở</span></th></tr></thead>
+    <tbody>${list.map(r => `<tr data-plate="${r.plate}" ${xe ? `tabindex="0" aria-label="Mở hồ sơ ${r.plate}"` : 'style="cursor:default"'}>
+      <td>${xe ? `<a class="code plate" href="fm-15-chi-tiet-xe.html">${r.plate}</a>` : `<b class="code plate">${r.plate}</b>`}${r.branch ? `<span class="cell-sub">Chi nhánh ${r.branch}</span>` : '<span class="cell-sub">TP.HCM</span>'}</td>
+      <td>${r.type}${r.brand ? `<span class="cell-sub">${r.brand}</span>` : ''}</td>
+      <td class="right num">${fmt.dec(r.cap)} tấn</td>
+      <td>${opBadge(r)}</td>
+      <td>${docCell(r.doc)}</td>
+      ${xe ? `<td>${gshtCell(r.g)}</td><td class="right num">${r.kmNow != null ? fmt.vnd(r.kmNow, { bare: 1 }) + ' km' : '—'}</td>` : ''}
+      <td class="row-go">${xe ? icon('chevron-right') : ''}</td></tr>`).join('')}</tbody></table></div>
+    <div class="foot-note">${icon('info')}<span>${list.length} / ${DATA[S.tab].length} ${xe ? 'xe' : 'rơ-moóc'} · chi nhánh TP.HCM. ${xe ? 'Xe' : 'Rơ-moóc'} có giấy tờ quá hạn không gán được chuyến ở Điều phối.</span>${xe ? '' : '<span style="margin-left:auto">Rơ-moóc không cần thiết bị GSHT.</span>'}</div>`;
+  if (xe) card.querySelectorAll('tbody tr').forEach(tr => {
+    tr.onclick = e => { if (e.target.closest('[data-stop]')) return; location.href = 'fm-15-chi-tiet-xe.html'; };
+    tr.onkeydown = e => { if (e.key === 'Enter') location.href = 'fm-15-chi-tiet-xe.html'; };
+  });
+}
+function skel() { const n = S.tab === 'xe' ? 8 : 6; return `<div class="grid-wrap"><table class="grid" aria-busy="true"><thead><tr>${Array(n).fill('<th><span class="sk" style="width:70px"></span></th>').join('')}</tr></thead><tbody>${Array(7).fill('<tr>' + Array(n).fill('<td style="height:52px"><span class="sk" style="width:75%"></span></td>').join('') + '</tr>').join('')}</tbody></table></div>`; }
+function emptyFirst() {
+  return `<div class="empty">${icon(S.tab === 'xe' ? 'truck' : 'container')}<h3>Chưa có ${S.tab === 'xe' ? 'xe' : 'rơ-moóc'} nào</h3><p>Import danh sách từ Excel đang dùng, hoặc thêm từng ${S.tab === 'xe' ? 'xe' : 'rơ-moóc'}.</p><div class="row" style="margin-top:4px"><a class="btn btn-secondary" href="fm-03-import.html">${icon('import')}Import từ Excel</a><button class="btn btn-primary" type="button" data-add>${icon('plus')}${S.tab === 'xe' ? 'Thêm xe' : 'Thêm rơ-moóc'}</button></div></div>`;
+}
+function bindEmpty() { const b = $('listCard').querySelector('[data-add]'); if (b) b.onclick = openAdd; }
+function renderAll() { renderTabs(); renderFilters(); renderList(); }
+
+/* ---------- Drawer: Thêm xe / rơ-moóc ---------- */
+function closeDrawer() { document.querySelectorAll('.drawer:not(.leaving), .scrim:not(.leaving)').forEach(x => Shell.dismiss(x)); }
+function openAdd() {
+  closeDrawer();
+  const xe = S.tab === 'xe';
+  const s = document.createElement('div'); s.className = 'scrim'; s.onclick = closeDrawer;
+  const d = document.createElement('aside'); d.className = 'drawer add'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'addTitle');
+  const docs = xe ? ['Đăng kiểm', 'Bảo hiểm TNDS', 'Bảo hiểm vật chất', 'Phù hiệu "XE TẢI"'] : ['Đăng kiểm', 'Bảo hiểm TNDS'];
+  d.innerHTML = `
+    <div class="drawer-head"><div class="row"><h2 id="addTitle">${xe ? 'Thêm xe' : 'Thêm rơ-moóc'}</h2><button class="icon-btn" type="button" data-x aria-label="Đóng (Esc)" style="margin-left:auto">${icon('x', 'lg')}</button></div>
+      <p class="hint">Nhiều ${xe ? 'xe' : 'rơ-moóc'}? <a href="fm-03-import.html">Import từ Excel</a> nhanh hơn.</p></div>
+    <div class="drawer-body">
+      <div class="stack" style="gap:10px"><div class="section-title"><h3>Thông tin ${xe ? 'xe' : 'rơ-moóc'}</h3></div>
+        <div class="fgrid">
+          <label class="field" id="fPlate"><span>Biển số *</span><input class="input code" id="plateIn" placeholder="${xe ? 'VD: 51C-123.45' : 'VD: 51R-123.45'}" aria-describedby="plateErr"><small class="err" id="plateErr">Biển số chưa đúng định dạng, ví dụ ${xe ? '51C-123.45' : '51R-123.45'}.</small></label>
+          <label class="field"><span>Loại *</span><select class="input">${(xe ? ['Đầu kéo', 'Xe tải thùng', 'Xe tải ben'] : ['Sơ mi rơ-moóc 40\'', 'Sơ mi rơ-moóc 20\'', 'Sơ mi rơ-moóc sàn']).map(o => `<option>${o}</option>`).join('')}</select></label>
+          ${xe ? '<label class="field"><span>Hãng · model</span><input class="input" placeholder="VD: Hyundai Xcient GT"></label><label class="field"><span>Năm sản xuất</span><input class="input num" placeholder="VD: 2021"></label>' : ''}
+          <label class="field"><span>${xe ? 'Tải trọng / khối lượng kéo theo *' : 'Tải trọng *'}</span><div class="unit"><input class="input num right" value="${xe ? '30,0' : '32,0'}"><span>tấn</span></div></label>
+          <label class="field"><span>Chi nhánh</span><select class="input"><option>TP.HCM</option><option>Bình Dương</option></select></label>
+          ${xe ? '<label class="field"><span>Km hiện tại</span><div class="unit"><input class="input num right" placeholder="Lấy từ GSHT nếu có"><span>km</span></div></label>' : ''}
+        </div></div>
+      ${xe ? `<div class="stack" style="gap:10px"><div class="section-title"><h3>Định mức nhiên liệu</h3><span class="tip"><button class="icon-btn" type="button" aria-label="Về định mức" style="width:24px;height:24px">${icon('info')}</button><span class="tip-body left">Mặc định theo loại xe ở Tham số giá thành (FM_30): đầu kéo <span class="formula">35 l/100km</span> có hàng, <span class="formula">28 l/100km</span> chạy rỗng. Dùng để tính dự toán dầu và so với thực tế.</span></span></div>
+        <div class="fgrid">
+          <label class="field"><span>Có hàng</span><div class="unit"><input class="input num right" value="35"><span>l/100km</span></div></label>
+          <label class="field"><span>Chạy rỗng</span><div class="unit"><input class="input num right" value="28"><span>l/100km</span></div></label>
+        </div></div>
+      <div class="stack" style="gap:10px"><div class="section-title"><h3>Thiết bị GSHT</h3></div>
+        <div class="fgrid">
+          <label class="field"><span>Hãng</span><select class="input"><option>Bình Anh</option><option>Vietmap</option><option>Adsun</option><option>Chưa gắn</option></select></label>
+          <label class="field"><span>Mã thiết bị</span><input class="input code" placeholder="VD: BA-TC09-118842"></label>
+        </div><p class="hint">Hệ thống tự ghép thiết bị với xe khi đã kết nối hãng ở <a href="fm-39-tich-hop.html">Cài đặt › Tích hợp</a>.</p></div>` : ''}
+      <div class="stack" style="gap:10px"><div class="section-title"><h3>Giấy tờ có hạn</h3><span class="muted sm">Nhắc trước 30 / 15 / 7 ngày</span></div>
+        <div class="doc-rows">${docs.map(n => `<div class="doc-row"><span>${n}</span><input class="input num" type="text" placeholder="Hạn dd/mm/yyyy" aria-label="Hạn ${n}"><button class="btn btn-ghost btn-sm" type="button" data-file>${icon('upload')}Đính kèm</button></div>`).join('')}</div>
+        <p class="hint">Có thể bổ sung sau ở <a href="fm-18-giay-to.html">Giấy tờ &amp; hạn</a>. Giấy tờ thiếu hạn sẽ không được kiểm tra khi gán chuyến.</p></div>
+    </div>
+    <div class="drawer-foot"><button class="btn btn-secondary" type="button" data-x>Huỷ</button><button class="btn btn-secondary" type="button" data-save="more">Lưu &amp; thêm tiếp</button><button class="btn btn-primary" type="button" data-save="one">Lưu ${xe ? 'xe' : 'rơ-moóc'}</button></div>`;
+  document.body.append(s, d);
+  d.querySelectorAll('[data-x]').forEach(b => b.onclick = closeDrawer);
+  d.querySelectorAll('[data-file]').forEach(b => b.onclick = () => { b.innerHTML = icon('check') + 'dang-kiem.pdf'; b.style.color = 'var(--success-fg)'; });
+  const inp = d.querySelector('#plateIn'); inp.focus();
+  inp.oninput = () => d.querySelector('#fPlate').classList.remove('invalid');
+  d.querySelectorAll('[data-save]').forEach(b => b.onclick = () => {
+    const v = inp.value.trim().toUpperCase();
+    if (!/^\d{2}[A-Z]{1,2}-\d{3}\.\d{2}$/.test(v)) { d.querySelector('#fPlate').classList.add('invalid'); inp.setAttribute('aria-invalid', 'true'); inp.focus(); return; }
+    const rec = xe ? { plate: v, type: 'Đầu kéo', cap: 30.0, brand: 'Mới thêm', op: 'ready', opSub: 'Bãi Thủ Đức', doc: ['Đăng kiểm', 'chưa nhập hạn', 999], g: null, kmNow: null } : { plate: v, type: 'Sơ mi rơ-moóc 40\'', cap: 32.0, op: 'ready', opSub: 'Bãi Thủ Đức', doc: ['Đăng kiểm', 'chưa nhập hạn', 999] };
+    rec.doc = [rec.doc[0], '—', 999];
+    DATA[S.tab].unshift(rec); const tab = S.tab;
+    if (b.dataset.save === 'one') closeDrawer(); else { inp.value = ''; inp.focus(); }
+    renderAll();
+    toast(`Đã thêm <span class="code">${v}</span>`, { undo: () => { DATA[tab] = DATA[tab].filter(x => x !== rec); renderAll(); } });
+  });
+}
+$('addBtn').onclick = openAdd;
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); if (e.key === '/' && !e.target.matches('input,select,textarea')) { e.preventDefault(); $('q').focus(); } });
+
+Shell.states([['default', 'Mặc định'], ['trailers', 'Tab Rơ-moóc'], ['soon', 'Lọc giấy tờ sắp hết hạn'], ['add', 'Thêm xe (drawer)'], ['loading', 'Đang tải'], ['empty', 'Trống'], ['error', 'Lỗi']], st => {
+  closeDrawer(); DATA = base(); Object.assign(S, { tab: 'xe', op: 'all', docSoon: false, type: 'all', q: '', mode: 'default' });
+  $('alertSlot').innerHTML = '';
+  $('fresh').querySelector('.live').classList.toggle('warn', st === 'error');
+  $('freshTxt').textContent = st === 'error' ? 'Không tải được dữ liệu GSHT · số km lần cuối 09:40' : 'Km và tín hiệu cập nhật 2 phút trước · GSHT';
+  if (st === 'trailers') S.tab = 'rm';
+  if (st === 'soon') S.docSoon = true;
+  if (st === 'loading' || st === 'empty') S.mode = st;
+  renderAll();
+  if (st === 'add') openAdd();
+  if (st === 'error') $('alertSlot').innerHTML = `<div class="alert alert-warning" role="alert">${icon('refresh')}<div>Không kết nối được máy chủ GSHT Bình Anh. Cột km và tín hiệu đang hiện số liệu lần cuối lúc 09:40; danh sách xe vẫn dùng được.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" onclick="location.reload()">Thử lại</button></div></div>`;
+});
+</script>
+</body>
+</html>

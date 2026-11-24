@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documents & expiry · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* FM_18 — SummaryStrip (1 số chính, ô phụ là bộ lọc nhóm) → bảng nhóm theo mức hạn, cập nhật nhanh inline */
+  .page-header .sub { color: var(--fg-muted); font-size: 13px; margin-top: 4px; }
+  .summary { display: grid; grid-template-columns: minmax(360px, 1.6fr) repeat(4, minmax(0, 1fr)); gap: 6px; padding: 6px; background: var(--surface); border-radius: var(--r-lg); box-shadow: var(--shadow-card); }
+  .sum-main { padding: 16px 20px; background: var(--primary-soft); border-radius: 8px; display: flex; flex-direction: column; gap: 4px; }
+  .sum-main .k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--side-active); }
+  .sum-main .v { font: 700 var(--text-display)/40px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .sum-main .v small { font: 600 18px var(--font-display); color: var(--fg-muted); margin-left: 6px; }
+  .sum-main .row { font-size: 12.5px; color: var(--fg-muted); gap: 6px; }
+  .sum-item { border: 0; background: transparent; text-align: left; font: inherit; color: inherit; cursor: pointer; padding: 16px; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; gap: 4px; position: relative; }
+  .sum-item:hover { background: var(--surface-muted); }
+  .sum-item[aria-pressed="true"] { background: var(--surface-muted); box-shadow: inset 0 0 0 1.5px var(--primary); }
+  .sum-item .k { font-size: 12.5px; color: var(--fg-muted); font-weight: 500; display: flex; align-items: center; gap: 6px; }
+  .sum-item .k i { width: 8px; height: 8px; border-radius: 2px; background: var(--warning-solid); }
+  .sum-item .k i.danger { background: var(--danger-solid); }
+  .sum-item .v { font: 700 24px/30px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .sum-item .d { font-size: 12px; color: var(--fg-muted); }
+  .seg .n { font-variant-numeric: tabular-nums; color: var(--fg-subtle); font-weight: 500; }
+  .seg button[aria-pressed="true"] .n { color: var(--side-active); }
+  .listcard { overflow: hidden; }
+  .listcard .grid th:first-child, .listcard .grid td:first-child { padding-left: 18px; }
+  .listcard .grid th:last-child, .listcard .grid td:last-child { padding-right: 14px; }
+  .listcard .grid tbody tr:last-child td { border-bottom: 0; }
+  tr.grp td { background: var(--surface); padding-top: 16px; padding-bottom: 6px; border-bottom: 0; }
+  tr.grp:hover td { background: var(--surface); }
+  .grp-h { display: flex; align-items: center; gap: 8px; font: 600 13.5px var(--font-body); color: var(--fg-strong); }
+  .grp-h::before { content: ""; width: 3px; height: 16px; border-radius: 2px; background: var(--warning-solid); }
+  .grp-h.danger::before { background: var(--danger-solid); }
+  .grp-h.none::before { background: var(--chart-muted); }
+  .grp-h .muted { font-weight: 400; font-size: 12.5px; }
+  .obj { display: flex; align-items: center; gap: 10px; }
+  .obj .ic { width: 30px; height: 30px; border-radius: 8px; background: var(--surface-muted); color: var(--fg-muted); display: grid; place-items: center; flex: none; }
+  .obj b { font-weight: 600; color: var(--fg-strong); }
+  .eff.block { color: var(--danger-fg); font-weight: 500; }
+  .eff { font-size: 13px; white-space: normal; min-width: 200px; max-width: 280px; display: block; }
+  .file { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; }
+  .nofile { color: var(--warning-fg); font-size: 12.5px; display: inline-flex; align-items: center; gap: 5px; }
+  tr.editing td { background: var(--primary-soft); }
+  tr.editing:hover td { background: var(--primary-soft); }
+  tr.qe td { background: var(--primary-soft); padding-top: 4px; padding-bottom: 14px; }
+  tr.qe:hover td { background: var(--primary-soft); }
+  .qe-box { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; padding-left: 40px; }
+  .qe-box .field .input { height: 30px; }
+  .qe-box .btn { height: 30px; }
+  .foot-note { display: flex; align-items: center; gap: 8px; padding: 10px 18px 14px; font-size: 12.5px; color: var(--fg-muted); }
+  .ms { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .ms label { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 6px 0 10px; border: 1px solid var(--border-strong); border-radius: var(--r-md); font-size: 13px; }
+  .ms input { width: 40px; border: 0; font: 600 13.5px var(--font-body); text-align: right; font-variant-numeric: tabular-nums; color: var(--fg-strong); background: transparent; }
+  .ms input:focus { outline: none; }
+  .ms .x { border: 0; background: none; color: var(--fg-muted); cursor: pointer; padding: 2px; display: grid; }
+  .opt { display: flex; gap: 8px; align-items: center; font-size: 13.5px; }
+  .opt input { accent-color: var(--primary); }
+  .modal.cfg { width: min(520px, calc(100vw - 32px)); }
+  @media (max-width: 1200px) { .summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } .sum-main { grid-column: 1 / -1; } }
+  .empty .btn .icon { width: 16px; height: 16px; stroke-width: 1.75; color: inherit; }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Fleet / Documents &amp; expiry</div>
+      <h1>Documents &amp; expiry</h1>
+      <div class="sub">Vehicles, trailers and drivers · HCMC branch · today 12/11/2026</div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-ghost" type="button" id="exportBtn"></button>
+      <button class="btn btn-secondary" type="button" id="cfgBtn"></button>
+    </div>
+  </div>
+
+  <section class="summary" id="summary" aria-label="Document expiry summary"></section>
+  <div class="filterbar" role="toolbar" aria-label="Filters" id="filters"></div>
+  <div id="alertSlot"></div>
+  <section class="card listcard" id="listCard" aria-label="Documents by expiry window"></section>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_18', title: 'Documents & expiry' });
+const $ = id => document.getElementById(id);
+let MS = [30, 15, 7];
+const btnLbl = () => { $('cfgBtn').innerHTML = icon('bell') + 'Reminders: ' + MS.join(' / ') + ' days'; };
+btnLbl(); $('exportBtn').innerHTML = icon('download') + 'Export to Excel';
+
+/* 10 giấy tờ quá hạn + ≤30 ngày = badge menu 10. Khớp data.js: 51C-099.21, 51R-088.12, TX06; khớp FM_14/15/16. */
+const SRC = [
+  { k: 'xe', who: '51C-099.21', sub: 'Tractor unit', doc: 'Inspection', no: '5102C-099211', exp: '02/11/2026', days: -10, file: 'dang-kiem-2025.pdf', eff: 'Assignment blocked · vehicle out of service', block: 1 },
+  { k: 'rm', who: '51R-088.12', sub: 'Semi-trailer 40\'', doc: 'TPL insurance', no: 'Bảo Việt · BV-TNDS-25-0088', exp: '28/10/2026', days: -15, file: 'bh-tnds-2025.pdf', eff: 'Assigned to <a class="code" href="fm-09-chi-tiet-chuyen.html">CH-0464</a> (07:30), trailer swap needed', block: 1 },
+  { k: 'tx', who: 'Đặng Văn Hiếu', sub: 'TX06', doc: 'Driver\'s license class FC', no: '790 166 021 448', exp: '05/11/2026', days: -7, file: 'gplx.jpg', eff: 'Assignment blocked · driver off until license is renewed', block: 1 },
+  { k: 'xe', who: '51C-123.45', sub: 'Tractor unit', doc: 'Physical damage insurance', no: 'PVI · PVI-VC-25-118842', exp: '17/11/2026', days: 5, file: 'bh-vat-chat-2025.pdf', eff: 'Not blocked; physical damage cover lapses' },
+  { k: 'tx', who: 'Trần Minh Đức', sub: 'TX02', doc: 'Training certificate', no: 'TH-2023-01942', exp: '18/11/2026', days: 6, file: null, eff: 'Assignment blocked from 19/11' },
+  { k: 'xe', who: '51D-456.78', sub: 'Tractor unit', doc: 'Inspection', no: '5102D-456781', exp: '24/11/2026', days: 12, file: 'dang-kiem-2025.pdf', eff: 'Assignment blocked from 25/11 · book inspection' },
+  { k: 'rm', who: '51R-204.90', sub: 'Semi-trailer 40\'', doc: 'Inspection', no: '5102R-204901', exp: '26/11/2026', days: 14, file: 'dang-kiem-2025.pdf', eff: 'Assignment blocked from 27/11' },
+  { k: 'xe', who: '61C-220.14', sub: 'Tractor unit · Bình Dương branch', doc: 'Operating badge "TRUCK"', no: 'Bình Dương Department of Transport · 61-0220', exp: '03/12/2026', days: 21, file: 'phu-hieu.jpg', eff: 'Assignment blocked from 04/12' },
+  { k: 'tx', who: 'Võ Thành Nhân', sub: 'TX05', doc: 'Driver\'s license class CE', no: '790 181 774 205', exp: '08/12/2026', days: 26, file: 'gplx.jpg', eff: 'Assignment blocked from 09/12' },
+  { k: 'xe', who: '51C-456.78', sub: 'Tractor unit', doc: 'TPL insurance', no: 'Bảo Việt · BV-TNDS-25-0456', exp: '10/12/2026', days: 28, file: null, eff: 'Assignment blocked from 11/12' }
+];
+const LATER = [
+  { k: 'xe', who: '51C-731.80', sub: 'Tractor unit', doc: 'Inspection', no: '5102C-731801', exp: '08/01/2027', days: 57, file: 'dang-kiem.pdf', eff: '—' },
+  { k: 'xe', who: '51C-310.66', sub: 'Tractor unit', doc: 'TPL insurance', no: 'PVI · PVI-TNDS-26-0310', exp: '21/01/2027', days: 70, file: 'bh-tnds.pdf', eff: '—' },
+  { k: 'rm', who: '51R-310.41', sub: 'Semi-trailer 40\'', doc: 'TPL insurance', no: 'Bảo Việt · BV-TNDS-26-0310', exp: '22/02/2027', days: 102, file: 'bh-tnds.pdf', eff: '—' },
+  { k: 'tx', who: 'Nguyễn Văn Tuấn', sub: 'TX01', doc: 'Training certificate', no: 'TH-2024-03381', exp: '22/05/2027', days: 191, file: 'tap-huan.pdf', eff: '—' }
+];
+const GROUPS = [['over', 'Overdue', d => d < 0, 'danger'], ['d7', '≤ 7 days', d => d >= 0 && d <= 7, ''], ['d15', '≤ 15 days', d => d > 7 && d <= 15, ''], ['d30', '≤ 30 days', d => d > 15 && d <= 30, ''], ['later', 'Valid > 30 days', d => d > 30, 'none']];
+const KIND = { xe: ['Vehicle', 'truck', 'fm-15-chi-tiet-xe.html'], rm: ['Trailer', 'container', 'fm-14-xe.html'], tx: ['Driver', 'user', 'fm-17-chi-tiet-tai-xe.html'] };
+let DATA;
+const S = { grp: 'all', kind: 'all', noFile: false, q: '', later: false, edit: null, mode: 'default' };
+const reset = () => { DATA = JSON.parse(JSON.stringify(SRC.concat(LATER))); };
+
+function remain(d) {
+  if (d < 0) return `<span class="badge b-danger">${icon('block')}Expired ${-d} days ago</span>`;
+  if (d <= 30) return `<span class="badge b-warning">${icon('warn')}${d} days left</span>`;
+  return `<span class="muted num">${d} days left</span>`;
+}
+function renderSummary() {
+  if (S.mode === 'loading') { $('summary').innerHTML = `<div class="sum-main"><span class="sk" style="width:60%"></span><span class="sk" style="width:40%;height:34px;margin-top:8px"></span></div>` + Array(4).fill('<div class="sum-item"><span class="sk" style="width:70%"></span><span class="sk" style="width:40%;height:22px;margin-top:8px"></span></div>').join(''); return; }
+  const live = DATA.filter(x => x.days <= 30), c = k => live.filter(x => GROUPS.find(g => g[0] === k)[2](x.days)).length;
+  const over = c('over');
+  $('summary').innerHTML = `<div class="sum-main"><span class="k">Needs action within 30 days</span><span class="v">${live.length}<small>documents</small></span><span class="row">${over ? `<span class="badge b-danger">${icon('block')}${over} expired, blocking trip assignment</span>` : `<span class="badge b-success">${icon('check')}No expired documents</span>`}</span></div>` +
+    GROUPS.slice(0, 4).map(([k, l, , s]) => `<button class="sum-item" type="button" data-grp="${k}" aria-pressed="${S.grp === k}"><span class="k"><i class="${s}" aria-hidden="true"></i>${l}</span><span class="v">${c(k)}</span><span class="d">${k === 'over' ? 'can\'t be assigned to trips' : k === 'd7' ? 'daily reminders' : 'reminders sent'}</span></button>`).join('');
+  $('summary').querySelectorAll('[data-grp]').forEach(b => b.onclick = () => { S.grp = S.grp === b.dataset.grp ? 'all' : b.dataset.grp; S.edit = null; renderAll(); });
+}
+function renderFilters() {
+  const base = DATA.filter(x => S.later || x.days <= 30), n = k => base.filter(x => x.k === k).length;
+  $('filters').innerHTML = `
+    <div class="seg" role="group" aria-label="Subject">${[['all', 'All', base.length], ['xe', 'Vehicle', n('xe')], ['rm', 'Trailer', n('rm')], ['tx', 'Driver', n('tx')]].map(([k, l, c]) => `<button type="button" data-kind="${k}" aria-pressed="${S.kind === k}">${l} <span class="n">${c}</span></button>`).join('')}</div>
+    <button class="chip ${S.noFile ? 'on' : ''}" type="button" id="noFile" aria-pressed="${S.noFile}">${icon('upload')}Missing file · ${base.filter(x => !x.file).length}</button>
+    <button class="chip ${S.later ? 'on' : ''}" type="button" id="later" aria-pressed="${S.later}">Also show valid &gt; 30 days</button>
+    ${S.grp !== 'all' || S.kind !== 'all' || S.noFile || S.q ? '<button class="btn btn-ghost btn-sm" type="button" id="clearF">Clear filters</button>' : ''}
+    <label class="search-global" style="max-width:280px;margin-left:auto">${icon('search')}<input id="q" type="search" value="${S.q}" placeholder="Search plate, driver name, document type…" aria-label="Search documents"></label>`;
+  $('filters').querySelectorAll('[data-kind]').forEach(b => b.onclick = () => { S.kind = b.dataset.kind; renderAll(); });
+  $('noFile').onclick = () => { S.noFile = !S.noFile; renderAll(); };
+  $('later').onclick = () => { S.later = !S.later; renderAll(); };
+  const c = $('clearF'); if (c) c.onclick = () => { Object.assign(S, { grp: 'all', kind: 'all', noFile: false, q: '' }); renderAll(); };
+  $('q').oninput = e => { S.q = e.target.value.trim().toLowerCase(); renderList(); };
+}
+function rowHtml(x) {
+  const K = KIND[x.k], i = DATA.indexOf(x), ed = S.edit === i;
+  return `<tr class="${ed ? 'editing' : ''}">
+    <td><div class="obj"><span class="ic" title="${K[0]}">${icon(K[1])}</span><div><a href="${K[2]}"><b class="${x.k === 'tx' ? '' : 'code'}">${x.who}</b></a><span class="cell-sub">${K[0]} · ${x.sub}</span></div></div></td>
+    <td>${x.doc}<span class="cell-sub">${x.no}</span></td>
+    <td class="num">${x.exp}</td>
+    <td>${remain(x.days)}</td>
+    <td>${x.file ? `<a class="file" href="javascript:void(0)" title="${x.file}">${icon('doc')}${/\.pdf$/.test(x.file) ? 'PDF' : 'Photo'}</a>` : `<span class="nofile">${icon('warn')}Missing file</span>`}</td>
+    <td><span class="eff ${x.block ? 'block' : 'muted'}">${x.eff}</span></td>
+    <td class="right">${x.days <= 30 ? `<button class="btn ${ed ? 'btn-ghost' : 'btn-secondary'} btn-sm" type="button" data-edit="${i}" aria-expanded="${ed}">${ed ? 'Close' : 'Update'}</button>` : ''}</td></tr>
+    ${ed ? `<tr class="qe"><td colspan="7"><div class="qe-box">
+      <label class="field"><span>New expiry *</span><input class="input num" id="qeDate" value="${x.k === 'tx' && /GPLX|license/i.test(x.doc) ? '05/11/2036' : x.doc === 'Inspection' ? '02/05/2027' : '28/10/2027'}" style="width:140px"></label>
+      <label class="field"><span>New reference number</span><input class="input" value="${x.no}" style="width:240px"></label>
+      <div class="field"><span>File</span><button class="btn btn-secondary btn-sm" type="button" id="qeFile">${icon('upload')}Attach file / photo</button></div>
+      <div class="row" style="margin-left:auto"><button class="btn btn-ghost btn-sm" type="button" data-cancel>Cancel</button><button class="btn btn-primary btn-sm" type="button" id="qeSave">Save new expiry</button></div>
+    </div></td></tr>` : ''}`;
+}
+function renderList() {
+  const card = $('listCard');
+  if (S.mode === 'loading') { card.innerHTML = `<div class="grid-wrap"><table class="grid" aria-busy="true"><thead><tr>${Array(7).fill('<th><span class="sk" style="width:70px"></span></th>').join('')}</tr></thead><tbody>${Array(8).fill('<tr>' + Array(7).fill('<td style="height:52px"><span class="sk" style="width:75%"></span></td>').join('') + '</tr>').join('')}</tbody></table></div>`; return; }
+  const list = DATA.filter(x => (S.later || x.days <= 30) && (S.kind === 'all' || x.k === S.kind) && (!S.noFile || !x.file) &&
+    (S.grp === 'all' || GROUPS.find(g => g[0] === S.grp)[2](x.days)) && (!S.q || (x.who + x.doc + x.no + x.sub).toLowerCase().includes(S.q)));
+  if (!list.length) {
+    card.innerHTML = S.mode === 'empty' || !DATA.some(x => x.days <= 30)
+      ? `<div class="empty">${icon('shield')}<h3>No documents expiring soon</h3><p>All vehicle, trailer and driver documents are valid for more than 30 days. Reminders will go out ${MS.join(' / ')} days before expiry.</p><button class="btn btn-secondary" type="button" onclick="document.getElementById('later').click()">View all documents</button></div>`
+      : `<div class="empty">${icon('filter')}<h3>No documents match the filters</h3><p>Try removing some filters.</p></div>`;
+    return;
+  }
+  card.innerHTML = `<div class="grid-wrap"><table class="grid" aria-label="Documents by expiry window"><thead><tr><th>Subject</th><th>Document · number</th><th>Expiry</th><th>Remaining</th><th>File</th><th>Impact</th><th><span class="sr-only">Actions</span></th></tr></thead><tbody>
+    ${GROUPS.map(([k, l, f, s]) => { const g = list.filter(x => f(x.days)).sort((a, b) => a.days - b.days); if (!g.length) return ''; return `<tr class="grp"><td colspan="7"><span class="grp-h ${s}">${l} <span class="muted">· ${g.length}</span></span></td></tr>` + g.map(rowHtml).join(''); }).join('')}
+  </tbody></table></div>
+  <div class="foot-note">${icon('info')}<span>An expired inspection, TPL insurance, operating badge, driver's license or training certificate blocks trip assignment in Dispatch. Physical damage insurance only triggers reminders, no block.</span></div>`;
+  card.querySelectorAll('[data-edit]').forEach(b => b.onclick = () => { const i = +b.dataset.edit; S.edit = S.edit === i ? null : i; renderList(); const d = $('qeDate'); if (d) d.focus(); });
+  const c = card.querySelector('[data-cancel]'); if (c) c.onclick = () => { S.edit = null; renderList(); };
+  const qf = $('qeFile'); if (qf) qf.onclick = () => { qf.innerHTML = icon('check') + 'scan-moi.pdf'; };
+  const qs = $('qeSave'); if (qs) qs.onclick = () => saveEdit(S.edit);
+}
+function saveEdit(i) {
+  const x = DATA[i], v = $('qeDate').value.trim();
+  if (!/^\d{2}\/\d{2}\/\d{4}$/.test(v)) { $('qeDate').setAttribute('aria-invalid', 'true'); $('qeDate').style.borderColor = 'var(--danger-solid)'; $('qeDate').focus(); return; }
+  if (S.mode === 'savefail') { $('alertSlot').innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Couldn't save the new expiry for <b>${x.doc}</b> of <b>${x.who}</b>: the file exceeds 10 MB. Retake the photo or compress the PDF and try again.</div></div>`; return; }
+  const prev = JSON.stringify(x);
+  const [dd, mm, yy] = v.split('/').map(Number); x.days = Math.round((new Date(yy, mm - 1, dd) - new Date(2026, 10, 12)) / 864e5); x.exp = v; x.file = x.file || 'scan-moi.pdf'; x.block = 0; x.eff = '—';
+  S.edit = null; renderAll();
+  toast(`Renewed ${x.doc} · ${x.who} until ${v}`, { undo: () => { Object.assign(x, JSON.parse(prev)); renderAll(); } });
+}
+function renderAll() { $('alertSlot').innerHTML = ''; renderSummary(); renderFilters(); renderList(); }
+
+/* ---------- Modal cấu hình mốc nhắc ---------- */
+function closeModal() { document.querySelectorAll('.modal:not(.leaving), .scrim:not(.leaving)').forEach(x => Shell.dismiss(x)); }
+function openCfg() {
+  closeModal(); let ms = MS.slice();
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim'; s.onclick = closeModal;
+  const m = document.createElement('div'); m.className = 'modal cfg'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.setAttribute('aria-labelledby', 'cfgT');
+  const draw = () => {
+    m.innerHTML = `<h2 id="cfgT">Document expiry reminders</h2><p class="muted sm">Applies to all expiring documents of vehicles, trailers and drivers in the company.</p>
+      <div class="field"><span>Remind before expiry</span><div class="ms">${ms.map((v, i) => `<label><input class="num" value="${v}" data-i="${i}" aria-label="Reminder ${i + 1} (days)">days<button class="x" type="button" data-rm="${i}" aria-label="Remove ${v}-day reminder">${icon('x')}</button></label>`).join('')}${ms.length < 5 ? `<button class="btn btn-ghost btn-sm" type="button" id="addMs">${icon('plus')}Add reminder</button>` : ''}</div></div>
+      <div class="field"><span>Recipients</span>
+        <label class="opt"><input type="checkbox" checked>Fleet manager · Phạm Thanh</label>
+        <label class="opt"><input type="checkbox" checked>Dispatcher · Lê Thị Ngọc</label>
+        <label class="opt"><input type="checkbox" checked>Drivers (their own documents, via the app)</label></div>
+      <div class="field"><span>Channels</span>
+        <label class="opt"><input type="checkbox" checked>Web notifications and Alert center</label>
+        <label class="opt"><input type="checkbox" checked>Email</label>
+        <label class="opt"><input type="checkbox" disabled>Zalo OA <span class="badge b-neutral" style="margin-left:4px">Not decided</span><span class="muted sm">paid channel, under consideration</span></label></div>
+      <p class="sm muted">Once expired: daily reminders until updated, and trip assignment is blocked (can't be turned off).</p>
+      <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Cancel</button><button class="btn btn-primary" type="button" id="cfgSave">Save</button></div>`;
+    m.querySelectorAll('[data-i]').forEach(inp => inp.oninput = () => { ms[+inp.dataset.i] = parseInt(inp.value, 10) || 0; });
+    m.querySelectorAll('[data-rm]').forEach(b => b.onclick = () => { ms.splice(+b.dataset.rm, 1); draw(); });
+    const a = m.querySelector('#addMs'); if (a) a.onclick = () => { ms.push(3); draw(); };
+    m.querySelector('[data-x]').onclick = closeModal;
+    m.querySelector('#cfgSave').onclick = () => { const prev = MS; MS = ms.filter(v => v > 0).sort((a, b) => b - a); btnLbl(); closeModal(); renderList(); toast(`Reminders saved: ${MS.join(' / ')} days`, { undo: () => { MS = prev; btnLbl(); renderList(); } }); };
+  };
+  draw(); document.body.append(s, m);
+}
+$('cfgBtn').onclick = openCfg;
+$('exportBtn').onclick = () => toast('Exporting the document list to Excel…');
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); if (S.edit != null) { S.edit = null; renderList(); } } });
+
+Shell.states([['default', 'Default'], ['quick', 'Quick update'], ['config', 'Configure reminders'], ['later', 'Also show valid'], ['savefail', 'Save failed'], ['loading', 'Loading'], ['empty', 'Empty'], ['error', 'Error']], st => {
+  closeModal(); reset(); MS = [30, 15, 7]; btnLbl();
+  Object.assign(S, { grp: 'all', kind: 'all', noFile: false, q: '', later: st === 'later', edit: null, mode: ['loading', 'empty', 'savefail'].includes(st) ? st : 'default' });
+  if (st === 'empty') DATA = DATA.filter(x => x.days > 30);
+  if (st === 'quick' || st === 'savefail') S.edit = 0;
+  if (st === 'error') { $('summary').innerHTML = ''; $('summary').style.display = 'none'; renderFilters(); $('listCard').innerHTML = `<div class="empty">${icon('refresh')}<h3>Couldn't load the document list</h3><p>Check your network connection and try again.</p><button class="btn btn-secondary" type="button" onclick="location.reload()">Retry</button></div>`; $('alertSlot').innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Server error while loading documents (code 503). Automatic expiry reminders are still running.</div></div>`; return; }
+  $('summary').style.display = '';
+  renderAll();
+  if (st === 'savefail') saveEdit(0);
+  if (st === 'config') openCfg();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profit & loss · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  .page-header .actions { align-items: center; }
+  /* FreshnessTag */
+  .fresh { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--fg-muted); }
+  .fresh .live { width: 7px; height: 7px; border-radius: 50%; background: var(--success-solid); }
+  .fresh button { border: 0; background: none; color: var(--primary); font: 500 12.5px var(--font-body); cursor: pointer; padding: 0; display: inline-flex; gap: 4px; align-items: center; }
+  .fresh button .icon { width: 14px; height: 14px; }
+  /* SummaryStrip (như FM_04): một số chính Lãi gộp + 4 số phụ */
+  .summary { display: grid; grid-template-columns: minmax(420px, 1.7fr) repeat(4, minmax(0, 1fr)); gap: 6px; padding: 6px; background: var(--surface); border-radius: var(--r-lg); box-shadow: var(--shadow-card); }
+  .sum-main { padding: 18px 22px; background: var(--primary-soft); display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: 16px; border-radius: 8px; border: 0; font: inherit; color: inherit; text-align: left; cursor: pointer; }
+  .sum-main-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .sum-spark { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; padding-bottom: 2px; }
+  .sum-spark small { font-size: 11.5px; color: var(--fg-muted); }
+  .sum-main .k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--side-active); }
+  .sum-main .v { font: 700 var(--text-display)/40px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+  .sum-main .v small { font: 600 18px var(--font-display); color: var(--fg-muted); margin-left: 4px; }
+  .sum-item .v small { font: 600 14px var(--font-body); color: var(--fg-muted); }
+  .sum-main .row { gap: 6px; flex-wrap: wrap; font-size: 12.5px; color: var(--fg-muted); }
+  .sum-item { padding: 18px 16px; display: flex; flex-direction: column; justify-content: center; gap: 4px; min-width: 0; border: 0; border-radius: 8px; background: transparent; font: inherit; color: inherit; text-align: left; }
+  button.sum-item { cursor: pointer; }
+  button.sum-item:hover { background: var(--surface-muted); }
+  .sum-main:hover { box-shadow: inset 0 0 0 1px var(--primary-muted); }
+  .sum-item .k { font-size: 12.5px; color: var(--fg-muted); font-weight: 500; }
+  .sum-item .v { font: 700 24px/30px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .sum-item .row { gap: 6px; font-size: 12.5px; color: var(--fg-muted); flex-wrap: wrap; }
+  .delta { display: inline-flex; align-items: center; gap: 3px; font-size: 12.5px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .delta.up-good { color: var(--success-fg); } .delta.up-bad, .delta.down-bad { color: var(--danger-fg); } .delta.warn { color: var(--warning-fg); }
+  .delta .icon { width: 13px; height: 13px; }
+  .spark { display: block; margin-top: 4px; }
+  .card-title { display: flex; align-items: center; gap: 10px; padding: 16px 18px 6px; }
+  .card-title h2 { font-size: 16px; }
+  .card-title .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 10px; align-items: center; text-align: right; }
+  .chart-legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--fg-muted); padding: 0 18px 14px; }
+  .chart-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; box-sizing: border-box; }
+  .foot-note { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--fg-muted); padding: 0 2px; }
+  .foot-note .icon { width: 15px; height: 15px; flex: none; }
+  @media (max-width: 1200px) { .summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } .sum-main { grid-column: 1 / -1; } }
+  .dimsel { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--fg-muted); }
+  .dimsel select { height: 30px; font-weight: 500; }
+  .chart-card svg { display: block; width: 100%; height: auto; }
+  .chart-card .bar { cursor: pointer; }
+  .chart-card .bar:hover rect.b, .chart-card .bar:focus rect.b { opacity: .8; }
+  .chart-card .bar:hover rect.hit { fill: var(--surface-muted) !important; }
+  .chart-wrap { padding: 4px 18px 8px; }
+  .chart-card .bar:focus { outline: none; }
+  .chart-card .bar:focus-visible text.n { text-decoration: underline; }
+  .pv-wrap { max-height: 620px; overflow: auto; }
+  table.pv { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 12.5px; }
+  .pv th { position: sticky; top: 0; z-index: 2; background: var(--surface-muted); color: var(--fg-muted); font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; padding: 8px 8px; border-bottom: 1px solid var(--border); white-space: nowrap; text-align: right; cursor: pointer; user-select: none; }
+  .pv th:first-child { text-align: left; left: 0; z-index: 3; }
+  .pv th[aria-sort] { color: var(--primary); }
+  .pv td { padding: 7px 8px; border-bottom: 1px solid var(--border); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; background: var(--surface); }
+  .pv tbody tr:last-child td { border-bottom: 0; }
+  .pv td:first-child { text-align: left; position: sticky; left: 0; z-index: 1; width: 240px; min-width: 240px; max-width: 240px; }
+  .pv-wrap { border-radius: 0 0 var(--r-lg) var(--r-lg); }
+  .pv td:first-child .cell-sub, .pv td:first-child .t { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pv td:first-child .nm > div { min-width: 0; flex: 1; }
+  .pv td:first-child .line1 { display: flex; align-items: center; gap: 4px; min-width: 0; overflow: hidden; white-space: nowrap; }
+  .pv tr:hover td { background: var(--surface-muted); }
+  .pv tr.l2 td { background: var(--bg); }
+  .pv tr.l3 td { background: var(--bg); font-size: 12.5px; }
+  .pv tr.l2 td:first-child { padding-left: 30px; }
+  .pv tr.l3 td:first-child { padding-left: 52px; }
+  .pv tr.more td { color: var(--fg-muted); font-size: 12.5px; background: var(--bg); }
+  .pv tfoot td { position: sticky; bottom: 0; z-index: 1; background: var(--surface-muted); font-weight: 700; border-top: 1px solid var(--border-strong); border-bottom: 0; }
+  .pv tfoot td:first-child { z-index: 2; }
+  .nm { display: flex; align-items: flex-start; gap: 6px; }
+  .tw { border: 0; background: none; padding: 0; width: 18px; height: 20px; cursor: pointer; color: var(--fg-muted); flex: none; display: grid; place-items: center; }
+  .tw .icon { transition: transform .12s; transform: rotate(-90deg); }
+  .tw[aria-expanded="true"] .icon { transform: none; }
+  .nm .t { font-weight: 500; }
+  .nm .cell-sub { font-weight: 400; }
+  .rowflags { display: inline-flex; gap: 4px; margin-left: 6px; vertical-align: 1px; }
+  .rowflags .badge { height: 20px; font-size: 11.5px; padding: 0 6px; }
+  .cn { border-bottom: 1px dotted var(--border-strong); cursor: help; }
+  .mcol { font-weight: 600; }
+  .pv td.act { text-align: left; padding: 4px 8px; }
+  .filterchip { display: inline-flex; }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Reports / Profit & loss</div>
+      <h1>Profit & loss</h1>
+      <div class="fresh" style="margin-top:6px"><span class="live" aria-hidden="true"></span>Updated 5 min ago · from settlements and cost imports <button type="button" id="refresh"></button></div>
+    </div>
+    <div class="actions">
+      <span class="badge b-warning" tabindex="0" id="defBadge"></span>
+      <button class="btn btn-secondary" type="button" id="xlsBtn"></button>
+      <button class="btn btn-secondary" type="button" id="pdfBtn">Export to PDF</button>
+    </div>
+  </div>
+
+  <div class="filterbar" role="toolbar" aria-label="Filters">
+    <button class="chip on" type="button">Period: Oct 2026 <span class="ic-chev"></span></button>
+    <button class="chip" type="button">Compare to: Sep 2026 <span class="ic-chev"></span></button>
+    <button class="chip" type="button">Customer <span class="ic-chev"></span></button>
+    <button class="chip" type="button">Route <span class="ic-chev"></span></button>
+    <div class="seg" role="group" aria-label="Trip type"><button type="button" aria-pressed="true">All</button><button type="button" aria-pressed="false">Standard</button><button type="button" aria-pressed="false">Container</button></div>
+    <button class="chip" type="button" id="lowOnly" aria-pressed="false">Low-margin rows only</button>
+    <span id="rowFilter"></span>
+    <button class="btn btn-ghost btn-sm" type="button" id="clearF">Clear filters</button>
+  </div>
+  <div class="filterbar" role="toolbar" aria-label="View by">
+    <label class="dimsel">View by: <select class="input" id="dim1"></select></label>
+    <label class="dimsel">then by: <select class="input" id="dim2"><option value="route">Route</option><option value="trip">Trip</option></select></label>
+    <div class="seg" role="group" aria-label="Profit view" style="margin-left:auto"><button type="button" data-mode="gross" aria-pressed="true">Gross profit</button><button type="button" data-mode="alloc" aria-pressed="false">Profit after allocation</button></div>
+  </div>
+
+  <div id="view" style="display:contents"></div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_35', title: 'Profit & loss' });
+const V = n => fmt.vnd(n, { bare: 1 });
+const NA = 'href="javascript:void(0)" title="not in this prototype"';
+document.querySelectorAll('.ic-chev').forEach(e => e.outerHTML = icon('chevron'));
+document.getElementById('xlsBtn').innerHTML = icon('download') + 'Export to Excel';
+document.getElementById('refresh').innerHTML = icon('refresh') + 'Refresh';
+document.getElementById('refresh').onclick = () => toast('Figures refreshed');
+document.getElementById('defBadge').innerHTML = icon('info') + `Using default values — <a ${NA} style="color:inherit;text-decoration:underline">Update</a>`;
+
+/* ---------- Floating tooltip ---------- */
+const TIPS = {}; let tipN = 0;
+const tip = html => { const k = 't' + (tipN++); TIPS[k] = html; return `data-ftip="${k}"`; };
+const ftip = document.createElement('div'); ftip.className = 'tip-body'; ftip.setAttribute('role', 'tooltip');
+Object.assign(ftip.style, { position: 'fixed', transform: 'none', bottom: 'auto', zIndex: 100 }); document.body.appendChild(ftip);
+function showTip(el) { const h = TIPS[el.dataset.ftip]; if (!h) return; ftip.innerHTML = h; ftip.style.opacity = 1; const r = el.getBoundingClientRect(), w = ftip.offsetWidth, ht = ftip.offsetHeight; ftip.style.left = Math.min(Math.max(8, r.left + r.width / 2 - w / 2), innerWidth - w - 8) + 'px'; let y = r.top - ht - 8; if (y < 8) y = r.bottom + 8; ftip.style.top = y + 'px'; }
+const hideTip = () => { ftip.style.opacity = 0; };
+document.addEventListener('mouseover', e => { const el = e.target.closest('[data-ftip]'); el ? showTip(el) : hideTip(); });
+document.addEventListener('focusin', e => { const el = e.target.closest('[data-ftip]'); el ? showTip(el) : hideTip(); });
+document.addEventListener('scroll', hideTip, true);
+document.getElementById('defBadge').setAttribute('data-ftip', 'def'); TIPS.def = 'Fixed cost/km and depreciation/day for 14 vehicles haven\'t been adjusted yet. Profit after allocation may not reflect actual figures.';
+
+/* ---------- Dữ liệu (đ). Tháng 10/2026, chi nhánh TP.HCM ---------- */
+const M = 1e6, R5 = v => Math.round(v / 1e5) * 1e5;
+function mk(name, trips, rev, g, n, extra) {
+  const Rd = rev >= 1e8 ? R5 : v => Math.round(v / 1e3) * 1e3;
+  const vc = rev - g, fuel = Rd(vc * .42), toll = Rd(vc * .08), lift = Rd(vc * .19), sal = Rd(vc * .24), oth = vc - fuel - toll - lift - sal;
+  const al = g - n, dep = Rd(al * .45);
+  return Object.assign({ name, trips, rev, g, n, vc, fuel, toll, lift, sal, oth, dep, fix: al - dep }, extra || {});
+}
+const TOT = { trips: 1146, rev: 4820 * M, g: 1210 * M, n: 168 * M };
+// rows: [name, trips, revPerTripM, grossMargin, netMargin, extra]; dòng cuối nhận phần còn lại để tổng khớp
+function gen(rows, tot) {
+  tot = tot || TOT; const out = []; let st = 0, sr = 0, sg = 0, sn = 0;
+  rows.forEach((r, i) => {
+    if (i < rows.length - 1) { const rev = R5(r[1] * r[2] * M), g = R5(rev * r[3]), n = R5(rev * r[4]); st += r[1]; sr += rev; sg += g; sn += n; out.push(mk(r[0], r[1], rev, g, n, r[5])); }
+    else out.push(mk(r[0], tot.trips - st, tot.rev - sr, tot.g - sg, tot.n - sn, r[5]));
+  });
+  return out;
+}
+const CUST = [
+  mk('Tân Cảng Logistics', 312, 1452.6 * M, 362.4 * M, 58.1 * M, { sub: '41 consolidated trips · allocated by weight × km', alloc: 1, prov: 12 }),
+  mk('Gỗ Minh Long', 168, 712.4 * M, 178.1 * M, 24.2 * M, { prov: 6 }),
+  mk('Bao bì Tân Phú', 186, 702.3 * M, 196.6 * M, 52.7 * M, { prov: 5, sub: '9 consolidated trips · allocated by weight × km', alloc: 1 }),
+  mk('Thép Hòa Phát Bình Dương', 142, 598.3 * M, 155.6 * M, 19.8 * M, { prov: 4 }),
+  mk('Thủy sản Vĩnh Hoàn', 104, 512.8 * M, 131.9 * M, 9.6 * M, { prov: 4 }),
+  mk('Nhựa Đông Á', 94, 388.0 * M, 64.8 * M, -11.6 * M, { prov: 3 }),
+  mk('Bao bì Phương Nam', 78, 248.6 * M, 63.4 * M, 8.1 * M, { prov: 2, sub: '22 consolidated trips · allocated by weight × km', alloc: 1 }),
+  mk('Nhựa Duy Tân', 62, 205.0 * M, 57.2 * M, 7.1 * M, { prov: 2, sub: '14 consolidated trips · allocated by weight × km', alloc: 1 })
+];
+const DIMS = {
+  branch: { label: 'Branch', col: 'Branch', rows: [mk('TP.HCM', TOT.trips, TOT.rev, TOT.g, TOT.n, { sub: '38 provisional trips' })] },
+  customer: { label: 'Customer', col: 'Customer', rows: CUST, price: 1 },
+  route: { label: 'Route', col: 'Route', price: 1, rows: gen([['Tân Uyên Industrial Park → Cát Lái', 232, 4.95, .262, .047], ['Cát Lái → VSIP 1 Industrial Park', 186, 4.4, .268, .049], ['Mỹ Phước 3 Industrial Park → Cát Lái', 168, 4.3, .25, .034], ['Đồng An Industrial Park → Cát Lái', 142, 4.2, .26, .033], ['Cát Lái → Sa Đéc', 104, 4.93, .257, .019], ['ICD Phước Long → Phước Đông Industrial Park', 66, 4.6, .212, .011], ['Other routes (23)', 0, 0, 0, 0]]) },
+  vehicle: { label: 'Vehicle', col: 'Vehicle', rows: gen([['51C-123.45', 46, 4.85, .262, .041, { sub: 'Tractor unit · Nguyễn Văn Tuấn' }], ['51D-456.78', 44, 4.7, .255, .038, { sub: 'Tractor unit · Trần Minh Đức' }], ['51C-456.78', 43, 4.6, .231, .012, { sub: 'Tractor unit · Đặng Quang Vinh' }], ['61C-220.14', 41, 5.1, .248, .03, { sub: 'Tractor unit · Võ Thành Nhân' }], ['51C-731.80', 40, 4.5, .259, .036, { sub: 'Tractor unit · Ngô Đức Trí' }], ['51D-702.33', 52, 2.3, .29, .061, { sub: 'Box truck · Lê Hoàng Phúc' }], ['51C-588.02', 48, 2.4, .28, .052, { sub: 'Box truck · Huỳnh Tấn Lộc' }], ['19 other vehicles', 0, 0, 0, 0, { sub: 'Tractor units and trucks' }]]) },
+  driver: { label: 'Driver', col: 'Driver', rows: gen([['Nguyễn Văn Tuấn', 46, 4.85, .262, .041, { sub: '51C-123.45' }], ['Trần Minh Đức', 44, 4.7, .255, .038, { sub: '51D-456.78' }], ['Đặng Quang Vinh', 43, 4.6, .231, .012, { sub: '51C-456.78' }], ['Võ Thành Nhân', 41, 5.1, .248, .03, { sub: '61C-220.14' }], ['Ngô Đức Trí', 40, 4.5, .259, .036, { sub: '51C-731.80' }], ['Lê Hoàng Phúc', 52, 2.3, .29, .061, { sub: '51D-702.33' }], ['Huỳnh Tấn Lộc', 48, 2.4, .28, .052, { sub: '51C-588.02' }], ['21 other drivers', 0, 0, 0, 0, { sub: 'Multiple vehicles' }]]) },
+  period: { label: 'Period', col: 'Period', rows: gen([['Week 01–04/10', 152, 4.18, .255, .04, { sub: '4 days' }], ['Week 05–11/10', 268, 4.2, .252, .037], ['Week 12–18/10', 262, 4.22, .25, .033], ['Week 19–25/10', 259, 4.21, .249, .032], ['Week 26–31/10', 0, 0, 0, 0, { sub: '6 days' }]]) },
+  trip: { label: 'Trip', col: 'Trip', rows: null }
+};
+const HP = mk('Hải Phòng', 512, 2140 * M, 498.6 * M, 61.2 * M, { sub: '21 provisional trips' });
+// Tuyến của từng khách (cấp 2)
+const CROUTES = {
+  'Tân Cảng Logistics': [mk('Tân Uyên Industrial Park → Cát Lái', 128, 652.8 * M, 171.0 * M, 30.4 * M, { alloc: 1 }), mk('Cát Lái → VSIP 1 Industrial Park', 96, 441.6 * M, 118.3 * M, 21.6 * M), mk('ICD Phước Long → Phước Đông Industrial Park', 54, 248.4 * M, 52.6 * M, 4.3 * M, { alloc: 1 }), mk('Cát Lái → Mỹ Phước 3 Industrial Park', 34, 109.8 * M, 20.5 * M, 1.8 * M)],
+  'Gỗ Minh Long': ['Mỹ Phước 3 Industrial Park → Cát Lái', 'Cát Lái → Mỹ Phước 3 Industrial Park'], 'Bao bì Tân Phú': ['Tân Phú Trung Industrial Park → Cát Lái', 'Tân Phú Trung Industrial Park → Long An'],
+  'Thép Hòa Phát Bình Dương': ['Đồng An Industrial Park → Cát Lái', 'Đồng An Industrial Park → ICD Sóng Thần'], 'Thủy sản Vĩnh Hoàn': ['Cát Lái → Sa Đéc', 'Sa Đéc → Cát Lái'],
+  'Nhựa Đông Á': ['Vĩnh Lộc Industrial Park → Cát Lái', 'Vĩnh Lộc Industrial Park → Bình Dương'], 'Bao bì Phương Nam': ['Sóng Thần Industrial Park → Long An', 'Sóng Thần Industrial Park → Bến Lức'], 'Nhựa Duy Tân': ['Bình Tân → Mỹ Tho', 'Bình Tân → Cần Thơ']
+};
+function routesOf(r) {
+  const x = CROUTES[r.name]; if (x && typeof x[0] !== 'string') return x;
+  const names = x || ['Main route', 'Other routes']; const t1 = Math.round(r.trips * .65), rv = R5(r.rev * .65), g = R5(r.g * .67), n = R5(r.n * .7);
+  return [mk(names[0], t1, rv, g, n), mk(names[1], r.trips - t1, r.rev - rv, r.g - g, r.n - n)];
+}
+const PAIRS = [['51C-123.45', 'Nguyễn Văn Tuấn'], ['51D-456.78', 'Trần Minh Đức'], ['51C-731.80', 'Ngô Đức Trí'], ['61C-220.14', 'Võ Thành Nhân'], ['51C-456.78', 'Đặng Quang Vinh'], ['51C-334.21', 'Võ Thanh Sơn']];
+function tripsOf(r, seed) {
+  const avg = r.rev / r.trips, gm = r.g / r.rev, nm = r.n / r.rev, out = [];
+  const pairs = r.sub && /^\d{2}[A-Z]-/.test(r.name) ? [[r.name, r.sub.split(' · ')[1]]] : r.sub && /^\d{2}[A-Z]-/.test(r.sub) ? [[r.sub, r.name]] : PAIRS;
+  for (let i = 0; i < Math.min(6, r.trips); i++) {
+    const k = (seed + i * 7) % 11, rev = R5(avg * (0.9 + k * .02)), gmi = gm + (k - 5) * .012, nmi = nm + (k - 5) * .012;
+    const p = pairs[(seed + i) % pairs.length], day = 31 - ((seed + i * 3) % 30);
+    out.push(mk('CH-' + (380 - ((seed * 13 + i * 9) % 160)).toString().padStart(4, '0'), 1, rev, Math.round(rev * gmi / 1e3) * 1e3, Math.round(rev * nmi / 1e3) * 1e3, { trip: 1, sub: `${String(day).padStart(2, '0')}/10`, drv: p[0] + ' · ' + p[1], alloc: r.alloc && i % 3 === 1, prov: i === 0 && day > 26 }));
+  }
+  return out;
+}
+
+/* ---------- State ---------- */
+let S;
+function reset(o) { S = Object.assign({ dim: 'customer', dim2: 'route', mode: 'gross', branch: 'hcm', open: new Set(), sort: null, low: false, only: null, loading: false, empty: false, error: false }, o || {}); }
+try { const m = localStorage.getItem('fm.plMode'); } catch (e) {}
+const marg = (r, mode) => (mode === 'alloc' ? r.n : r.g) / r.rev * 100;
+function baseRows() {
+  if (S.dim === 'branch') return S.branch === 'all' ? [DIMS.branch.rows[0], HP] : DIMS.branch.rows;
+  if (S.dim === 'trip') return tripsOf(mk('All', TOT.trips, TOT.rev, TOT.g, TOT.n), 3).concat(tripsOf(mk('x', TOT.trips, TOT.rev, TOT.g, TOT.n), 8));
+  return DIMS[S.dim].rows;
+}
+function totals() { const rs = S.dim === 'branch' && S.branch === 'all' ? [DIMS.branch.rows[0], HP] : [DIMS.branch.rows[0]]; const t = rs.reduce((a, r) => { ['trips', 'rev', 'g', 'n', 'vc', 'fuel', 'toll', 'lift', 'sal', 'oth', 'dep', 'fix'].forEach(k => a[k] = (a[k] || 0) + r[k]); return a; }, {}); return t; }
+function rows() {
+  let rs = baseRows().slice();
+  if (S.only) rs = rs.filter(r => r.name === S.only);
+  if (S.low) rs = rs.filter(r => marg(r, S.mode) < 5);
+  if (S.sort) { const [k, dir] = S.sort; rs.sort((a, b) => ((k === 'm' ? marg(a, S.mode) : a[k]) - (k === 'm' ? marg(b, S.mode) : b[k])) * dir); }
+  return rs;
+}
+
+/* ---------- Render ---------- */
+const view = document.getElementById('view');
+function render() {
+  hideTip(); syncControls();
+  if (S.loading) { view.innerHTML = `<section class="summary"><div class="sum-main" style="cursor:default"><div class="sum-main-text"><span class="sk" style="width:60%"></span><span class="sk" style="width:40%;height:34px;margin-top:8px"></span></div></div>${Array(4).fill('<div class="sum-item"><span class="sk" style="width:70%"></span><span class="sk" style="width:50%;height:22px;margin-top:8px"></span></div>').join('')}</section><div class="card card-body"><span class="sk" style="width:260px;margin-bottom:14px"></span>${Array(8).fill('<span class="sk" style="height:16px;margin:8px 0"></span>').join('')}</div><div class="card"><table class="grid"><tbody>${Array(9).fill('<tr>' + Array(9).fill('<td><span class="sk" style="width:80%"></span></td>').join('') + '</tr>').join('')}</tbody></table></div>`; return; }
+  if (S.error) { view.innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Couldn't load the report. Try again in a few minutes.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="retry">${icon('refresh')}Retry</button></div></div>`; document.getElementById('retry').onclick = () => { S.error = false; render(); }; return; }
+  if (S.empty) { view.innerHTML = `<div class="card"><div class="empty">${icon('chart')}<h3>No completed trips in this period yet</h3><p>The P&L report will show figures once the first trip is completed.</p><button class="btn btn-secondary" type="button" id="prevP">View previous period</button></div></div>`; document.getElementById('prevP').onclick = () => { S.empty = false; render(); toast('Viewing October 2026'); }; return; }
+  view.innerHTML = kpiHtml() + chartHtml() + pivotHtml() + `<div class="foot-note">${icon('info')}<span>Want to see how margins change when fuel prices rise? Use <a ${NA}>Cost estimate</a> (Freight rates → Cost estimate).</span></div>`;
+  bind();
+}
+function spark(vals, w, h, color) {
+  const max = Math.max(...vals), min = Math.min(...vals), pts = vals.map((v, i) => [4 + i / (vals.length - 1) * (w - 8), h - 4 - (v - min) / (max - min || 1) * (h - 8)]);
+  const d = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' '), last = pts[pts.length - 1];
+  return `<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" aria-hidden="true"><path d="${d}" fill="none" style="stroke:${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${last[0]}" cy="${last[1]}" r="3" style="fill:${color}"/></svg>`;
+}
+function kpiHtml() {
+  const t = totals(), alloc = S.mode === 'alloc', all = S.branch === 'all';
+  const p = alloc ? t.n : t.g, m = p / t.rev * 100, prov = all ? 59 : 38, low = m < 5;
+  const d = all ? ['+5.4%', '+7.6%', '−1.1 pts'] : ['+6.1%', '+8.4%', '−1.4 pts'];
+  const hist = (alloc ? [4.6, 5.1, 4.2, 4.4, 4.9] : [26.8, 27.2, 26.1, 26.9, +(m + (all ? 1.1 : 1.4)).toFixed(1)]).concat([+m.toFixed(1)]); // T9 khớp delta so với T9
+  const pv = alloc ? `${fmt.vnd(Math.round(p / M), { bare: 1 })}<small>M ₫</small>` : `${fmt.short(p).replace('B', '')}<small>B ₫</small>`;
+  const item = (sortk, label, v, sub, t) => `<${sortk ? `button type="button" data-sortk="${sortk}" title="Sort table by ${label.toLowerCase()}"` : 'div'} class="sum-item"><span class="k">${label}</span><span class="v num" ${t ? tip(t) : ''}>${v}</span><span class="row">${sub}</span></${sortk ? 'button' : 'div'}>`;
+  return `<section class="summary" id="kpis" aria-label="P&L summary, October 2026">
+    <button class="sum-main" type="button" data-sortk="m" title="Sort table by margin">
+      <span class="sum-main-text"><span class="k">${alloc ? 'Profit after allocation' : 'Gross profit'} · Oct 2026</span><span class="v" ${tip(V(p) + ' ₫')}>${pv}</span> <span class="row">Margin <b style="color:${low ? 'var(--warning-fg)' : 'var(--fg-strong)'}">${fmt.pct(m)}</b> · ${alloc && low ? `<span class="delta warn">${icon('warn')}below 5% threshold</span>` : `<span class="delta down-bad">▼ ${d[2]}</span><span>vs Sep</span>`}</span></span> <span class="sum-spark">${spark(hist, 120, 40, 'var(--primary)')}<small>6-month margin · Sep: ${fmt.pct(hist[4])}</small></span>
+    </button>
+    ${item('rev', 'Revenue', fmt.short(t.rev).replace('B', '') + '<small>B ₫</small>', `<span class="delta up-good">▲ ${d[0]}</span><span>vs Sep</span>`, V(t.rev) + ' ₫')}
+    ${item('vc', 'Variable costs', fmt.short(t.vc).replace('B', '') + '<small>B ₫</small>', `<span class="delta warn">▲ ${d[1]}</span><span>vs Sep</span>`, V(t.vc) + ' ₫')}
+    ${item('trips', 'Trips', fmt.vnd(t.trips, { bare: 1 }), `<span>${all ? '2 branches' : 'HCMC branch'}</span>`)}
+    ${item(null, 'Provisional trips', String(prov), '<span title="Not yet settled; figures may change">not yet settled</span>')}
+  </section>`;
+}
+function chartHtml() {
+  const rs = baseRows().filter(r => !S.only || r.name === S.only), alloc = S.mode === 'alloc', isPeriod = S.dim === 'period';
+  const vals = rs.map(r => marg(r, S.mode)); const lo = Math.min(0, ...vals), hi = Math.max(10, ...vals) * 1.08;
+  const X0 = 230, X1 = 900, x = v => X0 + (v - lo) / (hi - lo) * (X1 - X0), RH = 30, H = rs.length * RH + 52;
+  const ticks = []; const step = hi - lo > 30 ? 10 : 2; for (let v = Math.ceil(lo / step) * step; v <= hi; v += step) ticks.push(v);
+  // B8: thanh phụ --chart-muted; đang lọc / kỳ gần nhất đã trọn --primary; kỳ chưa trọn nét đứt; dưới ngưỡng cam, lỗ đỏ
+  const kind = (r, i, v) => S.only === r.name ? 'hi' : isPeriod && i === rs.length - 1 ? 'partial' : v < 0 ? 'neg' : v < 5 ? 'low' : isPeriod && i === rs.length - 2 ? 'hi' : 'base';
+  const FILL = { hi: 'var(--primary)', base: 'var(--chart-muted)', low: 'url(#hatch)', neg: 'url(#hatchNeg)', partial: 'transparent' };
+  const TXT = { hi: 'var(--fg-strong)', partial: 'var(--fg-strong)', base: 'var(--fg-muted)', low: 'var(--warning-fg)', neg: 'var(--danger-fg)' };
+  const bars = rs.map((r, i) => { const v = vals[i], y = 24 + i * RH, k = kind(r, i, v); const xa = x(Math.min(0, v)), xb = x(Math.max(0, v));
+    const note = k === 'neg' ? ' · Loss' : k === 'partial' ? ' · provisional' : '', aria = k === 'low' ? ', low margin' : note.replace(' · ', ', ');
+    return `<g class="bar" tabindex="0" role="button" data-bar="${r.name}" aria-label="${r.name} ${fmt.pct(v)}${aria}">
+      <rect class="hit" x="0" y="${y}" width="1000" height="${RH - 4}" rx="4" style="fill:transparent"/>
+      <text class="n" x="${X0 - 12}" y="${y + 17}" text-anchor="end" font-size="12.5" style="fill:var(--fg)">${r.name.length > 30 ? r.name.slice(0, 29) + '…' : r.name}</text>
+      <rect class="b" x="${xa}" y="${y + 5}" width="${Math.max(2, xb - xa)}" height="${RH - 14}" rx="3" style="fill:${FILL[k]};${k === 'partial' ? 'stroke:var(--primary);stroke-dasharray:4 3;stroke-width:1.5;' : k === 'low' ? 'stroke:var(--warning-solid);stroke-width:1;' : k === 'neg' ? 'stroke:var(--danger-solid);stroke-width:1;' : ''}"/>
+      <text x="${v < 0 ? x(0) + 6 : xb + 6}" y="${y + 17}" text-anchor="start" font-size="12" font-weight="${k === 'base' ? 500 : 700}" style="fill:${TXT[k]}">${fmt.pct(v)}${note}</text></g>`; }).join('');
+  const kinds = new Set(rs.map((r, i) => kind(r, i, vals[i])));
+  const legend = [['var(--chart-muted)', 'Margin ≥ 5%', 'base'], ['repeating-linear-gradient(45deg, var(--warning-solid) 0 2px, var(--warning-soft) 2px 5px)', 'Below 5% threshold', 'low'], ['repeating-linear-gradient(45deg, var(--danger-solid) 0 2px, var(--danger-soft) 2px 5px)', 'Loss', 'neg']].filter(l => kinds.has(l[2]))
+    .concat(isPeriod ? [['var(--primary)', 'Latest full week'], [null, 'Partial week (provisional)']] : S.only ? [['var(--primary)', 'Active filter']] : []);
+  return `<section class="card chart-card" aria-label="Margin chart">
+    <div class="card-title"><h2>Margin by ${DIMS[S.dim].label.toLowerCase()} (${alloc ? 'profit after allocation' : 'gross profit'}) — October 2026</h2><span class="meta">Click a bar to filter the table</span></div>
+    <div class="chart-wrap"><svg viewBox="0 0 1000 ${H}" role="img" aria-label="Horizontal bar chart of margins">
+      <defs><pattern id="hatch" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)"><rect width="6" height="6" style="fill:var(--warning-soft)"/><rect width="2" height="6" style="fill:var(--warning-solid)"/></pattern>
+      <pattern id="hatchNeg" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)"><rect width="6" height="6" style="fill:var(--danger-soft)"/><rect width="2" height="6" style="fill:var(--danger-solid)"/></pattern></defs>
+      ${ticks.map(v => `<line x1="${x(v)}" x2="${x(v)}" y1="18" y2="${H - 24}" style="stroke:var(--surface-muted)" stroke-width="1"/><text x="${x(v)}" y="${H - 8}" font-size="11" text-anchor="middle" style="fill:var(--fg-muted)">${v}%</text>`).join('')}
+      <line x1="${x(0)}" x2="${x(0)}" y1="18" y2="${H - 24}" style="stroke:var(--border-strong)" stroke-width="1"/>
+      <line x1="${x(5)}" x2="${x(5)}" y1="18" y2="${H - 24}" style="stroke:var(--fg-subtle)" stroke-dasharray="4 3" stroke-width="1.5" pointer-events="none"/>
+      ${bars}
+      <text x="${x(5)}" y="12" font-size="11" font-weight="600" text-anchor="middle" style="fill:var(--fg-muted)">5% threshold</text>
+    </svg></div>
+    <div class="chart-legend">${legend.map(([c, l]) => `<span><i style="${c ? 'background:' + c : 'border:1.5px dashed var(--primary)'}"></i>${l}</span>`).join('')}</div></section>`;
+}
+const COLS_G = [['trips', 'Trips'], ['rev', 'Revenue'], ['fuel', 'Fuel'], ['toll', 'Tolls'], ['lift', 'Lift-on/lift-off'], ['sal', 'Trip pay'], ['oth', 'Handling & other'], ['g', 'Gross profit'], ['m', 'Margin %']];
+const COLS_A = [['trips', 'Trips'], ['rev', 'Revenue'], ['vc', 'Variable costs'], ['g', 'Gross profit'], ['dep', 'Depreciation'], ['fix', 'Fixed costs'], ['n', 'Profit after allocation'], ['m', 'Margin %']];
+function cellTip(k, r) {
+  if (k === 'fuel') return `Total ${r.trips} trips · ${fmt.vnd(Math.round(r.fuel / 20150 / 10) * 10, { bare: 1 })} l × actual pump price${r.alloc ? ` · of which ${(r.sub || '').split(' ')[0] || 'some'} consolidated trips allocated by weight × km` : ''}`;
+  if (k === 'fix') return `km driven × 9,000 ₫/km (default value) = <span class="formula">${V(r.fix)} ₫</span>`;
+  if (k === 'dep') return 'Depreciation/day × vehicle operating days (default values)';
+  if (k === 'g') return `Revenue <span class="formula">${V(r.rev)}</span> − variable costs <span class="formula">${V(r.vc)}</span>`;
+  if (k === 'n') return `Gross profit <span class="formula">${V(r.g)}</span> − depreciation <span class="formula">${V(r.dep)}</span> − fixed <span class="formula">${V(r.fix)}</span>`;
+  return null;
+}
+function rowHtml(r, lvl, key, canOpen) {
+  const cols = S.mode === 'alloc' ? COLS_A : COLS_G, m = marg(r, S.mode), open = S.open.has(key);
+  const flags = (m < 0 ? `<span class="badge b-danger">${icon('block')}Loss</span>` : m < 5 ? `<span class="badge b-warning">${icon('warn')}Low margin</span>` : '') + (r.trip && r.alloc ? '<span class="badge b-info">allocated</span>' : '') + (r.trip && r.prov ? '<span class="badge b-neutral">provisional</span>' : '');
+  const priceable = lvl < 3 && (m < 5) && (lvl === 1 ? DIMS[S.dim].price : 1) && !r.trip && (S.dim === 'customer' || S.dim === 'route');
+  const name = r.trip ? `<a class="code" href="fm-09-chi-tiet-chuyen.html?tab=pl">${r.name}</a><a href="fm-09-chi-tiet-chuyen.html?tab=docs" class="sm" style="margin-left:4px">Receipts (9)</a>` : `<span class="t">${r.name}</span>`;
+  const sub = r.sub || (r.prov ? `${r.prov} provisional trips` : `${r.trips} trips`);
+  return `<tr class="l${lvl}" data-key="${key}"><td><div class="nm">${canOpen ? `<button class="tw" type="button" data-open="${key}" aria-expanded="${open}" aria-label="${open ? 'Collapse' : 'Expand'} ${r.name}">${icon('chevron')}</button>` : '<span style="width:18px;flex:none"></span>'}<div><div class="line1">${name}${flags && !r.trip ? `<span class="rowflags">${flags}</span>` : ''}</div><span class="cell-sub" title="${sub}${r.drv ? ' · ' + r.drv : ''}">${sub}${flags && r.trip ? `<span class="rowflags">${flags}</span>` : ''}</span></div></div></td>
+    ${cols.map(([k]) => { if (k === 'm') return `<td class="mcol ${m < 0 ? 'neg' : m < 5 ? '' : ''}" style="${m >= 0 && m < 5 ? 'color:var(--warning-fg)' : ''}">${fmt.pct(m)}</td>`; if (k === 'trips') return `<td>${fmt.vnd(r[k], { bare: 1 })}</td>`; const t = cellTip(k, r); const neg = (k === 'n' || k === 'g') && r[k] < 0; return `<td class="${neg ? 'neg' : ''} ${k === 'g' || k === 'n' ? 'mcol' : ''}">${t ? `<span class="cn" tabindex="0" ${tip(t)}>${V(r[k])}</span>` : V(r[k])}</td>`; }).join('')}
+    <td class="act">${priceable ? `<a class="btn btn-ghost btn-sm" ${NA}>Adjust rates</a>` : ''}</td></tr>`;
+}
+function pivotHtml() {
+  const cols = S.mode === 'alloc' ? COLS_A : COLS_G, rs = rows(), t = totals();
+  const second = S.dim === 'customer' && S.dim2 === 'route';
+  let body = '';
+  rs.forEach((r, i) => {
+    const k1 = r.name; const canOpen = S.dim !== 'trip' && !/other/i.test(r.name) || /other/i.test(r.name) && S.dim !== 'trip';
+    body += rowHtml(r, S.dim === 'trip' ? 3 : 1, k1, S.dim !== 'trip' && !r.trip);
+    if (!S.open.has(k1) || S.dim === 'trip') return;
+    if (second) routesOf(r).forEach((x, j) => { const k2 = k1 + '|' + x.name; body += rowHtml(x, 2, k2, true); if (S.open.has(k2)) { tripsOf(Object.assign({}, x, { alloc: x.alloc || r.alloc }), i * 5 + j).forEach(tr => body += rowHtml(tr, 3, k2 + '|' + tr.name, false)); body += moreRow(x.trips - Math.min(6, x.trips), cols.length); } });
+    else { tripsOf(r, i * 5 + 1).forEach(tr => body += rowHtml(tr, 2, k1 + '|' + tr.name, false)); body += moreRow(r.trips - Math.min(6, r.trips), cols.length); }
+  });
+  const th = cols.map(([k, l]) => { const s = S.sort && S.sort[0] === k; return `<th data-sort="${k}" ${s ? `aria-sort="${S.sort[1] > 0 ? 'ascending' : 'descending'}"` : ''}>${l}${s ? (S.sort[1] > 0 ? ' ▲' : ' ▼') : ''}</th>`; }).join('');
+  const tm = (S.mode === 'alloc' ? t.n : t.g) / t.rev * 100;
+  return `<section class="card" id="pivot" aria-label="P&L pivot table">
+    <div class="card-title" style="padding-bottom:12px"><h2>P&L by ${DIMS[S.dim].label.toLowerCase()}${second ? ' → route → trip' : S.dim === 'trip' ? '' : ' → trip'}</h2><span class="meta">Unit: ₫ · ${rs.length} rows · click ▸ to expand, click a column header to sort</span></div>
+    <div class="pv-wrap"><table class="pv"><thead><tr><th data-sort="name">${DIMS[S.dim].col}</th>${th}<th style="cursor:default"><span class="sr-only">Actions</span></th></tr></thead>
+      <tbody>${body || `<tr><td colspan="${cols.length + 2}" style="text-align:left" class="muted">No rows match the filters.</td></tr>`}</tbody>
+      <tfoot><tr><td>Total${S.branch === 'all' ? ' 2 branches' : ''}</td>${cols.map(([k]) => k === 'm' ? `<td class="${tm < 5 ? 'neg' : ''}">${fmt.pct(tm)}</td>` : k === 'trips' ? `<td>${fmt.vnd(t.trips, { bare: 1 })}</td>` : `<td>${V(t[k])}</td>`).join('')}<td></td></tr></tfoot>
+    </table></div></section>`;
+}
+function moreRow(n, nc) { return n > 0 ? `<tr class="more"><td colspan="${nc + 2}" style="text-align:left;padding-left:52px">… and ${fmt.vnd(n, { bare: 1 })} more trips · <a ${NA}>View all</a></td></tr>` : ''; }
+
+function bind() {
+  view.querySelectorAll('[data-open]').forEach(b => b.onclick = () => { const k = b.dataset.open; S.open.has(k) ? S.open.delete(k) : S.open.add(k); render(); });
+  view.querySelectorAll('[data-sort]').forEach(th => th.onclick = () => { const k = th.dataset.sort; if (k === 'name') { S.sort = null; } else S.sort = S.sort && S.sort[0] === k ? [k, -S.sort[1]] : [k, -1]; render(); });
+  view.querySelectorAll('[data-bar]').forEach(g => { const f = () => { S.only = S.only === g.dataset.bar ? null : g.dataset.bar; render(); }; g.onclick = f; g.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); f(); } }; });
+  view.querySelectorAll('[data-sortk]').forEach(b => b.onclick = () => { S.sort = [b.dataset.sortk === 'm' ? 'm' : b.dataset.sortk, -1]; render(); document.getElementById('pivot').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+}
+function syncControls() {
+  const d1 = document.getElementById('dim1');
+  d1.innerHTML = Object.entries(DIMS).map(([k, d]) => `<option value="${k}" ${k === S.dim ? 'selected' : ''}>${d.label}</option>`).join('');
+  document.getElementById('dim2').disabled = S.dim !== 'customer';
+  document.getElementById('dim2').value = S.dim === 'customer' ? S.dim2 : 'trip';
+  document.querySelectorAll('[data-mode]').forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === S.mode));
+  const lo = document.getElementById('lowOnly'); lo.classList.toggle('on', S.low); lo.setAttribute('aria-pressed', S.low);
+  document.getElementById('rowFilter').innerHTML = S.only ? `<button class="chip on" type="button" id="onlyChip">${DIMS[S.dim].label}: ${S.only} ${icon('x')}</button>` : '';
+  const oc = document.getElementById('onlyChip'); if (oc) oc.onclick = () => { S.only = null; render(); };
+  document.getElementById('branchSel').innerHTML = `${icon('branch')} Branch: ${S.branch === 'all' ? 'All branches' : 'TP.HCM'} ${icon('chevron')}`;
+}
+document.getElementById('dim1').onchange = e => { S.dim = e.target.value; S.open.clear(); S.only = null; S.sort = null; try { localStorage.setItem('fm.plDim', S.dim); } catch (x) {} render(); };
+document.getElementById('dim2').onchange = e => { S.dim2 = e.target.value; S.open.clear(); render(); };
+document.querySelectorAll('[data-mode]').forEach(b => b.onclick = () => { S.mode = b.dataset.mode; try { localStorage.setItem('fm.plMode', S.mode); } catch (x) {} render(); });
+document.getElementById('lowOnly').onclick = () => { S.low = !S.low; render(); };
+document.getElementById('clearF').onclick = () => { S.low = false; S.only = null; render(); };
+document.getElementById('branchSel').onclick = () => { S.branch = S.branch === 'all' ? 'hcm' : 'all'; if (S.branch === 'all') S.dim = 'branch'; else if (S.dim === 'branch') S.dim = 'customer'; S.open.clear(); render(); toast(S.branch === 'all' ? 'Viewing all branches' : 'Viewing HCMC branch'); };
+const exp = kind => toast(`Generating ${kind} file (${fmt.vnd(totals().trips, { bare: 1 })} trips)…`);
+document.getElementById('xlsBtn').onclick = () => exp('Excel'); document.getElementById('pdfBtn').onclick = () => exp('PDF');
+
+/* ---------- Prototype states ---------- */
+Shell.states([['default', 'Default'], ['alloc', 'Profit after allocation'], ['drill', 'Expanded 2 levels'], ['vehicle', 'By vehicle'], ['allbranch', 'All branches'], ['loading', 'Loading'], ['empty', 'Empty'], ['error', 'Error'], ['export', 'Exporting']], s => {
+  const o = { alloc: { mode: 'alloc' }, drill: { open: new Set(['Tân Cảng Logistics', 'Tân Cảng Logistics|Tân Uyên Industrial Park → Cát Lái']) }, vehicle: { dim: 'vehicle' }, allbranch: { dim: 'branch', branch: 'all' }, loading: { loading: true }, empty: { empty: true }, error: { error: true } }[s];
+  reset(o); render();
+  if (s === 'export') exp('Excel');
+});
+</script>
+</body>
+</html>

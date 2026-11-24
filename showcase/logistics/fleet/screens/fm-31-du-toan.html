@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dự toán giá thành · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* FM_31 Dự toán giá thành — tính thử + mô phỏng giá dầu */
+  .calc { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: var(--s-4); align-items: stretch; }
+  .calc > .card { display: flex; flex-direction: column; min-width: 0; }
+  .card-title { display: flex; align-items: center; gap: 10px; padding: 16px 18px 6px; }
+  .card-title h2 { font-size: 16px; }
+  .card-title .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 10px; align-items: center; }
+  .inputs { padding: 8px 18px 18px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+  .inputs .select, .inputs .input { width: 100%; }
+  .inputs .seg { width: 100%; }
+  .inputs .seg button { flex: 1; justify-content: center; }
+  .unit-in { display: flex; align-items: center; height: 34px; border: 1px solid var(--border-strong); border-radius: var(--r-md); background: var(--surface); padding: 0 10px; gap: 6px; }
+  .unit-in:hover { border-color: var(--fg-subtle); }
+  .unit-in:focus-within { border-color: var(--ring); box-shadow: 0 0 0 3px var(--primary-soft); }
+  .unit-in input { border: 0; outline: 0; font: 13.5px var(--font-body); color: var(--fg); width: 100%; min-width: 0; text-align: right; font-variant-numeric: tabular-nums; background: transparent; }
+  .unit-in span { color: var(--fg-muted); font-size: 12.5px; white-space: nowrap; }
+  .unit-in.edited { border-color: var(--warning-solid); }
+  .hint { font-size: 12px; color: var(--fg-muted); line-height: 16px; }
+  .hint a { font-weight: 500; }
+  .in-foot { margin-top: auto; padding-top: 4px; }
+
+  .res-top { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; margin: 4px 18px 6px; padding: 16px 20px; background: var(--primary-soft); border-radius: 8px; align-items: end; }
+  .res-top .k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--side-active); }
+  .res-top .v { font: 700 var(--text-display)/40px var(--font-display); font-variant-numeric: tabular-nums; letter-spacing: -.01em; color: var(--fg-strong); }
+  .res-top .v.neg { color: var(--danger-fg); } .res-top .v.warn { color: var(--warning-fg); }
+  .res-top .row { font-size: 13px; gap: 8px; flex-wrap: wrap; }
+  .res-side { display: grid; grid-template-columns: auto auto; gap: 4px 16px; font-size: 13px; color: var(--fg-muted); text-align: right; }
+  .res-side b { color: var(--fg-strong); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .bk { padding: 6px 18px 4px; }
+  .bk table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .bk th { text-align: left; font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--fg-muted); padding: 8px 10px; background: var(--surface-muted); }
+  .bk th:first-child { border-radius: var(--r-md) 0 0 var(--r-md); } .bk th:last-child { border-radius: 0 var(--r-md) var(--r-md) 0; }
+  .bk td { padding: 7px 10px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .bk tr.grp td { border-bottom: 0; padding-top: 12px; font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--fg-muted); }
+  .bk tr.tot td { font-weight: 600; color: var(--fg-strong); border-bottom: 0; }
+  .bk tr.tot td:first-child { border-radius: 6px 0 0 6px; } .bk tr.tot td:last-child { border-radius: 0 6px 6px 0; }
+  .bk tr.tot td { background: var(--surface-muted); }
+  .bk .right { text-align: right; }
+  .bk td.right, .bk td:first-child { white-space: nowrap; }
+  .bk .ex { min-width: 180px; }
+  .bk .num { font-variant-numeric: tabular-nums; }
+  .bk .amt { border-bottom: 1px dotted var(--fg-subtle); cursor: help; }
+  .bk .share { display: inline-flex; align-items: center; gap: 8px; justify-content: flex-end; width: 100%; }
+  .bk .share i { display: block; height: 6px; border-radius: 3px; background: var(--chart-muted); }
+  .bk .src { font-size: 12.5px; white-space: nowrap; }
+  .bk .ex { font-size: 12.5px; color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+  .res-foot { padding: 8px 18px 16px; font-size: 12.5px; color: var(--fg-muted); display: flex; gap: 8px; align-items: center; margin-top: auto; }
+
+  /* Mô phỏng: BarList như FM_04 */
+  .sim { scroll-margin-top: calc(var(--header-h) + 16px); }
+  .barlist { padding: 8px 18px 4px; display: flex; flex-direction: column; gap: 2px; }
+  .bl-row { display: grid; grid-template-columns: minmax(220px, 1.1fr) minmax(0, 1.8fr) 150px; gap: 14px; align-items: center; padding: 7px 0; font-size: 13.5px; }
+  .bl-row .name b { display: block; font-weight: 500; color: var(--fg-strong); }
+  .bl-row .name span { font-size: 12px; color: var(--fg-muted); }
+  .track { position: relative; height: 26px; }
+  .track .zero { position: absolute; top: -2px; bottom: -2px; width: 1px; background: var(--border-strong); }
+  .track .thr { position: absolute; top: -4px; bottom: -4px; width: 0; border-left: 1.5px dashed var(--fg-subtle); }
+  .track .bar { position: absolute; height: 10px; border-radius: 3px; transition: left var(--d-3) var(--ease-out), width var(--d-3) var(--ease-out); }
+  .track .bar.now { top: 2px; background: var(--chart-muted); }
+  .track .bar.new { top: 14px; }
+  .bl-row .pct { text-align: right; font-variant-numeric: tabular-nums; font-size: 13px; }
+  .bl-row .pct b { font-weight: 600; }
+  .bl-axis { display: grid; grid-template-columns: minmax(220px, 1.1fr) minmax(0, 1.8fr) 150px; gap: 14px; font-size: 11.5px; color: var(--fg-muted); padding: 2px 0 8px; }
+  .bl-axis .ax { position: relative; height: 14px; }
+  .bl-axis .ax span { position: absolute; transform: translateX(-50%); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--fg-muted); padding: 0 18px 4px; }
+  .legend i { display: inline-block; width: 14px; height: 8px; border-radius: 2px; margin-right: 6px; vertical-align: 0; }
+  .q-foot { display: flex; align-items: flex-start; gap: 8px; padding: 8px 18px 16px; font-size: 13px; color: var(--fg); line-height: 18px; }
+  .q-foot .icon { margin-top: 1px; color: var(--fg-muted); }
+  .hidden { display: none !important; }
+  @media (max-width: 1180px) { .calc { grid-template-columns: 1fr; } .bl-row, .bl-axis { grid-template-columns: 160px minmax(0, 1fr) 120px; } }
+  .empty .btn .icon { width: 16px; height: 16px; stroke-width: 1.75; color: inherit; }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Giá cước / Dự toán giá thành</div>
+      <h1>Dự toán giá thành</h1>
+      <div class="sm muted" style="margin-top:6px">Tính thử giá thành một chuyến theo tuyến và loại xe, so với giá cước để ra biên. Tham số lấy từ <a href="fm-30-tham-so.html">Tham số giá thành &amp; giá dầu</a>.</div>
+    </div>
+    <div class="actions">
+      <a class="btn btn-secondary" href="fm-29-bang-gia.html" id="btnPrice"></a>
+      <a class="btn btn-secondary" href="fm-07-tao-don.html" id="btnOrder"></a>
+    </div>
+  </div>
+
+  <div id="errSlot"></div>
+
+  <div class="calc" id="calcRow">
+    <section class="card" aria-labelledby="inT" id="inCard"></section>
+    <section class="card" aria-labelledby="resT" aria-live="polite" id="resCard"></section>
+  </div>
+
+  <section class="card sim" id="sim" aria-labelledby="simT"></section>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_31', title: 'Dự toán giá thành' });
+const $ = id => document.getElementById(id);
+$('btnPrice').innerHTML = icon('tag') + 'Bảng giá cước';
+$('btnOrder').innerHTML = icon('plus') + 'Tạo đơn với giá này';
+const nf = n => fmt.vnd(n, { bare: 1 });
+const parse = v => { const n = parseFloat(String(v).replace(/\./g, '').replace(',', '.')); return isNaN(n) ? null : n; };
+
+/* ---------- Tham số (FM_30) + tuyến (FM_28) + bảng giá (FM_29) ---------- */
+const P = { diesel: 20150, base: 18600, share: .36, thr: 5, fixKm: 1000, lift: 680000 };
+const NORM = { '20DC': [34, 28, "Đầu kéo + cont 20' khô"], '40DC': [38, 30, "Đầu kéo + cont 40' khô"], '20RF': [36, 28, "Đầu kéo + cont 20' lạnh"], '40RF': [40, 30, "Đầu kéo + cont 40' lạnh"], 'XT15': [25, 20, 'Xe tải thùng 15 tấn'] };
+const RT = { 'BD-01': ['KCN Tân Uyên → Cát Lái', 46, 52, 120000, 200000, 2], 'BD-02': ['KCN Mỹ Phước 3 → Cát Lái', 58, 58, 135000, 220000, 2], 'BD-03': ['KCN Đồng An → Cát Lái', 34, 38, 60000, 100000, 1], 'BD-04': ['Cát Lái → KCN VSIP 1', 32, 36, 135000, 220000, 2], 'TN-01': ['Cát Lái → KCN Phước Đông', 105, 105, 240000, 420000, 3], 'TN-02': ['ICD Phước Long → KCN Phước Đông → Cát Lái', 115, 115, 240000, 420000, 3], 'DT-01': ['Cát Lái → Sa Đéc', 160, 160, 200000, 300000, 2], 'TG-01': ['Bình Tân → Mỹ Tho', 75, 75, 110000, 160000, 1], 'LA-01': ['KCN Sóng Thần → Đức Hòa', 52, 52, 52000, 90000, 1], 'LA-02': ['KCN Sóng Thần → Bến Lức', 45, 45, 52000, 90000, 1] };
+const LINES = [
+  ['BD-01', '40DC', 1954000, 0, 'TCL-2026', 'Tân Cảng Logistics'], ['BD-01', '20DC', 1730000, 0, 'TCL-2026', 'Tân Cảng Logistics'], ['TN-01', '40DC', 3245000, 0, 'TCL-2026', 'Tân Cảng Logistics'], ['TN-01', '20DC', 2770000, 0, 'TCL-2026', 'Tân Cảng Logistics'],
+  ['TN-02', '40DC', 3945000, 0, 'TCL-2026', 'Tân Cảng Logistics'], ['TN-02', '20DC', 3370000, 0, 'TCL-2026', 'Tân Cảng Logistics'], ['BD-04', '40DC', 1950000, 0, 'TCL-2026', 'Tân Cảng Logistics'],
+  ['BD-02', '40DC', 2168000, 1, 'GML-2026', 'Gỗ Minh Long'], ['BD-02', '20DC', 1935000, 1, 'GML-2026', 'Gỗ Minh Long'], ['BD-03', '20DC', 1540000, 1, 'HPBD-2026', 'Thép Hòa Phát Bình Dương'], ['BD-03', '40DC', 1685000, 1, 'HPBD-2026', 'Thép Hòa Phát Bình Dương'],
+  ['DT-01', '40RF', 4935000, 1, 'VHC-2026', 'Thủy sản Vĩnh Hoàn'], ['DT-01', '20RF', 4555000, 1, 'VHC-2026', 'Thủy sản Vĩnh Hoàn'], ['TG-01', 'XT15', 1715000, 1, 'NDT-2026', 'Nhựa Duy Tân'], ['LA-01', 'XT15', 1445000, 1, 'BBPN-2026', 'Bao bì Phương Nam'], ['LA-02', 'XT15', 1315000, 1, 'BBPN-2026', 'Bao bì Phương Nam']
+].map(([r, v, p, pp, code, cust]) => ({ r, v, p, pp, code, cust }));
+const SIM = [['TN-01', '40DC', 18], ['BD-01', '40DC', 24], ['TG-01', 'XT15', 11], ['BD-02', '40DC', 15], ['DT-01', '40RF', 9]]; // 5 tuyến biên thấp nhất ở FM_04
+const isCont = v => v !== 'XT15';
+const grp = v => ['20DC', '20RF', 'XT15'].includes(v) ? 4 : 5;
+const wageOf = (v, km) => v === 'XT15' ? (km <= 100 ? [400000, 'Xe tải, đến 100 km'] : km <= 250 ? [450000, 'Xe tải, 101–250 km'] : [650000, 'Xe tải, trên 250 km']) : (km <= 120 ? [450000, 'Đầu kéo, đến 120 km'] : km <= 300 ? [600000, 'Đầu kéo, 121–300 km'] : [900000, 'Đầu kéo, trên 300 km']);
+const r100 = n => Math.round(n / 100) * 100;
+const ppPct = d => Math.max(0, Math.round((d - P.base) / P.base * P.share * 200) / 200);
+
+function compute(st, dieselOverride) {
+  const d = dieselOverride || st.diesel, [name, kl0, ke0, t4, t5, nT] = RT[st.r], [nl, ne] = NORM[st.v];
+  const kl = st.dir === 'rong' ? 0 : kl0, ke = st.dir === 'hang' ? 0 : ke0, km = kl + ke, kmRound = kl0 + ke0, legs = (kl ? 1 : 0) + (ke ? 1 : 0);
+  const lit = (kl * nl + ke * ne) / 100, fuel = r100(lit * d);
+  const tollOne = grp(st.v) === 4 ? t4 : t5, toll = tollOne * legs;
+  const [w, wl] = wageOf(st.v, kmRound), wage = st.dir === 'rong' ? 0 : w;
+  const depRate = isCont(st.v) ? 520000 : 380000, days = kmRound <= 300 ? .5 : 1, dep = Math.round(depRate * days * km / kmRound / 100) * 100;
+  const fix = km * P.fixKm, lift = isCont(st.v) && st.dir !== 'rong' ? P.lift : 0;
+  const costs = [
+    ['dau', 'Dầu', fuel, `${kl} km × ${nl} + ${ke} km × ${ne} l/100km = ${fmt.dec(lit, 1)} l × ${nf(d)} đ/l`, `<span class="formula">${kl} km có hàng × ${nl} l/100km + ${ke} km rỗng × ${ne} l/100km = ${fmt.dec(lit, 1)} l</span><br><span class="formula">${fmt.dec(lit, 1)} l × ${nf(d)} đ/l = ${fmt.vnd(fuel)}</span><br>Định mức: ${NORM[st.v][2]} · Giá dầu ${st.diesel !== P.diesel ? 'nhập thử' : 'tham chiếu kỳ 05/11/2026'}`, 'fm-30-tham-so.html#dinhmuc', 'Định mức dầu, giá dầu'],
+    ['bot', 'Phí cầu đường (BOT)', toll, `${nT} trạm × ${legs} chiều · nhóm ${grp(st.v)}`, `<span class="formula">${nf(tollOne)} đ/chiều × ${legs} chiều = ${fmt.vnd(toll)}</span><br>${nT} trạm thu phí, nhóm xe ${grp(st.v)} (${grp(st.v) === 5 ? "cont 40', tải từ 18 tấn" : "cont 20', tải 10–dưới 18 tấn"})`, 'fm-28-tuyen-duong.html', 'Tuyến ' + st.r],
+    ['luong', 'Lương chuyến', wage, st.dir === 'rong' ? 'Tính ở chiều có hàng' : wl, st.dir === 'rong' ? 'Lương chuyến tính một lần ở chiều có hàng.' : `<span class="formula">${wl} (${kmRound} km cả vòng) = ${fmt.vnd(wage)}</span>`, 'fm-30-tham-so.html#luong', 'Lương mặc định'],
+    ['kh', 'Khấu hao', dep, `${fmt.dec(days, 1)} ngày × ${nf(depRate)} đ/ngày${km !== kmRound ? ' × ' + km + '/' + kmRound + ' km' : ''}`, `<span class="formula">${fmt.dec(days, 1)} ngày × ${nf(depRate)} đ/ngày${km !== kmRound ? ` × ${km}/${kmRound} km` : ''} = ${fmt.vnd(dep)}</span><br>${kmRound <= 300 ? 'Chuyến đến 300 km cả vòng tính 0,5 ngày' : 'Chuyến trên 300 km tính 1 ngày'}`, 'fm-30-tham-so.html#khauhao', 'Khấu hao mặc định'],
+    ['cd', 'Chi phí cố định', fix, `${km} km × ${nf(P.fixKm)} đ/km`, `<span class="formula">${km} km × ${nf(P.fixKm)} đ/km = ${fmt.vnd(fix)}</span><br>98.000.000 đ/tháng ÷ 98.000 km dự kiến`, 'fm-30-tham-so.html#codinh', 'Cố định/km']
+  ];
+  if (isCont(st.v)) costs.push(['nh', 'Nâng hạ', lift, lift ? 'Nâng rỗng depot + hạ hàng cảng' : 'Không phát sinh ở chiều rỗng', lift ? `<span class="formula">Nâng rỗng + hạ hàng = ${fmt.vnd(lift)}</span><br>Theo biểu phí cảng/depot, thu lại khách qua phụ phí` : 'Chiều rỗng không có nâng hạ.', 'fm-29-bang-gia.html#' + (st.line ? st.line.code : ''), 'Biểu phí nâng hạ']);
+  const cost = costs.reduce((a, c) => a + c[2], 0);
+  const pct = st.pp ? ppPct(d) : 0;
+  const revRows = st.dir === 'rong' ? [] : [['Giá cước', st.price, st.line ? `Bảng giá ${st.line.code}` : 'Nhập tay'], ...(isCont(st.v) ? [['Nâng hạ thu khách', P.lift, 'Phụ phí theo bảng giá']] : []), ['Phụ phí nhiên liệu', Math.round(st.price * pct), st.pp ? `${fmt.pct(pct * 100)} × giá cước` : 'Chưa áp (HĐ cước cố định)']];
+  const rev = revRows.reduce((a, r) => a + r[1], 0);
+  return { name, costs, cost, revRows, rev, m: rev ? (rev - cost) / rev * 100 : null, profit: rev - cost, lit, km };
+}
+
+/* ---------- State ---------- */
+let S;
+function base(r, v) {
+  const line = LINES.find(l => l.r === r && l.v === v) || LINES.find(l => l.r === r);
+  return { r, v: line ? line.v : v, dir: 'vong', line, price: line ? line.p : 0, pp: line ? !!line.pp : false, diesel: P.diesel, priceEdited: false };
+}
+function setRoute(r) { const keep = S.dir; const v = LINES.some(l => l.r === r && l.v === S.v) ? S.v : (LINES.find(l => l.r === r) || {}).v; S = base(r, v); S.dir = keep; }
+function setVeh(v) { const keep = { dir: S.dir, diesel: S.diesel }; S = base(S.r, v); S.v = v; Object.assign(S, keep); if (!S.line || S.line.v !== v) { S.line = null; S.price = 0; S.pp = false; } }
+
+/* ---------- Input card ---------- */
+function renderInputs() {
+  const vehs = Object.keys(NORM).filter(v => (S.r && ['TG-01', 'LA-01', 'LA-02'].includes(S.r)) ? v === 'XT15' : v !== 'XT15');
+  const lines = LINES.filter(l => l.r === S.r && l.v === S.v);
+  $('inCard').innerHTML = `<div class="card-title"><h2 id="inT">Thông tin chuyến</h2></div>
+    <div class="inputs">
+      <label class="field"><span>Tuyến *</span><select class="select" id="fR">${Object.entries(RT).map(([k, r]) => `<option value="${k}" ${k === S.r ? 'selected' : ''}>${k} · ${r[0]}</option>`).join('')}</select>
+        <span class="hint">${RT[S.r][1] + RT[S.r][2]} km cả vòng · ${RT[S.r][5]} trạm thu phí · <a href="fm-28-tuyen-duong.html">Xem tuyến</a></span></label>
+      <label class="field"><span>Loại xe / cont *</span><select class="select" id="fV">${vehs.map(v => `<option value="${v}" ${v === S.v ? 'selected' : ''}>${NORM[v][2]}${v !== 'XT15' ? ' (' + v + ')' : ''}</option>`).join('')}</select></label>
+      <div class="field"><span>Chiều</span><div class="seg" role="group" aria-label="Chiều tính">${[['vong', 'Cả vòng'], ['hang', 'Có hàng'], ['rong', 'Rỗng']].map(([k, l]) => `<button type="button" data-dir="${k}" aria-pressed="${S.dir === k}">${l}</button>`).join('')}</div></div>
+      <label class="field"><span>Bảng giá</span><select class="select" id="fL">${lines.map(l => `<option value="${l.code}" selected>${l.code} · ${l.cust}</option>`).join('')}<option value="" ${!S.line ? 'selected' : ''}>Không theo bảng giá (nhập tay)</option></select></label>
+      <label class="field"><span>Giá cước</span><span class="unit-in ${S.priceEdited ? 'edited' : ''}"><input id="fP" value="${S.price ? nf(S.price) : ''}" placeholder="Nhập giá cước" aria-label="Giá cước" ${S.dir === 'rong' ? 'disabled' : ''}><span>đ/${isCont(S.v) ? 'cont' : 'chuyến'}</span></span>
+        <span class="hint">${S.dir === 'rong' ? 'Chiều rỗng không có doanh thu.' : S.priceEdited ? 'Đã sửa so với bảng giá · <a href="javascript:void(0)" id="resetP">Khôi phục</a>' : S.line ? `Theo ${S.line.code} v${S.line.code === 'TCL-2026' ? 3 : 1} · ${S.pp ? 'có PPNL' : 'HĐ cố định, chưa áp PPNL'}` : 'Không có bảng giá cho tuyến và loại xe này.'}</span></label>
+      <label class="field"><span>Giá dầu</span><span class="unit-in ${S.diesel !== P.diesel ? 'edited' : ''}"><input id="fD" value="${nf(S.diesel)}" aria-label="Giá dầu"><span>đ/l</span></span>
+        <span class="hint">${S.diesel !== P.diesel ? `Đang thử, tham chiếu là ${nf(P.diesel)} đ/l · <a href="javascript:void(0)" id="resetD">Khôi phục</a>` : `Tham chiếu kỳ 05/11/2026 · <a href="fm-30-tham-so.html#dau">Tham số</a>`}</span></label>
+    </div>`;
+  $('fR').onchange = e => { setRoute(e.target.value); renderAll(); };
+  $('fV').onchange = e => { setVeh(e.target.value); renderAll(); };
+  $('fL').onchange = e => { const l = LINES.find(x => x.code === e.target.value && x.r === S.r && x.v === S.v); S.line = l || null; S.price = l ? l.p : S.price; S.pp = l ? !!l.pp : false; S.priceEdited = false; renderAll(); };
+  $('inCard').querySelectorAll('[data-dir]').forEach(b => b.onclick = () => { S.dir = b.dataset.dir; renderAll(); });
+  const fp = $('fP'); fp.onchange = () => { const v = parse(fp.value); S.price = v || 0; S.priceEdited = !!(S.line && v !== S.line.p); renderAll(); };
+  const fd = $('fD'); fd.onchange = () => { const v = parse(fd.value); if (v) S.diesel = v; renderAll(); };
+  const rp = $('resetP'); if (rp) rp.onclick = () => { S.price = S.line.p; S.priceEdited = false; renderAll(); };
+  const rd = $('resetD'); if (rd) rd.onclick = () => { S.diesel = P.diesel; renderAll(); };
+}
+
+/* ---------- Result card ---------- */
+function renderResult() {
+  const c = compute(S);
+  const m = c.m, cls = m == null ? '' : m < 0 ? 'neg' : m < P.thr ? 'warn' : '';
+  const badge = m == null ? `<span class="badge b-neutral">${icon('info')}Không có doanh thu</span>` : m < 0 ? `<span class="badge b-danger">${icon('block')}Lỗ dự kiến</span>` : m < P.thr ? `<span class="badge b-warning">${icon('warn')}Dưới ngưỡng 5%</span>` : `<span class="badge b-success">${icon('check')}Đạt ngưỡng 5%</span>`;
+  const minP = S.dir === 'rong' ? null : Math.ceil(((c.cost / (1 - P.thr / 100)) - (isCont(S.v) ? P.lift : 0)) / (1 + (S.pp ? ppPct(S.diesel) : 0)) / 5000) * 5000;
+  const row = (k, label, amt, ex, tipHtml, href, srcLbl, total) => `<tr><td>${label}</td><td class="ex">${ex}</td>
+      <td class="right num"><span class="tip"><span class="amt" tabindex="0">${fmt.vnd(amt)}</span><span class="tip-body right">${tipHtml}</span></span></td>
+      <td class="right"><span class="share"><i style="width:${Math.max(2, amt / total * 90)}px"></i><span class="num muted" style="width:44px">${fmt.pct(amt / total * 100)}</span></span></td>
+      <td class="src">${href ? `<a href="${href}">${srcLbl}</a>` : ''}</td></tr>`;
+  $('resCard').innerHTML = `<div class="card-title"><h2 id="resT">Giá thành theo khoản</h2><span class="meta">${S.r} · ${c.name} · ${NORM[S.v][2]} · ${S.dir === 'vong' ? 'cả vòng' : S.dir === 'hang' ? 'chiều có hàng' : 'chiều rỗng'} ${c.km} km</span></div>
+    <div class="res-top">
+      <div class="stack" style="gap:4px"><span class="k">Biên dự toán</span><span class="v ${cls}" id="mVal">${m == null ? '—' : fmt.pct(m)}</span>
+        <div class="row">${badge}${m != null ? `<span class="${c.profit < 0 ? 'neg' : ''}" style="font-weight:600">${c.profit < 0 ? 'Lỗ' : 'Lãi'} ${fmt.vnd(Math.abs(c.profit))}/chuyến</span>` : '<span class="muted">Chi phí chiều rỗng được gánh bởi chiều có hàng.</span>'}</div></div>
+      <div class="res-side"><span>Doanh thu</span><b>${c.rev ? fmt.vnd(c.rev) : '—'}</b><span>Giá thành</span><b>${fmt.vnd(c.cost)}</b>${minP ? `<span>Giá cước tối thiểu đạt 5%</span><b>${fmt.vnd(minP)}</b>` : ''}</div>
+    </div>
+    <div class="bk"><table aria-label="Bảng giá thành theo khoản">
+      <thead><tr><th>Khoản</th><th>Cách tính</th><th class="right">Số tiền</th><th class="right">Tỷ trọng</th><th>Nguồn tham số</th></tr></thead>
+      <tbody>
+        <tr class="grp"><td colspan="5">Chi phí</td></tr>
+        ${c.costs.map(x => row(x[0], x[1], x[2], x[3], x[4], x[5], x[6], c.cost)).join('')}
+        <tr class="tot"><td>Giá thành</td><td></td><td class="right num">${fmt.vnd(c.cost)}</td><td class="right num muted">100%</td><td></td></tr>
+        ${c.revRows.length ? `<tr class="grp"><td colspan="5">Doanh thu</td></tr>
+        ${c.revRows.map(([l, a, ex]) => `<tr><td>${l}</td><td class="ex">${ex}</td><td class="right num"><span class="tip"><span class="amt" tabindex="0">${a ? fmt.vnd(a) : '<span class="muted">0 đ</span>'}</span><span class="tip-body right">${l === 'Phụ phí nhiên liệu' ? (S.pp ? `<span class="formula">${nf(S.price)} × 36% × (${nf(S.diesel)} − ${nf(P.base)}) / ${nf(P.base)} → ${fmt.pct(ppPct(S.diesel) * 100)} = ${fmt.vnd(a)}</span>` : 'Hợp đồng cước cố định, không điều chỉnh theo giá dầu.') : l === 'Giá cước' ? (S.line ? `Bảng giá ${S.line.code} · ${S.line.cust}` : 'Giá nhập tay') : 'Phụ phí nâng hạ thu khách theo bảng giá'}</span></span></td><td></td><td class="src">${S.line ? `<a href="fm-29-bang-gia.html#${S.line.code}">${S.line.code}</a>` : ''}</td></tr>`).join('')}
+        <tr class="tot"><td>Doanh thu</td><td></td><td class="right num">${fmt.vnd(c.rev)}</td><td></td><td></td></tr>` : ''}
+      </tbody></table></div>
+    <div class="res-foot">${icon('info')}<span>Rê chuột lên số tiền để xem công thức. Đổi tham số mặc định ở <a href="fm-30-tham-so.html">Tham số giá thành</a>; đổi giá ở đây chỉ để tính thử, không lưu.</span></div>`;
+}
+
+/* ---------- Mô phỏng giá dầu ---------- */
+let simD = 1000;
+function renderSim() {
+  const rows = SIM.map(([r, v, trips]) => { const l = LINES.find(x => x.r === r && x.v === v); const st = { r, v, dir: 'vong', line: l, price: l.p, pp: !!l.pp, diesel: P.diesel }; const a = compute(st).m, b = compute(st, P.diesel + simD).m; return { r, v, trips, l, a, b }; });
+  const MIN = -8, MAX = 12, x = val => (Math.max(MIN, Math.min(MAX, val)) - MIN) / (MAX - MIN) * 100;
+  const tone = val => val < 0 ? 'var(--danger-solid)' : val < P.thr ? 'var(--warning-solid)' : 'var(--primary)';
+  const tcol = val => val < 0 ? 'var(--danger-fg)' : val < P.thr ? 'var(--warning-fg)' : 'var(--fg-strong)';
+  const bar = (val, cls, col) => { const a = x(Math.min(0, val)), b = x(Math.max(0, val)); return `<span class="bar ${cls}" style="left:${a}%;width:${Math.max(.6, b - a)}%;${col ? 'background:' + col : ''}"></span>`; };
+  const fixedDrop = rows.filter(r => !r.l.pp).map(r => r.b - r.a), ppDrop = rows.filter(r => r.l.pp).map(r => r.b - r.a);
+  const avg = a => a.reduce((s, v) => s + v, 0) / a.length;
+  const below = rows.filter(r => r.b < P.thr).length;
+  $('sim').innerHTML = `<div class="card-title"><h2 id="simT">Mô phỏng: nếu giá dầu thay đổi</h2><span class="meta">Giá dầu tham chiếu ${nf(P.diesel)} đ/l
+      <span class="seg" role="group" aria-label="Mức thay đổi giá dầu">${[-1000, 500, 1000, 2000].map(d => `<button type="button" data-d="${d}" aria-pressed="${d === simD}">${d > 0 ? '+' : '−'}${nf(Math.abs(d))} đ/l</button>`).join('')}</span></span></div>
+    <div class="legend"><span><i style="background:var(--chart-muted)"></i>Biên hiện tại</span><span><i style="background:var(--primary)"></i>Biên sau khi giá dầu ${simD > 0 ? '+' : '−'}${nf(Math.abs(simD))} đ/l (cam: dưới 5%, đỏ: lỗ)</span><span>5 tuyến biên thấp nhất tháng 11, như ở Tổng quan</span></div>
+    <div class="barlist">${rows.map(r => `<div class="bl-row"><div class="name"><b>${RT[r.r][0]}</b><span>${r.r} · ${r.v} · ${r.l.code} · ${r.trips} chuyến${r.l.pp ? '' : ' · <span style="color:var(--warning-fg);font-weight:500">HĐ cố định, chưa PPNL</span>'}</span></div>
+      <div class="track"><span class="zero" style="left:${x(0)}%"></span><span class="thr" style="left:${x(P.thr)}%"></span>${bar(r.a, 'now')}${bar(r.b, 'new', tone(r.b))}</div>
+      <span class="pct"><span class="muted">${fmt.pct(r.a)}</span> → <b style="color:${tcol(r.b)}">${fmt.pct(r.b)}</b><span class="cell-sub">${Math.abs(r.b - r.a) < .05 ? 'không đổi' : (r.b - r.a > 0 ? '+' : '−') + fmt.dec(Math.abs(r.b - r.a), 1) + ' điểm'}</span></span></div>`).join('')}
+      <div class="bl-axis"><span></span><div class="ax">${[-8, -4, 0, 5, 10].map(v => `<span style="left:${x(v)}%">${v === 5 ? 'ngưỡng 5%' : (v < 0 ? '−' : '') + Math.abs(v) + '%'}</span>`).join('')}</div><span></span></div>
+    </div>
+    <div class="q-foot">${icon('fuel')}<span>Tuyến có phụ phí nhiên liệu theo công thức thay đổi trung bình ${fmt.dec(avg(ppDrop), 1).replace('-', '−')} điểm; 2 tuyến hợp đồng cước cố định (TCL-2026) thay đổi ${fmt.dec(avg(fixedDrop), 1).replace('-', '−')} điểm. Sau thay đổi, ${below} / 5 tuyến dưới ngưỡng 5%. <a href="fm-29-bang-gia.html#TCL-2026">Xem phụ phí nhiên liệu TCL-2026</a></span></div>`;
+  $('sim').querySelectorAll('[data-d]').forEach(b => b.onclick = () => { simD = +b.dataset.d; renderSim(); });
+}
+function renderAll() { renderInputs(); renderResult(); }
+
+/* ---------- States ---------- */
+function skeleton() {
+  $('inCard').innerHTML = `<div class="card-title"><span class="sk" style="width:120px"></span></div><div class="inputs">${Array(6).fill('<div><span class="sk" style="width:40%;height:9px"></span><span class="sk" style="height:30px;margin-top:8px"></span></div>').join('')}</div>`;
+  $('resCard').innerHTML = `<div class="card-title"><span class="sk" style="width:180px"></span></div><div class="res-top"><div><span class="sk" style="width:100px"></span><span class="sk" style="width:140px;height:34px;margin-top:8px"></span></div></div><div style="padding:16px 18px;display:flex;flex-direction:column;gap:16px">${Array(8).fill('<span class="sk"></span>').join('')}</div>`;
+  $('sim').innerHTML = `<div class="card-title"><span class="sk" style="width:220px"></span></div><div style="padding:12px 18px 18px;display:flex;flex-direction:column;gap:18px">${Array(5).fill('<span class="sk" style="height:16px"></span>').join('')}</div>`;
+}
+const h = location.hash.slice(1);
+let init = ['TN-01', '40DC'];
+const hm = h.match(/^([A-Z]{2}-\d{2})(?:-(\w+))?$/);
+if (hm && RT[hm[1]]) init = [hm[1], hm[2] || (LINES.find(l => l.r === hm[1]) || {}).v || '40DC'];
+Shell.states([['default', 'Mặc định'], ['ok', 'Biên đạt'], ['rong', 'Chiều rỗng'], ['sim2', 'Mô phỏng +2.000'], ['loading', 'Đang tải'], ['empty', 'Chưa chọn tuyến'], ['error', 'Lỗi tham số']], s => {
+  $('errSlot').innerHTML = ''; $('calcRow').classList.remove('hidden'); $('sim').classList.remove('hidden'); simD = 1000;
+  if (s === 'loading') { skeleton(); return; }
+  S = base(init[0], init[1]);
+  if (s === 'ok') S = base('DT-01', '40RF');
+  if (s === 'rong') S.dir = 'rong';
+  if (s === 'sim2') simD = 2000;
+  renderAll(); renderSim();
+  if (s === 'empty') { const fr = $('fR'); fr.insertAdjacentHTML('afterbegin', '<option value="" selected>Chọn tuyến…</option>'); fr.value = ''; fr.closest('.field').querySelector('.hint').textContent = 'Chọn từ danh mục tuyến (FM_28)'; $('fP').value = ''; $('fP').closest('.field').querySelector('.hint').textContent = 'Tự điền từ bảng giá của khách khi chọn tuyến.'; $('fL').closest('.field').classList.add('hidden'); $('resCard').innerHTML = `<div class="empty" style="margin:auto">${icon('formula')}<h3>Chọn tuyến và loại xe để tính thử</h3><p>Giá thành được tính theo km tuyến, định mức dầu, phí cầu đường, lương chuyến, khấu hao và chi phí cố định.</p><a class="btn btn-secondary" href="fm-28-tuyen-duong.html">${icon('route')}Xem danh mục tuyến</a></div>`; }
+  if (s === 'error') { $('errSlot').innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Thiếu tham số giá thành: chưa có định mức dầu cho “Xe tải thùng 8 tấn” và chưa nhập giá dầu kỳ 05/11/2026. Không tính được dự toán cho tuyến dùng loại xe này.</div><div class="alert-actions"><a class="btn btn-secondary btn-sm" href="fm-30-tham-so.html#dinhmuc">Mở tham số</a></div></div>`; $('calcRow').classList.add('hidden'); $('sim').classList.add('hidden'); }
+  if (h === 'sim' || s === 'sim2') setTimeout(() => $('sim').scrollIntoView({ block: 'start' }), 60);
+});
+</script>
+</body>
+</html>

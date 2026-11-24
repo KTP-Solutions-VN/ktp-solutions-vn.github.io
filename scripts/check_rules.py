@@ -99,7 +99,7 @@ for da in DATA["du_an"]:
         txt = f"{kq.get('chi_so', '')} {kq.get('mo_ta', '')}"
         if re.search(r"màn hình|prototype|\bcổng\b|\d+\s*%", txt, re.I):
             err("R2", f"{who}: ket_qua '{txt[:60]}' không phải giá trị kinh doanh (bỏ số màn hình / số cổng / % tự đặt)")
-    if not da.get("linh_vuc") in ("hospitality", "industrial", "healthcare"):
+    if not da.get("linh_vuc") in ("hospitality", "industrial", "healthcare", "logistics"):
         err("R2", f"{who}: thiếu linh_vuc (icon badge lĩnh vực)")
     anh = ROOT / da.get("anh", "")
     if anh.is_file() and anh.suffix == ".jpg":
@@ -122,7 +122,8 @@ DEPLOY = deployable()
 for f in DEPLOY:
     if f.suffix == ".zip":
         err("R3", f"{rel(f)}: file zip sẽ bị deploy (phải nằm trong .gitignore)")
-    if f.suffix in (".html", ".js") and "/showcase/hospitality/" not in str(f) and "/showcase/medical/" not in str(f) and "/showcase/crm/" not in str(f):
+    # giao diện bên trong prototype (nút "tải hoá đơn"…, chữ "download" trong bản EN) không phải link tải mã nguồn
+    if f.suffix in (".html", ".js") and not any(f"/showcase/{d}/" in str(f) for d in ("hospitality", "medical", "crm", "logistics")):
         t = f.read_text(encoding="utf-8", errors="ignore")
         if re.search(r"""href=["'][^"']*\.zip["']|\sdownload[\s>=]""", t):
             err("R3", f"{rel(f)}: có link tải / thuộc tính download")
@@ -174,6 +175,13 @@ for hub in [SC / "hospitality/pms/index.html", *sorted((SC / "medical").glob("*/
     for t in re.findall(r"<a [^>]*>(?:(?!</a>).)*?<(?:strong|span class=\"idx-card__title\")>([^<]+)<", h, re.S):
         if re.search(r"(?i)\b(log ?in|sign ?in|login)\b(?!\s*log\b)", t):
             err("R5", f"{rel(hub)}: trang mục lục còn thẻ dẫn tới màn đăng nhập '{t.strip()}'")
+# mục lục dạng mảng JS G = [[icon, nhóm, [[mã, tên màn, file], …]], …] (Fleet): không còn màn đăng nhập
+for hub in sorted(SC.glob("*/*/index.html")):
+    h = hub.read_text(encoding="utf-8")
+    g = re.search(r"const G = \[(.*?)\n\];", h, re.S)
+    for name, f in re.findall(r"\['[A-Z]+_\d+', '((?:[^'\\]|\\.)*)', '([^']+)'\]", g.group(1) if g else ""):
+        if re.search(r"(?i)\b(log ?in|sign ?in|login|đăng nhập)\b|dang-nhap", name + " " + f):
+            err("R5", f"{rel(hub)}: trang mục lục còn mục dẫn tới màn đăng nhập '{name}'")
 css = (SC / "assets/playground.css").read_text(encoding="utf-8")
 if not re.search(r"\.pg-player\s*\{[^}]*position:\s*fixed", css):
     err("R5", "showcase/assets/playground.css: .pg-player phải ghim vào khung nhìn (position: fixed) để không cuộn trang")
@@ -196,7 +204,7 @@ if '"s":"' in pdata or ".zip" in pdata:
 # R6 — SEO: sitemap có trang tổng, từng lĩnh vực, từng prototype
 sm = (ROOT / "sitemap.xml").read_text()
 pids = re.findall(r'\{"id":"([\w-]+)","dom"', pdata)
-for u in ["screens/du-an/"] + [f"screens/du-an/?linh-vuc={d}" for d in ("hospitality", "industrial", "healthcare")] + [f"screens/du-an/playground/?app={p}" for p in pids]:
+for u in ["screens/du-an/"] + [f"screens/du-an/?linh-vuc={d}" for d in ("hospitality", "industrial", "healthcare", "logistics")] + [f"screens/du-an/playground/?app={p}" for p in pids]:
     if f"https://www.ktpsolutions.vn/{u}</loc>" not in sm:
         err("R6", f"sitemap.xml thiếu {u} (chạy lại build_playground.py)")
 

@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maintenance plan · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  .page-header .sub { color: var(--fg-muted); font-size: 13px; margin-top: 4px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .fresh button { border: 0; background: none; color: var(--primary); font: 500 12.5px var(--font-body); cursor: pointer; padding: 0; display: inline-flex; gap: 4px; align-items: center; }
+  .card-title { display: flex; align-items: center; gap: 8px; padding: 16px 18px 6px; }
+  .card-title h2 { font-size: 16px; }
+  .card-title .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 10px; align-items: center; }
+
+  /* SummaryStrip: một số chính + ô phụ cách 6px, không vạch dọc */
+  .summary { display: grid; grid-template-columns: minmax(300px, 1.3fr) repeat(3, minmax(0, 1fr)); gap: 6px; padding: 6px; background: var(--surface); border-radius: var(--r-lg); box-shadow: var(--shadow-card); }
+  .sum-main { padding: 14px 20px; background: var(--primary-soft); border-radius: 8px; display: flex; flex-direction: column; gap: 4px; border: 0; text-align: left; font: inherit; color: inherit; cursor: pointer; }
+  .sum-main .k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--side-active); }
+  .sum-main .v { font: 700 var(--text-display)/40px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .sum-main .v small { font: 600 16px var(--font-display); color: var(--fg-muted); margin-left: 6px; }
+  .sum-main .d { font-size: 12.5px; color: var(--fg-muted); }
+  .sum-item { padding: 14px 16px; display: flex; flex-direction: column; justify-content: center; gap: 4px; min-width: 0; border-radius: 8px; border: 0; background: transparent; text-align: left; font: inherit; color: inherit; cursor: pointer; }
+  .sum-item:hover, .sum-main:hover { background: var(--surface-muted); }
+  .sum-main:hover { background: var(--primary-soft); filter: brightness(.985); }
+  .sum-item .k { font-size: 12.5px; color: var(--fg-muted); font-weight: 500; }
+  .sum-item .v { font: 700 24px/30px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .sum-item .v small { font: 600 13px var(--font-body); color: var(--fg-muted); margin-left: 4px; }
+  .sum-item .d { font-size: 12px; color: var(--fg-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sum-item.on, .sum-main.on { box-shadow: inset 0 0 0 2px var(--primary); }
+
+  .bar { display: flex; align-items: center; gap: 8px; padding: 0 16px 10px; flex-wrap: wrap; }
+  .bar .search-global { max-width: 260px; margin-left: auto; }
+  .toggle { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--fg-muted); cursor: pointer; }
+  .toggle input { accent-color: var(--primary); }
+
+  table.plan td { vertical-align: middle; }
+  table.plan tr.vhead td { background: var(--surface); padding-top: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  table.plan tr.vhead:hover td { background: var(--surface); }
+  .vh { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .vh .plate { font: 600 15px var(--font-display); color: var(--fg-strong); letter-spacing: .02em; }
+  .vh .meta { font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 6px; align-items: center; }
+  .vh .meta .icon { width: 14px; height: 14px; }
+  .vh .acts { margin-left: auto; display: flex; gap: 6px; align-items: center; }
+  table.plan td.task { padding-left: 28px; }
+  table.plan td.task b { font-weight: 500; color: var(--fg-strong); }
+  .left { display: flex; flex-direction: column; gap: 4px; min-width: 150px; max-width: 200px; }
+  table.plan th:nth-child(2), table.plan td:nth-child(2) { max-width: 170px; }
+  .left .t { font-size: 13px; font-variant-numeric: tabular-nums; }
+  .track { height: 6px; border-radius: 3px; background: var(--surface-muted); overflow: hidden; }
+  .track i { display: block; height: 100%; background: var(--neutral-solid); border-radius: 3px; }
+  .track.soon i { background: var(--warning-solid); }
+  .track.over i { background: var(--danger-solid); }
+  .track.doing i { background: repeating-linear-gradient(45deg, var(--info-solid) 0 3px, var(--info-soft) 3px 6px); }
+  .src { display: inline-flex; align-items: center; gap: 4px; }
+  .lock-note { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--info-fg); }
+  .lock-note .icon { width: 14px; height: 14px; }
+  .chips { display: flex; gap: 4px; flex-wrap: wrap; }
+  .drawer { width: min(520px, 100vw); }
+  .drawer-head { border-bottom: 0; flex-direction: row; align-items: center; }
+  .drawer-foot { border-top: 0; box-shadow: 0 -1px 0 var(--border); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .unit { position: relative; display: flex; }
+  .unit .input { width: 100%; padding-right: 52px; text-align: right; }
+  .unit em { position: absolute; right: 10px; top: 8px; font-style: normal; font-size: 13px; color: var(--fg-muted); }
+  .checks { display: flex; flex-direction: column; gap: 6px; }
+  .checks label { display: flex; align-items: center; gap: 8px; font-size: 13.5px; padding: 6px 8px; border-radius: 6px; cursor: pointer; }
+  .checks label:hover { background: var(--surface-muted); }
+  .checks input { accent-color: var(--primary); }
+  .checks .muted { margin-left: auto; font-size: 12.5px; }
+  .hint { font-size: 12.5px; color: var(--fg-muted); }
+  .grid tbody tr:last-child td { border-bottom: 0; }
+  .grid .code a { color: inherit; }
+  #slot:empty { display: none; }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Fleet / Maintenance</div>
+      <h1>Maintenance plan</h1>
+      <div class="sub"><span class="fresh" id="fresh"></span></div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-secondary" type="button" id="tplBtn"></button>
+      <button class="btn btn-primary" type="button" id="newOrderBtn"></button>
+    </div>
+  </div>
+  <div class="tabs" role="tablist" id="tabs">
+    <button role="tab" data-tab="due" aria-selected="true">Due tasks</button>
+    <button role="tab" data-tab="tpl" aria-selected="false">Maintenance templates</button>
+    <button role="tab" data-tab="orders" aria-selected="false">Maintenance work orders</button>
+  </div>
+  <div id="slot"></div>
+  <div id="body" style="display:flex;flex-direction:column;gap:16px"></div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_19', title: 'Maintenance plan' });
+const N = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+document.getElementById('tplBtn').innerHTML = icon('plus') + 'Add template';
+document.getElementById('newOrderBtn').innerHTML = icon('wrench') + 'Create maintenance work order';
+
+/* ---------- Dữ liệu ---------- */
+const TODAY = new Date(2026, 10, 12);
+const d = s => { const [a, b, c] = s.split('/').map(Number); return new Date(c, b - 1, a); };
+const ds = dt => String(dt.getDate()).padStart(2, '0') + '/' + String(dt.getMonth() + 1).padStart(2, '0') + '/' + dt.getFullYear();
+const days = (a, b) => Math.round((b - a) / 864e5);
+const GROUPS = ['Container tractor unit', 'Box truck'];
+let TPL;
+let VEH, TASKS, ORDERS;
+function reset() {
+  TPL = [
+    { id: 'T1', name: 'Engine oil change', km: 10000, days: null, groups: ['Container tractor unit'], warnKm: 1000, warnDays: 7, parts: '15W-40 engine oil · 38 l' },
+    { id: 'T1b', name: 'Engine oil change (box truck)', km: 8000, days: null, groups: ['Box truck'], warnKm: 800, warnDays: 7, parts: '15W-40 engine oil · 18 l' },
+    { id: 'T2', name: 'Oil filter, fuel filter change', km: 10000, days: null, groups: GROUPS.slice(), warnKm: 1000, warnDays: 7, parts: 'Oil filter × 2, fuel filter × 2' },
+    { id: 'T3', name: 'Tire rotation', km: 20000, days: null, groups: GROUPS.slice(), warnKm: 1000, warnDays: 7, parts: '—' },
+    { id: 'T4', name: 'Brake check', km: null, days: 90, groups: GROUPS.slice(), warnKm: null, warnDays: 7, parts: '—' },
+    { id: 'T5', name: 'Level 2 service', km: 40000, days: 180, groups: ['Container tractor unit'], warnKm: 2000, warnDays: 14, parts: 'Per level 2 checklist' },
+    { id: 'T6', name: 'Air filter change', km: 20000, days: null, groups: ['Container tractor unit'], warnKm: 1000, warnDays: 7, parts: 'Air filter × 1' }
+  ];
+  VEH = [
+    { plate: '51C-310.66', type: 'Tractor unit', group: 'Container tractor unit', km: 186540, src: 'gsht', at: '10 min ago', order: 'LBD-0118', until: '14/11' },
+    { plate: '51D-456.78', type: 'Tractor unit', group: 'Container tractor unit', km: 231880, src: 'gsht', at: '5 min ago' },
+    { plate: '51C-099.21', type: 'Tractor unit', group: 'Container tractor unit', km: 312450, src: 'driver', at: '08/11 16:20', note: 'GPS tracker signal lost since 08/11' },
+    { plate: '51D-702.33', type: 'Box truck', group: 'Box truck', km: 64880, src: 'gsht', at: '5 min ago' },
+    { plate: '51C-123.45', type: 'Tractor unit', group: 'Container tractor unit', km: 204330, src: 'gsht', at: '2 min ago' },
+    { plate: '51C-456.78', type: 'Tractor unit', group: 'Container tractor unit', km: 97420, src: 'gsht', at: '3 min ago' },
+    { plate: '51C-588.02', type: 'Box truck', group: 'Box truck', km: 118200, src: 'driver', at: '12/11 03:10' },
+    { plate: '51C-731.80', type: 'Tractor unit', group: 'Container tractor unit', km: 142900, src: 'gsht', at: '4 min ago' }
+  ];
+  TASKS = [
+    ['51C-310.66', 'T1', 176300, '02/08/2026', 'LBD-0118'], ['51C-310.66', 'T2', 176300, '02/08/2026', 'LBD-0118'], ['51C-310.66', 'T3', 168000, '20/06/2026', 'LBD-0118'], ['51C-310.66', 'T4', null, '10/08/2026', 'LBD-0118'],
+    ['51D-456.78', 'T3', 210000, '14/07/2026'], ['51D-456.78', 'T1', 225600, '21/10/2026'],
+    ['51C-099.21', 'T5', 280300, '10/05/2026'], ['51C-099.21', 'T1', 304000, '15/10/2026'],
+    ['51D-702.33', 'T1b', 56500, '01/10/2026'], ['51D-702.33', 'T4', null, '05/10/2026'],
+    ['51C-123.45', 'T1', 194700, '18/10/2026'], ['51C-123.45', 'T4', null, '15/08/2026'],
+    ['51C-456.78', 'T1', 87900, '12/10/2026'],
+    ['51C-588.02', 'T4', null, '18/08/2026'], ['51C-588.02', 'T2', 110300, '20/09/2026'],
+    ['51C-731.80', 'T6', 125200, '02/06/2026'], ['51C-731.80', 'T1', 135400, '25/10/2026']
+  ].map(([plate, tpl, lastKm, lastDate, order]) => ({ plate, tpl, lastKm, lastDate, order }));
+  ORDERS = [
+    { id: 'LBD-0118', plate: '51C-310.66', what: '10,000 km scheduled service + tire rotation, brake check', shop: 'Linh Trung workshop', ext: true, in: '11/11/2026 14:00', out: 'Expected 14/11/2026', st: 'doing', cost: null },
+    { id: 'LBD-0117', plate: '51C-099.21', what: 'Level 2 service', shop: 'Thủ Đức in-house workshop', ext: false, in: 'Not checked in yet', out: '—', st: 'open', cost: null },
+    { id: 'LBD-0114', plate: '51C-456.78', what: 'Axle 2 brake pad replacement (from driver incident report)', shop: 'Thủ Đức in-house workshop', ext: false, in: '06/11/2026 08:00', out: '06/11/2026 17:30', st: 'done', cost: 2450000 },
+    { id: 'LBD-0112', plate: '51D-456.78', what: 'Engine oil, oil filter, fuel filter change', shop: 'Linh Trung workshop', ext: true, in: '21/10/2026 07:30', out: '21/10/2026 15:10', st: 'done', cost: 4980000 },
+    { id: 'LBD-0109', plate: '51C-731.80', what: 'Engine oil change', shop: 'Thủ Đức in-house workshop', ext: false, in: '25/10/2026 13:00', out: '25/10/2026 16:40', st: 'done', cost: 3720000 }
+  ];
+}
+const OST = { open: ['b-neutral', 'dot', 'Open'], doing: ['b-info', 'wrench', 'In repair'], done: ['b-success', 'check', 'Completed'] };
+const tplOf = id => TPL.find(t => t.id === id);
+const vehOf = p => VEH.find(v => v.plate === p);
+function calc(t) {
+  const T = tplOf(t.tpl), v = vehOf(t.plate);
+  const r = { T, v };
+  if (T.km) { r.dueKm = t.lastKm + T.km; r.leftKm = r.dueKm - v.km; r.usedKm = (v.km - t.lastKm) / T.km; }
+  if (T.days) { r.dueDate = new Date(d(t.lastDate).getTime() + T.days * 864e5); r.leftDays = days(TODAY, r.dueDate); r.usedDays = days(d(t.lastDate), TODAY) / T.days; }
+  r.used = Math.max(r.usedKm || 0, r.usedDays || 0);
+  const over = (r.leftKm != null && r.leftKm < 0) || (r.leftDays != null && r.leftDays < 0);
+  const soon = (r.leftKm != null && r.leftKm <= T.warnKm) || (r.leftDays != null && r.leftDays <= T.warnDays);
+  r.st = t.order ? 'doing' : over ? 'over' : soon ? 'soon' : 'ok';
+  return r;
+}
+const ST = { over: ['b-danger', 'warn', 'Overdue'], soon: ['b-warning', 'clock', 'Due soon'], doing: ['b-info', 'wrench', 'In work order'], ok: ['b-neutral', 'check', 'Not due'] };
+const RANK = { over: 0, soon: 1, doing: 2, ok: 3 };
+const cycle = T => [T.km ? `${N(T.km)} km` : '', T.days ? (T.days % 30 === 0 ? T.days / 30 + ' months' : T.days + ' days') : ''].filter(Boolean).join(' or ');
+
+/* ---------- Tooltip nổi ---------- */
+const TIPS = {}; let tipN = 0;
+const tip = html => { const k = 't' + (tipN++); TIPS[k] = html; return `data-ftip="${k}"`; };
+const ftip = document.createElement('div'); ftip.className = 'tip-body'; ftip.setAttribute('role', 'tooltip');
+Object.assign(ftip.style, { position: 'fixed', transform: 'none', bottom: 'auto', zIndex: 100 }); document.body.appendChild(ftip);
+function showTip(el) { const h = TIPS[el.dataset.ftip]; if (!h) return; ftip.innerHTML = h; ftip.style.opacity = 1; const r = el.getBoundingClientRect(), w = ftip.offsetWidth, ht = ftip.offsetHeight; ftip.style.left = Math.min(Math.max(8, r.left + r.width / 2 - w / 2), innerWidth - w - 8) + 'px'; let y = r.top - ht - 8; if (y < 8) y = r.bottom + 8; ftip.style.top = y + 'px'; }
+const hideTip = () => { ftip.style.opacity = 0; };
+document.addEventListener('mouseover', e => { const el = e.target.closest('[data-ftip]'); el ? showTip(el) : hideTip(); });
+document.addEventListener('focusin', e => { const el = e.target.closest('[data-ftip]'); el ? showTip(el) : hideTip(); });
+
+/* ---------- Render ---------- */
+let tab = 'due', filt = 'need', showOk = false, q = '';
+const body = document.getElementById('body');
+function srcHtml(v) {
+  return v.src === 'gsht'
+    ? `<span class="src" ${tip('Km pulled automatically from the GPS tracker')}>${icon('gauge')}GPS · ${v.at}</span>`
+    : `<span class="src" ${tip(`Km entered by the driver when refueling${v.note ? '. ' + v.note : ''}`)}>${icon('fuel')}Driver entry · ${v.at}</span>`;
+}
+function freshHtml() {
+  const g = VEH.filter(v => v.src === 'gsht').length;
+  return `<span class="live"></span>Km updated 2 min ago · ${g} vehicles via GPS tracker, ${VEH.length - g} via driver entry <button type="button" id="refresh">${icon('refresh')}Refresh</button>`;
+}
+function summaryHtml(all) {
+  const c = k => all.filter(x => x.c.st === k).length;
+  const plates = k => [...new Set(all.filter(x => x.c.st === k).map(x => x.plate))];
+  const doingV = VEH.filter(v => v.order);
+  return `<section class="summary" aria-label="Summary">
+    <button class="sum-main ${filt === 'over' ? 'on' : ''}" type="button" data-f="over"><span class="k">Overdue tasks</span><span class="v">${c('over')}<small>tasks · ${plates('over').length} vehicles</small></span><span class="d">Past the km or date threshold, no maintenance work order yet</span></button>
+    <button class="sum-item ${filt === 'soon' ? 'on' : ''}" type="button" data-f="soon"><span class="k">Due soon</span><span class="v">${c('soon')}<small>tasks</small></span><span class="d">≤ 1,000 km or ≤ 7 days left</span></button>
+    <button class="sum-item ${filt === 'doing' ? 'on' : ''}" type="button" data-f="doing"><span class="k">In the workshop</span><span class="v">${doingV.length}<small>vehicles</small></span><span class="d" title="${doingV.map(v => v.plate + ' until ' + v.until).join(', ')}">${doingV.length ? '51C-310.66 · Linh Trung workshop until 14/11' : 'No vehicles in the workshop'}</span></button>
+    <a class="sum-item" href="#orders" data-goto="orders" style="text-decoration:none"><span class="k">Maintenance costs Nov 2026</span><span class="v">${fmt.short(2450000)}</span><span class="d">1 work order completed · posted to vehicle costs</span></a>
+  </section>`;
+}
+function dueHtml() {
+  const all = TASKS.map(t => Object.assign({ c: calc(t) }, t));
+  let rows = all.filter(x => {
+    if (filt === 'need' && x.c.st === 'ok' && !showOk) return false;
+    if (filt !== 'need' && x.c.st !== filt) return false;
+    return !q || x.plate.toLowerCase().includes(q) || x.c.T.name.toLowerCase().includes(q);
+  });
+  const byV = {}; rows.forEach(x => (byV[x.plate] = byV[x.plate] || []).push(x));
+  const plates = Object.keys(byV).sort((a, b) => Math.min(...byV[a].map(x => RANK[x.c.st])) - Math.min(...byV[b].map(x => RANK[x.c.st])));
+  plates.forEach(p => byV[p].sort((a, b) => RANK[a.c.st] - RANK[b.c.st]));
+  const n = { need: all.filter(x => x.c.st !== 'ok').length, over: all.filter(x => x.c.st === 'over').length, soon: all.filter(x => x.c.st === 'soon').length, doing: all.filter(x => x.c.st === 'doing').length };
+  const table = plates.length ? `<div class="grid-wrap"><table class="grid plan">
+    <thead><tr><th>Item</th><th>Cycle</th><th>Last done</th><th>Due at</th><th>Remaining</th><th>Status</th></tr></thead>
+    <tbody>${plates.map(p => { const v = vehOf(p), items = byV[p], worst = items[0].c.st;
+      const ord = v.order ? ORDERS.find(o => o.id === v.order) : null;
+      const newOrd = items.find(x => x.newOrder);
+      return `<tr class="vhead"><td colspan="6"><div class="vh">
+          <span class="plate code">${p}</span> <span class="meta">${v.group}</span> <span class="meta num">Current km <b style="color:var(--fg-strong)">${N(v.km)} km</b> · ${srcHtml(v)}</span> ${ord ? `<span class="lock-note">${icon('block')}In maintenance at ${ord.shop} until ${v.until} · blocked from assignment in Dispatch</span>` : ''} <span class="acts">${ord ? `<a class="btn btn-secondary btn-sm" href="fm-20-lenh-bao-duong.html">${icon('external')}Open work order ${ord.id}</a>`
+            : newOrd ? `<a class="btn btn-secondary btn-sm" href="fm-20-lenh-bao-duong.html#open">${icon('external')}Open work order ${newOrd.newOrder}</a>`
+            : `<button class="btn btn-secondary btn-sm" type="button" data-create="${p}">${icon('plus')}Create work order</button>`}</span>
+        </div></td></tr>` + items.map(x => { const c = x.c, T = c.T, s = x.newOrder ? ['b-neutral', 'dot', 'Work order ' + x.newOrder] : ST[c.st];
+        const leftTxt = [c.leftKm != null ? (c.leftKm < 0 ? `${N(-c.leftKm)} km overdue` : `${N(c.leftKm)} km left`) : '', c.leftDays != null ? (c.leftDays < 0 ? `${-c.leftDays} days overdue` : `${c.leftDays} days left`) : ''].filter(Boolean).join(' · ');
+        const pct = Math.min(100, Math.round(c.used * 100));
+        return `<tr><td class="task"><b>${T.name}</b></td>
+          <td class="muted" style="white-space:normal">${cycle(T)}</td>
+          <td class="num">${x.lastKm ? N(x.lastKm) + ' km' : x.lastDate}${x.lastKm ? `<span class="cell-sub">${x.lastDate}</span>` : ''}</td>
+          <td class="num">${c.dueKm ? N(c.dueKm) + ' km' : ds(c.dueDate)}${c.dueKm && c.dueDate ? `<span class="cell-sub">or ${ds(c.dueDate)}</span>` : ''}</td>
+          <td><div class="left"><span class="t ${c.st === 'over' ? 'neg' : ''}">${leftTxt}</span><span class="track ${c.st}" ${tip(`Used ${pct >= 100 ? 'all' : pct + '%'} of the cycle${T.km && T.days ? ' (whichever comes first)' : ''}`)}><i style="width:${pct}%"></i></span></div></td>
+          <td><span class="badge ${s[0]}">${icon(s[1])}${s[2]}</span></td></tr>`; }).join(''); }).join('')}
+    </tbody></table></div>`
+    : `<div class="empty">${icon('wrench')}<h3>No maintenance tasks ${filt === 'need' ? 'requiring action' : 'matching the filter'}</h3><p>All vehicles are within their cycles. Tasks appear here when ≤ 1,000 km or ≤ 7 days remain.</p>${filt !== 'need' || q ? '<button class="btn btn-secondary" type="button" id="clrF">Clear filters</button>' : ''}</div>`;
+  return summaryHtml(all) + `<section class="card" aria-label="Maintenance tasks by vehicle">
+    <div class="card-title"><h2>Maintenance tasks by vehicle</h2><span class="count-pill">${rows.length}</span><span class="meta">Sorted by severity</span></div>
+    <div class="bar">
+      <div class="seg" role="group" aria-label="Filter by status">
+        ${[['need', 'Needs action', n.need], ['over', 'Overdue', n.over], ['soon', 'Due soon', n.soon], ['doing', 'In work order', n.doing]].map(([k, l, c]) => `<button type="button" data-f="${k}" aria-pressed="${filt === k}">${l} <span class="count-pill">${c}</span></button>`).join('')}
+      </div>
+      <button class="chip" type="button">Vehicle group: All ${icon('chevron')}</button>
+      ${filt === 'need' ? `<label class="toggle"><input type="checkbox" id="showOk" ${showOk ? 'checked' : ''}>Also show tasks not yet due</label>` : ''}
+      <label class="search-global">${icon('search')}<input id="q" type="search" placeholder="Search plate, item…" value="${q}" aria-label="Search"></label>
+    </div>
+    ${table}
+  </section>`;
+}
+function tplHtml() {
+  return `<section class="card" aria-label="Maintenance templates">
+    <div class="card-title"><h2>Maintenance templates</h2><span class="count-pill">${TPL.length}</span><span class="meta">Cycles by km and/or days, whichever comes first</span></div>
+    <div class="grid-wrap" style="padding-top:6px"><table class="grid">
+      <thead><tr><th>Template</th><th>Cycle</th><th>Vehicle groups</th><th class="right">Vehicle count</th><th>Warn before</th><th>Default parts</th><th></th></tr></thead>
+      <tbody>${TPL.map(T => { const nV = VEH.filter(v => T.groups.includes(v.group)).length;
+        return `<tr><td><b style="font-weight:500;color:var(--fg-strong)">${T.name}</b></td><td>${cycle(T)}</td>
+        <td><span class="chips">${T.groups.map(g => `<span class="badge b-neutral">${g}</span>`).join('')}</span></td>
+        <td class="right num">${nV}</td>
+        <td class="num muted">${[T.warnKm ? N(T.warnKm) + ' km' : '', T.warnDays ? T.warnDays + ' days' : ''].filter(Boolean).join(' · ')}</td>
+        <td class="muted">${T.parts}</td>
+        <td class="right"><button class="btn btn-ghost btn-sm" type="button" data-edit="${T.id}">Edit</button></td></tr>`; }).join('')}</tbody>
+    </table></div>
+  </section>`;
+}
+function ordersHtml() {
+  return `<section class="card" aria-label="Maintenance work orders">
+    <div class="card-title"><h2>Maintenance / repair work order</h2><span class="count-pill">${ORDERS.length}</span><span class="meta">Nov 2026 and open work orders</span></div>
+    <div class="grid-wrap" style="padding-top:6px"><table class="grid">
+      <thead><tr><th>Work order</th><th>Vehicle</th><th>Description</th><th>Workshop</th><th>Check in</th><th>Check out</th><th class="right">Costs</th><th>Status</th></tr></thead>
+      <tbody>${ORDERS.map(o => `<tr><td class="code"><a href="fm-20-lenh-bao-duong.html${o.st === 'doing' ? '' : '#' + (o.st === 'open' ? 'open' : 'done')}">${o.id}</a></td>
+        <td class="code">${o.plate}</td><td style="white-space:normal;min-width:220px">${o.what}</td>
+        <td>${o.shop}<span class="cell-sub">${o.ext ? 'External workshop' : 'In-house'}</span></td>
+        <td class="num">${o.in}</td><td class="num">${o.out}</td>
+        <td class="right num">${o.cost ? fmt.vnd(o.cost) : '<span class="muted">—</span>'}</td>
+        <td><span class="badge ${OST[o.st][0]}">${icon(OST[o.st][1])}${OST[o.st][2]}</span></td></tr>`).join('')}</tbody>
+    </table></div>
+  </section>`;
+}
+function render() {
+  hideTip();
+  document.getElementById('fresh').innerHTML = freshHtml();
+  document.getElementById('refresh').onclick = () => toast('Fetched the latest km from the GPS tracker for 6 vehicles');
+  document.querySelectorAll('#tabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === tab));
+  body.innerHTML = tab === 'due' ? dueHtml() : tab === 'tpl' ? tplHtml() : ordersHtml();
+  body.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { filt = filt === b.dataset.f && b.closest('.summary') ? 'need' : b.dataset.f; render(); });
+  body.querySelectorAll('[data-goto]').forEach(a => a.onclick = e => { e.preventDefault(); tab = a.dataset.goto; render(); });
+  body.querySelectorAll('[data-create]').forEach(b => b.onclick = () => openCreate(b.dataset.create));
+  body.querySelectorAll('[data-edit]').forEach(b => b.onclick = () => openTpl(b.dataset.edit));
+  const so = document.getElementById('showOk'); if (so) so.onchange = () => { showOk = so.checked; render(); };
+  const qi = document.getElementById('q'); if (qi) qi.oninput = () => { q = qi.value.trim().toLowerCase(); render(); const n = document.getElementById('q'); n.focus(); n.setSelectionRange(n.value.length, n.value.length); };
+  const cf = document.getElementById('clrF'); if (cf) cf.onclick = () => { filt = 'need'; q = ''; render(); };
+}
+document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => { tab = b.dataset.tab; render(); });
+
+/* ---------- Modal & drawer ---------- */
+function modal(html, onReady) {
+  closeModal(); hideTip();
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim'; s.id = 'mScrim'; s.onclick = closeModal;
+  const m = document.createElement('div'); m.className = 'modal'; m.id = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.innerHTML = html;
+  document.body.append(s, m); m.querySelectorAll('[data-x]').forEach(b => b.onclick = closeModal); onReady && onReady(m);
+}
+function closeModal() { ['modal', 'mScrim', 'drawer', 'drScrim'].forEach(id => { const e = document.getElementById(id); if (e) { e.removeAttribute('id'); Shell.dismiss(e); } }); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+function openCreate(plate) {
+  const opts = VEH.filter(v => !v.order);
+  plate = plate || opts[0].plate;
+  const draw = p => {
+    const ts = TASKS.filter(t => t.plate === p && !t.newOrder).map(t => Object.assign({ c: calc(t) }, t)).sort((a, b) => RANK[a.c.st] - RANK[b.c.st]);
+    return ts.map((t, i) => `<label><input type="checkbox" data-t="${TASKS.indexOf(TASKS.find(x => x.plate === t.plate && x.tpl === t.tpl))}" ${t.c.st !== 'ok' ? 'checked' : ''}>${t.c.T.name}<span class="badge ${ST[t.c.st][0]}" style="margin-left:auto">${icon(ST[t.c.st][1])}${ST[t.c.st][2]}</span></label>`).join('');
+  };
+  modal(`<h2>Create maintenance work order</h2>
+    <label class="field"><span>Vehicle</span><select class="input" id="cPlate">${opts.map(v => `<option ${v.plate === plate ? 'selected' : ''}>${v.plate}</option>`).join('')}</select></label>
+    <div class="field"><span>Items from plan</span><div class="checks" id="cTasks">${draw(plate)}</div></div>
+    <div class="form-row">
+      <div class="field"><span>Workshop</span><div class="seg" role="group" aria-label="Workshop type"><button type="button" data-w="in" aria-pressed="true">In-house</button><button type="button" data-w="ext" aria-pressed="false">External workshop</button></div></div>
+      <label class="field"><span>Expected check-in date</span><input class="input num" id="cDate" value="13/11/2026"></label>
+    </div>
+    <p class="hint">New work orders start as <b>Open</b>. The vehicle is only blocked from assignment in Dispatch once the work order moves to <b>In repair</b>.</p>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Cancel</button><button class="btn btn-primary" type="button" id="cOk">Create work order</button></div>`, m => {
+    const sel = m.querySelector('#cPlate'), ok = m.querySelector('#cOk');
+    const sync = () => { const n = m.querySelectorAll('#cTasks input:checked').length; ok.disabled = !n; ok.textContent = n ? `Create work order (${n} items)` : 'Select at least 1 item'; };
+    sel.onchange = () => { m.querySelector('#cTasks').innerHTML = draw(sel.value); m.querySelectorAll('#cTasks input').forEach(c => c.onchange = sync); sync(); };
+    m.querySelectorAll('#cTasks input').forEach(c => c.onchange = sync); sync();
+    m.querySelectorAll('[data-w]').forEach(b => b.onclick = () => m.querySelectorAll('[data-w]').forEach(x => x.setAttribute('aria-pressed', x === b)));
+    ok.onclick = () => {
+      const id = 'LBD-0' + (119 + ORDERS.filter(o => o.isNew).length);
+      const picked = [...m.querySelectorAll('#cTasks input:checked')].map(c => TASKS[+c.dataset.t]);
+      picked.forEach(t => t.newOrder = id);
+      ORDERS.unshift({ id, plate: sel.value, what: picked.map(t => tplOf(t.tpl).name).join(', '), shop: m.querySelector('[data-w="ext"]').getAttribute('aria-pressed') === 'true' ? 'No external workshop selected' : 'Thủ Đức in-house workshop', ext: false, in: 'Expected ' + m.querySelector('#cDate').value, out: '—', st: 'open', isNew: true });
+      closeModal(); render();
+      toast(`Created ${id} for ${sel.value} · ${picked.length} items`, { undo: () => { picked.forEach(t => delete t.newOrder); ORDERS.shift(); render(); } });
+    };
+  });
+}
+function openTpl(id) {
+  const T = id ? tplOf(id) : { name: '', km: null, days: null, groups: ['Container tractor unit'], warnKm: 1000, warnDays: 7, parts: '' };
+  closeModal(); hideTip();
+  const s = document.createElement('div'); s.className = 'scrim'; s.id = 'drScrim'; s.onclick = closeModal;
+  const dr = document.createElement('aside'); dr.className = 'drawer'; dr.id = 'drawer'; dr.setAttribute('role', 'dialog'); dr.setAttribute('aria-modal', 'true'); dr.setAttribute('aria-labelledby', 'drT');
+  dr.innerHTML = `<div class="drawer-head"><h2 id="drT" class="grow">${id ? 'Edit maintenance template' : 'Add maintenance template'}</h2><button class="icon-btn" type="button" data-x aria-label="Close">${icon('x')}</button></div>
+    <div class="drawer-body">
+      <label class="field"><span>Template name</span><input class="input" id="tName" value="${T.name}" placeholder="e.g. Engine oil change"></label>
+      <div class="field"><span>Cycle (fill in one or both; whichever comes first)</span>
+        <div class="form-row"><div class="unit"><input class="input num" id="tKm" value="${T.km ? N(T.km) : ''}" placeholder="10.000" aria-label="Cycle in km"><em>km</em></div><div class="unit"><input class="input num" id="tDays" value="${T.days || ''}" placeholder="90" aria-label="Cycle in days"><em>days</em></div></div></div>
+      <div class="field"><span>Warn when this much is left</span>
+        <div class="form-row"><div class="unit"><input class="input num" value="${T.warnKm ? N(T.warnKm) : ''}" placeholder="1.000" aria-label="Warning threshold in km"><em>km</em></div><div class="unit"><input class="input num" value="${T.warnDays || ''}" placeholder="7" aria-label="Warning threshold in days"><em>days</em></div></div></div>
+      <div class="field"><span>Apply to vehicle groups</span><div class="checks">${GROUPS.map(g => `<label><input type="checkbox" ${T.groups.includes(g) ? 'checked' : ''}>${g}<span class="muted num">${VEH.filter(v => v.group === g).length} vehicles</span></label>`).join('')}</div></div>
+      <label class="field"><span>Default parts (auto-filled into work orders)</span><input class="input" value="${T.parts === '—' ? '' : T.parts}" placeholder="e.g. 15W-40 engine oil · 38 l"></label>
+      <div class="alert alert-info">${icon('info')}<div>Current km comes from the GPS tracker. Vehicles not connected to a GPS tracker use the km the driver enters when refueling in the app.</div></div>
+    </div>
+    <div class="drawer-foot"><button class="btn btn-secondary" type="button" data-x>Cancel</button><button class="btn btn-primary" type="button" id="tOk">${id ? 'Save template' : 'Add template'}</button></div>`;
+  document.body.append(s, dr);
+  dr.querySelectorAll('[data-x]').forEach(b => b.onclick = closeModal);
+  const ok = dr.querySelector('#tOk'), nm = dr.querySelector('#tName'), km = dr.querySelector('#tKm'), dy = dr.querySelector('#tDays');
+  const sync = () => { ok.disabled = !(nm.value.trim() && (km.value.trim() || dy.value.trim())); };
+  [nm, km, dy].forEach(i => i.oninput = sync); sync(); nm.focus();
+  km.addEventListener('input', () => { const v = +km.value.replace(/\D/g, ''); km.value = v ? N(v) : ''; });
+  ok.onclick = () => {
+    const kmV = +km.value.replace(/\D/g, '') || null, dV = +dy.value || null;
+    if (id) Object.assign(T, { name: nm.value.trim(), km: kmV, days: dV }); else TPL.push({ id: 'T' + (TPL.length + 1), name: nm.value.trim(), km: kmV, days: dV, groups: ['Container tractor unit'], warnKm: 1000, warnDays: 7, parts: '—' });
+    closeModal(); tab = 'tpl'; render(); toast(id ? `Saved template "${nm.value.trim()}". Due thresholds recalculated.` : `Added template "${nm.value.trim()}" for ${VEH.filter(v => v.group === 'Container tractor unit').length} vehicles`);
+  };
+}
+document.getElementById('tplBtn').onclick = () => openTpl();
+document.getElementById('newOrderBtn').onclick = () => { tab = 'due'; render(); openCreate(); };
+
+/* ---------- States ---------- */
+Shell.states([['default', 'Default'], ['over', 'Overdue filter'], ['create', 'Create work order'], ['tpl', 'Maintenance templates'], ['tplEdit', 'Add template'], ['orders', 'Work order'], ['loading', 'Loading'], ['empty', 'Empty'], ['error', 'Error']], s => {
+  closeModal(); reset(); tab = 'due'; filt = 'need'; showOk = false; q = ''; document.getElementById('slot').innerHTML = '';
+  if (s === 'over') { filt = 'over'; render(); return; }
+  if (s === 'create') { render(); openCreate('51D-456.78'); return; }
+  if (s === 'tpl') { tab = 'tpl'; render(); return; }
+  if (s === 'tplEdit') { tab = 'tpl'; render(); openTpl(); return; }
+  if (s === 'orders') { tab = 'orders'; render(); return; }
+  if (s === 'empty') { TASKS = TASKS.filter(t => calc(t).st === 'ok'); VEH.forEach(v => delete v.order); render(); return; }
+  if (s === 'loading') {
+    document.getElementById('fresh').innerHTML = '<span class="sk" style="width:260px"></span>';
+    body.innerHTML = `<section class="summary"><div class="sum-main"><span class="sk" style="width:120px"></span><span class="sk" style="width:80px;height:32px;margin-top:6px"></span></div>${Array(3).fill('<div class="sum-item"><span class="sk" style="width:100px"></span><span class="sk" style="width:60px;height:22px;margin-top:6px"></span></div>').join('')}</section>
+      <section class="card"><div class="card-title"><span class="sk" style="width:200px;height:16px"></span></div><table class="grid"><tbody>${Array(9).fill('<tr>' + Array(6).fill('<td><span class="sk" style="width:75%"></span></td>').join('') + '</tr>').join('')}</tbody></table></section>`;
+    return;
+  }
+  if (s === 'error') {
+    document.getElementById('slot').innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Couldn't load the maintenance plan. Check your connection and try again. The km shown below are from the last load (12/11 07:40).</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="retry">${icon('refresh')}Retry</button></div></div>`;
+    render(); document.getElementById('fresh').innerHTML = `<span class="live warn"></span>Data as of 07:40 · couldn't update`;
+    document.getElementById('retry').onclick = () => { document.getElementById('slot').innerHTML = ''; render(); toast('Maintenance plan reloaded'); };
+    return;
+  }
+  render();
+});
+</script>
+</body>
+</html>

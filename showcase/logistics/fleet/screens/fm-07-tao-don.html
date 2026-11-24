@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tạo đơn vận chuyển · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* FM_07 v2 — form: section không viền (tiêu đề + khoảng trắng), panel giá một thẻ, một số lãi nổi bật (checklist B1–B9) */
+  .form-grid { display: grid; grid-template-columns: minmax(0, 1fr) 384px; gap: var(--s-4); align-items: start; }
+  .form-card { display: flex; flex-direction: column; padding: 6px 0 10px; min-width: 0; }
+  .fsec { padding: 18px 24px 22px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+  .fsec + .fsec { padding-top: 14px; }
+  .fsec-head { display: flex; align-items: center; gap: 10px; min-height: 26px; }
+  .fsec-head h2 { font-size: 16px; }
+  .fsec-head .step { width: 24px; height: 24px; border-radius: 50%; background: var(--primary-soft); color: var(--side-active); font-size: 12px; font-weight: 600; display: grid; place-items: center; font-variant-numeric: tabular-nums; flex: none; }
+  .fsec-head .aside { margin-left: auto; }
+  .fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 16px; }
+  .fields .span2 { grid-column: span 2; } .fields .span3 { grid-column: 1 / -1; }
+  .field .input { width: 100%; }
+  .field .hint { font-size: 12px; line-height: 16px; color: var(--fg-muted); }
+  .field .hint.warn { color: var(--warning-fg); display: flex; gap: 4px; align-items: center; }
+  .field .hint.err { color: var(--danger-fg); display: flex; gap: 4px; align-items: center; }
+  /* Ô nhập có đơn vị: cùng cao 34, cùng trạng thái hover/focus với .input */
+  .unit-in { display: flex; align-items: center; box-sizing: border-box; border: 1px solid var(--border-strong); border-radius: var(--r-md); background: var(--surface); height: 34px; overflow: hidden; transition: border-color var(--d-1, 120ms), box-shadow var(--d-1, 120ms); }
+  .unit-in:hover { border-color: var(--fg-subtle); }
+  .unit-in input { border: 0; height: 100%; flex: 1; min-width: 0; padding: 0 4px 0 10px; font: 13.5px var(--font-body); text-align: right; font-variant-numeric: tabular-nums; background: transparent; color: var(--fg); }
+  .unit-in input:focus { outline: none; }
+  .unit-in:focus-within { border-color: var(--ring); box-shadow: 0 0 0 3px var(--primary-soft); }
+  .unit-in span { padding: 0 10px 0 6px; color: var(--fg-muted); font-size: 12.5px; height: 100%; display: flex; align-items: center; white-space: nowrap; }
+  .input:disabled, .unit-in.is-locked, select.input:disabled { background: var(--surface-muted); color: var(--fg-muted); border-color: var(--border); }
+  .lockic { color: var(--fg-muted); display: inline-flex; vertical-align: -2px; }
+  .lockic .icon { width: 13px; height: 13px; }
+  .rcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 8px; }
+  .rc { border: 1px solid var(--border-strong); border-radius: var(--r-md); padding: 10px 12px; display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 2px 8px; cursor: pointer; font-size: 13.5px; background: var(--surface); transition: border-color var(--d-1, 120ms), background-color var(--d-1, 120ms); }
+  .rc:hover { border-color: var(--fg-subtle); }
+  .rc input { margin: 2px 0 0; accent-color: var(--primary); }
+  .rc b { font-weight: 600; display: flex; align-items: center; gap: 6px; }
+  .rc small { grid-column: 2; color: var(--fg-muted); font-size: 12.5px; line-height: 16px; }
+  .rc:has(input:checked) { border-color: var(--primary); background: var(--primary-soft); box-shadow: inset 0 0 0 1px var(--primary); }
+  .rc:has(input:disabled) { cursor: not-allowed; opacity: .7; }
+  /* Bảng trong form: giữ kẻ hàng, đầu bảng bo góc, không khung ngoài */
+  .fsec .grid th:first-child { border-radius: var(--r-md) 0 0 var(--r-md); }
+  .fsec .grid th:last-child { border-radius: 0 var(--r-md) var(--r-md) 0; }
+  .fsec .grid th { border-bottom: 0; }
+  .fsec .grid tbody tr:last-child td { border-bottom: 0; }
+  .fsec .seg { height: 34px; }
+  .legs td { padding: 6px 8px; }
+  .legs td .input { height: 30px; width: 100%; }
+  .legs .grip { color: var(--fg-subtle); cursor: grab; }
+  .legs tr.dragging td { opacity: .4; }
+  .linkbtn { border: 0; background: none; color: var(--primary); font: 500 13px var(--font-body); padding: 4px 0; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; }
+  .linkbtn:hover:not(:disabled) { text-decoration: underline; }
+  .linkbtn:disabled { color: var(--fg-subtle); cursor: not-allowed; }
+  .note { display: flex; gap: 6px; align-items: flex-start; font-size: 12.5px; line-height: 17px; color: var(--fg-muted); }
+  .note .icon { width: 14px; height: 14px; margin-top: 1px; flex: none; }
+  /* Panel giá: một thẻ, nhóm tách bằng khoảng trắng */
+  .panel { position: sticky; top: calc(var(--header-h) + 16px); max-height: calc(100vh - var(--header-h) - 96px); overflow-y: auto; padding-bottom: 8px; }
+  .panel-title { display: flex; align-items: center; gap: 10px; padding: 16px 18px 4px; }
+  .panel-title h2 { font-size: 16px; }
+  .panel section { padding: 12px 18px; display: flex; flex-direction: column; gap: 10px; }
+  .panel section + section { padding-top: 14px; }
+  .panel .label { display: block; }
+  .bk { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .bk td { padding: 4px 0; vertical-align: middle; }
+  .bk td:last-child { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .bk tr.sub td { border-top: 1px solid var(--border); padding-top: 7px; font-weight: 600; color: var(--fg-strong); }
+  .bk tr.off td { color: var(--fg-subtle); }
+  .bk tr.off td:last-child { text-decoration: line-through; }
+  .bk label { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+  .bk input[type=checkbox] { accent-color: var(--primary); margin: 0; }
+  .bk .tip .icon-btn { width: 20px; height: 20px; }
+  .bk .tip .icon { width: 14px; height: 14px; }
+  /* Kết quả biên: đúng một số nổi bật */
+  .margin-box { background: var(--primary-soft); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+  .margin-box .k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--side-active); }
+  .margin-box .hero { font: 700 30px/36px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; letter-spacing: -.01em; white-space: nowrap; }
+  .margin-box .hero.neg { color: var(--danger-fg); }
+  .margin-box .hero small { font: 600 15px var(--font-display); color: var(--fg-muted); margin-left: 4px; }
+  .margin-box .row { gap: 6px; flex-wrap: wrap; font-size: 12.5px; color: var(--fg-muted); }
+  .margin-box .sec { display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; color: var(--fg-muted); padding-top: 4px; }
+  .margin-box .sec b { font-weight: 600; color: var(--fg); font-variant-numeric: tabular-nums; }
+  .footbar { position: sticky; bottom: 0; z-index: 15; margin: 0 calc(-1 * var(--s-6)) calc(-1 * var(--s-6)); padding: 12px var(--s-6); background: var(--surface); border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; justify-content: flex-end; }
+  .split td { padding: 6px 10px; }
+  .split td .input { height: 30px; width: 120px; text-align: right; }
+  .field.is-error .input, .field.is-error .unit-in { border-color: var(--danger-solid); box-shadow: 0 0 0 1px var(--danger-solid); }
+  [hidden] { display: none !important; }
+  .conts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  @media (max-width: 1180px) { .form-grid { grid-template-columns: 1fr; } .panel { position: static; max-height: none; } .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb" id="crumb">Vận hành / Đơn vận chuyển / Tạo mới</div>
+      <div class="row"><h1 id="h1">Tạo đơn vận chuyển</h1><span id="h1badge"></span></div>
+    </div>
+  </div>
+  <div id="topAlerts" class="stack" style="gap:8px"></div>
+  <div class="form-grid">
+    <div class="card form-card">
+      <section class="fsec" id="secInfo" aria-label="Thông tin đơn"></section>
+      <section class="fsec" id="secCont" aria-label="Container"></section>
+      <section class="fsec" id="secLegs" aria-label="Chặng"></section>
+      <section class="fsec" id="secCargo" aria-label="Hàng hoá"></section>
+      <section class="fsec" id="secTrip" aria-label="Lập chuyến"></section>
+    </div>
+    <aside class="card panel" id="panel" aria-label="Giá cước và giá thành dự kiến"></aside>
+  </div>
+  <div class="footbar">
+    <span class="sm muted" id="footNote" style="margin-right:auto"></span>
+    <button class="btn btn-ghost" type="button" id="btnCancel">Huỷ <kbd>Esc</kbd></button>
+    <button class="btn btn-secondary" type="button" id="btnDraft">Lưu nháp</button>
+    <span class="tip"><button class="btn btn-primary" type="button" id="btnSave"></button><span class="tip-body right" id="saveTip"></span></span>
+  </div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_06', title: 'Tạo đơn' });
+const NA = 'href="javascript:void(0)" title="chưa có trong prototype"';
+const $ = id => document.getElementById(id);
+const num = v => { const n = parseFloat(String(v).replace(/\./g, '').replace(',', '.')); return isNaN(n) ? null : n; };
+const r100 = n => Math.round(n / 100) * 100;
+const kg = n => fmt.vnd(n, { bare: 1 });
+
+/* ---------- Danh mục mẫu ---------- */
+const CUSTOMERS = [
+  { id: 'tcl', name: 'Tân Cảng Logistics', mst: '0312345678' },
+  { id: 'ndt', name: 'Nhựa Duy Tân', mst: '0301234567' },
+  { id: 'bbpn', name: 'Bao bì Phương Nam', mst: '0309876543' },
+  { id: 'gml', name: 'Gỗ Minh Long', mst: '3700123456' }
+];
+const LOC = {
+  icd: ['ICD Phước Long (TP. Thủ Đức)', 'ICD Phước Long'],
+  khotn: ['Kho Tân Cảng — KCN Phước Đông, Gò Dầu, Tây Ninh', 'KCN Phước Đông'],
+  catlai: ['Cảng Cát Lái (TP. Thủ Đức)', 'Cát Lái'],
+  ndt: ['Kho Nhựa Duy Tân — 298 Hồ Học Lãm, Bình Tân', 'Bình Tân'],
+  mytho: ['KCN Mỹ Tho, Tiền Giang', 'Mỹ Tho'],
+  songthan: ['KCN Sóng Thần, Dĩ An, Bình Dương', 'KCN Sóng Thần'],
+  benluc: ['KCN Thuận Đạo, Bến Lức, Long An', 'Bến Lức']
+};
+const CONT_TYPES = [["20DC", "20' khô (20DC)", 2650000, 34], ["40DC", "40' khô (40DC)", 3350000, 38], ["40HC", "40' cao (40HC)", 3450000, 38], ["45HC", "45' cao (45HC)", 3700000, 40], ["20RF", "20' lạnh (20RF)", 3100000, 36], ["40RF", "40' lạnh (40RF)", 4050000, 40]];
+const ROUTE = {
+  tcl: { km: 230, code: 'TPHCM–TN-02', toll: [140000, 180000, 100000], grp: 5, wage: 600000, dep: 520000, depDays: .5, liftOn: true },
+  ndt: { km: 150, code: 'TPHCM–TG-01', toll: [75000, 52000], grp: 3, wage: 450000, dep: 380000, depDays: .5, norm: 25 },
+  bbpn: { km: 90, code: null, toll: [52000], grp: 3, wage: 400000, dep: 380000, depDays: .5, norm: 25 },
+  gml: { km: 230, code: null, toll: [140000, 180000, 100000], grp: 5, wage: 600000, dep: 520000, depDays: .5 }
+};
+const PRICE_TABLE = { tcl: { cont: 'TCL-2026', until: '31/12/2026' }, ndt: { thuong: 'NDT-2026', until: '31/03/2027', price: 1800000 } };
+const ATTACH = [
+  { id: 'CH-0471', route: 'Bình Tân → Cái Bè', plate: '51D-702.33', pick: '07:00 13/11', load: 11.0, cap: 15.0, status: 'assigned', gvt: true },
+  { id: 'CH-0473', route: 'Bình Tân → Bến Lức', plate: '51C-588.02', pick: '08:00 13/11', load: 6.5, cap: 15.0, status: 'wait', gvt: false },
+  { id: 'CH-0475', route: 'KCN Sóng Thần → Bến Lức', plate: null, pick: '13:00 13/11', load: 3.5, cap: null, status: 'wait', gvt: false }
+];
+const DIESEL = 20150;
+
+/* ---------- State ---------- */
+let S;
+function base() {
+  return { type: 'thuong', dir: 'xuat', customer: '', ref: '', booking: '', line: 'Evergreen', ctype: '40DC', qty: 5, conts: [''], cutoff: '', deposit: '2.000.000',
+    legs: [{ k: 'Điểm lấy', loc: '', t: '07:00 13/11', note: '' }, { k: 'Điểm giao', loc: '', t: '', note: '' }],
+    cargo: '', weight: '', pieces: '', driverNote: '', price: null, manual: false, reason: '',
+    sur: null, mode: 'new', trips: 2, splitBy: 'kg', split: null, attach: '', edit: false, loading: false, saveError: false, dirty: false, tried: false };
+}
+function legsFor() {
+  if (S.type === 'cont') {
+    if (S.dir === 'xuat') return [{ k: 'Lấy rỗng', loc: 'icd', t: '05:30 13/11', note: '' }, { k: 'Đóng hàng', loc: 'khotn', t: '09:00 13/11', note: 'Gọi kho trước 30 phút' }, { k: 'Hạ cảng', loc: 'catlai', t: 'trước 14:00 14/11', note: '' }];
+    return [{ k: 'Lấy hàng cảng', loc: 'catlai', t: '06:00 13/11', note: '' }, { k: 'Giao kho', loc: 'khotn', t: '10:30 13/11', note: '' }, { k: 'Trả rỗng', loc: 'icd', t: 'trước 17:00 15/11', note: '' }];
+  }
+  if (S.customer === 'ndt') return [{ k: 'Điểm lấy', loc: 'ndt', t: '07:00 13/11', note: '' }, { k: 'Điểm giao', loc: 'mytho', t: '11:30 13/11', note: '' }];
+  if (S.customer === 'bbpn') return [{ k: 'Điểm lấy', loc: 'songthan', t: '08:00 13/11', note: '' }, { k: 'Điểm giao', loc: 'benluc', t: '11:00 13/11', note: '' }];
+  return [{ k: 'Điểm lấy', loc: '', t: '07:00 13/11', note: '' }, { k: 'Điểm giao', loc: '', t: '', note: '' }];
+}
+function surFor() {
+  const s = [];
+  if (S.type === 'cont') s.push({ n: 'Phí nâng hạ', a: 680000, on: true });
+  s.push({ n: 'Phụ phí nhiên liệu 3%', pct: .03, on: true });
+  if (S.type === 'thuong') s.push({ n: 'Giao nhiều điểm', a: 200000, unit: 'đ/điểm', on: false });
+  s.push({ n: 'Neo xe', a: 500000, unit: 'đ/ngày', on: false });
+  return s;
+}
+function tablePrice() {
+  const t = PRICE_TABLE[S.customer]; if (!t) return null;
+  if (S.type === 'cont' && t.cont) return CONT_TYPES.find(c => c[0] === S.ctype)[2];
+  if (S.type === 'thuong' && t.thuong) return t.price;
+  return null;
+}
+function tableLabel() { const t = PRICE_TABLE[S.customer]; return t ? `${S.type === 'cont' ? t.cont : t.thuong} · hiệu lực đến ${t.until}` : ''; }
+function applyCustomer() {
+  S.legs = legsFor(); S.sur = surFor(); S.manual = false; S.reason = '';
+  S.price = tablePrice();
+  if (S.type === 'cont') { S.cargo = S.cargo || 'Linh kiện điện tử'; S.weight = S.weight || '24.500'; S.pieces = S.pieces || '1.200'; S.cutoff = S.dir === 'xuat' ? '14:00 14/11/2026' : '17:00 15/11/2026'; S.booking = S.booking || 'HCM2611-0457'; }
+  else if (S.customer) { S.cargo = S.cargo || 'Sản phẩm nhựa gia dụng'; S.weight = S.weight || '24.500'; S.pieces = S.pieces || '1.200'; }
+  S.split = null;
+}
+function wKg() { return num(S.weight) || 0; }
+function totalKg() { return S.type === 'cont' ? wKg() * S.qty : wKg(); }
+function splitRows() {
+  if (!S.split || S.split.length !== S.trips) {
+    const n = S.trips, w = wKg(), p = num(S.pieces) || 0;
+    S.split = Array.from({ length: n }, (_, i) => ({ kg: Math.round(w / n / 100) * 100 + (i === n - 1 ? w - Math.round(w / n / 100) * 100 * n : 0), pcs: Math.round(p / n) + (i === n - 1 ? p - Math.round(p / n) * n : 0), t: ['07:00 13/11', '13:00 13/11', '07:00 14/11', '13:00 14/11'][i] || '07:00 14/11' }));
+  }
+  return S.split;
+}
+function units() {
+  if (S.type === 'cont') return S.qty;
+  if (S.mode === 'new') return splitRows().filter(r => r.kg > 0).length || 1;
+  return 1;
+}
+
+/* ---------- Giá thành ---------- */
+function calc() {
+  const R = ROUTE[S.customer]; if (!R) return null;
+  const ct = CONT_TYPES.find(c => c[0] === S.ctype);
+  const norm = S.type === 'cont' ? ct[3] : (R.norm || 25);
+  const dau = r100(R.km * norm / 100 * DIESEL), toll = R.toll.reduce((a, b) => a + b, 0);
+  const lift = S.type === 'cont' ? 680000 : 0, dep = Math.round(R.depDays * R.dep), fix = R.km * 1000;
+  const rows = [
+    ['Dầu', dau, `<span class="formula">${R.km} km × ${norm} l/100km × ${fmt.vnd(DIESEL, { bare: 1 })} đ/l = ${fmt.vnd(dau)}</span><br>Định mức: ${S.type === 'cont' ? `Đầu kéo ${ct[1].slice(0, 3)} có hàng` : 'Xe tải thùng 15 tấn có hàng'} · Giá dầu tham chiếu cập nhật 06/11/2026`],
+    ['Phí cầu đường', toll, `<span class="formula">${R.toll.length} trạm × nhóm xe ${R.grp}: ${R.toll.map(t => fmt.vnd(t, { bare: 1 })).join(' + ')} = ${fmt.vnd(toll)}</span>`],
+    ['Lương chuyến', R.wage, `Theo bảng lương chuyến tuyến ${R.code || 'ước tính'}: <span class="formula">${fmt.vnd(R.wage)}</span>`]
+  ];
+  if (lift) rows.push(['Phí nâng hạ', lift, `Nâng rỗng tại depot + hạ hàng tại cảng: <span class="formula">${fmt.vnd(lift)}</span>`]);
+  const variable = rows.reduce((a, r) => a + r[1], 0);
+  const fixed = [['Khấu hao', dep, `<span class="formula">${fmt.dec(R.depDays)} ngày × ${fmt.vnd(R.dep, { bare: 1 })} đ/ngày = ${fmt.vnd(dep)}</span>`], ['Chi phí cố định', fix, `<span class="formula">${R.km} km × 1.000 đ/km = ${fmt.vnd(fix)}</span>`]];
+  const total = variable + dep + fix;
+  const p = S.price;
+  let rev = null, surAmt = 0, rate = 0, fixedSur = 0;
+  S.sur.forEach(s => { if (!s.on) return; if (s.pct) { rate += s.pct; surAmt += p ? Math.round(p * s.pct) : 0; } else { fixedSur += s.a; surAmt += s.a; } });
+  if (p) rev = p + surAmt;
+  const gross = rev != null ? rev - variable : null, net = rev != null ? rev - total : null;
+  const minP = Math.ceil(((total / 0.95) - fixedSur) / (1 + rate) / 1000) * 1000;
+  return { R, rows, variable, fixed, total, rev, gross, net, gm: rev ? gross / rev * 100 : null, nm: rev ? net / rev * 100 : null, minP, surAmt };
+}
+
+/* ---------- Render sections ---------- */
+const lock = () => S.edit ? `<span class="lockic" title="Khoá vì đơn có chuyến đang chạy">${icon('lock')}</span>` : '';
+const dis = () => S.edit ? 'disabled' : '';
+function head(n, t, extra) { return `<div class="fsec-head"><span class="step">${n}</span><h2>${t}</h2>${extra || ''}</div>`; }
+
+function renderInfo() {
+  $('secInfo').innerHTML = head(1, 'Thông tin đơn') + `<div class="stack" style="gap:14px">
+    <div class="fields">
+      <label class="field span2 ${S.tried && !S.customer ? 'is-error' : ''}"><span>Khách hàng * ${lock()}</span>
+        <select class="input" id="fCust" ${dis()} aria-describedby="custErr">
+          <option value="">Tìm tên hoặc MST khách hàng…</option>
+          ${CUSTOMERS.map(c => `<option value="${c.id}" ${S.customer === c.id ? 'selected' : ''}>${c.name} · MST ${c.mst}</option>`).join('')}
+          <option value="__new">+ Thêm khách hàng mới</option>
+        </select>${S.tried && !S.customer ? '<span class="hint err" id="custErr">Chọn khách hàng</span>' : ''}</label>
+      <label class="field"><span>Số tham chiếu của khách</span><input class="input" id="fRef" placeholder="VD: PO-2026-1188" value="${S.ref}"></label>
+    </div>
+    <div class="rcards" role="radiogroup" aria-label="Loại đơn">
+      <label class="rc"><input type="radio" name="otype" value="thuong" ${S.type === 'thuong' ? 'checked' : ''} ${dis()}><b>${icon('box')}Hàng thường</b><small>Thùng, kiện, hàng rời</small></label>
+      <label class="rc"><input type="radio" name="otype" value="cont" ${S.type === 'cont' ? 'checked' : ''} ${dis()}><b>${icon('container')}Container</b><small>Có booking, cảng/depot, hạn trả rỗng</small></label>
+    </div></div>`;
+  $('fCust').onchange = e => { if (e.target.value === '__new') { e.target.value = S.customer; toast('Thêm khách hàng mới chưa có trong prototype'); return; } S.customer = e.target.value; S.dirty = true; applyCustomer(); recalcWithLoading(); renderAll(); };
+  $('fRef').oninput = e => { S.ref = e.target.value; S.dirty = true; };
+  document.querySelectorAll('input[name=otype]').forEach(r => r.onchange = () => { S.type = r.value; if (S.type === 'cont' && !S.customer) S.customer = 'tcl'; S.mode = 'new'; S.trips = S.type === 'cont' ? S.qty : 2; S.dirty = true; applyCustomer(); renderAll(); });
+}
+
+function contValid(v) { const x = v.replace(/[\s-]/g, '').toUpperCase(); return !x || /^[A-Z]{4}\d{7}$/.test(x); }
+function renderCont() {
+  const el = $('secCont');
+  if (S.type !== 'cont') { el.style.display = 'none'; el.innerHTML = ''; return; }
+  el.style.display = '';
+  const xuat = S.dir === 'xuat';
+  el.innerHTML = head(2, 'Container', `<span class="badge b-accent" style="margin-left:auto">${icon('container')}${S.qty} × ${CONT_TYPES.find(c => c[0] === S.ctype)[1].split(' (')[0]}</span>`) + `<div class="stack" style="gap:14px">
+    <div class="rcards" role="radiogroup" aria-label="Chiều">
+      <label class="rc"><input type="radio" name="dir" value="xuat" ${xuat ? 'checked' : ''} ${dis()}><b>Xuất</b><small>Lấy rỗng → Đóng hàng → Hạ cảng</small></label>
+      <label class="rc"><input type="radio" name="dir" value="nhap" ${!xuat ? 'checked' : ''} ${dis()}><b>Nhập</b><small>Lấy hàng cảng → Giao kho → Trả rỗng</small></label>
+    </div>
+    <div class="fields">
+      <label class="field"><span>Số booking / BL *</span><input class="input" id="fBook" placeholder="VD: HCM2611-0457" value="${S.booking}" ${dis()}></label>
+      <label class="field"><span>Hãng tàu *</span><select class="input" ${dis()}>${['Evergreen', 'Maersk', 'ONE', 'CMA CGM', 'Wan Hai', '+ Thêm hãng tàu'].map(x => `<option ${S.line === x ? 'selected' : ''}>${x}</option>`).join('')}</select></label>
+      <label class="field"><span>Loại cont * ${lock()}</span><select class="input" id="fCtype" ${dis()}>${CONT_TYPES.map(c => `<option value="${c[0]}" ${S.ctype === c[0] ? 'selected' : ''}>${c[1]}</option>`).join('')}</select></label>
+      <label class="field"><span>Số lượng cont * ${lock()}</span><div class="unit-in ${S.edit ? 'is-locked' : ''}"><input id="fQty" value="${S.qty}" inputmode="numeric" ${dis()} aria-label="Số lượng cont"><span>cont</span></div></label>
+      <label class="field"><span>${xuat ? 'Hạn hạ cảng (cut-off) *' : 'Hạn trả rỗng *'}</span><input class="input num" id="fCut" value="${S.cutoff}" placeholder="hh:mm dd/MM/yyyy"><span class="hint" id="cutHint"></span></label>
+      <label class="field"><span>Cược container</span><div class="unit-in"><input id="fDep" value="${S.deposit}" aria-label="Cược container"><span>đ/cont</span></div><span class="hint">Không bắt buộc. Hoàn lại sau khi trả vỏ</span></label>
+      <div class="field span3"><span>Số container <span style="font-weight:400">(có thể nhập sau)</span></span>
+        <div class="conts">${S.conts.map((c, i) => `<div class="stack" style="gap:4px"><input class="input code" data-cont="${i}" value="${c}" placeholder="VD: EGHU 912345-6" aria-label="Số container ${i + 1}" aria-describedby="cw${i}"><span class="hint warn" id="cw${i}" ${contValid(c) ? 'hidden' : ''}>${icon('warn')}Số container thường có 4 chữ cái và 7 chữ số</span></div>`).join('')}</div>
+        <button class="linkbtn" type="button" id="addCont" ${S.conts.length >= S.qty ? 'disabled' : ''}>${icon('plus')}Thêm số cont <span class="muted num">(${S.conts.filter(Boolean).length}/${S.qty})</span></button></div>
+    </div></div>`;
+  document.querySelectorAll('input[name=dir]').forEach(r => r.onchange = () => { S.dir = r.value; S.dirty = true; S.legs = legsFor(); S.cutoff = S.dir === 'xuat' ? '14:00 14/11/2026' : '17:00 15/11/2026'; renderAll(); });
+  $('fCtype').onchange = e => { S.ctype = e.target.value; if (!S.manual) S.price = tablePrice(); S.dirty = true; recalcWithLoading(); renderCont(); };
+  $('fQty').oninput = e => { const q = Math.max(1, Math.min(40, parseInt(e.target.value) || 1)); S.qty = q; S.trips = q; S.dirty = true; renderTrip(); renderPanel(); renderFoot(); };
+  $('fQty').onchange = () => renderCont();
+  $('fBook').oninput = e => { S.booking = e.target.value; };
+  $('fCut').oninput = e => { S.cutoff = e.target.value; cutHint(); };
+  document.querySelectorAll('[data-cont]').forEach(inp => inp.oninput = () => { S.conts[+inp.dataset.cont] = inp.value; $('cw' + inp.dataset.cont).hidden = contValid(inp.value); });
+  $('addCont').onclick = () => { S.conts.push(''); renderCont(); document.querySelector(`[data-cont="${S.conts.length - 1}"]`).focus(); };
+  cutHint();
+}
+function parseDT(s) { const m = String(s).match(/(\d{1,2}):(\d{2})\s+(\d{1,2})\/(\d{1,2})/); return m ? new Date(2026, +m[4] - 1, +m[3], +m[1], +m[2]) : null; }
+function cutHint() {
+  const h = $('cutHint'); if (!h) return;
+  const a = parseDT(S.legs[0] && S.legs[0].t), b = parseDT(S.cutoff);
+  if (a && b && (b - a) / 36e5 < 24) { h.className = 'hint warn'; h.innerHTML = `${icon('clock')}Hạn rất sát giờ lấy hàng (còn ${Math.max(0, Math.round((b - a) / 36e5))} giờ)`; }
+  else { h.className = 'hint'; h.textContent = a && b ? `Còn ${Math.round((b - a) / 36e5)} giờ tính từ giờ lấy` : ''; }
+}
+
+function renderLegs() {
+  const R = ROUTE[S.customer], filled = S.legs.every(l => l.loc);
+  const kinds = S.type === 'cont' ? ['Lấy rỗng', 'Đóng hàng', 'Hạ cảng', 'Lấy hàng cảng', 'Giao kho', 'Trả rỗng', 'Điểm dừng'] : ['Điểm lấy', 'Điểm giao', 'Điểm dừng'];
+  const n = S.type === 'cont' ? 3 : 2;
+  let alert = '';
+  if (filled && R) {
+    const path = S.legs.map(l => LOC[l.loc][1]).join(' → ');
+    alert = R.code ? `<div class="alert alert-info">${icon('route')}<div>Tuyến: ${path} · <b class="num">${R.km} km</b> (km chuẩn của tuyến ${R.code})</div></div>`
+      : `<div class="alert alert-warning">${icon('route')}<div>Chưa có tuyến khớp. Giá thành dùng km ước tính <b class="num">${R.km} km</b>.</div></div>`;
+  }
+  $('secLegs').innerHTML = head(n, 'Chặng', `<span class="sm muted" style="margin-left:auto">${S.legs.length} điểm${S.edit ? '' : ' · kéo để đổi thứ tự'}</span>`) + `
+    <div class="grid-wrap"><table class="grid legs"><thead><tr><th style="width:52px">#</th><th style="width:132px">Loại điểm</th><th>Địa điểm</th><th style="width:132px">Thời gian dự kiến</th><th style="width:140px">Ghi chú</th><th style="width:36px"></th></tr></thead>
+    <tbody>${S.legs.map((l, i) => `<tr draggable="${!S.edit}" data-leg="${i}">
+      <td><span class="row" style="gap:4px"><span class="grip" aria-hidden="true">${S.edit ? icon('lock') : icon('drag')}</span><span class="num">${i + 1}</span></span></td>
+      <td><select class="input" data-lk="${i}" ${dis()}>${kinds.map(k => `<option ${l.k === k ? 'selected' : ''}>${k}</option>`).join('')}</select></td>
+      <td><select class="input" data-ll="${i}" ${dis()} aria-label="Địa điểm ${i + 1}"><option value="">Chọn địa điểm…</option>${Object.entries(LOC).map(([k, v]) => `<option value="${k}" ${l.loc === k ? 'selected' : ''}>${v[0]}</option>`).join('')}<option value="__new">+ Thêm địa điểm</option></select></td>
+      <td><input class="input num" data-lt="${i}" value="${l.t}" placeholder="hh:mm dd/MM" ${dis()}></td>
+      <td><input class="input" data-ln="${i}" value="${l.note}" placeholder="—"></td>
+      <td>${S.legs.length > 2 && !S.edit ? `<button class="icon-btn" type="button" data-ldel="${i}" aria-label="Xoá điểm ${i + 1}" style="width:28px;height:28px">${icon('x')}</button>` : ''}</td></tr>`).join('')}</tbody></table></div>
+    <div class="stack" style="gap:10px">
+      ${S.edit ? '' : `<button class="linkbtn" type="button" id="addLeg" style="align-self:flex-start">${icon('plus')}Thêm điểm dừng</button>`}
+      ${alert}</div>`;
+  document.querySelectorAll('[data-lk]').forEach(s => s.onchange = () => { S.legs[+s.dataset.lk].k = s.value; });
+  document.querySelectorAll('[data-ll]').forEach(s => s.onchange = () => { if (s.value === '__new') { s.value = S.legs[+s.dataset.ll].loc; toast('Thêm địa điểm (FM_34) chưa có trong prototype'); return; } S.legs[+s.dataset.ll].loc = s.value; S.dirty = true; renderLegs(); renderPanel(); });
+  document.querySelectorAll('[data-lt]').forEach(s => s.oninput = () => { S.legs[+s.dataset.lt].t = s.value; cutHint(); });
+  document.querySelectorAll('[data-ln]').forEach(s => s.oninput = () => { S.legs[+s.dataset.ln].note = s.value; });
+  document.querySelectorAll('[data-ldel]').forEach(b => b.onclick = () => { const i = +b.dataset.ldel, old = S.legs.slice(); S.legs.splice(i, 1); renderLegs(); toast(`Đã xoá điểm ${i + 1}`, { undo: () => { S.legs = old; renderLegs(); } }); });
+  const add = $('addLeg'); if (add) add.onclick = () => { S.legs.splice(S.legs.length - 1, 0, { k: 'Điểm dừng', loc: '', t: '', note: '' }); renderLegs(); };
+  let from = null;
+  document.querySelectorAll('tr[data-leg]').forEach(tr => {
+    tr.ondragstart = () => { from = +tr.dataset.leg; tr.classList.add('dragging'); };
+    tr.ondragend = () => tr.classList.remove('dragging');
+    tr.ondragover = e => e.preventDefault();
+    tr.ondrop = e => { e.preventDefault(); const to = +tr.dataset.leg; if (from == null || from === to) return; const [m] = S.legs.splice(from, 1); S.legs.splice(to, 0, m); from = null; renderLegs(); renderPanel(); };
+  });
+}
+
+function renderCargo() {
+  const n = S.type === 'cont' ? 4 : 3;
+  $('secCargo').innerHTML = head(n, 'Hàng hoá') + `<div><div class="fields">
+    <label class="field"><span>Loại hàng *</span><select class="input" id="fCargo">${['', 'Linh kiện điện tử', 'Sản phẩm nhựa gia dụng', 'Bao bì carton', 'Gỗ ván ép', 'Thép cuộn', '+ Thêm loại hàng'].map(x => `<option value="${x}" ${S.cargo === x ? 'selected' : ''}>${x || 'Chọn loại hàng…'}</option>`).join('')}</select></label>
+    <label class="field ${S.tried && !wKg() ? 'is-error' : ''}"><span>Khối lượng * ${lock()}</span><div class="unit-in ${S.edit ? 'is-locked' : ''}"><input id="fW" value="${S.weight}" placeholder="0" ${dis()} aria-label="Khối lượng"><span>${S.type === 'cont' ? 'kg / cont' : 'kg'}</span></div>${S.type === 'cont' && wKg() ? `<span class="hint num">Cả đơn ${kg(totalKg())} kg</span>` : ''}</label>
+    <label class="field"><span>Số kiện</span><div class="unit-in"><input id="fP" value="${S.pieces}" placeholder="0" ${dis()} aria-label="Số kiện"><span>kiện</span></div></label>
+    <label class="field span3"><span>Ghi chú cho tài xế</span><textarea class="input" rows="2" id="fNote" placeholder="VD: Gọi chị Lan 0909 xxx 456 trước khi tới kho 30 phút">${S.driverNote}</textarea><span class="hint">Hiện trên app tài xế</span></label>
+  </div></div>`;
+  $('fCargo').onchange = e => { S.cargo = e.target.value; };
+  $('fW').oninput = e => { S.weight = e.target.value; S.split = null; S.dirty = true; renderTrip(); renderPanel(); renderFoot(); };
+  $('fW').onblur = e => { const v = num(e.target.value); if (v != null) { S.weight = kg(v); e.target.value = S.weight; renderCargo(); } };
+  $('fP').oninput = e => { S.pieces = e.target.value; S.split = null; renderTrip(); };
+  $('fNote').oninput = e => { S.driverNote = e.target.value; };
+}
+
+function attachInfo() {
+  const t = ATTACH.find(x => x.id === S.attach); if (!t) return null;
+  const add = totalKg() / 1000;
+  return { t, add, over: t.cap ? t.load + add - t.cap : null };
+}
+function renderTrip() {
+  const n = S.type === 'cont' ? 5 : 4, cont = S.type === 'cont';
+  let body = '';
+  if (S.mode === 'new') {
+    if (cont) {
+      body = `<div class="fields"><label class="field"><span>Số chuyến</span><div class="unit-in"><input id="fTrips" value="${S.trips}" aria-label="Số chuyến"><span>chuyến</span></div><span class="hint">1 chuyến / container</span></label></div>
+        <div class="cap" style="max-width:360px"><div class="cap-bar"><i style="width:100%"></i></div><small>Đã xếp ${kg(totalKg())} / ${kg(totalKg())} kg · ${S.qty} cont vào ${S.trips} chuyến</small></div>`;
+    } else {
+      const rows = splitRows(), placed = rows.reduce((a, r) => a + (r.kg || 0), 0), tot = wKg(), left = tot - placed;
+      body = `<div class="row wrap" style="gap:16px;align-items:flex-end">
+          <label class="field" style="width:160px"><span>Số chuyến</span><div class="unit-in"><input id="fTrips" value="${S.trips}" aria-label="Số chuyến"><span>chuyến</span></div></label>
+          <div class="seg" role="group" aria-label="Cách chia">${[['kg', 'Chia theo khối lượng'], ['pcs', 'Chia theo số kiện']].map(([k, l]) => `<button type="button" data-split="${k}" aria-pressed="${S.splitBy === k}">${l}</button>`).join('')}</div></div>
+        <div class="grid-wrap"><table class="grid split"><thead><tr><th>Chuyến</th><th class="right">Khối lượng (kg)</th><th class="right">Số kiện</th><th>Giờ lấy</th></tr></thead>
+          <tbody>${rows.map((r, i) => `<tr><td><b style="font-weight:500">Chuyến ${i + 1}</b></td><td class="right"><input class="input num" data-sk="${i}" value="${r.kg ? kg(r.kg) : ''}" placeholder="0" ${S.splitBy === 'pcs' ? 'disabled' : ''}></td><td class="right"><input class="input num" data-sp="${i}" value="${r.pcs ? kg(r.pcs) : ''}" placeholder="0" ${S.splitBy === 'kg' ? 'disabled' : ''}></td><td><input class="input num" data-st="${i}" value="${r.t}" style="width:130px;text-align:left"></td></tr>`).join('')}</tbody></table></div>
+        <div class="cap" style="max-width:420px"><div class="cap-bar ${left < 0 ? 'over' : ''}"><i style="width:${tot ? Math.min(100, placed / tot * 100) : 0}%"></i></div>
+          <small>Đã xếp ${kg(placed)} / ${kg(tot)} kg${left > 0 ? ` · <b style="color:var(--warning-fg)">còn ${kg(left)} kg chưa xếp</b>` : left < 0 ? ` · <b class="neg">vượt khối lượng đơn ${kg(-left)} kg</b>` : ''}</small></div>
+        ${left > 0 ? `<p class="sm" style="color:var(--warning-fg)">Đơn sẽ ở trạng thái <b>Đã lập chuyến một phần</b>. Phần chưa xếp nằm trong Đơn chờ xếp ở bảng điều phối.</p>` : ''}`;
+    }
+  } else if (S.mode === 'attach') {
+    const a = attachInfo();
+    body = `<label class="field" style="max-width:560px"><span>Chọn chuyến</span><select class="input" id="fAttach"><option value="">Tìm mã chuyến, biển số…</option>${ATTACH.map(t => `<option value="${t.id}" ${S.attach === t.id ? 'selected' : ''}>${t.id} · ${t.route} · ${t.plate || 'chưa gán xe'} · lấy ${t.pick} · ${t.cap ? 'còn ' + fmt.dec(t.cap - t.load) + ' tấn' : 'tải kiểm tra khi gán xe'}</option>`).join('')}</select><span class="hint">Chỉ hiện chuyến chưa chạy, cùng ngày lấy 13/11, sắp theo cùng hướng</span></label>
+      ${a ? `<div class="row wrap" style="gap:8px">${FM.statusBadge(a.t.status)}<span class="sm muted">${a.t.plate ? `<span class="code">${a.t.plate}</span> · Xe tải thùng ${fmt.dec(a.t.cap)} tấn` : 'Chưa gán xe'}</span></div>
+        <div class="cap" style="max-width:420px"><div class="cap-bar ${a.over > 0 ? 'over' : ''}">${a.t.cap ? `<i style="width:${a.t.load / a.t.cap * 100}%"></i><i class="add" style="width:${Math.max(0, Math.min(100 - a.t.load / a.t.cap * 100, a.add / a.t.cap * 100))}%"></i>` : ''}</div>
+          <small>${fmt.dec(a.t.load)} + ${fmt.dec(a.add)}${a.t.cap ? ` / ${fmt.dec(a.t.cap)}` : ''} tấn${a.over > 0 ? ` · <b class="neg">Vượt ${fmt.dec(a.over)} tấn</b>` : a.t.cap ? ` · còn ${fmt.dec(-a.over)} tấn` : ''}</small></div>
+        ${a.over > 0 ? `<div class="alert alert-danger" role="alert">${icon('block')}<div>Không thể ghép: vượt tải <b class="num">${fmt.dec(a.over)} tấn</b> (tải trọng cho phép ${fmt.dec(a.t.cap)} tấn).</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="doSplit">Tách đơn</button><button class="btn btn-ghost btn-sm" type="button" id="otherTrip">Chọn chuyến khác</button></div></div>` : ''}
+        ${a.t.gvt ? `<div class="alert alert-warning">${icon('doc')}<div>${a.t.id} đã phát hành giấy vận tải. Ghép thêm sẽ cần phát hành giấy vận tải mới.</div></div>` : ''}` : ''}`;
+  } else {
+    body = `<p class="sm muted">Đơn được lưu ở trạng thái <b>Mới</b> và nằm trong <a href="fm-08-dieu-phoi.html">Đơn chờ xếp</a> ở bảng điều phối để ghép sau.</p>`;
+  }
+  $('secTrip').innerHTML = head(n, 'Lập chuyến') + `<div class="stack" style="gap:14px">
+    <div class="rcards" role="radiogroup" aria-label="Cách lập chuyến">
+      ${[['new', 'Tạo chuyến mới', 'Chia đơn thành nhiều chuyến'], ['attach', 'Ghép vào chuyến đã có', 'Chở chung với chuyến cùng hướng còn tải'], ['later', 'Để sau', 'Đưa vào Đơn chờ xếp ở bảng điều phối']].map(([k, t, s]) => `<label class="rc"><input type="radio" name="tmode" value="${k}" ${S.mode === k ? 'checked' : ''} ${S.edit ? 'disabled' : ''}><b>${t}</b><small>${s}</small></label>`).join('')}
+    </div>${S.edit ? `<p class="sm muted">${icon('lock')} Đơn đã lập 5 chuyến (CH-0478 … CH-0482). Đổi cách lập chuyến ở bảng điều phối.</p>` : body}</div>`;
+  document.querySelectorAll('input[name=tmode]').forEach(r => r.onchange = () => { S.mode = r.value; S.dirty = true; renderTrip(); renderPanel(); renderFoot(); });
+  const ft = $('fTrips'); if (ft) { ft.oninput = () => { const v = Math.max(1, Math.min(20, parseInt(ft.value) || 1)); S.trips = v; S.split = null; }; ft.onchange = () => { renderTrip(); renderPanel(); renderFoot(); }; }
+  document.querySelectorAll('[data-split]').forEach(b => b.onclick = () => { S.splitBy = b.dataset.split; renderTrip(); });
+  document.querySelectorAll('[data-sk]').forEach(i => { i.oninput = () => { S.split[+i.dataset.sk].kg = num(i.value) || 0; }; i.onchange = () => { renderTrip(); renderPanel(); renderFoot(); }; });
+  document.querySelectorAll('[data-sp]').forEach(i => { i.oninput = () => { const r = S.split[+i.dataset.sp]; r.pcs = num(i.value) || 0; const p = num(S.pieces) || 1; r.kg = Math.round(wKg() * r.pcs / p); }; i.onchange = () => { renderTrip(); renderPanel(); renderFoot(); }; });
+  document.querySelectorAll('[data-st]').forEach(i => i.oninput = () => { S.split[+i.dataset.st].t = i.value; });
+  const fa = $('fAttach'); if (fa) fa.onchange = () => { S.attach = fa.value; renderTrip(); renderFoot(); };
+  const ds = $('doSplit'); if (ds) ds.onclick = () => { const a = attachInfo(); S.mode = 'new'; S.trips = 2; S.split = [{ kg: Math.round((a.t.cap - a.t.load) * 1000), pcs: 0, t: '07:00 13/11' }, { kg: Math.round(a.over * 1000), pcs: 0, t: '13:00 13/11' }]; renderTrip(); renderPanel(); renderFoot(); toast(`Đã chuyển sang Tạo chuyến mới: tách ${kg(Math.round(a.over * 1000))} kg vượt tải thành chuyến riêng`); };
+  const ot = $('otherTrip'); if (ot) ot.onclick = () => { $('fAttach').focus(); $('fAttach').showPicker && $('fAttach').showPicker(); };
+}
+
+/* ---------- Panel: Giá cước & giá thành (EL-20 … EL-28, EL-43) ---------- */
+let loadTimer;
+function recalcWithLoading() { S.loading = true; clearTimeout(loadTimer); loadTimer = setTimeout(() => { S.loading = false; renderPanel(); }, 700); }
+function renderPanel() {
+  const P = $('panel');
+  const ready = S.customer && S.legs.every(l => l.loc);
+  const headH = `<div class="panel-title"><h2>Giá cước &amp; giá thành dự kiến</h2></div>`;
+  if (!ready) { P.innerHTML = headH + `<section><div class="stack" style="align-items:center;text-align:center;padding:36px 8px;gap:8px;color:var(--fg-muted)">${icon('tag', 'lg')}<b style="color:var(--fg-strong)">Chọn khách hàng và tuyến để xem giá</b><span class="sm">Giá cước lấy từ bảng giá của khách. Giá thành tính theo km tuyến, định mức dầu và phí cầu đường.</span></div></section>`; return; }
+  if (S.loading) { P.innerHTML = headH + `<section>${'<span class="sk" style="width:40%"></span><span class="sk" style="height:34px"></span>'}</section><section>${Array(4).fill('<div class="row"><span class="sk" style="width:55%"></span><span class="sk" style="width:25%;margin-left:auto"></span></div>').join('')}</section><section>${Array(8).fill('<div class="row"><span class="sk" style="width:45%"></span><span class="sk" style="width:28%;margin-left:auto"></span></div>').join('')}</section><section><span class="sk" style="height:72px"></span></section>`; return; }
+  const c = calc(), u = S.type === 'cont' ? 'cont' : 'chuyến', n = units();
+  const tbl = tablePrice(), noTable = tbl == null;
+  const priceBadge = S.manual ? `<span class="badge b-warning">${icon('pen')}Đã sửa tay</span>${tbl ? `<span class="sm muted">Bảng giá: <span class="num">${fmt.vnd(tbl)}</span></span>` : ''}`
+    : noTable ? `<span class="badge b-neutral">${icon('info')}Chưa có trong bảng giá</span>` : `<span class="badge b-success">${icon('check')}Theo bảng giá ${tableLabel()}</span>`;
+  const reasonNeed = S.manual && S.price != null;
+  const tipRow = (label, v, tip, cls) => `<tr class="${cls || ''}"><td><span class="row" style="gap:2px">${label}${tip ? `<span class="tip"><button class="icon-btn" type="button" aria-label="Công thức ${label}">${icon('info')}</button><span class="tip-body left" style="width:300px">${tip}</span></span>` : ''}</span></td><td>${fmt.vnd(v)}</td></tr>`;
+  let marginHtml;
+  if (c.rev == null) marginHtml = `<span class="k">Lãi sau phân bổ dự kiến</span><span class="hero" style="color:var(--fg-subtle)">—</span><span class="row">Nhập giá cước để tính lãi. Giá tối thiểu đạt biên 5%: <b class="num" style="color:var(--fg)">${fmt.vnd(c.minP)}/${u}</b></span>`;
+  else {
+    const badge = c.nm < 0 ? `<span class="badge b-danger">${icon('block')}Lỗ dự kiến</span>` : c.nm < 5 ? `<span class="badge b-warning">${icon('warn')}Dưới ngưỡng biên 5%</span>` : `<span class="badge b-success">${icon('check')}Biên đạt</span>`;
+    marginHtml = `<span class="k">Lãi sau phân bổ dự kiến / ${u}</span>
+      <span class="hero ${c.net < 0 ? 'neg' : ''}">${fmt.vnd(c.net, { bare: 1 })}<small>đ</small></span>
+      <div class="row">Biên <b class="num" style="color:var(--fg-strong)">${fmt.pct(c.nm)}</b>${badge}</div>
+      ${c.nm < 5 ? `<span class="sm" style="color:${c.nm < 0 ? 'var(--danger-fg)' : 'var(--warning-fg)'}">Cần giá cước tối thiểu <b class="num">${fmt.vnd(c.minP)}/${u}</b> để đạt 5%.</span>` : ''}
+      <div class="sec"><span>Lãi gộp dự kiến</span><b class="${c.gross < 0 ? 'neg' : ''}">${fmt.vnd(c.gross)} · ${fmt.pct(c.gm)}</b></div>
+      <div class="sec" style="padding-top:0"><span>Cả đơn ${n} ${u}</span><b class="${c.net < 0 ? 'neg' : ''}">${fmt.vnd(c.net * n)}</b></div>`;
+  }
+  P.innerHTML = headH + `
+    <section>
+      <label class="field ${reasonNeed && !S.reason.trim() && S.tried ? 'is-error' : ''}"><span>Giá cước</span><div class="unit-in"><input id="fPrice" value="${S.price != null ? fmt.vnd(S.price, { bare: 1 }) : ''}" placeholder="Nhập giá cước" aria-label="Giá cước"><span>đ/${u}</span></div></label>
+      <div class="row wrap" style="gap:6px">${priceBadge}${S.manual && tbl ? `<button class="linkbtn" type="button" id="resetPrice">${icon('undo')}Dùng giá bảng</button>` : ''}</div>
+      ${reasonNeed ? `<label class="field ${!S.reason.trim() && S.tried ? 'is-error' : ''}"><span>Lý do sửa giá *</span><textarea class="input" id="fReason" rows="2" placeholder="VD: Giá thoả thuận riêng cho lô 5 cont, anh Minh duyệt qua điện thoại">${S.reason}</textarea>${!S.reason.trim() && S.tried ? '<span class="hint err">Ghi lý do khi giá khác bảng giá</span>' : ''}</label>` : ''}
+      <div class="margin-box">${marginHtml}</div>
+    </section>
+    <section>
+      <div class="label">Phụ phí</div>
+      <table class="bk">${S.sur.map((s, i) => `<tr class="${s.on ? '' : 'off'}"><td><label><input type="checkbox" data-sur="${i}" ${s.on ? 'checked' : ''}>${s.n}</label></td><td>${s.pct ? (S.price ? fmt.vnd(Math.round(S.price * s.pct)) : '—') : fmt.vnd(s.a) + (s.unit ? '/' + s.unit.split('/')[1] : '')}</td></tr>`).join('')}
+        <tr class="sub"><td>Tổng doanh thu</td><td>${c.rev != null ? `${fmt.vnd(c.rev)} / ${u}` : '—'}</td></tr></table>
+      ${c.rev != null ? `<span class="sm muted right num">${fmt.vnd(c.rev * n)} cả đơn (${n} ${u})</span>` : ''}
+      ${n > 1 && c.rev != null ? `<div class="note">${icon('info')}<span>Doanh thu đơn được phân bổ cho ${n} chuyến theo khối lượng chở.</span></div>` : ''}
+    </section>
+    <section>
+      <div class="row wrap" style="gap:6px"><div class="label">Giá thành dự kiến / ${u}</div><span class="tip" style="margin-left:auto"><span class="badge b-neutral" tabindex="0">${icon('formula')}Đang dùng giá trị mặc định</span><span class="tip-body right">Định mức dầu, khấu hao và chi phí cố định đang là giá trị mặc định của hệ thống</span></span></div>
+      <table class="bk">${c.rows.map(r => tipRow(r[0], r[1], r[2])).join('')}
+        <tr class="sub"><td>Chi phí biến đổi</td><td>${fmt.vnd(c.variable)}</td></tr>
+        ${c.fixed.map(r => tipRow(r[0], r[1], r[2])).join('')}
+        <tr class="sub"><td>Tổng giá thành</td><td>${fmt.vnd(c.total)}</td></tr></table>
+      <a class="btn btn-ghost btn-sm" style="align-self:flex-start" ${NA}>${icon('formula')}Xem dự toán chi tiết</a>
+    </section>`;
+  const fp = $('fPrice');
+  fp.oninput = () => { const v = num(fp.value); S.price = v; S.manual = v !== tbl; S.dirty = true; const pos = fp.selectionStart; renderPanel(); renderFoot(); const f = $('fPrice'); f.focus(); try { f.setSelectionRange(pos, pos); } catch (e) {} };
+  fp.onblur = () => { if (S.price != null) fp.value = fmt.vnd(S.price, { bare: 1 }); };
+  const rr = $('fReason'); if (rr) rr.oninput = () => { S.reason = rr.value; renderFoot(); };
+  const rp = $('resetPrice'); if (rp) rp.onclick = () => { S.price = tbl; S.manual = false; S.reason = ''; renderPanel(); renderFoot(); };
+  document.querySelectorAll('[data-sur]').forEach(cb => cb.onchange = () => { S.sur[+cb.dataset.sur].on = cb.checked; renderPanel(); });
+}
+
+/* ---------- Footer ---------- */
+function blockers() {
+  const b = [];
+  if (!S.customer) b.push('khách hàng');
+  if (!S.legs.every(l => l.loc)) b.push('địa điểm chặng');
+  if (!wKg()) b.push('khối lượng');
+  if (S.manual && S.price != null && !S.reason.trim()) b.push('lý do sửa giá');
+  if (S.mode === 'attach') { const a = attachInfo(); if (!a) b.push('chuyến để ghép'); else if (a.over > 0) b.push('chuyến còn đủ tải (đang vượt ' + fmt.dec(a.over) + ' tấn)'); }
+  return b;
+}
+function saveLabel() {
+  if (S.edit) return 'Lưu thay đổi';
+  if (S.mode === 'attach') return `Lưu &amp; ghép vào ${S.attach || 'chuyến'}`;
+  if (S.mode === 'later') return 'Lưu đơn';
+  return `Lưu &amp; lập ${units()} chuyến`;
+}
+function renderFoot() {
+  const b = blockers(), btn = $('btnSave');
+  btn.innerHTML = saveLabel() + ' <kbd>Ctrl+Enter</kbd>';
+  const hardBlock = S.mode === 'attach' && attachInfo() && attachInfo().over > 0;
+  btn.disabled = hardBlock || (S.tried && b.length > 0);
+  $('saveTip').innerHTML = b.length ? 'Còn thiếu: ' + b.join(', ') + '.' : '';
+  $('saveTip').style.display = b.length ? '' : 'none';
+  $('btnDraft').style.display = S.edit ? 'none' : '';
+  $('footNote').innerHTML = S.edit ? `${icon('lock')} Các trường có biểu tượng khoá không sửa được khi chuyến đang chạy` : `Đơn thuộc chi nhánh TP.HCM · mã đơn tự sinh khi lưu`;
+}
+function renderHeader() {
+  $('h1').textContent = S.edit ? 'Đơn DH-1132' : 'Tạo đơn vận chuyển';
+  $('crumb').textContent = S.edit ? 'Vận hành / Đơn vận chuyển / DH-1132' : 'Vận hành / Đơn vận chuyển / Tạo mới';
+  $('h1badge').innerHTML = S.edit ? `<span class="badge b-info">${icon('truck')}Đã lập chuyến · 1 chuyến đang chạy</span>` : '';
+  const a = [];
+  if (S.saveError) a.push(`<div class="alert alert-danger" role="alert">${icon('block')}<div>Chưa lưu được đơn. Kiểm tra kết nối và thử lại. Dữ liệu bạn nhập vẫn còn.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="retrySave">${icon('refresh')}Thử lại</button></div></div>`);
+  if (S.edit) a.push(`<div class="alert alert-info">${icon('lock')}<div>Đơn có chuyến đang chạy. Chỉ sửa được giá cước, phụ phí, ghi chú và số container.</div></div>`);
+  if (S.success) a.push(`<div class="alert alert-success">${icon('check')}<div>Đã tạo <b>DH-1132</b> và ${units()} chuyến Chờ gán.</div><div class="alert-actions"><a class="btn btn-primary btn-sm" href="fm-08-dieu-phoi.html">Mở bảng điều phối</a></div></div>`);
+  $('topAlerts').innerHTML = a.join('');
+  const r = $('retrySave'); if (r) r.onclick = save;
+}
+function renderAll() { renderHeader(); renderInfo(); renderCont(); renderLegs(); renderCargo(); renderTrip(); renderPanel(); renderFoot(); }
+
+function save() {
+  S.tried = true;
+  const b = blockers();
+  if (b.length) { renderAll(); const first = document.querySelector('.is-error, .alert-danger'); if (first) first.scrollIntoView({ block: 'center', behavior: 'smooth' }); toast('Còn thiếu: ' + b.join(', ')); return; }
+  const n = units();
+  const msg = S.edit ? 'Đã lưu thay đổi đơn DH-1132.' : S.mode === 'attach' ? `Đã tạo DH-1132 và ghép vào ${S.attach}.` : S.mode === 'later' ? 'Đã lưu DH-1132 vào Đơn chờ xếp.' : `Đã tạo DH-1132 và ${n} chuyến Chờ gán.`;
+  toast(msg); S.dirty = false;
+  if (!S.edit) setTimeout(() => location.href = 'fm-08-dieu-phoi.html', 1400);
+}
+$('btnSave').onclick = save;
+$('btnDraft').onclick = () => { if (!S.customer) { S.tried = true; renderInfo(); toast('Chọn khách hàng trước khi lưu nháp'); return; } S.dirty = false; toast('Đã lưu nháp DH-1132 (trạng thái Mới)'); };
+function cancel() {
+  if (!S.dirty) { location.href = 'fm-08-dieu-phoi.html'; return; }
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim';
+  const m = document.createElement('div'); m.className = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true');
+  m.innerHTML = `<h2>Bỏ thay đổi?</h2><p class="muted">Đơn DH-1132 có thay đổi chưa lưu.</p><div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Tiếp tục sửa</button><button class="btn btn-danger" type="button" data-ok>Bỏ thay đổi</button></div>`;
+  document.body.append(s, m); const close = () => { Shell.dismiss(s); Shell.dismiss(m); };
+  m.querySelector('[data-x]').onclick = close; s.onclick = close; m.querySelector('[data-ok]').onclick = () => { location.href = 'fm-08-dieu-phoi.html'; }; m.querySelector('[data-x]').focus();
+}
+$('btnCancel').onclick = cancel;
+document.addEventListener('keydown', e => {
+  if (e.ctrlKey && e.key === 'Enter') { e.preventDefault(); if (!$('btnSave').disabled) save(); }
+  if (e.key === 'Escape') { const m = document.querySelector('.modal:not(.leaving)'); if (m) { Shell.dismiss(m); Shell.dismiss(document.querySelector('.modal-scrim:not(.leaving)')); } else cancel(); }
+});
+
+/* ---------- Prototype states ---------- */
+Shell.states([['default', 'Mặc định'], ['xuat', 'Cont xuất'], ['nhap', 'Cont nhập'], ['noprice', 'Chưa có giá'], ['split', 'Chia hàng'], ['overload', 'Ghép vượt tải'], ['edit', 'Sửa đơn chạy'], ['loading', 'Đang tính'], ['error', 'Lỗi lưu'], ['success', 'Đã lưu']], st => {
+  document.querySelectorAll('.modal, .modal-scrim').forEach(x => x.remove());
+  S = base(); S.sur = surFor();
+  const cont = dir => { S.type = 'cont'; S.customer = 'tcl'; S.dir = dir; S.qty = 5; S.trips = 5; applyCustomer(); };
+  if (st === 'xuat' || st === 'loading' || st === 'error' || st === 'success') cont('xuat');
+  if (st === 'nhap') { cont('nhap'); S.booking = 'EGLV 142600871'; }
+  if (st === 'noprice') { S.customer = 'bbpn'; applyCustomer(); S.weight = '8.000'; S.pieces = '320'; S.cargo = 'Bao bì carton'; S.trips = 1; S.split = null; }
+  if (st === 'split') { S.customer = 'ndt'; applyCustomer(); S.trips = 2; S.split = [{ kg: 15000, pcs: 700, t: '07:00 13/11' }, { kg: 0, pcs: 0, t: '13:00 13/11' }]; }
+  if (st === 'overload') { S.customer = 'ndt'; applyCustomer(); S.weight = '8.000'; S.pieces = '400'; S.mode = 'attach'; S.attach = 'CH-0471'; }
+  if (st === 'edit') { cont('xuat'); S.edit = true; S.conts = ['EGHU 912345-6', 'EGHU 912351-0', 'EGHU 91236']; }
+  if (st === 'loading') S.loading = true;
+  if (st === 'error') { S.saveError = true; S.dirty = true; }
+  if (st === 'success') S.success = true;
+  renderAll();
+  if (st === 'overload' || st === 'split') setTimeout(() => window.scrollTo(0, $('secTrip').getBoundingClientRect().top + window.scrollY - 300), 50);
+  if (st === 'success') toast('Đã tạo DH-1132 và 5 chuyến Chờ gán.');
+});
+</script>
+</body>
+</html>

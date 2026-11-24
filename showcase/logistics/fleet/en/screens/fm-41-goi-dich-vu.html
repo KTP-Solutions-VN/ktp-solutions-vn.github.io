@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plan · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* Sub-nav Cài đặt (giống hệt ở FM_38–41) */
+  .set-layout { display: grid; grid-template-columns: 216px minmax(0, 1fr); gap: var(--s-6); align-items: start; }
+  .set-nav { position: sticky; top: 72px; display: flex; flex-direction: column; gap: 2px; }
+  .set-nav .set-g { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--side-fg-muted); padding: 2px 10px 8px; }
+  .set-nav a { display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 10px; border-radius: 8px; color: var(--fg); font: 500 13.5px var(--font-body); text-decoration: none !important; white-space: nowrap; transition: background-color var(--d-1) var(--ease-std), color var(--d-1) var(--ease-std); }
+  .set-nav a .icon { color: var(--fg-muted); flex: none; }
+  .set-nav a:hover { background: var(--surface-muted); }
+  .set-nav a[aria-current] { background: var(--primary-soft); color: var(--side-active); font-weight: 600; }
+  .set-nav a[aria-current] .icon { color: var(--side-active); }
+  .set-main { display: flex; flex-direction: column; gap: var(--s-4); min-width: 0; }
+  @media (max-width: 1100px) { .set-layout { grid-template-columns: 1fr; } .set-nav { position: static; flex-direction: row; flex-wrap: wrap; } .set-nav .set-g { display: none; } }
+  .card { display: flex; flex-direction: column; min-width: 0; }
+  .card-title { display: flex; align-items: center; gap: 10px; padding: 16px 18px 10px; min-height: 30px; }
+  .card-title h2 { font-size: 16px; white-space: nowrap; }
+  .card-title .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 10px; align-items: center; }
+  .card-foot { margin-top: auto; padding: 8px 18px 16px; display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--fg-muted); }
+  .card-foot .icon { width: 15px; height: 15px; flex: none; }
+  .row2 { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: var(--s-4); align-items: stretch; }
+  /* Gói hiện tại */
+  .plan { display: grid; grid-template-columns: minmax(220px, .85fr) minmax(0, 1.2fr); gap: 6px; padding: 0 18px 8px; }
+  .plan-main { background: var(--primary-soft); border-radius: 8px; padding: 16px 20px; display: flex; flex-direction: column; gap: 4px; }
+  .plan-main .k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--side-active); }
+  .plan-main .v { font: 700 var(--text-display)/40px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .plan-main .v small { font: 600 18px var(--font-display); color: var(--fg-muted); margin-left: 4px; }
+  .plan-main .s { font-size: 12.5px; color: var(--fg-muted); line-height: 18px; }
+  .facts { display: flex; flex-direction: column; gap: 2px; padding: 4px 6px; }
+  .fact { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 10px; font-size: 13.5px; border-radius: 6px; }
+  .fact span { color: var(--fg-muted); white-space: nowrap; }
+  .fact b { white-space: nowrap; }
+  .fact b { font-weight: 600; color: var(--fg-strong); text-align: right; font-variant-numeric: tabular-nums; display: inline-flex; gap: 6px; align-items: center; }
+  .usage { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; padding: 8px 18px 16px; }
+  .use .t { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--fg-muted); margin-bottom: 6px; }
+  .use .t b { color: var(--fg-strong); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .use .cap-bar { height: 6px; }
+  .use .cap-bar i { background: var(--primary); }
+  /* So sánh gói */
+  .cmp th, .cmp td { text-align: center; }
+  .cmp th:first-child, .cmp td:first-child { text-align: left; }
+  .cmp th { font-size: 12px; }
+  .cmp th .pn { display: block; font: 700 15px var(--font-display); color: var(--fg-strong); text-transform: none; letter-spacing: 0; margin-top: 2px; }
+  .cmp .cur { background: var(--primary-soft) !important; }
+  .cmp tr:hover td.cur { background: var(--primary-soft); }
+  .cmp td .icon { width: 16px; height: 16px; }
+  .cmp .yes { color: var(--success-fg); } .cmp .no { color: var(--fg-subtle); }
+  .cmp tfoot td { background: var(--surface); font-weight: 400; border-bottom: 0; padding-top: 12px; padding-bottom: 14px; }
+  .cmp tfoot td.cur { border-radius: 0 0 8px 8px; }
+  .tbl-wrap { overflow-x: auto; padding: 0 0 4px; }
+  .grid tbody tr:last-child td { border-bottom: 0; }
+  .grid td { font-variant-numeric: tabular-nums; }
+  .grid td.right, .grid th.right { text-align: right; }
+  /* Quá hạn */
+  .tl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; padding: 0 18px 12px; }
+  .tl .st { padding: 12px 14px; border-radius: 8px; background: var(--surface-muted); position: relative; }
+  .tl .st.now { background: var(--warning-soft); }
+  .tl .st b { display: block; font-size: 13.5px; color: var(--fg-strong); }
+  .tl .st span { display: block; font-size: 12.5px; color: var(--fg-muted); margin-top: 2px; }
+  .tl .st .d { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--fg); font-size: 12.5px; }
+  .can { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 0 18px 8px; font-size: 13px; }
+  .can div { display: flex; gap: 8px; align-items: flex-start; padding: 6px 0; }
+  .can .icon { flex: none; margin-top: 1px; }
+  /* Modal */
+  .modal { width: min(520px, calc(100vw - 32px)); }
+  .modal-head { display: flex; align-items: center; gap: 8px; }
+  .modal-head h2 { font-size: 17px; }
+  .modal-foot { display: flex; gap: 8px; justify-content: flex-end; align-items: center; }
+  .lim { display: flex; flex-direction: column; gap: 2px; }
+  .lim div { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 12px; align-items: center; padding: 8px 10px; border-radius: 6px; background: var(--surface-muted); font-size: 13.5px; }
+  .lim div b { font-variant-numeric: tabular-nums; }
+  @media (max-width: 1200px) { .row2, .plan { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="set-layout">
+    <nav class="set-nav" aria-label="Settings">
+      <div class="set-g">Settings</div>
+      <a href="fm-38-thanh-vien.html" data-k="members" data-ic="users">Members &amp; permissions</a> <a href="fm-38-thanh-vien.html#chi-nhanh" data-k="branches" data-ic="branch">Branches</a> <a href="fm-39-tich-hop.html" data-k="integrations" data-ic="link">Integrations</a> <a href="fm-40-quyen-rieng-tu.html" data-k="privacy" data-ic="shield">Privacy &amp; audit log</a> <a href="fm-41-goi-dich-vu.html" data-k="plan" data-ic="receipt">Plan</a>
+    </nav>
+    <div class="set-main">
+      <div class="page-header">
+        <div><div class="crumb">Settings / Plan</div><h1>Plan</h1></div>
+        <div class="actions"><span class="badge b-neutral" tabindex="0" title="Per-vehicle monthly pricing is still being decided">Price per vehicle/month: TBD</span></div>
+      </div>
+      <div id="view" style="display:contents"></div>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_38', title: 'Plan' });
+/* Sub-nav Cài đặt (giống hệt ở FM_38–41) */
+function setNav(k) { document.querySelectorAll('.set-nav a').forEach(a => { if (!a.querySelector('.icon')) a.insertAdjacentHTML('afterbegin', Shell.icon(a.dataset.ic)); a.dataset.k === k ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'); }); }
+setNav('plan');
+document.querySelector('.page-header .badge').innerHTML = icon('info') + 'Price per vehicle/month: TBD';
+
+const PLANS = [
+  { k: 'basic', n: 'Basic', veh: 10, br: 1, mem: 5 },
+  { k: 'std', n: 'Standard', veh: 40, br: 5, mem: 15 },
+  { k: 'pro', n: 'Advanced', veh: null, br: null, mem: null }
+];
+const USE = { veh: 26, br: 3, mem: 9 };
+const FEAT = [
+  ['Orders, dispatch, waybills, driver app', 1, 1, 1],
+  ['Cash advances, trip settlement, P&L report', 1, 1, 1],
+  ['GPS tracker connection (supported vendors)', 0, 1, 1],
+  ['E-invoices, MISA AMIS', 0, 1, 1],
+  ['Compliance report, inspection export', 0, 1, 1],
+  ['Support', 'Email', 'Email, phone', 'Dedicated account manager']
+];
+// [số HĐ, kỳ, số xe, số tiền (minh hoạ), trạng thái]
+const INV = [
+  ['TB-0000142', '01/11 – 30/11/2026', 26, null, 'paid', '01/11/2026'],
+  ['TB-0000118', '01/10 – 31/10/2026', 25, null, 'paid', '02/10/2026'],
+  ['TB-0000097', '15/09 – 30/09/2026', 24, null, 'paid', '15/09/2026']
+];
+
+let S;
+function reset(o) { S = Object.assign({ plan: 'std', overdue: false, trial: false, loading: false, error: false }, o || {}); }
+const view = document.getElementById('view');
+const lim = v => v == null ? 'Unlimited' : fmt.vnd(v, { bare: 1 });
+
+function render() {
+  if (S.loading) { view.innerHTML = `<div class="row2"><div class="card card-body"><span class="sk" style="width:200px;height:18px"></span><span class="sk" style="width:120px;height:36px;margin-top:14px"></span>${Array(3).fill('<span class="sk" style="height:14px;margin:12px 0"></span>').join('')}</div><div class="card card-body">${Array(5).fill('<span class="sk" style="height:14px;margin:12px 0"></span>').join('')}</div></div><div class="card"><table class="grid"><tbody>${Array(6).fill('<tr>' + Array(4).fill('<td><span class="sk" style="width:80%"></span></td>').join('') + '</tr>').join('')}</tbody></table></div>`; return; }
+  if (S.error) { view.innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Couldn't load plan details. Try again in a few minutes.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="retry">${icon('refresh')}Retry</button></div></div>`; document.getElementById('retry').onclick = () => { S.error = false; render(); }; return; }
+  view.innerHTML = (S.overdue ? overdueHtml() : '') + `<div class="row2">${currentHtml()}${payHtml()}</div>` + compareHtml() + invoicesHtml();
+  bind();
+}
+function overdueHtml() {
+  return `<div class="alert alert-danger" role="alert">${icon('lock')}<div><b>Subscription overdue since 01/11/2026. The account is read-only until 01/12/2026 (19 days left).</b> No data is deleted. Pay invoice TB-0000142 to restore full access right away.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" data-pay>Pay now</button></div></div>
+  <section class="card" aria-label="Read-only mode">
+    <div class="card-title"><h2>Read-only mode</h2><span class="meta">Applies to all members of the company</span></div>
+    <div class="tl"><div class="st"><b>Payment due</b><span class="d">01/11/2026</span><span>Invoice TB-0000142 unpaid</span></div>
+      <div class="st now"><b>30 days read-only · you are here</b><span class="d">01/11 – 01/12/2026</span><span>Can view and export, can't create or edit</span></div>
+      <div class="st"><b>After 01/12/2026</b><span class="d"><span class="badge b-neutral">TBD</span></span><span>Data is kept; the next policy is still being decided</span></div></div>
+    <div class="can"><div>${icon('check', '')}<span><b>Still available:</b> view all lists and reports; export to Excel and PDF; download subscription invoices.</span></div><div>${icon('lock')}<span><b>Temporarily locked:</b> creating and editing orders and trips, recording costs, approving settlements, issuing invoices.</span></div></div>
+  </section>`;
+}
+function currentHtml() {
+  const p = PLANS.find(x => x.k === S.plan);
+  return `<section class="card" aria-label="Current plan">
+    <div class="card-title"><h2>Current plan</h2>${S.trial ? `<span class="badge b-info">${icon('clock')}Trial</span>` : S.overdue ? `<span class="badge b-warning">${icon('lock')}Read-only</span>` : `<span class="badge b-success">${icon('check')}Active</span>`}</div>
+    <div class="plan"><div class="plan-main"><span class="k">${p.n} plan</span><span class="v">${USE.veh}<small>billable vehicles</small></span><span class="s">Vehicles active during the period. Vehicles sold or out of service for the whole period aren't billed.</span></div>
+      <div class="facts"><div class="fact"><span>${S.trial ? 'Trial ends' : S.overdue ? 'Expired' : 'Renew'}</span><b>${S.trial ? '29/11/2026 (17 days left)' : S.overdue ? '01/11/2026 (11 days overdue)' : '01/12/2026 (19 days left)'}</b></div>
+        <div class="fact"><span>Billing cycle</span><b>Monthly</b></div><div class="fact"><span>Unit price</span><b><span class="badge b-neutral">TBD</span> /vehicle/month</b></div><div class="fact"><span>Start date</span><b>15/09/2026</b></div></div></div>
+    <div class="usage">${[['Vehicle', USE.veh, p.veh], ['Branch', USE.br, p.br], ['Members', USE.mem, p.mem]].map(([l, u, m]) => `<div class="use"><div class="t"><span>${l}</span><b>${u} / ${lim(m)}</b></div><div class="cap-bar"><i style="width:${m ? u / m * 100 : 8}%"></i></div></div>`).join('')}</div>
+  </section>`;
+}
+function payHtml() {
+  return `<section class="card" aria-label="Payment">
+    <div class="card-title"><h2>Payment</h2></div>
+    <div class="facts" style="padding:0 12px"><div class="fact"><span>Next period</span><b>01/12 – 31/12/2026</b></div><div class="fact"><span>Estimate</span><b>${USE.veh} vehicles × <span class="badge b-neutral">TBD</span></b></div>
+      <div class="fact"><span>Method</span><b>Bank transfer</b></div><div class="fact"><span>Send invoices to</span><b>mai.ketoan@phatdat.vn</b></div><div class="fact"><span>Bill to</span><b>Tax ID 0312345678</b></div></div>
+    <div class="card-foot" style="gap:8px">${S.overdue ? `<button class="btn btn-primary" type="button" data-pay style="width:100%">Pay TB-0000142</button>` : `<button class="btn btn-secondary btn-sm" type="button" id="editPay">Edit payment details</button>`}</div>
+  </section>`;
+}
+function compareHtml() {
+  const idx = PLANS.findIndex(p => p.k === S.plan);
+  const cell = (v, i) => `<td class="${i === idx ? 'cur' : ''}">${v === 1 ? `<span class="yes">${icon('check')}</span>` : v === 0 ? '<span class="no">—</span>' : v}</td>`;
+  return `<section class="card" aria-label="Compare plans">
+    <div class="card-title"><h2>Compare plans</h2><span class="meta">Upgrades apply immediately · downgrades apply from the next period</span></div>
+    <div class="tbl-wrap"><table class="grid cmp"><thead><tr><th style="width:34%">Features</th>${PLANS.map((p, i) => `<th class="${i === idx ? 'cur' : ''}">${i === idx ? 'Current plan' : '&nbsp;'}<span class="pn">${p.n}</span></th>`).join('')}</tr></thead>
+      <tbody><tr><td>Price per vehicle/month</td>${PLANS.map((p, i) => `<td class="${i === idx ? 'cur' : ''}"><span class="badge b-neutral">TBD</span></td>`).join('')}</tr>
+        <tr><td>Max vehicles</td>${PLANS.map((p, i) => cell(lim(p.veh), i)).join('')}</tr>
+        <tr><td>Branch</td>${PLANS.map((p, i) => cell(lim(p.br), i)).join('')}</tr>
+        <tr><td>Office members</td>${PLANS.map((p, i) => cell(lim(p.mem), i)).join('')}</tr>
+        ${FEAT.map(f => `<tr><td>${f[0]}</td>${[1, 2, 3].map(j => cell(f[j], j - 1)).join('')}</tr>`).join('')}</tbody>
+      <tfoot><tr><td class="muted sm">Drivers using the app aren't charged per person.</td>${PLANS.map((p, i) => `<td class="${i === idx ? 'cur' : ''}">${i === idx ? '<span class="muted sm">Current</span>' : `<button class="btn ${i > idx ? 'btn-primary' : 'btn-secondary'} btn-sm" type="button" data-chg="${p.k}" ${S.overdue ? 'disabled title="Pay the overdue invoice before changing plans"' : ''}>${i > idx ? 'Upgrade' : 'Downgrade'}</button>`}</td>`).join('')}</tr></tfoot></table></div>
+  </section>`;
+}
+function invoicesHtml() {
+  if (S.trial) return `<section class="card"><div class="card-title"><h2>Subscription invoices</h2></div><div class="empty">${icon('receipt')}<h3>No subscription invoices yet</h3><p>The first invoice will be sent to mai.ketoan@phatdat.vn when the trial ends on 29/11/2026.</p></div></section>`;
+  const rows = INV.map((r, i) => S.overdue && i === 0 ? [...r.slice(0, 4), 'overdue', '—'] : r);
+  return `<section class="card" aria-label="Subscription invoices">
+    <div class="card-title"><h2>Subscription invoices</h2><span class="count-pill">${rows.length}</span><span class="meta">E-invoices issued by Đội Xe</span></div>
+    <div class="tbl-wrap" style="border-radius:0 0 var(--r-lg) var(--r-lg)"><table class="grid"><thead><tr><th>Invoice no.</th><th>Period</th><th class="right">Billable vehicles</th><th class="right">Amount</th><th>Status</th><th>Payment date</th><th><span class="sr-only">Download</span></th></tr></thead>
+      <tbody>${rows.map(r => `<tr><td class="code">${r[0]}</td><td>${r[1]}</td><td class="right">${r[2]}</td><td class="right"><span class="badge b-neutral" title="Price TBD">TBD</span></td>
+        <td>${r[4] === 'paid' ? `<span class="badge b-success">${icon('check')}Paid</span>` : `<span class="badge b-danger">${icon('block')}11 days overdue</span>`}</td><td>${r[5]}</td>
+        <td class="right">${r[4] === 'overdue' ? `<button class="btn btn-ghost btn-sm" type="button" data-pay>Payment</button>` : ''}<button class="btn btn-ghost btn-sm" type="button" data-dl="${r[0]}">${icon('download')}PDF</button></td></tr>`).join('')}</tbody></table></div>
+  </section>`;
+}
+function bind() {
+  view.querySelectorAll('[data-pay]').forEach(b => b.onclick = () => toast('Opening bank transfer instructions for TB-0000142 · reference: PHATDAT TB0000142'));
+  view.querySelectorAll('[data-dl]').forEach(b => b.onclick = () => toast(`Downloading ${b.dataset.dl}.pdf`));
+  view.querySelectorAll('[data-chg]').forEach(b => b.onclick = () => openChange(b.dataset.chg));
+  const ep = document.getElementById('editPay'); if (ep) ep.onclick = () => toast('Edit payment details (not in this prototype)');
+}
+function openChange(k) {
+  closeModal(true);
+  const to = PLANS.find(p => p.k === k), cur = PLANS.find(p => p.k === S.plan), up = PLANS.indexOf(to) > PLANS.indexOf(cur);
+  const over = [['Active vehicles', USE.veh, to.veh], ['Branch', USE.br, to.br], ['Members', USE.mem, to.mem]].filter(([, u, m]) => m != null && u > m);
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim'; s.id = 'mScrim';
+  const m = document.createElement('div'); m.className = 'modal'; m.id = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.setAttribute('aria-labelledby', 'mT');
+  m.innerHTML = `<div class="modal-head">${icon(up ? 'sparkle' : 'warn')}<h2 id="mT">${up ? 'Upgrade' : 'Downgrade'} to the ${to.n} plan</h2></div>`.replace('Downgrade to', 'Downgrade to') +
+    (up ? `<p class="muted">Takes effect as soon as you confirm. The difference for this period is prorated over the remaining days (12/11 to 30/11/2026) and added to the next invoice.</p>
+      <div class="lim"><div><span>Max vehicles</span><b>${lim(cur.veh)}</b><b>→ ${lim(to.veh)}</b></div><div><span>Branches</span><b>${lim(cur.br)}</b><b>→ ${lim(to.br)}</b></div><div><span>Members</span><b>${lim(cur.mem)}</b><b>→ ${lim(to.mem)}</b></div><div><span>Unit price per vehicle/month</span><b></b><b><span class="badge b-neutral">TBD</span></b></div></div>`
+    : over.length ? `<p class="muted">The ${to.n} plan doesn't cover your current usage. Reduce it before downgrading; no data is deleted.</p>
+      <div class="lim">${over.map(([l, u, mx]) => `<div><span>${l}</span><b style="color:var(--danger-fg)">${u} in use</b><b>max ${mx}</b></div>`).join('')}</div>
+      <p class="sm muted">Take vehicles out of service in <a href="fm-14-xe.html">Vehicles & trailers</a> and lock members in <a href="fm-38-thanh-vien.html">Members</a>.</p>`
+    : `<p class="muted">Takes effect from the next period (01/12/2026). Features not included in the ${to.n} plan become view-only.</p>`) +
+    `<div class="modal-foot"><button class="btn btn-secondary" type="button" id="mC">Cancel</button><button class="btn btn-primary" type="button" id="mOk" ${!up && over.length ? 'disabled title="Reduce vehicles, branches and members first"' : ''}>${up ? 'Confirm upgrade' : 'Downgrade next period'}</button></div>`;
+  document.body.append(s, m);
+  s.onclick = m.querySelector('#mC').onclick = () => closeModal();
+  m.querySelector('#mOk').onclick = () => { closeModal(); if (up) { const prev = S.plan; S.plan = k; render(); toast(`Upgraded to the ${to.n} plan`, { undo: () => { S.plan = prev; render(); } }); } else toast(`Switching to the ${to.n} plan on 01/12/2026`); };
+}
+function closeModal(now) { ['modal', 'mScrim'].forEach(id => { const e = document.getElementById(id); if (e) { e.id = ''; now ? e.remove() : Shell.dismiss(e); } }); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+Shell.states([['default', 'Default'], ['overdue', 'Overdue · read-only'], ['upgrade', 'Upgrade'], ['downgrade', 'Downgrade blocked'], ['trial', 'Trial (empty)'], ['loading', 'Loading'], ['error', 'Error']], s => {
+  closeModal(true);
+  reset({ overdue: { overdue: true }, trial: { trial: true }, loading: { loading: true }, error: { error: true } }[s]); render();
+  if (s === 'upgrade') openChange('pro');
+  if (s === 'downgrade') openChange('basic');
+});
+</script>
+</body>
+</html>

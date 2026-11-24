@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Import costs · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  [hidden] { display: none !important; }
+  #app-content > * { flex: none; }
+  .page-header .sub { color: var(--fg-muted); font-size: 13px; margin-top: 2px; }
+  /* Stepper: giống FM_03 */
+  .stepper { display: flex; align-items: center; padding: 2px 0; }
+  .stepper button { border: 0; background: none; display: flex; align-items: center; gap: 8px; font: 500 13.5px var(--font-body); color: var(--fg-muted); padding: 4px 6px; border-radius: var(--r-sm); cursor: default; white-space: nowrap; }
+  .stepper button .n { width: 24px; height: 24px; border-radius: 50%; background: var(--surface); box-shadow: inset 0 0 0 1px var(--border-strong); display: grid; place-items: center; font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .stepper button.done { color: var(--fg); cursor: pointer; }
+  .stepper button.done:hover { background: var(--surface-muted); }
+  .stepper button.done .n { background: var(--success-soft); box-shadow: none; color: var(--success-fg); }
+  .stepper button.skip .n { background: var(--surface-muted); box-shadow: none; color: var(--fg-muted); }
+  .stepper button .via { font-size: 12px; color: var(--fg-muted); font-weight: 400; }
+  .stepper button.cur { color: var(--primary); font-weight: 600; }
+  .stepper button.cur .n { background: var(--primary); box-shadow: 0 0 0 4px var(--primary-soft); color: var(--on-primary); }
+  .stepper .line { flex: 1; height: 2px; border-radius: 1px; background: var(--border); margin: 0 12px; min-width: 24px; }
+  .stepper .line.done { background: var(--success-solid); }
+  .s1 { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: var(--s-4); align-items: stretch; }
+  .s1 > .card { display: flex; flex-direction: column; min-width: 0; }
+  .s1 > .card > .card-body { flex: 1; }
+  .rcards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  .rc { border: 1px solid var(--border); border-radius: var(--r-md); padding: 10px 12px; display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 2px 8px; cursor: pointer; font-size: 13.5px; background: var(--surface); }
+  .rc input { margin: 2px 0 0; accent-color: var(--primary); }
+  .rc b { font-weight: 600; display: flex; align-items: center; gap: 6px; }
+  .rc small { grid-column: 2; color: var(--fg-muted); font-size: 12.5px; line-height: 16px; }
+  .rc:hover { border-color: var(--border-strong); }
+  .rc:has(input:checked) { border-color: var(--primary); background: var(--primary-soft); box-shadow: inset 0 0 0 1px var(--primary); }
+  .tplline { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; background: var(--surface-muted); font-size: 13px; }
+  .tplline .ic { width: 30px; height: 30px; border-radius: var(--r-md); display: grid; place-items: center; background: var(--success-soft); color: var(--success-fg); flex: none; }
+  .tplline.new .ic { background: var(--warning-soft); color: var(--warning-fg); }
+  .drop { border: 1.5px dashed var(--border-strong); border-radius: var(--r-lg); background: var(--surface-muted); padding: 28px 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; transition: border-color .12s, background-color .12s; }
+  .drop.over { border-color: var(--primary); background: var(--primary-soft); }
+  .drop > .icon { width: 36px; height: 36px; stroke-width: 1.25; color: var(--fg-muted); }
+  .filechip { display: flex; align-items: center; gap: 10px; border-radius: 8px; padding: 10px 12px; background: var(--surface-muted); }
+  .filechip .ficon { width: 34px; height: 34px; border-radius: var(--r-md); background: var(--success-soft); color: var(--success-fg); display: grid; place-items: center; }
+  .howto ol { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 13px; line-height: 18px; }
+  .howto .note { font-size: 12.5px; color: var(--fg-muted); }
+  .field .input { width: 100%; }
+  .map td { padding: 6px 12px; height: 54px; }
+  .map td.samples { color: var(--fg-muted); font-size: 12.5px; }
+  .map .samples .code { color: var(--fg); background: var(--surface-muted); border-radius: var(--r-sm); padding: 1px 6px; margin-right: 4px; font-size: 12px; }
+  .map select.input { width: 240px; height: 30px; }
+  .map tr.need td:first-child { box-shadow: inset 3px 0 0 var(--warning-solid); }
+  .savetpl { display: flex; align-items: center; gap: 12px; padding: 4px 16px 16px; flex-wrap: wrap; }
+  .savetpl label.chk { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; cursor: pointer; }
+  .savetpl input[type=checkbox] { accent-color: var(--primary); width: 16px; height: 16px; }
+  .savetpl .input { width: 260px; height: 30px; }
+  .pv td { height: 52px; padding: 6px 12px; }
+  .cellv { display: inline-block; min-width: 60px; border: 1px solid transparent; border-radius: var(--r-sm); padding: 2px 6px; margin: 0 -6px; cursor: text; line-height: 20px; }
+  .cellv:hover { border-color: var(--border-strong); background: var(--surface); }
+  .cellv.bad { border-color: var(--danger-solid); color: var(--danger-fg); }
+  .cellv.empty-v { color: var(--fg-subtle); font-style: italic; }
+  .cell-in { height: 28px; width: 150px; border: 1px solid var(--primary); border-radius: var(--r-sm); padding: 0 6px; font: 13.5px var(--font-body); outline: 2px solid var(--ring); outline-offset: 1px; }
+  .emsg { display: flex; align-items: flex-start; gap: 4px; font-size: 11.5px; line-height: 14px; color: var(--danger-fg); margin-top: 3px; white-space: normal; max-width: 220px; }
+  .emsg .icon { width: 12px; height: 12px; margin-top: 1px; flex: none; }
+  td.right .emsg { margin-left: auto; justify-content: flex-end; }
+  .gridfoot { padding: 12px 16px 14px; }
+  .footbar { position: sticky; bottom: 0; z-index: 15; margin: 0 calc(-1 * var(--s-6)) calc(-1 * var(--s-6)); padding: 12px var(--s-6) 12px var(--s-6); background: var(--bg); border-top: 1px solid transparent; display: flex; gap: 8px; align-items: center; justify-content: flex-end; transition: border-color var(--d-2), background-color var(--d-2); }
+  .footbar.stuck { border-top-color: var(--border); background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: saturate(1.2) blur(8px); }
+  .summary { display: grid; grid-template-columns: minmax(300px, 1.6fr) repeat(3, minmax(0, 1fr)); gap: 6px; padding: 6px; background: var(--surface); border-radius: var(--r-lg); box-shadow: var(--shadow-card); }
+  .sum-main { padding: 18px 22px; background: var(--primary-soft); border-radius: 8px; display: flex; flex-direction: column; gap: 4px; }
+  .sum-main .k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--side-active); }
+  .sum-main .v { font: 700 var(--text-display)/40px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+  .sum-main .v small, .sum-item .v small { font: 600 15px var(--font-body); color: var(--fg-muted); margin-left: 4px; }
+  .sum-main .d { font-size: 12.5px; color: var(--fg-muted); }
+  .sum-item { padding: 18px 16px; display: flex; flex-direction: column; justify-content: center; gap: 4px; min-width: 0; border: 0; background: none; border-radius: 8px; text-align: left; font: inherit; color: inherit; text-decoration: none !important; }
+  a.sum-item:hover { background: var(--surface-muted); }
+  .sum-item .k { font-size: 12.5px; color: var(--fg-muted); font-weight: 500; }
+  .sum-item .v { font: 700 24px/30px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .sum-item .d { font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 4px; align-items: center; }
+  a.sum-item .d { color: var(--primary); font-weight: 500; }
+  .hist td { height: 52px; }
+  .hist .fname { display: block; max-width: 170px; overflow: hidden; text-overflow: ellipsis; }
+  .hist td:last-child { padding-left: 4px; }
+  .hist tr.undone td { color: var(--fg-muted); }
+  .hist tr.undone td .code { text-decoration: line-through; }
+  .src { display: inline-flex; align-items: center; gap: 6px; }
+  .src .icon { color: var(--fg-muted); }
+  .tpls { display: flex; flex-direction: column; gap: 2px; padding: 4px 8px 10px; }
+  .tpl { display: flex; align-items: center; gap: 12px; padding: 9px 10px; border-radius: 8px; font-size: 13px; }
+  .tpl:hover { background: var(--surface-muted); }
+  .tpl .grow b { font-weight: 600; }
+  .card-title { display: flex; align-items: center; gap: 8px; padding: 16px 18px 6px; }
+  .card-title h2 { font-size: 16px; }
+  .card-title .meta { margin-left: auto; display: inline-flex; gap: 8px; align-items: center; }
+  .modal .sumlist { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; font-size: 13.5px; }
+  .modal .field .select { width: 100%; }
+  @media (max-width: 1200px) { .s1 { grid-template-columns: 1fr; } .rcards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Finance / Import costs</div>
+      <h1>Import costs</h1>
+      <div class="sub">ETC statements, fuel cards, purchase invoices → matched to trips automatically by plate and time</div>
+    </div>
+    <div class="actions"><a class="btn btn-ghost" href="fm-39-tich-hop.html">${'link'}</a><a class="btn btn-secondary" href="fm-24-khop-giao-dich.html" id="toMatch"></a></div>
+  </div>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <nav class="stepper" id="stepper" aria-label="Import steps"></nav>
+  <div id="body" class="stack" style="gap:16px"></div>
+  <div class="footbar" id="footbar"></div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_23', title: 'Import costs' });
+const $ = id => document.getElementById(id);
+document.querySelector('.actions a.btn-ghost').innerHTML = `${icon('link')}Auto-connect`;
+$('toMatch').innerHTML = `${icon('check')}Transaction matching <span class="count-pill">15</span>`;
+
+const SRC = [
+  { k: 'etc', l: 'ETC statement', s: 'VETC and ePass toll accounts', ic: 'toll', vendors: ['VETC', 'ePass'] },
+  { k: 'fuel', l: 'Fuel cards', s: 'Petrolimex FleetCard, PVOil Easy statements', ic: 'fuel', vendors: ['Petrolimex FleetCard', 'PVOil Easy'] },
+  { k: 'xml', l: 'Purchase e-invoices', s: 'XML files in the General Department of Taxation format', ic: 'invoice', vendors: ['Auto-read (standard XML)'] },
+  { k: 'tpl', l: 'Template file', s: 'Repairs, tires, cash fees…', ic: 'doc', vendors: ['System template'] }
+];
+const TPL = { 'VETC': { name: 'VETC statement', used: 6, last: '08/11/2026' }, 'Petrolimex FleetCard': { name: 'Petrolimex – card statement', used: 9, last: '11/11/2026' } };
+const HOWTO = {
+  'VETC': ['Sign in to the VETC app or vetc.com.vn with your business account', 'Go to Transaction history → choose the period → Export to Excel', 'Drag the downloaded file into the box on the left'],
+  'ePass': ['Sign in to epass-vdtc.com.vn with your business account', 'Lookup → Toll passage history → select all vehicles → Export file', 'Drag the downloaded file into the box on the left'],
+  'Petrolimex FleetCard': ['Sign in to the FleetCard portal', 'Reports → Transaction statement → Export to Excel', 'Drag the file into the box on the left'],
+  'PVOil Easy': ['Sign in to the PVOil Easy app for businesses', 'Transaction history → Download statement', 'Drag the file into the box on the left'],
+  'Auto-read (standard XML)': ['Download the invoice XML files from the supplier\'s email or the hoadondientu.gdt.gov.vn portal', 'Select several XML files at once (or one .zip file)', 'The system reads the plate number from the item lines or notes'],
+  'System template': ['Download the template file below', 'Enter one expense per row: date, plate, cost type, amount', 'Drag the file into the box on the left']
+};
+const LAST = { 'VETC': ['01/11 – 07/11', '08/11/2026'], 'ePass': ['01/11 – 09/11', '10/11/2026'], 'Petrolimex FleetCard': ['04/11 – 10/11', '11/11/2026'] };
+const FIELDS = ['Transaction time', 'License plate', 'Amount', 'Location', 'Transaction ID', 'Fee type', 'Card number'];
+const REQUIRED = ['Transaction time', 'License plate', 'Amount'];
+const COLS0 = [
+  ['Passage time', ['12/11/2026 06:48:12', '12/11/2026 09:12:40'], 'Transaction time'],
+  ['License plate', ['51C12345T', '51D45678T'], 'License plate', 'Plate color suffix (T, V, X) is dropped when reading'],
+  ['Toll station', ['ĐT741 toll station', 'Long Phước toll station'], 'Location'],
+  ['Lane', ['L03', 'L05'], ''],
+  ['Amount (₫)', ['40.000', '120.000'], 'Amount'],
+  ['Txn ID', ['EP26111206…', 'EP26111209…'], 'Transaction ID', 'Used to prevent duplicate imports'],
+  ['Ticket type', ['Single pass', 'Single pass'], ''],
+  ['Balance', ['3.420.000', '3.300.000'], '__skip']
+];
+const ROWS0 = [
+  [4, '12/11/2026 06:48', '51C12345T', 'ĐT741 toll station', '40000', 'EP2611120648'],
+  [5, '12/11/2026 09:12', '51C12345T', 'Long Phước toll station', '120000', 'EP2611120912'],
+  [6, '12/11/2026 05:20', '51D45678T', 'An Phú toll station', '75000', 'EP2611120520'],
+  [7, '12/11/2026 06:30', '51D45678T', 'Hà Nội Highway toll station', '40000', 'EP2611120630'],
+  [9, '31/11/2026 07:35', '51D70233T', 'QL1A Bình Chánh toll station', '52000', 'EP2611120735'],
+  [12, '12/11/2026 08:10', '61C22014T', 'An Phú toll station', '75000', 'EP2611120810'],
+  [15, '12/11/2026 10:02', '51C12T', 'ĐT743 toll station', '40000', 'EP2611121002'],
+  [18, '11/11/2026 21:30', '51C77710T', 'Long Phước toll station', '120000', 'EP2611112130'],
+  [21, '12/11/2026 13:05', '51D70233T', 'QL1A Bình Chánh toll station', '', 'EP2611121305'],
+  [26, '10/11/2026 07:15', '51C12345T', 'ĐT741 toll station', '40000', 'EP2611100715'],
+  [27, '10/11/2026 09:40', '51C12345T', 'Long Phước toll station', '120000', 'EP2611100940'],
+  [31, '12/11/2026 02:15', '51C09921T', 'Hà Nội Highway toll station', '40000', 'EP2611120215']
+];
+const PREV = new Set(['EP2611100715', 'EP2611100940', 'EP2611100802']); // đã import ở IMP-0084
+const TOTAL = 192, PREV_HIDDEN = 1;
+const HIST0 = [
+  { id: 'IMP-0088', at: '12/11/2026 08:58', src: 'etc', vendor: 'ePass', file: 'Sao ke ePass 10-12.11.xlsx', by: 'Mai Hồng', period: '10/11 – 12/11', n: 186, ok: 171, todo: 15, st: 'todo' },
+  { id: 'IMP-0087', at: '11/11/2026 17:20', src: 'fuel', vendor: 'Petrolimex FleetCard', file: 'FleetCard_T11_tuan2.xlsx', by: 'Mai Hồng', period: '04/11 – 10/11', n: 64, ok: 61, todo: 0, st: 'done' },
+  { id: 'IMP-0086', at: '11/11/2026 09:05', src: 'xml', vendor: 'XML', file: '23 file XML', by: 'Mai Hồng', period: '01/11 – 10/11', n: 23, ok: 21, todo: 0, st: 'done' },
+  { id: 'IMP-0085', at: '08/11/2026 15:42', src: 'etc', vendor: 'VETC', file: 'VETC_sao_ke_thang10.xlsx', by: 'Mai Hồng', period: '01/10 – 31/10', n: 205, ok: 0, todo: 0, st: 'undone', note: 'Undone 08/11 16:10 · wrong period selected' },
+  { id: 'IMP-0084', at: '08/11/2026 15:55', src: 'etc', vendor: 'VETC', file: 'VETC_sao_ke_01-07.11.xlsx', by: 'Mai Hồng', period: '01/11 – 07/11', n: 198, ok: 190, todo: 0, st: 'done' },
+  { id: 'IMP-0081', at: '05/11/2026 10:12', src: 'etc', vendor: 'VETC', file: 'VETC_sao_ke_25-31.10.xlsx', by: 'Mai Hồng', period: '25/10 – 31/10', n: 177, ok: 169, todo: 0, st: 'locked', locked: 41 },
+  { id: 'IMP-0079', at: '03/11/2026 14:30', src: 'tpl', vendor: 'Template', file: 'Sua chua thang 10.xlsx', by: 'Phan Thắng', period: '01/10 – 31/10', n: 18, ok: 18, todo: 0, st: 'locked', locked: 6 }
+];
+
+let S;
+function reset() {
+  S = { tab: 'new', step: 1, src: 'etc', vendor: 'VETC', file: null, loading: false, readErr: false, saveTpl: true, tplName: 'ePass statement',
+    cols: COLS0.map(c => ({ name: c[0], samples: c[1], field: c[2], hint: c[3], auto: !!c[2] })),
+    rows: ROWS0.map(r => ({ r: r[0], t: r[1], plate: r[2], place: r[3], amt: r[4], code: r[5] })),
+    filter: 'all', editing: null, hist: HIST0.map(h => ({ ...h })), histSrc: 'all', histLoading: false, histEmpty: false };
+}
+const hasTpl = () => !!TPL[S.vendor] || S.src === 'xml' || S.src === 'tpl';
+
+/* ---------- Kiểm tra dòng ---------- */
+function normPlate(v) { const x = String(v || '').replace(/[\s.\-]/g, '').toUpperCase().replace(/[TVX]$/, ''); const m = x.match(/^(\d{2}[A-Z]{1,2})(\d{3})(\d{2})$/); return m ? `${m[1]}-${m[2]}.${m[3]}` : null; }
+function parseDT(v) {
+  const m = String(v || '').match(/^(\d{1,2})\/(\d{1,2})\/(\d{4}) (\d{1,2}):(\d{2})$/); if (!m) return { err: `Time '${v}' is not in a valid format` };
+  const d = new Date(+m[3], +m[2] - 1, +m[1], +m[4], +m[5]); if (d.getMonth() !== +m[2] - 1) return { err: `Date '${m[1]}/${m[2]}/${m[3]}' doesn't exist` }; return { d };
+}
+function validate(r) {
+  const e = {};
+  const p = parseDT(r.t); if (p.err) e.t = p.err;
+  if (!r.plate) e.plate = 'Missing plate'; else if (!normPlate(r.plate)) e.plate = `License plate '${r.plate}' is in the wrong format`;
+  if (!r.amt) e.amt = 'Missing amount'; else if (!/^\d+$/.test(r.amt.replace(/,/g, ''))) e.amt = `Amount '${r.amt}' isn't a number`;
+  const n = Object.keys(e).length;
+  return { e, n, plate: normPlate(r.plate), prev: !n && PREV.has(r.code) };
+}
+function stats() {
+  const v = S.rows.map(validate); const err = v.filter(x => x.n).length, prev = v.filter(x => x.prev).length + PREV_HIDDEN;
+  return { v, err, prev, ok: TOTAL - err - prev };
+}
+
+/* ---------- Khung ---------- */
+function renderTabs() {
+  $('tabs').innerHTML = `<button role="tab" aria-selected="${S.tab === 'new'}" data-tab="new">${icon('upload')}New import</button><button role="tab" aria-selected="${S.tab === 'history'}" data-tab="history">${icon('clock')}Import history <span class="count-pill">${S.histEmpty ? 0 : S.hist.length}</span></button>`;
+  $('tabs').querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { S.tab = b.dataset.tab; render(); });
+}
+const STEPS = ['Choose source & file', 'Map columns', 'Preview & fix', 'Result'];
+function renderStepper() {
+  const st = $('stepper'); st.hidden = S.tab !== 'new'; if (st.hidden) return;
+  const skip2 = hasTpl() && S.step > 1;
+  st.innerHTML = STEPS.map((t, i) => {
+    const n = i + 1, isSkip = n === 2 && skip2, cls = isSkip ? 'skip' : n < S.step ? 'done' : n === S.step ? 'cur' : '';
+    const label = isSkip ? `${t} <span class="via">· using saved template</span>` : t;
+    return `${i ? `<span class="line ${n <= S.step ? 'done' : ''}"></span>` : ''}<button type="button" class="${cls}" ${n < S.step && S.step < 4 && !isSkip ? `data-go="${n}"` : 'tabindex="-1"'} ${n === S.step ? 'aria-current="step"' : ''}><span class="n">${n < S.step ? icon(isSkip ? 'copy' : 'check') : n}</span>${label}</button>`;
+  }).join('');
+  st.querySelectorAll('[data-go]').forEach(b => b.onclick = () => { S.step = +b.dataset.go; render(); });
+}
+function render() { renderTabs(); renderStepper(); if (S.tab === 'history') return renderHistory(); [step1, step2, step3, step4][S.step - 1](); }
+function foot(html) { $('footbar').hidden = !html; $('footbar').innerHTML = html || ''; requestAnimationFrame(syncFoot); }
+function syncFoot() { const se = document.scrollingElement; $('footbar').classList.toggle('stuck', se.scrollHeight - se.scrollTop - se.clientHeight > 2); }
+addEventListener('scroll', syncFoot, { passive: true }); addEventListener('resize', syncFoot);
+
+/* ---------- Bước 1 ---------- */
+function step1() {
+  const src = SRC.find(s => s.k === S.src), tpl = TPL[S.vendor];
+  let tplLine = '';
+  if (S.src === 'etc' || S.src === 'fuel') tplLine = tpl
+    ? `<div class="tplline"><span class="ic">${icon('copy')}</span><div class="grow">Using saved mapping template <b>"${tpl.name}"</b><span class="cell-sub">Used ${tpl.used}× · last on ${tpl.last}. The Map columns step is skipped.</span></div><button class="btn btn-ghost btn-sm" type="button" id="editTpl">Remap columns</button></div>`
+    : `<div class="tplline new"><span class="ic">${icon('pen')}</span><div class="grow">First import from <b>${S.vendor}</b><span class="cell-sub">You map the columns once in the next step, and the system saves them as a template for future imports.</span></div></div>`;
+  let zone;
+  if (S.readErr) zone = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Couldn't read '<b>LichSuQuaTram.xls</b>'. The file downloaded from ${S.vendor} is an HTML file renamed to .xls. Open it in Excel, choose Save as .xlsx, then upload it again.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="pickAgain">Choose another file</button></div></div>`;
+  else if (S.file) zone = `<div class="filechip"><span class="ficon">${icon('doc', 'lg')}</span><div class="grow"><b>${S.file}</b><span class="cell-sub">${S.src === 'xml' ? '23 file · 412 KB' : `1 sheet · ${TOTAL} transaction rows · 96 KB`} · uploaded at 08:51</span></div><button class="btn btn-ghost btn-sm" type="button" id="removeFile">${icon('x')}Remove file</button></div>`;
+  else zone = `<div class="drop" id="drop">${icon('import')}<b style="font-size:15px;color:var(--fg-strong)">Drag your ${S.src === 'xml' ? 'XML or .zip' : 'statement'} file here, or <button class="btn btn-secondary btn-sm" type="button" id="pickFile" style="margin-left:4px">Choose file</button></b><span class="sm muted">${S.src === 'xml' ? 'Supports .xml and .zip, up to 200 files at a time.' : 'Use the original file from the provider as is, no edits needed. Supports .xlsx, .xls, .csv, up to 10 MB.'}</span><input type="file" id="fileIn" hidden></div>`;
+  $('body').innerHTML = `<div class="s1">
+    <section class="card"><div class="card-head"><h2 style="font-size:15px">Cost source</h2></div><div class="card-body stack" style="gap:16px">
+      <div class="rcards" role="radiogroup" aria-label="Source type">${SRC.map(s => `<label class="rc"><input type="radio" name="src" value="${s.k}" ${S.src === s.k ? 'checked' : ''}><b>${icon(s.ic)}${s.l}</b><small>${s.s}</small></label>`).join('')}</div>
+      <div class="row wrap" style="gap:12px;align-items:flex-end">
+        <label class="field" style="width:260px"><span>Provider</span><select class="input" id="vendor" ${src.vendors.length < 2 ? 'disabled' : ''}>${src.vendors.map(v => `<option ${v === S.vendor ? 'selected' : ''}>${v}</option>`).join('')}</select></label>
+        <label class="field" style="width:200px"><span>Branch</span><select class="input"><option>TP.HCM</option><option>Bình Dương</option></select></label>
+      </div>
+      ${tplLine}
+      ${zone}
+    </div></section>
+    <aside class="card"><div class="card-head"><h2 style="font-size:15px">Where do I get the file?</h2></div><div class="card-body howto stack" style="gap:12px;padding-top:6px">
+      <ol>${HOWTO[S.vendor].map(x => `<li>${x}</li>`).join('')}</ol>
+      ${LAST[S.vendor] ? `<div class="tplline"><span class="ic" style="background:var(--info-soft);color:var(--info-fg)">${icon('calendar')}</span><div class="grow">Last import: period <b class="num">${LAST[S.vendor][0]}</b><span class="cell-sub">Download the statement from <span class="num">${LAST[S.vendor][1]}</span> onward so no transactions are missed</span></div></div>` : ''}
+      ${S.src === 'tpl' ? `<button class="btn btn-secondary btn-sm" type="button" id="dlTpl" style="align-self:flex-start">${icon('download')}Download cost template</button>` : ''}
+      <p class="note" style="margin-top:auto">No need to edit the file before uploading. Transactions with the same ID as a previous import are skipped automatically.</p>
+      <a class="btn btn-ghost btn-sm" href="fm-39-tich-hop.html" style="align-self:flex-start;margin-left:-8px">${icon('link')}Connect automatically to skip manual imports</a>
+    </div></aside></div>`;
+  document.querySelectorAll('input[name=src]').forEach(r => r.onchange = () => { S.src = r.value; S.vendor = SRC.find(s => s.k === S.src).vendors[0]; S.file = null; render(); });
+  $('vendor').onchange = e => { S.vendor = e.target.value; render(); };
+  const et = $('editTpl'); if (et) et.onclick = () => toast(`The Map columns step opens after you choose a file. Template "${TPL[S.vendor].name}" is updated when you save.`);
+  const dz = $('drop'); if (dz) {
+    dz.ondragover = e => { e.preventDefault(); dz.classList.add('over'); }; dz.ondragleave = () => dz.classList.remove('over');
+    dz.ondrop = e => { e.preventDefault(); accept(); };
+    $('pickFile').onclick = () => accept();
+  }
+  const pa = $('pickAgain'); if (pa) pa.onclick = () => { S.readErr = false; render(); };
+  const rf = $('removeFile'); if (rf) rf.onclick = () => { S.file = null; render(); };
+  const dl = $('dlTpl'); if (dl) dl.onclick = () => toast('Downloaded "Mau-chi-phi.xlsx"');
+  const can = !!S.file;
+  const nextLbl = hasTpl() ? 'Continue: Preview' : 'Continue: Map columns';
+  foot(`<span class="sm muted" style="margin-right:auto">The transaction period and trips are detected from the data in the file.</span><span class="tip"><button class="btn btn-primary" type="button" id="next" ${can ? '' : 'disabled'}>${nextLbl}</button>${can ? '' : '<span class="tip-body right">Choose a file first</span>'}</span>`);
+  $('next').onclick = () => { S.step = hasTpl() ? 3 : 2; S.loading = true; render(); setTimeout(() => { S.loading = false; render(); }, 800); };
+}
+function accept() { S.file = S.src === 'xml' ? 'HDDT_dau_vao_11-2026.zip' : S.src === 'tpl' ? 'Chi phi sua chua T11.xlsx' : S.vendor === 'ePass' ? 'Sao ke ePass 10-12.11.xlsx' : S.vendor === 'VETC' ? 'VETC_sao_ke_10-12.11.xlsx' : 'Sao_ke_the_nhien_lieu.xlsx'; render(); }
+
+/* ---------- Bước 2: Ghép cột ---------- */
+function step2() {
+  if (S.loading) return skeleton(['File column', 'Sample values', '', 'System field', 'Detection']);
+  const used = {}; S.cols.forEach(c => { if (c.field && c.field !== '__skip') used[c.field] = (used[c.field] || 0) + 1; });
+  const need = S.cols.filter(c => !c.field).length, autoN = S.cols.filter(c => c.auto).length;
+  const missing = REQUIRED.filter(f => !used[f]);
+  const block = missing.length || need || (S.saveTpl && !S.tplName.trim());
+  $('body').innerHTML = `
+    <div class="alert alert-info">${icon('sparkle')}<div>Auto-detected <b>${autoN}/${S.cols.length} columns</b> in the ${S.vendor} file.${need ? ` <b>${need} columns still need mapping.</b>` : ' All columns are mapped.'}</div></div>
+    <section class="card"><div class="card-head"><h2 style="font-size:15px">Map columns · <span class="muted" style="font-weight:500">${S.file}</span></h2><span class="sm muted" style="margin-left:auto">* required: ${REQUIRED.join(', ')}</span></div>
+    <div class="grid-wrap"><table class="grid map"><thead><tr><th>File column</th><th>Sample values</th><th style="width:24px"></th><th>System field</th><th>Detection</th></tr></thead><tbody>
+    ${S.cols.map((c, i) => {
+      const st = !c.field ? `<span class="badge b-warning">${icon('warn')}Needs mapping</span>` : c.field === '__skip' ? `<span class="badge b-neutral">${icon('x')}Skipped</span>` : c.auto ? `<span class="badge b-success">${icon('check')}Auto-detected</span>` : `<span class="badge b-info">${icon('pen')}Set manually</span>`;
+      return `<tr class="${!c.field ? 'need' : ''}"><td><b style="font-weight:600">${c.name}</b></td><td class="samples">${c.samples.map(s => `<span class="code">${s}</span>`).join('')}</td><td class="muted">→</td>
+        <td><select class="input" data-map="${i}" aria-label="Field for column ${c.name}"><option value="" ${!c.field ? 'selected' : ''}>Choose a field…</option>${FIELDS.map(f => `<option value="${f}" ${c.field === f ? 'selected' : ''}>${f}${REQUIRED.includes(f) ? ' *' : ''}</option>`).join('')}<option value="__skip" ${c.field === '__skip' ? 'selected' : ''}>Skip this column</option></select>${c.hint && c.field && c.field !== '__skip' ? `<span class="cell-sub">${c.hint}</span>` : ''}</td><td>${st}</td></tr>`;
+    }).join('')}</tbody></table></div>
+    <div class="savetpl"><label class="chk"><input type="checkbox" id="saveTpl" ${S.saveTpl ? 'checked' : ''}>Save as a template for provider <b>${S.vendor}</b></label>
+      ${S.saveTpl ? `<input class="input" id="tplName" value="${S.tplName}" aria-label="Template name" placeholder="Template name" style="${S.tplName.trim() ? '' : 'border-color:var(--danger-solid)'}"><span class="sm muted">Next time you import a ${S.vendor} file, this step is skipped.</span>` : ''}</div></section>`;
+  document.querySelectorAll('[data-map]').forEach(s => s.onchange = () => { const c = S.cols[+s.dataset.map]; c.field = s.value; c.auto = false; step2(); });
+  $('saveTpl').onchange = e => { S.saveTpl = e.target.checked; step2(); };
+  const tn = $('tplName'); if (tn) tn.onchange = () => { S.tplName = tn.value; step2(); };
+  const reasons = [missing.length && 'Missing: ' + missing.join(', '), need && `${need} columns have no field yet (choose "Skip this column" if not needed)`, S.saveTpl && !S.tplName.trim() && 'Name the template'].filter(Boolean);
+  foot(`<button class="btn btn-ghost" type="button" id="back" style="margin-right:auto">Back</button><span class="tip"><button class="btn btn-primary" type="button" id="next" ${block ? 'disabled' : ''}>${S.saveTpl ? 'Save template & preview' : 'Preview data'}</button>${block ? `<span class="tip-body right">${reasons.join('. ')}.</span>` : ''}</span>`);
+  $('back').onclick = () => { S.step = 1; render(); };
+  $('next').onclick = () => { S.step = 3; render(); if (S.saveTpl) { TPL[S.vendor] = { name: S.tplName, used: 1, last: '12/11/2026' }; toast(`Saved template "${S.tplName}" for ${S.vendor}`); } };
+}
+function skeleton(cols) {
+  $('body').innerHTML = `<section class="card"><div class="card-head"><h2 style="font-size:15px">Reading file…</h2><span class="row sm muted" style="margin-left:auto">${icon('refresh')}${S.file || ''}</span></div><table class="grid"><thead><tr>${cols.map(c => `<th>${c}</th>`).join('')}</tr></thead><tbody>${Array(8).fill(`<tr>${cols.map(() => '<td><span class="sk" style="width:70%"></span></td>').join('')}</tr>`).join('')}</tbody></table></section>`;
+  foot(`<button class="btn btn-ghost" type="button" disabled style="margin-right:auto">Back</button><button class="btn btn-primary" type="button" disabled>Reading…</button>`);
+}
+
+/* ---------- Bước 3: Xem trước ---------- */
+const PCOLS = [['t', 'Time'], ['plate', 'License plate'], ['place', 'Location'], ['amt', 'Amount', 1], ['code', 'Transaction ID']];
+function step3() {
+  if (S.loading) return skeleton(['Row', 'Time', 'License plate', 'Location', 'Amount', 'Status']);
+  const st = stats();
+  const rows = S.rows.map((r, i) => ({ r, i, v: st.v[i] })).filter(x => S.filter === 'all' || (S.filter === 'ok' && !x.v.n && !x.v.prev) || (S.filter === 'err' && x.v.n) || (S.filter === 'prev' && x.v.prev));
+  const chip = (k, l, n) => `<button class="chip ${S.filter === k ? 'on' : ''}" type="button" data-f="${k}" aria-pressed="${S.filter === k}">${l} <b class="num">${n}</b></button>`;
+  const cell = (x, k) => {
+    const raw = x.r[k], err = x.v.e[k];
+    if (S.editing && S.editing.i === x.i && S.editing.k === k) return `<input class="cell-in num" data-edit value="${raw}" aria-label="Edit cell" aria-invalid="${!!err}">${err ? `<span class="emsg">${icon('block')}${err}</span>` : ''}`;
+    let disp = raw;
+    if (!err && k === 'plate') disp = `<span class="code">${x.v.plate}</span>`;
+    if (!err && k === 'amt') disp = `<span class="num">${fmt.vnd(+raw)}</span>`;
+    if (k === 'code') return `<span class="code muted sm">${raw}</span>`;
+    if (k === 'place') return raw;
+    return `<span class="cellv ${err ? 'bad' : ''} ${!raw ? 'empty-v' : ''} num" tabindex="0" role="button" data-cell="${x.i}" data-k="${k}" aria-label="${err ? 'Error: ' + err + '. ' : ''}Edit cell">${raw ? disp : 'empty'}</span>${err ? `<span class="emsg">${icon('block')}${err}</span>` : ''}`;
+  };
+  const stat = x => x.v.n ? `<span class="badge b-danger">${icon('block')}${x.v.n > 1 ? x.v.n + ' errors' : 'Has errors'}</span>` : x.v.prev ? `<span class="tip"><span class="badge b-neutral" tabindex="0">${icon('copy')}Imported in IMP-0084</span><span class="tip-body right">Same transaction ID as the 08/11/2026 import. This row will be skipped automatically.</span></span>` : `<span class="badge b-success">${icon('check')}Valid</span>`;
+  $('body').innerHTML = `
+    <section class="card">
+      <div class="card-head" style="flex-wrap:wrap;gap:8px">
+        <div class="filterbar">${chip('all', 'All', TOTAL)}${chip('ok', 'Valid', st.ok)}${chip('err', 'Has errors', st.err)}${chip('prev', 'Previously imported', st.prev)}</div>
+        <span class="sm muted" style="margin-left:auto">${S.file || 'Sao ke ePass 10-12.11.xlsx'} · period 10/11 – 12/11/2026 · ${S.vendor}</span>
+        <button class="btn btn-secondary btn-sm" type="button" id="dlErr" ${st.err ? '' : 'disabled'}>${icon('download')}Download error file (${st.err} rows)</button>
+      </div>
+      <div class="grid-wrap"><table class="grid pv"><thead><tr><th>Row</th>${PCOLS.map(c => `<th class="${c[2] ? 'right' : ''}">${c[1]}</th>`).join('')}<th>Row status</th></tr></thead>
+      <tbody>${rows.length ? rows.map(x => `<tr><td class="num muted">${x.r.r}</td>${PCOLS.map(c => `<td class="${c[2] ? 'right' : ''}">${cell(x, c[0])}</td>`).join('')}<td>${stat(x)}</td></tr>`).join('') : `<tr><td colspan="7"><div class="empty" style="padding:28px 16px">${icon('check')}<h3>No error rows left</h3><p>All error rows have been fixed.</p></div></td></tr>`}</tbody></table></div>
+      <div class="sm muted gridfoot">${S.filter === 'all' || S.filter === 'ok' ? `Showing ${rows.length} rows · <span class="num">${TOTAL - S.rows.length - PREV_HIDDEN}</span> other valid rows collapsed. ` : ''}Click an error cell to fix it; the row is rechecked when you leave the cell. Plates are read without the plate color suffix (T, V, X).</div>
+    </section>`;
+  document.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { S.filter = b.dataset.f; S.editing = null; step3(); });
+  document.querySelectorAll('[data-cell]').forEach(c => { const open = () => { S.editing = { i: +c.dataset.cell, k: c.dataset.k }; step3(); }; c.onclick = open; c.onkeydown = e => { if (e.key === 'Enter') open(); }; });
+  const ed = document.querySelector('[data-edit]');
+  if (ed) {
+    ed.focus(); ed.select();
+    const commit = () => { const { i, k } = S.editing; const b = validate(S.rows[i]).n; S.rows[i][k] = ed.value.trim(); S.editing = null; step3(); if (b && !validate(S.rows[i]).n) toast(`Row ${S.rows[i].r} is now valid`); };
+    ed.onblur = commit; ed.onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); ed.blur(); } if (e.key === 'Escape') { S.editing = null; step3(); } };
+  }
+  $('dlErr').onclick = () => toast(`Downloaded "Sao ke ePass - loi.xlsx" (${st.err} with errors, plus an "Error reason" column)`);
+  foot(`<button class="btn btn-ghost" type="button" id="back" style="margin-right:auto">${hasTpl() ? 'Back to file selection' : 'Back to column mapping'}</button><span class="sm muted">${st.err ? `${st.err} with errors won't be imported · ` : ''}${st.prev} already imported (skipped)</span><button class="btn btn-primary" type="button" id="doImport">Import ${st.ok} transactions & match to trips</button>`);
+  $('back').onclick = () => { S.step = hasTpl() ? 1 : 2; render(); };
+  $('doImport').onclick = () => { S.result = { n: st.ok, skip: st.err + st.prev }; S.step = 4; render(); };
+}
+
+/* ---------- Bước 4: Kết quả ---------- */
+function step4() {
+  const r = S.result || { n: 186, skip: 6 };
+  const todo = 15, ok = r.n - todo;
+  $('body').innerHTML = `
+    <div class="alert alert-success" role="status">${icon('check')}<div>Imported <b>${r.n} transactions</b> from ${S.vendor} (import ID <span class="code">IMP-0088</span>) at 08:58 on 12/11/2026 and matched them to trips automatically.</div></div>
+    <div class="summary" aria-label="Import results">
+      <div class="sum-main"><span class="k">Matched to trips</span><span class="v">${ok}<small>/ ${r.n} transactions</small></span><span class="d">${fmt.pct(ok / r.n * 100)} · added to trip costs, awaiting settlement</span></div>
+      <a class="sum-item" href="fm-24-khop-giao-dich.html"><span class="k">To resolve</span><span class="v">${todo}</span><span class="d">Open Transaction matching ${icon('chevron-right')}</span></a>
+      <div class="sum-item"><span class="k">Possible duplicates of driver expenses</span><span class="v">2</span><span class="d">Same vehicle, same day, difference ≤ 1%</span></div>
+      <div class="sum-item"><span class="k">Skipped</span><span class="v">${r.skip}</span><span class="d">Error rows or previously imported</span></div>
+    </div>
+    <p class="sm muted">You can undo this whole import from the Import history tab, as long as the related trips haven't been settled.</p>`;
+  foot(`<button class="btn btn-ghost" type="button" id="undo" style="margin-right:auto">${icon('undo')}Undo this import</button><button class="btn btn-secondary" type="button" id="again">Import another file</button><a class="btn btn-primary" href="fm-24-khop-giao-dich.html">Resolve ${todo} unmatched transactions</a>`);
+  $('undo').onclick = () => rollback(S.hist[0]);
+  $('again').onclick = () => { reset(); render(); };
+}
+
+/* ---------- Lịch sử ---------- */
+const SRCL = { etc: ['ETC statement', 'toll'], fuel: ['Fuel cards', 'fuel'], xml: ['Purchase e-invoices', 'invoice'], tpl: ['Template', 'doc'] };
+function stBadge(h) {
+  if (h.st === 'todo') return `<a class="badge b-warning" href="fm-24-khop-giao-dich.html">${icon('warn')}${h.todo} to resolve</a>`;
+  if (h.st === 'undone') return `<span class="tip"><span class="badge b-neutral" tabindex="0">${icon('undo')}Undone</span><span class="tip-body right">${h.note}</span></span>`;
+  if (h.st === 'locked') return `<span class="tip"><span class="badge b-success" tabindex="0">${icon('lock')}Completed · ${h.locked} locked</span><span class="tip-body right">${h.locked} transactions belong to settled trips.</span></span>`;
+  return `<span class="badge b-success">${icon('check')}Completed</span>`;
+}
+function renderHistory() {
+  foot('');
+  const el = $('body');
+  if (S.histLoading) { el.innerHTML = `<section class="card"><div class="card-title"><span class="sk" style="width:180px"></span></div><table class="grid"><tbody>${Array(7).fill('<tr>' + Array(8).fill('<td><span class="sk" style="width:75%"></span></td>').join('') + '</tr>').join('')}</tbody></table></section>`; return; }
+  if (S.histErr) { el.innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Couldn't load import history. Check your network connection and try again.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="retry">${icon('refresh')}Retry</button></div></div>`; $('retry').onclick = () => { S.histErr = false; renderHistory(); }; return; }
+  if (S.histEmpty) { el.innerHTML = `<section class="card"><div class="empty">${icon('tray')}<h3>No imports yet</h3><p>Import an ETC or fuel card statement so costs land on the right trips automatically.</p><button class="btn btn-primary" type="button" id="go">Import your first file</button></div></section>`; $('go').onclick = () => { S.tab = 'new'; S.histEmpty = false; render(); }; return; }
+  const list = S.hist.filter(h => S.histSrc === 'all' || h.src === S.histSrc);
+  el.innerHTML = `
+    <section class="card">
+      <div class="card-title"><h2>Imports</h2><span class="count-pill">${list.length}</span>
+        <div class="meta"><div class="seg" role="group" aria-label="Filter by source">${[['all', 'All'], ['etc', 'ETC'], ['fuel', 'Fuel cards'], ['xml', 'E-invoices'], ['tpl', 'Template']].map(([k, l]) => `<button type="button" data-hs="${k}" aria-pressed="${S.histSrc === k}">${l}</button>`).join('')}</div></div></div>
+      <div class="grid-wrap"><table class="grid hist"><thead><tr><th>Code</th><th>Time</th><th>Source</th><th>File</th><th>Transaction period</th><th class="right">Matched / transactions</th><th>Status</th><th></th></tr></thead><tbody>
+      ${list.map(h => `<tr class="${h.st === 'undone' ? 'undone' : ''}"><td><b class="code">${h.id}</b></td><td class="num">${h.at}<span class="cell-sub">${h.by}</span></td>
+        <td><span class="src">${icon(SRCL[h.src][1])}${SRCL[h.src][0]}</span><span class="cell-sub">${h.vendor}</span></td>
+        <td><span class="fname" title="${h.file}">${h.file}</span></td><td class="num">${h.period}</td>
+        <td class="right num">${h.st === 'undone' ? '—' : h.ok} / ${h.n}</td><td>${stBadge(h)}</td>
+        <td class="right">${h.st === 'undone' ? '' : `<button class="btn btn-ghost btn-sm" type="button" data-rb="${h.id}">${icon('undo')}Undo</button>`}</td></tr>`).join('')}
+      </tbody></table></div>
+      <div class="sm muted gridfoot">Undo deletes all transactions from the import and removes them from trip costs. Transactions already on settled trips are locked.</div>
+    </section>
+    <section class="card">
+      <div class="card-title"><h2>Saved mapping templates</h2><span class="count-pill">${Object.keys(TPL).length}</span><span class="meta sm muted">One template per provider, applied automatically on import</span></div>
+      <div class="tpls">${Object.entries(TPL).map(([v, t]) => `<div class="tpl">${icon(v.includes('Petro') || v.includes('PVOil') ? 'fuel' : 'toll')}<div class="grow"><b>${t.name}</b><span class="cell-sub">${v} · used ${t.used}× · last ${t.last}</span></div><button class="btn btn-ghost btn-sm" type="button" data-tpl="${v}">Edit mapping</button><button class="btn btn-ghost btn-sm" type="button" data-tdel="${v}" style="color:var(--fg-muted)">Delete</button></div>`).join('')}</div>
+    </section>`;
+  el.querySelectorAll('[data-hs]').forEach(b => b.onclick = () => { S.histSrc = b.dataset.hs; renderHistory(); });
+  el.querySelectorAll('[data-rb]').forEach(b => b.onclick = () => rollback(S.hist.find(h => h.id === b.dataset.rb)));
+  el.querySelectorAll('[data-tpl]').forEach(b => b.onclick = () => toast(`Columns for template "${TPL[b.dataset.tpl].name}" will be remapped on the next ${b.dataset.tpl} import`));
+  el.querySelectorAll('[data-tdel]').forEach(b => b.onclick = () => { const v = b.dataset.tdel, keep = TPL[v]; delete TPL[v]; renderHistory(); toast(`Deleted template "${keep.name}"`, { undo: () => { TPL[v] = keep; renderHistory(); } }); });
+}
+
+/* ---------- Hoàn tác ---------- */
+function modal(html) {
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim';
+  const m = document.createElement('div'); m.className = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.style.width = 'min(520px, calc(100vw - 32px))';
+  m.innerHTML = html; document.body.append(s, m);
+  const close = () => { Shell.dismiss(s); Shell.dismiss(m); };
+  s.onclick = close; m.querySelectorAll('[data-x]').forEach(b => b.onclick = close); (m.querySelector('[data-x]')).focus();
+  return { m, close };
+}
+function rollback(h) {
+  if (h.st === 'locked') {
+    const { m, close } = modal(`<h2>Can't fully undo <span class="code">${h.id}</span></h2>
+      <div class="alert alert-warning">${icon('lock')}<div><b>${h.locked} transactions</b> are on settled trips (CH-0431 and ${h.id === 'IMP-0081' ? '11' : '3'} other trips). Costs of settled trips are locked.</div></div>
+      <p class="muted">You can undo the unlocked part (<b class="num">${h.n - h.locked}</b> transactions), or reopen the settlements of these trips on the Settlement screen and then undo the whole import.</p>
+      <div class="row" style="justify-content:flex-end;flex-wrap:wrap"><a class="btn btn-ghost" href="fm-22-quyet-toan.html" style="margin-right:auto">Open Settlement</a><button class="btn btn-secondary" type="button" data-x>Close</button><button class="btn btn-danger" type="button" id="part">Undo ${h.n - h.locked} transactions</button></div>`);
+    m.querySelector('#part').onclick = () => { close(); toast(`Undid ${h.n - h.locked} unlocked transactions from ${h.id}`); };
+    return;
+  }
+  const trips = h.src === 'etc' ? 52 : h.src === 'fuel' ? 23 : 18;
+  const { m, close } = modal(`<h2>Undo import <span class="code">${h.id}</span>?</h2>
+    <p class="muted">${h.file} · ${h.vendor} · period ${h.period}</p>
+    <ul class="sumlist"><li>Delete <b class="num">${h.n}</b> imported transactions</li><li>Remove <b class="num">${h.ok}</b> cost lines from <b class="num">${trips}</b> unsettled trips</li>${h.st === 'todo' ? `<li>Drop ${h.todo} transactions pending in Transaction matching</li>` : ''}<li>The column mapping template is kept</li></ul>
+    <label class="field"><span>Reason *</span><select class="select" id="why"><option value="">Choose a reason…</option><option>Wrong period selected</option><option>Wrong file / provider selected</option><option>Wrong column mapping</option><option>Other</option></select></label>
+    <p class="sm muted">This can't be restored once you confirm. You can import the original file again.</p>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Keep</button><button class="btn btn-danger" type="button" id="doRb" disabled>Undo import</button></div>`);
+  const why = m.querySelector('#why'), ok = m.querySelector('#doRb');
+  why.onchange = () => ok.disabled = !why.value;
+  ok.onclick = () => { close(); h.st = 'undone'; h.note = `Undone 12/11 ${new Date().toTimeString().slice(0, 5)} · ${why.value.toLowerCase()}`; if (S.tab === 'new') { S.tab = 'history'; } render(); toast(`Undid ${h.id}: deleted ${h.n} transactions`); };
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal:not(.leaving), .modal-scrim:not(.leaving)').forEach(x => Shell.dismiss(x)); });
+
+/* ---------- States ---------- */
+Shell.states([['default', 'Default'], ['file', 'File selected (with template)'], ['mapping', 'First time: map columns'], ['preview', 'Preview with errors'], ['result', 'Result'], ['history', 'Import history'], ['blocked', 'Undo blocked'], ['loading', 'Loading'], ['empty', 'Empty'], ['error', 'File read error']], st => {
+  document.querySelectorAll('.modal, .modal-scrim').forEach(x => x.remove());
+  reset();
+  if (st === 'file') S.file = 'VETC_sao_ke_10-12.11.xlsx';
+  if (['mapping', 'preview', 'result'].includes(st)) { S.vendor = 'ePass'; S.file = 'Sao ke ePass 10-12.11.xlsx'; }
+  if (st === 'mapping') { S.step = 2; S.cols[3].field = ''; S.cols[3].auto = false; S.cols[6].field = ''; S.cols[6].auto = false; }
+  if (st === 'preview') { S.step = 3; S.cols[3].field = '__skip'; S.cols[6].field = 'Fee type'; S.filter = 'err'; }
+  if (st === 'result') S.step = 4;
+  if (st === 'history' || st === 'blocked' || st === 'empty') S.tab = 'history';
+  if (st === 'loading') { S.tab = 'history'; S.histLoading = true; }
+  if (st === 'empty') S.histEmpty = true;
+  if (st === 'error') S.readErr = true;
+  render();
+  if (st === 'blocked') rollback(S.hist.find(h => h.id === 'IMP-0081'));
+});
+</script>
+</body>
+</html>

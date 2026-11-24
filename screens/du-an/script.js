@@ -1,7 +1,8 @@
 /* Dự án — Portfolio (CR-02) dựng từ DATA_DU_AN (= các prototype trong showcase/) / DATA_DICH_VU, hiệu ứng từ portfolio-motion.js.
- * Giữ phần của repo: chip lọc lĩnh vực ?linh-vuc=hospitality | industrial | healthcare (chip + khối nội dung SEO render sẵn
- * trong index.html bởi showcase/_tools/build_playground.py), nút Playground bản mẫu (KTPCase.demo).
- * Bấm chip (hoặc tiêu đề khối lĩnh vực) thì lọc tại chỗ và đổi URL bằng history.pushState, không tải lại trang;
+ * Giữ phần của repo: chip lọc lĩnh vực ?linh-vuc=hospitality | industrial | healthcare | logistics (chip + khối nội dung SEO
+ * render sẵn trong index.html bởi showcase/_tools/build_playground.py), nút Playground bản mẫu (KTPCase.demo).
+ * Danh sách dự án: lưới 2 cột nhóm theo lĩnh vực (tên nhóm bên trái), dựng 1 lần; đổi lĩnh vực chỉ ẩn / hiện nhóm.
+ * Bấm chip (hoặc tiêu đề nhóm / khối lĩnh vực) thì lọc tại chỗ và đổi URL bằng history.pushState, không tải lại trang;
  * chip vẫn là link thật cho máy tìm kiếm, mở tab mới và nút Back / Forward.
  * Song ngữ: VI trong nội dung, EN ở data-en (KTP.en) — render đồng bộ trước DOMContentLoaded để global.js áp ngôn ngữ đã chọn;
  * phần dựng lại sau khi đổi lĩnh vực tự áp ngôn ngữ đang xem (applyLang). */
@@ -39,7 +40,8 @@
   /* ---- Lọc theo lĩnh vực: ?linh-vuc= → trang lĩnh vực (H1, title, meta theo lĩnh vực; ẩn phần giới thiệu chung) ---- */
   var LV = { hospitality: ['Phần mềm quản lý khách sạn, resort, villa — dự án & demo', 'Hotel, resort & villa management software — projects & demos'],
              industrial: ['Phần mềm CRM doanh nghiệp B2B, công nghiệp — dự án & demo', 'B2B & industrial CRM software — projects & demos'],
-             healthcare: ['Phần mềm y tế: bán hàng bệnh viện, phòng khám, POS nhà thuốc — dự án & demo', 'Healthcare software: hospital e-commerce, pharmacy POS — projects & demos'] };
+             healthcare: ['Phần mềm y tế: bán hàng bệnh viện, phòng khám, POS nhà thuốc — dự án & demo', 'Healthcare software: hospital e-commerce, pharmacy POS — projects & demos'],
+             logistics: ['Phần mềm quản lý đội xe, vận tải hàng hoá — dự án & demo', 'Fleet & road freight management software — projects & demos'] };
   var readLv = function () { var v = new URLSearchParams(location.search).get('linh-vuc'); return LV[v] ? v : ''; };
   var h1 = document.getElementById('pf-h1');
   var meta = document.querySelector('meta[name="description"]');
@@ -123,42 +125,46 @@
     }).join('');
   }
 
-  /* ⑤ Projects — card xếp chồng của lĩnh vực đang xem */
-  var stackList = document.getElementById('pf-stack-list');
+  /* ⑤ Projects — lưới 2 cột nhóm theo lĩnh vực: cột trái tên nhóm (ghim khi cuộn), cột phải card dự án.
+     Thứ tự / tên nhóm lấy từ chip lọc, dòng mô tả từ tiêu đề khối lĩnh vực (cả hai render sẵn bởi build_playground.py).
+     Dựng 1 lần lúc tải (trước DOMContentLoaded nên global.js áp ngôn ngữ và gắn .reveal); đổi lĩnh vực chỉ ẩn / hiện nhóm. */
+  var groupsEl = document.getElementById('pf-groups');
   var count = document.getElementById('pf-projects-count');
-  function renderProjects() {
-    if (!stackList) return;
-    setText(count, list.length + ' dự án tiêu biểu', list.length + ' featured projects');
-    stackList.innerHTML = list.map(function (d, i) {
-      var sub = d.anh_phu || [];
-      var m = d.ket_qua && d.ket_qua[0];
-      return '<div class="pf-card-wrap">' +
-        '<article class="pf-card" style="--offset:' + (i * 28) + 'px">' +
-          '<div class="pf-card__top">' +
-            '<div class="pf-card__num" aria-hidden="true">' + pad(i + 1) + '</div>' +
-            '<div class="pf-card__meta">' +
-              '<div class="case-card__badges">' + KTP.domainBadge(d) + K.badges(d) + '</div>' +
-              '<h3 class="pf-card__title"><a href="' + detail(d) + '"' + en(d.ten_du_an_en) + '>' + d.ten_du_an + '</a></h3>' +
-              chips(d) +
-            '</div>' +
-            '<div class="pf-card__actions">' +
-              '<a class="pf-ghost" href="' + detail(d) + '" aria-label="' + esc(d.ten_du_an) + '"><span data-en="View project">Xem dự án</span> ' + ARROW + '</a>' +
-              K.demo(d, ROOT, 'pf-pill') +
-            '</div>' +
-          '</div>' +
-          '<div class="pf-card__media">' +
-            '<div class="pf-card__col">' +
-              (sub[0] ? '<figure><img src="' + url(sub[0].anh) + '" alt="' + esc(sub[0].anh_alt) + '" loading="lazy"></figure>' : '') +
-              (sub[1] ? '<figure><img src="' + url(sub[1].anh) + '" alt="' + esc(sub[1].anh_alt) + '" loading="lazy"></figure>' : '') +
-            '</div>' +
-            '<figure><img src="' + url(d.anh) + '" alt="' + esc(d.anh_alt) + '" loading="lazy">' +
-              (m ? '<figcaption class="pf-card__metric"><strong' + en(m.chi_so_en) + '>' + m.chi_so + '</strong><span' + en(m.mo_ta_en) + '>' + m.mo_ta + '</span></figcaption>' : '') +
-            '</figure>' +
-          '</div>' +
-        '</article></div>';
+  function card(d) {
+    return '<article class="pf-tcard reveal">' +
+      '<a class="pf-tcard__media" href="' + detail(d) + '" tabindex="-1" aria-hidden="true"><img src="' + url(d.anh) + '" alt="" loading="lazy"></a>' +
+      '<div class="pf-tcard__body">' +
+        (K.badges(d) ? '<div class="case-card__badges">' + K.badges(d) + '</div>' : '') +
+        '<h4 class="pf-tcard__title"><a href="' + detail(d) + '"' + en(d.ten_du_an_en) + '>' + d.ten_du_an + '</a></h4>' +
+        '<p class="pf-tcard__desc"' + en(d.tom_tat_en) + '>' + d.tom_tat + '</p>' +
+        chips(d) +
+        '<div class="pf-tcard__actions">' +
+          '<a class="pf-tcard__more" href="' + detail(d) + '" aria-label="' + esc(d.ten_du_an) + '"><span data-en="View project">Xem dự án</span> ' + ARROW + '</a>' +
+          K.demo(d, ROOT, 'pf-pill') +
+        '</div>' +
+      '</div></article>';
+  }
+  if (groupsEl) {
+    groupsEl.innerHTML = Array.prototype.map.call(document.querySelectorAll('#du-an-chips [data-linh-vuc]'), function (chip) {
+      var slug = chip.getAttribute('data-linh-vuc'), name = chip.querySelector('span[data-en]');
+      var items = DATA_DU_AN.filter(function (d) { return d.linh_vuc === slug; });
+      if (!slug || !name || !items.length) return '';
+      var h = document.querySelector('#du-an-domains [data-linh-vuc="' + slug + '"] h2 span[data-en]'), n = items.length;
+      return '<section class="pf-group" data-linh-vuc="' + slug + '" aria-labelledby="pf-g-' + slug + '">' +
+        '<header class="pf-group__head reveal">' +
+          '<span class="pf-group__icon">' + KTP.domainIcon(slug) + '</span>' +
+          '<span class="pf-group__count" data-en="' + n + (n > 1 ? ' projects' : ' project') + '">' + n + ' dự án</span>' +
+          '<h3 class="pf-group__title" id="pf-g-' + slug + '"' + en(name.getAttribute('data-en')) + '>' + name.innerHTML + '</h3>' +
+          (h ? '<p class="pf-group__desc"' + en(h.getAttribute('data-en')) + '>' + h.innerHTML + '</p>' : '') +
+          '<a class="pf-group__link" href="?linh-vuc=' + slug + '"><span data-en="Industry page">Trang lĩnh vực</span> ' + ARROW + '</a>' +
+        '</header>' +
+        '<div class="pf-group__grid">' + items.map(card).join('') + '</div>' +
+      '</section>';
     }).join('');
-    applyLang(stackList);
-    M.stickyStack(stackList);
+  }
+  function renderProjects() {
+    setText(count, list.length + ' dự án tiêu biểu', list.length + ' featured projects');
+    if (groupsEl) groupsEl.querySelectorAll('.pf-group').forEach(function (g) { g.hidden = !!lv && g.getAttribute('data-linh-vuc') !== lv; });
   }
 
   /* Áp lĩnh vực: lần đầu lúc tải trang, sau đó mỗi lần bấm chip / Back / Forward */
@@ -195,9 +201,9 @@
     var y = keep ? window.scrollY + nav.getBoundingClientRect().top - top : 0;
     try { window.scrollTo({ top: y, left: 0, behavior: 'instant' }); } catch (err) { window.scrollTo(0, y); }
   }
-  // Bấm chip / tiêu đề khối lĩnh vực (cuối trang). Ctrl / Cmd / Shift / chuột giữa vẫn mở link như thường.
+  // Bấm chip / link "Trang lĩnh vực" của nhóm / tiêu đề khối lĩnh vực (cuối trang). Ctrl / Cmd / Shift / chuột giữa vẫn mở link như thường.
   document.addEventListener('click', function (e) {
-    var a = e.target.closest && e.target.closest('#du-an-chips a[href], #du-an-domains h2 a[href]');
+    var a = e.target.closest && e.target.closest('#du-an-chips a[href], #du-an-domains h2 a[href], #pf-groups .pf-group__link');
     if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     var to = new URL(a.href, location.href);
     var next = to.searchParams.get('linh-vuc') || '';

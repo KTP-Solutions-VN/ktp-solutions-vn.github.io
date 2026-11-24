@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rate card · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* FM_29 Bảng giá cước — master (danh sách bảng giá) / detail (giá, phụ phí, phiên bản) */
+  .md { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: var(--s-4); align-items: start; }
+  .master { position: sticky; top: calc(var(--header-h) + 16px); display: flex; flex-direction: column; max-height: calc(100vh - var(--header-h) - 32px); }
+  .card-title { display: flex; align-items: center; gap: 10px; padding: 16px 16px 8px; }
+  .card-title h2 { font-size: 15px; }
+  .master .search-global { margin: 0 12px 8px; max-width: none; }
+  .master .search-global input { height: 30px; }
+  .master .search-global .icon { top: 7px; }
+  .plist { list-style: none; margin: 0; padding: 0 8px 10px; display: flex; flex-direction: column; gap: 2px; overflow-y: auto; }
+  .pi { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 8px; padding: 10px 10px 10px 12px; border-radius: 8px; cursor: pointer; position: relative; border: 0; background: none; text-align: left; font: inherit; color: inherit; width: 100%; }
+  .pi:hover { background: var(--surface-muted); }
+  .pi[aria-current="true"] { background: var(--primary-soft); }
+  .pi[aria-current="true"]::before { content: ""; position: absolute; left: 0; top: 10px; bottom: 10px; width: 3px; border-radius: 0 2px 2px 0; background: var(--primary); }
+  .pi .n { font-weight: 600; color: var(--fg-strong); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pi .c { font-size: 12px; color: var(--fg-muted); grid-column: 1 / -1; }
+  .pi .b { grid-column: 1 / -1; display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+  .pi .badge { height: 20px; font-size: 12px; }
+  .pi .ln { font-size: 12px; color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+
+  .detail { min-width: 0; display: flex; flex-direction: column; }
+  .d-head { padding: 18px 20px 6px; display: flex; flex-direction: column; gap: 6px; }
+  .d-head .row1 { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .d-head .acts { margin-left: auto; display: flex; gap: 8px; }
+  .d-meta { display: flex; gap: 6px 18px; flex-wrap: wrap; font-size: 13px; color: var(--fg-muted); }
+  .d-meta b { color: var(--fg-strong); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .detail .tabs { padding: 0 12px; margin-top: 8px; }
+  .tab-body { padding: 16px 20px 20px; display: flex; flex-direction: column; gap: 16px; }
+  .price-tbl th, .price-tbl td { padding: 8px 10px; }
+  .price-tbl tbody tr:last-child td { border-bottom: 0; }
+  .m-pill { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .m-warn { color: var(--warning-fg); } .m-neg { color: var(--danger-fg); } .m-ok { color: var(--fg-strong); }
+  .unit { color: var(--fg-muted); font-size: 12px; }
+
+  /* Phụ phí */
+  .sur { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .sur-i { background: var(--surface-muted); border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; }
+  .sur-i .k { font-size: 12.5px; color: var(--fg-muted); font-weight: 500; }
+  .sur-i .v { font: 600 17px/24px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .sur-i .v small { font: 500 12.5px var(--font-body); color: var(--fg-muted); }
+  .sur-i .d { font-size: 12.5px; color: var(--fg-muted); line-height: 17px; }
+  .fsc { align-items: start; border-radius: 10px; background: var(--surface-muted); padding: 16px; display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 16px; }
+  .fsc h3 { font-size: 14px; }
+  .fx { font-variant-numeric: tabular-nums; font-size: 13.5px; line-height: 22px; color: var(--fg); }
+  .fx code { font: 500 13px var(--font-body); background: var(--surface); padding: 2px 6px; border-radius: 4px; color: var(--fg-strong); white-space: nowrap; }
+  .fx-out { background: var(--surface); border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; justify-content: center; }
+  .fx-out .k { font-size: 12px; color: var(--fg-muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+  .fx-out .v { font: 700 24px/30px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .fx-out .s { font-size: 12.5px; color: var(--fg-muted); }
+  .impact { display: flex; flex-direction: column; gap: 2px; }
+  .impact .r { display: grid; grid-template-columns: minmax(0, 1fr) 70px 18px 70px; gap: 8px; align-items: center; font-size: 13px; padding: 4px 0; }
+  .impact .r span:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+
+  /* Lịch sử phiên bản */
+  .vlist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .vi { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 12px; padding: 0 0 18px; position: relative; }
+  .vi::before { content: ""; position: absolute; left: 9px; top: 20px; bottom: 0; width: 2px; background: var(--surface-muted); }
+  .vi:last-child::before { display: none; }
+  .vi .dotv { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-muted); color: var(--fg-muted); }
+  .vi.cur .dotv { background: var(--primary-soft); color: var(--primary); }
+  .vi.draft .dotv { background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--fg-subtle); }
+  .vi .dotv .icon { width: 12px; height: 12px; }
+  .vi .t { font-weight: 600; color: var(--fg-strong); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .vi .m { font-size: 12.5px; color: var(--fg-muted); margin-top: 2px; }
+  .vi ul { margin: 6px 0 0; padding-left: 16px; font-size: 13px; color: var(--fg); line-height: 20px; }
+  .hidden { display: none !important; }
+  @media (max-width: 1100px) { .md { grid-template-columns: 1fr; } .master { position: static; max-height: none; } .sur { grid-template-columns: 1fr; } .fsc { grid-template-columns: 1fr; } }
+  .empty .btn .icon { width: 16px; height: 16px; stroke-width: 1.75; color: inherit; }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Freight rates / Rate card</div>
+      <h1>Rate card</h1>
+    </div>
+    <div class="actions">
+      <a class="btn btn-secondary" href="fm-31-du-toan.html#sim" id="btnSim"></a>
+      <button class="btn btn-primary" type="button" id="btnNew"></button>
+    </div>
+  </div>
+
+  <div id="topAlert"></div>
+
+  <div class="md" id="md">
+    <section class="card master" aria-labelledby="mTitle" id="master"></section>
+    <section class="card detail" aria-live="polite" id="detail"></section>
+  </div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_29', title: 'Rate card' });
+const $ = id => document.getElementById(id);
+$('btnSim').innerHTML = icon('fuel') + 'Simulate fuel price';
+$('btnNew').innerHTML = icon('plus') + 'Create rate card';
+
+/* ---------- Mô hình giá thành (cùng tham số FM_30, cùng cách tính FM_31) ---------- */
+const P = { diesel: 20150, base: 18600, share: .36, thr: 5, fixKm: 1000, lift: 680000 };
+const NORM = { '20DC': [34, 28], '40DC': [38, 30], '40HC': [38, 30], '20RF': [36, 28], '40RF': [40, 30], 'XT15': [25, 20] };
+const VNAME = { '20DC': "20' dry container", '40DC': "40' dry container", '40HC': "40' high-cube container", '20RF': "20' reefer container", '40RF': "40' reefer container", 'XT15': '15 t box truck' };
+const RT = { 'BD-01': ['Tân Uyên Industrial Park → Cát Lái', 46, 52, 120000, 200000], 'BD-02': ['Mỹ Phước 3 Industrial Park → Cát Lái', 58, 58, 135000, 220000], 'BD-03': ['Đồng An Industrial Park → Cát Lái', 34, 38, 60000, 100000], 'BD-04': ['Cát Lái → VSIP 1 Industrial Park', 32, 36, 135000, 220000], 'TN-01': ['Cát Lái → Phước Đông Industrial Park', 105, 105, 240000, 420000], 'TN-02': ['ICD Phước Long → Phước Đông Industrial Park → Cát Lái', 115, 115, 240000, 420000], 'DT-01': ['Cát Lái → Sa Đéc', 160, 160, 200000, 300000], 'TG-01': ['Bình Tân → Mỹ Tho', 75, 75, 110000, 160000], 'LA-01': ['Sóng Thần Industrial Park → Đức Hòa', 52, 52, 52000, 90000], 'LA-02': ['Sóng Thần Industrial Park → Bến Lức', 45, 45, 52000, 90000] };
+const grp = v => ['20DC', '20RF', 'XT15'].includes(v) ? 4 : 5;
+const wage = (v, km) => v === 'XT15' ? (km <= 100 ? 400000 : km <= 250 ? 450000 : 650000) : (km <= 120 ? 450000 : km <= 300 ? 600000 : 900000);
+const r100 = n => Math.round(n / 100) * 100;
+const ppPct = d => Math.max(0, Math.round((d - P.base) / P.base * P.share * 200) / 200);
+function cost(id, v, d) { const [, kl, ke, t4, t5] = RT[id], [nl, ne] = NORM[v], km = kl + ke; return r100((kl * nl + ke * ne) / 100 * d) + (grp(v) === 4 ? t4 : t5) * 2 + wage(v, km) + (km <= 300 ? .5 : 1) * (v === 'XT15' ? 380000 : 520000) + km * P.fixKm + (v === 'XT15' ? 0 : P.lift); }
+function margin(line, ppnl, d) { d = d || P.diesel; const c = cost(line.r, line.v, d), lr = line.v === 'XT15' ? 0 : P.lift, rev = line.p + lr + (ppnl ? Math.round(line.p * ppPct(d)) : 0); return (rev - c) / rev * 100; }
+
+/* ---------- Bảng giá mẫu ---------- */
+const TABLES = [
+  { code: 'TCL-2026', cust: 'Tân Cảng Logistics', from: '01/01/2026', to: '31/12/2026', kind: 'Fixed-rate contract', ppnl: false, ver: 3, verFrom: '01/07/2026', contract: 'Contract 12/2026/HĐVC-TCL', pay: 45,
+    lines: [['BD-01', '40DC', 1954000], ['BD-01', '20DC', 1730000], ['TN-01', '40DC', 3245000], ['TN-01', '20DC', 2770000], ['TN-02', '40DC', 3945000], ['TN-02', '20DC', 3370000], ['BD-04', '40DC', 1950000]],
+    sur: { lift: 680000, park: 500000, multi: null },
+    hist: [[3, '01/07/2026', 'Mai Hương', ['Added route BD-04 Cát Lái → VSIP 1 Industrial Park (40DC 1,950,000 ₫)', 'TN-02 20DC: 3,300,000 → 3,370,000 ₫']], [2, '01/04/2026', 'Mai Hương', ['BD-01 40DC: 1,900,000 → 1,954,000 ₫', 'Detention: 400,000 → 500,000 ₫/day']], [1, '01/01/2026', 'Hoàng Văn Hải', ['Created from contract 12/2026/HĐVC-TCL; rates fixed for the whole year, not adjusted for fuel price']]] },
+  { code: 'GML-2026', cust: 'Gỗ Minh Long', from: '01/04/2026', to: '31/03/2027', kind: 'Formula-based fuel surcharge', ppnl: true, ver: 1, verFrom: '01/04/2026', contract: 'Contract 04/2026/GML', pay: 30,
+    lines: [['BD-02', '40DC', 2168000], ['BD-02', '20DC', 1935000]], sur: { lift: 680000, park: 450000, multi: null }, hist: [[1, '01/04/2026', 'Mai Hương', ['Created from contract 04/2026/GML, with a fuel surcharge based on the reference fuel price']]] },
+  { code: 'HPBD-2026', cust: 'Thép Hòa Phát Bình Dương', from: '01/12/2025', to: '30/11/2026', kind: 'Formula-based fuel surcharge', ppnl: true, ver: 2, verFrom: '01/06/2026', contract: 'Contract 1125/HPBD-VT', pay: 30, expiring: 18,
+    lines: [['BD-03', '20DC', 1540000], ['BD-03', '40DC', 1685000]], sur: { lift: 680000, park: 500000, multi: null }, hist: [[2, '01/06/2026', 'Mai Hương', ['Fuel share of freight rate: 32% → 36%']], [1, '01/12/2025', 'Hoàng Văn Hải', ['Created from contract 1125/HPBD-VT']]] },
+  { code: 'VHC-2026', cust: 'Thủy sản Vĩnh Hoàn', from: '01/07/2026', to: '30/06/2027', kind: 'Formula-based fuel surcharge', ppnl: true, ver: 1, verFrom: '01/07/2026', contract: 'Contract 07/2026/VHC', pay: 30,
+    lines: [['DT-01', '40RF', 4935000], ['DT-01', '20RF', 4555000]], sur: { lift: 680000, park: 800000, multi: null, plug: 350000 }, hist: [[1, '01/07/2026', 'Mai Hương', ['Created from contract 07/2026/VHC; reefer containers incur a yard plug-in fee']]] },
+  { code: 'NDT-2026', cust: 'Nhựa Duy Tân', from: '01/04/2026', to: '31/03/2027', kind: 'Formula-based fuel surcharge', ppnl: true, ver: 1, verFrom: '01/04/2026', contract: 'Contract 03/2026/NDT', pay: 30,
+    lines: [['TG-01', 'XT15', 1715000]], sur: { lift: null, park: 400000, multi: 200000 }, hist: [[1, '01/04/2026', 'Mai Hương', ['Created from contract 03/2026/NDT']]] },
+  { code: 'BBPN-2026', cust: 'Bao bì Phương Nam', from: '01/01/2026', to: '31/12/2026', kind: 'Formula-based fuel surcharge', ppnl: true, ver: 1, verFrom: '01/01/2026', contract: 'Contract 01/2026/BBPN', pay: 15,
+    lines: [['LA-01', 'XT15', 1445000], ['LA-02', 'XT15', 1315000]], sur: { lift: null, park: 400000, multi: 200000 }, hist: [[1, '01/01/2026', 'Mai Hương', ['Created from contract 01/2026/BBPN']]] }
+];
+TABLES.forEach(t => t.lines = t.lines.map(([r, v, p]) => ({ r, v, p })));
+
+let sel = 'TCL-2026', tab = 'price', q = '', draftV4 = false;
+
+/* ---------- Master ---------- */
+function lowLines(t) { return t.lines.filter(l => margin(l, t.ppnl) < P.thr).length; }
+function tBadges(t) {
+  const b = [];
+  if (!t.ppnl) b.push(`<span class="badge b-warning">${icon('fuel')}No fuel surcharge</span>`);
+  if (t.expiring) b.push(`<span class="badge b-warning">${icon('clock')}Expires in ${t.expiring} days</span>`);
+  if (!b.length) b.push(`<span class="badge b-success">${icon('check')}Active</span>`);
+  return b.join('');
+}
+function renderMaster() {
+  const list = TABLES.filter(t => !q || (t.code + t.cust).toLowerCase().includes(q));
+  $('master').innerHTML = `<div class="card-title"><h2 id="mTitle">Rate cards</h2><span class="count-pill">${TABLES.length}</span></div>
+    <label class="search-global">${icon('search')}<input id="mq" type="search" placeholder="Search customer, rate card code…" aria-label="Search rate cards" value="${q}"></label>
+    <ul class="plist">${list.map(t => `<li><button class="pi" type="button" data-code="${t.code}" aria-current="${t.code === sel}">
+      <span class="n">${t.cust}</span><span class="ln">${t.lines.length} rates</span> <span class="c"><span class="code">${t.code}</span> · ${t.from} → ${t.to}</span> <span class="b">${tBadges(t)}</span></button></li>`).join('') || `<li class="sm muted" style="padding:12px">No rate cards match “${q}”.</li>`}</ul>`;
+  $('master').querySelectorAll('[data-code]').forEach(b => b.onclick = () => { sel = b.dataset.code; tab = 'price'; history.replaceState(null, '', '#' + sel); $('topAlert').innerHTML = ''; if (sel !== 'TCL-2026') renderTop(); renderMaster(); renderDetail(); });
+  const mq = $('mq'); mq.oninput = e => { q = e.target.value.trim().toLowerCase(); renderMaster(); const n = $('mq'); n.focus(); n.setSelectionRange(n.value.length, n.value.length); };
+}
+
+/* ---------- Detail ---------- */
+function mCell(m) {
+  const cls = m < 0 ? 'm-neg' : m < P.thr ? 'm-warn' : 'm-ok';
+  const ic = m < 0 ? icon('block') : m < P.thr ? icon('warn') : '';
+  return `<span class="m-pill ${cls}" style="display:inline-flex;gap:4px;align-items:center" title="${m < 0 ? 'Expected loss' : m < P.thr ? 'Below 5% threshold' : 'Meets threshold'}">${ic}${fmt.pct(m)}</span>`;
+}
+function renderDetail() {
+  const t = TABLES.find(x => x.code === sel);
+  const low = lowLines(t);
+  $('detail').innerHTML = `<div class="d-head">
+      <div class="row1"><h2>${t.cust}</h2><span class="code muted">${t.code}</span>${t.expiring ? `<span class="badge b-warning">${icon('clock')}Expires in ${t.expiring} days</span>` : `<span class="badge b-success">${icon('check')}Active</span>`}
+        <span class="acts"><button class="btn btn-ghost btn-sm" type="button" id="dupBtn">${icon('copy')}Duplicate</button><button class="btn btn-secondary btn-sm" type="button" id="editBtn">${icon('pen')}Edit rates (creates new version)</button></span></div>
+      <div class="d-meta"><span>Valid <b>${t.from} → ${t.to}</b></span><span>Version <b>v${t.ver}</b> effective from <b>${t.verFrom}</b></span><span>${t.kind}</span><span>${t.contract}</span><span>Payment terms <b>${t.pay} days</b></span><a href="fm-32-danh-muc.html#khach">Customer profile</a></div>
+    </div>
+    <div class="tabs" role="tablist">
+      <button role="tab" data-tab="price" aria-selected="${tab === 'price'}">Freight rates <span class="count-pill">${t.lines.length}</span></button>
+      <button role="tab" data-tab="sur" aria-selected="${tab === 'sur'}">Surcharges${t.ppnl ? '' : ` <span class="badge b-warning" style="height:18px;padding:0 6px">${icon('warn')}</span>`}</button>
+      <button role="tab" data-tab="hist" aria-selected="${tab === 'hist'}">Version history <span class="count-pill">${t.hist.length + (draftV4 && t.code === 'TCL-2026' ? 1 : 0)}</span></button>
+    </div>
+    <div class="tab-body">${tab === 'price' ? priceTab(t, low) : tab === 'sur' ? surTab(t) : histTab(t)}</div>`;
+  $('detail').querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { tab = b.dataset.tab; renderDetail(); });
+  $('editBtn').onclick = () => openVersionModal(t);
+  $('dupBtn').onclick = () => toast(`Created a draft from <span class="code">${t.code}</span> · choose a customer to apply it`);
+  $('detail').querySelectorAll('[data-goto]').forEach(b => b.onclick = () => { tab = b.dataset.goto; renderDetail(); });
+  const ap = $('applyPpnl'); if (ap) ap.onclick = () => openVersionModal(t, true);
+}
+function priceTab(t, low) {
+  const lowAlert = !t.ppnl && low ? `<div class="alert alert-warning" role="status">${icon('fuel')}<div><b>${low} rate lines have an estimated margin below the 5% threshold.</b> The fixed-rate contract has no fuel surcharge yet, while the reference fuel price of ${fmt.vnd(P.diesel, { bare: 1 })} ₫/l is already ${fmt.pct((P.diesel - P.base) / P.base * 100)} above the base price of ${fmt.vnd(P.base, { bare: 1 })} ₫/l.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" data-goto="sur">View fuel surcharge</button></div></div>` : '';
+  return `${lowAlert}
+    <div class="grid-wrap"><table class="grid price-tbl" aria-label="Freight rates ${t.code}">
+      <thead><tr><th>Route</th><th>Vehicle / container type</th><th class="right">Freight rate</th><th class="right">FSC this period</th><th class="right"><span class="tip">Estimated margin ${icon('info')}<span class="tip-body right">Calculated in Cost estimate (FM_31) at the reference fuel price of ${fmt.vnd(P.diesel)}/l, for the full round trip (loaded + empty). The 5% alert threshold is set in Cost parameters.</span></span></th><th></th></tr></thead>
+      <tbody>${t.lines.map(l => { const m = margin(l, t.ppnl); const pp = t.ppnl ? Math.round(l.p * ppPct(P.diesel)) : 0; return `<tr>
+        <td><a class="code" href="fm-28-tuyen-duong.html" title="Open route list">${l.r}</a><span class="cell-sub">${RT[l.r][0]}</span></td>
+        <td>${l.v === 'XT15' ? VNAME[l.v] : `<span class="badge b-accent">${icon('container')}${l.v}</span>`}<span class="cell-sub">${l.v === 'XT15' ? 'Toll class 4' : VNAME[l.v]}</span></td>
+        <td class="right num"><b style="font-weight:600">${fmt.vnd(l.p)}</b><span class="cell-sub">/${l.v === 'XT15' ? 'trip' : 'cont'}</span></td>
+        <td class="right num">${t.ppnl ? `${fmt.vnd(pp)}<span class="cell-sub">${fmt.pct(ppPct(P.diesel) * 100)} of freight rate</span>` : `<span class="muted">Not applied</span>`}</td>
+        <td class="right num">${mCell(m)}</td>
+        <td style="width:40px"><a class="icon-btn" href="fm-31-du-toan.html#${l.r}-${l.v}" title="Estimate cost for this line (FM_31)" aria-label="Estimate ${l.r} ${l.v}">${icon('formula')}</a></td></tr>`; }).join('')}</tbody>
+    </table></div>
+    <p class="sm muted">Unit: ₫/container for containers or ₫/trip for general cargo, excluding VAT. Containers are also charged a lift-on/lift-off fee of 680,000 ₫/container (Surcharges tab). Rates are suggested automatically when creating orders for ${t.cust} (FM_07); dispatchers who change them manually must enter a reason.</p>`;
+}
+function surTab(t) {
+  const s = t.sur, pct = ppPct(P.diesel);
+  const items = [
+    ['Lift-on/lift-off', s.lift ? fmt.vnd(s.lift) + '<small> /container</small>' : '<small>Not applicable</small>', 'Charged per empty lift-on at the depot + laden lift-off at the port. Attach the EIR when invoicing.'],
+    ['Detention', fmt.vnd(s.park) + '<small> /day</small>', 'Charged when the truck waits more than 6 h at a warehouse or port, recorded from GPS tracker / driver app milestones.'],
+    ['Multi-stop delivery', s.multi ? fmt.vnd(s.multi) + '<small> /drop</small>' : '<small>Not applicable</small>', s.multi ? 'From the 2nd delivery point onward on the same trip.' : 'Container rate card: one drop-off point per container.']
+  ];
+  if (s.plug) items[2] = ['Reefer plug-in', fmt.vnd(s.plug) + '<small> /day</small>', 'Billed per the yard invoice while reefer containers are stored at the yard awaiting drop-off.'];
+  const impact = !t.ppnl ? t.lines.filter(l => margin(l, false) < P.thr).map(l => `<div class="r"><span>${l.r} · ${l.v}</span><span class="${margin(l, false) < 0 ? 'm-neg' : 'm-warn'}">${fmt.pct(margin(l, false))}</span><span class="muted">→</span><span class="${margin(l, true) < 0 ? 'm-neg' : margin(l, true) < P.thr ? 'm-warn' : 'm-ok'}">${fmt.pct(margin(l, true))}</span></div>`).join('') : '';
+  return `<div class="sur">${items.map(([k, v, d]) => `<div class="sur-i"><span class="k">${k}</span><span class="v">${v}</span><span class="d">${d}</span></div>`).join('')}</div>
+    <div class="fsc">
+      <div class="stack" style="gap:10px">
+        <div class="row"><h3>Fuel surcharge (FSC)</h3>${t.ppnl ? `<span class="badge b-success">${icon('check')}Applied</span>` : `<span class="badge b-warning">${icon('warn')}Not applied · fixed-rate contract</span>`}</div>
+        <div class="fx">FSC = Freight rate × <code>36%</code> fuel share × (Reference fuel price − Base price) / Base price, rounded to 0.5%.</div>
+        <div class="fx">= Freight rate × 36% × (<a href="fm-30-tham-so.html#dau"><code>${fmt.vnd(P.diesel, { bare: 1 })} ₫/l</code></a> − <code>${fmt.vnd(P.base, { bare: 1 })} ₫/l</code>) / ${fmt.vnd(P.base, { bare: 1 })} = Freight rate × <b>${fmt.pct(pct * 100)}</b></div>
+        <p class="sm muted">The base price of ${fmt.vnd(P.base, { bare: 1 })} ₫/l is set in the contract. The reference fuel price comes from Cost parameters and is updated at each fuel price adjustment (latest 05/11/2026). The FSC is added to orders and invoices automatically.</p>
+        ${!t.ppnl ? `<div class="stack" style="gap:6px"><span class="label">If FSC applies from this period · estimated margin</span><div class="impact">${impact}</div></div>
+          <div class="row" style="gap:8px"><button class="btn btn-primary btn-sm" type="button" id="applyPpnl">${icon('plus')}Add FSC in a new version</button><a class="btn btn-ghost btn-sm" href="fm-31-du-toan.html#sim">Simulate fuel price +1,000 ₫/l</a></div>
+          <p class="sm muted">Requires the customer's agreement via a contract addendum. The new version only applies to orders created from its effective date.</p>` : ''}
+      </div>
+      <div class="fx-out"><span class="k">FSC this period</span><span class="v">${t.ppnl ? fmt.pct(pct * 100) : '0.0%'}</span><span class="s">${t.ppnl ? 'of the freight rate, added to orders since 06/11/2026' : `If applied: ${fmt.pct(pct * 100)} of freight rate`}</span></div>
+    </div>`;
+}
+function histTab(t) {
+  const draft = draftV4 && t.code === 'TCL-2026' ? `<li class="vi draft"><span class="dotv"></span><div><div class="t">v4 · draft <span class="badge b-neutral">Awaiting addendum signature</span></div><div class="m">Expected effective date 01/12/2026 · created by Mai Hương at ${new Date().getHours().toString().padStart(2, '0')}:${new Date().getMinutes().toString().padStart(2, '0')} today</div><ul><li>Add formula-based fuel surcharge, base price 18,600 ₫/l</li></ul></div><button class="btn btn-secondary btn-sm" type="button" onclick="Shell.toast('Sent addendum v4 to Tân Cảng Logistics for signature')">Send for signature</button></li>` : '';
+  return `<ul class="vlist">${draft}${t.hist.map(([v, d, who, ch], i) => `<li class="vi ${i === 0 ? 'cur' : ''}"><span class="dotv">${i === 0 ? icon('check') : ''}</span>
+      <div><div class="t">v${v} ${i === 0 ? '<span class="badge b-success">Current</span>' : `<span class="muted" style="font-weight:400">· superseded by v${v + 1}</span>`}</div><div class="m">Effective from ${d} · ${who}</div><ul>${ch.map(c => `<li>${c}</li>`).join('')}</ul></div>
+      <div class="row" style="align-self:start">${i > 0 ? `<button class="btn btn-ghost btn-sm" type="button" onclick="Shell.toast('Compare v${v} with v${t.ver}: ${ch.length} changes')">Compare</button>` : ''}<button class="btn btn-ghost btn-sm" type="button" onclick="Shell.toast('Downloaded v${v} (Excel)')">${icon('download')}Download</button></div></li>`).join('')}</ul>
+    <p class="sm muted">Orders and invoices always record the rate card version used. Editing rates creates a new version and never overwrites old ones.</p>`;
+}
+
+/* ---------- Modal tạo phiên bản ---------- */
+function openVersionModal(t, ppnl) {
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim';
+  const m = document.createElement('div'); m.className = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.style.width = 'min(520px, calc(100vw - 32px))';
+  m.innerHTML = `<h2>Create version v${t.ver + 1} · ${t.code}</h2>
+    <p class="muted">Version v${t.ver} still applies to existing orders. The new version applies to orders created from its effective date.</p>
+    <label class="field"><span>Effective from *</span><input class="input" value="01/12/2026"></label>
+    ${ppnl ? `<label class="row" style="gap:8px"><input type="checkbox" checked style="accent-color:var(--primary)"> Add formula-based fuel surcharge, base price 18,600 ₫/l, fuel share 36%</label>` : `<label class="row" style="gap:8px"><input type="checkbox" style="accent-color:var(--primary)"> Add formula-based fuel surcharge</label>`}
+    <label class="field"><span>Change note</span><textarea class="input" rows="2" placeholder="e.g. Addendum 02 signed 25/11/2026">${ppnl ? 'Add FSC per the request dated 12/11/2026' : ''}</textarea></label>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Cancel</button><button class="btn btn-primary" type="button" data-ok>Create draft</button></div>`;
+  document.body.append(s, m);
+  const close = () => { Shell.dismiss(s); Shell.dismiss(m); };
+  s.onclick = close; m.querySelector('[data-x]').onclick = close;
+  m.querySelector('[data-ok]').onclick = () => { close(); if (t.code === 'TCL-2026') draftV4 = true; tab = 'hist'; renderDetail(); toast(`Created draft v${t.ver + 1} for <span class="code">${t.code}</span>`, { undo: () => { draftV4 = false; renderDetail(); } }); };
+  m.querySelector('[data-x]').focus();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal:not(.leaving), .modal-scrim:not(.leaving)').forEach(x => Shell.dismiss(x)); });
+$('btnNew').onclick = () => toast('Choose a customer to create a new rate card (not in this prototype)');
+
+/* ---------- Cảnh báo đầu trang (khớp FM_04) ---------- */
+function renderTop() {
+  $('topAlert').innerHTML = `<div class="alert alert-warning" role="status">${icon('fuel')}<div>Rate card <b>TCL-2026</b> is a fixed-rate contract with no fuel surcharge. 2 of its routes (TN-01, BD-01) have a margin below the 5% threshold.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="goTcl">View surcharges</button></div></div>`;
+  $('goTcl').onclick = () => { sel = 'TCL-2026'; tab = 'sur'; $('topAlert').innerHTML = ''; renderMaster(); renderDetail(); };
+}
+
+/* ---------- States ---------- */
+function skeleton() {
+  $('master').innerHTML = `<div class="card-title"><span class="sk" style="width:120px"></span></div><div style="padding:8px 16px 16px;display:flex;flex-direction:column;gap:18px">${Array(6).fill('<div><span class="sk" style="width:70%"></span><span class="sk" style="width:50%;margin-top:6px;height:9px"></span></div>').join('')}</div>`;
+  $('detail').innerHTML = `<div class="d-head"><span class="sk" style="width:240px;height:20px"></span><span class="sk" style="width:60%;margin-top:6px"></span></div><div style="padding:20px;display:flex;flex-direction:column;gap:16px">${Array(7).fill('<span class="sk"></span>').join('')}</div>`;
+}
+const hashCode = location.hash.slice(1);
+if (TABLES.some(t => t.code === hashCode)) sel = hashCode;
+Shell.states([['default', 'Default'], ['ppnl', 'Fuel surcharge'], ['hist', 'Version history'], ['expiring', 'Expiring soon'], ['loading', 'Loading'], ['empty', 'Empty'], ['error', 'Error']], s => {
+  $('md').classList.remove('hidden'); $('topAlert').innerHTML = ''; draftV4 = false;
+  if (s === 'loading') { skeleton(); return; }
+  if (s === 'empty') { $('md').classList.add('hidden'); $('topAlert').innerHTML = `<section class="card"><div class="empty">${icon('tag')}<h3>No rate cards yet</h3><p>Create a rate card per customer so the system suggests freight rates when creating orders and calculates the expected margin.</p><div class="row" style="justify-content:center"><a class="btn btn-secondary" href="fm-28-tuyen-duong.html">${icon('route')}View routes</a><button class="btn btn-primary" type="button">${icon('plus')}Create rate card</button></div></div></section>`; return; }
+  if (s === 'error') { $('md').classList.add('hidden'); $('topAlert').innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Couldn't load rate cards. New orders can't suggest freight rates for now, so dispatchers enter them manually with a reason.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" onclick="location.hash='';location.reload()">Retry</button></div></div>`; return; }
+  if (s === 'ppnl') { sel = 'TCL-2026'; tab = 'sur'; }
+  else if (s === 'hist') { sel = 'TCL-2026'; tab = 'hist'; draftV4 = true; }
+  else if (s === 'expiring') { sel = 'HPBD-2026'; tab = 'price'; }
+  else tab = 'price';
+  if (sel !== 'TCL-2026') renderTop(); renderMaster(); renderDetail();
+  if (s === 'expiring') $('topAlert').insertAdjacentHTML('beforeend', `<div class="alert alert-info" style="margin-top:12px">${icon('clock')}<div>Rate card <b>HPBD-2026</b> (Thép Hòa Phát Bình Dương) expires on 30/11/2026. After that date, new orders won't get a suggested rate.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" onclick="Shell.toast('Created renewal draft HPBD-2027 from 01/12/2026')">Renew</button></div></div>`);
+});
+</script>
+</body>
+</html>

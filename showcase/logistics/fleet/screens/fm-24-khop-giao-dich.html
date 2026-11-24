@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Khớp giao dịch · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  #app-content > * { flex: none; }
+  .page-header .sub { color: var(--fg-muted); font-size: 13px; margin-top: 4px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .page-header .sub .select { height: 30px; }
+  .summary { display: grid; grid-template-columns: minmax(320px, 1.6fr) repeat(4, minmax(0, 1fr)); gap: 6px; padding: 6px; background: var(--surface); border-radius: var(--r-lg); box-shadow: var(--shadow-card); }
+  .sum-main { padding: 16px 22px; background: var(--primary-soft); border-radius: 8px; display: flex; flex-direction: column; gap: 4px; }
+  .sum-main .k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--side-active); }
+  .sum-main .v { font: 700 var(--text-display)/40px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+  .sum-main .v small { font: 600 16px var(--font-body); color: var(--fg-muted); margin-left: 4px; }
+  .sum-main .d { font-size: 12.5px; color: var(--fg-muted); }
+  .sum-item { padding: 16px; display: flex; flex-direction: column; justify-content: center; gap: 4px; min-width: 0; border: 0; background: none; border-radius: 8px; text-align: left; font: inherit; color: inherit; cursor: pointer; position: relative; }
+  .sum-item:hover { background: var(--surface-muted); }
+  .sum-item.on { background: var(--surface-muted); box-shadow: inset 0 -2px 0 var(--primary); }
+  .sum-item .k { font-size: 12.5px; color: var(--fg-muted); font-weight: 500; display: inline-flex; align-items: center; gap: 6px; }
+  .sum-item .k i { width: 8px; height: 8px; border-radius: 2px; display: inline-block; }
+  .sum-item .v { font: 700 24px/30px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .sum-item .d { font-size: 12.5px; color: var(--fg-muted); }
+  .rulebar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 14px 16px 4px; font-size: 13px; }
+  .rulebar .formula-txt { font-variant-numeric: tabular-nums; font-weight: 500; background: var(--surface-muted); border-radius: var(--r-sm); padding: 2px 8px; }
+  .toolbar { display: flex; align-items: center; gap: 8px; padding: 10px 16px; flex-wrap: wrap; }
+  table.tx td { height: 56px; padding: 6px 12px; }
+  table.tx tr { cursor: pointer; }
+  table.tx tr.sel td { background: var(--primary-soft); }
+  table.tx tr.k-multi td:first-child { box-shadow: inset 3px 0 0 var(--warning-solid); }
+  table.tx tr.k-none td:first-child { box-shadow: inset 3px 0 0 var(--danger-solid); }
+  table.tx tr.k-dup td:first-child { box-shadow: inset 3px 0 0 var(--warning-solid); }
+  table.tx input[type=checkbox] { accent-color: var(--primary); width: 15px; height: 15px; }
+  .src { display: inline-flex; align-items: center; gap: 6px; }
+  .src .icon { color: var(--fg-muted); }
+  .why { white-space: normal; font-size: 12px; color: var(--fg-muted); line-height: 16px; max-width: 300px; }
+  .why b { color: var(--fg); font-weight: 600; }
+  .badges { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+  .gridfoot { padding: 12px 16px 14px; }
+  /* drawer */
+  .drawer { width: min(640px, 100vw); }
+  .kv { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 6px 12px; font-size: 13.5px; }
+  .kv dt { color: var(--fg-muted); }
+  .kv dd { margin: 0; }
+  .explain { position: relative; padding: 2px 0 2px 12px; font-size: 13px; line-height: 18px; }
+  .explain::before { content: ""; position: absolute; left: 0; top: 2px; bottom: 2px; width: 3px; border-radius: 2px; background: var(--warning-solid); }
+  .explain.danger::before { background: var(--danger-solid); }
+  .explain.info::before { background: var(--info-solid); }
+  .opts { display: flex; flex-direction: column; gap: 6px; }
+  .opt { display: grid; grid-template-columns: 18px minmax(0, 1fr) auto; gap: 2px 10px; align-items: start; padding: 10px 12px; border-radius: var(--r-md); border: 1px solid var(--border); cursor: pointer; font-size: 13.5px; }
+  .opt:hover { border-color: var(--border-strong); }
+  .opt:has(input:checked) { border-color: var(--primary); background: var(--primary-soft); box-shadow: inset 0 0 0 1px var(--primary); }
+  .opt input { margin: 3px 0 0; accent-color: var(--primary); }
+  .opt .t { font-weight: 600; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .opt .s { grid-column: 2 / 4; font-size: 12.5px; color: var(--fg-muted); line-height: 17px; }
+  /* timeline mini: trip windows vs transaction time */
+  .tl { position: relative; height: auto; padding: 4px 0 0; }
+  .tl .axis { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--fg-muted); font-variant-numeric: tabular-nums; margin-top: 4px; }
+  .tl .lane { position: relative; height: 22px; margin: 6px 0; background: var(--surface-muted); border-radius: 4px; }
+  .tl .win { position: absolute; top: 0; bottom: 0; border-radius: 4px; border: 1px dashed var(--fg-subtle); }
+  .tl .trip { position: absolute; top: 4px; bottom: 4px; border-radius: 3px; background: var(--chart-muted); }
+  .tl .trip.pick { background: var(--primary); }
+  .tl .lbl { position: absolute; left: 6px; top: 3px; font-size: 11.5px; font-weight: 600; color: var(--fg); }
+  .tl .now { position: absolute; top: -2px; bottom: 16px; width: 2px; background: var(--fg-strong); border-radius: 1px; }
+  .tl .now span { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); font-size: 11px; font-weight: 600; white-space: nowrap; background: var(--fg-strong); color: var(--surface); padding: 0 4px; border-radius: 3px; }
+  .cmp { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .cmp > div { background: var(--surface-muted); border-radius: var(--r-md); padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; font-size: 13px; }
+  .cmp .amt { font: 700 20px/26px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .cmp .thumb { height: 64px; border-radius: var(--r-sm); background: var(--surface); display: grid; place-items: center; color: var(--fg-muted); font-size: 12px; margin-top: 4px; }
+  .drawer-foot .note { margin-right: auto; font-size: 12.5px; color: var(--fg-muted); }
+  .proc { display: flex; flex-direction: column; gap: 6px; padding: 18px 16px; }
+  .proc-bar { height: 6px; border-radius: 3px; background: var(--surface-muted); overflow: hidden; }
+  .proc-bar i { display: block; height: 100%; width: 64%; background: var(--primary); border-radius: 3px; }
+  @media (max-width: 1200px) { .summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } .sum-main { grid-column: 1 / -1; } }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb"><a href="fm-23-import-chi-phi.html">Import chi phí</a> / Khớp giao dịch</div>
+      <h1>Khớp giao dịch</h1>
+      <div class="sub">
+        <label class="sr-only" for="impSel">Lần import</label>
+        <select class="select" id="impSel"><option>IMP-0088 · Sao kê ePass · 10/11 – 12/11/2026</option><option>IMP-0087 · Petrolimex FleetCard · 04/11 – 10/11/2026</option></select>
+        <span class="fresh"><span class="live" aria-hidden="true"></span><span id="freshTxt">Khớp lúc 08:58 · theo chuyến cập nhật 08:57</span></span>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-secondary" type="button" id="rerun"></button>
+      <span class="tip" id="doneWrap"><a class="btn btn-primary" id="doneBtn" href="fm-22-quyet-toan.html">Sang Quyết toán</a><span class="tip-body right" id="doneTip"></span></span>
+    </div>
+  </div>
+  <div id="slot"></div>
+  <div id="view" class="stack" style="gap:16px"></div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_23', title: 'Khớp giao dịch' });
+const $ = id => document.getElementById(id);
+$('rerun').innerHTML = `${icon('refresh')}Khớp lại`;
+
+/* ---------- Chuyến (từ data.js) → khoảng thời gian ---------- */
+const D = (s, dflt) => { const m = s.match(/(\d{1,2}):(\d{2})(?: (\d{1,2})\/(\d{1,2}))?/); return new Date(2026, (m[4] ? +m[4] : 11) - 1, m[3] ? +m[3] : (dflt || 12), +m[1], +m[2]); };
+const TRIPS = FM.trips.filter(t => t.vehicle).map(t => {
+  const start = D(t.pick); let end = D(t.drop); if (end < start) end = new Date(end.getTime() + 864e5);
+  return { ...t, start, end };
+});
+const hh = d => `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+const dd = d => `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}`;
+const dur = ms => { const m = Math.round(Math.abs(ms) / 6e4); return `${Math.floor(m / 60)}h${String(m % 60).padStart(2, '0')}`; };
+const PLATES = new Set(FM.vehicles.map(v => v.plate).concat(TRIPS.map(t => t.vehicle)));
+
+/* ---------- Giao dịch của lần import IMP-0088 (các dòng đáng xem; dòng khớp khác thu gọn) ---------- */
+const TX0 = [
+  { id: 1, at: '12/11 06:48', plate: '51C-123.45', place: 'Trạm ĐT741', amt: 40000, ref: 'EP2611120648' },
+  { id: 2, at: '12/11 09:12', plate: '51C-123.45', place: 'Trạm Long Phước', amt: 120000, ref: 'EP2611120912', dup: { by: 'Nguyễn Văn Tuấn', at: '12/11 09:20', what: 'Phí cao tốc Long Phước', amt: 119000, photo: true } },
+  { id: 3, at: '12/11 05:20', plate: '51D-456.78', place: 'Trạm An Phú', amt: 75000, ref: 'EP2611120520' },
+  { id: 4, at: '12/11 06:30', plate: '51D-456.78', place: 'Trạm Xa lộ Hà Nội', amt: 40000, ref: 'EP2611120630' },
+  { id: 5, at: '12/11 07:35', plate: '51D-702.33', place: 'Trạm QL1A Bình Chánh', amt: 52000, ref: 'EP2611120735' },
+  { id: 6, at: '12/11 08:10', plate: '61C-220.14', place: 'Trạm An Phú', amt: 75000, ref: 'EP2611120810', dup: { by: 'Võ Thành Nhân', at: '12/11 08:25', what: 'Phí BOT An Phú', amt: 75000, photo: true } },
+  { id: 7, at: '12/11 10:02', plate: '51C-731.80', place: 'Trạm ĐT743', amt: 40000, ref: 'EP2611121002' },
+  { id: 8, at: '11/11 21:30', plate: '51C-777.10', place: 'Trạm Long Phước', amt: 120000, ref: 'EP2611112130', nf: 'Biển số không có trong danh sách xe của công ty' },
+  { id: 9, at: '12/11 13:05', plate: '51D-702.33', place: 'Trạm QL1A Bình Chánh', amt: 52000, ref: 'EP2611121305' },
+  { id: 10, at: '12/11 02:15', plate: '51C-099.21', place: 'Trạm Xa lộ Hà Nội', amt: 40000, ref: 'EP2611120215' },
+  { id: 11, at: '11/11 16:40', plate: '51C-123.45', place: 'Trạm ĐT741', amt: 40000, ref: 'EP2611111640' },
+  { id: 12, at: '12/11 03:10', plate: '51C-588.02', place: 'Cao tốc TP.HCM – Trung Lương', amt: 135000, ref: 'EP2611120310' },
+  { id: 13, at: '12/11 04:40', plate: '51C-456.78', place: 'Trạm ĐT743', amt: 40000, ref: 'EP2611120440' },
+  { id: 14, at: '11/11 22:05', plate: '50H-118.20', place: 'Trạm An Phú', amt: 75000, ref: 'EP2611112205', nf: 'Biển số không có trong danh sách xe của công ty' },
+  { id: 15, at: '12/11 07:58', plate: '51D-456.87', place: 'Trạm An Phú', amt: 75000, ref: 'EP2611120758', nf: 'Biển số không có trong danh sách xe', guess: '51D-456.78' }
+];
+const TOTAL = 186;
+const BASE = { ok: 171, out: 8, multi: 4, none: 3 };
+const META = {
+  ok: ['Khớp', 'b-success', 'check', 'var(--success-solid)'], out: ['Ngoài chuyến', 'b-neutral', 'dot', 'var(--neutral-solid)'],
+  multi: ['Nhiều chuyến', 'b-warning', 'warn', 'var(--warning-solid)'], none: ['Không tìm thấy xe', 'b-danger', 'block', 'var(--danger-solid)']
+};
+
+let S;
+function reset() { S = { margin: 2, filter: 'todo', tx: TX0.map(t => ({ ...t, time: D(t.at.split(' ')[1] + ' ' + t.at.split(' ')[0]), res: null, dupRes: null })), sel: new Set(), loading: false, err: false, empty: false, allDone: false }; }
+
+function match(t, m) {
+  if (t.nf || !PLATES.has(t.plate)) return { k: 'none' };
+  const hits = TRIPS.filter(x => x.vehicle === t.plate && t.time >= new Date(x.start - m * 36e5) && t.time <= new Date(+x.end + m * 36e5));
+  if (hits.length === 1) return { k: 'ok', trips: hits };
+  if (hits.length > 1) return { k: 'multi', trips: hits };
+  const near = TRIPS.filter(x => x.vehicle === t.plate).map(x => ({ x, gap: t.time < x.start ? x.start - t.time : t.time - x.end })).sort((a, b) => a.gap - b.gap)[0];
+  return { k: 'out', near };
+}
+function rows() { return S.tx.map(t => ({ t, m: match(t, S.margin) })); }
+function isTodo(r) { return !r.t.res && r.m.k !== 'ok' || (r.t.dup && !r.t.dupRes); }
+function counts() {
+  const all = rows(), base2 = S.tx.map(t => match(t, 2).k);
+  const c = { ok: 0, out: 0, multi: 0, none: 0 };
+  all.forEach(r => c[r.t.res ? (r.t.res.kind === 'general' ? 'out' : 'ok') : r.m.k]++);
+  const shown2 = { ok: 0, out: 0, multi: 0, none: 0 }; base2.forEach(k => shown2[k]++);
+  Object.keys(c).forEach(k => c[k] += BASE[k] - shown2[k]);
+  c.dup = S.tx.filter(t => t.dup && !t.dupRes).length;
+  c.todo = all.filter(isTodo).length + (S.allDone ? 0 : BASE.out - shown2.out);
+  if (S.allDone) { c.todo = 0; c.multi = 0; c.none = 0; c.out = BASE.out; c.ok = TOTAL - BASE.out - BASE.none; }
+  return c;
+}
+
+/* ---------- Render ---------- */
+function render() {
+  const v = $('view'); $('slot').innerHTML = '';
+  document.querySelector('.fresh .live').classList.toggle('warn', S.err); $('freshTxt').textContent = S.err ? 'Chưa tải được · lần khớp gần nhất 08:58' : 'Khớp lúc 08:58 · theo chuyến cập nhật 08:57';
+  if (S.loading) {
+    v.innerHTML = `<section class="card"><div class="proc"><div class="row"><b>Đang khớp 186 giao dịch với chuyến…</b><span class="sm muted num" style="margin-left:auto">119 / 186</span></div><div class="proc-bar"><i></i></div><span class="sm muted">Theo biển số và thời điểm trong khoảng [bắt đầu − ${S.margin}h, kết thúc + ${S.margin}h]. Bạn có thể rời trang.</span></div></section>
+      <section class="card"><table class="grid"><tbody>${Array(8).fill('<tr>' + Array(7).fill('<td><span class="sk" style="width:75%"></span></td>').join('') + '</tr>').join('')}</tbody></table></section>`;
+    setDone(false, 'Đang khớp'); return;
+  }
+  if (S.err) {
+    $('slot').innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Không tải được kết quả khớp của IMP-0088. Kiểm tra kết nối mạng rồi thử lại. Giao dịch đã import không bị mất.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="retry">${icon('refresh')}Thử lại</button></div></div>`;
+    $('retry').onclick = () => { S.err = false; render(); }; v.innerHTML = ''; setDone(false, 'Chưa tải được dữ liệu'); return;
+  }
+  if (S.empty) {
+    v.innerHTML = `<section class="card"><div class="empty">${icon('tray')}<h3>Chưa có giao dịch để khớp</h3><p>Import sao kê ETC hoặc thẻ nhiên liệu, hệ thống sẽ tự khớp vào chuyến.</p><a class="btn btn-primary" href="fm-23-import-chi-phi.html">Import chi phí</a></div></section>`;
+    setDone(false, 'Chưa có giao dịch'); return;
+  }
+  const c = counts();
+  const all = rows();
+  const show = all.filter(r => {
+    const k = r.t.res ? 'ok' : r.m.k;
+    if (S.filter === 'todo') return isTodo(r) && !S.allDone;
+    if (S.filter === 'dup') return r.t.dup && !r.t.dupRes;
+    if (S.filter === 'all') return true;
+    return k === S.filter;
+  });
+  const item = (k, l, n, d) => `<button class="sum-item ${S.filter === k ? 'on' : ''}" type="button" data-f="${k}"><span class="k"><i style="background:${META[k] ? META[k][3] : 'var(--warning-solid)'}"></i>${l}</span><span class="v">${n}</span><span class="d">${d}</span></button>`;
+  v.innerHTML = `
+    <section class="summary" aria-label="Kết quả khớp">
+      <div class="sum-main"><span class="k">Đã khớp vào chuyến</span><span class="v">${c.ok}<small>/ ${TOTAL} giao dịch</small></span><span class="d">${fmt.pct(c.ok / TOTAL * 100)} · ${S.allDone || !c.todo ? 'không còn giao dịch cần xử lý' : `còn <b>${c.todo}</b> giao dịch cần xử lý`}</span></div>
+      ${item('multi', 'Nhiều chuyến', c.multi, 'Cần chọn chuyến')}${item('out', 'Ngoài chuyến', c.out, 'Chi phí chung của xe')}${item('none', 'Không tìm thấy xe', c.none, 'Biển số lạ hoặc gõ sai')}${item('dup', 'Nghi trùng', c.dup, 'Với chi phí tài xế đã ghi')}
+    </section>
+    <section class="card">
+      <div class="rulebar">${icon('formula')}<span>Quy tắc khớp: cùng biển số và thời điểm giao dịch trong</span><span class="formula-txt">[bắt đầu chuyến − ${S.margin}h, kết thúc + ${S.margin}h]</span>
+        <div class="seg" role="group" aria-label="Biên thời gian">${[1, 2, 3].map(m => `<button type="button" data-m="${m}" aria-pressed="${S.margin === m}">±${m}h</button>`).join('')}</div>
+        <span class="tip"><span class="badge b-outline" tabindex="0">${icon('info')}Chưa chốt</span><span class="tip-body left">Biên thời gian ±2h đang chờ chốt với khách hàng thí điểm (Open). Đổi biên ở đây chỉ để xem trước kết quả, chưa lưu.</span></span>
+        ${S.margin !== 2 ? `<span class="sm" style="color:var(--warning-fg)">Đang xem trước với ±${S.margin}h. <button class="btn btn-ghost btn-sm" type="button" data-m="2">Về ±2h</button></span>` : ''}
+      </div>
+      <div class="toolbar">
+        <div class="filterbar">${[['todo', 'Cần xử lý', c.todo], ['all', 'Tất cả', TOTAL], ['ok', 'Khớp', c.ok]].map(([k, l, n]) => `<button class="chip ${S.filter === k ? 'on' : ''}" type="button" data-f="${k}" aria-pressed="${S.filter === k}">${l} <b class="num">${n}</b></button>`).join('')}</div>
+        <label class="search-global" style="max-width:240px;margin-left:8px">${icon('search')}<input type="search" placeholder="Biển số, mã chuyến, trạm…" aria-label="Tìm giao dịch" style="height:30px"></label>
+        <span style="margin-left:auto" class="row">${S.sel.size ? `<span class="sm muted">Đã chọn ${S.sel.size}</span><button class="btn btn-secondary btn-sm" type="button" id="bulkGen">Ghi là chi phí chung xe</button>` : '<span class="sm muted">Bấm vào dòng để xử lý</span>'}</span>
+      </div>
+      <div class="grid-wrap"><table class="grid tx"><thead><tr><th style="width:36px"><input type="checkbox" id="chkAll" aria-label="Chọn tất cả dòng Ngoài chuyến"></th><th>Thời điểm</th><th>Biển số</th><th>Nơi giao dịch</th><th class="right">Số tiền</th><th>Kết quả</th><th>Chuyến / lý do</th><th></th></tr></thead>
+      <tbody>${show.length ? show.map(rowHtml).join('') : `<tr><td colspan="8"><div class="empty" style="padding:36px 16px">${icon('check')}<h3>Không còn giao dịch cần xử lý</h3><p>Chi phí đã vào đúng chuyến. Kiểm tra và chốt ở Quyết toán.</p><a class="btn btn-primary" href="fm-22-quyet-toan.html">Sang Quyết toán</a></div></td></tr>`}</tbody></table></div>
+      <div class="sm muted gridfoot">${S.filter === 'all' || S.filter === 'ok' ? `Đang hiển thị ${show.length} dòng · <span class="num">${TOTAL - S.tx.length}</span> giao dịch khớp khác được thu gọn. ` : S.filter === 'todo' && !S.allDone ? `Đang hiển thị ${show.length} dòng · ${BASE.out - 3} giao dịch Ngoài chuyến khác ở trang sau. ` : ''}Chi phí đã khớp tự vào màn Quyết toán với nguồn "import".</div>
+    </section>`;
+  v.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { S.filter = b.dataset.f; render(); });
+  v.querySelectorAll('[data-m]').forEach(b => b.onclick = () => { S.margin = +b.dataset.m; render(); });
+  v.querySelectorAll('tr[data-id]').forEach(tr => tr.onclick = e => { if (e.target.closest('input,a')) return; openDrawer(+tr.dataset.id); });
+  v.querySelectorAll('[data-chk]').forEach(ch => ch.onchange = () => { ch.checked ? S.sel.add(+ch.dataset.chk) : S.sel.delete(+ch.dataset.chk); render(); });
+  const ca = $('chkAll'); if (ca) ca.onchange = () => { show.filter(r => !r.t.res && r.m.k === 'out').forEach(r => ca.checked ? S.sel.add(r.t.id) : S.sel.delete(r.t.id)); render(); };
+  const bg = $('bulkGen'); if (bg) bg.onclick = () => { const ids = [...S.sel]; ids.forEach(id => S.tx.find(t => t.id === id).res = { kind: 'general' }); S.sel.clear(); render(); toast(`Đã ghi ${ids.length} giao dịch là chi phí chung của xe`, { undo: () => { ids.forEach(id => S.tx.find(t => t.id === id).res = null); render(); } }); };
+  setDone(!c.todo, `Còn ${c.todo} giao dịch cần xử lý. Giao dịch chưa xử lý vẫn được giữ, bạn có thể quay lại sau.`);
+}
+function setDone(ok, why) { $('doneBtn').classList.toggle('btn-primary', ok); $('doneBtn').classList.toggle('btn-secondary', !ok); $('doneTip').textContent = ok ? 'Chi phí đã khớp sẽ hiện trong quyết toán từng chuyến.' : why; }
+
+function rowHtml(r) {
+  const t = r.t, m = r.m, k = t.res ? 'res' : m.k;
+  let res, why, act = 'Xử lý';
+  if (t.res) {
+    res = t.res.kind === 'trip' ? `<span class="badge b-info">${icon('pen')}Đã gắn tay</span>` : t.res.kind === 'general' ? `<span class="badge b-neutral">${icon('truck')}Chi phí chung xe</span>` : t.res.kind === 'vehicle' ? `<span class="badge b-info">${icon('pen')}Đã sửa biển số</span>` : `<span class="badge b-neutral">${icon('x')}Bỏ qua</span>`;
+    why = t.res.kind === 'trip' ? `<a class="code" href="fm-09-chi-tiet-chuyen.html">${t.res.trip}</a><span class="cell-sub">Chọn bởi Mai Hồng · vừa xong</span>` : t.res.kind === 'general' ? `<span class="why">Tính vào chi phí chung của xe <b>${t.plate}</b>, phân bổ theo kỳ</span>` : t.res.kind === 'vehicle' ? `<span class="why">Đọc thành <b class="code">${t.res.plate}</b> · ${t.res.trip ? `khớp <b>${t.res.trip}</b>` : 'ngoài chuyến'}</span>` : `<span class="why">Không phải xe công ty</span>`;
+    act = 'Xem';
+  } else if (m.k === 'ok') {
+    res = `<span class="badge b-success">${icon('check')}Khớp</span>`;
+    why = `<a class="code" href="fm-09-chi-tiet-chuyen.html">${m.trips[0].id}</a><span class="cell-sub">${m.trips[0].route}</span>`; act = t.dup && !t.dupRes ? 'Xử lý' : 'Xem';
+  } else if (m.k === 'multi') {
+    res = `<span class="badge b-warning">${icon('warn')}Nhiều chuyến</span>`;
+    why = `<span class="why">Trong khoảng của <b>${m.trips.length} chuyến</b>: ${m.trips.map(x => `<span class="code">${x.id}</span>`).join(', ')}</span>`;
+  } else if (m.k === 'out') {
+    res = `<span class="badge b-neutral">${icon('dot')}Ngoài chuyến</span>`;
+    why = m.near ? `<span class="why">Gần nhất <b class="code">${m.near.x.id}</b> (${hh(m.near.x.start)}–${hh(m.near.x.end)} ${dd(m.near.x.start)}), lệch <b>${dur(m.near.gap)}</b>${m.near.gap - S.margin * 36e5 < 36e5 ? ` · <span style="color:var(--warning-fg)">ngoài biên ${dur(m.near.gap - S.margin * 36e5)}</span>` : ''}</span>` : `<span class="why">Xe không có chuyến trong kỳ</span>`;
+  } else {
+    res = `<span class="badge b-danger">${icon('block')}Không tìm thấy xe</span>`;
+    why = `<span class="why">${t.nf}${t.guess ? ` · có phải <b class="code">${t.guess}</b>?` : ''}</span>`;
+  }
+  const dupB = t.dup ? (t.dupRes ? `<span class="badge b-neutral">${icon(t.dupRes === 'merged' ? 'copy' : 'check')}${t.dupRes === 'merged' ? 'Đã gộp' : 'Không trùng'}</span>` : `<span class="badge b-warning">${icon('copy')}Nghi trùng</span>`) : '';
+  const cls = !t.res && m.k === 'multi' ? 'k-multi' : !t.res && m.k === 'none' ? 'k-none' : t.dup && !t.dupRes ? 'k-dup' : '';
+  const chk = !t.res && m.k === 'out' ? `<input type="checkbox" data-chk="${t.id}" ${S.sel.has(t.id) ? 'checked' : ''} aria-label="Chọn giao dịch ${t.ref}">` : '';
+  return `<tr data-id="${t.id}" class="${cls} ${S.sel.has(t.id) ? 'sel' : ''}"><td>${chk}</td><td class="num">${t.at.split(' ')[1]}<span class="cell-sub">${t.at.split(' ')[0]}/2026</span></td><td><b class="code">${t.plate}</b></td>
+    <td><span class="src">${icon('toll')}${t.place}</span><span class="cell-sub code">${t.ref}</span></td><td class="right num">${fmt.vnd(t.amt)}</td>
+    <td><div class="badges">${res}${dupB}</div></td><td>${why}</td><td class="right"><button class="btn ${act === 'Xử lý' ? 'btn-secondary' : 'btn-ghost'} btn-sm" type="button" tabindex="-1">${act}</button></td></tr>`;
+}
+
+/* ---------- Drawer ---------- */
+let DR = null;
+function openDrawer(id) {
+  closeDrawer(true);
+  const t = S.tx.find(x => x.id === id), m = match(t, S.margin);
+  DR = { t, m, pick: t.res ? (t.res.trip || t.res.kind) : m.k === 'ok' ? m.trips[0].id : m.k === 'multi' ? null : m.k === 'out' ? 'general' : (t.guess || null), dup: t.dupRes || (t.dup ? 'merged' : null) };
+  const s = document.createElement('div'); s.className = 'scrim'; s.id = 'drScrim'; s.onclick = () => closeDrawer();
+  const d = document.createElement('aside'); d.className = 'drawer'; d.id = 'drawer'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'drTitle');
+  document.body.append(s, d); renderDrawer(); d.querySelector('#drClose').focus();
+}
+function closeDrawer(now) { const d = $('drawer'), s = $('drScrim'); [d, s].forEach(x => { if (x) { x.id = ''; now ? x.remove() : Shell.dismiss(x); } }); }
+function timeline(t, trips, pick) {
+  const lo = Math.min(t.time, ...trips.map(x => x.start - S.margin * 36e5)) - 36e5, hi = Math.max(+t.time, ...trips.map(x => +x.end + S.margin * 36e5)) + 36e5;
+  const P = x => ((x - lo) / (hi - lo) * 100).toFixed(2) + '%', W = (a, b) => ((b - a) / (hi - lo) * 100).toFixed(2) + '%';
+  const ticks = [0, .25, .5, .75, 1].map(f => hh(new Date(lo + f * (hi - lo))));
+  return `<div class="tl" aria-label="Khoảng thời gian chuyến so với giao dịch" style="padding-top:20px">
+    ${trips.map(x => `<div class="lane"><span class="win" style="left:${P(x.start - S.margin * 36e5)};width:${W(x.start - S.margin * 36e5, +x.end + S.margin * 36e5)}"></span><span class="trip ${pick === x.id ? 'pick' : ''}" style="left:${P(x.start)};width:${W(x.start, x.end)}"></span><span class="lbl" style="left:calc(${P(x.start)} + 6px);${pick === x.id ? 'color:var(--on-primary)' : ''}">${x.id}</span></div>`).join('')}
+    <span class="now" style="left:${P(t.time)}"><span>${hh(t.time)}</span></span>
+    <div class="axis">${ticks.map(x => `<span>${x}</span>`).join('')}</div>
+    <p class="sm muted" style="margin-top:6px">Thanh đặc: giờ chạy dự kiến/thực tế · khung nét đứt: biên ±${S.margin}h · vạch đen: thời điểm giao dịch</p></div>`;
+}
+function tripOpt(x, note) { return `<label class="opt"><input type="radio" name="pick" value="${x.id}" ${DR.pick === x.id ? 'checked' : ''}><span class="t"><span class="code">${x.id}</span>${FM.statusBadge(x.status)}</span><span class="sm muted num">${hh(x.start)} – ${hh(x.end)} ${dd(x.start)}</span><span class="s">${x.route} · ${x.driver}${note ? ' · ' + note : ''}</span></label>`; }
+function renderDrawer() {
+  const { t, m } = DR, d = $('drawer'); if (!d) return;
+  const k = m.k;
+  const head = META[k];
+  let body = '', primary = '', note = '';
+  const kv = `<dl class="kv"><dt>Nguồn</dt><dd><span class="src">${icon('toll')}Sao kê ePass · <span class="code">IMP-0088</span></span></dd><dt>Mã giao dịch</dt><dd class="code">${t.ref}</dd><dt>Nơi giao dịch</dt><dd>${t.place}</dd><dt>Biển số trên sao kê</dt><dd><b class="code">${t.plate}</b></dd></dl>`;
+  if (k === 'multi') {
+    body = `<div class="explain">Thời điểm <b class="num">${hh(t.time)} ${dd(t.time)}</b> nằm trong khoảng của <b>${m.trips.length} chuyến</b> cùng xe <span class="code">${t.plate}</span>. Chọn chuyến phát sinh phí này.</div>
+      ${timeline(t, m.trips, DR.pick)}
+      <div class="stack" style="gap:8px"><div class="section-title"><h3>Gắn vào</h3></div><div class="opts">${m.trips.map(x => tripOpt(x, t.time > x.end ? `sau khi kết thúc ${dur(t.time - x.end)}` : t.time < x.start ? `trước khi bắt đầu ${dur(x.start - t.time)}` : 'trong giờ chạy')).join('')}
+        <label class="opt"><input type="radio" name="pick" value="general" ${DR.pick === 'general' ? 'checked' : ''}><span class="t">Chi phí chung của xe</span><span></span><span class="s">Không thuộc chuyến nào, phân bổ theo kỳ ở báo cáo P&L</span></label></div></div>
+      <p class="sm muted">Gợi ý: trạm ${t.place} nằm trên hành trình của <b>${m.trips[1] ? m.trips[1].id : m.trips[0].id}</b> (lượt đi lấy hàng).</p>`;
+  } else if (k === 'out') {
+    const near = m.near;
+    body = `<div class="explain info">Không có chuyến nào của xe <span class="code">${t.plate}</span> trong khoảng ±${S.margin}h quanh <b class="num">${hh(t.time)} ${dd(t.time)}</b>.${near ? ` Gần nhất là <b class="code">${near.x.id}</b>, lệch <b>${dur(near.gap)}</b>.` : ''}</div>
+      ${near ? timeline(t, [near.x], DR.pick) : ''}
+      <div class="stack" style="gap:8px"><div class="section-title"><h3>Xử lý</h3></div><div class="opts">
+        <label class="opt"><input type="radio" name="pick" value="general" ${DR.pick === 'general' ? 'checked' : ''}><span class="t">Chi phí chung của xe <span class="badge b-neutral">Đề xuất</span></span><span></span><span class="s">Ví dụ chạy về bãi, đi bảo dưỡng. Phân bổ theo kỳ ở báo cáo P&L</span></label>
+        ${near ? tripOpt(near.x, `lệch ${dur(near.gap)} so với chuyến`) : ''}</div></div>`;
+  } else if (k === 'none') {
+    body = `<div class="explain danger"><b>${t.nf}.</b> ${t.guess ? `Biển gần giống: <b class="code">${t.guess}</b> (khác 2 chữ số cuối, có thể nhập sai khi đăng ký tài khoản ETC).` : 'Có thể là xe đã bán, xe thuê ngoài, hoặc xe chưa khai báo.'}</div>
+      <div class="stack" style="gap:8px"><div class="section-title"><h3>Xử lý</h3></div><div class="opts">
+        ${t.guess ? `<label class="opt"><input type="radio" name="pick" value="${t.guess}" ${DR.pick === t.guess ? 'checked' : ''}><span class="t">Đọc thành <span class="code">${t.guess}</span></span><span class="sm muted">khớp CH-0462</span><span class="s">Lần sau giao dịch của biển ${t.plate} tự đọc thành ${t.guess}</span></label>` : ''}
+        <label class="opt"><input type="radio" name="pick" value="other" ${DR.pick === 'other' ? 'checked' : ''}><span class="t">Chọn xe khác</span><span></span><span class="s"><select class="select" style="margin-top:6px;width:220px" aria-label="Chọn xe">${FM.vehicles.map(v => `<option>${v.plate}</option>`).join('')}</select></span></label>
+        <label class="opt"><input type="radio" name="pick" value="ignore" ${DR.pick === 'ignore' ? 'checked' : ''}><span class="t">Bỏ qua: không phải xe công ty</span><span></span><span class="s">Giao dịch giữ trong lịch sử import, không tính vào chi phí</span></label></div></div>
+      <a class="btn btn-ghost btn-sm" href="fm-14-xe.html" style="align-self:flex-start">${icon('plus')}Thêm xe ${t.plate} vào danh sách</a>`;
+  } else {
+    const x = m.trips[0];
+    body = `<div class="explain info">Khớp <b class="code">${x.id}</b>: cùng biển số, <b class="num">${hh(t.time)}</b> nằm trong khoảng ${hh(new Date(x.start - S.margin * 36e5))} – ${hh(new Date(+x.end + S.margin * 36e5))} ${dd(x.start)}.</div>${timeline(t, [x], x.id)}`;
+  }
+  if (t.dup) {
+    const diff = Math.abs(t.amt - t.dup.amt), pct = diff / t.amt * 100;
+    body += `<div class="stack" style="gap:10px"><div class="section-title"><h3>Nghi trùng với chi phí tài xế đã ghi</h3><span class="badge b-warning">${icon('copy')}Cùng xe · cùng ngày · chênh ${fmt.pct(pct)}</span></div>
+      <div class="cmp"><div><span class="sm muted">${icon('tray')} Giao dịch import (ePass)</span><span class="amt">${fmt.vnd(t.amt)}</span><span>${t.place}</span><span class="sm muted num">${hh(t.time)} ${dd(t.time)}/2026 · ${t.ref}</span></div>
+        <div><span class="sm muted">${icon('phone')} Tài xế ghi trên app</span><span class="amt">${fmt.vnd(t.dup.amt)}</span><span>${t.dup.what}</span><span class="sm muted num">${t.dup.by} · ${t.dup.at}/2026</span><span class="thumb">${icon('camera')} Ảnh vé</span></div></div>
+      <p class="sm muted">Chênh <b class="num">${fmt.vnd(diff)}</b>${diff ? ' (≤ 1%)' : ''}. Quy tắc: cùng xe, cùng ngày, chênh tiền ≤ 1%.</p>
+      <div class="opts"><label class="opt"><input type="radio" name="dup" value="merged" ${DR.dup === 'merged' ? 'checked' : ''}><span class="t">Gộp thành một dòng <span class="badge b-neutral">Đề xuất</span></span><span></span><span class="s">Giữ số tiền theo sao kê (${fmt.vnd(t.amt)}), gắn ảnh vé của tài xế làm chứng từ, bỏ dòng tài xế khỏi quyết toán tạm ứng</span></label>
+        <label class="opt"><input type="radio" name="dup" value="keep" ${DR.dup === 'keep' ? 'checked' : ''}><span class="t">Không trùng, giữ cả hai</span><span></span><span class="s">Ví dụ tài xế đi qua trạm hai lần</span></label></div></div>`;
+  }
+  const ready = DR.pick && (!t.dup || DR.dup);
+  const lbl = DR.pick === 'general' ? 'Ghi là chi phí chung xe' : DR.pick === 'ignore' ? 'Bỏ qua giao dịch' : DR.pick === 'other' ? 'Gắn vào xe đã chọn' : k === 'none' ? `Đọc thành ${DR.pick}` : k === 'ok' && !t.dup ? 'Đóng' : t.dup && k === 'ok' ? (DR.dup === 'merged' ? 'Gộp hai dòng' : 'Giữ cả hai') : DR.pick ? `Gắn vào ${DR.pick}` : 'Chọn chuyến';
+  d.innerHTML = `
+    <div class="drawer-head"><div class="row"><h2 id="drTitle">Giao dịch <span class="num">${hh(t.time)} ${dd(t.time)}</span> · <span class="num">${fmt.vnd(t.amt)}</span></h2><span class="badge ${head[1]}">${icon(head[2])}${head[0]}</span><button class="icon-btn" id="drClose" aria-label="Đóng (Esc)" style="margin-left:auto">${icon('x', 'lg')}</button></div></div>
+    <div class="drawer-body">${kv}${body}</div>
+    <div class="drawer-foot"><span class="note">${k === 'ok' && !t.dup ? 'Khớp tự động, không cần xử lý' : 'Có thể hoàn tác trong 10 giây'}</span><button class="btn btn-secondary" type="button" id="drCancel">${k === 'ok' && !t.dup ? 'Gỡ khỏi chuyến' : 'Để sau'}</button><span class="tip"><button class="btn btn-primary" type="button" id="drOk" ${ready ? '' : 'disabled'}>${lbl}</button>${ready ? '' : `<span class="tip-body right">${!DR.pick ? 'Chọn chuyến hoặc cách xử lý' : 'Chọn Gộp hoặc Giữ cả hai'}</span>`}</span></div>`;
+  d.querySelector('#drClose').onclick = () => closeDrawer();
+  d.querySelector('#drCancel').onclick = () => { if (k === 'ok' && !t.dup) { t.res = { kind: 'general' }; closeDrawer(); render(); toast(`Đã gỡ khỏi ${m.trips[0].id}, ghi là chi phí chung xe`, { undo: () => { t.res = null; render(); } }); } else closeDrawer(); };
+  d.querySelectorAll('input[name=pick]').forEach(r => r.onchange = () => { DR.pick = r.value; renderDrawer(); });
+  d.querySelectorAll('input[name=dup]').forEach(r => r.onchange = () => { DR.dup = r.value; renderDrawer(); });
+  d.querySelector('#drOk').onclick = () => {
+    if (k === 'ok' && !t.dup) return closeDrawer();
+    const prev = { res: t.res, dupRes: t.dupRes };
+    if (k !== 'ok') t.res = DR.pick === 'general' ? { kind: 'general' } : DR.pick === 'ignore' ? { kind: 'ignore' } : k === 'none' ? { kind: 'vehicle', plate: DR.pick === 'other' ? '51C-123.45' : DR.pick, trip: DR.pick === t.guess ? 'CH-0462' : null } : { kind: 'trip', trip: DR.pick };
+    if (t.dup) t.dupRes = DR.dup;
+    closeDrawer(); render();
+    const msg = t.dup && k === 'ok' ? (DR.dup === 'merged' ? `Đã gộp: giữ ${fmt.vnd(t.amt)} từ ePass, ảnh vé của ${t.dup.by} làm chứng từ` : 'Đã giữ cả hai dòng chi phí') : t.res.kind === 'general' ? `Đã ghi ${fmt.vnd(t.amt)} là chi phí chung xe ${t.plate}` : t.res.kind === 'ignore' ? 'Đã bỏ qua giao dịch' : t.res.kind === 'vehicle' ? `Đã đọc ${t.plate} thành ${t.res.plate}` : `Đã gắn ${fmt.vnd(t.amt)} vào ${t.res.trip}`;
+    toast(msg, { undo: () => { t.res = prev.res; t.dupRes = prev.dupRes; render(); } });
+  };
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+$('rerun').onclick = () => { S.loading = true; render(); setTimeout(() => { S.loading = false; render(); toast('Đã khớp lại 186 giao dịch theo dữ liệu chuyến mới nhất'); }, 1400); };
+$('impSel').onchange = () => toast('Prototype chỉ có dữ liệu của IMP-0088');
+
+Shell.states([['default', 'Mặc định'], ['multi', 'Nhiều chuyến'], ['dup', 'Nghi trùng'], ['none', 'Không tìm thấy xe'], ['out', 'Ngoài chuyến'], ['done', 'Đã xử lý hết'], ['loading', 'Đang khớp'], ['empty', 'Trống'], ['error', 'Lỗi']], st => {
+  closeDrawer(true); reset();
+  if (st === 'loading') S.loading = true;
+  if (st === 'empty') S.empty = true;
+  if (st === 'error') S.err = true;
+  if (st === 'done') { S.allDone = true; S.tx.forEach(t => { const m = match(t, 2); if (m.k !== 'ok') t.res = m.k === 'multi' ? { kind: 'trip', trip: m.trips[1].id } : m.k === 'none' ? { kind: 'ignore' } : { kind: 'general' }; if (t.dup) t.dupRes = 'merged'; }); S.filter = 'all'; }
+  render();
+  if (st === 'multi') openDrawer(3);
+  if (st === 'dup') openDrawer(2);
+  if (st === 'none') openDrawer(15);
+  if (st === 'out') openDrawer(9);
+});
+</script>
+</body>
+</html>

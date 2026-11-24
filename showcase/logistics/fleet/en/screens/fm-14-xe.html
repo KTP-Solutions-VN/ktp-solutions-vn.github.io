@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vehicles & trailers · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* FM_14 — danh sách tài sản: FilterBar → DataGrid toàn chiều rộng (DESIGN §5), không KPI (B2: màn thao tác) */
+  .page-header .fresh { margin-top: 6px; }
+  .tabs .count-pill { margin-left: 2px; }
+  .tabs button[aria-selected="true"] .count-pill { background: var(--primary-soft); color: var(--primary); }
+  .seg .n { font-variant-numeric: tabular-nums; color: var(--fg-subtle); font-weight: 500; }
+  .seg button[aria-pressed="true"] .n { color: var(--side-active); }
+  .listcard { min-width: 0; overflow: hidden; }
+  .listcard .grid tbody tr { cursor: pointer; }
+  .listcard .grid tbody tr:last-child td { border-bottom: 0; }
+  .listcard .grid th:first-child, .listcard .grid td:first-child { padding-left: 18px; }
+  .listcard .grid th:last-child, .listcard .grid td:last-child { padding-right: 14px; }
+  .plate { font-weight: 600; color: var(--fg-strong); }
+  .gsht { display: inline-flex; align-items: center; gap: 6px; }
+  .gsht .d { width: 7px; height: 7px; border-radius: 50%; background: var(--success-solid); flex: none; }
+  .gsht .d.warn { background: var(--warning-solid); }
+  .gsht .d.off { background: var(--fg-subtle); }
+  .row-go { color: var(--fg-subtle); }
+  .grid tr:hover .row-go { color: var(--primary); }
+  .foot-note { display: flex; align-items: center; gap: 8px; padding: 10px 18px 14px; font-size: 12.5px; color: var(--fg-muted); }
+  /* Drawer thêm mới */
+  .drawer.add { width: min(600px, 100vw); }
+  .drawer.add .drawer-head { border-bottom: 0; padding-bottom: 4px; }
+  .drawer.add .drawer-body { gap: 22px; }
+  .fgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 14px; }
+  .fgrid .full { grid-column: 1 / -1; }
+  .unit { display: flex; align-items: center; gap: 8px; }
+  .unit .input { flex: 1; }
+  .unit span { color: var(--fg-muted); font-size: 13px; white-space: nowrap; }
+  .field .err { color: var(--danger-fg); font-size: 12px; display: none; }
+  .field.invalid .input { border-color: var(--danger-solid); }
+  .field.invalid .err { display: block; }
+  .doc-rows { display: flex; flex-direction: column; gap: 6px; }
+  .doc-row { display: grid; grid-template-columns: minmax(0, 1fr) 150px auto; gap: 10px; align-items: center; padding: 6px 8px 6px 10px; border-radius: 8px; background: var(--surface-muted); font-size: 13px; }
+  .doc-row .input { height: 30px; }
+  .hint { font-size: 12.5px; color: var(--fg-muted); }
+  .empty .btn .icon { width: 16px; height: 16px; stroke-width: 1.75; color: inherit; }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Fleet / Vehicles &amp; trailers</div>
+      <h1>Vehicles &amp; trailers</h1>
+      <div class="fresh" id="fresh"><span class="live" aria-hidden="true"></span><span id="freshTxt">Odometer and signal updated 2 min ago · GPS tracker</span></div>
+    </div>
+    <div class="actions">
+      <a class="btn btn-secondary" href="fm-03-import.html" id="importBtn"></a>
+      <button class="btn btn-primary" type="button" id="addBtn"></button>
+    </div>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Asset type" id="tabs"></div>
+
+  <div class="filterbar" role="toolbar" aria-label="Filters" id="filters"></div>
+
+  <div id="alertSlot"></div>
+
+  <section class="card listcard" aria-label="List" id="listCard"></section>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_14', title: 'Vehicles & trailers' });
+const $ = id => document.getElementById(id);
+$('importBtn').innerHTML = icon('import') + 'Import from Excel';
+
+/* Dữ liệu riêng của màn: trạng thái vận hành, giấy tờ gần hết hạn nhất, GSHT, km.
+   Giấy tờ khớp FM_18 (hôm nay 12/11/2026): quá hạn / ≤30 ngày mới có badge. */
+const VX = {
+  '51C-123.45': { brand: 'Hyundai Xcient GT · 2021', op: 'run', opSub: 'CH-0458', doc: ['Physical damage insurance', '17/11/2026', 5], g: ['Bình Anh', 'ok', '2 min ago'], kmNow: 186420 },
+  '51D-456.78': { brand: 'Hyundai HD1000 · 2019', op: 'run', opSub: 'CH-0462', doc: ['Inspection', '24/11/2026', 12], g: ['Bình Anh', 'ok', '1 min ago'], kmNow: 241905 },
+  '51C-099.21': { brand: 'Howo A7 · 2018', op: 'stop', opSub: 'Awaiting re-inspection', doc: ['Inspection', '02/11/2026', -10], g: ['Bình Anh', 'ok', '1 h ago · parked at yard'], kmNow: 312077 },
+  '51C-310.66': { brand: 'Freightliner Cascadia · 2017', op: 'maint', opSub: 'Until 14/11 · Linh Trung workshop', doc: ['BH TNDS', '21/01/2027', 70], g: ['Bình Anh', 'warn', 'Signal lost for 2 days'], kmNow: 158330 },
+  '61C-220.14': { brand: 'International Prostar · 2018', op: 'run', opSub: 'CH-0464', doc: ['Truck operating badge', '03/12/2026', 21], g: ['Vietmap', 'ok', '3 min ago'], kmNow: 97412 },
+  '51C-456.78': { brand: 'Hyundai Xcient · 2020', op: 'run', opSub: 'CH-0457', doc: ['BH TNDS', '10/12/2026', 28], g: ['Bình Anh', 'ok', '2 min ago'], kmNow: 205118 },
+  '51D-702.33': { brand: 'Isuzu FVM · 2020', op: 'run', opSub: 'CH-0463', doc: ['Inspection', '15/02/2027', 95], g: ['Vietmap', 'ok', '4 min ago'], kmNow: 74260 },
+  '51C-588.02': { brand: 'Hino FL · 2019', op: 'ready', opSub: 'Thủ Đức yard', doc: ['BH TNDS', '30/03/2027', 138], g: ['Vietmap', 'ok', '25 min ago · parked at yard'], kmNow: 132840, extra: { plate: '51C-588.02', type: 'Box truck', cap: 15.0 } },
+  '51C-731.80': { brand: 'Chenglong H7 · 2022', op: 'run', opSub: 'CH-0459', doc: ['Inspection', '08/01/2027', 57], g: ['Bình Anh', 'warn', 'Sync delayed 17 min'], kmNow: 88905, extra: { plate: '51C-731.80', type: 'Tractor unit', cap: 30.0 } },
+  '51C-640.27': { brand: 'Hyundai Xcient GT · 2023', op: 'ready', opSub: 'Thủ Đức yard', doc: ['Inspection', '30/05/2027', 199], g: ['Bình Anh', 'ok', '12 min ago · parked at yard'], kmNow: 41206, extra: { plate: '51C-640.27', type: 'Tractor unit', cap: 30.0 } }
+};
+const RX = {
+  '51R-123.45': { op: 'run', opSub: 'Pulled by 51C-123.45 · CH-0458', doc: ['Inspection', '18/04/2027', 157] },
+  '51R-204.90': { op: 'run', opSub: 'Pulled by 51D-456.78 · CH-0462', doc: ['Inspection', '26/11/2026', 14] },
+  '51R-088.12': { op: 'stop', opSub: 'Assigned to CH-0464 · needs replacing', doc: ['BH TNDS', '28/10/2026', -15] },
+  '51R-077.30': { op: 'ready', opSub: 'Thủ Đức yard', doc: ['Inspection', '09/03/2027', 117] },
+  '51R-310.41': { op: 'run', opSub: 'Pulled by 51C-731.80 · CH-0459', doc: ['BH TNDS', '22/02/2027', 102], extra: { plate: '51R-310.41', type: 'Semi-trailer 40\'', cap: 32.0 } }
+};
+const OP = { ready: ['Available', 'b-success', 'check'], run: ['En route', 'b-info', 'pulse'], maint: ['Maintenance', 'b-neutral', 'wrench'], stop: ['Out of service', 'b-outline', 'block'] };
+const base = () => ({
+  xe: FM.vehicles.map(v => Object.assign({}, v, VX[v.plate])).concat(Object.values(VX).filter(x => x.extra).map(x => Object.assign({}, x.extra, x))),
+  rm: FM.trailers.map(v => Object.assign({}, v, RX[v.plate])).concat(Object.values(RX).filter(x => x.extra).map(x => Object.assign({}, x.extra, x)))
+});
+let DATA = base();
+const S = { tab: 'xe', op: 'all', docSoon: false, type: 'all', q: '', mode: 'default' };
+
+function opBadge(r) {
+  const m = OP[r.op]; const ic = m[2] === 'pulse' ? '<span class="pulse" aria-hidden="true"></span>' : icon(m[2]);
+  const sub = r.op === 'run' && /^CH-/.test(r.opSub) ? `<a class="code" href="fm-09-chi-tiet-chuyen.html" data-stop>${r.opSub}</a>` : r.opSub.replace(/(CH-\d{4})/, '<a class="code" href="fm-09-chi-tiet-chuyen.html" data-stop>$1</a>');
+  return `<span class="badge ${m[1]}">${ic}${m[0]}</span><span class="cell-sub">${sub}</span>`;
+}
+function docCell(d) {
+  const [name, date, days] = d;
+  if (days < 0) return `<span class="badge b-danger">${icon('block')}${name} expired ${-days} days ago</span><span class="cell-sub num">Expiry ${date} · blocks trip assignment</span>`;
+  if (days <= 30) return `<span class="badge b-warning">${icon('warn')}${name}: ${days} days left</span><span class="cell-sub num">Expiry ${date}</span>`;
+  return `<span>${name}</span><span class="cell-sub num">Expiry ${date}</span>`;
+}
+function gshtCell(g) {
+  if (!g) return '<span class="muted">—</span>';
+  return `<span class="gsht"><span class="d ${g[1] === 'warn' ? 'warn' : ''}" aria-hidden="true"></span>${g[0]}</span><span class="cell-sub" style="${g[1] === 'warn' ? 'color:var(--warning-fg)' : ''}">${g[2]}</span>`;
+}
+
+function rows() {
+  return DATA[S.tab].filter(r => (S.op === 'all' || r.op === S.op) && (!S.docSoon || r.doc[2] <= 30) && (S.type === 'all' || r.type === S.type) &&
+    (!S.q || (r.plate + r.type + (r.brand || '') + r.opSub).toLowerCase().includes(S.q)));
+}
+function renderTabs() {
+  $('tabs').innerHTML = [['xe', 'Vehicle', 'truck'], ['rm', 'Trailer', 'container']].map(([k, l, ic]) => `<button role="tab" type="button" data-tab="${k}" aria-selected="${S.tab === k}">${icon(ic)}${l}<span class="count-pill">${S.mode === 'empty' ? 0 : DATA[k].length}</span></button>`).join('');
+  $('tabs').querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { S.tab = b.dataset.tab; S.op = 'all'; S.type = 'all'; S.docSoon = false; S.q = ''; renderAll(); });
+  $('addBtn').innerHTML = icon('plus') + (S.tab === 'xe' ? 'Add vehicle' : 'Add trailer');
+}
+function renderFilters() {
+  $('filters').style.display = S.mode === 'empty' ? 'none' : '';
+  const all = DATA[S.tab], cnt = k => all.filter(r => r.op === k).length;
+  const types = [...new Set(all.map(r => r.type))];
+  const soon = all.filter(r => r.doc[2] <= 30).length;
+  $('filters').innerHTML = `
+    <div class="seg" role="group" aria-label="Status">${[['all', 'All', all.length], ['ready', 'Available', cnt('ready')], ['run', 'En route', cnt('run')], ['maint', 'Maintenance', cnt('maint')], ['stop', 'Out of service', cnt('stop')]].map(([k, l, n]) => `<button type="button" data-op="${k}" aria-pressed="${S.op === k}">${l} <span class="n">${n}</span></button>`).join('')}</div>
+    <div class="select-wrap"><select class="select" id="typeSel" aria-label="Type" style="height:30px;padding-right:30px;appearance:none;-webkit-appearance:none"><option value="all">Type: All</option>${types.map(t => `<option ${S.type === t ? 'selected' : ''} value="${t}">${t}</option>`).join('')}</select>${icon('chevron')}</div>
+    <button class="chip ${S.docSoon ? 'on' : ''}" type="button" id="docChip" aria-pressed="${S.docSoon}">${icon('doc')}Documents expired / ≤ 30 days · ${soon}</button>
+    ${S.op !== 'all' || S.docSoon || S.type !== 'all' || S.q ? '<button class="btn btn-ghost btn-sm" type="button" id="clearF">Clear filters</button>' : ''}
+    <label class="search-global" style="max-width:280px;margin-left:auto">${icon('search')}<input id="q" type="search" value="${S.q}" placeholder="Search plate, make…" aria-label="Search ${S.tab === 'xe' ? 'vehicle' : 'trailer'}"></label>`;
+  $('filters').querySelectorAll('[data-op]').forEach(b => b.onclick = () => { S.op = b.dataset.op; renderFilters(); renderList(); });
+  $('typeSel').onchange = e => { S.type = e.target.value; renderFilters(); renderList(); };
+  $('docChip').onclick = () => { S.docSoon = !S.docSoon; renderFilters(); renderList(); };
+  const c = $('clearF'); if (c) c.onclick = () => { S.op = 'all'; S.docSoon = false; S.type = 'all'; S.q = ''; renderFilters(); renderList(); };
+  $('q').oninput = e => { S.q = e.target.value.trim().toLowerCase(); renderList(); };
+}
+function renderList() {
+  const card = $('listCard');
+  if (S.mode === 'loading') { card.innerHTML = skel(); return; }
+  if (S.mode === 'empty') { card.innerHTML = emptyFirst(); bindEmpty(); return; }
+  const list = rows();
+  if (!list.length) { card.innerHTML = `<div class="empty">${icon('filter')}<h3>No ${S.tab === 'xe' ? 'vehicle' : 'trailer'} matches the filters</h3><p>Try removing some filters.</p><button class="btn btn-secondary" type="button" onclick="document.getElementById('clearF').click()">Clear filters</button></div>`; return; }
+  const xe = S.tab === 'xe';
+  card.innerHTML = `<div class="grid-wrap"><table class="grid" aria-label="${xe ? 'Vehicle list' : 'Trailer list'}">
+    <thead><tr><th>License plate</th><th>Type</th><th class="right">Capacity</th><th>Status</th><th>Next expiring document</th>${xe ? '<th>GPS tracker</th><th class="right">Odometer</th>' : ''}<th style="width:28px"><span class="sr-only">Open</span></th></tr></thead>
+    <tbody>${list.map(r => `<tr data-plate="${r.plate}" ${xe ? `tabindex="0" aria-label="Open vehicle profile ${r.plate}"` : 'style="cursor:default"'}>
+      <td>${xe ? `<a class="code plate" href="fm-15-chi-tiet-xe.html">${r.plate}</a>` : `<b class="code plate">${r.plate}</b>`}${r.branch ? `<span class="cell-sub">${r.branch} branch</span>` : '<span class="cell-sub">TP.HCM</span>'}</td>
+      <td>${r.type}${r.brand ? `<span class="cell-sub">${r.brand}</span>` : ''}</td>
+      <td class="right num">${fmt.dec(r.cap)} t</td>
+      <td>${opBadge(r)}</td>
+      <td>${docCell(r.doc)}</td>
+      ${xe ? `<td>${gshtCell(r.g)}</td><td class="right num">${r.kmNow != null ? fmt.vnd(r.kmNow, { bare: 1 }) + ' km' : '—'}</td>` : ''}
+      <td class="row-go">${xe ? icon('chevron-right') : ''}</td></tr>`).join('')}</tbody></table></div>
+    <div class="foot-note">${icon('info')}<span>${list.length} / ${DATA[S.tab].length} ${xe ? 'vehicle' : 'trailer'} · HCMC branch. ${xe ? 'Vehicle' : 'Trailer'} with expired documents can't be assigned to trips in Dispatch.</span>${xe ? '' : '<span style="margin-left:auto">Trailers don\'t need a GPS tracker.</span>'}</div>`;
+  if (xe) card.querySelectorAll('tbody tr').forEach(tr => {
+    tr.onclick = e => { if (e.target.closest('[data-stop]')) return; location.href = 'fm-15-chi-tiet-xe.html'; };
+    tr.onkeydown = e => { if (e.key === 'Enter') location.href = 'fm-15-chi-tiet-xe.html'; };
+  });
+}
+function skel() { const n = S.tab === 'xe' ? 8 : 6; return `<div class="grid-wrap"><table class="grid" aria-busy="true"><thead><tr>${Array(n).fill('<th><span class="sk" style="width:70px"></span></th>').join('')}</tr></thead><tbody>${Array(7).fill('<tr>' + Array(n).fill('<td style="height:52px"><span class="sk" style="width:75%"></span></td>').join('') + '</tr>').join('')}</tbody></table></div>`; }
+function emptyFirst() {
+  return `<div class="empty">${icon(S.tab === 'xe' ? 'truck' : 'container')}<h3>No ${S.tab === 'xe' ? 'vehicle' : 'trailer'} added yet</h3><p>Import the list from the Excel file you already use, or add one ${S.tab === 'xe' ? 'vehicle' : 'trailer'} at a time.</p><div class="row" style="margin-top:4px"><a class="btn btn-secondary" href="fm-03-import.html">${icon('import')}Import from Excel</a><button class="btn btn-primary" type="button" data-add>${icon('plus')}${S.tab === 'xe' ? 'Add vehicle' : 'Add trailer'}</button></div></div>`;
+}
+function bindEmpty() { const b = $('listCard').querySelector('[data-add]'); if (b) b.onclick = openAdd; }
+function renderAll() { renderTabs(); renderFilters(); renderList(); }
+
+/* ---------- Drawer: Thêm xe / rơ-moóc ---------- */
+function closeDrawer() { document.querySelectorAll('.drawer:not(.leaving), .scrim:not(.leaving)').forEach(x => Shell.dismiss(x)); }
+function openAdd() {
+  closeDrawer();
+  const xe = S.tab === 'xe';
+  const s = document.createElement('div'); s.className = 'scrim'; s.onclick = closeDrawer;
+  const d = document.createElement('aside'); d.className = 'drawer add'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'addTitle');
+  const docs = xe ? ['Inspection', 'TPL insurance', 'Physical damage insurance', 'Operating badge "TRUCK"'] : ['Inspection', 'TPL insurance'];
+  d.innerHTML = `
+    <div class="drawer-head"><div class="row"><h2 id="addTitle">${xe ? 'Add vehicle' : 'Add trailer'}</h2><button class="icon-btn" type="button" data-x aria-label="Close (Esc)" style="margin-left:auto">${icon('x', 'lg')}</button></div>
+      <p class="hint">Adding more than one ${xe ? 'vehicle' : 'trailer'}? <a href="fm-03-import.html">Import from Excel</a> is faster.</p></div>
+    <div class="drawer-body">
+      <div class="stack" style="gap:10px"><div class="section-title"><h3>Basic ${xe ? 'vehicle' : 'trailer'} info</h3></div>
+        <div class="fgrid">
+          <label class="field" id="fPlate"><span>License plate *</span><input class="input code" id="plateIn" placeholder="${xe ? 'e.g. 51C-123.45' : 'e.g. 51R-123.45'}" aria-describedby="plateErr"><small class="err" id="plateErr">Invalid plate format, e.g. ${xe ? '51C-123.45' : '51R-123.45'}.</small></label>
+          <label class="field"><span>Type *</span><select class="input">${(xe ? ['Tractor unit', 'Box truck', 'Dump truck'] : ['Semi-trailer 40\'', 'Semi-trailer 20\'', 'Flatbed semi-trailer']).map(o => `<option>${o}</option>`).join('')}</select></label>
+          ${xe ? '<label class="field"><span>Make · model</span><input class="input" placeholder="VD: Hyundai Xcient GT"></label><label class="field"><span>Year of manufacture</span><input class="input num" placeholder="VD: 2021"></label>' : ''}
+          <label class="field"><span>${xe ? 'Payload / towing capacity *' : 'Payload *'}</span><div class="unit"><input class="input num right" value="${xe ? '30,0' : '32,0'}"><span>t</span></div></label>
+          <label class="field"><span>Branch</span><select class="input"><option>TP.HCM</option><option>Bình Dương</option></select></label>
+          ${xe ? '<label class="field"><span>Odometer</span><div class="unit"><input class="input num right" placeholder="From the GPS tracker if available"><span>km</span></div></label>' : ''}
+        </div></div>
+      ${xe ? `<div class="stack" style="gap:10px"><div class="section-title"><h3>Fuel norm</h3><span class="tip"><button class="icon-btn" type="button" aria-label="About the fuel norm" style="width:24px;height:24px">${icon('info')}</button><span class="tip-body left">Defaults by vehicle type from Cost parameters (FM_30): tractor unit <span class="formula">35 l/100km</span> loaded, <span class="formula">28 l/100km</span> empty. Used for the fuel estimate and to compare with actuals.</span></span></div>
+        <div class="fgrid">
+          <label class="field"><span>Loaded</span><div class="unit"><input class="input num right" value="35"><span>l/100km</span></div></label>
+          <label class="field"><span>Empty running</span><div class="unit"><input class="input num right" value="28"><span>l/100km</span></div></label>
+        </div></div>
+      <div class="stack" style="gap:10px"><div class="section-title"><h3>GPS tracker</h3></div>
+        <div class="fgrid">
+          <label class="field"><span>Vendor</span><select class="input"><option>Bình Anh</option><option>Vietmap</option><option>Adsun</option><option>Not installed</option></select></label>
+          <label class="field"><span>Device ID</span><input class="input code" placeholder="VD: BA-TC09-118842"></label>
+        </div><p class="hint">Devices are matched to vehicles automatically once the vendor is connected in <a href="fm-39-tich-hop.html">Settings › Integrations</a>.</p></div>` : ''}
+      <div class="stack" style="gap:10px"><div class="section-title"><h3>Documents with expiry dates</h3><span class="muted sm">Reminders 30 / 15 / 7 days ahead</span></div>
+        <div class="doc-rows">${docs.map(n => `<div class="doc-row"><span>${n}</span><input class="input num" type="text" placeholder="Expiry dd/mm/yyyy" aria-label="${n} expiry"><button class="btn btn-ghost btn-sm" type="button" data-file>${icon('upload')}Attach</button></div>`).join('')}</div>
+        <p class="hint">You can add them later in <a href="fm-18-giay-to.html">Documents &amp; expiry</a>. Documents without an expiry date aren't checked at trip assignment.</p></div>
+    </div>
+    <div class="drawer-foot"><button class="btn btn-secondary" type="button" data-x>Cancel</button><button class="btn btn-secondary" type="button" data-save="more">Save &amp; add another</button><button class="btn btn-primary" type="button" data-save="one">Save ${xe ? 'vehicle' : 'trailer'}</button></div>`;
+  document.body.append(s, d);
+  d.querySelectorAll('[data-x]').forEach(b => b.onclick = closeDrawer);
+  d.querySelectorAll('[data-file]').forEach(b => b.onclick = () => { b.innerHTML = icon('check') + 'dang-kiem.pdf'; b.style.color = 'var(--success-fg)'; });
+  const inp = d.querySelector('#plateIn'); inp.focus();
+  inp.oninput = () => d.querySelector('#fPlate').classList.remove('invalid');
+  d.querySelectorAll('[data-save]').forEach(b => b.onclick = () => {
+    const v = inp.value.trim().toUpperCase();
+    if (!/^\d{2}[A-Z]{1,2}-\d{3}\.\d{2}$/.test(v)) { d.querySelector('#fPlate').classList.add('invalid'); inp.setAttribute('aria-invalid', 'true'); inp.focus(); return; }
+    const rec = xe ? { plate: v, type: 'Tractor unit', cap: 30.0, brand: 'Just added', op: 'ready', opSub: 'Thủ Đức yard', doc: ['Inspection', 'no expiry entered', 999], g: null, kmNow: null } : { plate: v, type: 'Semi-trailer 40\'', cap: 32.0, op: 'ready', opSub: 'Thủ Đức yard', doc: ['Inspection', 'no expiry entered', 999] };
+    rec.doc = [rec.doc[0], '—', 999];
+    DATA[S.tab].unshift(rec); const tab = S.tab;
+    if (b.dataset.save === 'one') closeDrawer(); else { inp.value = ''; inp.focus(); }
+    renderAll();
+    toast(`Added <span class="code">${v}</span>`, { undo: () => { DATA[tab] = DATA[tab].filter(x => x !== rec); renderAll(); } });
+  });
+}
+$('addBtn').onclick = openAdd;
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); if (e.key === '/' && !e.target.matches('input,select,textarea')) { e.preventDefault(); $('q').focus(); } });
+
+Shell.states([['default', 'Default'], ['trailers', 'Trailers tab'], ['soon', 'Filter expiring documents'], ['add', 'Add vehicle (drawer)'], ['loading', 'Loading'], ['empty', 'Empty'], ['error', 'Error']], st => {
+  closeDrawer(); DATA = base(); Object.assign(S, { tab: 'xe', op: 'all', docSoon: false, type: 'all', q: '', mode: 'default' });
+  $('alertSlot').innerHTML = '';
+  $('fresh').querySelector('.live').classList.toggle('warn', st === 'error');
+  $('freshTxt').textContent = st === 'error' ? 'Couldn\'t load GPS tracker data · odometer as of 09:40' : 'Odometer and signal updated 2 min ago · GPS tracker';
+  if (st === 'trailers') S.tab = 'rm';
+  if (st === 'soon') S.docSoon = true;
+  if (st === 'loading' || st === 'empty') S.mode = st;
+  renderAll();
+  if (st === 'add') openAdd();
+  if (st === 'error') $('alertSlot').innerHTML = `<div class="alert alert-warning" role="alert">${icon('refresh')}<div>Can't connect to the Bình Anh GPS tracker server. The odometer and signal columns show the last data from 09:40; the vehicle list still works.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" onclick="location.reload()">Retry</button></div></div>`;
+});
+</script>
+</body>
+</html>

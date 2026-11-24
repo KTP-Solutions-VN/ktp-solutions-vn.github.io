@@ -3,9 +3,8 @@
    - magnet(el)        : vật thể nhích theo chuột khi con trỏ ở gần (desktop)
    - scrollMarquee()   : 2 hàng ảnh chạy ngược chiều nhau theo vị trí cuộn trang
    - charReveal(el)    : chữ sáng dần từng ký tự theo tiến độ cuộn (opacity 0.2 → 1)
-   - stickyStack()     : card dự án xếp chồng, card phía dưới thu nhỏ dần khi card sau trượt lên
    - parallax(el)      : ảnh trôi chậm hơn trang
-   Tất cả tắt khi prefers-reduced-motion; magnet + stickyStack tắt dưới 768px. */
+   Tất cả tắt khi prefers-reduced-motion; magnet tắt dưới 768px. */
 (function () {
   'use strict';
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -124,28 +123,6 @@
     addJob(el._crJob);
   }
 
-  /* list: phần tử chứa các .pf-card-wrap (sticky); card thu nhỏ tới 1 - (n-1-i)*0.03.
-     Gọi lại được sau khi dựng lại card (lọc lĩnh vực): chỉ cập nhật danh sách card, không đăng ký thêm job cuộn. */
-  function stickyStack(list) {
-    if (!list) return;
-    list._cards = Array.prototype.slice.call(list.querySelectorAll('.pf-card'));
-    if (list._ssJob) { list._ssJob(); return; }
-    list._ssJob = function () {
-      var cards = list._cards, n = cards.length;
-      if (!n) return;
-      if (reduce || !desktop.matches) { cards.forEach(function (c) { c.style.transform = ''; }); return; }
-      var r = list.getBoundingClientRect(), total = r.height - window.innerHeight;
-      var p = clamp(-r.top / (total || 1), 0, 1);
-      cards.forEach(function (c, i) {
-        var target = 1 - (n - 1 - i) * 0.03;
-        var start = i / n;
-        var local = clamp((p - start) / (1 - start || 1), 0, 1);
-        c.style.transform = 'scale(' + (1 - (1 - target) * local).toFixed(4) + ')';
-      });
-    };
-    addJob(list._ssJob);
-  }
-
   function parallax(el, speed) {
     if (!el || reduce) return;
     speed = speed || 0.08;
@@ -156,5 +133,5 @@
     });
   }
 
-  window.KTPMotion = { magnet: magnet, scrollMarquee: scrollMarquee, charReveal: charReveal, stickyStack: stickyStack, parallax: parallax, reduce: reduce };
+  window.KTPMotion = { magnet: magnet, scrollMarquee: scrollMarquee, charReveal: charReveal, parallax: parallax, reduce: reduce };
 })();

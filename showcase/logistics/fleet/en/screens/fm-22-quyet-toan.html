@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trip settlement · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* chừa chỗ cho thanh State của prototype để footer quyết toán không bị che */
+  :root { --proto-h: 58px; }
+  .page-header .sub { color: var(--fg-muted); font-size: 13px; margin-top: 2px; }
+  .inbox { display: grid; grid-template-columns: 264px minmax(0, 1fr); gap: var(--s-4); align-items: start; }
+  .queue { position: sticky; top: calc(var(--header-h) + 16px); max-height: calc(100vh - var(--header-h) - 32px - var(--proto-h)); display: flex; flex-direction: column; min-height: 0; }
+  /* v1.3: hàng chờ = danh sách không kẻ (như .qi của FM_04), chọn = nền primary-soft + vạch 3px */
+  .card-title { display: flex; align-items: center; gap: 8px; padding: 16px 18px 6px; }
+  .card-title h2 { font-size: 16px; }
+  .card-title .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 10px; align-items: center; }
+  .count-pill { font: 600 12px var(--font-body); background: var(--surface-muted); color: var(--fg-muted); border-radius: 10px; padding: 1px 8px; font-variant-numeric: tabular-nums; }
+  .queue .list { overflow-y: auto; padding: 4px 8px 8px; display: flex; flex-direction: column; gap: 2px; }
+  .qi { display: block; width: 100%; text-align: left; border: 0; border-radius: 8px; background: transparent; padding: 9px 10px 9px 14px; font: inherit; color: inherit; cursor: pointer; position: relative; }
+  .qi:hover { background: var(--surface-muted); }
+  .qi::before { content: ""; position: absolute; left: 0; top: 8px; bottom: 8px; width: 3px; border-radius: 0 3px 3px 0; background: transparent; }
+  .qi.on { background: var(--primary-soft); }
+  .qi.on::before { background: var(--primary); }
+  .qi .l1 { display: flex; gap: 6px; align-items: baseline; font-size: 13px; white-space: nowrap; overflow: hidden; }
+  .qi .l1 .nm { overflow: hidden; text-overflow: ellipsis; }
+  .qi .l2, .qi .l3 { font-size: 12.5px; color: var(--fg-muted); line-height: 17px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .qi .bd { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; align-items: center; }
+  .qi .badge { height: 20px; font-size: 11.5px; padding: 0 6px; gap: 4px; }
+  .qi .badge .icon { width: 12px; height: 12px; }
+  .qi .fc { font-size: 12px; color: var(--fg-muted); font-variant-numeric: tabular-nums; margin-top: 4px; }
+  .qi .fc b { color: var(--fg); font-weight: 600; }
+  .work { display: grid; grid-template-columns: minmax(0, 1fr) 284px; gap: var(--s-4); align-items: start; min-width: 0; }
+  .work > .span { grid-column: 1 / -1; }
+  .sumhead { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; }
+  .sumhead h2 { font-size: 17px; }
+  .sumhead .meta { font-size: 13px; color: var(--fg-muted); margin-top: 2px; }
+  .bulk { display: flex; align-items: center; gap: 8px; padding: 2px 16px 10px; flex-wrap: wrap; }
+  table.lines td { padding: 7px 10px; vertical-align: top; }
+  table.lines th { padding: 8px 10px; }
+  table.lines tr { cursor: pointer; }
+  table.lines tr.focus td { background: var(--primary-soft); }
+  table.lines tr.focus td:first-child { box-shadow: inset 3px 0 0 var(--primary); }
+  /* lỗi lưu: chỉ vạch đỏ ở mép dòng, vùng nền đỏ duy nhất là alert phía trên (B3) */
+  table.lines tr.err td:first-child { box-shadow: inset 3px 0 0 var(--danger-solid); }
+  table.lines tbody tr:last-child td { border-bottom: 0; }
+  table.lines tfoot td { border-bottom: 0; border-top: 1px solid var(--border); }
+  table.lines .t { font-weight: 500; }
+  table.lines .d { white-space: normal; min-width: 150px; }
+  table.lines .flag { height: 20px; padding: 0 6px; margin-top: 4px; font-size: 11.5px; gap: 4px; white-space: nowrap; }
+  table.lines .flag .icon { width: 12px; height: 12px; }
+  table.lines input[type=checkbox] { accent-color: var(--primary); margin-top: 3px; }
+  table.lines input[type=checkbox]:disabled { cursor: not-allowed; }
+  .src { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--fg-muted); }
+  .doc-ic { color: var(--fg-muted); }
+  .side { position: sticky; top: calc(var(--header-h) + 16px); display: flex; flex-direction: column; gap: var(--s-3); }
+  .paper-stage { background: var(--surface-muted); height: 196px; display: grid; place-items: center; overflow: hidden; margin: 0 12px; border-radius: var(--r-md); }
+  .paper { width: 210px; background: var(--surface); border: 0; border-radius: 2px; box-shadow: var(--shadow-card); padding: 12px 14px 14px; font-size: 10.5px; line-height: 14px; transition: transform .15s; }
+  .paper h4 { margin: 0 0 4px; font: 700 11px var(--font-display); text-align: center; text-transform: uppercase; }
+  .paper .ln { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px dashed var(--border); padding: 2px 0; }
+  .paper .tot { font-weight: 700; border-bottom: 0; padding-top: 5px; }
+  .nodoc { display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--fg-muted); font-size: 13px; }
+  .nodoc .icon { width: 32px; height: 32px; stroke-width: 1.25; color: var(--fg-subtle); }
+  .vbar { display: flex; align-items: center; gap: 2px; padding: 8px 10px 8px 14px; }
+  .vbar .ttl { font-size: 13px; font-weight: 600; color: var(--fg-strong); }
+  .decide { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 10px; }
+  .decide .what { font-size: 13px; }
+  .decide .what b { font-weight: 600; }
+  .decide .what .num { white-space: nowrap; }
+  /* cảnh báo = dòng có vạch mức độ, không tô nền (B3) */
+  .explain { position: relative; padding: 2px 0 2px 12px; font-size: 12.5px; line-height: 17px; color: var(--fg); }
+  .explain::before { content: ""; position: absolute; left: 0; top: 2px; bottom: 2px; width: 3px; border-radius: 2px; background: var(--warning-solid); }
+  .explain b { color: var(--warning-fg); }
+  .explain.danger::before { background: var(--danger-solid); } .explain.danger b { color: var(--danger-fg); }
+  .explain.info::before { background: var(--info-solid); } .explain.info b { color: var(--info-fg); }
+  .explain .fx { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .btnrow { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 8px; }
+  .btnrow .btn { padding: 0 8px; min-width: 0; white-space: nowrap; }
+  .btnrow .reject { color: var(--danger-fg); }
+  .btnrow .reject:hover:not([disabled]) { background: var(--danger-soft); }
+  .side { min-width: 0; }
+  .btnrow .btn:first-child { grid-column: 1 / -1; }
+  /* Footer quyết toán */
+  /* một số chính (kết quả) cỡ --text-display, các vế công thức là số phụ */
+  .settle { position: sticky; bottom: var(--proto-h); z-index: 10; background: var(--surface); border: 0; border-radius: var(--r-lg); box-shadow: var(--shadow-pop); padding: 6px; display: flex; align-items: stretch; gap: 16px; }
+  .settle .res { background: var(--primary-soft); border-radius: 8px; padding: 10px 18px; display: flex; flex-direction: column; justify-content: center; gap: 2px; min-width: 260px; }
+  .settle .res .k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--side-active); }
+  .settle .res .v { font: 700 var(--text-display)/40px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; letter-spacing: -.01em; white-space: nowrap; }
+  .settle .res .v small { font: 600 18px var(--font-display); color: var(--fg-muted); margin-left: 4px; }
+  .settle .res.pay { background: var(--warning-soft); }
+  .settle .res.pay .k { color: var(--warning-fg); }
+  .settle .mid { display: flex; flex-direction: column; justify-content: center; gap: 6px; min-width: 0; padding: 6px 0; }
+  .eq { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; font-size: 13px; color: var(--fg-muted); }
+  .eq .op { font-weight: 600; color: var(--fg-subtle); }
+  .eq .term b { font: 600 15px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; margin-left: 4px; }
+  .eq .term b.dotted { border-bottom: 1px dotted var(--border-strong); cursor: help; }
+  .settle .note { font-size: 12.5px; color: var(--fg-muted); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .settle .note .icon { width: 14px; height: 14px; }
+  .settle .go { margin-left: auto; display: flex; align-items: center; gap: 8px; padding-right: 10px; }
+  .reasons { display: flex; gap: 6px; flex-wrap: wrap; }
+  .mlist { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; }
+  .mlist li { display: flex; justify-content: space-between; gap: 12px; padding: 6px 10px; border-radius: 6px; font-size: 13px; }
+  .mlist li:last-child { font-weight: 600; background: var(--surface-muted); margin-top: 4px; }
+  .kbd-list { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; }
+  .kbd-list kbd { color: var(--fg-strong); }
+  @media (max-width: 1280px) { .work { grid-template-columns: 1fr; } .side { position: static; } }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Finance / Settlement</div>
+      <h1>Trip settlement</h1>
+      <div class="sub" id="subTitle"></div>
+    </div>
+    <div class="actions">
+      <span class="tip"><button class="btn btn-ghost" type="button" id="kbdBtn">Keyboard shortcuts</button><span class="tip-body right" id="kbdTip"></span></span>
+    </div>
+  </div>
+
+  <div class="filterbar" role="toolbar" aria-label="Filters">
+    <button class="chip" type="button">Completed: All <span class="ic-chev"></span></button>
+    <button class="chip" type="button">Driver <span class="ic-chev"></span></button>
+    <button class="chip" type="button" data-f="flag" aria-pressed="false">Flagged trips only</button>
+    <button class="chip" type="button" data-f="miss" aria-pressed="false">Trips missing receipts only</button>
+    <button class="chip" type="button" data-f="dis" aria-pressed="false">Driver disagrees</button>
+    <button class="btn btn-ghost btn-sm" type="button" id="clearF">Clear filters</button>
+    <label class="search-global" style="max-width:300px;margin-left:auto"><span id="ic-search"></span><input id="qSearch" type="search" placeholder="Search trip ID, plate, driver…" aria-label="Search trips"></label>
+  </div>
+
+  <div id="errorSlot"></div>
+  <div id="body"></div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_22', title: 'Trip settlement' });
+const V = n => fmt.vnd(n);
+document.querySelectorAll('.ic-chev').forEach(e => e.outerHTML = icon('chevron'));
+document.getElementById('ic-search').outerHTML = icon('search');
+document.getElementById('kbdTip').innerHTML = `<span class="kbd-list"><kbd>A</kbd><span>Approve</span><kbd>R</kbd><span>Reject</span><kbd>M</kbd><span>Request more info</span><kbd>↑ ↓</kbd><span>Move between lines</span><kbd>J / K</kbd><span>Move between trips</span><kbd>/</kbd><span>Search trips</span></span>`;
+
+/* ---------- Floating tooltip ---------- */
+const TIPS = {}; let tipN = 0;
+const tip = html => { const k = 't' + (tipN++); TIPS[k] = html; return `data-ftip="${k}"`; };
+const ftip = document.createElement('div'); ftip.className = 'tip-body'; ftip.setAttribute('role', 'tooltip');
+Object.assign(ftip.style, { position: 'fixed', transform: 'none', bottom: 'auto', zIndex: 100 }); document.body.appendChild(ftip);
+function showTip(el) { const h = TIPS[el.dataset.ftip]; if (!h) return; ftip.innerHTML = h; ftip.style.opacity = 1; const r = el.getBoundingClientRect(), w = ftip.offsetWidth, ht = ftip.offsetHeight; ftip.style.left = Math.min(Math.max(8, r.left + r.width / 2 - w / 2), innerWidth - w - 8) + 'px'; let y = r.top - ht - 8; if (y < 8) y = r.bottom + 8; ftip.style.top = y + 'px'; }
+const hideTip = () => { ftip.style.opacity = 0; };
+document.addEventListener('mouseover', e => { const el = e.target.closest('[data-ftip]'); el ? showTip(el) : hideTip(); });
+document.addEventListener('focusin', e => { const el = e.target.closest('[data-ftip]'); el ? showTip(el) : hideTip(); });
+
+/* ---------- Dữ liệu ---------- */
+const SRC = { phone: ['phone', 'Driver'], tray: ['tray', 'Import ETC'], formula: ['formula', 'Norm'], pen: ['pen', 'Manual entry'] };
+const DRIVER_PAID = l => l.src === 'phone' || (l.src === 'pen' && l.paidBy === 'driver');
+const FLAGS = {
+  fuel: ['warning', 'warn', '18% over fuel norm', '<span class="fx">116 km × 38 l/100km = 44.1 l</span>; refueled <span class="fx">52 l (+7.9 l)</span>', '18% over norm'],
+  dup: ['warning', 'warn', 'Possible duplicate of fuel card transaction 10/11 09:05', 'Fuel card transaction <span class="fx">VNP-88213</span>, 51C-123.45, <span class="fx">20 l, 403,000 ₫</span>, Bình Dương 3 fuel station', 'Possible fuel card duplicate'],
+  miss: ['danger', 'block', 'Missing receipt', 'The driver hasn\'t photographed the receipt. Lines without a valid receipt aren\'t counted as costs.', 'Missing receipt'],
+  name: ['warning', 'warn', 'Invoice not in the company\'s name', 'Buyer on the invoice: "Nguyễn Văn Tuấn" — it must show the company name to count as a cost', 'Wrong name on invoice']
+};
+const L = (id, src, type, desc, amt, doc, flag, ap, inv, extra) => Object.assign({ id, src, type, desc, amt, doc, flag, ap, inv }, extra || {});
+function tripsData() {
+  const T0431 = { id: 'CH-0431', driver: 'Nguyễn Văn Tuấn', plate: '51C-123.45', route: 'Mỹ Phước 3 Industrial Park → Cát Lái', done: 'Completed 10/11 11:40', ago: 'Completed 2 days ago', km: 116, adv: 4000000,
+    lines: [
+      L(1, 'phone', 'Fuel', '52 l · km 204,118 · 10/11 05:10', 1047800, 'img', 'fuel', 'wait', ['Fuel retail invoice', 'Bình Dương 3 fuel station', [['DO 0.05S diesel', '52 l'], ['Unit price', '20,150 ₫/l']]]),
+      L(2, 'phone', 'Fuel', '20 l · 10/11 09:02', 403000, 'img', 'dup', 'wait', ['Fuel retail invoice', 'Bình Dương 3 fuel station', [['DO 0.05S diesel', '20 l'], ['Unit price', '20,150 ₫/l']]]),
+      L(3, 'phone', 'Lift-on/lift-off', "Empty lift-on 40', Depot Phước Long", 580000, 'img', null, 'ok', ['Lift-on/lift-off receipt', 'Depot Phước Long', [["Empty lift-on 40'", '×1'], ['Container', 'MSKU 7730011']]]),
+      L(4, 'phone', 'Lift-on/lift-off', "Laden lift-off 40', Cát Lái", 580000, 'img', null, 'ok', ['Lift-on/lift-off receipt', 'Tân Cảng Cát Lái', [["Laden lift-off 40'", '×1'], ['Container', 'MSKU 7730011']]]),
+      L(5, 'phone', 'Other', 'Tire repair, QL13', 250000, null, 'miss', 'wait'),
+      L(6, 'phone', 'Handling', 'Mỹ Phước 3 warehouse', 600000, 'img', null, 'ok', ['Handling receipt', 'Gỗ Minh Long warehouse', [['Handling', '22.0 t']]]),
+      L(7, 'phone', 'Other', 'Port gate ticket', 50000, 'img', null, 'ok', ['Gate entry ticket', 'Cát Lái port', [['Gate ticket', '1 entry']]]),
+      L(8, 'phone', 'Other', 'Container cleaning', 150000, 'img', 'name', 'wait', ['Service invoice', 'Phước Long yard', [['Container cleaning 40\'', '×1'], ['Buyer', 'Nguyễn Văn Tuấn']]]),
+      L(9, 'tray', 'Tolls', '2 transactions', 210000, 'pdf', null, 'ok', ['ETC statement', 'VETC 11/2026', [['ĐT 741 toll station', '140.000'], ['Hà Nội Highway toll station', '70.000']]]),
+      L(10, 'formula', 'Trip pay', "Flat route pay Mỹ Phước 3–Cát Lái 40'", 1300000, null, null, 'ok')
+    ] };
+  const T0436 = { id: 'CH-0436', driver: 'Phạm Quốc Bảo', plate: '51D-215.40', route: 'ICD Sóng Thần → Tân Uyên Industrial Park', done: 'Completed 10/11 16:05', ago: 'Completed 2 days ago', km: 64, adv: 1500000,
+    lines: [
+      L(1, 'phone', 'Fuel', '30 l · km 88,402 · 10/11 12:40', 615000, 'img', null, 'ok', ['Fuel retail invoice', 'Sóng Thần fuel station', [['DO 0.05S diesel', '30 l'], ['Unit price', '20,500 ₫/l']]]),
+      L(2, 'phone', 'Lift-on/lift-off', "Laden lift-on 20', ICD Sóng Thần", 420000, 'img', null, 'ok', ['Lift-on/lift-off receipt', 'ICD Sóng Thần', [["Laden lift-on 20'", '×1']]]),
+      L(3, 'phone', 'Lift-on/lift-off', "Empty lift-off 20', ICD Sóng Thần", 420000, 'img', null, 'ok', ['Lift-on/lift-off receipt', 'ICD Sóng Thần', [["Empty lift-off 20'", '×1']]]),
+      L(4, 'phone', 'Handling', 'Tân Uyên Industrial Park', 210000, 'img', null, 'ok', ['Handling receipt', 'Tân Uyên Industrial Park', [['Handling', '18.0 t']]]),
+      L(5, 'phone', 'Other', 'ICD gate ticket', 50000, 'img', null, 'ok', ['Gate entry ticket', 'ICD Sóng Thần', [['Gate ticket', '1 entry']]]),
+      L(6, 'tray', 'Tolls', '1 transaction', 120000, 'pdf', null, 'ok', ['ETC statement', 'VETC 11/2026', [['ĐT 743 toll station', '120.000']]]),
+      L(7, 'formula', 'Trip pay', "Flat route pay Sóng Thần–Tân Uyên 20'", 900000, null, null, 'ok')
+    ] };
+  const T0440 = { id: 'CH-0440', driver: 'Võ Thanh Sơn', plate: '51C-334.21', route: 'Cát Lái → Tân Uyên Industrial Park', done: 'Completed 09/11 15:20', ago: 'Completed 3 days ago', km: 102, adv: 3500000, disagree: true,
+    lines: [
+      L(1, 'phone', 'Fuel', '48 l · km 151,330 · 09/11 07:30', 967200, 'img', null, 'ok', ['Fuel retail invoice', 'Tân Uyên fuel station', [['DO 0.05S diesel', '48 l'], ['Unit price', '20,150 ₫/l']]]),
+      L(2, 'phone', 'Lift-on/lift-off', "Laden lift-on 40', Cát Lái", 580000, 'img', null, 'ok', ['Lift-on/lift-off receipt', 'Tân Cảng Cát Lái', [["Laden lift-on 40'", '×1']]]),
+      L(3, 'phone', 'Lift-on/lift-off', "Empty lift-off 40', Depot Phước Long", 580000, 'img', null, 'ok', ['Lift-on/lift-off receipt', 'Depot Phước Long', [["Empty lift-off 40'", '×1']]]),
+      L(4, 'phone', 'Handling', 'Tân Uyên Industrial Park warehouse', 600000, 'img', null, 'rej', ['Handling receipt', 'Tân Uyên Industrial Park warehouse', [['Handling', '24.0 t']]], { reason: 'No valid receipt', by: 'Trần Thị Mai, 15/11 16:40' }),
+      L(5, 'tray', 'Tolls', '2 transactions', 280000, 'pdf', null, 'ok', ['ETC statement', 'VETC 11/2026', [['ĐT 741 toll station', '140.000'], ['Hà Nội Highway toll station', '140.000']]]),
+      L(6, 'formula', 'Trip pay', "Flat route pay Cát Lái–Tân Uyên 40'", 1200000, null, null, 'ok')
+    ] };
+  const gen = (id, driver, plate, route, ago, opt) => {
+    const cont = !/Long An|Mỹ Tho/.test(route), lit = opt.lit || 40;
+    const ls = [L(1, 'phone', 'Fuel', `${lit} l`, lit * 20150, 'img', opt.fuel ? 'fuel' : null, 'wait', ['Fuel retail invoice', 'CHXD', [['DO 0.05S diesel', lit + ' l']]])];
+    if (cont) ls.push(L(2, 'phone', 'Lift-on/lift-off', 'Container lift-on/lift-off', 580000, 'img', null, 'wait', ['Lift-on/lift-off receipt', 'Port', [['Lift-on/lift-off', '×1']]]), L(3, 'phone', 'Other', 'Port gate ticket', 50000, opt.miss ? null : 'img', opt.miss ? 'miss' : null, 'wait', ['Gate entry ticket', 'Port', [['Gate ticket', '1 entry']]]));
+    else ls.push(L(2, 'phone', 'Handling', 'Delivery point', 300000, opt.miss ? null : 'img', opt.miss ? 'miss' : null, 'wait', ['Handling receipt', 'Warehouse', [['Handling', '×1']]]));
+    if (opt.name) ls.push(L(4, 'phone', 'Other', 'Truck wash', 120000, 'img', 'name', 'wait', ['Service invoice', 'Truck wash shop', [['Truck wash', '×1']]]));
+    ls.push(L(5, 'tray', 'Tolls', '1 transaction', 140000, 'pdf', null, 'ok', ['ETC statement', 'VETC', [['Toll station', '140.000']]]), L(6, 'formula', 'Trip pay', 'Flat route pay', cont ? 1200000 : 800000, null, null, 'ok'));
+    return { id, driver, plate, route, done: ago, ago, km: 90, adv: opt.adv, lines: ls };
+  };
+  return [T0431, T0436,
+    gen('CH-0438', 'Trần Minh Đức', '51D-456.78', 'Cát Lái → VSIP 1 Industrial Park', 'Completed yesterday', { adv: 2500000, miss: 1, lit: 42 }),
+    gen('CH-0441', 'Võ Thành Nhân', '61C-220.14', 'Cát Lái → Sa Đéc', 'Completed yesterday', { adv: 3500000, fuel: 1, name: 1, lit: 60 }),
+    gen('CH-0444', 'Lê Hoàng Phúc', '51D-702.33', 'Sóng Thần Industrial Park → Long An', 'Completed yesterday', { adv: 1200000, lit: 36 }),
+    gen('CH-0447', 'Đặng Quang Vinh', '51C-456.78', 'Đồng An Industrial Park → Cát Lái', 'Completed yesterday', { adv: 2200000, fuel: 1, lit: 46 }),
+    gen('CH-0449', 'Huỳnh Tấn Lộc', '51C-588.02', 'Bình Tân → Mỹ Tho', 'Completed yesterday', { adv: 1500000, miss: 1, lit: 34 }),
+    gen('CH-0450', 'Ngô Đức Trí', '51C-731.80', 'Mỹ Phước 3 Industrial Park → Cát Lái', 'Completed yesterday', { adv: 2500000, lit: 44 }),
+    gen('CH-0452', 'Trần Minh Đức', '51D-456.78', 'Cát Lái → VSIP 1 Industrial Park', 'Completed today 04:52', { adv: 2400000, lit: 40 }),
+    gen('CH-0453', 'Phan Văn Khoa', '51C-402.17', 'ICD Phước Long → Phước Đông Industrial Park', 'Completed today 05:40', { adv: 2600000, miss: 1, lit: 46 }),
+    gen('CH-0455', 'Huỳnh Tấn Lộc', '51C-588.02', 'Bình Tân → Mỹ Tho', 'Completed today 07:05', { adv: 1500000, lit: 34 }),
+    gen('CH-0456', 'Lý Văn Tâm', '51C-219.66', 'Cát Lái → Tân Uyên Industrial Park', 'Completed today 07:50', { adv: 2600000, lit: 44 })
+  ].concat([T0440]);
+}
+
+/* ---------- State ---------- */
+let Q, sel, cur, closed, filters, q, errLine;
+function reset() { const all = tripsData(); Q = all.filter(t => !t.disagree); Q.extra = all.find(t => t.disagree); sel = 'CH-0431'; closed = {}; filters = {}; q = ''; errLine = null; cur = firstPending(Q[0]); }
+const trip = () => Q.find(t => t.id === sel) || Q[0];
+function firstPending(t) { const l = t.lines.find(x => x.ap === 'wait' || x.ap === 'more'); return l ? l.id : t.lines[0].id; }
+const eligible = l => l.ap === 'wait' && l.doc && !l.flag;
+function stats(t) {
+  const drv = t.lines.filter(DRIVER_PAID);
+  const appr = drv.filter(l => l.ap === 'ok').reduce((s, l) => s + l.amt, 0);
+  const tripCost = t.lines.filter(l => l.ap === 'ok').reduce((s, l) => s + l.amt, 0);
+  const pending = t.lines.filter(l => l.ap === 'wait' || l.ap === 'more').length;
+  const forecast = t.adv - drv.filter(l => l.ap !== 'rej').reduce((s, l) => s + l.amt, 0);
+  return { appr, tripCost, pending, res: t.adv - appr, forecast, nOk: drv.filter(l => l.ap === 'ok').length, nRej: drv.filter(l => l.ap === 'rej').length, flags: t.lines.filter(l => l.flag && l.flag !== 'miss' && (l.ap === 'wait' || l.ap === 'more')).length, miss: t.lines.filter(l => l.flag === 'miss' && (l.ap === 'wait' || l.ap === 'more')).length };
+}
+const AP = { wait: ['b-neutral', 'clock', 'Pending approval'], ok: ['b-success', 'check', 'Approved'], rej: ['b-danger', 'x', 'Reject'], more: ['b-info', 'refresh', 'Awaiting info'] };
+
+/* ---------- Render ---------- */
+const body = document.getElementById('body');
+function visibleQueue() {
+  return Q.filter(t => { const s = stats(t);
+    if (filters.flag && !s.flags) return false; if (filters.miss && !s.miss) return false; if (filters.dis && !t.disagree) return false;
+    return !q || (t.id + t.driver + t.plate).toLowerCase().includes(q); });
+}
+function render() {
+  hideTip();
+  const miss = Q.filter(t => stats(t).miss).length;
+  document.getElementById('subTitle').textContent = `${Q.length} trips waiting · ${miss} with missing receipts`;
+  if (!Q.length) { body.innerHTML = `<div class="card"><div class="empty">${icon('receipt')}<h3>No trips waiting for settlement</h3><p>Completed trips show up here automatically, along with the driver's recorded expenses and imported transactions.</p></div></div>`; return; }
+  const t = trip(), s = stats(t), isClosed = !!closed[t.id];
+  const vq = visibleQueue();
+  const qHtml = vq.map(x => { const st = stats(x); return `<button class="qi ${x.id === t.id ? 'on' : ''}" type="button" data-trip="${x.id}" aria-current="${x.id === t.id}">
+      <div class="l1"><b class="code">${x.id}</b><span class="muted">·</span><span class="nm">${x.driver}</span></div>
+      <div class="l2" title="${x.route}">${x.route}</div><div class="l3" title="${x.plate} · ${x.ago}"><span class="code" style="font-weight:400">${x.plate}</span> · ${x.ago}</div>
+      <div class="bd">${x.disagree ? `<span class="badge b-warning">${icon('undo')}Driver disagrees</span>` : ''}${closed[x.id] ? `<span class="badge b-info">${icon('clock')}Awaiting driver confirmation</span>` : ''}${st.miss ? `<span class="badge b-danger">${icon('block')}${st.miss} without receipt</span>` : ''}${st.flags ? `<span class="badge b-warning">${icon('warn')}${st.flags} flagged</span>` : ''}</div>
+      <div class="fc">${st.forecast >= 0 ? 'Expected driver payback' : 'Expected company top-up'} <b>${V(Math.abs(st.forecast))}</b></div>
+    </button>`; }).join('') || '<p class="muted sm" style="padding:16px">No trips match the filters.</p>';
+  const nElig = t.lines.filter(l => eligible(l) && l.chk !== false).length;
+  const focusL = t.lines.find(l => l.id === cur) || t.lines[0];
+  body.innerHTML = `<div class="inbox">
+    <section class="card queue" aria-label="Queue">
+      <div class="card-title"><h2>Queue</h2><span class="count-pill">${Q.length}</span><span class="meta">oldest first</span></div>
+      <div class="list" role="list">${qHtml}</div>
+    </section>
+    <div class="work">
+      <section class="card span" aria-label="Trip summary">
+        <div class="sumhead"><div class="grow"><h2><span class="code">${t.id}</span> · ${t.route}</h2><div class="meta num">${t.driver} · <span class="code">${t.plate}</span> · ${t.done} · ${t.km} km · Advance ${V(t.adv)}</div></div>
+          <a class="btn btn-ghost btn-sm" href="fm-09-chi-tiet-chuyen.html?tab=pl">Open trip details ${icon('external')}</a></div>
+        ${t.disagree ? `<div style="padding:0 16px 12px"><div class="alert alert-warning" role="status">${icon('undo')}<div>Driver Võ Thanh Sơn disagrees (16/11 08:12): "The 600,000 handling fee has the warehouse's receipt, so why was it rejected?"</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="seeRej">View rejected line</button></div></div></div>` : ''}
+        ${isClosed ? `<div style="padding:0 16px 12px"><div class="alert alert-info" role="status">${icon('clock')}<div>Sent to ${t.driver} at 14:32. Waiting for the driver to confirm.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="unclose">Reopen</button></div></div></div>` : ''}
+      </section>
+      <section class="card" aria-label="Cost lines" style="min-width:0">
+        <div class="card-title"><h2>Cost lines</h2><span class="count-pill">${t.lines.length}</span><span class="meta num">Pending approval: ${t.lines.filter(l => l.ap === 'wait').length}</span></div>
+        ${isClosed ? '' : `<div class="bulk">
+          <span ${nElig ? '' : tip('No lines left that qualify for bulk approval')} tabindex="${nElig ? -1 : 0}"><button class="btn btn-secondary btn-sm" type="button" id="bulkBtn" ${nElig ? '' : 'disabled'}>${icon('check')}Approve lines with receipts and no flags (${nElig})</button></span>
+          <button class="btn btn-ghost btn-sm" type="button" id="addManual" style="margin-left:auto">${icon('plus')}Add manual cost</button>
+        </div>`}
+        <div class="grid-wrap" id="linesWrap" tabindex="0" aria-label="Cost lines; use A, R, M and the arrow keys">
+        <table class="grid lines"><thead><tr><th style="width:32px"><span class="sr-only">Select</span></th><th>Type · Source</th><th>Description · Flag</th><th class="right">Amount</th><th style="width:36px"><span class="sr-only">Receipt</span>${icon('camera')}</th><th>Status</th></tr></thead>
+        <tbody>${t.lines.map(l => { const f = l.flag && FLAGS[l.flag]; const canChk = eligible(l);
+          return `<tr data-line="${l.id}" class="${l.id === cur ? 'focus' : ''} ${errLine === l.id ? 'err' : ''}">
+            <td>${l.ap === 'wait' || l.ap === 'more' ? `<span ${canChk ? '' : tip(l.doc ? 'Flagged lines must be approved individually' : 'Lines missing receipts must be approved individually')}><input type="checkbox" data-chk="${l.id}" ${canChk ? (l.chk === false ? '' : 'checked') : 'disabled'} aria-label="Select line ${l.id} for bulk approval"></span>` : ''}</td>
+            <td><span class="t">${l.type}</span><span class="cell-sub"><span class="src">${icon(SRC[l.src][0])}${SRC[l.src][1]}${l.paidBy === 'company' ? ' · paid by company' : ''}</span></span></td>
+            <td class="d">${l.desc}${f ? `<br><span class="badge b-${f[0]} flag" tabindex="0" ${tip(`<b>${f[2]}</b><br>${f[3]}`)}>${icon(f[1])}${f[4]}</span>` : ''}</td>
+            <td class="right num">${fmt.vnd(l.amt, { bare: 1 })}</td>
+            <td>${l.doc ? `<span class="doc-ic" title="${l.doc === 'img' ? 'Receipt photo attached' : 'PDF file attached'}">${icon(l.doc === 'img' ? 'camera' : 'doc')}</span>` : '<span class="muted">—</span>'}</td>
+            <td><span class="badge ${AP[l.ap][0]}" ${l.ap === 'rej' ? `tabindex="0" ${tip(`Reason: ${l.reason}<br>${l.by || 'Trần Thị Mai'}`)}` : l.ap === 'more' ? `tabindex="0" ${tip(`Requested: ${l.note}`)}` : ''}>${icon(AP[l.ap][1])}${AP[l.ap][2]}</span></td>
+          </tr>`; }).join('')}</tbody>
+          <tfoot><tr><td></td><td colspan="2">Total ${t.lines.length} lines</td><td class="right num">${fmt.vnd(t.lines.reduce((a, l) => a + l.amt, 0), { bare: 1 })}</td><td colspan="2"></td></tr></tfoot></table></div>
+      </section>
+      <aside class="side" aria-label="Receipt and decision">${sideHtml(t, focusL, isClosed)}</aside>
+    </div>
+  </div>
+  ${footerHtml(t, s, isClosed)}`;
+  bind(t);
+}
+let zoom = 1, rot = 0;
+function paper(l) {
+  if (!l.doc) return `<div class="nodoc">${icon('camera')}No receipt photo yet</div>`;
+  const i = l.inv || ['Receipt', '', []];
+  return `<div class="paper" style="transform:scale(${zoom}) rotate(${rot}deg)"><h4>${i[0]}</h4><div class="muted" style="text-align:center;margin-bottom:4px">${i[1]}</div>${i[2].map(([a, b]) => `<div class="ln"><span>${a}</span><span class="num">${b}</span></div>`).join('')}<div class="ln tot"><span>Amount</span><span class="num">${fmt.vnd(l.amt)}</span></div></div>`;
+}
+function sideHtml(t, l, isClosed) {
+  const f = l.flag && FLAGS[l.flag];
+  const decided = l.ap === 'ok' || l.ap === 'rej';
+  return `<section class="card">
+    <div class="vbar"><span class="ttl grow">Line ${l.id} receipt</span><button class="icon-btn" type="button" data-z="-1" aria-label="Zoom out">−</button><button class="icon-btn" type="button" data-z="1" aria-label="Zoom in">${icon('plus')}</button><button class="icon-btn" type="button" id="rotBtn" aria-label="Xoay">${icon('refresh')}</button></div>
+    <div class="paper-stage">${paper(l)}</div>
+    <div class="decide">
+      <div class="what"><b>${l.type} · ${l.desc.split(' · ').slice(0, 1)}</b> · <span class="num">${V(l.amt)}</span><br><span class="sm muted"><span class="src">${icon(SRC[l.src][0])}${SRC[l.src][1]}</span> · ${DRIVER_PAID(l) ? 'deducted from the advance' : 'goes to trip costs, not deducted from the advance'}</span></div>
+      ${f ? `<div class="explain ${f[0] === 'danger' ? 'danger' : ''}"><b>${f[2]}.</b> ${f[3]}</div>` : ''}
+      ${l.ap === 'rej' ? `<div class="explain danger"><b>Rejected.</b> ${l.reason}</div>` : ''}
+      ${l.ap === 'more' ? `<div class="explain info"><b>Waiting for the driver to add info.</b> ${l.note}</div>` : ''}
+      ${isClosed || l.src === 'formula' || l.src === 'tray' && l.ap === 'ok' ? `<p class="sm muted">${isClosed ? 'Finalized. Reopen to change decisions.' : 'Auto-generated from ' + (l.src === 'formula' ? 'norms' : 'a matched import') + ', approved.'}</p>` : `
+      <div class="btnrow">
+        <button class="btn btn-primary" type="button" id="aBtn" ${l.ap === 'ok' ? 'disabled' : ''}>${icon('check')}Approve <kbd>A</kbd></button>
+        <button class="btn btn-secondary" type="button" id="mBtn">Request more info <kbd>M</kbd></button>
+        <button class="btn btn-secondary reject" type="button" id="rBtn" ${l.ap === 'rej' ? 'disabled' : ''}>Reject <kbd>R</kbd></button>
+      </div>
+      ${l.flag === 'dup' && !decided ? `<button class="btn btn-ghost btn-sm" type="button" id="mergeBtn" style="align-self:flex-start">${icon('copy')}Merge with fuel card transaction</button>` : ''}`}
+    </div>
+  </section>`;
+}
+function footerHtml(t, s, isClosed) {
+  const pay = s.res < 0;
+  const apprLines = t.lines.filter(l => DRIVER_PAID(l) && l.ap === 'ok');
+  const apprTip = apprLines.length ? apprLines.map(l => `${l.type} · ${l.desc.split(' · ')[0]} <span class="formula">${fmt.vnd(l.amt, { bare: 1 })}</span>`).join('<br>') + `<br>= <span class="formula">${V(s.appr)}</span><br><span style="opacity:.8">Only lines the driver paid from the advance are counted. Imported and norm-based lines aren't part of this calculation.</span>` : 'No lines approved yet';
+  const ready = s.pending === 0 && !isClosed;
+  const B = n => fmt.vnd(n, { bare: 1 });
+  return `<div class="settle" role="region" aria-label="Settlement calculation" aria-live="polite">
+    <div class="res ${pay ? 'pay' : ''}"><span class="k">${pay ? 'Company pays extra' : 'Driver pays back'}</span><span class="v">${B(Math.abs(s.res))}<small>₫</small></span></div>
+    <div class="mid">
+      <div class="eq num"><span class="term">Advance<b>${V(t.adv)}</b></span><span class="op">−</span><span class="term">Approved costs<b class="dotted" tabindex="0" ${tip(apprTip)}>${V(s.appr)}</b></span></div>
+      <div class="note num">${s.pending ? `<span class="badge b-warning">${icon('clock')}${s.pending} left to review</span>` : `<span class="badge b-success">${icon('check')}All lines decided</span>`}<span>Trip costs (incl. imports &amp; norms) ${V(s.tripCost)}</span></div>
+    </div>
+    <div class="go">${isClosed ? `<span class="badge b-info">${icon('clock')}Finalized · awaiting driver confirmation</span>` : `<span ${ready ? '' : tip(`${s.pending} left pending approval or awaiting info`)} tabindex="${ready ? -1 : 0}" id="closeWrap"><button class="btn btn-primary" type="button" id="closeBtn" ${ready ? '' : 'disabled'}>${icon('check')}Finalize &amp; send to driver for confirmation</button></span>`}</div>
+  </div>`;
+}
+
+/* ---------- Actions ---------- */
+function bind(t) {
+  body.querySelectorAll('[data-trip]').forEach(b => b.onclick = () => selectTrip(b.dataset.trip));
+  body.querySelectorAll('tr[data-line]').forEach(tr => tr.onclick = e => { if (e.target.matches('input')) return; cur = +tr.dataset.line; zoom = 1; rot = 0; render(); document.getElementById('linesWrap').focus({ preventScroll: true }); });
+  body.querySelectorAll('[data-chk]').forEach(c => c.onchange = () => { t.lines.find(l => l.id === +c.dataset.chk).chk = c.checked; render(); });
+  const on = (id, f) => { const el = document.getElementById(id); if (el) el.onclick = f; };
+  on('aBtn', approve); on('rBtn', openReject); on('mBtn', openMore); on('mergeBtn', merge); on('bulkBtn', openBulk); on('closeBtn', openClose);
+  on('seeRej', () => { cur = t.lines.find(l => l.ap === 'rej').id; render(); });
+  on('unclose', () => { delete closed[t.id]; render(); toast(`Reopened ${t.id}. The trip is back in review.`); });
+  on('addManual', () => addManual(t));
+  body.querySelectorAll('[data-z]').forEach(b => b.onclick = () => { zoom = Math.min(1.8, Math.max(.6, zoom + (+b.dataset.z) * .2)); render(); });
+  on('rotBtn', () => { rot = (rot + 90) % 360; render(); });
+}
+function selectTrip(id) { sel = id; cur = firstPending(trip()); zoom = 1; rot = 0; errLine = null; document.getElementById('errorSlot').innerHTML = ''; render(); }
+const curLine = () => trip().lines.find(l => l.id === cur);
+const label = l => `${l.type} ${l.desc.split(' · ')[0]} · ${V(l.amt)}`;
+function nextPending(t) { const ls = t.lines, i = ls.findIndex(l => l.id === cur); const n = ls.slice(i + 1).concat(ls.slice(0, i)).find(l => l.ap === 'wait'); if (n) cur = n.id; }
+function decide(l, ap, extra, msg) {
+  const t = trip(), prev = { ap: l.ap, reason: l.reason, note: l.note }; Object.assign(l, { ap }, extra || {}); errLine = null;
+  nextPending(t); render();
+  toast(msg, { undo: () => { Object.assign(l, prev); cur = l.id; render(); } });
+}
+function approve() { const l = curLine(); if (!l || l.ap === 'ok' || closed[trip().id] || l.src === 'formula') return; decide(l, 'ok', null, `Approved ${label(l)}`); }
+function merge() { const l = curLine(); decide(l, 'rej', { reason: 'Duplicate of fuel card transaction VNP-88213 (already counted in trip costs)', by: 'Trần Thị Mai' }, `Merged ${label(l)} with fuel card transaction VNP-88213`); }
+
+function modal(html, onReady) {
+  closeModal(); hideTip();
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim'; s.id = 'mScrim'; s.onclick = closeModal;
+  const m = document.createElement('div'); m.className = 'modal'; m.id = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.innerHTML = html;
+  document.body.append(s, m); m.querySelectorAll('[data-x]').forEach(b => b.onclick = closeModal); onReady && onReady(m);
+}
+function closeModal() { ['modal', 'mScrim'].forEach(id => { const e = document.getElementById(id); if (e) { e.removeAttribute('id'); Shell.dismiss(e); } }); }
+function openReject(preset) {
+  const l = curLine(); if (!l || closed[trip().id]) return;
+  modal(`<h2>Reject cost line?</h2><p class="muted">${l.type} ${l.desc.split(' · ')[0]} · <b class="num">${V(l.amt)}</b>. ${DRIVER_PAID(l) ? 'This amount won\'t be deducted from the advance.' : 'This amount will be excluded from trip costs.'}</p>
+    <div class="reasons">${['Duplicate fuel card transaction', 'No valid receipt', 'Not part of this trip'].map(r => `<button class="chip" type="button" data-r="${r}">${r}</button>`).join('')}</div>
+    <label class="field"><span>Reason (visible to the driver)</span><textarea class="input" id="rReason" rows="3"></textarea></label>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Back</button><button class="btn btn-danger" type="button" id="rOk" disabled>Reject</button></div>`, m => {
+    const ta = m.querySelector('#rReason'), ok = m.querySelector('#rOk'); const sync = () => { ok.disabled = !ta.value.trim(); m.querySelectorAll('[data-r]').forEach(c => c.classList.toggle('on', c.dataset.r === ta.value.trim())); };
+    m.querySelectorAll('[data-r]').forEach(c => c.onclick = () => { ta.value = c.dataset.r; sync(); ta.focus(); });
+    ta.oninput = sync; if (typeof preset === 'string') { ta.value = preset; sync(); } ta.focus();
+    ok.onclick = () => { closeModal(); decide(l, 'rej', { reason: ta.value.trim(), by: 'Trần Thị Mai' }, `Rejected ${label(l)}`); };
+  });
+}
+function openMore() {
+  const l = curLine(); if (!l || closed[trip().id]) return;
+  modal(`<h2>Ask the driver for more info?</h2><p class="muted">${l.type} ${l.desc.split(' · ')[0]} · <b class="num">${V(l.amt)}</b></p>
+    <label class="field"><span>What's needed</span><textarea class="input" id="mNote" rows="3" placeholder="Retake the tire repair shop's receipt, showing the date and amount"></textarea></label>
+    <p class="sm muted">${trip().driver} gets a notification in the app and adds the photo.</p>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Back</button><button class="btn btn-primary" type="button" id="mOk" disabled>Send request</button></div>`, m => {
+    const ta = m.querySelector('#mNote'), ok = m.querySelector('#mOk'); ta.oninput = () => ok.disabled = !ta.value.trim(); ta.focus();
+    ok.onclick = () => { closeModal(); decide(l, 'more', { note: ta.value.trim() }, `Requested more info for ${l.type} ${l.desc.split(' · ')[0]}`); };
+  });
+}
+function openBulk() {
+  const t = trip(), ls = t.lines.filter(l => eligible(l) && l.chk !== false); if (!ls.length) return;
+  const sum = ls.reduce((s, l) => s + l.amt, 0);
+  modal(`<h2>Approve ${ls.length} selected, total ${V(sum)}?</h2>
+    <ul class="mlist">${ls.map(l => `<li><span>${l.desc}</span><span class="num">${fmt.vnd(l.amt, { bare: 1 })}</span></li>`).join('')}<li><span>Total</span><span class="num">${V(sum)}</span></li></ul>
+    <p class="sm muted">Flagged lines and lines missing receipts aren't included in this approval.</p>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Back</button><button class="btn btn-primary" type="button" id="bOk">Approve ${ls.length} selected</button></div>`, m => {
+    m.querySelector('#bOk').focus();
+    m.querySelector('#bOk').onclick = () => { closeModal(); const prev = ls.map(l => [l, l.ap]); ls.forEach(l => l.ap = 'ok'); cur = firstPending(t); render(); toast(`${ls.length} approved · ${V(sum)}`, { undo: () => { prev.forEach(([l, a]) => l.ap = a); render(); } }); };
+  });
+}
+function openClose() {
+  const t = trip(), s = stats(t); if (s.pending) return;
+  modal(`<h2>Finalize settlement ${t.id}?</h2><p>Advance <b class="num">${V(t.adv)}</b> − Approved costs <b class="num">${V(s.appr)}</b> = ${s.res < 0 ? 'Company pays extra' : 'Driver pays back'} <b class="num">${V(Math.abs(s.res))}</b>.</p><p class="muted">Approved: ${s.nOk} · Rejected: ${s.nRej}. ${t.driver} will get a notification to confirm in the app.</p>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Back</button><button class="btn btn-primary" type="button" id="cOk">Finalize &amp; send</button></div>`, m => {
+    m.querySelector('#cOk').focus();
+    m.querySelector('#cOk').onclick = () => { closeModal(); closed[t.id] = true; render(); toast(`Finalized ${t.id} and sent it to ${t.driver} for confirmation`, { undo: () => { delete closed[t.id]; render(); } }); };
+  });
+}
+function addManual(t) {
+  modal(`<h2>Add manual cost</h2>
+    <div class="row" style="gap:12px;align-items:flex-end"><label class="field grow"><span>Type</span><select class="input" id="nType"><option>Other</option><option>Handling</option><option>Tolls</option><option>Lift-on/lift-off</option></select></label><label class="field" style="width:150px"><span>Amount (₫)</span><input class="input num right" id="nAmt" placeholder="0"></label></div>
+    <label class="field"><span>Description</span><input class="input" id="nDesc" placeholder="e.g. Parking fee at Cát Lái yard"></label>
+    <div class="seg" role="group" aria-label="Ai chi"><button type="button" data-p="driver" aria-pressed="true">Paid by driver</button><button type="button" data-p="company" aria-pressed="false">Paid by company</button></div>
+    <p class="sm muted">"Paid by driver" is deducted from the advance. "Paid by company" only goes to trip costs.</p>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Back</button><button class="btn btn-primary" type="button" id="nOk" disabled>Add line</button></div>`, m => {
+    let paid = 'driver'; const a = m.querySelector('#nAmt'), d = m.querySelector('#nDesc'), ok = m.querySelector('#nOk');
+    const sync = () => ok.disabled = !(+a.value.replace(/\D/g, '') > 0 && d.value.trim()); a.oninput = () => { const v = +a.value.replace(/\D/g, ''); a.value = v ? fmt.vnd(v, { bare: 1 }) : ''; sync(); }; d.oninput = sync;
+    m.querySelectorAll('[data-p]').forEach(b => b.onclick = () => { paid = b.dataset.p; m.querySelectorAll('[data-p]').forEach(x => x.setAttribute('aria-pressed', x === b)); });
+    d.focus();
+    ok.onclick = () => { const id = Math.max(...t.lines.map(l => l.id)) + 1; t.lines.push(L(id, 'pen', m.querySelector('#nType').value, d.value.trim(), +a.value.replace(/\D/g, ''), null, null, 'wait', null, { paidBy: paid })); cur = id; closeModal(); render(); toast('Manual line added'); };
+  });
+}
+document.addEventListener('keydown', e => {
+  if (e.target.matches('input, textarea, select') || document.getElementById('modal')) { if (e.key === 'Escape') closeModal(); return; }
+  const t = Q.length && trip(); if (!t) return;
+  const k = e.key.toLowerCase();
+  if (k === 'a') { e.preventDefault(); approve(); }
+  else if (k === 'r') { e.preventDefault(); openReject(); }
+  else if (k === 'm') { e.preventDefault(); openMore(); }
+  else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); const i = t.lines.findIndex(l => l.id === cur); const n = t.lines[Math.min(t.lines.length - 1, Math.max(0, i + (e.key === 'ArrowDown' ? 1 : -1)))]; cur = n.id; render(); }
+  else if (k === 'j' || k === 'k') { const vq = visibleQueue(), i = vq.findIndex(x => x.id === sel); const n = vq[Math.min(vq.length - 1, Math.max(0, i + (k === 'j' ? 1 : -1)))]; if (n) selectTrip(n.id); }
+  else if (e.key === '/') { e.preventDefault(); document.getElementById('qSearch').focus(); }
+});
+document.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { const f = b.dataset.f; filters[f] = !filters[f]; b.classList.toggle('on', filters[f]); b.setAttribute('aria-pressed', filters[f]); if (f === 'dis' && filters.dis && Q.extra && !Q.includes(Q.extra)) Q.unshift(Q.extra); render(); });
+document.getElementById('clearF').onclick = () => { filters = {}; q = ''; document.getElementById('qSearch').value = ''; document.querySelectorAll('[data-f]').forEach(b => { b.classList.remove('on'); b.setAttribute('aria-pressed', 'false'); }); render(); };
+document.getElementById('qSearch').oninput = e => { q = e.target.value.trim().toLowerCase(); render(); };
+
+/* ---------- Prototype states ---------- */
+const showTipOn = sel => setTimeout(() => { const el = document.querySelector(sel); if (el) showTip(el); }, 60);
+Shell.states([
+  ['default', 'Default'], ['flag', 'Flagged line'], ['bulk', 'Bulk approve'], ['reject', 'Reject'], ['more', 'Awaiting info'], ['ready', 'Ready to finalize'],
+  ['company', 'Company pays extra'], ['waiting', 'Awaiting driver confirmation'], ['disagree', 'Driver disagrees'], ['success', 'Success'], ['loading', 'Loading'], ['empty', 'Empty'], ['error', 'Save error']
+], s => {
+  closeModal(); reset(); document.getElementById('errorSlot').innerHTML = '';
+  const t = Q[0], ln = id => t.lines.find(l => l.id === id);
+  if (s === 'flag') { cur = 2; render(); showTipOn('tr[data-line="2"] .flag'); return; }
+  if (s === 'bulk') { [3, 4, 6, 7].forEach(i => ln(i).ap = 'wait'); cur = 1; render(); openBulk(); return; }
+  if (s === 'reject') { cur = 2; render(); openReject('Duplicate fuel card transaction'); return; }
+  if (s === 'more') { Object.assign(ln(5), { ap: 'more', note: 'Retake the tire repair shop\'s receipt, showing the date and amount' }); cur = 5; render(); showTipOn('#closeWrap'); return; }
+  if (s === 'ready' || s === 'waiting') { [1, 5].forEach(i => ln(i).ap = 'ok'); Object.assign(ln(2), { ap: 'rej', reason: 'Duplicate of fuel card transaction VNP-88213 (already counted in trip costs)' }); Object.assign(ln(8), { ap: 'rej', reason: 'Invoice not in the company\'s name' }); cur = 1; if (s === 'waiting') closed[t.id] = true; render(); return; }
+  if (s === 'company') { selectTrip('CH-0436'); return; }
+  if (s === 'disagree') { Q.unshift(Q.extra); Q.pop(); sel = 'CH-0440'; cur = 4; render(); return; }
+  if (s === 'success') { Q.shift(); sel = Q[0].id; cur = firstPending(Q[0]); render(); toast('Nguyễn Văn Tuấn confirmed settlement CH-0431. The trip is locked.'); return; }
+  if (s === 'empty') { Q.length = 0; render(); return; }
+  if (s === 'loading') {
+    document.getElementById('subTitle').innerHTML = '<span class="sk" style="width:200px;display:inline-block"></span>';
+    body.innerHTML = `<div class="inbox"><section class="card queue"><div class="card-title"><span class="sk" style="width:110px"></span></div><div class="list">${Array(7).fill('<div class="qi"><span class="sk" style="width:80%"></span><span class="sk" style="width:60%;margin-top:6px"></span><span class="sk" style="width:40%;margin-top:6px"></span></div>').join('')}</div></section>
+      <div class="work"><section class="card span"><div class="sumhead"><span class="sk" style="width:340px;height:16px"></span></div></section><section class="card"><table class="grid"><tbody>${Array(10).fill('<tr>' + Array(6).fill('<td><span class="sk" style="width:80%"></span></td>').join('') + '</tr>').join('')}</tbody></table></section><aside class="side"><section class="card"><div class="paper-stage"><span class="sk" style="width:180px;height:200px"></span></div><div class="decide"><span class="sk"></span><span class="sk" style="width:60%"></span></div></section></aside></div></div>`;
+    return;
+  }
+  if (s === 'error') { cur = 1; errLine = 1; render(); document.getElementById('errorSlot').innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Couldn't save the decision for line "Fuel 52 l". Check your connection and try again.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="retry">${icon('refresh')}Retry</button></div></div>`; document.getElementById('retry').onclick = () => { document.getElementById('errorSlot').innerHTML = ''; cur = 1; approve(); }; return; }
+  render();
+});
+</script>
+</body>
+</html>

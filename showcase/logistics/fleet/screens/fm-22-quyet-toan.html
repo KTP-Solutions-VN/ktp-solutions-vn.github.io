@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quyết toán chuyến · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* chừa chỗ cho thanh State của prototype để footer quyết toán không bị che */
+  :root { --proto-h: 58px; }
+  .page-header .sub { color: var(--fg-muted); font-size: 13px; margin-top: 2px; }
+  .inbox { display: grid; grid-template-columns: 264px minmax(0, 1fr); gap: var(--s-4); align-items: start; }
+  .queue { position: sticky; top: calc(var(--header-h) + 16px); max-height: calc(100vh - var(--header-h) - 32px - var(--proto-h)); display: flex; flex-direction: column; min-height: 0; }
+  /* v1.3: hàng chờ = danh sách không kẻ (như .qi của FM_04), chọn = nền primary-soft + vạch 3px */
+  .card-title { display: flex; align-items: center; gap: 8px; padding: 16px 18px 6px; }
+  .card-title h2 { font-size: 16px; }
+  .card-title .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 10px; align-items: center; }
+  .count-pill { font: 600 12px var(--font-body); background: var(--surface-muted); color: var(--fg-muted); border-radius: 10px; padding: 1px 8px; font-variant-numeric: tabular-nums; }
+  .queue .list { overflow-y: auto; padding: 4px 8px 8px; display: flex; flex-direction: column; gap: 2px; }
+  .qi { display: block; width: 100%; text-align: left; border: 0; border-radius: 8px; background: transparent; padding: 9px 10px 9px 14px; font: inherit; color: inherit; cursor: pointer; position: relative; }
+  .qi:hover { background: var(--surface-muted); }
+  .qi::before { content: ""; position: absolute; left: 0; top: 8px; bottom: 8px; width: 3px; border-radius: 0 3px 3px 0; background: transparent; }
+  .qi.on { background: var(--primary-soft); }
+  .qi.on::before { background: var(--primary); }
+  .qi .l1 { display: flex; gap: 6px; align-items: baseline; font-size: 13px; white-space: nowrap; overflow: hidden; }
+  .qi .l1 .nm { overflow: hidden; text-overflow: ellipsis; }
+  .qi .l2, .qi .l3 { font-size: 12.5px; color: var(--fg-muted); line-height: 17px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .qi .bd { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; align-items: center; }
+  .qi .badge { height: 20px; font-size: 11.5px; padding: 0 6px; gap: 4px; }
+  .qi .badge .icon { width: 12px; height: 12px; }
+  .qi .fc { font-size: 12px; color: var(--fg-muted); font-variant-numeric: tabular-nums; margin-top: 4px; }
+  .qi .fc b { color: var(--fg); font-weight: 600; }
+  .work { display: grid; grid-template-columns: minmax(0, 1fr) 284px; gap: var(--s-4); align-items: start; min-width: 0; }
+  .work > .span { grid-column: 1 / -1; }
+  .sumhead { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; }
+  .sumhead h2 { font-size: 17px; }
+  .sumhead .meta { font-size: 13px; color: var(--fg-muted); margin-top: 2px; }
+  .bulk { display: flex; align-items: center; gap: 8px; padding: 2px 16px 10px; flex-wrap: wrap; }
+  table.lines td { padding: 7px 10px; vertical-align: top; }
+  table.lines th { padding: 8px 10px; }
+  table.lines tr { cursor: pointer; }
+  table.lines tr.focus td { background: var(--primary-soft); }
+  table.lines tr.focus td:first-child { box-shadow: inset 3px 0 0 var(--primary); }
+  /* lỗi lưu: chỉ vạch đỏ ở mép dòng, vùng nền đỏ duy nhất là alert phía trên (B3) */
+  table.lines tr.err td:first-child { box-shadow: inset 3px 0 0 var(--danger-solid); }
+  table.lines tbody tr:last-child td { border-bottom: 0; }
+  table.lines tfoot td { border-bottom: 0; border-top: 1px solid var(--border); }
+  table.lines .t { font-weight: 500; }
+  table.lines .d { white-space: normal; min-width: 150px; }
+  table.lines .flag { height: 20px; padding: 0 6px; margin-top: 4px; font-size: 11.5px; gap: 4px; white-space: nowrap; }
+  table.lines .flag .icon { width: 12px; height: 12px; }
+  table.lines input[type=checkbox] { accent-color: var(--primary); margin-top: 3px; }
+  table.lines input[type=checkbox]:disabled { cursor: not-allowed; }
+  .src { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--fg-muted); }
+  .doc-ic { color: var(--fg-muted); }
+  .side { position: sticky; top: calc(var(--header-h) + 16px); display: flex; flex-direction: column; gap: var(--s-3); }
+  .paper-stage { background: var(--surface-muted); height: 196px; display: grid; place-items: center; overflow: hidden; margin: 0 12px; border-radius: var(--r-md); }
+  .paper { width: 210px; background: var(--surface); border: 0; border-radius: 2px; box-shadow: var(--shadow-card); padding: 12px 14px 14px; font-size: 10.5px; line-height: 14px; transition: transform .15s; }
+  .paper h4 { margin: 0 0 4px; font: 700 11px var(--font-display); text-align: center; text-transform: uppercase; }
+  .paper .ln { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px dashed var(--border); padding: 2px 0; }
+  .paper .tot { font-weight: 700; border-bottom: 0; padding-top: 5px; }
+  .nodoc { display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--fg-muted); font-size: 13px; }
+  .nodoc .icon { width: 32px; height: 32px; stroke-width: 1.25; color: var(--fg-subtle); }
+  .vbar { display: flex; align-items: center; gap: 2px; padding: 8px 10px 8px 14px; }
+  .vbar .ttl { font-size: 13px; font-weight: 600; color: var(--fg-strong); }
+  .decide { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 10px; }
+  .decide .what { font-size: 13px; }
+  .decide .what b { font-weight: 600; }
+  .decide .what .num { white-space: nowrap; }
+  /* cảnh báo = dòng có vạch mức độ, không tô nền (B3) */
+  .explain { position: relative; padding: 2px 0 2px 12px; font-size: 12.5px; line-height: 17px; color: var(--fg); }
+  .explain::before { content: ""; position: absolute; left: 0; top: 2px; bottom: 2px; width: 3px; border-radius: 2px; background: var(--warning-solid); }
+  .explain b { color: var(--warning-fg); }
+  .explain.danger::before { background: var(--danger-solid); } .explain.danger b { color: var(--danger-fg); }
+  .explain.info::before { background: var(--info-solid); } .explain.info b { color: var(--info-fg); }
+  .explain .fx { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .btnrow { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 8px; }
+  .btnrow .btn { padding: 0 8px; min-width: 0; white-space: nowrap; }
+  .btnrow .reject { color: var(--danger-fg); }
+  .btnrow .reject:hover:not([disabled]) { background: var(--danger-soft); }
+  .side { min-width: 0; }
+  .btnrow .btn:first-child { grid-column: 1 / -1; }
+  /* Footer quyết toán */
+  /* một số chính (kết quả) cỡ --text-display, các vế công thức là số phụ */
+  .settle { position: sticky; bottom: var(--proto-h); z-index: 10; background: var(--surface); border: 0; border-radius: var(--r-lg); box-shadow: var(--shadow-pop); padding: 6px; display: flex; align-items: stretch; gap: 16px; }
+  .settle .res { background: var(--primary-soft); border-radius: 8px; padding: 10px 18px; display: flex; flex-direction: column; justify-content: center; gap: 2px; min-width: 260px; }
+  .settle .res .k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--side-active); }
+  .settle .res .v { font: 700 var(--text-display)/40px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; letter-spacing: -.01em; white-space: nowrap; }
+  .settle .res .v small { font: 600 18px var(--font-display); color: var(--fg-muted); margin-left: 4px; }
+  .settle .res.pay { background: var(--warning-soft); }
+  .settle .res.pay .k { color: var(--warning-fg); }
+  .settle .mid { display: flex; flex-direction: column; justify-content: center; gap: 6px; min-width: 0; padding: 6px 0; }
+  .eq { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; font-size: 13px; color: var(--fg-muted); }
+  .eq .op { font-weight: 600; color: var(--fg-subtle); }
+  .eq .term b { font: 600 15px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; margin-left: 4px; }
+  .eq .term b.dotted { border-bottom: 1px dotted var(--border-strong); cursor: help; }
+  .settle .note { font-size: 12.5px; color: var(--fg-muted); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .settle .note .icon { width: 14px; height: 14px; }
+  .settle .go { margin-left: auto; display: flex; align-items: center; gap: 8px; padding-right: 10px; }
+  .reasons { display: flex; gap: 6px; flex-wrap: wrap; }
+  .mlist { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; }
+  .mlist li { display: flex; justify-content: space-between; gap: 12px; padding: 6px 10px; border-radius: 6px; font-size: 13px; }
+  .mlist li:last-child { font-weight: 600; background: var(--surface-muted); margin-top: 4px; }
+  .kbd-list { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; }
+  .kbd-list kbd { color: var(--fg-strong); }
+  @media (max-width: 1280px) { .work { grid-template-columns: 1fr; } .side { position: static; } }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Tài chính / Quyết toán</div>
+      <h1>Quyết toán chuyến</h1>
+      <div class="sub" id="subTitle"></div>
+    </div>
+    <div class="actions">
+      <span class="tip"><button class="btn btn-ghost" type="button" id="kbdBtn">Phím tắt</button><span class="tip-body right" id="kbdTip"></span></span>
+    </div>
+  </div>
+
+  <div class="filterbar" role="toolbar" aria-label="Bộ lọc">
+    <button class="chip" type="button">Hoàn thành: Tất cả <span class="ic-chev"></span></button>
+    <button class="chip" type="button">Tài xế <span class="ic-chev"></span></button>
+    <button class="chip" type="button" data-f="flag" aria-pressed="false">Chỉ chuyến có cờ</button>
+    <button class="chip" type="button" data-f="miss" aria-pressed="false">Chỉ chuyến thiếu chứng từ</button>
+    <button class="chip" type="button" data-f="dis" aria-pressed="false">Tài xế không đồng ý</button>
+    <button class="btn btn-ghost btn-sm" type="button" id="clearF">Xoá lọc</button>
+    <label class="search-global" style="max-width:300px;margin-left:auto"><span id="ic-search"></span><input id="qSearch" type="search" placeholder="Tìm mã chuyến, biển số, tài xế…" aria-label="Tìm chuyến"></label>
+  </div>
+
+  <div id="errorSlot"></div>
+  <div id="body"></div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_22', title: 'Quyết toán chuyến' });
+const V = n => fmt.vnd(n);
+document.querySelectorAll('.ic-chev').forEach(e => e.outerHTML = icon('chevron'));
+document.getElementById('ic-search').outerHTML = icon('search');
+document.getElementById('kbdTip').innerHTML = `<span class="kbd-list"><kbd>A</kbd><span>Duyệt</span><kbd>R</kbd><span>Từ chối</span><kbd>M</kbd><span>Yêu cầu bổ sung</span><kbd>↑ ↓</kbd><span>Chuyển dòng</span><kbd>J / K</kbd><span>Chuyển chuyến</span><kbd>/</kbd><span>Tìm chuyến</span></span>`;
+
+/* ---------- Floating tooltip ---------- */
+const TIPS = {}; let tipN = 0;
+const tip = html => { const k = 't' + (tipN++); TIPS[k] = html; return `data-ftip="${k}"`; };
+const ftip = document.createElement('div'); ftip.className = 'tip-body'; ftip.setAttribute('role', 'tooltip');
+Object.assign(ftip.style, { position: 'fixed', transform: 'none', bottom: 'auto', zIndex: 100 }); document.body.appendChild(ftip);
+function showTip(el) { const h = TIPS[el.dataset.ftip]; if (!h) return; ftip.innerHTML = h; ftip.style.opacity = 1; const r = el.getBoundingClientRect(), w = ftip.offsetWidth, ht = ftip.offsetHeight; ftip.style.left = Math.min(Math.max(8, r.left + r.width / 2 - w / 2), innerWidth - w - 8) + 'px'; let y = r.top - ht - 8; if (y < 8) y = r.bottom + 8; ftip.style.top = y + 'px'; }
+const hideTip = () => { ftip.style.opacity = 0; };
+document.addEventListener('mouseover', e => { const el = e.target.closest('[data-ftip]'); el ? showTip(el) : hideTip(); });
+document.addEventListener('focusin', e => { const el = e.target.closest('[data-ftip]'); el ? showTip(el) : hideTip(); });
+
+/* ---------- Dữ liệu ---------- */
+const SRC = { phone: ['phone', 'Tài xế'], tray: ['tray', 'Import ETC'], formula: ['formula', 'Định mức'], pen: ['pen', 'Nhập tay'] };
+const DRIVER_PAID = l => l.src === 'phone' || (l.src === 'pen' && l.paidBy === 'driver');
+const FLAGS = {
+  fuel: ['warning', 'warn', 'Vượt định mức dầu 18%', '<span class="fx">116 km × 38 l/100km = 44,1 l</span>; đã đổ <span class="fx">52 l (+7,9 l)</span>', 'Vượt định mức 18%'],
+  dup: ['warning', 'warn', 'Có thể trùng giao dịch thẻ dầu 10/11 09:05', 'Giao dịch thẻ dầu <span class="fx">VNP-88213</span>, 51C-123.45, <span class="fx">20 l, 403.000 đ</span>, CHXD Bình Dương 3', 'Có thể trùng thẻ dầu'],
+  miss: ['danger', 'block', 'Thiếu chứng từ', 'Tài xế chưa chụp ảnh chứng từ. Dòng không có chứng từ hợp lệ thì không được tính vào chi phí.', 'Thiếu chứng từ'],
+  name: ['warning', 'warn', 'Hoá đơn không mang tên công ty', 'Người mua trên hoá đơn: "Nguyễn Văn Tuấn" — cần ghi tên công ty để được tính vào chi phí', 'Hoá đơn sai tên']
+};
+const L = (id, src, type, desc, amt, doc, flag, ap, inv, extra) => Object.assign({ id, src, type, desc, amt, doc, flag, ap, inv }, extra || {});
+function tripsData() {
+  const T0431 = { id: 'CH-0431', driver: 'Nguyễn Văn Tuấn', plate: '51C-123.45', route: 'KCN Mỹ Phước 3 → Cát Lái', done: 'Hoàn thành 10/11 11:40', ago: 'Hoàn thành 2 ngày trước', km: 116, adv: 4000000,
+    lines: [
+      L(1, 'phone', 'Dầu', '52 l · km 204.118 · 10/11 05:10', 1047800, 'img', 'fuel', 'wait', ['Hoá đơn bán lẻ xăng dầu', 'CHXD Bình Dương 3', [['Dầu DO 0,05S', '52 l'], ['Đơn giá', '20.150 đ/l']]]),
+      L(2, 'phone', 'Dầu', '20 l · 10/11 09:02', 403000, 'img', 'dup', 'wait', ['Hoá đơn bán lẻ xăng dầu', 'CHXD Bình Dương 3', [['Dầu DO 0,05S', '20 l'], ['Đơn giá', '20.150 đ/l']]]),
+      L(3, 'phone', 'Nâng hạ', "Nâng rỗng Depot Phước Long 40'", 580000, 'img', null, 'ok', ['Phiếu thu nâng hạ', 'Depot Phước Long', [["Nâng rỗng 40'", '1 lần'], ['Container', 'MSKU 7730011']]]),
+      L(4, 'phone', 'Nâng hạ', "Hạ hàng Cát Lái 40'", 580000, 'img', null, 'ok', ['Phiếu thu nâng hạ', 'Tân Cảng Cát Lái', [["Hạ hàng 40'", '1 lần'], ['Container', 'MSKU 7730011']]]),
+      L(5, 'phone', 'Khác', 'Vá lốp QL13', 250000, null, 'miss', 'wait'),
+      L(6, 'phone', 'Bốc xếp', 'Kho Mỹ Phước 3', 600000, 'img', null, 'ok', ['Phiếu thu bốc xếp', 'Kho Gỗ Minh Long', [['Bốc xếp', '22,0 tấn']]]),
+      L(7, 'phone', 'Khác', 'Vé cổng cảng', 50000, 'img', null, 'ok', ['Vé vào cổng', 'Cảng Cát Lái', [['Vé cổng', '1 lượt']]]),
+      L(8, 'phone', 'Khác', 'Vệ sinh container', 150000, 'img', 'name', 'wait', ['Hoá đơn dịch vụ', 'Bãi Phước Long', [['Vệ sinh cont 40\'', '1 lần'], ['Người mua', 'Nguyễn Văn Tuấn']]]),
+      L(9, 'tray', 'Phí cầu đường', '2 giao dịch', 210000, 'pdf', null, 'ok', ['Sao kê ETC', 'VETC 11/2026', [['Trạm ĐT 741', '140.000'], ['Trạm Xa lộ Hà Nội', '70.000']]]),
+      L(10, 'formula', 'Lương chuyến', "Khoán Mỹ Phước 3–Cát Lái 40'", 1300000, null, null, 'ok')
+    ] };
+  const T0436 = { id: 'CH-0436', driver: 'Phạm Quốc Bảo', plate: '51D-215.40', route: 'ICD Sóng Thần → KCN Tân Uyên', done: 'Hoàn thành 10/11 16:05', ago: 'Hoàn thành 2 ngày trước', km: 64, adv: 1500000,
+    lines: [
+      L(1, 'phone', 'Dầu', '30 l · km 88.402 · 10/11 12:40', 615000, 'img', null, 'ok', ['Hoá đơn bán lẻ xăng dầu', 'CHXD Sóng Thần', [['Dầu DO 0,05S', '30 l'], ['Đơn giá', '20.500 đ/l']]]),
+      L(2, 'phone', 'Nâng hạ', "Nâng hàng ICD Sóng Thần 20'", 420000, 'img', null, 'ok', ['Phiếu thu nâng hạ', 'ICD Sóng Thần', [["Nâng hàng 20'", '1 lần']]]),
+      L(3, 'phone', 'Nâng hạ', "Hạ rỗng ICD Sóng Thần 20'", 420000, 'img', null, 'ok', ['Phiếu thu nâng hạ', 'ICD Sóng Thần', [["Hạ rỗng 20'", '1 lần']]]),
+      L(4, 'phone', 'Bốc xếp', 'KCN Tân Uyên', 210000, 'img', null, 'ok', ['Phiếu thu bốc xếp', 'KCN Tân Uyên', [['Bốc xếp', '18,0 tấn']]]),
+      L(5, 'phone', 'Khác', 'Vé cổng ICD', 50000, 'img', null, 'ok', ['Vé vào cổng', 'ICD Sóng Thần', [['Vé cổng', '1 lượt']]]),
+      L(6, 'tray', 'Phí cầu đường', '1 giao dịch', 120000, 'pdf', null, 'ok', ['Sao kê ETC', 'VETC 11/2026', [['Trạm ĐT 743', '120.000']]]),
+      L(7, 'formula', 'Lương chuyến', "Khoán Sóng Thần–Tân Uyên 20'", 900000, null, null, 'ok')
+    ] };
+  const T0440 = { id: 'CH-0440', driver: 'Võ Thanh Sơn', plate: '51C-334.21', route: 'Cát Lái → KCN Tân Uyên', done: 'Hoàn thành 09/11 15:20', ago: 'Hoàn thành 3 ngày trước', km: 102, adv: 3500000, disagree: true,
+    lines: [
+      L(1, 'phone', 'Dầu', '48 l · km 151.330 · 09/11 07:30', 967200, 'img', null, 'ok', ['Hoá đơn bán lẻ xăng dầu', 'CHXD Tân Uyên', [['Dầu DO 0,05S', '48 l'], ['Đơn giá', '20.150 đ/l']]]),
+      L(2, 'phone', 'Nâng hạ', "Nâng hàng Cát Lái 40'", 580000, 'img', null, 'ok', ['Phiếu thu nâng hạ', 'Tân Cảng Cát Lái', [["Nâng hàng 40'", '1 lần']]]),
+      L(3, 'phone', 'Nâng hạ', "Hạ rỗng Depot Phước Long 40'", 580000, 'img', null, 'ok', ['Phiếu thu nâng hạ', 'Depot Phước Long', [["Hạ rỗng 40'", '1 lần']]]),
+      L(4, 'phone', 'Bốc xếp', 'Kho KCN Tân Uyên', 600000, 'img', null, 'rej', ['Phiếu thu bốc xếp', 'Kho KCN Tân Uyên', [['Bốc xếp', '24,0 tấn']]], { reason: 'Không có chứng từ hợp lệ', by: 'Trần Thị Mai, 15/11 16:40' }),
+      L(5, 'tray', 'Phí cầu đường', '2 giao dịch', 280000, 'pdf', null, 'ok', ['Sao kê ETC', 'VETC 11/2026', [['Trạm ĐT 741', '140.000'], ['Trạm Xa lộ Hà Nội', '140.000']]]),
+      L(6, 'formula', 'Lương chuyến', "Khoán Cát Lái–Tân Uyên 40'", 1200000, null, null, 'ok')
+    ] };
+  const gen = (id, driver, plate, route, ago, opt) => {
+    const cont = !/Long An|Mỹ Tho/.test(route), lit = opt.lit || 40;
+    const ls = [L(1, 'phone', 'Dầu', `${lit} l`, lit * 20150, 'img', opt.fuel ? 'fuel' : null, 'wait', ['Hoá đơn bán lẻ xăng dầu', 'CHXD', [['Dầu DO 0,05S', lit + ' l']]])];
+    if (cont) ls.push(L(2, 'phone', 'Nâng hạ', 'Nâng/hạ container', 580000, 'img', null, 'wait', ['Phiếu thu nâng hạ', 'Cảng', [['Nâng hạ', '1 lần']]]), L(3, 'phone', 'Khác', 'Vé cổng cảng', 50000, opt.miss ? null : 'img', opt.miss ? 'miss' : null, 'wait', ['Vé vào cổng', 'Cảng', [['Vé cổng', '1 lượt']]]));
+    else ls.push(L(2, 'phone', 'Bốc xếp', 'Điểm giao', 300000, opt.miss ? null : 'img', opt.miss ? 'miss' : null, 'wait', ['Phiếu thu bốc xếp', 'Kho', [['Bốc xếp', '1 lần']]]));
+    if (opt.name) ls.push(L(4, 'phone', 'Khác', 'Rửa xe', 120000, 'img', 'name', 'wait', ['Hoá đơn dịch vụ', 'Tiệm rửa xe', [['Rửa xe', '1 lần']]]));
+    ls.push(L(5, 'tray', 'Phí cầu đường', '1 giao dịch', 140000, 'pdf', null, 'ok', ['Sao kê ETC', 'VETC', [['Trạm', '140.000']]]), L(6, 'formula', 'Lương chuyến', 'Khoán tuyến', cont ? 1200000 : 800000, null, null, 'ok'));
+    return { id, driver, plate, route, done: ago, ago, km: 90, adv: opt.adv, lines: ls };
+  };
+  return [T0431, T0436,
+    gen('CH-0438', 'Trần Minh Đức', '51D-456.78', 'Cát Lái → KCN VSIP 1', 'Hoàn thành hôm qua', { adv: 2500000, miss: 1, lit: 42 }),
+    gen('CH-0441', 'Võ Thành Nhân', '61C-220.14', 'Cát Lái → Sa Đéc', 'Hoàn thành hôm qua', { adv: 3500000, fuel: 1, name: 1, lit: 60 }),
+    gen('CH-0444', 'Lê Hoàng Phúc', '51D-702.33', 'KCN Sóng Thần → Long An', 'Hoàn thành hôm qua', { adv: 1200000, lit: 36 }),
+    gen('CH-0447', 'Đặng Quang Vinh', '51C-456.78', 'KCN Đồng An → Cát Lái', 'Hoàn thành hôm qua', { adv: 2200000, fuel: 1, lit: 46 }),
+    gen('CH-0449', 'Huỳnh Tấn Lộc', '51C-588.02', 'Bình Tân → Mỹ Tho', 'Hoàn thành hôm qua', { adv: 1500000, miss: 1, lit: 34 }),
+    gen('CH-0450', 'Ngô Đức Trí', '51C-731.80', 'KCN Mỹ Phước 3 → Cát Lái', 'Hoàn thành hôm qua', { adv: 2500000, lit: 44 }),
+    gen('CH-0452', 'Trần Minh Đức', '51D-456.78', 'Cát Lái → KCN VSIP 1', 'Hoàn thành hôm nay 04:52', { adv: 2400000, lit: 40 }),
+    gen('CH-0453', 'Phan Văn Khoa', '51C-402.17', 'ICD Phước Long → KCN Phước Đông', 'Hoàn thành hôm nay 05:40', { adv: 2600000, miss: 1, lit: 46 }),
+    gen('CH-0455', 'Huỳnh Tấn Lộc', '51C-588.02', 'Bình Tân → Mỹ Tho', 'Hoàn thành hôm nay 07:05', { adv: 1500000, lit: 34 }),
+    gen('CH-0456', 'Lý Văn Tâm', '51C-219.66', 'Cát Lái → KCN Tân Uyên', 'Hoàn thành hôm nay 07:50', { adv: 2600000, lit: 44 })
+  ].concat([T0440]);
+}
+
+/* ---------- State ---------- */
+let Q, sel, cur, closed, filters, q, errLine;
+function reset() { const all = tripsData(); Q = all.filter(t => !t.disagree); Q.extra = all.find(t => t.disagree); sel = 'CH-0431'; closed = {}; filters = {}; q = ''; errLine = null; cur = firstPending(Q[0]); }
+const trip = () => Q.find(t => t.id === sel) || Q[0];
+function firstPending(t) { const l = t.lines.find(x => x.ap === 'wait' || x.ap === 'more'); return l ? l.id : t.lines[0].id; }
+const eligible = l => l.ap === 'wait' && l.doc && !l.flag;
+function stats(t) {
+  const drv = t.lines.filter(DRIVER_PAID);
+  const appr = drv.filter(l => l.ap === 'ok').reduce((s, l) => s + l.amt, 0);
+  const tripCost = t.lines.filter(l => l.ap === 'ok').reduce((s, l) => s + l.amt, 0);
+  const pending = t.lines.filter(l => l.ap === 'wait' || l.ap === 'more').length;
+  const forecast = t.adv - drv.filter(l => l.ap !== 'rej').reduce((s, l) => s + l.amt, 0);
+  return { appr, tripCost, pending, res: t.adv - appr, forecast, nOk: drv.filter(l => l.ap === 'ok').length, nRej: drv.filter(l => l.ap === 'rej').length, flags: t.lines.filter(l => l.flag && l.flag !== 'miss' && (l.ap === 'wait' || l.ap === 'more')).length, miss: t.lines.filter(l => l.flag === 'miss' && (l.ap === 'wait' || l.ap === 'more')).length };
+}
+const AP = { wait: ['b-neutral', 'clock', 'Chờ duyệt'], ok: ['b-success', 'check', 'Đã duyệt'], rej: ['b-danger', 'x', 'Từ chối'], more: ['b-info', 'refresh', 'Chờ bổ sung'] };
+
+/* ---------- Render ---------- */
+const body = document.getElementById('body');
+function visibleQueue() {
+  return Q.filter(t => { const s = stats(t);
+    if (filters.flag && !s.flags) return false; if (filters.miss && !s.miss) return false; if (filters.dis && !t.disagree) return false;
+    return !q || (t.id + t.driver + t.plate).toLowerCase().includes(q); });
+}
+function render() {
+  hideTip();
+  const miss = Q.filter(t => stats(t).miss).length;
+  document.getElementById('subTitle').textContent = `${Q.length} chuyến chờ · ${miss} có chứng từ thiếu`;
+  if (!Q.length) { body.innerHTML = `<div class="card"><div class="empty">${icon('receipt')}<h3>Không còn chuyến nào chờ quyết toán</h3><p>Các chuyến hoàn thành sẽ tự xuất hiện ở đây cùng chi phí tài xế đã ghi và giao dịch đã import.</p></div></div>`; return; }
+  const t = trip(), s = stats(t), isClosed = !!closed[t.id];
+  const vq = visibleQueue();
+  const qHtml = vq.map(x => { const st = stats(x); return `<button class="qi ${x.id === t.id ? 'on' : ''}" type="button" data-trip="${x.id}" aria-current="${x.id === t.id}">
+      <div class="l1"><b class="code">${x.id}</b><span class="muted">·</span><span class="nm">${x.driver}</span></div>
+      <div class="l2" title="${x.route}">${x.route}</div><div class="l3" title="${x.plate} · ${x.ago}"><span class="code" style="font-weight:400">${x.plate}</span> · ${x.ago}</div>
+      <div class="bd">${x.disagree ? `<span class="badge b-warning">${icon('undo')}Tài xế không đồng ý</span>` : ''}${closed[x.id] ? `<span class="badge b-info">${icon('clock')}Chờ tài xế xác nhận</span>` : ''}${st.miss ? `<span class="badge b-danger">${icon('block')}${st.miss} thiếu chứng từ</span>` : ''}${st.flags ? `<span class="badge b-warning">${icon('warn')}${st.flags} cờ</span>` : ''}</div>
+      <div class="fc">${st.forecast >= 0 ? 'Dự kiến nộp lại' : 'Dự kiến trả thêm'} <b>${V(Math.abs(st.forecast))}</b></div>
+    </button>`; }).join('') || '<p class="muted sm" style="padding:16px">Không có chuyến khớp bộ lọc.</p>';
+  const nElig = t.lines.filter(l => eligible(l) && l.chk !== false).length;
+  const focusL = t.lines.find(l => l.id === cur) || t.lines[0];
+  body.innerHTML = `<div class="inbox">
+    <section class="card queue" aria-label="Hàng chờ">
+      <div class="card-title"><h2>Hàng chờ</h2><span class="count-pill">${Q.length}</span><span class="meta">cũ nhất trước</span></div>
+      <div class="list" role="list">${qHtml}</div>
+    </section>
+    <div class="work">
+      <section class="card span" aria-label="Tóm tắt chuyến">
+        <div class="sumhead"><div class="grow"><h2><span class="code">${t.id}</span> · ${t.route}</h2><div class="meta num">${t.driver} · <span class="code">${t.plate}</span> · ${t.done} · ${t.km} km · Tạm ứng ${V(t.adv)}</div></div>
+          <a class="btn btn-ghost btn-sm" href="fm-09-chi-tiet-chuyen.html?tab=pl">Mở chi tiết chuyến ${icon('external')}</a></div>
+        ${t.disagree ? `<div style="padding:0 16px 12px"><div class="alert alert-warning" role="status">${icon('undo')}<div>Tài xế Võ Thanh Sơn không đồng ý (16/11 08:12): "Phí bốc xếp 600.000 có phiếu thu của kho, sao bị từ chối?"</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="seeRej">Xem dòng bị từ chối</button></div></div></div>` : ''}
+        ${isClosed ? `<div style="padding:0 16px 12px"><div class="alert alert-info" role="status">${icon('clock')}<div>Đã gửi ${t.driver} lúc 14:32. Đang chờ tài xế xác nhận.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="unclose">Bỏ chốt</button></div></div></div>` : ''}
+      </section>
+      <section class="card" aria-label="Dòng chi phí" style="min-width:0">
+        <div class="card-title"><h2>Dòng chi phí</h2><span class="count-pill">${t.lines.length}</span><span class="meta num">Chờ duyệt ${t.lines.filter(l => l.ap === 'wait').length}</span></div>
+        ${isClosed ? '' : `<div class="bulk">
+          <span ${nElig ? '' : tip('Không còn dòng nào đủ điều kiện duyệt hàng loạt')} tabindex="${nElig ? -1 : 0}"><button class="btn btn-secondary btn-sm" type="button" id="bulkBtn" ${nElig ? '' : 'disabled'}>${icon('check')}Duyệt dòng có chứng từ, không cờ (${nElig})</button></span>
+          <button class="btn btn-ghost btn-sm" type="button" id="addManual" style="margin-left:auto">${icon('plus')}Thêm chi phí nhập tay</button>
+        </div>`}
+        <div class="grid-wrap" id="linesWrap" tabindex="0" aria-label="Danh sách dòng chi phí, dùng A R M và mũi tên">
+        <table class="grid lines"><thead><tr><th style="width:32px"><span class="sr-only">Chọn</span></th><th>Loại · Nguồn</th><th>Mô tả · Cờ</th><th class="right">Số tiền</th><th style="width:36px"><span class="sr-only">Chứng từ</span>${icon('camera')}</th><th>Trạng thái</th></tr></thead>
+        <tbody>${t.lines.map(l => { const f = l.flag && FLAGS[l.flag]; const canChk = eligible(l);
+          return `<tr data-line="${l.id}" class="${l.id === cur ? 'focus' : ''} ${errLine === l.id ? 'err' : ''}">
+            <td>${l.ap === 'wait' || l.ap === 'more' ? `<span ${canChk ? '' : tip(l.doc ? 'Dòng có cờ phải duyệt riêng' : 'Dòng thiếu chứng từ phải duyệt riêng')}><input type="checkbox" data-chk="${l.id}" ${canChk ? (l.chk === false ? '' : 'checked') : 'disabled'} aria-label="Chọn dòng ${l.id} để duyệt hàng loạt"></span>` : ''}</td>
+            <td><span class="t">${l.type}</span><span class="cell-sub"><span class="src">${icon(SRC[l.src][0])}${SRC[l.src][1]}${l.paidBy === 'company' ? ' · công ty chi' : ''}</span></span></td>
+            <td class="d">${l.desc}${f ? `<br><span class="badge b-${f[0]} flag" tabindex="0" ${tip(`<b>${f[2]}</b><br>${f[3]}`)}>${icon(f[1])}${f[4]}</span>` : ''}</td>
+            <td class="right num">${fmt.vnd(l.amt, { bare: 1 })}</td>
+            <td>${l.doc ? `<span class="doc-ic" title="${l.doc === 'img' ? 'Có ảnh chứng từ' : 'Có file PDF'}">${icon(l.doc === 'img' ? 'camera' : 'doc')}</span>` : '<span class="muted">—</span>'}</td>
+            <td><span class="badge ${AP[l.ap][0]}" ${l.ap === 'rej' ? `tabindex="0" ${tip(`Lý do: ${l.reason}<br>${l.by || 'Trần Thị Mai'}`)}` : l.ap === 'more' ? `tabindex="0" ${tip(`Đã yêu cầu: ${l.note}`)}` : ''}>${icon(AP[l.ap][1])}${AP[l.ap][2]}</span></td>
+          </tr>`; }).join('')}</tbody>
+          <tfoot><tr><td></td><td colspan="2">Tổng ${t.lines.length} dòng</td><td class="right num">${fmt.vnd(t.lines.reduce((a, l) => a + l.amt, 0), { bare: 1 })}</td><td colspan="2"></td></tr></tfoot></table></div>
+      </section>
+      <aside class="side" aria-label="Chứng từ và quyết định">${sideHtml(t, focusL, isClosed)}</aside>
+    </div>
+  </div>
+  ${footerHtml(t, s, isClosed)}`;
+  bind(t);
+}
+let zoom = 1, rot = 0;
+function paper(l) {
+  if (!l.doc) return `<div class="nodoc">${icon('camera')}Chưa có ảnh chứng từ</div>`;
+  const i = l.inv || ['Chứng từ', '', []];
+  return `<div class="paper" style="transform:scale(${zoom}) rotate(${rot}deg)"><h4>${i[0]}</h4><div class="muted" style="text-align:center;margin-bottom:4px">${i[1]}</div>${i[2].map(([a, b]) => `<div class="ln"><span>${a}</span><span class="num">${b}</span></div>`).join('')}<div class="ln tot"><span>Thành tiền</span><span class="num">${fmt.vnd(l.amt)}</span></div></div>`;
+}
+function sideHtml(t, l, isClosed) {
+  const f = l.flag && FLAGS[l.flag];
+  const decided = l.ap === 'ok' || l.ap === 'rej';
+  return `<section class="card">
+    <div class="vbar"><span class="ttl grow">Chứng từ dòng ${l.id}</span><button class="icon-btn" type="button" data-z="-1" aria-label="Thu nhỏ">−</button><button class="icon-btn" type="button" data-z="1" aria-label="Phóng to">${icon('plus')}</button><button class="icon-btn" type="button" id="rotBtn" aria-label="Xoay">${icon('refresh')}</button></div>
+    <div class="paper-stage">${paper(l)}</div>
+    <div class="decide">
+      <div class="what"><b>${l.type} · ${l.desc.split(' · ').slice(0, 1)}</b> · <span class="num">${V(l.amt)}</span><br><span class="sm muted"><span class="src">${icon(SRC[l.src][0])}${SRC[l.src][1]}</span> · ${DRIVER_PAID(l) ? 'trừ vào tạm ứng' : 'vào chi phí chuyến, không trừ tạm ứng'}</span></div>
+      ${f ? `<div class="explain ${f[0] === 'danger' ? 'danger' : ''}"><b>${f[2]}.</b> ${f[3]}</div>` : ''}
+      ${l.ap === 'rej' ? `<div class="explain danger"><b>Đã từ chối.</b> ${l.reason}</div>` : ''}
+      ${l.ap === 'more' ? `<div class="explain info"><b>Đang chờ tài xế bổ sung.</b> ${l.note}</div>` : ''}
+      ${isClosed || l.src === 'formula' || l.src === 'tray' && l.ap === 'ok' ? `<p class="sm muted">${isClosed ? 'Đã chốt. Bỏ chốt để sửa quyết định.' : 'Dòng tự động từ ' + (l.src === 'formula' ? 'định mức' : 'import đã khớp') + ', đã duyệt.'}</p>` : `
+      <div class="btnrow">
+        <button class="btn btn-primary" type="button" id="aBtn" ${l.ap === 'ok' ? 'disabled' : ''}>${icon('check')}Duyệt <kbd>A</kbd></button>
+        <button class="btn btn-secondary" type="button" id="mBtn">Yêu cầu bổ sung <kbd>M</kbd></button>
+        <button class="btn btn-secondary reject" type="button" id="rBtn" ${l.ap === 'rej' ? 'disabled' : ''}>Từ chối <kbd>R</kbd></button>
+      </div>
+      ${l.flag === 'dup' && !decided ? `<button class="btn btn-ghost btn-sm" type="button" id="mergeBtn" style="align-self:flex-start">${icon('copy')}Gộp với giao dịch thẻ dầu</button>` : ''}`}
+    </div>
+  </section>`;
+}
+function footerHtml(t, s, isClosed) {
+  const pay = s.res < 0;
+  const apprLines = t.lines.filter(l => DRIVER_PAID(l) && l.ap === 'ok');
+  const apprTip = apprLines.length ? apprLines.map(l => `${l.type} · ${l.desc.split(' · ')[0]} <span class="formula">${fmt.vnd(l.amt, { bare: 1 })}</span>`).join('<br>') + `<br>= <span class="formula">${V(s.appr)}</span><br><span style="opacity:.8">Chỉ tính dòng tài xế chi từ tạm ứng. Dòng import và định mức không vào phép tính này.</span>` : 'Chưa duyệt dòng nào';
+  const ready = s.pending === 0 && !isClosed;
+  const B = n => fmt.vnd(n, { bare: 1 });
+  return `<div class="settle" role="region" aria-label="Phép tính quyết toán" aria-live="polite">
+    <div class="res ${pay ? 'pay' : ''}"><span class="k">${pay ? 'Công ty trả thêm' : 'Tài xế nộp lại'}</span><span class="v">${B(Math.abs(s.res))}<small>đ</small></span></div>
+    <div class="mid">
+      <div class="eq num"><span class="term">Tạm ứng<b>${V(t.adv)}</b></span><span class="op">−</span><span class="term">Chi phí duyệt<b class="dotted" tabindex="0" ${tip(apprTip)}>${V(s.appr)}</b></span></div>
+      <div class="note num">${s.pending ? `<span class="badge b-warning">${icon('clock')}Còn ${s.pending} dòng chưa xử lý</span>` : `<span class="badge b-success">${icon('check')}Mọi dòng đã có quyết định</span>`}<span>Chi phí chuyến (gồm import &amp; định mức) ${V(s.tripCost)}</span></div>
+    </div>
+    <div class="go">${isClosed ? `<span class="badge b-info">${icon('clock')}Đã chốt · chờ tài xế xác nhận</span>` : `<span ${ready ? '' : tip(`Còn ${s.pending} dòng chờ duyệt hoặc chờ bổ sung`)} tabindex="${ready ? -1 : 0}" id="closeWrap"><button class="btn btn-primary" type="button" id="closeBtn" ${ready ? '' : 'disabled'}>${icon('check')}Chốt &amp; gửi tài xế xác nhận</button></span>`}</div>
+  </div>`;
+}
+
+/* ---------- Actions ---------- */
+function bind(t) {
+  body.querySelectorAll('[data-trip]').forEach(b => b.onclick = () => selectTrip(b.dataset.trip));
+  body.querySelectorAll('tr[data-line]').forEach(tr => tr.onclick = e => { if (e.target.matches('input')) return; cur = +tr.dataset.line; zoom = 1; rot = 0; render(); document.getElementById('linesWrap').focus({ preventScroll: true }); });
+  body.querySelectorAll('[data-chk]').forEach(c => c.onchange = () => { t.lines.find(l => l.id === +c.dataset.chk).chk = c.checked; render(); });
+  const on = (id, f) => { const el = document.getElementById(id); if (el) el.onclick = f; };
+  on('aBtn', approve); on('rBtn', openReject); on('mBtn', openMore); on('mergeBtn', merge); on('bulkBtn', openBulk); on('closeBtn', openClose);
+  on('seeRej', () => { cur = t.lines.find(l => l.ap === 'rej').id; render(); });
+  on('unclose', () => { delete closed[t.id]; render(); toast(`Đã bỏ chốt ${t.id}. Chuyến về trạng thái đang duyệt.`); });
+  on('addManual', () => addManual(t));
+  body.querySelectorAll('[data-z]').forEach(b => b.onclick = () => { zoom = Math.min(1.8, Math.max(.6, zoom + (+b.dataset.z) * .2)); render(); });
+  on('rotBtn', () => { rot = (rot + 90) % 360; render(); });
+}
+function selectTrip(id) { sel = id; cur = firstPending(trip()); zoom = 1; rot = 0; errLine = null; document.getElementById('errorSlot').innerHTML = ''; render(); }
+const curLine = () => trip().lines.find(l => l.id === cur);
+const label = l => `${l.type} ${l.desc.split(' · ')[0]} · ${V(l.amt)}`;
+function nextPending(t) { const ls = t.lines, i = ls.findIndex(l => l.id === cur); const n = ls.slice(i + 1).concat(ls.slice(0, i)).find(l => l.ap === 'wait'); if (n) cur = n.id; }
+function decide(l, ap, extra, msg) {
+  const t = trip(), prev = { ap: l.ap, reason: l.reason, note: l.note }; Object.assign(l, { ap }, extra || {}); errLine = null;
+  nextPending(t); render();
+  toast(msg, { undo: () => { Object.assign(l, prev); cur = l.id; render(); } });
+}
+function approve() { const l = curLine(); if (!l || l.ap === 'ok' || closed[trip().id] || l.src === 'formula') return; decide(l, 'ok', null, `Đã duyệt ${label(l)}`); }
+function merge() { const l = curLine(); decide(l, 'rej', { reason: 'Trùng giao dịch thẻ dầu VNP-88213 (đã tính trong chi phí chuyến)', by: 'Trần Thị Mai' }, `Đã gộp ${label(l)} với giao dịch thẻ dầu VNP-88213`); }
+
+function modal(html, onReady) {
+  closeModal(); hideTip();
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim'; s.id = 'mScrim'; s.onclick = closeModal;
+  const m = document.createElement('div'); m.className = 'modal'; m.id = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.innerHTML = html;
+  document.body.append(s, m); m.querySelectorAll('[data-x]').forEach(b => b.onclick = closeModal); onReady && onReady(m);
+}
+function closeModal() { ['modal', 'mScrim'].forEach(id => { const e = document.getElementById(id); if (e) { e.removeAttribute('id'); Shell.dismiss(e); } }); }
+function openReject(preset) {
+  const l = curLine(); if (!l || closed[trip().id]) return;
+  modal(`<h2>Từ chối dòng chi phí?</h2><p class="muted">${l.type} ${l.desc.split(' · ')[0]} · <b class="num">${V(l.amt)}</b>. ${DRIVER_PAID(l) ? 'Số tiền này sẽ không được trừ vào tạm ứng.' : 'Số tiền này sẽ bị loại khỏi chi phí chuyến.'}</p>
+    <div class="reasons">${['Trùng giao dịch thẻ dầu', 'Không có chứng từ hợp lệ', 'Không thuộc chuyến này'].map(r => `<button class="chip" type="button" data-r="${r}">${r}</button>`).join('')}</div>
+    <label class="field"><span>Lý do (tài xế sẽ thấy)</span><textarea class="input" id="rReason" rows="3"></textarea></label>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Quay lại</button><button class="btn btn-danger" type="button" id="rOk" disabled>Từ chối</button></div>`, m => {
+    const ta = m.querySelector('#rReason'), ok = m.querySelector('#rOk'); const sync = () => { ok.disabled = !ta.value.trim(); m.querySelectorAll('[data-r]').forEach(c => c.classList.toggle('on', c.dataset.r === ta.value.trim())); };
+    m.querySelectorAll('[data-r]').forEach(c => c.onclick = () => { ta.value = c.dataset.r; sync(); ta.focus(); });
+    ta.oninput = sync; if (typeof preset === 'string') { ta.value = preset; sync(); } ta.focus();
+    ok.onclick = () => { closeModal(); decide(l, 'rej', { reason: ta.value.trim(), by: 'Trần Thị Mai' }, `Đã từ chối ${label(l)}`); };
+  });
+}
+function openMore() {
+  const l = curLine(); if (!l || closed[trip().id]) return;
+  modal(`<h2>Yêu cầu tài xế bổ sung?</h2><p class="muted">${l.type} ${l.desc.split(' · ')[0]} · <b class="num">${V(l.amt)}</b></p>
+    <label class="field"><span>Cần bổ sung gì</span><textarea class="input" id="mNote" rows="3" placeholder="Chụp lại phiếu thu của tiệm vá lốp, có ghi ngày và số tiền"></textarea></label>
+    <p class="sm muted">${trip().driver} nhận thông báo trên app và chụp bổ sung.</p>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Quay lại</button><button class="btn btn-primary" type="button" id="mOk" disabled>Gửi yêu cầu</button></div>`, m => {
+    const ta = m.querySelector('#mNote'), ok = m.querySelector('#mOk'); ta.oninput = () => ok.disabled = !ta.value.trim(); ta.focus();
+    ok.onclick = () => { closeModal(); decide(l, 'more', { note: ta.value.trim() }, `Đã gửi yêu cầu bổ sung cho ${l.type} ${l.desc.split(' · ')[0]}`); };
+  });
+}
+function openBulk() {
+  const t = trip(), ls = t.lines.filter(l => eligible(l) && l.chk !== false); if (!ls.length) return;
+  const sum = ls.reduce((s, l) => s + l.amt, 0);
+  modal(`<h2>Duyệt ${ls.length} dòng, tổng ${V(sum)}?</h2>
+    <ul class="mlist">${ls.map(l => `<li><span>${l.desc}</span><span class="num">${fmt.vnd(l.amt, { bare: 1 })}</span></li>`).join('')}<li><span>Tổng</span><span class="num">${V(sum)}</span></li></ul>
+    <p class="sm muted">Các dòng có cờ hoặc thiếu chứng từ không nằm trong lần duyệt này.</p>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Quay lại</button><button class="btn btn-primary" type="button" id="bOk">Duyệt ${ls.length} dòng</button></div>`, m => {
+    m.querySelector('#bOk').focus();
+    m.querySelector('#bOk').onclick = () => { closeModal(); const prev = ls.map(l => [l, l.ap]); ls.forEach(l => l.ap = 'ok'); cur = firstPending(t); render(); toast(`Đã duyệt ${ls.length} dòng · ${V(sum)}`, { undo: () => { prev.forEach(([l, a]) => l.ap = a); render(); } }); };
+  });
+}
+function openClose() {
+  const t = trip(), s = stats(t); if (s.pending) return;
+  modal(`<h2>Chốt quyết toán ${t.id}?</h2><p>Tạm ứng <b class="num">${V(t.adv)}</b> − Chi phí duyệt <b class="num">${V(s.appr)}</b> = ${s.res < 0 ? 'Công ty trả thêm' : 'Tài xế nộp lại'} <b class="num">${V(Math.abs(s.res))}</b>.</p><p class="muted">Duyệt ${s.nOk} dòng · Từ chối ${s.nRej} dòng. ${t.driver} sẽ nhận thông báo để xác nhận trên app.</p>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Quay lại</button><button class="btn btn-primary" type="button" id="cOk">Chốt &amp; gửi</button></div>`, m => {
+    m.querySelector('#cOk').focus();
+    m.querySelector('#cOk').onclick = () => { closeModal(); closed[t.id] = true; render(); toast(`Đã chốt ${t.id} và gửi ${t.driver} xác nhận`, { undo: () => { delete closed[t.id]; render(); } }); };
+  });
+}
+function addManual(t) {
+  modal(`<h2>Thêm chi phí nhập tay</h2>
+    <div class="row" style="gap:12px;align-items:flex-end"><label class="field grow"><span>Loại</span><select class="input" id="nType"><option>Khác</option><option>Bốc xếp</option><option>Phí cầu đường</option><option>Nâng hạ</option></select></label><label class="field" style="width:150px"><span>Số tiền (đ)</span><input class="input num right" id="nAmt" placeholder="0"></label></div>
+    <label class="field"><span>Mô tả</span><input class="input" id="nDesc" placeholder="VD: Phí gửi xe bãi Cát Lái"></label>
+    <div class="seg" role="group" aria-label="Ai chi"><button type="button" data-p="driver" aria-pressed="true">Tài xế chi</button><button type="button" data-p="company" aria-pressed="false">Công ty chi</button></div>
+    <p class="sm muted">"Tài xế chi" được trừ vào tạm ứng. "Công ty chi" chỉ vào chi phí chuyến.</p>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Quay lại</button><button class="btn btn-primary" type="button" id="nOk" disabled>Thêm dòng</button></div>`, m => {
+    let paid = 'driver'; const a = m.querySelector('#nAmt'), d = m.querySelector('#nDesc'), ok = m.querySelector('#nOk');
+    const sync = () => ok.disabled = !(+a.value.replace(/\D/g, '') > 0 && d.value.trim()); a.oninput = () => { const v = +a.value.replace(/\D/g, ''); a.value = v ? fmt.vnd(v, { bare: 1 }) : ''; sync(); }; d.oninput = sync;
+    m.querySelectorAll('[data-p]').forEach(b => b.onclick = () => { paid = b.dataset.p; m.querySelectorAll('[data-p]').forEach(x => x.setAttribute('aria-pressed', x === b)); });
+    d.focus();
+    ok.onclick = () => { const id = Math.max(...t.lines.map(l => l.id)) + 1; t.lines.push(L(id, 'pen', m.querySelector('#nType').value, d.value.trim(), +a.value.replace(/\D/g, ''), null, null, 'wait', null, { paidBy: paid })); cur = id; closeModal(); render(); toast('Đã thêm dòng nhập tay'); };
+  });
+}
+document.addEventListener('keydown', e => {
+  if (e.target.matches('input, textarea, select') || document.getElementById('modal')) { if (e.key === 'Escape') closeModal(); return; }
+  const t = Q.length && trip(); if (!t) return;
+  const k = e.key.toLowerCase();
+  if (k === 'a') { e.preventDefault(); approve(); }
+  else if (k === 'r') { e.preventDefault(); openReject(); }
+  else if (k === 'm') { e.preventDefault(); openMore(); }
+  else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); const i = t.lines.findIndex(l => l.id === cur); const n = t.lines[Math.min(t.lines.length - 1, Math.max(0, i + (e.key === 'ArrowDown' ? 1 : -1)))]; cur = n.id; render(); }
+  else if (k === 'j' || k === 'k') { const vq = visibleQueue(), i = vq.findIndex(x => x.id === sel); const n = vq[Math.min(vq.length - 1, Math.max(0, i + (k === 'j' ? 1 : -1)))]; if (n) selectTrip(n.id); }
+  else if (e.key === '/') { e.preventDefault(); document.getElementById('qSearch').focus(); }
+});
+document.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { const f = b.dataset.f; filters[f] = !filters[f]; b.classList.toggle('on', filters[f]); b.setAttribute('aria-pressed', filters[f]); if (f === 'dis' && filters.dis && Q.extra && !Q.includes(Q.extra)) Q.unshift(Q.extra); render(); });
+document.getElementById('clearF').onclick = () => { filters = {}; q = ''; document.getElementById('qSearch').value = ''; document.querySelectorAll('[data-f]').forEach(b => { b.classList.remove('on'); b.setAttribute('aria-pressed', 'false'); }); render(); };
+document.getElementById('qSearch').oninput = e => { q = e.target.value.trim().toLowerCase(); render(); };
+
+/* ---------- Prototype states ---------- */
+const showTipOn = sel => setTimeout(() => { const el = document.querySelector(sel); if (el) showTip(el); }, 60);
+Shell.states([
+  ['default', 'Mặc định'], ['flag', 'Dòng có cờ'], ['bulk', 'Duyệt hàng loạt'], ['reject', 'Từ chối'], ['more', 'Chờ bổ sung'], ['ready', 'Sẵn sàng chốt'],
+  ['company', 'Công ty trả thêm'], ['waiting', 'Chờ tài xế xác nhận'], ['disagree', 'Tài xế không đồng ý'], ['success', 'Thành công'], ['loading', 'Đang tải'], ['empty', 'Trống'], ['error', 'Lỗi lưu']
+], s => {
+  closeModal(); reset(); document.getElementById('errorSlot').innerHTML = '';
+  const t = Q[0], ln = id => t.lines.find(l => l.id === id);
+  if (s === 'flag') { cur = 2; render(); showTipOn('tr[data-line="2"] .flag'); return; }
+  if (s === 'bulk') { [3, 4, 6, 7].forEach(i => ln(i).ap = 'wait'); cur = 1; render(); openBulk(); return; }
+  if (s === 'reject') { cur = 2; render(); openReject('Trùng giao dịch thẻ dầu'); return; }
+  if (s === 'more') { Object.assign(ln(5), { ap: 'more', note: 'Chụp lại phiếu thu của tiệm vá lốp, có ghi ngày và số tiền' }); cur = 5; render(); showTipOn('#closeWrap'); return; }
+  if (s === 'ready' || s === 'waiting') { [1, 5].forEach(i => ln(i).ap = 'ok'); Object.assign(ln(2), { ap: 'rej', reason: 'Trùng giao dịch thẻ dầu VNP-88213 (đã tính trong chi phí chuyến)' }); Object.assign(ln(8), { ap: 'rej', reason: 'Hoá đơn không mang tên công ty' }); cur = 1; if (s === 'waiting') closed[t.id] = true; render(); return; }
+  if (s === 'company') { selectTrip('CH-0436'); return; }
+  if (s === 'disagree') { Q.unshift(Q.extra); Q.pop(); sel = 'CH-0440'; cur = 4; render(); return; }
+  if (s === 'success') { Q.shift(); sel = Q[0].id; cur = firstPending(Q[0]); render(); toast('Nguyễn Văn Tuấn đã xác nhận quyết toán CH-0431. Chuyến đã khoá.'); return; }
+  if (s === 'empty') { Q.length = 0; render(); return; }
+  if (s === 'loading') {
+    document.getElementById('subTitle').innerHTML = '<span class="sk" style="width:200px;display:inline-block"></span>';
+    body.innerHTML = `<div class="inbox"><section class="card queue"><div class="card-title"><span class="sk" style="width:110px"></span></div><div class="list">${Array(7).fill('<div class="qi"><span class="sk" style="width:80%"></span><span class="sk" style="width:60%;margin-top:6px"></span><span class="sk" style="width:40%;margin-top:6px"></span></div>').join('')}</div></section>
+      <div class="work"><section class="card span"><div class="sumhead"><span class="sk" style="width:340px;height:16px"></span></div></section><section class="card"><table class="grid"><tbody>${Array(10).fill('<tr>' + Array(6).fill('<td><span class="sk" style="width:80%"></span></td>').join('') + '</tr>').join('')}</tbody></table></section><aside class="side"><section class="card"><div class="paper-stage"><span class="sk" style="width:180px;height:200px"></span></div><div class="decide"><span class="sk"></span><span class="sk" style="width:60%"></span></div></section></aside></div></div>`;
+    return;
+  }
+  if (s === 'error') { cur = 1; errLine = 1; render(); document.getElementById('errorSlot').innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Chưa lưu được quyết định cho dòng "Dầu 52 l". Kiểm tra kết nối rồi thử lại.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="retry">${icon('refresh')}Thử lại</button></div></div>`; document.getElementById('retry').onclick = () => { document.getElementById('errorSlot').innerHTML = ''; cur = 1; approve(); }; return; }
+  render();
+});
+</script>
+</body>
+</html>

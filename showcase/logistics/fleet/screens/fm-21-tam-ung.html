@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tạm ứng · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  .page-header .sub { color: var(--fg-muted); font-size: 13px; margin-top: 4px; }
+  .card-title { display: flex; align-items: center; gap: 8px; padding: 16px 18px 6px; }
+  .card-title h2 { font-size: 16px; }
+  .card-title .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 10px; align-items: center; }
+
+  .summary { display: grid; grid-template-columns: minmax(320px, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 6px; padding: 6px; background: var(--surface); border-radius: var(--r-lg); box-shadow: var(--shadow-card); }
+  .sum-main { padding: 14px 20px; background: var(--primary-soft); border-radius: 8px; display: flex; flex-direction: column; gap: 4px; }
+  .sum-main .k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--side-active); }
+  .sum-main .v { font: 700 var(--text-display)/40px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .sum-main .v small { font: 600 18px var(--font-display); color: var(--fg-muted); margin-left: 4px; }
+  .sum-main .d { font-size: 12.5px; color: var(--fg-muted); }
+  .sum-item { padding: 14px 16px; display: flex; flex-direction: column; justify-content: center; gap: 4px; min-width: 0; border-radius: 8px; border: 0; background: transparent; text-align: left; font: inherit; color: inherit; cursor: pointer; }
+  .sum-item:hover { background: var(--surface-muted); }
+  .sum-item .k { font-size: 12.5px; color: var(--fg-muted); font-weight: 500; }
+  .sum-item .v { font: 700 24px/30px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .sum-item .v small { font: 600 13px var(--font-body); color: var(--fg-muted); margin-left: 4px; }
+  .sum-item .d { font-size: 12px; color: var(--fg-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: var(--s-4); align-items: stretch; }
+  .layout > .card { display: flex; flex-direction: column; min-width: 0; }
+  .bar { display: flex; align-items: center; gap: 8px; padding: 0 16px 10px; flex-wrap: wrap; }
+  .bar .search-global { max-width: 240px; margin-left: auto; }
+  .bulk { display: flex; align-items: center; gap: 10px; padding: 8px 16px; margin: 0 8px 8px; border-radius: 8px; background: var(--primary-soft); font-size: 13px; }
+  .bulk b { color: var(--side-active); }
+  .bulk .btn { margin-left: auto; }
+  table.adv input[type=checkbox] { accent-color: var(--primary); }
+  table.adv input[type=checkbox]:disabled { cursor: not-allowed; }
+  table.adv tbody tr:last-child td { border-bottom: 0; }
+  table.adv td.who b { font-weight: 500; color: var(--fg-strong); }
+  .pay { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; }
+  .pay .icon { width: 14px; height: 14px; color: var(--fg-muted); }
+  .why { display: inline-flex; align-items: flex-start; gap: 4px; font-size: 12px; color: var(--warning-fg); white-space: normal; max-width: 250px; line-height: 16px; }
+  .why .icon { margin-top: 1px; }
+  table.adv td.who { white-space: normal; min-width: 200px; }
+  table.adv .cell-sub[title] { max-width: 190px; overflow: hidden; text-overflow: ellipsis; }
+  .why .icon { width: 13px; height: 13px; }
+  .age { font-size: 12px; color: var(--fg-muted); }
+  .age.old { color: var(--warning-fg); font-weight: 500; }
+
+  .held { list-style: none; margin: 0; padding: 4px 8px 4px; display: flex; flex-direction: column; gap: 2px; }
+  .hr { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; padding: 8px 10px; border-radius: 8px; border: 0; background: transparent; width: 100%; text-align: left; font: inherit; color: inherit; cursor: pointer; }
+  .hr:hover { background: var(--surface-muted); }
+  .hr.on { background: var(--primary-soft); }
+  .hr .nm { font-weight: 500; color: var(--fg-strong); font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hr .amt { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--fg-strong); text-align: right; }
+  .hr .sub2 { font-size: 12px; color: var(--fg-muted); }
+  .hr .track { grid-column: 1 / -1; height: 4px; border-radius: 2px; background: var(--surface-muted); overflow: hidden; margin-top: 4px; }
+  .hr .track i { display: block; height: 100%; background: var(--chart-muted); border-radius: 2px; }
+  .hr .track i.old { background: var(--warning-solid); }
+  .insight { margin: auto 18px 16px; padding: 10px 12px 10px 14px; position: relative; font-size: 12.5px; line-height: 17px; color: var(--fg); }
+  .insight::before { content: ""; position: absolute; left: 0; top: 10px; bottom: 10px; width: 3px; border-radius: 2px; background: var(--warning-solid); }
+  .insight a { font-weight: 600; }
+
+  .drawer { width: min(520px, 100vw); }
+  .drawer-head { border-bottom: 0; flex-direction: row; align-items: center; }
+  .drawer-foot { border-top: 0; box-shadow: 0 -1px 0 var(--border); }
+  .kv { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .kv li { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 10px; font-size: 13.5px; }
+  .kv li > span:first-child { color: var(--fg-muted); font-size: 12.5px; }
+  .mlist { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; }
+  .mlist li { display: flex; justify-content: space-between; gap: 12px; padding: 6px 10px; border-radius: 6px; font-size: 13px; }
+  .mlist li b { font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 500; }
+  .mlist li.h { background: var(--surface-muted); font-weight: 600; }
+  .mlist li.h b { font-weight: 700; }
+  .explain { position: relative; padding: 2px 0 2px 12px; font-size: 12.5px; line-height: 17px; }
+  .explain::before { content: ""; position: absolute; left: 0; top: 2px; bottom: 2px; width: 3px; border-radius: 2px; background: var(--warning-solid); }
+  .explain b { color: var(--warning-fg); }
+  .unit { position: relative; display: flex; }
+  .unit .input { width: 100%; padding-right: 32px; text-align: right; font-variant-numeric: tabular-nums; }
+  .unit em { position: absolute; right: 10px; top: 8px; font-style: normal; font-size: 13px; color: var(--fg-muted); }
+  .modal { width: min(500px, calc(100vw - 32px)); }
+  @media (max-width: 1240px) { .layout { grid-template-columns: 1fr; } }
+  #slot:empty { display: none; }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Tài chính / Tạm ứng</div>
+      <h1>Tạm ứng</h1>
+      <div class="sub" id="sub"></div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-secondary" type="button" id="xlsBtn"></button>
+      <button class="btn btn-primary" type="button" id="newBtn"></button>
+    </div>
+  </div>
+  <div id="slot"></div>
+  <div id="body" style="display:flex;flex-direction:column;gap:16px"></div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_21', title: 'Tạm ứng' });
+const V = n => fmt.vnd(n), B = n => fmt.vnd(n, { bare: 1 });
+document.getElementById('xlsBtn').innerHTML = icon('download') + 'Xuất Excel';
+document.getElementById('newBtn').innerHTML = icon('plus') + 'Lập phiếu tạm ứng';
+
+/* ---------- Dữ liệu ----------
+   st: wait (Chờ duyệt) | paid (Đã chi) | settled (Đã quyết toán). Đã chi + chưa quyết toán = tiền tạm ứng treo.
+   Nguyễn Văn Tuấn (TX01) đang giữ đúng FM.drivers.advanceHeld = 1.200.000 đ (CH-0458). */
+const TX01 = FM.drivers.find(d => d.id === 'TX01');
+const tripOf = id => FM.trips.find(t => t.id === id);
+let A;
+function reset() {
+  A = [
+    { id: 'TU-0296', drv: 'Trần Minh Đức', trip: 'CH-0462', route: 'KCN Mỹ Phước 3 → Cát Lái', amt: 2500000, est: 2500000, how: 'bank', st: 'wait', by: 'Lê Thị Lan · FM_10', at: '12/11 05:20' },
+    { id: 'TU-0297', drv: 'Võ Thành Nhân', trip: 'CH-0464', route: 'Cát Lái → Sa Đéc', amt: 3500000, est: 3500000, how: 'cash', st: 'wait', by: 'Lê Thị Lan · FM_10', at: '12/11 06:55', blocked: 'Chuyến bị chặn: bảo hiểm rơ-moóc 51R-088.12 quá hạn' },
+    { id: 'TU-0298', drv: 'Lê Hoàng Phúc', trip: 'CH-0463', route: 'KCN Sóng Thần → Long An', amt: 800000, est: 800000, how: 'bank', st: 'wait', by: 'Lê Thị Lan · FM_10', at: '12/11 06:40' },
+    { id: 'TU-0299', drv: 'Ngô Đức Trí', trip: 'CH-0459', route: 'KCN Mỹ Phước 3 → Cát Lái', amt: 2400000, est: 2500000, how: 'bank', st: 'wait', by: 'Lê Thị Lan · FM_10', at: '12/11 07:30' },
+    { id: 'TU-0300', drv: 'Đặng Quang Vinh', trip: 'CH-0457', route: 'KCN Đồng An → Cát Lái', amt: 1500000, est: 400000, how: 'cash', st: 'wait', by: 'Lê Thị Lan', at: '12/11 08:02', note: 'Ứng thêm do kẹt cảng: phí lưu bãi, ăn ca' },
+    { id: 'TU-0294', drv: TX01.name, trip: 'CH-0458', route: 'KCN Tân Uyên → Cát Lái', amt: TX01.advanceHeld, how: 'cash', st: 'paid', by: 'Lê Thị Lan · FM_10', at: '11/11 17:10', paidAt: '11/11 17:30', age: 1 },
+    { id: 'TU-0288', drv: 'Trần Minh Đức', trip: 'CH-0452', route: 'Cát Lái → KCN VSIP 1', amt: 2400000, how: 'bank', st: 'paid', at: '11/11 20:05', paidAt: '11/11 20:40', age: 1 },
+    { id: 'TU-0286', drv: 'Phan Văn Khoa', trip: 'CH-0453', route: 'ICD Phước Long → KCN Phước Đông', amt: 2600000, how: 'bank', st: 'paid', at: '11/11 18:00', paidAt: '11/11 18:20', age: 1 },
+    { id: 'TU-0287', drv: 'Lý Văn Tâm', trip: 'CH-0456', route: 'Cát Lái → KCN Tân Uyên', amt: 2600000, how: 'cash', st: 'paid', at: '11/11 19:10', paidAt: '11/11 19:30', age: 1 },
+    { id: 'TU-0285', drv: 'Huỳnh Tấn Lộc', trip: 'CH-0455', route: 'Bình Tân → Mỹ Tho', amt: 1500000, how: 'cash', st: 'paid', at: '11/11 16:00', paidAt: '11/11 16:15', age: 1 },
+    { id: 'TU-0281', drv: 'Ngô Đức Trí', trip: 'CH-0450', route: 'KCN Mỹ Phước 3 → Cát Lái', amt: 2500000, how: 'bank', st: 'paid', at: '10/11 15:00', paidAt: '10/11 15:30', age: 2 },
+    { id: 'TU-0280', drv: 'Đặng Quang Vinh', trip: 'CH-0447', route: 'KCN Đồng An → Cát Lái', amt: 2200000, how: 'cash', st: 'paid', at: '10/11 14:00', paidAt: '10/11 14:10', age: 2 },
+    { id: 'TU-0279', drv: 'Lê Hoàng Phúc', trip: 'CH-0444', route: 'KCN Sóng Thần → Long An', amt: 1200000, how: 'bank', st: 'paid', at: '10/11 13:00', paidAt: '10/11 13:20', age: 2 },
+    { id: 'TU-0276', drv: 'Võ Thành Nhân', trip: 'CH-0441', route: 'Cát Lái → Sa Đéc', amt: 3500000, how: 'cash', st: 'paid', at: '09/11 16:30', paidAt: '09/11 16:45', age: 3 },
+    { id: 'TU-0274', drv: 'Trần Minh Đức', trip: 'CH-0438', route: 'Cát Lái → KCN VSIP 1', amt: 2500000, how: 'bank', st: 'paid', at: '08/11 15:00', paidAt: '08/11 15:20', age: 4 },
+    { id: 'TU-0273', drv: 'Huỳnh Tấn Lộc', trip: 'CH-0449', route: 'Bình Tân → Mỹ Tho', amt: 1500000, how: 'cash', st: 'paid', at: '08/11 14:00', paidAt: '08/11 14:10', age: 4 },
+    { id: 'TU-0268', drv: 'Võ Thanh Sơn', trip: null, route: 'Theo tài xế · chi phí đi đường tuần 45', amt: 2000000, how: 'bank', st: 'paid', at: '05/11 08:00', paidAt: '05/11 09:00', age: 7 },
+    { id: 'TU-0270', drv: TX01.name, trip: 'CH-0431', route: 'KCN Mỹ Phước 3 → Cát Lái', amt: 4000000, how: 'cash', st: 'settled', at: '09/11 18:00', paidAt: '09/11 18:15', setAt: '11/11' },
+    { id: 'TU-0262', drv: 'Phạm Quốc Bảo', trip: 'CH-0421', route: 'ICD Sóng Thần → KCN Tân Uyên', amt: 1500000, how: 'bank', st: 'settled', at: '06/11 07:00', paidAt: '06/11 07:20', setAt: '08/11' },
+    { id: 'TU-0259', drv: 'Lê Hoàng Phúc', trip: 'CH-0418', route: 'KCN Sóng Thần → Long An', amt: 1200000, how: 'bank', st: 'settled', at: '05/11 06:30', paidAt: '05/11 06:50', setAt: '07/11' }
+  ];
+}
+const ST = { wait: ['b-neutral', 'clock', 'Chờ duyệt'], paid: ['b-info', 'wallet', 'Đã chi'], settled: ['b-success', 'lock', 'Đã quyết toán'] };
+const HOW = { cash: ['coins', 'Tiền mặt'], bank: ['wallet', 'Chuyển khoản'] };
+const OLD = 3; // treo quá 3 ngày thì không duyệt hàng loạt
+function heldBy() {
+  const m = {}; A.filter(a => a.st === 'paid').forEach(a => { const x = m[a.drv] = m[a.drv] || { drv: a.drv, amt: 0, n: 0, oldest: 0, oldTrip: null }; x.amt += a.amt; x.n++; if (a.age > x.oldest) { x.oldest = a.age; x.oldTrip = a.trip; } });
+  return Object.values(m).sort((a, b) => b.amt - a.amt);
+}
+function why(a) {
+  if (a.st !== 'wait') return null;
+  if (a.blocked) return a.blocked;
+  if (a.amt > a.est) return `Vượt dự toán tiền mặt ${V(a.amt - a.est)}`;
+  const h = heldBy().find(x => x.drv === a.drv);
+  if (h && h.oldest > OLD) return `Tài xế còn tạm ứng treo ${h.oldest} ngày (${h.oldTrip || 'theo tài xế'})`;
+  return null;
+}
+
+/* ---------- Tooltip nổi ---------- */
+const TIPS = {}; let tipN = 0;
+const tip = html => { const k = 't' + (tipN++); TIPS[k] = html; return `data-ftip="${k}"`; };
+const ftip = document.createElement('div'); ftip.className = 'tip-body'; ftip.setAttribute('role', 'tooltip');
+Object.assign(ftip.style, { position: 'fixed', transform: 'none', bottom: 'auto', zIndex: 100 }); document.body.appendChild(ftip);
+function showTip(el) { const h = TIPS[el.dataset.ftip]; if (!h) return; ftip.innerHTML = h; ftip.style.opacity = 1; const r = el.getBoundingClientRect(), w = ftip.offsetWidth, ht = ftip.offsetHeight; ftip.style.left = Math.min(Math.max(8, r.left + r.width / 2 - w / 2), innerWidth - w - 8) + 'px'; let y = r.top - ht - 8; if (y < 8) y = r.bottom + 8; ftip.style.top = y + 'px'; }
+const hideTip = () => { ftip.style.opacity = 0; };
+document.addEventListener('mouseover', e => { const el = e.target.closest('[data-ftip]'); el ? showTip(el) : hideTip(); });
+document.addEventListener('focusin', e => { const el = e.target.closest('[data-ftip]'); el ? showTip(el) : hideTip(); });
+
+/* ---------- Render ---------- */
+let filt = 'wait', drvF = null, q = '', picked = new Set(), showAll = false;
+const body = document.getElementById('body');
+function render() {
+  hideTip();
+  const held = heldBy(), heldSum = held.reduce((s, x) => s + x.amt, 0), old = held.filter(x => x.oldest > OLD);
+  const paidMonth = A.filter(a => a.st !== 'wait'); const waits = A.filter(a => a.st === 'wait'), paidToday = A.filter(a => a.st === 'paid' && a.paidAt && a.paidAt.startsWith('12/11'));
+  document.getElementById('sub').textContent = `${waits.length} phiếu chờ duyệt · Kế toán duyệt và chi · Chi nhánh TP.HCM`;
+  const cnt = k => k === 'all' ? A.length : A.filter(a => a.st === k).length;
+  let rows = A.filter(a => (filt === 'all' || a.st === filt) && (!drvF || a.drv === drvF) && (!q || (a.id + a.drv + (a.trip || '')).toLowerCase().includes(q)));
+  [...picked].forEach(id => { const a = A.find(x => x.id === id); if (!a || a.st !== 'wait' || why(a)) picked.delete(id); });
+  const elig = rows.filter(a => a.st === 'wait' && !why(a));
+  const pickSum = [...picked].reduce((s, id) => s + A.find(a => a.id === id).amt, 0);
+  const table = rows.length ? `<div class="grid-wrap"><table class="grid adv">
+      <thead><tr>${filt === 'wait' ? `<th style="width:36px"><input type="checkbox" id="chkAll" aria-label="Chọn tất cả phiếu đủ điều kiện" ${elig.length && elig.every(a => picked.has(a.id)) ? 'checked' : ''} ${elig.length ? '' : 'disabled'}></th>` : ''}<th>Phiếu · ${filt === 'wait' ? 'lập lúc' : filt === 'settled' ? 'quyết toán' : filt === 'paid' ? 'đã chi' : 'thời điểm'}</th><th>Tài xế</th><th>Chuyến</th><th class="right">Số tiền · hình thức</th>${filt === 'all' ? '<th>Trạng thái</th>' : ''}<th></th></tr></thead>
+      <tbody>${rows.map(a => { const w = why(a), t = a.trip && tripOf(a.trip);
+        return `<tr data-row="${a.id}">
+          ${filt === 'wait' ? `<td>${a.st === 'wait' ? `<span ${w ? tip('Duyệt riêng: ' + w) : ''}><input type="checkbox" data-pick="${a.id}" ${picked.has(a.id) ? 'checked' : ''} ${w ? 'disabled' : ''} aria-label="Chọn ${a.id}"></span>` : ''}</td>` : ''}
+          <td class="num"><span class="code">${a.id}</span><span class="cell-sub">${a.st === 'wait' ? a.at : a.st === 'settled' ? 'QT ' + a.setAt : a.paidAt + ` · <span class="age ${a.age > OLD ? 'old' : ''}">treo ${a.age} ngày</span>`}</span></td>
+          <td class="who"><b>${a.drv}</b>${w ? `<span class="cell-sub"><span class="why">${icon('warn')}${w}</span></span>` : a.note ? `<span class="cell-sub">${a.note}</span>` : ''}</td>
+          <td>${a.trip ? `<a class="code" href="fm-09-chi-tiet-chuyen.html">${a.trip}</a>${t ? ' ' : ''}<span class="cell-sub" title="${a.route}">${a.route}</span>` : `<span class="muted">Theo tài xế</span><span class="cell-sub">${a.route.replace('Theo tài xế · ', '')}</span>`}</td>
+          <td class="right num"><b style="font-weight:600">${B(a.amt)}</b><span class="cell-sub"><span class="pay">${icon(HOW[a.how][0])}${HOW[a.how][1]}</span></span></td>
+          ${filt === 'all' ? `<td><span class="badge ${ST[a.st][0]}">${icon(ST[a.st][1])}${ST[a.st][2]}</span></td>` : ''}
+          <td class="right">${a.st === 'wait' ? `<button class="btn btn-secondary btn-sm" type="button" data-open="${a.id}">Duyệt</button>` : a.st === 'paid' ? `<a class="btn btn-ghost btn-sm" href="fm-22-quyet-toan.html">Quyết toán ${icon('chevron-right')}</a>` : `<button class="btn btn-ghost btn-sm" type="button" data-open="${a.id}">Xem</button>`}</td>
+        </tr>`; }).join('')}</tbody></table></div>`
+    : `<div class="empty">${icon('wallet')}<h3>${filt === 'wait' && !drvF && !q ? 'Không còn phiếu chờ duyệt' : 'Không có phiếu khớp bộ lọc'}</h3><p>${filt === 'wait' ? 'Phiếu mới được tạo khi điều độ gán chuyến (FM_10) hoặc khi kế toán lập phiếu theo tài xế.' : 'Thử bỏ lọc tài xế hoặc chọn trạng thái khác.'}</p>${drvF || q ? '<button class="btn btn-secondary" type="button" id="clr">Xoá lọc</button>' : ''}</div>`;
+  body.innerHTML = `<section class="summary" aria-label="Tóm tắt tạm ứng">
+      <div class="sum-main"><span class="k">Tạm ứng chưa quyết toán</span><span class="v">${B(heldSum)}<small>đ</small></span><span class="d">${held.length} tài xế đang giữ · ${A.filter(a => a.st === 'paid').length} phiếu đã chi chưa quyết toán</span></div>
+      <button class="sum-item" type="button" data-f="wait"><span class="k">Chờ duyệt</span><span class="v">${fmt.short(waits.reduce((s, a) => s + a.amt, 0))}</span><span class="d">${waits.length} phiếu · ${waits.filter(a => !why(a)).length} duyệt hàng loạt được</span></button>
+      <button class="sum-item" type="button" data-old="1"><span class="k">Treo quá ${OLD} ngày</span><span class="v">${fmt.short(old.reduce((s, x) => s + x.amt, 0))}</span><span class="d">${old.length} tài xế · ${old.map(x => x.drv.split(' ').pop()).join(', ') || '—'}</span></button>
+      <button class="sum-item" type="button" data-f="paid"><span class="k">Đã chi tháng 11</span><span class="v">${fmt.short(paidMonth.reduce((s, a) => s + a.amt, 0))}</span><span class="d">${paidMonth.length} phiếu · ${paidToday.length} phiếu hôm nay</span></button>
+    </section>
+    <div class="layout">
+      <section class="card" aria-label="Phiếu tạm ứng">
+        <div class="card-title"><h2>Phiếu tạm ứng</h2><span class="count-pill">${rows.length}</span>${drvF ? `<button class="chip on" type="button" id="drvChip" style="margin-left:6px">${drvF} ${icon('x')}</button>` : ''}</div>
+        <div class="bar">
+          <div class="seg" role="group" aria-label="Trạng thái">${[['wait', 'Chờ duyệt'], ['paid', 'Đã chi'], ['settled', 'Đã quyết toán'], ['all', 'Tất cả']].map(([k, l]) => `<button type="button" data-f="${k}" aria-pressed="${filt === k}">${l} <span class="count-pill">${cnt(k)}</span></button>`).join('')}</div>
+          <button class="chip" type="button">Hình thức: Tất cả ${icon('chevron')}</button>
+          <label class="search-global">${icon('search')}<input id="q" type="search" placeholder="Tìm phiếu, tài xế, chuyến…" value="${q}" aria-label="Tìm phiếu"></label>
+        </div>
+        ${filt === 'wait' && rows.some(a => a.st === 'wait') ? `<div class="bulk" role="region" aria-label="Duyệt hàng loạt">${picked.size ? `<span>Đã chọn <b>${picked.size}</b> phiếu · <b class="num">${V(pickSum)}</b></span>` : `<span>Chọn phiếu để duyệt và chi hàng loạt</span>`}
+          <span class="tip" tabindex="0" style="color:var(--side-active)">${icon('info')}<span class="tip-body">Chỉ chọn được phiếu: số tiền ≤ dự toán tiền mặt của chuyến, chuyến không bị chặn, tài xế không còn tạm ứng treo quá ${OLD} ngày. Phiếu khác phải mở xem và duyệt riêng.</span></span>
+          <button class="btn btn-primary btn-sm" type="button" id="bulkBtn" ${picked.size ? '' : 'disabled'}>${icon('check')}Duyệt &amp; chi ${picked.size || ''} phiếu</button></div>` : ''}
+        ${table}
+      </section>
+      <section class="card" aria-label="Tạm ứng treo theo tài xế">
+        <div class="card-title"><h2>Tiền treo theo tài xế</h2><span class="count-pill">${held.length}</span></div><p class="sm muted" style="padding:0 18px 4px">Đã chi, chưa quyết toán · sắp theo số tiền</p>
+        <ul class="held">${held.length ? held.slice(0, showAll ? 99 : 6).map(x => `<li><button class="hr ${drvF === x.drv ? 'on' : ''}" type="button" data-drv="${x.drv}">
+            <span class="nm" title="${x.drv}">${x.drv}</span><span class="amt">${B(x.amt)}</span>
+            <span class="sub2">${x.n} phiếu</span><span class="sub2 ${x.oldest > OLD ? 'age old' : ''}" style="text-align:right">${x.oldest > OLD ? `Treo ${x.oldest} ngày` : `cũ nhất ${x.oldest} ngày`}</span>
+            <span class="track"><i class="${x.oldest > OLD ? 'old' : ''}" style="width:${Math.round(x.amt / held[0].amt * 100)}%"></i></span></button></li>`).join('') : `<li class="muted sm" style="padding:16px 10px">Không tài xế nào đang giữ tạm ứng.</li>`}${held.length > 6 ? `<li><button class="btn btn-ghost btn-sm" type="button" id="more" style="margin:2px 2px 6px">${showAll ? 'Thu gọn' : `Xem cả ${held.length} tài xế`}</button></li>` : ''}</ul>
+        ${old.length ? `<div class="insight"><b>${fmt.short(old.reduce((s, x) => s + x.amt, 0))}</b> treo quá ${OLD} ngày ở ${old.length} tài xế, thường do chuyến thiếu chứng từ chưa quyết toán được. <a href="fm-22-quyet-toan.html">Mở hàng chờ quyết toán</a></div>` : ''}
+      </section>
+    </div>`;
+  bind();
+}
+function bind() {
+  body.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { filt = b.dataset.f; drvF = null; render(); });
+  body.querySelectorAll('[data-old]').forEach(b => b.onclick = () => { filt = 'paid'; const o = heldBy().find(x => x.oldest > OLD); drvF = o ? o.drv : null; render(); });
+  body.querySelectorAll('[data-drv]').forEach(b => b.onclick = () => { drvF = drvF === b.dataset.drv ? null : b.dataset.drv; if (drvF && filt === 'wait' && !A.some(a => a.st === 'wait' && a.drv === drvF)) filt = 'paid'; render(); });
+  body.querySelectorAll('[data-pick]').forEach(c => c.onchange = () => { c.checked ? picked.add(c.dataset.pick) : picked.delete(c.dataset.pick); render(); });
+  body.querySelectorAll('[data-open]').forEach(b => b.onclick = () => openAdv(b.dataset.open));
+  const ca = document.getElementById('chkAll'); if (ca) ca.onchange = () => { A.filter(a => a.st === 'wait' && !why(a) && (!drvF || a.drv === drvF)).forEach(a => ca.checked ? picked.add(a.id) : picked.delete(a.id)); render(); };
+  const on = (id, f) => { const el = document.getElementById(id); if (el) el.onclick = f; };
+  on('bulkBtn', openBulk); on('more', () => { showAll = !showAll; render(); }); on('drvChip', () => { drvF = null; render(); }); on('clr', () => { drvF = null; q = ''; render(); });
+  const qi = document.getElementById('q'); if (qi) qi.oninput = () => { q = qi.value.trim().toLowerCase(); render(); const n = document.getElementById('q'); n.focus(); n.setSelectionRange(n.value.length, n.value.length); };
+}
+
+/* ---------- Overlay ---------- */
+function modal(html, onReady) {
+  closeAll(); hideTip();
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim'; s.id = 'mScrim'; s.onclick = closeAll;
+  const m = document.createElement('div'); m.className = 'modal'; m.id = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.innerHTML = html;
+  document.body.append(s, m); m.querySelectorAll('[data-x]').forEach(b => b.onclick = closeAll); onReady && onReady(m);
+}
+function drawer(html, onReady) {
+  closeAll(); hideTip();
+  const s = document.createElement('div'); s.className = 'scrim'; s.id = 'drScrim'; s.onclick = closeAll;
+  const d = document.createElement('aside'); d.className = 'drawer'; d.id = 'drawer'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.innerHTML = html;
+  document.body.append(s, d); d.querySelectorAll('[data-x]').forEach(b => b.onclick = closeAll); onReady && onReady(d);
+}
+function closeAll() { ['modal', 'mScrim', 'drawer', 'drScrim'].forEach(id => { const e = document.getElementById(id); if (e) { e.removeAttribute('id'); Shell.dismiss(e); } }); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAll(); });
+
+function payOut(list, msg) {
+  const prev = list.map(a => [a, a.st, a.paidAt, a.age]);
+  list.forEach(a => { a.st = 'paid'; a.paidAt = '12/11 ' + (a.how === 'bank' ? '09:15' : '09:10'); a.age = 0; picked.delete(a.id); });
+  render(); toast(msg, { undo: () => { prev.forEach(([a, s, p, g]) => Object.assign(a, { st: s, paidAt: p, age: g })); render(); } });
+}
+function openBulk() {
+  const ls = [...picked].map(id => A.find(a => a.id === id)); if (!ls.length) return;
+  const sum = ls.reduce((s, a) => s + a.amt, 0), cash = ls.filter(a => a.how === 'cash'), bank = ls.filter(a => a.how === 'bank');
+  const part = (arr, l) => arr.length ? `<li class="h"><span>${l} · ${arr.length} phiếu</span><b>${V(arr.reduce((s, a) => s + a.amt, 0))}</b></li>` + arr.map(a => `<li><span>${a.id} · ${a.drv} · ${a.trip || 'theo tài xế'}</span><b>${B(a.amt)}</b></li>`).join('') : '';
+  modal(`<h2>Duyệt &amp; chi ${ls.length} phiếu, tổng ${V(sum)}?</h2>
+    <ul class="mlist">${part(bank, 'Chuyển khoản')}${part(cash, 'Tiền mặt')}</ul>
+    <p class="sm muted">${bank.length ? 'Chuyển khoản: tạo file ủy nhiệm chi để tải lên ngân hàng. ' : ''}${cash.length ? 'Tiền mặt: ghi nhận đã chi khi tài xế ký nhận trên app.' : ''} Tài xế nhận thông báo số tiền tạm ứng.</p>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Quay lại</button><button class="btn btn-primary" type="button" id="bOk">Duyệt &amp; chi ${ls.length} phiếu</button></div>`, m => {
+    m.querySelector('#bOk').focus();
+    m.querySelector('#bOk').onclick = () => { closeAll(); payOut(ls, `Đã duyệt và chi ${ls.length} phiếu · ${V(sum)}`); };
+  });
+}
+function openAdv(id) {
+  const a = A.find(x => x.id === id), w = why(a), h = heldBy().find(x => x.drv === a.drv), wait = a.st === 'wait';
+  const est = a.est != null ? [['Dầu không qua thẻ', Math.round(a.est * .56 / 1000) * 1000], ['Nâng hạ, vé cổng', Math.round(a.est * .3 / 1000) * 1000]] : [];
+  if (est.length) est.push(['Bốc xếp, phát sinh', a.est - est[0][1] - est[1][1]]);
+  drawer(`<div class="drawer-head"><div class="grow"><h2><span class="code">${a.id}</span> · ${a.drv}</h2><div class="sm muted" style="margin-top:2px">${a.trip ? `Chuyến <a class="code" href="fm-09-chi-tiet-chuyen.html">${a.trip}</a> · ${a.route}` : a.route}</div></div><span class="badge ${ST[a.st][0]}">${icon(ST[a.st][1])}${ST[a.st][2]}</span><button class="icon-btn" type="button" data-x aria-label="Đóng">${icon('x')}</button></div>
+    <div class="drawer-body">
+      ${w ? `<div class="explain"><b>Cần xem kỹ.</b> ${w}.</div>` : ''}
+      ${wait ? `<label class="field"><span>Số tiền tạm ứng</span><div class="unit"><input class="input" id="aAmt" value="${B(a.amt)}"><em>đ</em></div></label>
+        <div class="field"><span>Hình thức chi</span><div class="seg" role="group" aria-label="Hình thức chi"><button type="button" data-h="cash" aria-pressed="${a.how === 'cash'}">${icon('coins')}Tiền mặt</button><button type="button" data-h="bank" aria-pressed="${a.how === 'bank'}">${icon('wallet')}Chuyển khoản</button></div><span class="sm muted" id="bankInfo">${a.how === 'bank' ? 'Vietcombank ••• 4821 · ' + a.drv.toUpperCase() : 'Tài xế ký nhận trên app khi nhận tiền'}</span></div>`
+        : `<ul class="kv"><li><span>Số tiền</span><b class="num">${V(a.amt)}</b></li><li><span>Hình thức</span><span>${HOW[a.how][1]}</span></li><li><span>Đã chi</span><span class="num">${a.paidAt}/2026</span></li>${a.setAt ? `<li><span>Quyết toán</span><span class="num">${a.setAt}/2026 · <a href="fm-22-quyet-toan.html">xem phiếu quyết toán</a></span></li>` : ''}</ul>`}
+      ${est.length ? `<div class="field"><span>Dự toán chi phí tiền mặt của chuyến</span><ul class="mlist">${est.map(([k, v]) => `<li><span>${k}</span><b>${B(v)}</b></li>`).join('')}<li class="h"><span>Dự toán</span><b>${V(a.est)}</b></li></ul></div>` : ''}
+      <div class="field"><span>Tài xế đang giữ (đã chi, chưa quyết toán)</span><ul class="mlist">${h ? A.filter(x => x.drv === a.drv && x.st === 'paid').map(x => `<li><span>${x.id} · ${x.trip || 'theo tài xế'} · <span class="${x.age > OLD ? 'age old' : 'muted'}">${x.age} ngày</span></span><b>${B(x.amt)}</b></li>`).join('') + `<li class="h"><span>Tổng đang giữ</span><b>${V(h.amt)}</b></li>` : '<li><span class="muted">Không giữ tạm ứng nào</span><b></b></li>'}</ul></div>
+      ${a.note ? `<div class="field"><span>Ghi chú của điều độ</span><p>${a.note}</p></div>` : ''}
+      <p class="sm muted">Lập bởi ${a.by || 'Trần Thị Mai'} lúc ${a.at}.</p>
+    </div>
+    ${wait ? `<div class="drawer-foot"><button class="btn btn-secondary" type="button" id="rej" style="color:var(--danger-fg);margin-right:auto">Từ chối</button><button class="btn btn-secondary" type="button" data-x>Đóng</button><button class="btn btn-primary" type="button" id="ok">${icon('check')}Duyệt &amp; chi</button></div>` : ''}`, d => {
+    let how = a.how;
+    d.querySelectorAll('[data-h]').forEach(b => b.onclick = () => { how = b.dataset.h; d.querySelectorAll('[data-h]').forEach(x => x.setAttribute('aria-pressed', x === b)); d.querySelector('#bankInfo').textContent = how === 'bank' ? 'Vietcombank ••• 4821 · ' + a.drv.toUpperCase() : 'Tài xế ký nhận trên app khi nhận tiền'; });
+    const amt = d.querySelector('#aAmt'); if (amt) amt.oninput = () => { const v = +amt.value.replace(/\D/g, ''); amt.value = v ? B(v) : ''; d.querySelector('#ok').disabled = !v; };
+    const ok = d.querySelector('#ok'); if (ok) ok.onclick = () => { a.amt = +amt.value.replace(/\D/g, ''); a.how = how; closeAll(); payOut([a], `Đã duyệt và chi ${a.id} · ${V(a.amt)} · ${HOW[how][1].toLowerCase()}`); };
+    const rj = d.querySelector('#rej'); if (rj) rj.onclick = () => openReject(a);
+  });
+}
+function openReject(a) {
+  modal(`<h2>Từ chối ${a.id}?</h2><p class="muted">${a.drv} · ${V(a.amt)}. Điều độ và tài xế nhận thông báo kèm lý do.</p>
+    <label class="field"><span>Lý do (bắt buộc)</span><textarea class="input" id="rR" rows="3" placeholder="VD: Ứng thêm vượt dự toán, chờ bằng chứng phí lưu bãi"></textarea></label>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Quay lại</button><button class="btn btn-danger" type="button" id="rOk" disabled>Từ chối</button></div>`, m => {
+    const ta = m.querySelector('#rR'), ok = m.querySelector('#rOk'); ta.oninput = () => ok.disabled = !ta.value.trim(); ta.focus();
+    ok.onclick = () => { const i = A.indexOf(a); A.splice(i, 1); closeAll(); render(); toast(`Đã từ chối ${a.id}`, { undo: () => { A.splice(i, 0, a); render(); } }); };
+  });
+}
+function openNew() {
+  drawer(`<div class="drawer-head"><h2 class="grow">Lập phiếu tạm ứng</h2><button class="icon-btn" type="button" data-x aria-label="Đóng">${icon('x')}</button></div>
+    <div class="drawer-body">
+      <div class="field"><span>Tạm ứng theo</span><div class="seg" role="group"><button type="button" data-k="trip" aria-pressed="true">Chuyến</button><button type="button" data-k="drv" aria-pressed="false">Tài xế</button></div></div>
+      <label class="field" id="fTrip"><span>Chuyến</span><select class="input"><option>CH-0461 · ICD Phước Long → KCN Phước Đông → Cát Lái (chờ gán)</option><option>CH-0462 · KCN Mỹ Phước 3 → Cát Lái</option></select></label>
+      <label class="field"><span>Tài xế</span><select class="input">${FM.drivers.map(x => `<option>${x.name}</option>`).join('')}</select></label>
+      <label class="field"><span>Số tiền</span><div class="unit"><input class="input" id="nAmt" placeholder="0"><em>đ</em></div></label>
+      <div class="field"><span>Hình thức chi</span><div class="seg" role="group"><button type="button" data-h="cash" aria-pressed="true">Tiền mặt</button><button type="button" data-h="bank" aria-pressed="false">Chuyển khoản</button></div></div>
+      <label class="field"><span>Ghi chú</span><textarea class="input" rows="2" placeholder="VD: Chi phí đi đường tuần 46"></textarea></label>
+      <p class="sm muted">Phiếu tạo ở trạng thái Chờ duyệt. Phiếu theo chuyến thường được tạo tự động khi điều độ gán xe, tài xế.</p>
+    </div>
+    <div class="drawer-foot"><button class="btn btn-secondary" type="button" data-x>Huỷ</button><button class="btn btn-primary" type="button" id="nOk" disabled>Lập phiếu</button></div>`, d => {
+    d.querySelectorAll('[data-k],[data-h]').forEach(b => b.onclick = () => { const k = b.dataset.k ? 'data-k' : 'data-h'; d.querySelectorAll(`[${k}]`).forEach(x => x.setAttribute('aria-pressed', x === b)); if (b.dataset.k) d.querySelector('#fTrip').style.display = b.dataset.k === 'trip' ? '' : 'none'; });
+    const amt = d.querySelector('#nAmt'), ok = d.querySelector('#nOk'); amt.focus();
+    amt.oninput = () => { const v = +amt.value.replace(/\D/g, ''); amt.value = v ? B(v) : ''; ok.disabled = !v; };
+    ok.onclick = () => { closeAll(); A.unshift({ id: 'TU-0301', drv: d.querySelectorAll('select')[1].value, trip: null, route: 'Theo tài xế', amt: +amt.value.replace(/\D/g, ''), how: 'cash', st: 'wait', by: 'Trần Thị Mai', at: '12/11 09:20' }); filt = 'wait'; render(); toast('Đã lập TU-0301 · chờ duyệt'); };
+  });
+}
+document.getElementById('newBtn').onclick = openNew;
+document.getElementById('xlsBtn').onclick = () => toast('Đã xuất tam-ung-11-2026.xlsx');
+
+/* ---------- States ---------- */
+Shell.states([['default', 'Mặc định'], ['bulk', 'Duyệt hàng loạt'], ['review', 'Xem & duyệt phiếu'], ['held', 'Treo theo tài xế'], ['new', 'Lập phiếu'], ['loading', 'Đang tải'], ['empty', 'Trống'], ['error', 'Lỗi']], s => {
+  closeAll(); reset(); filt = 'wait'; drvF = null; q = ''; picked = new Set(); showAll = false; document.getElementById('slot').innerHTML = '';
+  if (s === 'bulk') { picked = new Set(['TU-0298', 'TU-0299']); render(); openBulk(); return; }
+  if (s === 'review') { render(); openAdv('TU-0300'); return; }
+  if (s === 'held') { filt = 'paid'; drvF = 'Trần Minh Đức'; render(); return; }
+  if (s === 'new') { render(); openNew(); return; }
+  if (s === 'empty') { A = A.filter(a => a.st !== 'wait'); render(); return; }
+  if (s === 'loading') {
+    document.getElementById('sub').innerHTML = '<span class="sk" style="width:240px"></span>';
+    body.innerHTML = `<section class="summary"><div class="sum-main"><span class="sk" style="width:160px"></span><span class="sk" style="width:200px;height:32px;margin-top:6px"></span></div>${Array(3).fill('<div class="sum-item"><span class="sk" style="width:100px"></span><span class="sk" style="width:80px;height:22px;margin-top:6px"></span></div>').join('')}</section>
+      <div class="layout"><section class="card"><div class="card-title"><span class="sk" style="width:160px;height:16px"></span></div><table class="grid"><tbody>${Array(8).fill('<tr>' + Array(8).fill('<td><span class="sk" style="width:75%"></span></td>').join('') + '</tr>').join('')}</tbody></table></section>
+      <section class="card"><div class="card-title"><span class="sk" style="width:140px;height:16px"></span></div><div style="padding:10px 18px;display:flex;flex-direction:column;gap:18px">${Array(7).fill('<span class="sk"></span>').join('')}</div></section></div>`;
+    return;
+  }
+  if (s === 'error') {
+    render();
+    document.getElementById('slot').innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Chưa chi được TU-0298 (chuyển khoản): ngân hàng từ chối tạo ủy nhiệm chi. Phiếu vẫn ở trạng thái Chờ duyệt, chưa trừ tiền.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="retry">${icon('refresh')}Thử lại</button></div></div>`;
+    document.getElementById('retry').onclick = () => { document.getElementById('slot').innerHTML = ''; payOut([A.find(a => a.id === 'TU-0298')], 'Đã chi TU-0298 · 800.000 đ'); };
+    return;
+  }
+  render();
+});
+</script>
+</body>
+</html>

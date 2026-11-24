@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>51C-123.45 · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  /* FM_15 — hồ sơ xe theo kiểu entity view của FM_09: header thực thể → Tabs → nội dung */
+  .ent-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--s-4); row-gap: 14px; align-items: end; }
+  .ent-head .crumb { font-size: var(--text-sm); color: var(--fg-muted); margin-bottom: 4px; }
+  .ent-head .crumb a { color: var(--fg-muted); }
+  .ent-title { display: flex; align-items: center; gap: 14px; }
+  .ent-mark { width: 48px; height: 48px; border-radius: 10px; background: var(--primary-soft); color: var(--primary); display: grid; place-items: center; flex: none; }
+  .ent-mark .icon { width: 26px; height: 26px; }
+  .eh-meta { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .eh-meta .fresh { margin-left: 8px; }
+  .ent-head .actions { display: flex; gap: var(--s-2); align-items: center; }
+  .eh-attrs { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 10px 36px; margin: 0; }
+  .eh-attrs div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .eh-attrs dt { font-size: 12px; color: var(--fg-muted); }
+  .eh-attrs dd { margin: 0; font-size: 13.5px; font-weight: 500; color: var(--fg-strong); white-space: nowrap; }
+  .card-title { display: flex; align-items: center; gap: 10px; padding: 16px 18px 6px; min-width: 0; }
+  .card-title h2 { font-size: 16px; white-space: nowrap; }
+  .card-title .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 8px; align-items: center; }
+  .tabpanel { display: flex; flex-direction: column; gap: var(--s-4); }
+  /* Hồ sơ: 2 hàng × 2 cột, thẻ cùng hàng cao bằng nhau (B4) */
+  .prof { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr); gap: var(--s-4); align-items: stretch; }
+  .prof > .card { display: flex; flex-direction: column; min-width: 0; }
+  .dl { display: flex; flex-direction: column; padding: 2px 18px 14px; margin: 0; }
+  .dl div { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 10px; padding: 6px 0; font-size: 13.5px; line-height: 19px; }
+  .dl dt { color: var(--fg-muted); font-size: var(--text-sm); padding-top: 1px; }
+  .dl dd { margin: 0; min-width: 0; }
+  .c-foot { display: flex; align-items: center; gap: 8px; padding: 6px 18px 16px; font-size: 12.5px; color: var(--fg-muted); margin-top: auto; }
+  .docs .grid td, .docs .grid th { padding: 9px 10px; }
+  .docs .grid th:first-child, .docs .grid td:first-child { padding-left: 18px; }
+  .docs .grid th:last-child, .docs .grid td:last-child { padding-right: 18px; }
+  .docs .grid tbody tr:last-child td { border-bottom: 0; }
+  .file { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; }
+  .norm { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding: 6px 12px 4px; }
+  .norm .n { background: var(--surface-muted); border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; }
+  .norm .n.main { background: var(--primary-soft); }
+  .norm .n .k { font-size: 12.5px; color: var(--fg-muted); }
+  .norm .n.main .k { color: var(--side-active); font-weight: 600; }
+  .norm .n .v { font: 700 24px/30px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .norm .n .v small { font: 500 13px var(--font-body); color: var(--fg-muted); margin-left: 3px; }
+  .mini { width: calc(100% - 36px); margin: 8px 18px 0; border-collapse: collapse; font-size: 13px; }
+  .mini td { padding: 5px 0; }
+  .mini td + td { text-align: right; font-variant-numeric: tabular-nums; }
+  .mini thead td { font-size: 12px; color: var(--fg-muted); }
+  .sig { display: inline-flex; align-items: center; gap: 6px; }
+  .sig .d { width: 7px; height: 7px; border-radius: 50%; background: var(--success-solid); }
+  .sig .d.warn { background: var(--warning-solid); }
+  .listcard { overflow: hidden; }
+  .listcard .grid th:first-child, .listcard .grid td:first-child { padding-left: 18px; }
+  .listcard .grid th:last-child, .listcard .grid td:last-child { padding-right: 18px; }
+  .listcard .grid tbody tr:last-child td { border-bottom: 0; }
+  .wrapcell { white-space: normal !important; min-width: 220px; }
+  /* Chi phí */
+  .costs { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: var(--s-4); align-items: stretch; }
+  .costs > .card { display: flex; flex-direction: column; min-width: 0; }
+  .bl { display: flex; flex-direction: column; gap: 2px; padding: 4px 10px 8px; }
+  .bl-row { display: grid; grid-template-columns: 110px minmax(0, 1fr) 92px; gap: 10px; align-items: center; padding: 7px 8px; border-radius: 8px; font-size: 13px; }
+  .bl-row:hover { background: var(--surface-muted); }
+  .bl-row .track { height: 8px; background: var(--surface-muted); border-radius: 4px; overflow: hidden; }
+  .bl-row .bar { height: 100%; background: var(--chart-muted); border-radius: 4px; }
+  .bl-row.top .bar { background: var(--primary); }
+  .bl-row .v { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; color: var(--fg-strong); }
+  .total-line { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 18px 0; }
+  .total-line .v { font: 700 var(--text-kpi)/34px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .total-line .v small { font: 600 15px var(--font-body); color: var(--fg-muted); margin-left: 4px; }
+  /* Bảo dưỡng */
+  .mt { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: var(--s-4); align-items: stretch; }
+  .mt > .card { display: flex; flex-direction: column; min-width: 0; }
+  .plan { list-style: none; margin: 0; padding: 4px 8px 8px; display: flex; flex-direction: column; gap: 2px; }
+  .plan li { padding: 9px 10px; border-radius: 8px; display: flex; flex-direction: column; gap: 6px; }
+  .plan li:hover { background: var(--surface-muted); }
+  .plan .top { display: flex; justify-content: space-between; gap: 10px; font-size: 13.5px; }
+  .plan .top b { font-weight: 600; }
+  .plan .meter { height: 6px; border-radius: 3px; background: var(--surface-muted); overflow: hidden; }
+  .plan .meter i { display: block; height: 100%; background: var(--chart-muted); }
+  .plan .meter i.warn { background: var(--warning-solid); }
+  .plan .sub { font-size: 12.5px; color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+  /* Dầu/100km: biểu đồ cột trung tính (B8) */
+  .fuel { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: var(--s-4); align-items: stretch; }
+  .fuel > .card { display: flex; flex-direction: column; min-width: 0; }
+  .chart { position: relative; height: 250px; margin: 18px 18px 0 54px; }
+  .chart .gl { position: absolute; left: 0; right: 0; height: 0; border-top: 1px solid var(--surface-muted); }
+  .chart .gl.zero { border-top-color: var(--border-strong); }
+  .chart .gl span { position: absolute; right: calc(100% + 8px); top: -8px; font-size: 11.5px; color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+  .chart .cols { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px; padding: 0 10px; }
+  .chart .col { position: relative; }
+  .chart .b { position: absolute; left: 18%; right: 18%; bottom: 0; background: var(--chart-muted); border-radius: 4px 4px 0 0; }
+  .chart .b.key { background: var(--primary); }
+  .chart .b.part { background: transparent; border: 1.5px dashed var(--primary); border-bottom: 0; }
+  .chart .lbl { position: absolute; left: 0; right: 0; text-align: center; font-size: 12px; font-weight: 600; color: var(--fg-strong); font-variant-numeric: tabular-nums; transform: translateY(-20px); }
+  .chart .lbl.over { color: var(--warning-fg); }
+  .chart .nm { position: absolute; left: 6%; right: 6%; height: 0; border-top: 2px dashed var(--fg-muted); }
+  .chart .x { position: absolute; top: calc(100% + 8px); left: 0; right: 0; text-align: center; font-size: 12px; color: var(--fg-muted); }
+  .legend { display: flex; gap: 6px 16px; flex-wrap: wrap; align-items: center; font-size: 12px; color: var(--fg-muted); padding: 40px 18px 16px; margin-top: auto; }
+  .legend > span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; background: var(--chart-muted); }
+  .legend i.key { background: var(--primary); }
+  .legend i.part { background: transparent; border: 1.5px dashed var(--primary); }
+  .legend i.nm { height: 0; width: 18px; border-top: 2px dashed var(--fg-muted); border-radius: 0; background: none; }
+  .over { color: var(--warning-fg); font-weight: 600; }
+  .empty .btn .icon { width: 16px; height: 16px; stroke-width: 1.75; color: inherit; }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div id="page" style="display:contents"></div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_14', title: '51C-123.45' });
+const $ = id => document.getElementById(id);
+
+const V = Object.assign({}, FM.vehicles.find(v => v.plate === '51C-123.45'), {
+  model: 'Hyundai Xcient GT', year: 2021, vin: 'KMFXKS7BPMU118842', engine: 'D6HB-118842', tare: 8.9, since: '15/04/2021', kmNow: 186420,
+  trailer: '51R-123.45', driver: 'Nguyễn Văn Tuấn', nextMaint: 190000
+});
+/* Giấy tờ: khớp FM_18 (BH vật chất còn 5 ngày) */
+const DOCS = [
+  { n: 'Inspection', no: '5102C-118842 · Inspection center 50-05V', exp: '20/03/2027', days: 128, file: 'dang-kiem-2026.pdf' },
+  { n: 'TPL insurance', no: 'Bảo Việt · BV-TNDS-26-0418842', exp: '15/06/2027', days: 215, file: 'bh-tnds-2026.pdf' },
+  { n: 'Physical damage insurance', no: 'PVI · PVI-VC-25-118842', exp: '17/11/2026', days: 5, file: 'bh-vat-chat-2025.pdf' },
+  { n: 'Operating badge "TRUCK"', no: 'HCMC Department of Transport · 79-0418842', exp: '22/08/2030', days: 1379, file: 'phu-hieu.jpg' },
+  { n: 'Vehicle registration', no: '051842 · HCMC Police', exp: null, days: null, file: 'dang-ky-xe.jpg' }
+];
+const TRIPS = [
+  ['CH-0458', '12/11', 'Tân Cảng Logistics', 'Tân Uyên Industrial Park → Cát Lái', 'Nguyễn Văn Tuấn', '62 / ~95', null, 'running', null],
+  ['CH-0449', '11/11', 'Thép Hòa Phát Bình Dương', 'Đồng An Industrial Park → Cát Lái', 'Nguyễn Văn Tuấn', '88', 34.6, 'done', 1412000],
+  ['CH-0431', '10/11', 'Gỗ Minh Long', 'Mỹ Phước 3 Industrial Park → Cát Lái', 'Nguyễn Văn Tuấn', '104', 33.1, 'done', 1650400],
+  ['CH-0424', '08/11', 'Tân Cảng Logistics', 'Cát Lái → VSIP 1 Industrial Park', 'Nguyễn Văn Tuấn', '76', 31.8, 'settled', 1286000],
+  ['CH-0416', '07/11', 'Thủy sản Vĩnh Hoàn', 'Cát Lái → Sa Đéc', 'Lê Hoàng Phúc', '162', 36.9, 'settled', 2104500],
+  ['CH-0409', '05/11', 'Gỗ Minh Long', 'Mỹ Phước 3 Industrial Park → Cát Lái', 'Nguyễn Văn Tuấn', '102', 32.7, 'settled', 1702300],
+  ['CH-0402', '04/11', 'Tân Cảng Logistics', 'ICD Phước Long → Cát Lái', 'Nguyễn Văn Tuấn', '41', 38.4, 'settled', 640000]
+];
+const NORM = { loaded: 35, empty: 28 };
+const MONTHS = [['Jun', 33.1, 32.6], ['Jul', 32.4, 32.5], ['Aug', 34.0, 32.8], ['Sep', 33.6, 32.7], ['Oct', 34.9, 32.6], ['Nov', 33.2, 32.4]];
+const S = { tab: 'profile', loading: false, error: false, empty: false, gshtLost: false, costMode: 'trip' };
+
+function daysBadge(d) {
+  if (d.days == null) return '<span class="muted">No expiry</span>';
+  if (d.days < 0) return `<span class="badge b-danger">${icon('block')}Expired ${-d.days} days ago</span>`;
+  if (d.days <= 30) return `<span class="badge b-warning">${icon('warn')}${d.days} days left</span>`;
+  return `<span class="muted num">${d.days > 365 ? 'over ' + Math.floor(d.days / 365) + ' years' : d.days + ' days'} left</span>`;
+}
+function headerHtml() {
+  const soon = DOCS.filter(d => d.days != null && d.days <= 30);
+  const fresh = S.gshtLost ? `<span class="fresh"><span class="live warn" aria-hidden="true"></span>Bình Anh GPS tracker signal lost since 08:12 · last km 186,402</span>` : `<span class="fresh"><span class="live" aria-hidden="true"></span>Updated 2 min ago · Bình Anh GPS tracker</span>`;
+  return `<div class="ent-head">
+    <div style="min-width:0">
+      <div class="crumb">Fleet / <a href="fm-14-xe.html">Vehicles &amp; trailers</a> / ${V.plate}</div>
+      <div class="ent-title"><span class="ent-mark">${icon('truck')}</span><div style="min-width:0">
+        <h1><span class="code">${V.plate}</span> · ${V.model} tractor unit</h1>
+        <div class="eh-meta"><span class="badge b-info"><span class="pulse" aria-hidden="true"></span>On trip <a class="code" href="fm-09-chi-tiet-chuyen.html" style="color:inherit;text-decoration:underline">CH-0458</a></span>${soon.map(d => `<button class="badge b-warning" type="button" style="border:0;cursor:pointer" data-upd="${d.n}">${icon('warn')}${d.n}: ${d.days} days left</button>`).join('')}${fresh}</div>
+      </div></div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-ghost" type="button" id="editBtn">${icon('pen')}Edit info</button>
+      <a class="btn btn-secondary" href="fm-20-lenh-bao-duong.html">${icon('wrench')}Create maintenance work order</a>
+    </div>
+    <dl class="eh-attrs" aria-label="Key attributes">
+      <div><dt>Towing capacity</dt><dd class="num">${fmt.dec(V.cap)} t</dd></div>
+      <div><dt>Odometer</dt><dd class="num">${fmt.vnd(S.gshtLost ? 186402 : V.kmNow, { bare: 1 })} km</dd></div>
+      <div><dt>Current trailer</dt><dd><span class="code">${V.trailer}</span></dd></div>
+      <div><dt>Regular driver</dt><dd><a href="fm-17-chi-tiet-tai-xe.html">${V.driver}</a></dd></div>
+      <div><dt>Next maintenance</dt><dd class="num">190,000 km · ${fmt.vnd(V.nextMaint - V.kmNow, { bare: 1 })} km left</dd></div>
+      <div><dt>Branch</dt><dd>TP.HCM</dd></div>
+    </dl>
+  </div>`;
+}
+function tabsHtml() {
+  return `<div class="tabs" role="tablist" aria-label="Vehicle profile">${[['profile', 'Profile & documents'], ['trips', 'Trip'], ['cost', 'Costs'], ['maint', 'Maintenance'], ['fuel', 'Fuel/100km']].map(([k, l]) => `<button role="tab" type="button" data-tab="${k}" aria-selected="${S.tab === k}">${l}${k === 'trips' ? ' <span class="count-pill">24</span>' : ''}</button>`).join('')}</div>`;
+}
+
+/* ---------- Tab: Hồ sơ ---------- */
+function profileHtml() {
+  return `<div class="prof">
+    <section class="card"><div class="card-title"><h2>Vehicle info</h2></div>
+      <dl class="dl">${[['Type', 'Tractor unit'], ['Make · model', V.model], ['Year of manufacture', V.year], ['Chassis number', `<span class="code">${V.vin}</span>`], ['Engine number', `<span class="code">${V.engine}</span>`], ['Tare weight', `<span class="num">${fmt.dec(V.tare)} t</span>`], ['Towing capacity', `<span class="num">${fmt.dec(V.cap)} t</span>`], ['In service since', `<span class="num">${V.since}</span>`], ['Ownership', 'Company']].map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>
+    </section>
+    <section class="card docs"><div class="card-title"><h2>Documents</h2><span class="meta">Reminders 30 / 15 / 7 days before · <a href="fm-18-giay-to.html">All documents</a></span></div>
+      <div class="grid-wrap"><table class="grid" aria-label="Vehicle documents"><thead><tr><th>Documents</th><th>Expiry</th><th>Status</th><th>File</th><th><span class="sr-only">Actions</span></th></tr></thead>
+      <tbody>${DOCS.map(d => `<tr><td><b style="font-weight:500">${d.n}</b><span class="cell-sub">${d.no}</span></td><td class="num">${d.exp || '—'}</td><td>${daysBadge(d)}</td><td><a class="file" href="javascript:void(0)" title="${d.file}" aria-label="Xem file ${d.file}">${icon('doc')}${/\.pdf$/.test(d.file) ? 'PDF' : 'Photo'}</a></td><td class="right">${d.exp ? `<button class="btn btn-ghost btn-sm" type="button" data-upd="${d.n}">Renew</button>` : ''}</td></tr>`).join('')}</tbody></table></div>
+      <div class="c-foot">${icon('info')}A vehicle with expired inspection, TPL insurance or operating badge can't be assigned to trips.</div>
+    </section>
+    <section class="card"><div class="card-title"><h2>Fuel norm</h2><span class="meta"><span class="tip"><button class="icon-btn" type="button" aria-label="How the norm is used" style="width:24px;height:24px">${icon('info')}</button><span class="tip-body right">Estimated fuel = loaded km × loaded norm + empty km × empty norm. Example for CH-0458: <span class="formula">62 km × 35 l/100km + 33 km × 28 l/100km = 30.9 l</span></span></span></span></div>
+      <div class="norm"><div class="n main"><span class="k">Loaded</span><span class="v">35<small>l/100km</small></span></div><div class="n"><span class="k">Empty running</span><span class="v">28<small>l/100km</small></span></div></div>
+      <table class="mini" aria-label="Adjustment by route type"><thead><tr><td>Adjustment by route type</td><td>Loaded</td><td>Empty</td></tr></thead><tbody>
+        <tr><td>Urban, port (congestion)</td><td>38 l/100km</td><td>30 l/100km</td></tr>
+        <tr><td>Expressway</td><td>33 l/100km</td><td>26 l/100km</td></tr></tbody></table>
+      <div class="c-foot">Effective 01/07/2026 · Phạm Thanh (Fleet manager) · <button class="btn btn-ghost btn-sm" type="button" data-go="fuel" style="margin-left:auto">Compare with actual →</button></div>
+    </section>
+    <section class="card"><div class="card-title"><h2>GPS tracker</h2><span class="meta">${S.gshtLost ? '<span class="badge b-warning">' + icon('warn') + 'Signal lost for 1h54</span>' : '<span class="badge b-success">' + icon('check') + 'Transmitting data</span>'}</span></div>
+      <dl class="dl">${[['Vendor', 'Bình Anh'], ['Device ID', '<span class="code">BA-TC09-118842</span>'], ['IMEI', '<span class="code">866104052118842</span>'], ['Certified to', 'QCVN 31:2014/BGTVT'], ['Camera', '2 channels (cabin, front)'], ['Last signal', S.gshtLost ? '<span class="sig"><span class="d warn"></span>08:12 · near Bình Phước junction</span>' : '<span class="sig"><span class="d"></span>2 min ago · 48 km/h</span>'], ['Data feed to Road Administration', 'Pass · 99.6% over the last 30 days']].map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>
+      <div class="c-foot"><a href="fm-12-ban-do.html">${icon('map')} View on map</a><span style="margin-left:auto">Change device in <a href="fm-39-tich-hop.html">Settings › Integrations</a></span></div>
+    </section>
+  </div>`;
+}
+/* ---------- Tab: Chuyến ---------- */
+function tripsHtml() {
+  if (S.empty) return `<section class="card"><div class="empty">${icon('route')}<h3>This vehicle has no trips yet</h3><p>Trips will appear here once the vehicle is assigned in Dispatch.</p><a class="btn btn-primary" href="fm-08-dieu-phoi.html">Open Dispatch</a></div></section>`;
+  return `<section class="card listcard"><div class="card-title"><h2>Vehicle trips</h2><span class="meta">Nov 2026 · 24 trips · 2,184 km</span></div>
+    <div class="grid-wrap"><table class="grid" aria-label="Vehicle trips"><thead><tr><th>Trip ID</th><th>Date</th><th>Customer · Route</th><th>Driver</th><th class="right">Km</th><th class="right">Actual fuel</th><th>Status</th><th class="right">Gross profit</th></tr></thead>
+    <tbody>${TRIPS.map(t => { const over = t[6] && t[6] > NORM.loaded; return `<tr><td><a class="code" href="fm-09-chi-tiet-chuyen.html">${t[0]}</a></td><td class="num">${t[1]}</td><td class="wrapcell">${t[2]}<span class="cell-sub">${t[3]}</span></td><td>${t[4] === 'Nguyễn Văn Tuấn' ? `<a href="fm-17-chi-tiet-tai-xe.html">${t[4]}</a>` : t[4]}</td><td class="right num">${t[5]} km</td><td class="right num ${over ? 'over' : ''}">${t[6] ? fmt.dec(t[6]) + ' l/100km' : '<span class="muted">in progress</span>'}</td><td>${FM.statusBadge(t[7])}</td><td class="right num">${t[8] ? fmt.vnd(t[8]) : '<span class="muted">provisional</span>'}</td></tr>`; }).join('')}</tbody></table></div>
+    <div class="c-foot" style="padding-top:12px">Showing 7 / 24 trips in November. <a href="fm-08-dieu-phoi.html">View all in Dispatch</a></div></section>`;
+}
+/* ---------- Tab: Chi phí ---------- */
+function costHtml() {
+  const cats = [['Fuel', 21420000], ['Trip pay', 7800000], ['Tolls', 4310000], ['Lift-on/lift-off', 2040000], ['Repairs', 1650000], ['Fixed fees', 1420000]];
+  const tot = cats.reduce((s, c) => s + c[1], 0), mx = cats[0][1];
+  const tripLines = [['12/11', 'CH-0458', 'Fuel', 'Driver entry · Petrolimex Tân Uyên', 1761100], ['12/11', 'CH-0458', 'Lift-on/lift-off', 'Driver entry · Phước Long depot', 680000], ['11/11', 'CH-0449', 'Tolls', 'Import ETC VETC', 245000], ['11/11', 'CH-0449', 'Fuel', 'Petrolimex fuel card import', 1580400], ['10/11', 'CH-0431', 'Trip pay', 'Norm · Mỹ Phước 3 → Cát Lái route', 650000]];
+  const genLines = [['09/11', '—', 'Repairs', 'Tire patch, valve replacement · Thủ Đức garage', 450000], ['05/11', '—', 'Repairs', 'Headlight bulb replacement · manual entry', 1200000], ['01/11', '—', 'Fixed fees', 'November road use fee · allocated', 1420000]];
+  const lines = S.costMode === 'trip' ? tripLines : genLines;
+  return `<div class="costs">
+    <section class="card"><div class="card-title"><h2>November costs</h2><span class="meta">through 12/11</span></div>
+      <div class="total-line"><span class="muted sm">Total</span><span class="v">${fmt.short(tot).replace('M', '')}<small>M ₫</small></span></div>
+      <div class="bl">${cats.map((c, i) => `<div class="bl-row ${i === 0 ? 'top' : ''}"><span>${c[0]}</span><span class="track"><span class="bar" style="display:block;width:${c[1] / mx * 100}%"></span></span><span class="v">${fmt.vnd(c[1])}</span></div>`).join('')}</div>
+      <div class="c-foot">Cost/km: <b class="num" style="color:var(--fg-strong)">${fmt.vnd(Math.round(tot / 2184))}</b></div>
+    </section>
+    <section class="card listcard"><div class="card-title"><h2>Cost lines</h2><span class="meta"><div class="seg" role="group" aria-label="Cost type" style="height:30px"><button type="button" data-cm="trip" aria-pressed="${S.costMode === 'trip'}">By trip</button><button type="button" data-cm="gen" aria-pressed="${S.costMode === 'gen'}">General vehicle costs</button></div></span></div>
+      <div class="grid-wrap"><table class="grid"><thead><tr><th>Date</th><th>Trip</th><th>Item</th><th>Source · note</th><th class="right">Amount</th></tr></thead>
+      <tbody>${lines.map(l => `<tr><td class="num">${l[0]}</td><td>${l[1] === '—' ? '<span class="muted">Off-trip</span>' : `<a class="code" href="fm-09-chi-tiet-chuyen.html">${l[1]}</a>`}</td><td>${l[2]}</td><td class="muted">${l[3]}</td><td class="right num">${fmt.vnd(l[4])}</td></tr>`).join('')}</tbody></table></div>
+      <div class="c-foot" style="padding-top:12px">${S.costMode === 'trip' ? 'Trip costs come from settlements, driver entries and imports.' : 'General costs not tied to any trip; allocated by km when calculating P&L.'} <a href="fm-23-import-chi-phi.html" style="margin-left:auto">Import costs</a></div>
+    </section></div>`;
+}
+/* ---------- Tab: Bảo dưỡng ---------- */
+function maintHtml() {
+  const plan = [['Engine oil + oil filter change', 'every 10,000 km', 180000, 190000, 'km'], ['Air filter, fuel filter change', 'every 20,000 km', 170000, 190000, 'km'], ['Brake and brake pad check', 'every 30,000 km', 165000, 195000, 'km'], ['Tire rotation', 'every 40,000 km', 160000, 200000, 'km']];
+  const hist = [['BD-0118', '05/09/2026', 'Engine oil, oil filter, air filter change', 180012, 'Linh Trung workshop', 4850000, 'Completed'], ['BD-0097', '18/07/2026', 'Rear-axle tire replacement (×4)', 172480, 'Lốp Thành Công', 26400000, 'Completed'], ['BD-0081', '02/06/2026', 'Air brake system repair', 165230, 'Linh Trung workshop', 7120000, 'Completed']];
+  return `<div class="mt">
+    <section class="card"><div class="card-title"><h2>Km-based plan</h2><span class="meta"><a href="fm-19-bao-duong.html">Fleet maintenance plan</a></span></div>
+      <ul class="plan">${plan.map(p => { const pct = (V.kmNow - p[2]) / (p[3] - p[2]) * 100, left = p[3] - V.kmNow, soon = left <= 5000; return `<li><div class="top"><b>${p[0]}</b>${soon ? `<span class="badge b-warning">${icon('warn')}${fmt.vnd(left, { bare: 1 })} km left</span>` : `<span class="muted num">${fmt.vnd(left, { bare: 1 })} km left</span>`}</div><div class="meter"><i class="${soon ? 'warn' : ''}" style="width:${Math.min(100, pct)}%"></i></div><span class="sub">${p[1]} · last ${fmt.vnd(p[2], { bare: 1 })} km · next ${fmt.vnd(p[3], { bare: 1 })} km</span></li>`; }).join('')}</ul>
+    </section>
+    <section class="card listcard"><div class="card-title"><h2>Maintenance and repair work orders</h2><span class="meta"><a class="btn btn-secondary btn-sm" href="fm-20-lenh-bao-duong.html">${icon('plus')}Create work order</a></span></div>
+      <div class="grid-wrap"><table class="grid"><thead><tr><th>Work order</th><th>Date</th><th>Description · workshop</th><th class="right">Km</th><th class="right">Costs</th></tr></thead>
+      <tbody>${hist.map(h => `<tr><td><a class="code" href="fm-20-lenh-bao-duong.html">${h[0]}</a></td><td class="num">${h[1]}</td><td>${h[2]}<span class="cell-sub">${h[4]}</span></td><td class="right num">${fmt.vnd(h[3], { bare: 1 })}</td><td class="right num">${fmt.vnd(h[5])}</td></tr>`).join('')}</tbody></table></div>
+      <div class="c-foot" style="padding-top:12px">2026: 6 work orders · total <b class="num" style="color:var(--fg-strong)">48,920,000 ₫</b> · 5 days in the workshop</div>
+    </section></div>`;
+}
+/* ---------- Tab: Dầu/100km ---------- */
+function fuelHtml() {
+  const max = 40, y = v => v / max * 100;
+  const avgAct = 33.6, avgNorm = 32.6;
+  return `<div class="fuel">
+    <section class="card"><div class="card-title"><h2>Actual fuel/100km vs. norm</h2><span class="meta">6 months · norm adjusted for loaded/empty km ratio</span></div>
+      <div class="chart" role="img" aria-label="Bar chart of actual monthly fuel use from June to November 2026, compared with the norm">
+        ${[0, 10, 20, 30, 40].map(g => `<div class="gl ${g === 0 ? 'zero' : ''}" style="bottom:${y(g)}%"><span>${g}</span></div>`).join('')}
+        <div class="cols">${MONTHS.map((m, i) => { const key = i === 4, part = i === 5, over = m[1] > m[2] * 1.05; return `<div class="col"><div class="b ${key ? 'key' : ''} ${part ? 'part' : ''}" style="height:${y(m[1])}%"><span class="lbl ${over ? 'over' : ''}">${fmt.dec(m[1])}</span></div><div class="nm" style="bottom:${y(m[2])}%" title="Norm ${fmt.dec(m[2])} l/100km"></div><div class="x">${m[0]}${part ? ' (through 12/11)' : ''}</div></div>`; }).join('')}</div>
+      </div>
+      <div class="legend"><span><i></i>Earlier months</span><span><i class="key"></i>October (closed)</span><span><i class="part"></i>November (partial)</span><span><i class="nm"></i>Adjusted norm</span><span style="margin-left:auto">Unit: l/100km · source: fuel cards + driver entries, km from GPS tracker</span></div>
+    </section>
+    <section class="card listcard"><div class="card-title"><h2>Trips with the largest variance</h2><span class="meta">November</span></div>
+      <div style="padding:2px 18px 10px;font-size:13px">6-month avg: <b class="num">${fmt.dec(avgAct)}</b> vs. norm <b class="num">${fmt.dec(avgNorm)}</b> l/100km · <span class="over">+3.1%</span></div>
+      <div class="grid-wrap"><table class="grid"><thead><tr><th>Trip</th><th class="right">Norm</th><th class="right">Actual</th><th class="right">Variance</th></tr></thead>
+      <tbody>${[['CH-0402', 31.2, 38.4], ['CH-0416', 33.9, 36.9], ['CH-0449', 32.8, 34.6], ['CH-0431', 32.5, 33.1], ['CH-0424', 32.1, 31.8]].map(r => { const d = (r[2] - r[1]) / r[1] * 100; return `<tr><td><a class="code" href="fm-09-chi-tiet-chuyen.html">${r[0]}</a></td><td class="right num">${fmt.dec(r[1])}</td><td class="right num">${fmt.dec(r[2])}</td><td class="right num ${d > 5 ? 'over' : ''}">${d > 0 ? '+' : ''}${fmt.pct(d)}</td></tr>`; }).join('')}</tbody></table></div>
+      <div class="c-foot" style="padding-top:12px">CH-0402 ran ICD Phước Long → Cát Lái; port congestion for 2h40 with the engine idling.</div>
+    </section></div>`;
+}
+
+const page = $('page');
+function render() {
+  if (S.error) { page.innerHTML = headerHtml() + `<div class="alert alert-danger" role="alert">${icon('block')}<div>Couldn't load the vehicle profile. Check your network connection and try again.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" onclick="location.reload()">Retry</button></div></div>`; bind(); return; }
+  page.innerHTML = headerHtml() + tabsHtml() + `<div class="tabpanel" role="tabpanel" id="panel"></div>`;
+  const p = $('panel');
+  if (S.loading) p.innerHTML = `<div class="prof">${Array(4).fill('<section class="card" style="padding:18px;gap:14px;display:flex;flex-direction:column"><span class="sk" style="width:40%;height:16px"></span>' + Array(6).fill('<span class="sk" style="width:85%"></span>').join('') + '</section>').join('')}</div>`;
+  else p.innerHTML = { profile: profileHtml, trips: tripsHtml, cost: costHtml, maint: maintHtml, fuel: fuelHtml }[S.tab]();
+  bind();
+}
+function bind() {
+  page.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { S.tab = b.dataset.tab; render(); });
+  page.querySelectorAll('[data-go]').forEach(b => b.onclick = () => { S.tab = b.dataset.go; render(); });
+  page.querySelectorAll('[data-cm]').forEach(b => b.onclick = () => { S.costMode = b.dataset.cm; render(); });
+  page.querySelectorAll('[data-upd]').forEach(b => b.onclick = () => openRenew(b.dataset.upd));
+  const e = $('editBtn'); if (e) e.onclick = () => toast('Edit vehicle info: uses the same form as Add vehicle (FM_14)');
+}
+/* Gia hạn nhanh giấy tờ (cùng thao tác với FM_18) */
+function closeModal() { document.querySelectorAll('.modal:not(.leaving), .scrim:not(.leaving)').forEach(x => Shell.dismiss(x)); }
+function openRenew(name) {
+  closeModal();
+  const d = DOCS.find(x => x.n === name);
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim'; s.onclick = closeModal;
+  const m = document.createElement('div'); m.className = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.setAttribute('aria-labelledby', 'rnTitle');
+  m.innerHTML = `<h2 id="rnTitle">Renew ${d.n}</h2><p class="muted sm"><span class="code">${V.plate}</span> · current expiry <b class="num">${d.exp}</b></p>
+    <label class="field"><span>New expiry *</span><input class="input num" id="rnDate" value="17/11/2027"></label>
+    <label class="field"><span>Contract / reference number</span><input class="input" value="PVI-VC-26-118842"></label>
+    <div class="field"><span>Attachment</span><button class="btn btn-secondary" type="button" id="rnFile" style="justify-content:flex-start">${icon('upload')}Choose a file or take a photo</button></div>
+    <div class="row" style="justify-content:flex-end;margin-top:4px"><button class="btn btn-secondary" type="button" data-x>Cancel</button><button class="btn btn-primary" type="button" id="rnSave">Save new expiry</button></div>`;
+  document.body.append(s, m);
+  m.querySelector('[data-x]').onclick = closeModal;
+  m.querySelector('#rnFile').onclick = e => { e.currentTarget.innerHTML = icon('check') + 'bh-vat-chat-2026.pdf'; };
+  m.querySelector('#rnSave').onclick = () => { const prev = { exp: d.exp, days: d.days }; d.exp = m.querySelector('#rnDate').value; d.days = 370; closeModal(); render(); toast(`Updated ${d.n} expiry: ${d.exp}`, { undo: () => { Object.assign(d, prev); render(); } }); };
+  m.querySelector('#rnDate').focus();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+const DOCS0 = JSON.parse(JSON.stringify(DOCS));
+Shell.states([['default', 'Default'], ['trips', 'Trip'], ['cost', 'Costs'], ['maint', 'Maintenance'], ['fuel', 'Fuel/100km'], ['renew', 'Renew document'], ['gsht', 'GPS tracker signal lost'], ['loading', 'Loading'], ['empty', 'Empty (no trips yet)'], ['error', 'Error']], st => {
+  closeModal(); DOCS.splice(0, DOCS.length, ...JSON.parse(JSON.stringify(DOCS0)));
+  Object.assign(S, { tab: 'profile', loading: st === 'loading', error: st === 'error', empty: st === 'empty', gshtLost: st === 'gsht', costMode: 'trip' });
+  if (['trips', 'cost', 'maint', 'fuel'].includes(st)) S.tab = st;
+  if (st === 'empty') S.tab = 'trips';
+  render();
+  if (st === 'renew') openRenew('Physical damage insurance');
+});
+</script>
+</body>
+</html>

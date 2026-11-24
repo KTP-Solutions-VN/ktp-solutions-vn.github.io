@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lương chuyến · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  .page-header .sub { color: var(--fg-muted); font-size: 13px; margin-top: 6px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .period { appearance: none; -webkit-appearance: none; height: 30px; padding: 0 30px 0 10px; border: 1px solid var(--border-strong); border-radius: var(--r-md); background: var(--surface); font: 600 13px var(--font-body); color: var(--fg); cursor: pointer; }
+  .card-title { display: flex; align-items: center; gap: 8px; padding: 16px 18px 6px; }
+  .card-title h2 { font-size: 16px; }
+  .card-title .meta { margin-left: auto; font-size: 12.5px; color: var(--fg-muted); display: inline-flex; gap: 10px; align-items: center; }
+
+  .inbox { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: var(--s-4); align-items: start; }
+  .queue { position: sticky; top: calc(var(--header-h) + 16px); display: flex; flex-direction: column; max-height: calc(100vh - var(--header-h) - 90px); }
+  .queue .list { overflow-y: auto; padding: 4px 8px 8px; display: flex; flex-direction: column; gap: 2px; }
+  .queue .tot { padding: 2px 18px 10px; font-size: 12.5px; color: var(--fg-muted); }
+  .queue .tot b { color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .qi { display: block; width: 100%; text-align: left; border: 0; border-radius: 8px; background: transparent; padding: 9px 10px 9px 14px; font: inherit; color: inherit; cursor: pointer; position: relative; }
+  .qi:hover { background: var(--surface-muted); }
+  .qi::before { content: ""; position: absolute; left: 0; top: 8px; bottom: 8px; width: 3px; border-radius: 0 3px 3px 0; background: transparent; }
+  .qi.on { background: var(--primary-soft); }
+  .qi.on::before { background: var(--primary); }
+  .qi .l1 { display: flex; justify-content: space-between; gap: 8px; font-size: 13.5px; }
+  .qi .l1 b { font-weight: 600; color: var(--fg-strong); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .qi .l1 span { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+  .qi .l2 { font-size: 12.5px; color: var(--fg-muted); margin-top: 2px; }
+  .qi .bd { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+  .qi .badge { height: 20px; font-size: 11.5px; padding: 0 6px; gap: 4px; }
+  .qi .badge .icon { width: 12px; height: 12px; }
+
+  .work { display: flex; flex-direction: column; gap: var(--s-4); min-width: 0; }
+  .dhead { display: flex; align-items: flex-start; gap: 12px; padding: 16px 18px 10px; }
+  .dhead h2 { font-size: 18px; }
+  .dhead .meta { font-size: 13px; color: var(--fg-muted); margin-top: 3px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .eqbar { display: flex; align-items: stretch; gap: 18px; padding: 6px; margin: 0 12px 12px; background: var(--surface-muted); border-radius: 10px; }
+  .eqbar .res { background: var(--primary-soft); border-radius: 8px; padding: 10px 18px; display: flex; flex-direction: column; gap: 2px; min-width: 240px; }
+  .eqbar .res .k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--side-active); }
+  .eqbar .res .v { font: 700 var(--text-display)/40px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .eqbar .res .v small { font: 600 18px var(--font-display); color: var(--fg-muted); margin-left: 4px; }
+  .eq { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 12.5px; color: var(--fg-muted); padding: 6px 0; }
+  .eq .op { font-weight: 600; color: var(--fg-subtle); font-size: 16px; }
+  .eq .term { display: flex; flex-direction: column; gap: 2px; }
+  .eq .term b { font: 600 16px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .eq .term b.neg { color: var(--danger-fg); }
+  table.pay tbody tr:last-child td { border-bottom: 0; }
+  table.pay tfoot td { border-bottom: 0; }
+  .basis { font-size: 12px; color: var(--fg-muted); }
+  .fx { border-bottom: 1px dotted var(--border-strong); cursor: help; }
+  .note-line { display: flex; align-items: center; gap: 8px; padding: 10px 18px 14px; font-size: 12.5px; color: var(--fg-muted); }
+  .note-line .icon { width: 14px; height: 14px; }
+  .adj { list-style: none; margin: 0; padding: 4px 8px 6px; display: flex; flex-direction: column; gap: 2px; }
+  .adj li { display: grid; grid-template-columns: 32px minmax(0, 1fr) auto auto; gap: 12px; align-items: center; padding: 9px 10px; border-radius: 8px; }
+  .adj li:hover { background: var(--surface-muted); }
+  .adj .ic { width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; }
+  .adj .plus .ic { background: var(--success-soft); color: var(--success-fg); }
+  .adj .minus .ic { background: var(--surface-muted); color: var(--neutral-fg); }
+  .adj .t { font-weight: 500; color: var(--fg-strong); font-size: 13.5px; }
+  .adj .d { font-size: 12.5px; color: var(--fg-muted); }
+  .adj .amt { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+  .adj .vis { display: inline-flex; gap: 4px; align-items: center; font-size: 12px; color: var(--fg-muted); white-space: nowrap; }
+  .adj .vis .icon { width: 14px; height: 14px; }
+  .foot-act { display: flex; gap: 8px; padding: 0 16px 14px; }
+  .mlist { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; }
+  .mlist li { display: flex; justify-content: space-between; gap: 12px; padding: 6px 10px; border-radius: 6px; font-size: 13px; }
+  .mlist li b { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .mlist li.h { background: var(--surface-muted); font-weight: 600; }
+  .unit { position: relative; display: flex; }
+  .unit .input { width: 100%; padding-right: 32px; text-align: right; font-variant-numeric: tabular-nums; }
+  .unit em { position: absolute; right: 10px; top: 8px; font-style: normal; font-size: 13px; color: var(--fg-muted); }
+  .confirm { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; }
+  .confirm input { accent-color: var(--primary); margin-top: 3px; }
+  .rules { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: var(--s-4); align-items: stretch; }
+  .rules > .card { display: flex; flex-direction: column; }
+  .grid tbody tr:last-child td { border-bottom: 0; }
+  .modal { width: min(500px, calc(100vw - 32px)); }
+  #slot:empty { display: none; }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Tài chính / Lương chuyến</div>
+      <h1>Lương chuyến</h1>
+      <div class="sub" id="sub"></div>
+    </div>
+    <div class="actions" id="actions"></div>
+  </div>
+  <div class="tabs" role="tablist" id="tabs">
+    <button role="tab" data-tab="pay" aria-selected="true">Bảng lương</button>
+    <button role="tab" data-tab="rule" aria-selected="false">Cách tính</button>
+  </div>
+  <div id="slot"></div>
+  <div id="body"></div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_25', title: 'Lương chuyến' });
+const V = n => fmt.vnd(n), B = n => fmt.vnd(n, { bare: 1 });
+
+/* ---------- Cách tính (source: P40, Insight 8) ---------- */
+const METHOD = { route: ['Khoán theo tuyến', 'route'], km: ['Theo km', 'gauge'], trip: ['Theo chuyến', 'truck'], fixed: ['Cố định', 'calendar'] };
+const KM_RATE = 4500, TRIP_RATE = 650000, FIXED = 9000000;
+const ROUTES = [
+  ['KCN Tân Uyên → Cát Lái', 900000, 1200000], ['KCN Mỹ Phước 3 → Cát Lái', 1000000, 1300000], ['Cát Lái → KCN VSIP 1', 850000, 1100000],
+  ['ICD Phước Long → KCN Phước Đông', 1100000, 1400000], ['ICD Sóng Thần → KCN Tân Uyên', 900000, 1150000], ['Cát Lái → Sa Đéc', 1450000, 1800000], ['KCN Đồng An → Cát Lái', 850000, 1100000]
+];
+const ALLOW = [['Qua đêm', 150000, 'Chuyến kết thúc sau 22:00 hoặc ngủ lại'], ['Chờ cảng > 4 giờ', 100000, 'Tính theo mốc đến/đi cảng trên app hoặc GSHT'], ['Ăn ca', 50000, 'Chuyến dài hơn 8 giờ'], ['Đi tỉnh > 150 km', 200000, 'Theo km tuyến trong danh mục']];
+
+/* ---------- Dữ liệu kỳ 11/2026: mỗi chuyến đã quyết toán sinh một dòng ---------- */
+const L = (trip, date, route, km, cont, allow) => ({ trip, date, route, km, cont, allow: allow || [] });
+let D, locked, sel, tab;
+function reset() {
+  D = [
+    { name: 'Nguyễn Văn Tuấn', gplx: 'CE', plate: '51C-123.45', m: 'route', pend: 1, lines: [L('CH-0402', '02/11', 'KCN Tân Uyên → Cát Lái', 62, "40'"), L('CH-0409', '04/11', 'Cát Lái → KCN VSIP 1', 38, "40'", [['Chờ cảng > 4 giờ', 100000]]), L('CH-0416', '06/11', 'ICD Phước Long → KCN Phước Đông', 71, "40'", [['Qua đêm', 150000]]), L('CH-0423', '08/11', 'KCN Mỹ Phước 3 → Cát Lái', 58, "40'"), L('CH-0431', '11/11', 'KCN Mỹ Phước 3 → Cát Lái', 58, "40'")],
+      adj: [{ k: 'plus', amt: 200000, why: 'Không vi phạm tốc độ tuần 45 (theo GSHT)', by: 'Trần Thị Mai · 10/11' }] },
+    { name: 'Trần Minh Đức', gplx: 'CE', plate: '51D-456.78', m: 'route', pend: 2, lines: [L('CH-0405', '03/11', 'Cát Lái → KCN VSIP 1', 38, "40'"), L('CH-0412', '05/11', 'KCN Mỹ Phước 3 → Cát Lái', 58, "40'", [['Chờ cảng > 4 giờ', 100000]]), L('CH-0420', '07/11', 'KCN Tân Uyên → Cát Lái', 62, "20'"), L('CH-0427', '09/11', 'Cát Lái → KCN VSIP 1', 38, "40'")],
+      adj: [{ k: 'minus', amt: 300000, why: 'Trễ giờ lấy hàng CH-0412 2h10, khách Gỗ Minh Long phạt theo hợp đồng', by: 'Trần Thị Mai · 08/11', trip: 'CH-0412' }] },
+    { name: 'Võ Thành Nhân', gplx: 'CE', plate: '61C-220.14', m: 'route', pend: 1, lines: [L('CH-0411', '05/11', 'Cát Lái → Sa Đéc', 165, "40'", [['Qua đêm', 150000], ['Đi tỉnh > 150 km', 200000]]), L('CH-0419', '08/11', 'Cát Lái → Sa Đéc', 165, "40'", [['Đi tỉnh > 150 km', 200000], ['Ăn ca', 50000]])], adj: [] },
+    { name: 'Ngô Đức Trí', gplx: 'CE', plate: '51C-731.80', m: 'route', pend: 1, lines: [L('CH-0407', '04/11', 'KCN Mỹ Phước 3 → Cát Lái', 58, "40'"), L('CH-0425', '09/11', 'KCN Mỹ Phước 3 → Cát Lái', 58, "40'", [['Chờ cảng > 4 giờ', 100000]])], adj: [] },
+    { name: 'Đặng Quang Vinh', gplx: 'FC', plate: '51C-456.78', m: 'route', pend: 1, lines: [L('CH-0413', '06/11', 'KCN Đồng An → Cát Lái', 34, "20'"), L('CH-0428', '10/11', 'KCN Đồng An → Cát Lái', 34, "40'")], adj: [] },
+    { name: 'Lê Hoàng Phúc', gplx: 'CE', plate: '51D-702.33', m: 'km', pend: 1, lines: [L('CH-0418', '05/11', 'KCN Sóng Thần → Long An', 78), L('CH-0426', '07/11', 'KCN Sóng Thần → Bến Lức', 64), L('CH-0433', '10/11', 'Bình Tân → Mỹ Tho', 72, null, [['Ăn ca', 50000]])], adj: [] },
+    { name: 'Huỳnh Tấn Lộc', gplx: 'C', plate: '51C-588.02', m: 'trip', pend: 2, lines: [L('CH-0408', '04/11', 'Bình Tân → Mỹ Tho', 72), L('CH-0415', '06/11', 'Bình Tân → Mỹ Tho', 72), L('CH-0422', '08/11', 'KCN Sóng Thần → Long An', 78)],
+      adj: [{ k: 'plus', amt: 150000, why: 'Hỗ trợ bốc xếp thay kho khách CH-0415', by: 'Lê Thị Lan · 06/11', trip: 'CH-0415' }] },
+    { name: 'Phạm Quốc Bảo', gplx: 'C', plate: '51D-215.40', m: 'fixed', pend: 1, lines: [L('CH-0421', '06/11', 'ICD Sóng Thần → KCN Tân Uyên', 48, "20'", [['Ăn ca', 50000]]), L('CH-0429', '09/11', 'ICD Sóng Thần → KCN Tân Uyên', 48, "20'")], adj: [] },
+    { name: 'Đặng Văn Hiếu', gplx: 'FC', plate: '—', m: 'route', pend: 0, lines: [], adj: [], note: 'GPLX hết hạn 05/11/2026, chưa chạy chuyến trong kỳ' }
+  ];
+  locked = false; sel = 'Nguyễn Văn Tuấn'; tab = 'pay';
+}
+function base(d, l) {
+  if (d.m === 'route') { const r = ROUTES.find(x => x[0] === l.route) || ['', 900000, 1200000]; const v = l.cont === "20'" ? r[1] : r[2]; return [v, `Khoán tuyến · cont ${l.cont}`, `Bảng khoán tuyến: ${l.route}, cont ${l.cont} = <span class="formula">${B(v)} đ</span>`]; }
+  if (d.m === 'km') { const v = l.km * KM_RATE; return [v, `${l.km} km × ${B(KM_RATE)} đ/km`, `<span class="formula">${l.km} km × ${B(KM_RATE)} đ/km = ${B(v)} đ</span><br>Km tuyến theo danh mục tuyến đường`]; }
+  if (d.m === 'trip') return [TRIP_RATE, 'Đơn giá chuyến', `Đơn giá theo chuyến: <span class="formula">${B(TRIP_RATE)} đ/chuyến</span>`];
+  return [0, 'Đã gồm trong lương cố định', `Tài xế hưởng lương cố định <span class="formula">${B(FIXED)} đ/tháng</span>; chuyến chỉ tính phụ cấp`];
+}
+function calc(d) {
+  const rows = d.lines.map(l => { const [b, basis, fx] = base(d, l); const al = l.allow.reduce((s, a) => s + a[1], 0); return Object.assign({ b, basis, fx, al, sum: b + al }, l); });
+  const baseT = rows.reduce((s, r) => s + r.b, 0), allowT = rows.reduce((s, r) => s + r.al, 0);
+  const plus = d.adj.filter(a => a.k === 'plus').reduce((s, a) => s + a.amt, 0), minus = d.adj.filter(a => a.k === 'minus').reduce((s, a) => s + a.amt, 0);
+  const fixed = d.m === 'fixed' ? FIXED : 0;
+  return { rows, baseT, allowT, plus, minus, fixed, net: fixed + baseT + allowT + plus - minus };
+}
+
+/* ---------- Tooltip nổi ---------- */
+const TIPS = {}; let tipN = 0;
+const tip = html => { const k = 't' + (tipN++); TIPS[k] = html; return `data-ftip="${k}"`; };
+const ftip = document.createElement('div'); ftip.className = 'tip-body'; ftip.setAttribute('role', 'tooltip');
+Object.assign(ftip.style, { position: 'fixed', transform: 'none', bottom: 'auto', zIndex: 100 }); document.body.appendChild(ftip);
+function showTip(el) { const h = TIPS[el.dataset.ftip]; if (!h) return; ftip.innerHTML = h; ftip.style.opacity = 1; const r = el.getBoundingClientRect(), w = ftip.offsetWidth, ht = ftip.offsetHeight; ftip.style.left = Math.min(Math.max(8, r.left + r.width / 2 - w / 2), innerWidth - w - 8) + 'px'; let y = r.top - ht - 8; if (y < 8) y = r.bottom + 8; ftip.style.top = y + 'px'; }
+const hideTip = () => { ftip.style.opacity = 0; };
+document.addEventListener('mouseover', e => { const el = e.target.closest('[data-ftip]'); el ? showTip(el) : hideTip(); });
+document.addEventListener('focusin', e => { const el = e.target.closest('[data-ftip]'); el ? showTip(el) : hideTip(); });
+
+/* ---------- Render ---------- */
+const body = document.getElementById('body');
+let errSave = false;
+function head() {
+  const nTrips = D.reduce((s, d) => s + d.lines.length, 0);
+  document.getElementById('sub').innerHTML = `<span class="select-wrap"><select class="period" aria-label="Kỳ lương"><option>Kỳ 11/2026 · 01/11–30/11</option><option>Kỳ 10/2026 · đã chốt</option></select>${icon('chevron')}</span>
+    ${locked ? `<span class="badge b-success">${icon('lock')}Đã chốt 12/11 15:20</span>` : `<span class="badge b-info">${icon('clock')}Đang mở · tạm tính</span>`}
+    <span>${nTrips} chuyến đã quyết toán · ${D.filter(d => d.lines.length).length} tài xế</span>`;
+  const pushTip = locked ? '' : tip('Chốt kỳ trước khi đẩy sang kế toán');
+  document.getElementById('actions').innerHTML = `<button class="btn btn-secondary" type="button" id="xls">${icon('download')}Xuất Excel</button>
+    <span ${pushTip} tabindex="${locked ? -1 : 0}"><button class="btn btn-secondary" type="button" id="push" ${locked ? '' : 'disabled'}>${icon('external')}Đẩy sang kế toán</button></span>
+    ${locked ? `<button class="btn btn-ghost" type="button" id="reopen">Mở lại kỳ</button>` : `<button class="btn btn-primary" type="button" id="closeBtn">${icon('lock')}Chốt kỳ</button>`}`;
+  document.querySelectorAll('#tabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === tab));
+}
+function render() {
+  hideTip(); head();
+  body.innerHTML = tab === 'rule' ? rulesHtml() : payHtml();
+  bind();
+}
+function payHtml() {
+  const all = D.map(d => [d, calc(d)]), total = all.reduce((s, [, c]) => s + c.net, 0);
+  const d = D.find(x => x.name === sel) || D[0], c = calc(d), M = METHOD[d.m];
+  const q = all.map(([x, cx]) => `<button class="qi ${x === d ? 'on' : ''}" type="button" data-sel="${x.name}" aria-current="${x === d}">
+      <div class="l1"><b>${x.name}</b><span>${x.lines.length || x.m === 'fixed' ? B(cx.net) : '—'}</span></div>
+      <div class="l2">${METHOD[x.m][0]} · ${x.lines.length} chuyến</div>
+      ${x.adj.length || x.pend ? `<div class="bd">${x.adj.some(a => a.k === 'minus') ? `<span class="badge b-neutral">${icon('undo')}Có khoản trừ</span>` : ''}${x.adj.some(a => a.k === 'plus') ? `<span class="badge b-success">${icon('plus')}Có thưởng</span>` : ''}${x.pend ? `<span class="badge b-warning">${icon('clock')}${x.pend} chưa quyết toán</span>` : ''}</div>` : ''}
+    </button>`).join('');
+  const detail = !d.lines.length && d.m !== 'fixed' ? `<section class="card"><div class="dhead"><div class="grow"><h2>${d.name}</h2><div class="meta">GPLX ${d.gplx} · ${M[0]}</div></div></div>
+      <div class="empty">${icon('coins')}<h3>Chưa có chuyến đã quyết toán trong kỳ</h3><p>${d.note || 'Dòng lương được tạo khi chuyến của tài xế được quyết toán.'}</p><a class="btn btn-secondary" href="fm-17-chi-tiet-tai-xe.html">Mở hồ sơ tài xế</a></div></section>`
+    : `<section class="card" aria-label="Tổng lương tài xế">
+      <div class="dhead"><div class="grow"><h2>${d.name}</h2><div class="meta"><span class="badge b-neutral">${icon(M[1])}${M[0]}</span>GPLX ${d.gplx} · xe thường chạy <span class="code">${d.plate}</span></div></div>
+        <a class="btn btn-ghost btn-sm" href="fm-17-chi-tiet-tai-xe.html">Hồ sơ tài xế ${icon('external')}</a></div>
+      <div class="eqbar"><div class="res"><span class="k">Thực nhận kỳ 11/2026</span><span class="v">${B(c.net)}<small>đ</small></span></div>
+        <div class="eq">${c.fixed ? `<span class="term">Lương cố định<b>${V(c.fixed)}</b></span><span class="op">+</span>` : ''}<span class="term">Lương chuyến<b>${V(c.baseT)}</b></span><span class="op">+</span><span class="term">Phụ cấp<b>${V(c.allowT)}</b></span><span class="op">+</span><span class="term">Thưởng<b>${V(c.plus)}</b></span><span class="op">−</span><span class="term">Khoản trừ<b>${V(c.minus)}</b></span></div></div>
+    </section>
+    <section class="card" aria-label="Dòng lương theo chuyến">
+      <div class="card-title"><h2>Dòng lương theo chuyến</h2><span class="count-pill">${c.rows.length}</span><span class="meta">Mỗi chuyến đã quyết toán = 1 dòng</span></div>
+      <div class="grid-wrap" style="padding-top:6px"><table class="grid pay">
+        <thead><tr><th>Chuyến</th><th>Quyết toán</th><th>Tuyến · cách tính</th><th class="right">Lương chuyến</th><th class="right">Phụ cấp</th><th class="right">Cộng</th></tr></thead>
+        <tbody>${c.rows.map(r => `<tr><td><a class="code" href="fm-09-chi-tiet-chuyen.html">${r.trip}</a></td><td class="num">${r.date}/2026</td>
+          <td style="white-space:normal">${r.route}${r.cont ? ` · ${r.cont}` : ''}<span class="cell-sub"><span class="fx" tabindex="0" ${tip(r.fx)}>${r.basis}</span></span></td>
+          <td class="right num">${r.b ? B(r.b) : '<span class="muted">—</span>'}</td>
+          <td class="right num">${r.al ? `<span class="fx" tabindex="0" ${tip(r.allow.map(a => `${a[0]} <span class="formula">${B(a[1])}</span>`).join('<br>'))}>${B(r.al)}</span>` : '<span class="muted">—</span>'}</td>
+          <td class="right num"><b style="font-weight:600">${B(r.sum)}</b></td></tr>`).join('')}</tbody>
+        <tfoot><tr><td colspan="3">Tổng ${c.rows.length} chuyến</td><td class="right num">${B(c.baseT)}</td><td class="right num">${B(c.allowT)}</td><td class="right num">${V(c.baseT + c.allowT)}</td></tr></tfoot>
+      </table></div>
+      ${d.pend ? `<div class="note-line">${icon('clock')}${d.pend} chuyến hoàn thành chưa quyết toán chưa vào bảng lương. <a href="fm-22-quyet-toan.html">Mở hàng chờ quyết toán</a></div>` : '<div style="height:8px"></div>'}
+    </section>
+    <section class="card" aria-label="Thưởng và khoản trừ">
+      <div class="card-title"><h2>Thưởng &amp; khoản trừ</h2><span class="count-pill">${d.adj.length}</span><span class="meta">${icon('eye')}Tài xế thấy lý do trong app</span></div>
+      ${d.adj.length ? `<ul class="adj">${d.adj.map((a, i) => `<li class="${a.k}"><span class="ic">${icon(a.k === 'plus' ? 'plus' : 'undo')}</span>
+          <div><div class="t">${a.k === 'plus' ? 'Thưởng' : 'Khoản trừ'}${a.trip ? ` · <a class="code" href="fm-09-chi-tiet-chuyen.html">${a.trip}</a>` : ''}</div><div class="d">Lý do: ${a.why}<br>${a.by}</div></div>
+          <span class="vis">${icon('eye')}Tài xế đã xem</span>
+          <span class="amt ${a.k === 'minus' ? 'neg' : 'pos'}">${a.k === 'minus' ? '−' : '+'}${V(a.amt)}</span></li>`).join('')}</ul>`
+        : `<p class="sm muted" style="padding:4px 18px 12px">Chưa có thưởng hay khoản trừ trong kỳ.</p>`}
+      ${locked ? `<p class="sm muted" style="padding:0 18px 14px">${icon('lock')} Kỳ đã chốt, không thêm được khoản mới.</p>` : `<div class="foot-act"><button class="btn btn-secondary btn-sm" type="button" id="addAdj">${icon('plus')}Thêm thưởng / khoản trừ</button></div>`}
+    </section>`;
+  return `<div class="inbox">
+    <section class="card queue" aria-label="Tài xế"><div class="card-title"><h2>Tài xế</h2><span class="count-pill">${D.length}</span></div>
+      <div class="tot">Tổng kỳ${locked ? "" : " (tạm tính)"} <b>${V(total)}</b></div>
+      <div class="list">${q}</div></section>
+    <div class="work">${detail}</div>
+  </div>`;
+}
+function rulesHtml() {
+  const by = m => D.filter(d => d.m === m).map(d => d.name).join(', ');
+  return `<div class="rules">
+    <section class="card" aria-label="Bảng khoán tuyến">
+      <div class="card-title"><h2>Khoán theo tuyến</h2><span class="count-pill">${ROUTES.length}</span><span class="meta">Áp cho ${D.filter(d => d.m === 'route').length} tài xế</span></div>
+      <div class="grid-wrap" style="padding-top:6px"><table class="grid"><thead><tr><th>Tuyến</th><th class="right">Cont 20'</th><th class="right">Cont 40'</th></tr></thead>
+        <tbody>${ROUTES.map(r => `<tr><td>${r[0]}</td><td class="right num">${B(r[1])}</td><td class="right num">${B(r[2])}</td></tr>`).join('')}</tbody></table></div>
+      <div class="foot-act" style="padding-top:10px"><a class="btn btn-ghost btn-sm" href="fm-28-tuyen-duong.html">${icon('route')}Sửa trong danh mục tuyến</a></div>
+    </section>
+    <section class="card" aria-label="Cách tính khác và phụ cấp">
+      <div class="card-title"><h2>Cách tính khác</h2></div>
+      <ul class="mlist" style="padding:4px 12px 8px">
+        <li><span>${icon('gauge')} Theo km<br><span class="sm muted">${by('km')}</span></span><b>${B(KM_RATE)} đ/km</b></li>
+        <li><span>${icon('truck')} Theo chuyến<br><span class="sm muted">${by('trip')}</span></span><b>${B(TRIP_RATE)} đ/chuyến</b></li>
+        <li><span>${icon('calendar')} Cố định, chuyến chỉ tính phụ cấp<br><span class="sm muted">${by('fixed')}</span></span><b>${B(FIXED)} đ/tháng</b></li>
+      </ul>
+      <div class="card-title" style="padding-top:8px"><h2>Phụ cấp chuyến</h2></div>
+      <ul class="mlist" style="padding:4px 12px 16px">${ALLOW.map(a => `<li><span>${a[0]}<br><span class="sm muted">${a[2]}</span></span><b>${B(a[1])} đ</b></li>`).join('')}</ul>
+      <p class="sm muted" style="padding:0 18px 16px;margin-top:auto">Đổi cách tính chỉ áp cho chuyến quyết toán sau thời điểm đổi. Dòng lương đã sinh giữ nguyên.</p>
+    </section>
+  </div>`;
+}
+function bind() {
+  const on = (id, f) => { const el = document.getElementById(id); if (el) el.onclick = f; };
+  body.querySelectorAll('[data-sel]').forEach(b => b.onclick = () => { sel = b.dataset.sel; render(); });
+  on('addAdj', openAdj); on('closeBtn', openClose); on('xls', () => toast('Đã xuất luong-chuyen-11-2026.xlsx'));
+  on('push', () => toast('Đã đẩy bảng lương kỳ 11/2026 sang phần mềm kế toán · 9 tài xế'));
+  on('reopen', () => modal(`<h2>Mở lại kỳ 11/2026?</h2><p class="muted">Chỉ Kế toán trưởng hoặc Admin được mở lại. Thao tác được ghi vào nhật ký. Nếu đã đẩy sang kế toán, cần huỷ bút toán bên đó.</p><div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Quay lại</button><button class="btn btn-primary" type="button" id="roOk">Mở lại kỳ</button></div>`, m => { m.querySelector('#roOk').onclick = () => { closeModal(); locked = false; render(); toast('Đã mở lại kỳ 11/2026'); }; }));
+}
+document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => { tab = b.dataset.tab; render(); });
+
+/* ---------- Modal ---------- */
+function modal(html, onReady) {
+  closeModal(); hideTip();
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim'; s.id = 'mScrim'; s.onclick = closeModal;
+  const m = document.createElement('div'); m.className = 'modal'; m.id = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.innerHTML = html;
+  document.body.append(s, m); m.querySelectorAll('[data-x]').forEach(b => b.onclick = closeModal); onReady && onReady(m);
+}
+function closeModal() { ['modal', 'mScrim'].forEach(id => { const e = document.getElementById(id); if (e) { e.removeAttribute('id'); Shell.dismiss(e); } }); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+function openAdj(preset) {
+  const d = D.find(x => x.name === sel);
+  modal(`<h2>Thêm thưởng / khoản trừ · ${d.name}</h2>
+    <div class="seg" role="group" aria-label="Loại"><button type="button" data-k="plus" aria-pressed="true">${icon('plus')}Thưởng</button><button type="button" data-k="minus" aria-pressed="false">${icon('undo')}Khoản trừ</button></div>
+    <div class="row" style="gap:12px;align-items:flex-end"><label class="field" style="width:180px"><span>Số tiền</span><div class="unit"><input class="input" id="aAmt" placeholder="0"><em>đ</em></div></label>
+      <label class="field grow"><span>Gắn với chuyến (không bắt buộc)</span><select class="input" id="aTrip"><option value="">Không gắn chuyến</option>${d.lines.map(l => `<option>${l.trip}</option>`).join('')}</select></label></div>
+    <label class="field"><span>Lý do (bắt buộc, tài xế sẽ thấy)</span><textarea class="input" id="aWhy" rows="3" placeholder="VD: Không vi phạm tốc độ tuần 46 (theo GSHT)" aria-describedby="aHint"></textarea></label>
+    <p class="sm muted" id="aHint">${icon('eye')} ${d.name} nhận thông báo và xem lý do trong mục Lương chuyến của app.</p>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Huỷ</button><button class="btn btn-primary" type="button" id="aOk" disabled>Thêm</button></div>`, m => {
+    let k = 'plus'; const amt = m.querySelector('#aAmt'), why = m.querySelector('#aWhy'), ok = m.querySelector('#aOk');
+    const sync = () => { ok.disabled = !(+amt.value.replace(/\D/g, '') > 0 && why.value.trim().length >= 5); ok.textContent = k === 'plus' ? 'Thêm thưởng' : 'Thêm khoản trừ'; };
+    m.querySelectorAll('[data-k]').forEach(b => b.onclick = () => { k = b.dataset.k; m.querySelectorAll('[data-k]').forEach(x => x.setAttribute('aria-pressed', x === b)); why.placeholder = k === 'plus' ? 'VD: Không vi phạm tốc độ tuần 46 (theo GSHT)' : 'VD: Làm hỏng chì niêm phong, khách tính phí 200.000 đ'; sync(); });
+    amt.oninput = () => { const v = +amt.value.replace(/\D/g, ''); amt.value = v ? B(v) : ''; sync(); }; why.oninput = sync;
+    if (preset) { m.querySelector('[data-k="minus"]').click(); amt.value = '200.000'; m.querySelector('#aTrip').value = 'CH-0423'; } sync(); amt.focus();
+    ok.onclick = () => { const a = { k, amt: +amt.value.replace(/\D/g, ''), why: why.value.trim(), by: 'Trần Thị Mai · 12/11', trip: m.querySelector('#aTrip').value || null }; d.adj.push(a); closeModal(); render();
+      if (errSave) { document.getElementById('slot').innerHTML = ''; }
+      toast(`Đã thêm ${k === 'plus' ? 'thưởng' : 'khoản trừ'} ${V(a.amt)} cho ${d.name}`, { undo: () => { d.adj.pop(); render(); } }); };
+  });
+}
+function openClose() {
+  const all = D.map(d => calc(d)), total = all.reduce((s, c) => s + c.net, 0), nT = D.reduce((s, d) => s + d.lines.length, 0), pend = D.reduce((s, d) => s + d.pend, 0);
+  const adj = D.reduce((s, d) => s + d.adj.length, 0);
+  modal(`<h2>Chốt kỳ lương 11/2026?</h2>
+    <ul class="mlist"><li><span>Tài xế có lương</span><b>${D.filter(d => d.lines.length).length}</b></li><li><span>Chuyến đã quyết toán</span><b>${nT}</b></li><li><span>Thưởng / khoản trừ</span><b>${adj} khoản</b></li><li class="h"><span>Tổng thực nhận</span><b>${V(total)}</b></li></ul>
+    <div class="alert alert-warning">${icon('warn')}<div>Kỳ chưa kết thúc (còn 18 ngày). ${pend} chuyến hoàn thành chưa quyết toán và mọi chuyến quyết toán sau khi chốt sẽ vào kỳ 12/2026.</div></div>
+    <label class="confirm"><input type="checkbox" id="cChk">Tôi đã kiểm tra bảng lương. Sau khi chốt, dòng lương bị khoá, tài xế thấy số chốt trong app.</label>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Quay lại</button><button class="btn btn-primary" type="button" id="cOk" disabled>${icon('lock')}Chốt kỳ</button></div>`, m => {
+    const c = m.querySelector('#cChk'), ok = m.querySelector('#cOk'); c.onchange = () => ok.disabled = !c.checked;
+    ok.onclick = () => { closeModal(); locked = true; render(); toast('Đã chốt kỳ 11/2026. Có thể xuất Excel hoặc đẩy sang kế toán.', { undo: () => { locked = false; render(); } }); };
+  });
+}
+
+/* ---------- States ---------- */
+Shell.states([['default', 'Mặc định'], ['deduct', 'Khoản trừ'], ['adj', 'Thêm khoản'], ['close', 'Chốt kỳ'], ['locked', 'Đã khoá'], ['rule', 'Cách tính'], ['nolines', 'Tài xế chưa có chuyến'], ['loading', 'Đang tải'], ['empty', 'Trống'], ['error', 'Lỗi']], s => {
+  closeModal(); reset(); errSave = false; document.getElementById('slot').innerHTML = '';
+  if (s === 'deduct') { sel = 'Trần Minh Đức'; render(); return; }
+  if (s === 'adj') { render(); openAdj(true); return; }
+  if (s === 'close') { render(); openClose(); return; }
+  if (s === 'locked') { locked = true; render(); document.getElementById('slot').innerHTML = `<div class="alert alert-info" role="status" >${icon('lock')}<div>Kỳ 11/2026 đã chốt lúc 12/11 15:20 bởi Trần Thị Mai. Dòng lương, thưởng và khoản trừ đã khoá. Chuyến quyết toán sau thời điểm này vào kỳ 12/2026.</div></div>`; return; }
+  if (s === 'rule') { tab = 'rule'; render(); return; }
+  if (s === 'nolines') { sel = 'Đặng Văn Hiếu'; render(); return; }
+  if (s === 'empty') { D.forEach(d => { d.lines = []; d.adj = []; }); head(); body.innerHTML = `<section class="card" ><div class="empty">${icon('coins')}<h3>Kỳ 11/2026 chưa có dòng lương</h3><p>Mỗi chuyến được quyết toán sẽ tự sinh một dòng lương theo cách tính của tài xế.</p><a class="btn btn-primary" href="fm-22-quyet-toan.html">Mở hàng chờ quyết toán</a></div></section>`; document.getElementById('closeBtn').disabled = true; return; }
+  if (s === 'loading') {
+    head(); document.getElementById('sub').innerHTML = '<span class="sk" style="width:320px"></span>';
+    body.innerHTML = `<div class="inbox"><section class="card queue"><div class="card-title"><span class="sk" style="width:100px;height:16px"></span></div><div class="list">${Array(8).fill('<div class="qi"><span class="sk" style="width:85%"></span><span class="sk" style="width:55%;margin-top:6px"></span></div>').join('')}</div></section>
+      <div class="work"><section class="card"><div class="dhead"><span class="sk" style="width:220px;height:18px"></span></div><div class="eqbar"><span class="sk" style="width:240px;height:60px"></span></div></section><section class="card"><table class="grid"><tbody>${Array(6).fill('<tr>' + Array(6).fill('<td><span class="sk" style="width:75%"></span></td>').join('') + '</tr>').join('')}</tbody></table></section></div></div>`;
+    return;
+  }
+  if (s === 'error') {
+    errSave = true; render();
+    document.getElementById('slot').innerHTML = `<div class="alert alert-danger" role="alert" >${icon('block')}<div>Chưa chốt được kỳ 11/2026: mất kết nối khi lưu. Kỳ vẫn đang mở, chưa có thay đổi nào được ghi.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="retry">${icon('refresh')}Thử lại</button></div></div>`;
+    document.getElementById('retry').onclick = () => { document.getElementById('slot').innerHTML = ''; openClose(); };
+    return;
+  }
+  render();
+});
+</script>
+</body>
+</html>

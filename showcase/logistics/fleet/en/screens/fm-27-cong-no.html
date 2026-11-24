@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Receivables & payables · Đội Xe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700&family=Inter:wght@400;500;600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="../assets/css/app.css">
+<style>
+  #app-content > * { flex: none; }
+  .page-header .fresh { margin-top: 6px; }
+  .summary { display: grid; grid-template-columns: minmax(320px, 1.6fr) repeat(3, minmax(0, 1fr)); gap: 6px; padding: 6px; background: var(--surface); border-radius: var(--r-lg); box-shadow: var(--shadow-card); }
+  .sum-main { padding: 16px 22px; background: var(--primary-soft); border-radius: 8px; display: flex; flex-direction: column; gap: 4px; }
+  .sum-main .k { font-size: 12px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--side-active); }
+  .sum-main .v { font: 700 var(--text-display)/40px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+  .sum-main .d { font-size: 12.5px; color: var(--fg-muted); }
+  .sum-item { padding: 16px; display: flex; flex-direction: column; justify-content: center; gap: 4px; min-width: 0; border-radius: 8px; }
+  .sum-item .k { font-size: 12.5px; color: var(--fg-muted); font-weight: 500; }
+  .sum-item .v { font: 700 24px/30px var(--font-display); color: var(--fg-strong); font-variant-numeric: tabular-nums; }
+  .sum-item .v.hot { color: var(--danger-fg); }
+  .sum-item .d { font-size: 12.5px; color: var(--fg-muted); }
+  .card-title { display: flex; align-items: center; gap: 8px; padding: 16px 18px 6px; flex-wrap: wrap; }
+  .card-title h2 { font-size: 16px; }
+  .card-title .meta { margin-left: auto; display: inline-flex; gap: 12px; align-items: center; }
+  /* aging bars: thang trung tính, chỉ >90 ngày có màu nhấn */
+  .legend { display: inline-flex; gap: 14px; font-size: 12.5px; color: var(--fg-muted); flex-wrap: wrap; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i, .ag i { display: inline-block; }
+  .legend i { width: 10px; height: 10px; border-radius: 2px; }
+  .a1 { background: var(--chart-muted); } .a2 { background: var(--fg-subtle); } .a3 { background: var(--neutral-solid); } .a4 { background: var(--danger-solid); }
+  .total-bar { padding: 6px 18px 14px; display: flex; flex-direction: column; gap: 6px; }
+  .ag { display: flex; height: 12px; border-radius: 3px; overflow: hidden; gap: 2px; background: transparent; }
+  .ag i { height: 100%; min-width: 2px; }
+  .total-bar .ag { height: 16px; }
+  .total-bar .ticks { display: flex; gap: 2px; font-size: 12px; color: var(--fg-muted); font-variant-numeric: tabular-nums; }
+  .total-bar .ticks span { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; min-width: 0; }
+  .total-bar .ticks b { color: var(--fg); font-weight: 600; }
+  table.ar td { height: 54px; }
+  table.ar tr { cursor: pointer; }
+  table.ar td.bar { width: 26%; min-width: 180px; }
+  table.ar .hot { color: var(--danger-fg); font-weight: 600; }
+  table.ar .zero { color: var(--fg-subtle); }
+  .gridfoot { padding: 12px 16px 14px; }
+  table.ap td { height: 52px; }
+  table.ap input[type=checkbox], table.alloc input[type=checkbox] { accent-color: var(--primary); width: 15px; height: 15px; }
+  table.ap tr.grp td { background: var(--surface-muted); height: 36px; font-weight: 600; font-size: 13px; }
+  .bulk { display: flex; align-items: center; gap: 8px; padding: 6px 16px 10px; flex-wrap: wrap; }
+  .drawer { width: min(640px, 100vw); }
+  .form2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .form2 .input, .form2 .select { width: 100%; }
+  table.alloc td { height: 44px; }
+  .alloc-sum { display: flex; justify-content: space-between; font-size: 13.5px; padding: 4px 2px; }
+  .modal .field .select { width: 100%; }
+  .modal .chk { display: flex; gap: 8px; align-items: flex-start; font-size: 13.5px; }
+  .modal .chk input { accent-color: var(--primary); margin-top: 3px; }
+  @media (max-width: 1200px) { .summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } .sum-main { grid-column: 1 / -1; } }
+</style>
+</head>
+<body>
+<div id="app-content">
+  <div class="page-header">
+    <div>
+      <div class="crumb">Finance / Receivables & payables</div>
+      <h1>Receivables & payables</h1>
+      <div class="fresh"><span class="live" aria-hidden="true"></span><span id="freshTxt">Updated 08:30 · from issued invoices and recorded payments</span></div>
+    </div>
+    <div class="actions"><button class="btn btn-secondary" type="button" id="btnStmt"></button><button class="btn btn-primary" type="button" id="btnPay"></button></div>
+  </div>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div id="slot"></div>
+  <div id="view" class="stack" style="gap:16px"></div>
+</div>
+
+<script src="../assets/js/shell.js"></script>
+<script src="../assets/js/data.js"></script>
+<script>
+const { icon, fmt, toast } = Shell;
+Shell.mount({ active: 'FM_27', title: 'Receivables & payables' });
+const $ = id => document.getElementById(id);
+$('btnStmt').innerHTML = `${icon('download')}Export reconciliation statement`;
+
+const TR = 1e6;
+// [khách, điều khoản, 0-30, 31-60, 61-90, >90] (triệu đồng)
+const AR0 = [
+  ['Tân Cảng Logistics', 'Net 45', 412.5, 186.2, 0, 0],
+  ['Gỗ Minh Long', 'Net 30', 96.4, 128.8, 54.6, 0],
+  ['Thủy sản Vĩnh Hoàn', 'Net 30', 78.4, 64.1, 31.7, 0],
+  ['Thép Hòa Phát Bình Dương', 'Net 60', 48.2, 0, 0, 0],
+  ['Bao bì Phương Nam', 'Net 15', 18.3, 12.6, 0, 22.4],
+  ['Nhựa Duy Tân', 'Net 15', 9.6, 0, 0, 0]
+];
+const INV = {
+  'Gỗ Minh Long': [['00000121', '15/08/2026', 89, 54.6], ['00000149', '20/09/2026', 53, 72.3], ['00000158', '30/09/2026', 43, 56.5], ['00000171', '15/10/2026', 28, 48.2], ['00000180', '31/10/2026', 12, 48.2]],
+  'Bao bì Phương Nam': [['00000098', '28/07/2026', 107, 22.4], ['00000152', '25/09/2026', 48, 12.6], ['00000186', '10/11/2026', 2, 4.6], ['00000176', '20/10/2026', 23, 13.7]]
+};
+function invoicesOf(a) {
+  if (INV[a[0]]) return INV[a[0]].slice().sort((x, y) => y[2] - x[2]);
+  const ages = [104, 75, 46, 18], out = [];
+  [a[5], a[4], a[3], a[2]].forEach((v, k) => { if (v) out.push([String(130 + k * 13 + a[0].length).padStart(8, '0'), '', ages[k], v]); });
+  return out.map(x => { const d = new Date(2026, 10, 12 - x[2]); x[1] = `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/2026`; return x; });
+}
+const AP0 = [
+  { id: 'CH-0438', d: '03/11', ven: 'Minh Phát carrier', plate: '51C-654.32', drv: 'Đỗ Văn Lâm', route: 'Tân Uyên Industrial Park → Cát Lái', fee: 3000000, paid: 0, due: '10/11', st: 'over' },
+  { id: 'CH-0441', d: '05/11', ven: 'Minh Phát carrier', plate: '51C-654.32', drv: 'Đỗ Văn Lâm', route: 'Cát Lái → VSIP 1 Industrial Park', fee: 2900000, paid: 0, due: '12/11', st: 'due' },
+  { id: 'CH-0446', d: '07/11', ven: 'Minh Phát carrier', plate: '51C-210.09', drv: 'Trịnh Văn Khải', route: 'Mỹ Phước 3 Industrial Park → Cát Lái', fee: 3200000, paid: 1500000, due: '14/11', st: 'due' },
+  { id: 'CH-0453', d: '10/11', ven: 'Minh Phát carrier', plate: '51C-654.32', drv: 'Đỗ Văn Lâm', route: 'Tân Uyên Industrial Park → Cát Lái', fee: 3000000, paid: 0, due: '17/11', st: 'wait' },
+  { id: 'CH-0435', d: '02/11', ven: 'Vận tải Hưng Thịnh', plate: '61C-338.47', drv: 'Lý Thanh Sang', route: 'Cát Lái → Sa Đéc', fee: 5400000, paid: 5400000, due: '09/11', st: 'paid' },
+  { id: 'CH-0443', d: '06/11', ven: 'Vận tải Hưng Thịnh', plate: '61C-338.47', drv: 'Lý Thanh Sang', route: 'Cát Lái → Sa Đéc', fee: 5400000, paid: 0, due: '13/11', st: 'due' },
+  { id: 'CH-0450', d: '11/11', ven: 'Vận tải Hưng Thịnh', plate: '61C-512.90', drv: 'Mai Văn Đông', route: 'Đồng An Industrial Park → Cát Lái', fee: 2800000, paid: 0, due: '18/11', st: 'wait', note: 'No POD yet' }
+];
+const APST = { over: ['Overdue', 'b-danger', 'block'], due: ['Due this week', 'b-warning', 'clock'], wait: ['Awaiting reconciliation', 'b-neutral', 'dot'], paid: ['Paid', 'b-success', 'check'] };
+
+let S;
+function reset() { S = { tab: 'ar', ar: AR0.map(a => a.slice()), ap: AP0.map(x => ({ ...x })), sel: new Set(), ven: 'all', sort: 'bal', loading: false, err: false, empty: false }; }
+const bal = a => a[2] + a[3] + a[4] + a[5];
+const sum = (k) => S.ar.reduce((s, a) => s + a[k], 0);
+
+function renderTabs() {
+  $('tabs').innerHTML = `<button role="tab" aria-selected="${S.tab === 'ar'}" data-tab="ar">${icon('users')}Customer receivables</button><button role="tab" aria-selected="${S.tab === 'ap'}" data-tab="ap">${icon('truck')}Subcontractor payables <span class="count-pill">${S.ap.filter(x => x.st !== 'paid').length}</span></button>`;
+  $('tabs').querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { S.tab = b.dataset.tab; S.sel.clear(); render(); });
+  $('btnPay').innerHTML = S.tab === 'ar' ? `${icon('plus')}Record payment` : `${icon('check')}Mark as paid`;
+  $('btnStmt').hidden = S.tab !== 'ar';
+}
+function render() {
+  renderTabs(); $('slot').innerHTML = '';
+  const v = $('view');
+  if (S.loading) { v.innerHTML = `<section class="summary"><div class="sum-main"><span class="sk" style="width:50%"></span><span class="sk" style="width:40%;height:32px;margin-top:8px"></span></div>${Array(3).fill('<div class="sum-item"><span class="sk" style="width:70%"></span><span class="sk" style="width:50%;height:22px;margin-top:8px"></span></div>').join('')}</section><section class="card"><table class="grid"><tbody>${Array(7).fill('<tr>' + Array(7).fill('<td><span class="sk" style="width:75%"></span></td>').join('') + '</tr>').join('')}</tbody></table></section>`; return; }
+  if (S.err) { $('slot').innerHTML = `<div class="alert alert-danger" role="alert">${icon('block')}<div>Couldn't load receivables & payables data. Check your network connection and try again.</div><div class="alert-actions"><button class="btn btn-secondary btn-sm" type="button" id="retry">${icon('refresh')}Retry</button></div></div>`; $('retry').onclick = () => { S.err = false; render(); }; v.innerHTML = ''; return; }
+  if (S.empty) { v.innerHTML = `<section class="card"><div class="empty">${icon('book')}<h3>${S.tab === 'ar' ? 'No receivables yet' : 'No subcontractor payables yet'}</h3><p>${S.tab === 'ar' ? 'Receivables are created automatically when invoices are issued.' : 'Payables are created when subcontracted trips are completed.'}</p>${S.tab === 'ar' ? '<a class="btn btn-primary" href="fm-26-hoa-don.html">Open Invoices</a>' : '<a class="btn btn-primary" href="fm-08-dieu-phoi.html">Open Dispatch</a>'}</div></section>`; return; }
+  S.tab === 'ar' ? ar(v) : ap(v);
+}
+function agBar(vals, max) {
+  const t = vals.reduce((a, b) => a + b, 0);
+  return `<div class="ag" style="width:${(t / max * 100).toFixed(1)}%" role="img" aria-label="Aging: ${['0–30', '31–60', '61–90', '> 90'].map((l, k) => `${l} days ${fmt.dec(vals[k])}M`).join(', ')}">${vals.map((x, k) => x ? `<i class="a${k + 1}" style="flex:${x}" title="${['0–30', '31–60', '61–90', '> 90'][k]} days: ${fmt.vnd(x * TR)}"></i>` : '').join('')}</div>`;
+}
+function ar(v) {
+  const tot = S.ar.reduce((s, a) => s + bal(a), 0), b = [2, 3, 4, 5].map(sum), over60 = b[2] + b[3];
+  const rows = S.ar.slice().sort((x, y) => S.sort === 'old' ? (y[5] * 1e6 + y[4] * 1e3 + y[3]) - (x[5] * 1e6 + x[4] * 1e3 + x[3]) : bal(y) - bal(x));
+  const max = Math.max(...S.ar.map(bal));
+  const cell = (x, hot) => `<td class="right num ${x ? (hot ? 'hot' : '') : 'zero'}">${x ? fmt.dec(x) : '—'}</td>`;
+  v.innerHTML = `
+    <section class="summary" aria-label="Receivables summary">
+      <div class="sum-main"><span class="k">Total receivables</span><span class="v" title="${fmt.vnd(tot * TR)}">${fmt.short(tot * TR)}</span><span class="d">${S.ar.filter(a => bal(a) > 0).length} customers · ${fmt.pct(b[0] / tot * 100)} within 30 days</span></div>
+      <div class="sum-item"><span class="k">Over 60 days</span><span class="v">${fmt.short(over60 * TR)}</span><span class="d">${b[3] ? `of which > 90 days: <b class="neg num">${fmt.short(b[3] * TR)}</b>` : 'No debt > 90 days'}</span></div>
+      <div class="sum-item"><span class="k">Collected in November</span><span class="v">${fmt.short(612.4 * TR)}</span><span class="d">18 payments</span></div>
+      <div class="sum-item"><span class="k">Average days to collect</span><span class="v">41 <small style="font:600 14px var(--font-body);color:var(--fg-muted)">days</small></span><span class="d">October: 44 days</span></div>
+    </section>
+    <section class="card">
+      <div class="card-title"><h2>Aging by customer</h2><span class="count-pill">${S.ar.length}</span>
+        <div class="meta"><span class="legend"><span><i class="a1"></i>0–30 days</span><span><i class="a2"></i>31–60</span><span><i class="a3"></i>61–90</span><span><i class="a4"></i>&gt; 90 days</span></span>
+        <div class="seg" role="group" aria-label="Sort" style="height:30px"><button type="button" data-s="bal" aria-pressed="${S.sort === 'bal'}">Balance</button><button type="button" data-s="old" aria-pressed="${S.sort === 'old'}">Oldest debt</button></div></div></div>
+      <div class="total-bar">${agBar(b, b.reduce((a, c) => a + c, 0))}<div class="ticks">${b.map((x, k) => `<span style="flex:${Math.max(x, tot * .09)}"><b>${fmt.short(x * TR)}</b> · ${['0–30', '31–60', '61–90', '> 90'][k]}</span>`).join('')}</div></div>
+      <div class="grid-wrap"><table class="grid ar"><thead><tr><th>Customer</th><th class="right">Balance</th><th>Aging breakdown</th><th class="right">0–30</th><th class="right">31–60</th><th class="right">61–90</th><th class="right">&gt; 90</th><th></th></tr></thead><tbody>
+      ${rows.map(a => `<tr data-c="${a[0]}"><td><b style="font-weight:600">${a[0]}</b><span class="cell-sub">${a[1]}</span></td><td class="right num"><b>${fmt.vnd(bal(a) * TR)}</b></td><td class="bar">${agBar(a.slice(2), max)}</td>${cell(a[2])}${cell(a[3])}${cell(a[4])}${cell(a[5], true)}
+        <td class="right"><button class="btn btn-ghost btn-sm" type="button" data-st="${a[0]}">${icon('download')}Statement</button><button class="btn btn-secondary btn-sm" type="button" data-p="${a[0]}">Record payment</button></td></tr>`).join('')}
+      </tbody><tfoot><tr><td>Total</td><td class="right num">${fmt.vnd(tot * TR)}</td><td></td>${b.map(x => `<td class="right num">${fmt.dec(x)}</td>`).join('')}<td></td></tr></tfoot></table></div>
+      <div class="sm muted gridfoot">Amounts in the aging columns are in millions of ₫; age is counted from the invoice date. Click a row to see outstanding invoices and record a payment.</div>
+    </section>`;
+  v.querySelectorAll('[data-s]').forEach(b => b.onclick = () => { S.sort = b.dataset.s; render(); });
+  v.querySelectorAll('tr[data-c]').forEach(tr => tr.onclick = e => { if (e.target.closest('button')) return; openPay(tr.dataset.c); });
+  v.querySelectorAll('[data-p]').forEach(b => b.onclick = () => openPay(b.dataset.p));
+  v.querySelectorAll('[data-st]').forEach(b => b.onclick = () => stmtModal(b.dataset.st));
+}
+function ap(v) {
+  const open = S.ap.filter(x => x.st !== 'paid'), left = x => x.fee - x.paid;
+  const tot = open.reduce((s, x) => s + left(x), 0), over = open.filter(x => x.st === 'over'), due = open.filter(x => x.st === 'due');
+  const vens = [...new Set(S.ap.map(x => x.ven))];
+  const list = S.ap.filter(x => S.ven === 'all' || x.ven === S.ven);
+  const selAmt = [...S.sel].reduce((s, id) => s + left(S.ap.find(x => x.id === id)), 0);
+  v.innerHTML = `
+    <section class="summary" aria-label="Payables summary">
+      <div class="sum-main"><span class="k">Subcontractor payables</span><span class="v" title="${fmt.vnd(tot)}">${fmt.short(tot)}</span><span class="d">${open.length} trips · ${vens.length} carriers</span></div>
+      <div class="sum-item"><span class="k">Overdue</span><span class="v ${over.length ? 'hot' : ''}">${fmt.short(over.reduce((s, x) => s + left(x), 0))}</span><span class="d">${over.length} trips</span></div>
+      <div class="sum-item"><span class="k">Due this week</span><span class="v">${fmt.short(due.reduce((s, x) => s + left(x), 0))}</span><span class="d">${due.length} trips · by 15/11</span></div>
+      <div class="sum-item"><span class="k">Awaiting reconciliation</span><span class="v">${open.filter(x => x.st === 'wait').length}</span><span class="d">Missing POD or carrier statement</span></div>
+    </section>
+    <section class="card">
+      <div class="card-title"><h2>By trip</h2>
+        <div class="meta"><div class="seg" role="group" aria-label="Carrier" style="height:30px"><button type="button" data-v="all" aria-pressed="${S.ven === 'all'}">All</button>${vens.map(x => `<button type="button" data-v="${x}" aria-pressed="${S.ven === x}">${x.replace(/^(Nhà xe|Vận tải) /, '')}</button>`).join('')}</div></div></div>
+      <div class="bulk">${S.sel.size ? `<span class="sm"><b>${S.sel.size}</b> trips · <b class="num">${fmt.vnd(selAmt)}</b></span><button class="btn btn-primary btn-sm" type="button" id="bulkPay">Mark as paid</button><button class="btn btn-ghost btn-sm" type="button" id="bulkClear">Clear selection</button>` : '<span class="sm muted">Select trips from the same carrier to record them as one bank transfer.</span>'}</div>
+      <div class="grid-wrap"><table class="grid ap"><thead><tr><th style="width:36px"></th><th>Trip ID</th><th>Vehicle · driver</th><th>Route</th><th class="right">Hire rate</th><th class="right">Paid</th><th class="right">Balance due</th><th>Due date</th><th>Status</th></tr></thead><tbody>
+      ${vens.filter(x => S.ven === 'all' || x === S.ven).map(ven => { const g = list.filter(x => x.ven === ven), gl = g.reduce((s, x) => s + (x.st === 'paid' ? 0 : left(x)), 0);
+        return `<tr class="grp"><td></td><td colspan="5">${ven} <span class="muted" style="font-weight:400">· ${g.length} trips</span></td><td class="right num">${fmt.vnd(gl)}</td><td colspan="2"></td></tr>` + g.map(x => { const m = APST[x.st];
+          return `<tr><td>${x.st === 'paid' || x.st === 'wait' ? '' : `<input type="checkbox" data-sel="${x.id}" ${S.sel.has(x.id) ? 'checked' : ''} aria-label="Select ${x.id}">`}</td><td><a class="code" href="fm-09-chi-tiet-chuyen.html">${x.id}</a><span class="cell-sub num">${x.d}/2026</span></td><td><span class="code">${x.plate}</span><span class="cell-sub">${x.drv}</span></td><td>${x.route}</td>
+            <td class="right num">${fmt.vnd(x.fee)}</td><td class="right num">${x.paid ? fmt.vnd(x.paid) : '—'}</td><td class="right num"><b>${x.st === 'paid' ? '—' : fmt.vnd(left(x))}</b></td><td class="num">${x.due}/2026</td>
+            <td><span class="badge ${m[1]}">${icon(m[2])}${m[0]}</span>${x.note ? `<span class="cell-sub">${x.note}</span>` : ''}</td></tr>`; }).join(''); }).join('')}
+      </tbody></table></div>
+      <div class="sm muted gridfoot">The hire rate is taken from the subcontracted truck assignment in Dispatch. Trips without POD stay in Awaiting reconciliation and can't be selected for payment yet.</div>
+    </section>`;
+  v.querySelectorAll('[data-v]').forEach(b => b.onclick = () => { S.ven = b.dataset.v; render(); });
+  v.querySelectorAll('[data-sel]').forEach(c => c.onchange = () => { c.checked ? S.sel.add(c.dataset.sel) : S.sel.delete(c.dataset.sel); render(); });
+  const bp = $('bulkPay'); if (bp) bp.onclick = payAp;
+  const bc = $('bulkClear'); if (bc) bc.onclick = () => { S.sel.clear(); render(); };
+}
+function payAp() {
+  if (!S.sel.size) { toast('Select the trips to mark as paid in the table'); return; }
+  const ids = [...S.sel], prev = ids.map(id => { const x = S.ap.find(y => y.id === id); return [x, x.st, x.paid]; });
+  const amt = prev.reduce((s, [x]) => s + x.fee - x.paid, 0);
+  prev.forEach(([x]) => { x.paid = x.fee; x.st = 'paid'; }); S.sel.clear(); render();
+  toast(`Recorded payment of ${fmt.vnd(amt)} for ${ids.length} trips`, { undo: () => { prev.forEach(([x, st, p]) => { x.st = st; x.paid = p; }); render(); } });
+}
+
+/* ---------- Ghi nhận thanh toán (drawer) ---------- */
+function openPay(cust) {
+  const a = S.ar.find(x => x[0] === (cust || 'Gỗ Minh Long'));
+  const inv = invoicesOf(a);
+  const P = { amt: Math.round(inv.slice(0, 2).reduce((s, x) => s + x[3], 0) * TR), chk: new Set() };
+  const s = document.createElement('div'); s.className = 'scrim';
+  const d = document.createElement('aside'); d.className = 'drawer'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'pTitle');
+  const close = () => { Shell.dismiss(s); Shell.dismiss(d); }; s.onclick = close;
+  const fifo = () => { let r = P.amt; P.alloc = inv.map(x => { const v = Math.min(r, x[3] * TR); r -= v; return v; }); P.rest = r; };
+  const draw = () => {
+    fifo();
+    d.innerHTML = `<div class="drawer-head"><div class="row"><h2 id="pTitle">Record payment · ${a[0]}</h2><button class="icon-btn" id="x" aria-label="Close (Esc)" style="margin-left:auto">${icon('x', 'lg')}</button></div><span class="sm muted">Current balance <b class="num" style="color:var(--fg)">${fmt.vnd(bal(a) * TR)}</b> · ${a[1]}</span></div>
+      <div class="drawer-body">
+        <div class="form2"><label class="field"><span>Amount received *</span><input class="input num right" id="amt" value="${fmt.vnd(P.amt, { bare: 1 })}"></label><label class="field"><span>Date received *</span><input class="input num" value="12/11/2026"></label>
+          <label class="field"><span>Method</span><select class="select"><option>Bank transfer</option><option>Cash</option><option>Debt offset</option></select></label><label class="field"><span>Bank reference no.</span><input class="input" placeholder="VD: FT26316123456"></label></div>
+        <div class="stack" style="gap:8px"><div class="section-title"><h3>Allocate to invoices</h3><span class="sm muted">Auto-allocated to the oldest invoices first</span></div>
+          <div class="grid-wrap"><table class="grid alloc"><thead><tr><th>Invoice no.</th><th>Invoice date</th><th class="right">Age</th><th class="right">Outstanding</th><th class="right">Allocation</th></tr></thead><tbody>
+          ${inv.map((x, k) => `<tr><td class="code">${x[0]}</td><td class="num">${x[1]}</td><td class="right num ${x[2] > 90 ? 'neg' : ''}">${x[2]} days</td><td class="right num">${fmt.vnd(x[3] * TR)}</td><td class="right num"><b>${P.alloc[k] ? fmt.vnd(P.alloc[k]) : '—'}</b>${P.alloc[k] && P.alloc[k] < x[3] * TR ? '<span class="cell-sub">partial</span>' : ''}</td></tr>`).join('')}</tbody></table></div>
+          ${P.rest > 0 ? `<div class="alert alert-warning">${icon('warn')}<div>The amount received exceeds the total owed by <b class="num">${fmt.vnd(P.rest)}</b>. The excess is recorded as a customer prepayment.</div></div>` : ''}
+        </div>
+      </div>
+      <div class="drawer-foot"><button class="btn btn-ghost" type="button" id="st" style="margin-right:auto">${icon('download')}Reconciliation statement</button><button class="btn btn-secondary" type="button" id="c">Cancel</button><button class="btn btn-primary" type="button" id="ok" ${P.amt > 0 ? '' : 'disabled'}>Record ${fmt.vnd(P.amt)}</button></div>`;
+    d.querySelector('#x').onclick = close; d.querySelector('#c').onclick = close;
+    d.querySelector('#st').onclick = () => stmtModal(a[0]);
+    const amt = d.querySelector('#amt'); amt.onchange = () => { P.amt = +amt.value.replace(/\D/g, '') || 0; draw(); };
+    d.querySelector('#ok').onclick = () => {
+      const before = a.slice(); let r = P.amt / TR;
+      for (const k of [5, 4, 3, 2]) { const t = Math.min(r, a[k]); a[k] = Math.round((a[k] - t) * 10) / 10; r -= t; }
+      close(); render(); toast(`Recorded ${fmt.vnd(P.amt)} from ${a[0]}`, { undo: () => { before.forEach((x, k) => a[k] = x); render(); } });
+    };
+  };
+  document.body.append(s, d); draw(); d.querySelector('#x').focus({ preventScroll: true });
+}
+
+/* ---------- Bảng kê đối chiếu (modal) ---------- */
+function stmtModal(cust) {
+  const s = document.createElement('div'); s.className = 'scrim modal-scrim';
+  const m = document.createElement('div'); m.className = 'modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-modal', 'true'); m.style.width = 'min(500px, calc(100vw - 32px))';
+  m.innerHTML = `<h2>Export receivables reconciliation statement</h2>
+    <label class="field"><span>Customer</span><select class="select" id="sc">${S.ar.map(a => `<option ${a[0] === (cust || 'Gỗ Minh Long') ? 'selected' : ''}>${a[0]}</option>`).join('')}</select></label>
+    <div class="row" style="gap:12px"><label class="field grow"><span>From</span><input class="input num" value="01/08/2026"></label><label class="field grow"><span>To</span><input class="input num" value="12/11/2026"></label></div>
+    <label class="chk"><input type="checkbox" checked>Trip list: date, trip ID, route, plate, container, freight</label>
+    <label class="chk"><input type="checkbox" checked>Issued invoices and payments received</label>
+    <label class="chk"><input type="checkbox">Include POD photos (.zip file)</label>
+    <label class="field"><span>Format</span><select class="select"><option>Excel (.xlsx)</option><option>PDF with digital signature</option></select></label>
+    <div class="row" style="justify-content:flex-end"><button class="btn btn-secondary" type="button" data-x>Cancel</button><button class="btn btn-primary" type="button" id="go">${icon('download')}Export statement</button></div>`;
+  document.body.append(s, m);
+  const close = () => { Shell.dismiss(s); Shell.dismiss(m); };
+  s.onclick = close; m.querySelector('[data-x]').onclick = close; m.querySelector('[data-x]').focus({ preventScroll: true });
+  m.querySelector('#go').onclick = () => { const c = m.querySelector('#sc').value; close(); toast(`Downloaded "Bang-ke-doi-chieu_${c.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/gi, 'd').replace(/\s+/g, '-')}_01.08-12.11.2026.xlsx"`); };
+}
+$('btnStmt').onclick = () => stmtModal();
+$('btnPay').onclick = () => S.tab === 'ar' ? openPay() : payAp();
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.drawer:not(.leaving), .scrim:not(.leaving), .modal:not(.leaving)').forEach(x => Shell.dismiss(x)); });
+
+Shell.states([['default', 'Receivables'], ['ap', 'Subcontractor payables'], ['pay', 'Record payment'], ['stmt', 'Reconciliation statement'], ['loading', 'Loading'], ['empty', 'Empty'], ['error', 'Error']], st => {
+  document.querySelectorAll('.drawer, .scrim, .modal').forEach(x => x.remove());
+  reset();
+  if (st === 'ap') { S.tab = 'ap'; S.sel = new Set(['CH-0438', 'CH-0441']); }
+  if (st === 'loading') S.loading = true;
+  if (st === 'empty') S.empty = true;
+  if (st === 'error') S.err = true;
+  render();
+  if (st === 'pay') openPay('Gỗ Minh Long');
+  if (st === 'stmt') stmtModal('Gỗ Minh Long');
+});
+</script>
+</body>
+</html>
