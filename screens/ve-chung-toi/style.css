@@ -15,7 +15,7 @@
 }
 .team-member:nth-child(even) .team-member__photo { background: linear-gradient(135deg, var(--accent) 0%, var(--primary-dark) 100%); }
 .team-member__photo span { font: 700 72px/1 var(--font-sans); color: rgba(255,255,255,0.9); letter-spacing: -0.02em; }
-.team-member__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.team-member__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; } /* ảnh chân dung: căn lệch lên để không cắt đầu (khung 4:3 trên mobile) */
 .team-member__body {
   display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
   padding: var(--sp-8) var(--sp-6); background: var(--bg);
