@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   var CHANNEL_COLORS = {
-    'Booking.com': '#4C5FFF',
+    'Booking.com': '#D4A85A',
     'Airbnb': '#F04438',
     'Expedia': '#F2A93C',
     'Agoda': '#2FAE6C',

@@ -2,7 +2,7 @@
    pattern from screens/auth/log-001-login (same split-panel auth layout, same
    tokens) — only the copy/branding is guest-specific. */
 
-.guest-auth-hero { background: linear-gradient(160deg, var(--color-primary-dark) 0%, var(--color-navy-600) 55%, var(--color-primary-600) 140%); }
+.guest-auth-hero { background: linear-gradient(160deg, var(--color-ink) 0%, var(--color-navy-600) 55%, var(--color-primary-600) 140%); }
 
 .guest-demo-hint {
   display: flex; align-items: center; gap: 8px; margin-top: var(--sp-4);

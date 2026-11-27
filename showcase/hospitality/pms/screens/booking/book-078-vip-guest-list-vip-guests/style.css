@@ -15,7 +15,7 @@
 
 .ready-icon {
   width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
-  cursor: pointer; border: none; color: var(--color-white);
+  cursor: pointer; border: none; color: var(--color-on-primary);
 }
 .ready-icon.red { background: var(--color-danger); }
 .ready-icon.blue { background: var(--color-primary); }

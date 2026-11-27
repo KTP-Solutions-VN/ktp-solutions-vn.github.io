@@ -91,7 +91,7 @@
           '<td class="cell-strong">' + prop.name + '</td>' +
           '<td class="cell-num">' + VSV.fmtMoney(v.received, cur) + '</td>' +
           '<td class="cell-num">' + VSV.fmtMoney(v.paid, cur) + '</td>' +
-          '<td class="cell-num" style="color:' + (profit >= 0 ? 'var(--color-success-dark,#166534)' : 'var(--color-danger-dark,#991b1b)') + ';font-weight:700;">' + VSV.fmtMoney(profit, cur) + '</td>' +
+          '<td class="cell-num" style="color:' + (profit >= 0 ? 'var(--color-success-text)' : 'var(--color-danger-dark,#991b1b)') + ';font-weight:700;">' + VSV.fmtMoney(profit, cur) + '</td>' +
           '<td>' + (missing ? '<span class="badge badge-warning">' + missing + ' payment missing</span>' : '<span class="text-xs text-muted">&mdash;</span>') + '</td>' +
           '</tr>';
       }).join('');

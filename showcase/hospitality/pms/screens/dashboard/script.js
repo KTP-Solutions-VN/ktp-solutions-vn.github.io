@@ -37,7 +37,7 @@
     }).join('');
 
     var dots = points.map(function (p) {
-      return '<circle cx="' + p.x.toFixed(1) + '" cy="' + p.y.toFixed(1) + '" r="4" fill="var(--color-primary-dark)" stroke="white" stroke-width="2"><title>' + p.d.day + ': $' + p.d.value.toLocaleString() + '</title></circle>';
+      return '<circle cx="' + p.x.toFixed(1) + '" cy="' + p.y.toFixed(1) + '" r="4" fill="var(--color-primary)" stroke="var(--color-white)" stroke-width="2"><title>' + p.d.day + ': $' + p.d.value.toLocaleString() + '</title></circle>';
     }).join('');
 
     svg.innerHTML =
@@ -46,7 +46,7 @@
       '<stop offset="100%" stop-color="var(--color-primary)" stop-opacity="0"/></linearGradient></defs>' +
       gridLines +
       '<path d="' + areaPath + '" fill="url(#revFill)"/>' +
-      '<path d="' + linePath + '" fill="none" stroke="var(--color-primary-dark)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<path d="' + linePath + '" fill="none" stroke="var(--color-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>' +
       dots + labels;
   })();
 
@@ -57,8 +57,8 @@
   (function renderOccupancyChart() {
     var svg = document.getElementById('occupancy-chart');
     var data = [
-      { label: 'Sentosa Collection', value: 82, color: 'var(--color-primary-dark)' },
-      { label: 'Byron Bay Retreats', value: 71, color: 'var(--color-primary)' },
+      { label: 'Sentosa Collection', value: 82, color: 'var(--color-primary)' },
+      { label: 'Byron Bay Retreats', value: 71, color: 'var(--color-gray-500)' },
       { label: 'Noosa Estates', value: 64, color: 'var(--color-accent)' }
     ];
     var cx = 70, cy = 100, r = 54, sw = 16;

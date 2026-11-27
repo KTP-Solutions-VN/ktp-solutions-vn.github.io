@@ -8,5 +8,5 @@
 .toolbar-select:focus { border-color: var(--color-primary); }
 .chart-svg { width: 100%; height: 200px; }
 .chart-bar { fill: var(--color-primary); }
-.chart-bar:hover { fill: var(--color-primary-dark); }
+.chart-bar:hover { fill: var(--color-primary-hover); }
 .chart-axis-label { font-size: 10px; fill: var(--color-gray-500); }

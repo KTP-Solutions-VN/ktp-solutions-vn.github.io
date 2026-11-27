@@ -27,7 +27,7 @@
   font-size: var(--font-size-sm); color: var(--color-gray-700); cursor: pointer;
 }
 .popover__option:hover { background: var(--color-gray-50); }
-.popover__option input { accent-color: var(--color-primary-dark); }
+.popover__option input { accent-color: var(--color-primary); }
 
 /* Group section headers when "Group by" is active */
 .group-heading td {

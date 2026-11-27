@@ -1,50 +1,59 @@
 /* ==========================================================================
    Azura Manager PMS — Design Tokens & Shared App Shell
-   Brand colors shared with the Azura Stays Channel Manager
-   prototype: #4C5FFF (primary), #00084A (primary dark), #F04438 (accent).
-   See ui-kit-brief.md for the full rationale — do not reinterpret palette.
+   Dark matte theme: matte-black surfaces, champagne-gold accent (#D4A85A).
+   Token names are kept from the light version, re-pointed for dark:
+   --color-white = card/surface, --color-primary-dark = strong text,
+   --color-ink = darkest brand surface (sidebar, heroes),
+   --color-on-primary = text on gold, --color-text-inverse = text on dark/photo.
    ========================================================================== */
 
 :root {
+  color-scheme: dark;
+
   /* Brand */
-  --color-primary: #4C5FFF;
-  --color-primary-dark: #00084A;
-  --color-white: #FFFFFF;
-  --color-accent: #D92D20;
+  --color-primary: #D4A85A;
+  --color-primary-dark: #F2F2F3;
+  --color-white: #1C1C1F;
+  --color-ink: #0E0E10;
+  --color-text-inverse: #FFFFFF;
+  --color-on-primary: #17130B;
+  --color-logo-bg: #FFFFFF;
+  --color-accent: #F2736A;
 
   /* Brand tints/shades */
-  --color-primary-50: #EEF0FF;
-  --color-primary-100: #DCE0FF;
-  --color-primary-600: #3141C0;
-  --color-navy-700: #000636;
-  --color-navy-600: #0A1466;
-  --color-navy-500: #1A2A8C;
-  --color-accent-50: #FEECEB;
-  --color-accent-600: #B42318;
+  --color-primary-50: #2A2419;
+  --color-primary-100: #3D3322;
+  --color-primary-600: #B88A3E;
+  --color-primary-hover: #E3BE7D;
+  --color-navy-700: #0A0A0B;
+  --color-navy-600: #1F1B15;
+  --color-navy-500: #2E281D;
+  --color-accent-50: #33191A;
+  --color-accent-600: #B3352B;
 
-  /* Neutrals — 9-step scale */
-  --color-gray-50: #F7F9FC;
-  --color-gray-100: #EEF1F6;
-  --color-gray-200: #E2E6ED;
-  --color-gray-300: #C9D0DC;
-  --color-gray-400: #667083;
-  --color-gray-500: #5F6B7E;
-  --color-gray-600: #4F5A6B;
-  --color-gray-700: #4B5566;
-  --color-gray-800: #2E3646;
-  --color-gray-900: #1B2430;
+  /* Neutrals — 9-step scale (50 = page background, 900 = body text) */
+  --color-gray-50: #121214;
+  --color-gray-100: #202024;
+  --color-gray-200: #2B2B30;
+  --color-gray-300: #3C3C43;
+  --color-gray-400: #9C9CA6;
+  --color-gray-500: #A6A6AF;
+  --color-gray-600: #B6B6BE;
+  --color-gray-700: #C6C6CD;
+  --color-gray-800: #DCDCE0;
+  --color-gray-900: #ECECEF;
 
-  /* Màu chữ cho trạng thái (đủ tương phản trên nền trắng và nền nhạt cùng tông) */
-  --color-success-text: #17734A;
-  --color-warning-text: #8A5300;
-  --color-danger-text: #B42318;
-  --color-primary-text: #3141C0;
+  /* Màu chữ cho trạng thái (đủ tương phản trên nền surface tối và nền tint cùng tông) */
+  --color-success-text: #5CD49A;
+  --color-warning-text: #F2B85C;
+  --color-danger-text: #FF8F85;
+  --color-primary-text: #E0B96E;
 
   /* Semantic, each with a background tint */
-  --color-success: #2FAE6C;
-  --color-success-bg: #E7F7EF;
+  --color-success: #34C27F;
+  --color-success-bg: #13291E;
   --color-warning: #F2A93C;
-  --color-warning-bg: #FDF3E3;
+  --color-warning-bg: #2D2414;
   --color-danger: var(--color-accent);
   --color-danger-bg: var(--color-accent-50);
   --color-info: var(--color-primary);
@@ -77,9 +86,9 @@
 
   /* Elevation — 4 explicit levels */
   --shadow-0: none;
-  --shadow-1: 0 1px 2px rgba(0, 8, 74, 0.06);
-  --shadow-2: 0 4px 16px rgba(0, 8, 74, 0.08);
-  --shadow-3: 0 16px 40px rgba(0, 8, 74, 0.16);
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-2: 0 4px 16px rgba(0, 0, 0, 0.45);
+  --shadow-3: 0 16px 40px rgba(0, 0, 0, 0.6);
   /* legacy aliases (kept identical to CMS token names) */
   --shadow-sm: var(--shadow-1);
   --shadow-md: var(--shadow-2);
@@ -122,8 +131,8 @@ h1, h2, h3 { margin: 0; color: var(--color-primary-dark); }
 ::selection { background: var(--color-primary-100); color: var(--color-primary-dark); }
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: var(--color-gray-100); }
-::-webkit-scrollbar-thumb { background: #1F466E; border-radius: 0; }
-::-webkit-scrollbar-thumb:hover { background: #16324f; }
+::-webkit-scrollbar-thumb { background: #3A3A40; border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: #4A4A52; }
 :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
 
 /* -------------------------------------------------------------------- */
@@ -139,8 +148,9 @@ h1, h2, h3 { margin: 0; color: var(--color-primary-dark); }
 .sidebar {
   width: var(--sidebar-width);
   flex-shrink: 0;
-  background: linear-gradient(180deg, var(--color-primary-dark) 0%, var(--color-navy-700) 100%);
-  color: var(--color-white);
+  background: var(--color-ink);
+  border-right: 1px solid var(--color-gray-200);
+  color: var(--color-text-inverse);
   display: flex;
   flex-direction: column;
   position: sticky;
@@ -167,7 +177,7 @@ body.sidebar-collapsed .sidebar { width: var(--sidebar-width-collapsed); }
   height: 32px;
   width: 32px;
   object-fit: contain;
-  background: var(--color-white);
+  background: var(--color-logo-bg);
   border-radius: var(--radius-sm);
   padding: 3px;
   flex-shrink: 0;
@@ -176,7 +186,7 @@ body.sidebar-collapsed .sidebar { width: var(--sidebar-width-collapsed); }
 .sidebar__brand-text {
   font-size: var(--font-size-md);
   font-weight: 700;
-  color: var(--color-white);
+  color: var(--color-text-inverse);
   letter-spacing: 0.01em;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -207,7 +217,7 @@ body.sidebar-collapsed .sidebar__brand-text { display: none; }
   text-align: left;
 }
 
-.nav-group__header:hover { background: rgba(255, 255, 255, 0.08); color: var(--color-white); }
+.nav-group__header:hover { background: rgba(255, 255, 255, 0.08); color: var(--color-text-inverse); }
 
 .nav-group__header .nav-icon { width: 18px; height: 18px; flex-shrink: 0; }
 
@@ -254,11 +264,11 @@ body.sidebar-collapsed .sidebar__brand-text { display: none; }
   display: inline-flex; align-items: center; justify-content: center;
 }
 
-.nav-item:hover, .nav-subitem:hover { background: rgba(255, 255, 255, 0.08); color: var(--color-white); }
+.nav-item:hover, .nav-subitem:hover { background: rgba(255, 255, 255, 0.08); color: var(--color-text-inverse); }
 
 .nav-item.active, .nav-subitem.active {
   background: var(--color-primary);
-  color: var(--color-white);
+  color: var(--color-on-primary);
   font-weight: 700;
 }
 
@@ -288,8 +298,8 @@ body.sidebar-collapsed .nav-subitem { padding-left: 0; }
   left: calc(100% + 10px);
   top: 50%;
   transform: translateY(-50%);
-  background: var(--color-primary-dark);
-  color: var(--color-white);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
   font-size: var(--font-size-xs);
   font-weight: 600;
   padding: 6px 10px;
@@ -486,7 +496,7 @@ body.sidebar-collapsed .sidebar-toggle svg { transform: rotate(180deg); }
 
 .avatar {
   width: 32px; height: 32px; border-radius: 50%;
-  background: var(--color-primary); color: var(--color-white);
+  background: var(--color-primary); color: var(--color-on-primary);
   display: flex; align-items: center; justify-content: center;
   font-weight: 700; font-size: var(--font-size-sm); flex-shrink: 0;
 }
@@ -529,11 +539,11 @@ body.sidebar-collapsed .sidebar-toggle svg { transform: rotate(180deg); }
 .btn svg { width: 16px; height: 16px; flex-shrink: 0; }
 .btn:active { transform: translateY(1px); }
 
-.btn-primary { background: var(--color-primary-dark); color: var(--color-white); }
-.btn-primary:hover { background: var(--color-navy-500); }
+.btn-primary { background: var(--color-primary); color: var(--color-on-primary); }
+.btn-primary:hover { background: var(--color-primary-hover); }
 
-.btn-accent { background: var(--color-accent); color: var(--color-white); }
-.btn-accent:hover { background: var(--color-accent-600); }
+.btn-accent { background: var(--color-accent-600); color: var(--color-text-inverse); }
+.btn-accent:hover { background: #C63E33; }
 
 .btn-outline { background: var(--color-white); color: var(--color-primary-dark); border-color: var(--color-gray-300); }
 .btn-outline:hover { border-color: var(--color-primary); color: var(--color-primary-dark); background: var(--color-primary-50); }
@@ -624,7 +634,7 @@ table.data-table tbody tr.clickable { cursor: pointer; }
 .pagination { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; font-size: var(--font-size-xs); color: var(--color-gray-500); }
 .pagination .pager-btns { display: flex; gap: 6px; }
 .pagination button { width: 30px; height: 30px; border-radius: var(--radius-sm); border: 1px solid var(--color-gray-200); background: var(--color-white); cursor: pointer; color: var(--color-gray-700); }
-.pagination button.active { background: var(--color-primary-dark); border-color: var(--color-primary-dark); color: var(--color-white); }
+.pagination button.active { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-on-primary); }
 .pagination button:hover:not(.active) { border-color: var(--color-primary); }
 
 /* -------------------------------------------------------------------- */
@@ -725,7 +735,7 @@ table.data-table tbody tr.clickable { cursor: pointer; }
 /* -------------------------------------------------------------------- */
 
 .modal-overlay {
-  position: fixed; inset: 0; background: rgba(2, 24, 45, 0.55);
+  position: fixed; inset: 0; background: rgba(0, 0, 0, 0.55);
   display: none; align-items: center; justify-content: center; z-index: 100; padding: 24px;
 }
 .modal-overlay.open { display: flex; }
@@ -755,7 +765,7 @@ table.data-table tbody tr.clickable { cursor: pointer; }
 /* existing .modal — no other markup or JS changes needed.               */
 /* -------------------------------------------------------------------- */
 
-.modal-overlay.drawer-overlay { justify-content: flex-end; align-items: stretch; padding: 0; background: rgba(2, 24, 45, 0.45); }
+.modal-overlay.drawer-overlay { justify-content: flex-end; align-items: stretch; padding: 0; background: rgba(0, 0, 0, 0.45); }
 .modal.drawer {
   max-width: 440px; width: 100%; height: 100%; max-height: 100%;
   border-radius: 0; box-shadow: var(--shadow-3);
@@ -809,7 +819,7 @@ body.sidebar-collapsed .reset-demo-btn { left: calc(var(--sidebar-width-collapse
 
 /* Toast */
 .toast {
-  position: fixed; bottom: 24px; right: 24px; background: var(--color-primary-dark); color: var(--color-white);
+  position: fixed; bottom: 24px; right: 24px; background: var(--color-primary); color: var(--color-on-primary);
   padding: 14px 20px; border-radius: var(--radius-md); box-shadow: var(--shadow-3);
   font-size: var(--font-size-sm); font-weight: 600; z-index: 200;
   display: flex; align-items: center; gap: 10px;

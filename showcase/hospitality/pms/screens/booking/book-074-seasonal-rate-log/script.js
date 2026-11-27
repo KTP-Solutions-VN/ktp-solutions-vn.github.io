@@ -147,11 +147,11 @@ document.addEventListener('DOMContentLoaded', function () {
       var y = h - pad - ((v - min) / range) * (h - pad * 2);
       return x + ',' + y;
     }).join(' ');
-    svg.innerHTML = '<polyline points="' + pts + '" fill="none" stroke="var(--color-primary-dark, #00084A)" stroke-width="2"/>' +
+    svg.innerHTML = '<polyline points="' + pts + '" fill="none" stroke="var(--color-primary)" stroke-width="2"/>' +
       values.map(function (v, i) {
         var x = pad + i * step;
         var y = h - pad - ((v - min) / range) * (h - pad * 2);
-        return '<circle cx="' + x + '" cy="' + y + '" r="2.5" fill="#4C5FFF"/>';
+        return '<circle cx="' + x + '" cy="' + y + '" r="2.5" fill="#D4A85A"/>';
       }).join('');
   }
 

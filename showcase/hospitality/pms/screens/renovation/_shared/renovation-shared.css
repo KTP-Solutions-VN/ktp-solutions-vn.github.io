@@ -40,7 +40,7 @@
   position: relative;
 }
 .ren-photo-card__thumb svg { width: 26px; height: 26px; }
-.ren-photo-card__thumb.tone-1 { background: linear-gradient(135deg, var(--color-primary-600), var(--color-primary-dark)); }
+.ren-photo-card__thumb.tone-1 { background: linear-gradient(135deg, var(--color-primary-600), var(--color-ink)); }
 .ren-photo-card__thumb.tone-2 { background: linear-gradient(135deg, #6FCF97, var(--color-success)); }
 .ren-photo-card__thumb.tone-3 { background: linear-gradient(135deg, #F2A93C, #C97B1E); }
 .ren-photo-card__thumb.tone-4 { background: linear-gradient(135deg, var(--color-accent), var(--color-accent-600)); }
@@ -68,7 +68,7 @@
   display: flex; gap: 12px; align-items: flex-start;
   background: var(--color-warning-bg); border: 1px solid rgba(242, 169, 60, 0.35);
   border-radius: var(--radius-md); padding: 14px 16px; margin-bottom: var(--sp-4);
-  font-size: var(--font-size-sm); color: #8a5a10;
+  font-size: var(--font-size-sm); color: var(--color-warning-text);
 }
 .ren-warning-banner svg { width: 20px; height: 20px; flex-shrink: 0; color: var(--color-warning-text); }
 .ren-warning-banner a { font-weight: 700; color: var(--color-primary-dark); text-decoration: underline; }

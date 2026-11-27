@@ -20,5 +20,5 @@
   }).join('');
   svg.innerHTML =
     '<path d="' + pathFor(lastYear) + '" fill="none" stroke="var(--color-gray-300)" stroke-width="2" stroke-dasharray="4 3"/>' +
-    '<path d="' + pathFor(thisYear) + '" fill="none" stroke="var(--color-primary-dark)" stroke-width="2.5"/>' + labels;
+    '<path d="' + pathFor(thisYear) + '" fill="none" stroke="var(--color-primary)" stroke-width="2.5"/>' + labels;
 })();

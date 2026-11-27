@@ -22,7 +22,7 @@
 
 .gc-option-strip { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
 .gc-option-btn { border: 1px solid var(--color-gray-200); background: var(--color-white); color: var(--color-gray-700); border-radius: var(--radius-pill); padding: 6px 14px; font-size: var(--font-size-sm); font-weight: 600; cursor: pointer; }
-.gc-option-btn.active { background: var(--color-primary-dark); border-color: var(--color-primary-dark); color: var(--color-white); }
+.gc-option-btn.active { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-on-primary); }
 
 .gc-vars { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0 12px; }
 .gc-var-tag { font-family: var(--font-mono, monospace); font-size: 11px; background: var(--color-gray-100); color: var(--color-primary-dark); border: 1px solid var(--color-gray-200); border-radius: var(--radius-sm); padding: 3px 8px; cursor: pointer; }

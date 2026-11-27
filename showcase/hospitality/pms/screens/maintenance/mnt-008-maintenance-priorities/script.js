@@ -28,7 +28,7 @@
       editingId = null;
       document.getElementById('modal-title').textContent = 'Add Priority';
       document.getElementById('item-form').reset();
-      document.getElementById('f-color').value = '#4C5FFF';
+      document.getElementById('f-color').value = '#D4A85A';
       MM.openModal('item-modal');
     });
 

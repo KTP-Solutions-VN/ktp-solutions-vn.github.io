@@ -27,7 +27,7 @@
 .pd-map {
   margin-top: 6px; height: 220px; border-radius: var(--radius-md); border: 1px solid var(--color-gray-200);
   background:
-    linear-gradient(rgba(0, 8, 74,0.06), rgba(0, 8, 74,0.06)),
+    linear-gradient(rgba(0, 0, 0,0.06), rgba(0, 0, 0,0.06)),
     repeating-linear-gradient(0deg, var(--color-gray-100) 0 1px, transparent 1px 32px),
     repeating-linear-gradient(90deg, var(--color-gray-100) 0 1px, transparent 1px 32px),
     var(--color-primary-50);

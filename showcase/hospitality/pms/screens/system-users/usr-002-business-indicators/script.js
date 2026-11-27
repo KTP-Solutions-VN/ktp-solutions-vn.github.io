@@ -9,7 +9,7 @@
     var y = padT + i * (barH + gap);
     var w = (d.value / max) * innerW;
     return '<text x="' + (padL - 10) + '" y="' + (y + barH / 2 + 4) + '" text-anchor="end" font-size="12" fill="var(--color-gray-700)">' + d.label + '</text>' +
-      '<rect x="' + padL + '" y="' + y + '" width="' + w + '" height="' + barH + '" rx="6" fill="var(--color-primary-dark)"/>' +
+      '<rect x="' + padL + '" y="' + y + '" width="' + w + '" height="' + barH + '" rx="6" fill="var(--color-primary)"/>' +
       '<text x="' + (padL + w + 8) + '" y="' + (y + barH / 2 + 4) + '" font-size="12" font-weight="700" fill="var(--color-primary-dark)">$' + d.value.toLocaleString() + '</text>';
   }).join('');
   svg.innerHTML = bars;

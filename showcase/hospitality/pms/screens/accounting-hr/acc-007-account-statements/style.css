@@ -6,9 +6,9 @@
   cursor: pointer; transition: all var(--transition-fast);
 }
 .stmt-account-tab:hover { border-color: var(--color-primary); color: var(--color-primary-dark); }
-.stmt-account-tab.active { background: var(--color-primary-dark); border-color: var(--color-primary-dark); color: var(--color-white); }
+.stmt-account-tab.active { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-on-primary); }
 .banner-locked {
-  background: var(--color-warning-bg); color: #8a5a12; border-radius: var(--radius-md);
+  background: var(--color-warning-bg); color: var(--color-warning-text); border-radius: var(--radius-md);
   padding: 10px 14px; font-size: var(--font-size-sm); font-weight: 600; margin-bottom: 16px;
 }
 .amount-in { color: var(--color-success-text); font-weight: 700; }

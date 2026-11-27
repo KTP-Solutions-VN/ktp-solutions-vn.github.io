@@ -218,8 +218,8 @@
   /* Seasons (BOOK-073/074) — declared per Region, shared by every     */
   /* villa in that region.                                              */
   /* ---------------------------------------------------------------- */
-  var SEASON_COLORS = { 'Low Season': '#8A94A6', 'Mid Season': '#3141C0', 'High Season': '#F2A93C', 'Peak Season': '#F04438' };
-  BOOK.seasonColor = function (name) { return SEASON_COLORS[name] || '#4C5FFF'; };
+  var SEASON_COLORS = { 'Low Season': '#5C6270', 'Mid Season': '#8A6420', 'High Season': '#A35F0E', 'Peak Season': '#B3352B' };
+  BOOK.seasonColor = function (name) { return SEASON_COLORS[name] || '#8A6420'; };
 
   BOOK.SEASONS_BASE = {
     'RG-01': [ // Sentosa Collection

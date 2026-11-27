@@ -15,7 +15,7 @@
 }
 .news-card__banner {
   height: 110px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-ink) 100%);
 }
 .news-card__body {
   padding: 16px;

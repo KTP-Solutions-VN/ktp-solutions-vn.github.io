@@ -18,7 +18,7 @@ body.owp-body { background: var(--color-gray-50); }
 }
 
 .owp-topnav__brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--color-primary-dark); }
-.owp-topnav__brand img { height: 30px; width: 30px; object-fit: contain; background: var(--color-white); border-radius: var(--radius-sm); padding: 3px; border: 1px solid var(--color-gray-200); }
+.owp-topnav__brand img { height: 30px; width: 30px; object-fit: contain; background: var(--color-logo-bg); border-radius: var(--radius-sm); padding: 3px; border: 1px solid var(--color-gray-200); }
 .owp-topnav__brand small { display: block; font-size: 10px; font-weight: 600; color: var(--color-gray-500); text-transform: uppercase; letter-spacing: 0.04em; }
 
 .owp-topnav__links { display: flex; align-items: center; gap: 4px; }

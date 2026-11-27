@@ -6,7 +6,7 @@ Status: locked. This file is the single source of truth for every screen generat
 
 - Source material: the screen sitemap `_spec/en-pms-sitemap.md` (579 screens across 27 sub-modules / 12 business groups, each with route + navigation data) and `_spec/en-screens/<CODE>-*.md` (one field-level spec per screen). Treat `en-pms-sitemap.md` as `scope-and-sitemap.md` and the `en-screens/` folder as the per-screen detail normally implied by it.
 - The "Opened From" / "Navigates To" columns in `en-pms-sitemap.md` are **authoritative real navigation** — reuse them directly when wiring links/breadcrumbs instead of inventing new cross-links. Popups (`-P1`, `-P2`, ...) are never sidebar destinations; they only open from their documented parent screen.
-- Reference UI kit: the sister prototype `../cms/` ("Azura Stays Channel Manager"). **This PMS build reuses its exact design tokens verbatim** (see §2) so the two products feel like one family, not a redesign — do not invent a new palette.
+- Reference UI kit: the sister prototype `../cms/` ("Azura Stays Channel Manager"). The PMS keeps its token *names*, spacing, typography and components, but ships its own **dark matte theme with a champagne-gold accent** (see §2).
 - Explicit user instruction: **build all 579 screens with full behavior** (not a static subset) — every screen therefore follows the "main workflow" interactivity rules in `reference/interactivity-guide.md` (form validation, localStorage persistence, working filter/sort, delete confirmation) — not just the 4 confirmed workflows below. The 4 confirmed workflows get **extra** attention (richer mock data, more edge cases, first ones built/QA'd) but no screen is left as click-only static UI.
 - Folder naming deviation: because this sitemap is organized by 3-letter prefix (`PROP`, `BOOK`, `ACC`, ...) rather than free-form Vietnamese screen names, `screens/<module>/` uses the kebab-case slug of the prefix's English module name (see §5 table), and each screen folder is `screens/<module>/<code-lowercase>-<slug>/` (e.g. `screens/booking/book-001-search-availability/`) — the code prefix is kept in the folder name for traceability back to `en-screens/<CODE>-*.md`, unlike the plain-Vietnamese-slug convention in the base skill.
 
@@ -19,46 +19,42 @@ Status: locked. This file is the single source of truth for every screen generat
 - **Page `<title>` pattern:** `<Screen Name> — Azura Manager`.
 - **Sidebar footer disclaimer (below the Logout item):** `Azura Stays PMS · Prototype v0.1` (mirrors CMS's `Azura Stays CMS · Prototype v0.1`).
 
-## 2. Color palette — reused verbatim from the CMS reference (do not reinterpret)
+## 2. Color palette — dark matte theme, champagne-gold accent
+
+Token names are shared with the CMS so components stay identical; the values are re-pointed for a dark UI (source of truth: `assets/css/global.css`).
 
 ```css
---color-primary: #4C5FFF;
---color-primary-dark: #00084A;
---color-white: #FFFFFF;
---color-accent: #F04438;
+color-scheme: dark;
+--color-primary: #D4A85A;        /* gold accent: buttons, active nav, charts, focus */
+--color-primary-dark: #F2F2F3;   /* strong text: headings, KPI numbers */
+--color-white: #1C1C1F;          /* card / surface */
+--color-ink: #0E0E10;            /* sidebar, hero backgrounds */
+--color-on-primary: #17130B;     /* text on gold */
+--color-text-inverse: #FFFFFF;   /* text on dark heroes / photos */
+--color-logo-bg: #FFFFFF;        /* logo tile */
+--color-accent: #F2736A;         /* red, readable as text on dark */
+--color-accent-600: #B3352B;     /* red button background (white text) */
 
---color-primary-50: #EEF0FF;
---color-primary-100: #DCE0FF;
---color-primary-600: #3141C0;
---color-navy-700: #000636;
---color-navy-600: #0A1466;
---color-navy-500: #1A2A8C;
---color-accent-50: #FEECEB;
---color-accent-600: #D92D20;
+--color-primary-50: #2A2419;  --color-primary-100: #3D3322;  --color-primary-600: #B88A3E;
 
---color-gray-50: #F7F9FC;
---color-gray-100: #EEF1F6;
---color-gray-200: #E2E6ED;
---color-gray-300: #C9D0DC;
---color-gray-400: #A7B0C0;
---color-gray-500: #8A94A6;
---color-gray-600: #6B7688;
---color-gray-700: #4B5566;
---color-gray-800: #2E3646;
---color-gray-900: #1B2430;
+--color-gray-50: #121214;  /* page background */
+--color-gray-100: #202024; --color-gray-200: #2B2B30; --color-gray-300: #3C3C43;
+--color-gray-400: #9C9CA6; --color-gray-500: #A6A6AF; --color-gray-600: #B6B6BE;
+--color-gray-700: #C6C6CD; --color-gray-800: #DCDCE0; --color-gray-900: #ECECEF;
 
---color-success: #2FAE6C;   --color-success-bg: #E7F7EF;
---color-warning: #F2A93C;   --color-warning-bg: #FDF3E3;
---color-danger:  var(--color-accent);   --color-danger-bg: var(--color-accent-50);
---color-info:    var(--color-primary);  --color-info-bg: var(--color-primary-50);
+--color-success: #34C27F;  --color-success-bg: #13291E;  --color-success-text: #5CD49A;
+--color-warning: #F2A93C;  --color-warning-bg: #2D2414;  --color-warning-text: #F2B85C;
+--color-danger:  var(--color-accent);  --color-danger-bg: #33191A;  --color-danger-text: #FF8F85;
+--color-info:    var(--color-primary); --color-info-bg: var(--color-primary-50);
 ```
 
-Usage rules (same as CMS, restated so every screen applies them without re-deriving):
-- Sidebar background = gradient `Primary-dark → Navy-700` (never white/gray).
-- H1/H2/H3, KPI numbers, `cell-strong` table cells = Primary-dark, not black/gray-900.
-- 4 button kinds, used by role: `btn-primary` (solid Primary-dark), `btn-accent` (solid Accent — max 1 per screen, the one standout CTA), `btn-outline`, `btn-ghost`.
-- Every badge/status pill has a tinted `-bg` background + matching bold text (success/warning/danger/info) — never gray for a real status.
+Usage rules:
+- Sidebar background = solid Ink with a 1px Gray-200 right border.
+- H1/H2/H3, KPI numbers, `cell-strong` table cells = Primary-dark (light text).
+- 4 button kinds, used by role: `btn-primary` (solid gold, dark `on-primary` text — white on gold fails WCAG AA), `btn-accent` (solid Accent-600 with white text — max 1 per screen), `btn-outline`, `btn-ghost`.
+- Every badge/status pill has a tinted dark `-bg` background + matching light status text — never gray for a real status.
 - Every stat/KPI card has a 3px top color strip (primary/accent/success/warning) matching its metric kind.
+- All text tokens reach ≥ 4.5:1 on the surface (`--color-white`).
 
 ## 3. Typography, spacing, radius, shadow, icons — reused verbatim from CMS
 
@@ -66,7 +62,7 @@ Usage rules (same as CMS, restated so every screen applies them without re-deriv
 - Scale: `--font-size-xs:12px / --font-size-sm:13px / --font-size-md:14px (body) / --font-size-lg:16px / --font-size-xl:20px (H3) / --font-size-2xl:26px (H1/page title)`. Add `--font-size-h2: 22px` (600 weight) for section headings between H1 and H3 — CMS didn't need it but a 579-screen build with nested settings pages does.
 - Spacing: formalize CMS's existing paddings into an explicit 4px-grid scale for new components: `--sp-1:4px --sp-2:8px --sp-3:12px --sp-4:16px --sp-6:24px --sp-8:32px --sp-12:48px`.
 - Radius: `--radius-sm:6px --radius-md:10px --radius-lg:16px --radius-pill:999px` (unchanged).
-- Shadow/elevation, 4 explicit levels (extends CMS's 3 into the skill's required 4): level 0 = none (inputs, table rows), level 1 = `--shadow-sm` (default card), level 2 = `--shadow-md` (dropdown/hover/popover), level 3 = `--shadow-lg` + dark overlay (modal). All tinted with Primary-dark, not pure black (already true in CMS).
+- Shadow/elevation, 4 explicit levels (extends CMS's 3 into the skill's required 4): level 0 = none (inputs, table rows), level 1 = `--shadow-sm` (default card), level 2 = `--shadow-md` (dropdown/hover/popover), level 3 = `--shadow-lg` + dark overlay (modal). Pure black shadows (dark theme).
 - Icons: Lucide-style outline SVG, stroke ~1.75px, `currentColor`, inlined directly in HTML — same as CMS. No emoji icons anywhere.
 
 ## 4. New components required by this skill version (not present in the CMS reference — build fresh, same token language)

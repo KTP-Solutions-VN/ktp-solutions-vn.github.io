@@ -34,7 +34,7 @@
 .video-card__preview {
   position: relative;
   height: 150px;
-  background: linear-gradient(135deg, var(--color-navy-600) 0%, var(--color-primary-dark) 100%);
+  background: linear-gradient(135deg, var(--color-navy-600) 0%, var(--color-ink) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,8 +44,8 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.92);
-  color: var(--color-primary-dark);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -102,21 +102,21 @@
 .video-player {
   border-radius: var(--radius-md);
   overflow: hidden;
-  background: var(--color-navy-700, #0d2a4a);
+  background: var(--color-navy-700, #0C0C0D);
 }
 .video-player__surface {
   height: 280px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--color-navy-600) 0%, var(--color-primary-dark) 100%);
+  background: linear-gradient(135deg, var(--color-navy-600) 0%, var(--color-ink) 100%);
 }
 .video-player__play {
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.92);
-  color: var(--color-primary-dark);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
   border: none;
   display: flex;
   align-items: center;

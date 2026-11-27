@@ -61,8 +61,8 @@
       '<defs><linearGradient id="occFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--color-primary)" stop-opacity="0.3"/><stop offset="100%" stop-color="var(--color-primary)" stop-opacity="0"/></linearGradient></defs>' +
       gridLines +
       '<path d="' + areaPath + '" fill="url(#occFill)"/>' +
-      '<path d="' + linePath + '" fill="none" stroke="var(--color-primary-dark)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>' +
-      points.map(function (p) { return '<circle cx="' + p.x.toFixed(1) + '" cy="' + p.y.toFixed(1) + '" r="3" fill="var(--color-primary-dark)"><title>Day ' + (p.i + 1) + ': ' + p.val + '%</title></circle>'; }).join('');
+      '<path d="' + linePath + '" fill="none" stroke="var(--color-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>' +
+      points.map(function (p) { return '<circle cx="' + p.x.toFixed(1) + '" cy="' + p.y.toFixed(1) + '" r="3" fill="var(--color-primary)"><title>Day ' + (p.i + 1) + ': ' + p.val + '%</title></circle>'; }).join('');
   }
 
   document.getElementById('btn-analyse').addEventListener('click', function () {

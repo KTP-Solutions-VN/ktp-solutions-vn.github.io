@@ -137,7 +137,7 @@
     var path = points.map(function (p, i) { return (i === 0 ? 'M' : 'L') + p[0] + ',' + p[1]; }).join(' ');
     var dots = points.map(function (p, i) {
       var label = i === 0 ? 'Office' : (i === points.length - 1 ? 'Villa' : '');
-      return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="6" fill="' + (i === 0 || i === points.length - 1 ? 'var(--color-primary-dark)' : 'var(--color-primary)') + '" stroke="white" stroke-width="2"/>' +
+      return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="6" fill="' + (i === 0 || i === points.length - 1 ? 'var(--color-primary-dark)' : 'var(--color-primary)') + '" stroke="var(--color-white)" stroke-width="2"/>' +
         (label ? '<text x="' + p[0] + '" y="' + (p[1] - 14) + '" text-anchor="middle" font-size="11" fill="var(--color-gray-700)" font-weight="700">' + label + '</text>' : '');
     }).join('');
     svg.innerHTML = '<path d="' + path + '" fill="none" stroke="var(--color-primary)" stroke-width="3" stroke-dasharray="6 5" stroke-linecap="round"/>' + dots;

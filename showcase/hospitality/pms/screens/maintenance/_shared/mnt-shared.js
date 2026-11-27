@@ -13,7 +13,7 @@
   MNT.PRIORITIES = [
     { id: 'pr1', name: 'Urgent', responseTime: 4, color: '#F04438', createdAt: '2024-01-02' },
     { id: 'pr2', name: 'High', responseTime: 24, color: '#F2A93C', createdAt: '2024-01-02' },
-    { id: 'pr3', name: 'Medium', responseTime: 72, color: '#4C5FFF', createdAt: '2024-01-02' },
+    { id: 'pr3', name: 'Medium', responseTime: 72, color: '#D4A85A', createdAt: '2024-01-02' },
     { id: 'pr4', name: 'Low', responseTime: 168, color: '#8A94A6', createdAt: '2024-01-02' }
   ];
 

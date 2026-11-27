@@ -13,5 +13,5 @@
   });
   var path = points.map(function (p, i) { return (i === 0 ? 'M' : 'L') + p.x.toFixed(1) + ',' + p.y.toFixed(1); }).join(' ');
   var labels = months.map(function (m, i) { return '<text x="' + points[i].x + '" y="' + (H - 6) + '" text-anchor="middle" font-size="11" fill="var(--color-gray-500)">' + m + '</text>'; }).join('');
-  svg.innerHTML = '<path d="' + path + '" fill="none" stroke="var(--color-primary-dark)" stroke-width="2.5"/>' + labels;
+  svg.innerHTML = '<path d="' + path + '" fill="none" stroke="var(--color-primary)" stroke-width="2.5"/>' + labels;
 })();

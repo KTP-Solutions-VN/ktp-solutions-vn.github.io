@@ -62,9 +62,9 @@
       gridLines += '<line x1="' + padL + '" y1="' + gy + '" x2="' + (W - padR) + '" y2="' + gy + '" stroke="var(--color-gray-100)" stroke-width="1"/>';
     }
     svg.innerHTML = gridLines +
-      '<path d="' + linePath + '" fill="none" stroke="var(--color-primary-dark)" stroke-width="2.5" stroke-linecap="round"/>' +
+      '<path d="' + linePath + '" fill="none" stroke="var(--color-primary)" stroke-width="2.5" stroke-linecap="round"/>' +
       points.map(function (p, i) {
-        return '<circle cx="' + p.x.toFixed(1) + '" cy="' + p.y.toFixed(1) + '" r="5" fill="var(--color-primary-dark)"/>' +
+        return '<circle cx="' + p.x.toFixed(1) + '" cy="' + p.y.toFixed(1) + '" r="5" fill="var(--color-primary)"/>' +
           '<text x="' + p.x.toFixed(1) + '" y="' + (p.y - 12) + '" text-anchor="middle" font-size="12" fill="var(--color-primary-dark)" font-weight="600">' + p.v + '%</text>' +
           '<text x="' + p.x.toFixed(1) + '" y="' + (H - 6) + '" text-anchor="middle" font-size="11" fill="var(--color-gray-500)">' + labels[i] + '</text>';
       }).join('');
