@@ -8,6 +8,10 @@
  * phần dựng lại sau khi đổi lĩnh vực tự áp ngôn ngữ đang xem (applyLang). */
 (function () {
   'use strict';
+  // khối lĩnh vực: phần "Phân hệ & giải pháp liên quan" (<details>) mở sẵn trên desktop, mobile đóng cho trang gọn
+  if (window.matchMedia('(min-width: 768px)').matches) document.querySelectorAll('.du-an-domain__more').forEach(function (d) { d.open = true; });
+  var liveGrid = document.getElementById('live-projects'); // Dự án đã triển khai (website thật, DATA_TRIEN_KHAI)
+  if (liveGrid) liveGrid.innerHTML = KTP.liveProjects('../../');
   if (typeof DATA_DU_AN === 'undefined') return;
   var K = window.KTPCase, M = window.KTPMotion, en = KTP.en;
   var ROOT = '../../';

@@ -6,6 +6,9 @@
  *   ?app=<prototype>&screen=<màn>        <màn> là đường dẫn trong thư mục prototype (CRM: route); canonical trỏ về ?app=<prototype>
  * Không có ?app → về trang Dự án (lọc lĩnh vực ở đó). Ngôn ngữ dùng chung key localStorage "ktp_lang" với website;
  * prototype có bản tiếng Anh riêng (p.en, VD Fleet) thì khung xem mở bản đó khi đang ở EN.
+ * Điện thoại (PHONE): playground toàn màn hình (ẩn header website, chỉ còn khung xem + nút thoát + danh sách / chuyển màn).
+ *   Prototype có cờ p.mobile (layout responsive): mở ở bề ngang điện thoại, tỉ lệ 1.
+ *   Prototype chỉ có bản desktop: hiện lời khuyên xem trên máy tính, bấm "Vẫn xem bản thu nhỏ" thì hiện bản co như desktop.
  */
 (function () {
   const $ = s => document.querySelector(s);
@@ -20,12 +23,16 @@
       full: "Xem toàn màn hình (tab mới)", collapse: "Thu gọn danh sách màn", nextLabel: "Màn sau", screens: "Ẩn / hiện danh sách màn", collapseAll: "Thu gọn tất cả", expandAll: "Mở tất cả", back: "Tất cả dự án", prev: "Màn trước (←)", next: "Màn sau (→)", desktop: "Desktop 1440px", tablet: "Tablet 1024px",
       mobile: "Mobile 390px", reload: "Tải lại", copy: "Sao chép link màn này", copied: "Đã sao chép link",
       empty: "Không có màn nào khớp", projects: "Dự án",
-      tryN: n => `Bấm thử ${n} màn hình ngay trên trình duyệt.`, demo: "Demo"},
+      tryN: n => `Bấm thử ${n} màn hình ngay trên trình duyệt.`, demo: "Demo",
+      exit: "Thoát, về trang Dự án", deskNote: "Vui lòng xem trên máy tính để có trải nghiệm tốt nhất",
+      deskNoteSub: "Bản mẫu này được thiết kế cho màn hình máy tính.", deskAnyway: "Vẫn xem bản thu nhỏ"},
     en: {screensN: n => `${n} screens`, groupsN: n => `${n} modules`, search: "Search screens…  ( / )",
       full: "Full screen (new tab)", collapse: "Collapse the screen list", nextLabel: "Next", screens: "Show / hide the screen list", collapseAll: "Collapse all", expandAll: "Expand all", back: "All projects", prev: "Previous screen (←)", next: "Next screen (→)", desktop: "Desktop 1440px", tablet: "Tablet 1024px",
       mobile: "Mobile 390px", reload: "Reload", copy: "Copy link to this screen", copied: "Link copied",
       empty: "No matching screens", projects: "Projects",
-      tryN: n => `Try ${n} screens right in your browser.`, demo: "Demo"},
+      tryN: n => `Try ${n} screens right in your browser.`, demo: "Demo",
+      exit: "Exit to Projects", deskNote: "Please view on a desktop for the best experience",
+      deskNoteSub: "This prototype is designed for desktop screens.", deskAnyway: "View scaled-down version anyway"},
   };
   let lang = store.get("ktp_lang", "vi") === "en" ? "en" : "vi";
   const t = (k, ...a) => { const v = T[lang][k]; return typeof v === "function" ? v(...a) : v; };
@@ -39,7 +46,8 @@
   const pdir = p => p.dir + "/" + (lang === "en" && p.en ? p.en : ""); // prototype có bản tiếng Anh riêng (p.en, VD Fleet): mở bản đó khi đang xem EN
   const urlOf = (p, u) => BASE + pdir(p) + u;
   const key = s => s.u.replace(/^\?__p=/, ""); // giá trị ?screen=: đường dẫn màn (CRM: route, VD /jobs/kanban)
-  const state = {p: null, i: 0, w: +store.get("pg.w", 1440), q: "", allOpen: null}; // allOpen: null = tự mở nhóm đang xem
+  const state = {p: null, i: 0, w: +store.get("pg.w", 1440), q: "", allOpen: null, anyway: false}; // allOpen: null = tự mở nhóm đang xem; anyway: đã bấm "Vẫn xem bản thu nhỏ"
+  const PHONE = matchMedia("(max-width: 600px), (max-height: 500px) and (pointer: coarse)"); // điện thoại dọc / ngang
 
   /* ---------------- URL ---------------- */
   function href(o) { // {app, screen} → URL tương đối của trang playground
@@ -50,7 +58,7 @@
   }
   function parse() {
     const q = new URLSearchParams(location.search), p = byId[q.get("app")];
-    if (p !== state.p) { state.q = ""; state.allOpen = null; }
+    if (p !== state.p) { state.q = ""; state.allOpen = null; state.anyway = false; }
     state.p = p || null;
     if (p) { const i = flat(p).findIndex(s => key(s) === q.get("screen")); state.i = i < 0 ? 0 : i; }
   }
@@ -132,6 +140,7 @@
     $("#pos").textContent = `${state.i + 1} / ${list.length}`;
     $("#prev").disabled = state.i === 0; $("#next").disabled = state.i === list.length - 1;
     $("#openNew").href = url;
+    $("#exit").href = PROJ + "?linh-vuc=" + p.dom;
     document.querySelectorAll("#devices button").forEach(b => b.classList.toggle("is-active", +b.dataset.w === state.w));
     const f = $("#frame");
     if (reload || f.dataset.src !== url) { f.dataset.src = url; $("#loading").classList.add("is-on"); f.src = url; }
@@ -141,12 +150,24 @@
 
   function fit() { // co khung thiết bị cho vừa vùng xem
     const vp = $("#viewport"), d = $("#device"), pad = 32, pager = 72; // pager: chừa chỗ cho cụm chuyển màn ở góc dưới
-    const scale = Math.min(1, (vp.clientWidth - pad) / state.w);
-    d.style.width = state.w + "px";
-    d.style.height = (vp.clientHeight - pad / 2 - pager) / scale + "px";
+    const phone = PHONE.matches, mobileOk = phone && !!state.p.mobile, note = phone && !mobileOk && !state.anyway;
+    document.body.classList.toggle("pg-phone", phone);
+    $("#player").classList.toggle("is-mobile-fit", mobileOk);
+    $("#player").classList.toggle("is-desk-note", note);
+    $("#deskNote").hidden = !note;
+    if (mobileOk) { // prototype responsive: đúng bề ngang điện thoại, tỉ lệ 1, chừa dải dưới cho cụm chuyển màn
+      d.style.width = vp.clientWidth + "px"; d.style.height = vp.clientHeight - 60 + "px"; d.style.transform = "none";
+      return;
+    }
+    const w = state.w, p2 = phone ? 16 : pad, pg = phone ? 60 : pager; // điện thoại: dùng 1440 / 1024 / 390 như desktop, lề nhỏ hơn
+    const scale = Math.min(1, (vp.clientWidth - p2) / w);
+    d.style.width = w + "px";
+    d.style.height = (vp.clientHeight - p2 / 2 - pg) / scale + "px";
     d.style.transform = `translateX(-50%) scale(${scale})`;
   }
   addEventListener("resize", () => { if (state.p) fit(); });
+  PHONE.addEventListener("change", () => { if (state.p) fit(); });
+  $("#deskAnyway").addEventListener("click", () => { state.anyway = true; fit(); });
   if (window.ResizeObserver) new ResizeObserver(() => { if (state.p) fit(); }).observe($("#viewport")); // co giãn theo hiệu ứng thu gọn sidebar
 
   $("#frame").addEventListener("load", () => {

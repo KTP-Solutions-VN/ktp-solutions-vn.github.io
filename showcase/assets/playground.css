@@ -137,3 +137,30 @@ body.is-player .site-footer { display: none; } /* playground chiếm trọn màn
 /* Light theme của website (<html data-theme="light">): token nền / viền lấy từ global.css, ở đây chỉ map token chữ riêng của playground */
 :root[data-theme="light"] { --text: #12142A; --text-2: #434765; --text-3: #5C6180; }
 :root[data-theme="light"] .pg-viewport { background: radial-gradient(circle at 50% 0, #E3E6F1, var(--bg) 70%); }
+
+/* ---------- điện thoại (body.pg-phone, PHONE trong playground.js): toàn màn hình, không có header / menu website ---------- */
+.pg-exit { display: none; }
+body.pg-phone .site-header, body.pg-phone .mobile-nav { display: none; }
+body.pg-phone .pg-player { top: 0; }
+body.pg-phone .pg-side { top: 0; }
+body.pg-phone .pg-player.side-open .pg-scrim { inset: 0; }
+body.pg-phone .pg-exit { display: inline-grid; }
+body.pg-phone .pg-toolbar { flex-wrap: nowrap; padding: 4px 6px; gap: 2px; }
+body.pg-phone .pg-crumb { order: 0; flex: 1; flex-basis: auto; padding: 0 4px; }
+body.pg-phone #crumbProduct, body.pg-phone #devices, body.pg-phone #reload, body.pg-phone #copy { display: none; }
+body.pg-phone .pg-icon { width: 40px; height: 40px; }
+body.pg-phone .pg-device { top: 8px; border-radius: 8px; }
+body.pg-phone .pg-pager { right: 8px; bottom: 8px; padding: 4px; }
+body.pg-phone .pg-pager__btn { height: 40px; }
+body.pg-phone .pg-pager__pos { min-width: 64px; font-size: 13px; }
+/* prototype responsive (cờ mobile): khung sát mép, tỉ lệ 1 */
+.pg-player.is-mobile-fit .pg-device { top: 0; left: 0; border-radius: 0; box-shadow: none; }
+/* prototype chỉ có bản desktop: lời khuyên xem trên máy tính thay cho khung xem */
+.pg-player.is-desk-note .pg-device, .pg-player.is-desk-note .pg-pager { visibility: hidden; }
+.pg-desk-note { position: absolute; inset: 0; z-index: 4; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 24px; text-align: center; }
+.pg-desk-note svg { width: 44px; height: 44px; color: var(--text-3); stroke-width: 1.5; }
+.pg-desk-note p { margin: 4px 0 0; max-width: 300px; font-size: 17px; font-weight: 700; line-height: 1.4; color: var(--text); }
+.pg-desk-note small { max-width: 300px; font-size: 13.5px; color: var(--text-2); }
+.pg-desk-note__btn { margin-top: 10px; min-height: 44px; padding: 0 18px; border: 1px solid var(--border-light); border-radius: var(--radius-full); background: var(--surface-2); color: var(--text); font-weight: 600; font-size: 14px; }
+.pg-desk-note__btn:hover { background: var(--surface-3); }
+@media (max-width: 960px) { .pg-player:not(.side-open) .pg-side { box-shadow: none; } } /* drawer đang ẩn ngoài mép trái: không đổ bóng vào khung xem */

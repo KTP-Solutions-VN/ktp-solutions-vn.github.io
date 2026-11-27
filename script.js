@@ -73,8 +73,11 @@
     renderServiceTabPanel(DATA_DICH_VU[index]);
   }
 
+  // màn hẹp / cảm ứng: panel nằm dưới cả danh sách tab → không tự chuyển (nội dung đổi ngoài tầm nhìn, trang nhảy)
+  var SERVICE_NARROW = window.matchMedia('(max-width: 860px), (hover: none)');
+
   function startServiceAutoplay(nav) {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || SERVICE_NARROW.matches) return;
     stopServiceAutoplay();
     serviceTabTimer = setInterval(function () {
       activateServiceTab((serviceTabIndex + 1) % DATA_DICH_VU.length, nav);
@@ -98,8 +101,12 @@
     nav.querySelectorAll('.service-tab-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var idx = parseInt(btn.dataset.index, 10);
-        if (idx === serviceTabIndex) return;
+        if (idx === serviceTabIndex && !SERVICE_NARROW.matches) return;
         activateServiceTab(idx, nav);
+        if (SERVICE_NARROW.matches) {
+          var panel = document.getElementById('service-tabs-panel');
+          if (panel) panel.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+        }
         startServiceAutoplay(nav); // manual pick keeps rotating, just restarts the countdown on the newly focused tab
       });
     });
@@ -416,6 +423,8 @@
 
   renderServices();
   renderCaseStudies();
+  var liveGrid = document.getElementById('live-projects'); // Dự án đã triển khai (website thật)
+  if (liveGrid) liveGrid.innerHTML = KTP.liveProjects('');
   renderTestimonials();
   renderBlog();
   renderHeroShowcase();

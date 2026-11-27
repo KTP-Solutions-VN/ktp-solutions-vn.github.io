@@ -51,6 +51,7 @@
   <a href="../../du-an/index.html" data-en="Projects">Dự án</a>
   <a href="../../blog/index.html" data-en="Blog">Blog</a>
   <a href="../../ve-chung-toi/index.html" data-en="About us">Về chúng tôi</a>
+  <a href="../../lien-he/index.html" data-en="Contact">Liên hệ</a>
   <div class="mobile-nav__ctas">
     <a href="../../lien-he/index.html" class="btn btn-primary btn-block" data-en="Book a free consultation">Đặt lịch tư vấn miễn phí</a>
   </div>
@@ -73,6 +74,7 @@
 
   <section class="pg-stage">
     <div class="pg-toolbar">
+      <a class="pg-icon pg-exit" id="exit" href="../" data-i18n-title="exit" title="Thoát, về trang Dự án"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></a>
       <button class="pg-icon" id="sideToggle" type="button" data-i18n-title="screens" title="Ẩn / hiện danh sách màn"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M12.5 9h5M12.5 13h5"/></svg></button>
       <div class="pg-crumb"><span id="crumbProduct"></span><b id="crumbScreen"></b></div>
       <div class="pg-seg" id="devices" role="group" aria-label="Device">
@@ -89,6 +91,13 @@
     <div class="pg-viewport" id="viewport">
       <div class="pg-device" id="device"><iframe id="frame" title="Prototype"></iframe></div>
       <div class="pg-loading" id="loading"><span></span></div>
+      <!-- điện thoại + prototype chỉ có bản desktop (không có cờ mobile trong PRODUCTS của build_playground.py) -->
+      <div class="pg-desk-note" id="deskNote" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg>
+        <p data-i18n="deskNote" data-en="Please view on a desktop for the best experience">Vui lòng xem trên máy tính để có trải nghiệm tốt nhất</p>
+        <small data-i18n="deskNoteSub" data-en="This prototype is designed for desktop screens.">Bản mẫu này được thiết kế cho màn hình máy tính.</small>
+        <button type="button" class="pg-desk-note__btn" id="deskAnyway" data-i18n="deskAnyway" data-en="View scaled-down version anyway">Vẫn xem bản thu nhỏ</button>
+      </div>
       <nav class="pg-pager" aria-label="Chuyển màn">
         <button class="pg-pager__btn" id="prev" type="button" data-i18n-title="prev" title="Màn trước (←)"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
         <span class="pg-pager__pos" id="pos"></span>

@@ -4,7 +4,7 @@
     python3 scripts/check_rules.py          # chạy tay, in lỗi, exit 1 nếu có lỗi
     python3 scripts/check_rules.py --hook   # dùng làm Stop hook của Claude Code (.claude/settings.json): lỗi → exit 2
 
-Mỗi lỗi in kèm mã quy tắc (R1…R8) và file để sửa.
+Mỗi lỗi in kèm mã quy tắc (R1…R9) và file để sửa.
 """
 import json
 import pathlib
@@ -215,7 +215,8 @@ for f in js:
     if r.returncode:
         err("R7", f"{rel(f)}: lỗi cú pháp JS: {r.stderr.strip().splitlines()[-1] if r.stderr.strip() else ''}")
 
-# R8 — Tương phản màu: token hospitality không được nhạt hơn mức đã chuẩn hoá (WCAG AA 4.5:1 trên nền trắng)
+# R8 — Tương phản màu: token chữ hospitality đạt WCAG AA 4.5:1 trên nền surface của chính bản đó (--color-white:
+# trắng ở CMS; PMS dùng theme tối nên --color-white là màu thẻ tối)
 def lum(h):
     r, g, b = [int(h[i:i + 2], 16) / 255 for i in (1, 3, 5)]
     f = lambda x: x / 12.92 if x <= 0.03928 else ((x + 0.055) / 1.055) ** 2.4
@@ -224,12 +225,77 @@ def lum(h):
 
 for tok in [SC / "hospitality/pms/assets/css/global.css", SC / "hospitality/cms/assets/css/variables.css"]:
     t = tok.read_text()
+    m = re.search(r"--color-white:\s*(#[0-9A-Fa-f]{6})", t)
+    bg = m.group(1) if m else "#FFFFFF"
     for name in ("--color-gray-400", "--color-gray-500", "--color-gray-600", "--color-accent", "--color-success-text", "--color-warning-text", "--color-danger-text"):
         m = re.search(rf"{name}:\s*(#[0-9A-Fa-f]{{6}})", t)
         if not m:
             err("R8", f"{rel(tok)}: thiếu token {name}")
-        elif (1.05) / (lum(m.group(1)) + 0.05) < 4.5:
-            err("R8", f"{rel(tok)}: {name} {m.group(1)} tương phản < 4.5:1 trên nền trắng")
+        elif (max(lum(m.group(1)), lum(bg)) + 0.05) / (min(lum(m.group(1)), lum(bg)) + 0.05) < 4.5:
+            err("R8", f"{rel(tok)}: {name} {m.group(1)} tương phản < 4.5:1 trên nền {bg}")
+
+# R9 — Ô nhập trên mobile ≥ 16px: Safari iOS tự phóng to trang khi focus <input> / <textarea> / <select> chữ < 16px.
+# Rule nào đặt font-size < 16px cho ô nhập thì phải có rule cùng selector trong @media (max-width ≤ 860px) đặt lại ≥ 16px;
+# rule nằm trong @media (max-width …) tự nó cũng không được < 16px. Không dùng user-scalable=no / maximum-scale thay cho việc này.
+CTRL = re.compile(r"(?:^|[\s,>+~(])(?:input|textarea|select)(?![\w-])|\.(?:input|textarea|select)(?![\w-])")
+
+
+def css_rules(text):
+    """[(media, selector, body)] — media là điều kiện @media bao ngoài ('' nếu không có), chỉ xét 1 tầng lồng."""
+    text = re.sub(r"/\*.*?\*/", "", text, flags=re.S)
+    out, i, n = [], 0, len(text)
+    def block(start):
+        depth, j = 1, start
+        while j < n and depth:
+            depth += {"{": 1, "}": -1}.get(text[j], 0); j += 1
+        return j
+    while i < n:
+        k = text.find("{", i)
+        if k < 0:
+            break
+        head = text[i:k].strip(); end = block(k + 1)
+        inner = text[k + 1:end - 1]
+        if head.startswith("@media"):
+            for sel, body in re.findall(r"([^{}]+)\{([^{}]*)\}", inner):
+                out.append((head, sel.strip(), body))
+        elif not head.startswith("@"):
+            out.append(("", head, inner))
+        i = end
+    return out
+
+
+ROOT_VARS = dict(re.findall(r"(--[\w-]+)\s*:\s*([^;]+);", (ROOT / "assets/css/global.css").read_text(encoding="utf-8").split("}")[0]))
+
+
+def px(v):
+    """Cỡ chữ (px) từ giá trị font-size hoặc shorthand font (đọc cả var(--x) khai báo ở :root của global.css)."""
+    v = re.sub(r"var\((--[\w-]+)\)", lambda m: ROOT_VARS.get(m.group(1), ""), v)
+    m = re.search(r"(?:^|\s)([\d.]+)(px|rem)(?=[\s/;]|$)", v.strip())
+    return None if not m else float(m.group(1)) * (16 if m.group(2) == "rem" else 1)
+
+
+css_files = [p for p in [*(ROOT / "assets/css").glob("*.css"), *(ROOT / "screens").rglob("*.css"), SC / "assets/playground.css"] if p.is_file()]
+mobile_ok, small = set(), []
+for f in css_files:
+    for media, sel, body in css_rules(f.read_text(encoding="utf-8")):
+        m = re.search(r"font(?:-size)?\s*:\s*([^;]+)", body)
+        size = px(m.group(1)) if m else None
+        if size is None:
+            continue
+        mw = re.search(r"max-width\s*:\s*(\d+)px", media)
+        for one in (x.strip() for x in sel.split(",")):
+            if not CTRL.search(one) or "::placeholder" in one:
+                continue
+            if mw and int(mw.group(1)) <= 860:
+                (mobile_ok.add(one) if size >= 16 else err("R9", f"{rel(f)}: '{one}' font-size {size:g}px trong {media} — ô nhập trên mobile phải ≥ 16px"))
+            elif not media and size < 16:
+                small.append((f, one, size))
+for f, one, size in small:
+    if one not in mobile_ok:
+        err("R9", f"{rel(f)}: '{one}' font-size {size:g}px mà không có @media (max-width ≤ 860px) đặt lại ≥ 16px (iOS tự phóng to khi focus)")
+for page in SITE_PAGES + [ROOT / "404.html"]:
+    if re.search(r'name="viewport"[^>]*(user-scalable\s*=\s*no|maximum-scale\s*=\s*1(?![.\d]))', page.read_text(encoding="utf-8")):
+        err("R9", f"{rel(page)}: viewport chặn phóng to (user-scalable=no / maximum-scale=1) — đặt ô nhập ≥ 16px thay vì chặn zoom")
 
 if errors:
     msg = "Vi phạm quy tắc repo (xem 'Quy tắc bắt buộc' trong CLAUDE.md):\n" + "\n".join(f"  - {e}" for e in errors[:60])
@@ -244,4 +310,4 @@ if errors:
         sys.exit(0 if active else 2)
     print(msg)
     sys.exit(1)
-print(f"OK: {len(SITE_PAGES)} trang, {len(DATA['du_an'])} dự án, {len(js)} file JS đạt mọi quy tắc R1–R8.")
+print(f"OK: {len(SITE_PAGES)} trang, {len(DATA['du_an'])} dự án, {len(js)} file JS đạt mọi quy tắc R1–R9.")

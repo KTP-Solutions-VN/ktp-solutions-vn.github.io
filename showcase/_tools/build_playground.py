@@ -64,6 +64,8 @@ DOMAINS = [
 # dir: thư mục prototype (tương đối với showcase/), hub: trang mục lục, heading: thẻ tiêu đề dùng làm nhóm trong trang mục lục.
 # hub_js: trang mục lục liệt kê màn bằng mảng JS G = [[icon, nhóm, [[mã, tên màn, file], …]], …] (Fleet).
 # en: thư mục bản tiếng Anh trong prototype (sinh bởi _tools/i18n_prototype.py); playground mở bản này khi website đang ở EN.
+# mobile: True nếu prototype có layout responsive dùng được ở bề ngang điện thoại (~390px): playground trên điện thoại mở ở bề ngang đó,
+#         tỉ lệ 1. Không có cờ = chỉ có bản desktop: trên điện thoại hiện lời khuyên xem trên máy tính (vẫn xem được bản thu nhỏ).
 PRODUCTS = [
     {"id": "pms", "dom": "hospitality", "short": "PMS", "name": "Azura Manager PMS",
      "seo": {"vi": "Phần mềm quản lý khách sạn, resort, villa (PMS)", "en": "Hotel & resort property management system (PMS)"},
@@ -89,7 +91,7 @@ PRODUCTS = [
      "seo": {"vi": "Website bán hàng y tế, đặt lịch dịch vụ bệnh viện", "en": "Healthcare e-commerce website & hospital service booking"},
      "desc": {"vi": "Website bán hàng y tế cho bệnh viện, phòng khám: sản phẩm và gói dịch vụ, đặt lịch, giỏ hàng theo kênh (online / tham quan bệnh viện / sự kiện), hội viên, điểm thưởng.",
               "en": "Healthcare e-commerce website for hospitals and clinics: products and service packages, booking, channel-aware cart (online / hospital tour / event), membership, loyalty points."},
-     "dir": "medical/store-front", "hub": "index.html", "heading": r'<h2[^>]*>(?:<svg.*?</svg>)?', "zip": "medical/store-front.zip", "accent": "#019770"},
+     "dir": "medical/store-front", "hub": "index.html", "heading": r'<h2[^>]*>(?:<svg.*?</svg>)?', "zip": "medical/store-front.zip", "accent": "#019770", "mobile": True},
     {"id": "pos", "dom": "healthcare", "short": "POS", "name": "CareJourney POS",
      "seo": {"vi": "Phần mềm POS nhà thuốc, quầy thuốc bệnh viện", "en": "Pharmacy POS software for hospital pharmacies"},
      "desc": {"vi": "Phần mềm POS bán hàng tại quầy thuốc, nhà thuốc bệnh viện: bán hàng, ghi nhận đơn thuốc, tư vấn, can thiệp dược, chốt ca.",
@@ -99,7 +101,7 @@ PRODUCTS = [
      "seo": {"vi": "Kiosk tự phục vụ bệnh viện, phòng khám: đặt lịch, đăng ký tại chỗ", "en": "Hospital & clinic self-service kiosk: on-site booking & sign-up"},
      "desc": {"vi": "Kiosk cảm ứng tự phục vụ cho bệnh viện, phòng khám tại sự kiện và sảnh tiếp đón: xem và đặt trước sản phẩm, combo, đặt lịch tham quan khoa sản, đăng ký gói thai sản, lớp học tiền sản – chăm sóc bé và hội viên, không cần tài khoản.",
               "en": "Touch-screen self-service kiosk for hospitals and clinics at events and in visitor areas: browse and reserve products and bundles, book maternity ward tours, sign up for maternity packages, birth & parenting classes and membership, no account needed."},
-     "dir": "medical/kiosk", "hub": "index.html", "heading": r'<h2[^>]*>(?:<svg.*?</svg>)?', "zip": "medical/kiosk.zip", "accent": "#0E7490"},
+     "dir": "medical/kiosk", "hub": "index.html", "heading": r'<h2[^>]*>(?:<svg.*?</svg>)?', "zip": "medical/kiosk.zip", "accent": "#0E7490", "mobile": True},
     {"id": "fleet", "dom": "logistics", "short": "Fleet", "name": "Đội Xe Fleet Management",
      "seo": {"vi": "Phần mềm quản lý đội xe, điều phối vận tải và lãi/lỗ từng chuyến", "en": "Fleet management, trucking dispatch & profit-per-trip software"},
      "desc": {"vi": "Phần mềm quản lý đội xe cho doanh nghiệp vận tải hàng hoá: đơn vận chuyển, điều phối xe và tài xế, bản đồ giám sát, giờ lái, giấy tờ, bảo dưỡng, tạm ứng, quyết toán, lương chuyến, hoá đơn, công nợ, bảng giá cước, báo cáo lãi/lỗ và app tài xế.",
@@ -251,7 +253,7 @@ def drop_entry(groups):
 data = []
 for p in PRODUCTS:
     groups = drop_entry(crm_screens(p) if p["id"] == "crm" else hub_js_screens(p) if p.get("hub_js") else static_screens(p))
-    item = {k: p[k] for k in ("id", "dom", "short", "name", "seo", "desc", "dir", "accent", "en") if k in p}
+    item = {k: p[k] for k in ("id", "dom", "short", "name", "seo", "desc", "dir", "accent", "en", "mobile") if k in p}
     item["cover"] = f"assets/covers/{p['id']}.jpg"
     item["groups"] = groups
     data.append(item)
@@ -285,8 +287,10 @@ def domain_block(d):
     return (f'<section class="du-an-domain card" id="{d["slug"]}" data-linh-vuc="{d["slug"]}">'
             f'<h2><a href="?linh-vuc={d["slug"]}">{icon(d["slug"])}<span{en(d["h"]["en"])}>{e(d["h"]["vi"])}</span></a></h2>'
             f'<p class="body-lg"{en(d["intro"]["en"])}>{e(d["intro"]["vi"])}</p>'
+            # phân hệ + từ khoá: vẫn nằm trong HTML (SEO) nhưng gói trong <details> — mobile đóng sẵn, desktop script.js mở sẵn
+            f'<details class="du-an-domain__more"><summary><span data-en="Modules &amp; related solutions">Phân hệ &amp; giải pháp liên quan</span></summary>'
             f'<ul class="du-an-domain__apps">{lis}</ul>'
-            f'<p class="du-an-domain__kw"><span data-en="Related solutions:">Giải pháp liên quan:</span> {kws}</p></section>')
+            f'<p class="du-an-domain__kw"><span data-en="Related solutions:">Giải pháp liên quan:</span> {kws}</p></details></section>')
 
 
 chips = ('<a class="du-an-chip is-active" href="./" data-linh-vuc=""><span data-en="All">Tất cả</span></a>' + "".join(

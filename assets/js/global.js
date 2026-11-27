@@ -6,14 +6,18 @@
 /* ---- Helper dùng chung cho script của từng trang (khai báo ngoài IIFE để gọi được ngay khi nạp) ----
    KTP.en(text)        → thuộc tính data-en="…" (chữ tiếng Anh cho nút VI/EN), rỗng nếu không có bản dịch
    KTP.domainIcon(slug) → icon SVG theo lĩnh vực dự án (hospitality / industrial / healthcare / logistics)
-   KTP.domainBadge(da)  → badge lĩnh vực có icon, chữ song ngữ (da: 1 phần tử DATA_DU_AN) */
+   KTP.domainBadge(da)  → badge lĩnh vực có icon, chữ song ngữ (da: 1 phần tử DATA_DU_AN)
+   KTP.liveProjects(root) → các thẻ "Dự án đã triển khai" (DATA_TRIEN_KHAI, link ra website thật). root: tiền tố tới gốc site ("", "../../") */
 var KTP = (function () {
   var esc = function (s) { return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); };
   var ICONS = {
     hospitality: '<path d="M2 20V6"/><path d="M2 13h20v7"/><path d="M22 13v-1a3 3 0 0 0-3-3h-8v4"/><circle cx="6.5" cy="10" r="2"/>',
     industrial: '<path d="M2 20h20"/><path d="M4 20V10l5 3v-3l5 3V5h4v15"/><path d="M8 17h1M12 17h1"/>',
     healthcare: '<path d="M20.4 4.6a5.4 5.4 0 0 0-7.6 0L12 5.4l-.8-.8a5.4 5.4 0 0 0-7.6 7.6L12 20.6l8.4-8.4a5.4 5.4 0 0 0 0-7.6z"/><path d="M3.5 12h4l1.5-2.5 3 5 1.5-2.5h7"/>',
-    logistics: '<path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/>'
+    logistics: '<path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/>',
+    sports: '<circle cx="12" cy="12" r="10"/><circle cx="9" cy="9" r="1"/><circle cx="15" cy="9" r="1"/><circle cx="12" cy="13" r="1"/><circle cx="8" cy="15" r="1"/><circle cx="16" cy="15" r="1"/>',
+    environment: '<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>',
+    ecommerce: '<circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>'
   };
   function en(text) { return text ? ' data-en="' + esc(text) + '"' : ''; }
   function domainIcon(slug) {
@@ -22,7 +26,23 @@ var KTP = (function () {
   function domainBadge(da, extraStyle) {
     return '<span class="badge badge-accent badge-domain"' + (extraStyle ? ' style="' + extraStyle + '"' : '') + '>' + domainIcon(da.linh_vuc) + '<span' + en(da.nganh_en) + '>' + da.nganh + '</span></span>';
   }
-  return { en: en, domainIcon: domainIcon, domainBadge: domainBadge };
+  function liveProjects(root) {
+    if (typeof DATA_TRIEN_KHAI === 'undefined') return '';
+    var ext = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>';
+    return DATA_TRIEN_KHAI.map(function (p) {
+      var host = p.url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+      return '<article class="card portfolio-card has-acts is-hoverable live-card">' +
+        '<a class="portfolio-card__img" href="' + p.url + '" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="' + root + p.anh + '" alt="" loading="lazy"></a>' +
+        '<div class="portfolio-card__body">' +
+        '<div class="case-card__badges">' + domainBadge(p) + '</div>' +
+        '<h3 class="h3 portfolio-card__title live-card__title"><a href="' + p.url + '" target="_blank" rel="noopener"' + en(p.ten_en) + '>' + p.ten + '</a></h3>' +
+        '<p class="live-card__desc"' + en(p.mo_ta_en) + '>' + p.mo_ta + '</p>' +
+        '<ul class="live-card__tags">' + p.mang.map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('') + '</ul>' +
+        '<div class="case-card__acts"><a class="btn btn-outline" href="' + p.url + '" target="_blank" rel="noopener"><span data-en="Visit ' + host + '">Xem ' + host + '</span>' + ext + '</a></div>' +
+        '</div></article>';
+    }).join('');
+  }
+  return { en: en, domainIcon: domainIcon, domainBadge: domainBadge, liveProjects: liveProjects };
 })();
 
 /* ---- Case-study helpers (CR-01 / CR-02) — trang chủ, Dự án, Chi tiết dự án, trang dịch vụ Tư vấn. Song ngữ qua data-en.
@@ -90,10 +110,25 @@ var KTPCase = window.KTPCase = (function () {
     var drawer = document.querySelector('.mobile-nav');
     var closeBtn = document.querySelector('.mobile-nav__close');
     if (!burger || !drawer) return;
-    burger.addEventListener('click', function () { drawer.classList.add('is-open'); });
-    if (closeBtn) closeBtn.addEventListener('click', function () { drawer.classList.remove('is-open'); });
+    if (!drawer.id) drawer.id = 'mobile-nav';
+    burger.setAttribute('aria-controls', drawer.id);
+    burger.setAttribute('aria-expanded', 'false');
+    // mở / đóng: khoá cuộn trang nền, cập nhật aria-expanded, trả focus về nút burger khi đóng
+    function setOpen(open) {
+      if (drawer.classList.contains('is-open') === open) return;
+      drawer.classList.toggle('is-open', open);
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.documentElement.classList.toggle('is-nav-open', open);
+      (open ? (closeBtn || drawer) : burger).focus({ preventScroll: true });
+    }
+    burger.addEventListener('click', function () { setOpen(true); });
+    if (closeBtn) closeBtn.addEventListener('click', function () { setOpen(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+    var here = location.pathname.replace(/index\.html$/, '');
     drawer.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', function () { drawer.classList.remove('is-open'); });
+      // đánh dấu trang đang xem (so theo thư mục, bỏ index.html; không áp cho nút CTA)
+      if (!a.classList.contains('btn') && a.pathname.replace(/index\.html$/, '') === here) a.setAttribute('aria-current', 'page');
+      a.addEventListener('click', function () { setOpen(false); });
     });
   }
 

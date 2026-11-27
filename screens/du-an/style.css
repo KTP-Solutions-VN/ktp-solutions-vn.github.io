@@ -240,3 +240,37 @@
 :root[data-theme="light"] .pf-tcard:hover { border-color: rgba(76,95,255,0.45); }
 :root[data-theme="light"] .pf-group__icon { background: rgba(1,151,112,0.10); }
 :root[data-theme="light"] .pf-mock { box-shadow: 0 16px 40px rgba(0,8,74,0.16); }
+
+/* ---------- Mobile (audit 27/11/2026) ---------- */
+/* Phân hệ + từ khoá của khối lĩnh vực nằm trong <details>: desktop mở sẵn (script.js), không hiện nút gập */
+.du-an-domain__more > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font: 600 14px var(--font-sans); color: var(--text-secondary); }
+.du-an-domain__more > summary::-webkit-details-marker { display: none; }
+.du-an-domain__more > summary::after { content: ''; width: 8px; height: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform .2s; }
+.du-an-domain__more[open] > summary::after { transform: translateY(2px) rotate(-135deg); }
+.du-an-domain__more[open] > summary { margin-bottom: var(--sp-3); }
+@media (min-width: 768px) { .du-an-domain__more > summary { display: none; } }
+@media (max-width: 767px) {
+  /* chip lọc: 1 hàng cuộn ngang, cao 44px */
+  .du-an-chips { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; margin-inline: calc(-1 * var(--sp-4)); padding: 2px var(--sp-4); scrollbar-width: none; }
+  .du-an-chips::-webkit-scrollbar { display: none; }
+  .du-an-chip { flex: none; min-height: 44px; }
+  .pf-projects__head .du-an-chips { margin-top: var(--sp-6); }
+  /* lề 2 bên thống nhất 16px như .container */
+  .pf-hero { padding-left: var(--sp-4); padding-right: var(--sp-4); }
+  .pf-services { padding-left: var(--sp-4); padding-right: var(--sp-4); }
+  /* Services: 1 cột, số nhỏ đứng trên tiêu đề */
+  .pf-svc { grid-template-columns: 1fr; gap: var(--sp-3); padding: var(--sp-8) 0; }
+  .pf-svc__num { font-size: 40px; }
+  .pf-svc__side { grid-column: auto; }
+  .pf-services__list { margin-top: var(--sp-10, 40px); }
+  /* khối lĩnh vực gọn hơn */
+  .pf-domains { padding-top: var(--sp-4); padding-bottom: var(--sp-10, 40px); }
+  .du-an-domains { gap: var(--sp-3); }
+  .du-an-domain { padding: var(--sp-5, 20px) var(--sp-4); }
+  .du-an-domain h2 { font-size: 18px; margin-bottom: var(--sp-2); }
+  .du-an-domain > .body-lg { font-size: 14px; line-height: 1.55; margin-bottom: var(--sp-2); }
+  .du-an-domain__apps { margin-bottom: var(--sp-3); gap: var(--sp-2); }
+  .du-an-domain__apps li { padding: var(--sp-2) var(--sp-3); }
+  .du-an-domain__kw { font-size: 12px; gap: 4px; }
+  .du-an-domain__kw em { padding: 1px 8px; }
+}
