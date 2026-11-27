@@ -227,6 +227,16 @@ var KTPCase = window.KTPCase = (function () {
         if (!el.dataset.vi) el.dataset.vi = el.innerHTML;
         el.innerHTML = lang === 'en' ? el.dataset.en : el.dataset.vi;
       });
+      // Swap placeholder attributes
+      document.querySelectorAll('[data-en-placeholder]').forEach(function (el) {
+        if (!el.dataset.viPlaceholder) el.dataset.viPlaceholder = el.placeholder || '';
+        el.placeholder = lang === 'en' ? el.dataset.enPlaceholder : el.dataset.viPlaceholder;
+      });
+      // Swap aria-label attributes
+      document.querySelectorAll('[data-en-aria-label]').forEach(function (el) {
+        if (!el.dataset.viAriaLabel) el.dataset.viAriaLabel = el.getAttribute('aria-label') || '';
+        el.setAttribute('aria-label', lang === 'en' ? el.dataset.enAriaLabel : el.dataset.viAriaLabel);
+      });
       buttons.forEach(function (b) { b.classList.toggle('is-active', b.dataset.lang === lang); });
     }
 

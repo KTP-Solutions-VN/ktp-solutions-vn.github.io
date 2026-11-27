@@ -51,9 +51,9 @@
 <main>
   <section class="section" style="padding-top: calc(var(--header-h) + 56px); padding-bottom: 56px;">
     <div class="container" style="max-width:720px; text-align:center;">
-      <span class="caption" style="color:var(--accent);">Liên hệ</span>
-      <h1 style="margin-top:12px;">Đặt lịch tư vấn chuyển đổi số miễn phí</h1>
-      <p class="body-lg" style="margin:16px auto 0; max-width:560px;">30 phút trao đổi trực tiếp, không ràng buộc — chỉ để hiểu đúng bài toán của doanh nghiệp bạn trước khi đề xuất bất kỳ giải pháp nào.</p>
+      <span class="caption" style="color:var(--accent);" data-en="Contact">Liên hệ</span>
+      <h1 style="margin-top:12px;" data-en="Book a free digital transformation consultation">Đặt lịch tư vấn chuyển đổi số miễn phí</h1>
+      <p class="body-lg" style="margin:16px auto 0; max-width:560px;" data-en="30 minutes of direct discussion with no strings attached — just to understand your business challenge before we propose any solution.">30 phút trao đổi trực tiếp, không ràng buộc — chỉ để hiểu đúng bài toán của doanh nghiệp bạn trước khi đề xuất bất kỳ giải pháp nào.</p>
     </div>
   </section>
 
@@ -62,31 +62,31 @@
       <div class="card contact-card">
         <form id="contact-form" novalidate>
           <div class="field" id="field-hoten">
-            <label for="hoten">Họ và tên *</label>
-            <input class="input" type="text" id="hoten" name="hoten" placeholder="Nguyễn Văn A" autocomplete="name">
-            <span class="field__error">Vui lòng nhập họ tên.</span>
+            <label for="hoten" data-en="Full name *">Họ và tên *</label>
+            <input class="input" type="text" id="hoten" name="hoten" placeholder="Nguyễn Văn A" autocomplete="name" data-en-placeholder="John Smith">
+            <span class="field__error" data-en="Please enter your full name.">Vui lòng nhập họ tên.</span>
           </div>
           <div class="field" id="field-email">
-            <label for="email">Email *</label>
-            <input class="input" type="email" id="email" name="email" placeholder="ban@congty.vn" autocomplete="email">
-            <span class="field__error">Vui lòng nhập email hợp lệ.</span>
+            <label for="email" data-en="Email *">Email *</label>
+            <input class="input" type="email" id="email" name="email" placeholder="ban@congty.vn" autocomplete="email" data-en-placeholder="you@company.com">
+            <span class="field__error" data-en="Please enter a valid email address.">Vui lòng nhập email hợp lệ.</span>
           </div>
           <div class="field" id="field-dienthoai">
-            <label for="dienthoai">Số điện thoại *</label>
-            <input class="input" type="tel" id="dienthoai" name="dienthoai" placeholder="09xx xxx xxx" autocomplete="tel">
-            <span class="field__error">Vui lòng nhập số điện thoại hợp lệ (9-11 số).</span>
+            <label for="dienthoai" data-en="Phone number *">Số điện thoại *</label>
+            <input class="input" type="tel" id="dienthoai" name="dienthoai" placeholder="09xx xxx xxx" autocomplete="tel" data-en-placeholder="+84 9xx xxx xxx">
+            <span class="field__error" data-en="Please enter a valid phone number (9–11 digits).">Vui lòng nhập số điện thoại hợp lệ (9-11 số).</span>
           </div>
           <div class="field" id="field-congty">
-            <label for="congty">Tên công ty</label>
-            <input class="input" type="text" id="congty" name="congty" placeholder="Tên doanh nghiệp của bạn">
-            <span class="hint">Không bắt buộc, nhưng giúp KTP chuẩn bị buổi tư vấn sát hơn.</span>
+            <label for="congty" data-en="Company name">Tên công ty</label>
+            <input class="input" type="text" id="congty" name="congty" placeholder="Tên doanh nghiệp của bạn" data-en-placeholder="Your company name">
+            <span class="hint" data-en="Optional, but helps KTP prepare a more tailored consultation.">Không bắt buộc, nhưng giúp KTP chuẩn bị buổi tư vấn sát hơn.</span>
           </div>
           <div class="field" id="field-noidung">
-            <label for="noidung">Bạn đang gặp vấn đề gì? *</label>
-            <textarea class="textarea" id="noidung" name="noidung" placeholder="Vd: Đang quản lý bán hàng bằng Excel, muốn số hóa nhưng chưa biết bắt đầu từ đâu..."></textarea>
-            <span class="field__error">Vui lòng mô tả ngắn gọn nhu cầu của bạn.</span>
+            <label for="noidung" data-en="What challenge are you facing? *">Bạn đang gặp vấn đề gì? *</label>
+            <textarea class="textarea" id="noidung" name="noidung" placeholder="Vd: Đang quản lý bán hàng bằng Excel, muốn số hóa nhưng chưa biết bắt đầu từ đâu..." data-en-placeholder="E.g.: Currently managing sales with Excel, want to go digital but not sure where to start..."></textarea>
+            <span class="field__error" data-en="Please briefly describe what you need.">Vui lòng mô tả ngắn gọn nhu cầu của bạn.</span>
           </div>
-          <button type="submit" class="btn btn-primary btn-block btn-lg" id="submit-btn">Đặt lịch tư vấn miễn phí</button>
+          <button type="submit" class="btn btn-primary btn-block btn-lg" id="submit-btn" data-en="Book a free consultation">Đặt lịch tư vấn miễn phí</button>
         </form>
       </div>
 

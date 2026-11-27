@@ -39,8 +39,15 @@ const DATA_DICH_VU = [
       "Triển khai thử nghiệm — AI hỗ trợ prototype, test, tài liệu; kỹ sư review",
       "Đo & mở rộng — AI giám sát, báo cáo; bài toán tiếp theo thường là một AI Agent",
     ],
+    quy_trinh_en: [
+      "Interview & pick the problem — AI aggregates data and compares competitors",
+      "Survey & write the brief — AI analyses historical data and suggests metrics",
+      "Pilot deployment — AI assists with prototype, testing and docs; engineer review",
+      "Measure & scale — AI monitors and reports; the next problem is often an AI Agent",
+    ],
     anh: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80",
     anh_alt: "Buổi workshop: một người dán giấy note lên tường trong khi cả nhóm cùng trao đổi quanh bàn làm việc",
+    anh_alt_en: "Workshop: someone puts sticky notes on a wall while the team discusses at the work table",
     noi_bat: true
   },
   {
@@ -52,6 +59,7 @@ const DATA_DICH_VU = [
     mo_ta_ngan: "Xây dựng ứng dụng web, mobile và hệ thống quản lý tùy chỉnh theo đúng bài toán vận hành của doanh nghiệp bạn.",
     mo_ta_dai: "SME thường gặp 1 trong 2 tình huống: phần mềm đóng gói có sẵn không khớp quy trình thật, hoặc thuê ngoài code nhưng không ai tư vấn xem giải pháp có đúng bài toán không. KTP giải quyết cả hai bằng cách để cùng 1 đội ngũ vừa phân tích nghiệp vụ vừa trực tiếp phát triển — từ ứng dụng web nội bộ, app di động cho khách hàng/nhân viên, đến hệ thống quản lý (kho, bán hàng, nhân sự) đặt riêng theo quy trình thật của bạn, không phải ép quy trình của bạn theo 1 phần mềm đóng gói.",
     mo_ta_ngan_en: "Custom web apps, mobile apps and management systems built around how your business actually operates.",
+    mo_ta_dai_en: "SMEs typically face one of two problems: packaged software doesn't fit their real workflow, or they outsource code without anyone advising on whether the solution fits the problem. KTP solves both by keeping one team that both analyses the business and codes directly — from internal web apps, mobile apps for customers or staff, to management systems (inventory, sales, HR) tailored to your real workflow, instead of forcing your workflow into packaged software.",
     loi_ich: [
       "Phân tích quy trình thật trước khi viết dòng code đầu tiên — không đoán yêu cầu",
       "Kiến trúc phù hợp quy mô SME: đủ chắc để chạy thật, không thừa phức tạp gây tốn chi phí vận hành",
@@ -70,8 +78,15 @@ const DATA_DICH_VU = [
       "Phát triển theo từng đợt (sprint), demo tiến độ định kỳ",
       "Kiểm thử, đào tạo sử dụng và bàn giao kèm tài liệu",
     ],
+    quy_trinh_en: [
+      "Survey your real process and current bottlenecks",
+      "Design the technical solution and confirm scope with you",
+      "Develop in sprints with regular progress demos",
+      "Test, train users and hand over with documentation",
+    ],
     anh: "https://images.unsplash.com/photo-1758873268745-dd2cf0d677b5?auto=format&fit=crop&w=900&q=80",
     anh_alt: "Đội ngũ lập trình viên cùng thảo luận trước màn hình máy tính trong văn phòng",
+    anh_alt_en: "Development team discussing in front of a computer screen in the office",
     noi_bat: false
   },
   {
@@ -83,6 +98,7 @@ const DATA_DICH_VU = [
     mo_ta_ngan: "Website tối ưu tốc độ tải, chuẩn SEO và responsive trên mọi thiết bị — không chỉ đẹp mà còn ra chuyển đổi.",
     mo_ta_dai: "Một website đẹp nhưng tải chậm hoặc không lên được Google tìm kiếm gần như vô nghĩa với SME đang cần khách hàng mới. KTP thiết kế website với 3 tiêu chí song song ngay từ đầu: tốc độ tải (Core Web Vitals), cấu trúc chuẩn SEO kỹ thuật, và trải nghiệm chuyển đổi (CTA rõ ràng, form dễ điền) — thay vì chỉ tập trung hình ảnh rồi tối ưu sau.",
     mo_ta_ngan_en: "Fast-loading, SEO-ready websites that work on every device: built to convert, not just to look good.",
+    mo_ta_dai_en: "A beautiful but slow website or one that doesn't rank on Google is almost pointless for an SME looking for new customers. KTP designs websites with 3 criteria in parallel from day one: load speed (Core Web Vitals), technical SEO structure, and conversion experience (clear CTAs, easy forms) — instead of focusing on visuals and optimizing later.",
     loi_ich: [
       "Tối ưu tốc độ tải và Core Web Vitals ngay từ giai đoạn thiết kế, không phải sửa vá sau",
       "Chuẩn SEO kỹ thuật (thẻ meta, schema, sitemap) để dễ được tìm thấy trên Google",
@@ -101,8 +117,15 @@ const DATA_DICH_VU = [
       "Phát triển và tối ưu hiệu năng/SEO kỹ thuật",
       "Bàn giao kèm hướng dẫn quản trị nội dung",
     ],
+    quy_trinh_en: [
+      "Define the main conversion goal (sales/lead generation/branding)",
+      "Design the interface to match your brand identity",
+      "Develop and optimise performance and technical SEO",
+      "Hand over with content management guidance",
+    ],
     anh: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?auto=format&fit=crop&w=900&q=80",
     anh_alt: "Người dùng bút cảm ứng phác thảo wireframe website trên máy tính bảng",
+    anh_alt_en: "Person using stylus to sketch website wireframes on a tablet",
     noi_bat: false
   },
   {
@@ -114,6 +137,7 @@ const DATA_DICH_VU = [
     mo_ta_ngan: "Digital marketing, quản lý mạng xã hội và sản xuất nội dung giúp thương hiệu SME hiện diện đúng nơi khách hàng ở.",
     mo_ta_dai: "Ngân sách marketing của SME thường không đủ để dàn trải mọi kênh. KTP giúp xác định đúng 1-2 kênh có tỷ lệ chuyển đổi tốt nhất với đúng tệp khách hàng của bạn trước, rồi mới sản xuất nội dung và quản lý vận hành kênh đó bài bản — thay vì lên bài đều đặn nhưng không đo được hiệu quả.",
     mo_ta_ngan_en: "Digital marketing, social media management and content production that put your brand where your customers are.",
+    mo_ta_dai_en: "Most SME marketing budgets can't be spread across every channel. KTP helps you first identify the 1-2 channels with the best conversion rates for your exact customers, then produces content and runs those channels methodically — instead of posting regularly without measuring what works.",
     loi_ich: [
       "Xác định kênh trọng tâm phù hợp ngân sách và tệp khách hàng thay vì dàn trải mọi nền tảng",
       "Lịch nội dung rõ ràng, gắn với mục tiêu kinh doanh cụ thể theo từng tháng",
@@ -132,8 +156,15 @@ const DATA_DICH_VU = [
       "Sản xuất và đăng tải nội dung, quản lý tương tác",
       "Đo lường hiệu quả và điều chỉnh chiến thuật hàng tháng",
     ],
+    quy_trinh_en: [
+      "Analyse your audience and pick the focus channels",
+      "Plan content monthly, tied to concrete goals",
+      "Create, publish and manage engagement",
+      "Measure performance and adjust tactics monthly",
+    ],
     anh: "https://images.unsplash.com/photo-1769596722541-40dedee6789d?auto=format&fit=crop&w=900&q=80",
     anh_alt: "Lịch nội dung mạng xã hội đặt trên bàn làm việc",
+    anh_alt_en: "A social media content calendar sits on the work desk",
     noi_bat: false
   },
   {
@@ -145,6 +176,7 @@ const DATA_DICH_VU = [
     mo_ta_ngan: "Logo, bộ nhận diện thương hiệu và ấn phẩm thiết kế nhất quán, đủ chuyên nghiệp để cạnh tranh với đối thủ lớn hơn.",
     mo_ta_dai: "Nhiều SME lớn dần nhưng bộ nhận diện thương hiệu vẫn dừng ở mức logo tự làm ban đầu, thiếu nhất quán giữa website, mạng xã hội và ấn phẩm in. KTP xây dựng bộ nhận diện đầy đủ (logo, màu sắc, typography, quy tắc sử dụng) để thương hiệu trông chuyên nghiệp và nhất quán ở mọi điểm chạm với khách hàng.",
     mo_ta_ngan_en: "Logo, brand identity and design collateral that are consistent and professional enough to compete with bigger players.",
+    mo_ta_dai_en: "Many growing SMEs have brand identity that still stops at a DIY logo, with gaps between website, social media and print. KTP builds a complete identity (logo, colors, typography, usage rules) so your brand looks professional and consistent at every customer touchpoint.",
     loi_ich: [
       "Bộ nhận diện đầy đủ: logo, bảng màu, typography, quy tắc sử dụng — không chỉ 1 file logo rời rạc",
       "Áp dụng nhất quán từ website, mạng xã hội đến ấn phẩm in/namecard",
@@ -163,8 +195,15 @@ const DATA_DICH_VU = [
       "Hoàn thiện bộ nhận diện và quy tắc sử dụng (brand guideline)",
       "Bàn giao file nguồn và hỗ trợ áp dụng lên các kênh",
     ],
+    quy_trinh_en: [
+      "Understand your brand positioning and target audience",
+      "Sketch design directions and gather feedback",
+      "Finalize the identity and brand guidelines",
+      "Hand over source files and help roll out across channels",
+    ],
     anh: "https://images.unsplash.com/photo-1716471330463-f475b00f0506?auto=format&fit=crop&w=900&q=80",
     anh_alt: "Bàn làm việc với bàn phím, bút chì và các mẫu màu sắc thiết kế thương hiệu",
+    anh_alt_en: "Workspace with keyboard, pencils and brand design colour swatches",
     noi_bat: false
   }
 ];

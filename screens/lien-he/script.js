@@ -55,6 +55,13 @@
     if (text && !fields.noidung.el.value.trim()) fields.noidung.el.value = text;
   } catch (e) { /* URLSearchParams / localStorage không khả dụng — form vẫn dùng bình thường */ }
 
+  /* Tìm nút submit để chuẩn bị text lưu ngôn ngữ cho submit */
+  var submitBtn = document.getElementById('submit-btn');
+  if (submitBtn && !submitBtn.dataset.vi) {
+    submitBtn.dataset.vi = submitBtn.textContent;
+    submitBtn.dataset.en = submitBtn.getAttribute('data-en') || submitBtn.textContent;
+  }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var allValid = Object.keys(fields).map(validateField).every(Boolean);
@@ -66,7 +73,8 @@
 
     var btn = document.getElementById('submit-btn');
     btn.disabled = true;
-    btn.textContent = 'Đang gửi...';
+    var en = (localStorage.getItem('ktp_lang') || 'vi') === 'en';
+    btn.textContent = en ? 'Sending...' : 'Đang gửi...';
 
     setTimeout(function () {
       window.location.href = 'cam-on/index.html';

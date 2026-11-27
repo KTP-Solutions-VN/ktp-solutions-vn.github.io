@@ -23,20 +23,21 @@
   var dv = DATA_DICH_VU.find(function (d) { return d.slug === CURRENT_SERVICE_SLUG; });
   if (!dv) return;
 
+  var en = KTP.en;
   root.innerHTML =
     '<section class="section" style="padding-top:24px;">' +
       '<div class="container grid-2" style="align-items:center; gap:48px;">' +
         '<div>' +
           '<div class="service-card__icon" style="width:64px; height:64px; background:' + ICON_BG[dv.icon] + '; color:' + ICON_COLOR[dv.icon] + '; margin-bottom:20px;">' + ICONS[dv.icon] + '</div>' +
-          '<h1 style="font-size:36px; margin-bottom:16px;">' + dv.ten + '</h1>' +
-          '<p class="body-lg">' + dv.mo_ta_dai + '</p>' +
+          '<h1 style="font-size:36px; margin-bottom:16px;"' + en(dv.ten_en) + '>' + dv.ten + '</h1>' +
+          '<p class="body-lg"' + en(dv.mo_ta_dai_en) + '>' + dv.mo_ta_dai + '</p>' +
         '</div>' +
         '<div class="card signature-glow-bg" style="padding:0; overflow:hidden;">' +
           '<div style="padding:32px;">' +
-            '<span class="caption">Lợi ích cụ thể</span>' +
+            '<span class="caption" data-en="Specific benefits">Lợi ích cụ thể</span>' +
             '<div style="margin-top:16px; display:flex; flex-direction:column; gap:14px;">' +
-              dv.loi_ich.map(function (li) {
-                return '<div style="display:flex; gap:10px; align-items:flex-start;"><span style="color:var(--success); flex-shrink:0; margin-top:2px;">' + CHECK + '</span><span style="font-size:14.5px; color:var(--text-secondary);">' + li + '</span></div>';
+              dv.loi_ich.map(function (li, idx) {
+                return '<div style="display:flex; gap:10px; align-items:flex-start;"><span style="color:var(--success); flex-shrink:0; margin-top:2px;">' + CHECK + '</span><span style="font-size:14.5px; color:var(--text-secondary);"' + en((dv.loi_ich_en || [])[idx]) + '>' + li + '</span></div>';
               }).join('') +
             '</div>' +
           '</div>' +
@@ -46,13 +47,13 @@
     '<section class="section section-bg-surface reveal">' +
       '<div class="container">' +
         '<div class="section-header">' +
-          '<span class="caption">Quy trình triển khai</span>' +
-          '<h2>Từng bước KTP thực hiện dịch vụ này</h2>' +
+          '<span class="caption" data-en="Implementation process">Quy trình triển khai</span>' +
+          '<h2 data-en="How KTP carries out this service step by step">Từng bước KTP thực hiện dịch vụ này</h2>' +
         '</div>' +
         // .reveal bắt buộc: trên desktop CSS ẩn nội dung từng bước tới khi .process-steps có is-visible (global.js gắn khi cuộn tới)
         '<div class="process-steps reveal">' +
           dv.quy_trinh.map(function (step, i) {
-            return '<div class="process-step"><div class="process-step__num">0' + (i + 1) + '</div><p class="body-lg" style="font-size:14.5px;">' + step + '</p></div>';
+            return '<div class="process-step"><div class="process-step__num">0' + (i + 1) + '</div><p class="body-lg" style="font-size:14.5px;"' + en((dv.quy_trinh_en || [])[i]) + '>' + step + '</p></div>';
           }).join('') +
           PIPELINE_END +
         '</div>' +

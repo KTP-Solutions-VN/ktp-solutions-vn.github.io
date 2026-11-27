@@ -155,16 +155,17 @@
   }
 
   function renderTestimonialCard(t) {
+    var role = t.chuc_danh + ', ' + t.cong_ty;
     return '<div class="marquee-card">' +
-      '<p class="marquee-card__quote">“' + t.noi_dung + '”</p>' +
+      '<p class="marquee-card__quote"' + KTP.en(t.noi_dung_en && '“' + t.noi_dung_en + '”') + '>“' + t.noi_dung + '”</p>' +
       '<div class="marquee-card__meta">' +
       '<div class="marquee-card__author">' +
       '<div class="avatar">' + t.avatar_chu_cai + '</div>' +
-      '<div class="marquee-card__author-info"><strong>' + t.ten + '</strong><span>' + t.chuc_danh + ', ' + t.cong_ty + '</span></div>' +
+      '<div class="marquee-card__author-info"><strong>' + t.ten + '</strong><span' + KTP.en(t.chuc_danh_en && t.chuc_danh_en + ', ' + t.cong_ty) + '>' + role + '</span></div>' +
       '</div>' +
       '<div class="marquee-card__rating">' +
-      '<div class="stars" aria-label="' + t.rating + ' trên 5 sao">' + renderStars(t.rating) + '</div>' +
-      '<span>' + t.hang_muc + '</span>' +
+      '<div class="stars" aria-label="' + t.rating + ' trên 5 sao" data-en-aria-label="' + t.rating + ' out of 5 stars">' + renderStars(t.rating) + '</div>' +
+      '<span' + KTP.en(t.hang_muc_en) + '>' + t.hang_muc + '</span>' +
       '</div></div></div>';
   }
 
@@ -187,15 +188,15 @@
   function renderBlog() {
     var grid = document.getElementById('blog-grid');
     if (!grid || typeof DATA_BAI_VIET === 'undefined') return;
-    var latest = DATA_BAI_VIET.slice(0, 3);
+    var latest = DATA_BAI_VIET.slice(0, 3), en = KTP.en;
     grid.innerHTML = latest.map(function (bv) {
       return '<a class="card blog-card is-hoverable" href="screens/blog/chi-tiet/index.html?slug=' + bv.slug + '" style="display:block;">' +
         '<div class="blog-card__img"><img src="' + bv.anh + '" alt="' + bv.anh_alt + '" loading="lazy"></div>' +
         '<div class="blog-card__body">' +
-        '<span class="badge badge-info">' + bv.chu_de + '</span>' +
-        '<h3 class="h3" style="margin:12px 0 8px; font-size:17px;">' + bv.tieu_de + '</h3>' +
-        '<p class="body-lg" style="font-size:14px;">' + bv.tom_tat + '</p>' +
-        '<div class="blog-card__meta"><span>' + bv.tac_gia + '</span><span class="dot"></span><span>' + bv.thoi_gian_doc + ' phút đọc</span></div>' +
+        '<span class="badge badge-info"' + en(bv.chu_de_en) + '>' + bv.chu_de + '</span>' +
+        '<h3 class="h3" style="margin:12px 0 8px; font-size:17px;"' + en(bv.tieu_de_en) + '>' + bv.tieu_de + '</h3>' +
+        '<p class="body-lg" style="font-size:14px;"' + en(bv.tom_tat_en) + '>' + bv.tom_tat + '</p>' +
+        '<div class="blog-card__meta"><span' + en(bv.tac_gia_en) + '>' + bv.tac_gia + '</span><span class="dot"></span><span data-en="' + bv.thoi_gian_doc + ' min read">' + bv.thoi_gian_doc + ' phút đọc</span></div>' +
         '</div></a>';
     }).join('');
   }
@@ -207,7 +208,11 @@
       vi: ['tư vấn chuyển đổi số', 'ứng dụng AI', 'outsourcing phần mềm', 'thiết kế & phát triển web', 'truyền thông số & thương hiệu'],
       en: ['digital transformation consulting', 'AI adoption', 'software outsourcing', 'web design & development', 'digital marketing & branding']
     };
-    var lang = function () { return document.documentElement.getAttribute('data-lang') === 'en' ? 'en' : 'vi'; };
+    var lang = function () { // lựa chọn đã lưu (nút VI/EN ghi vào ktp_lang); data-lang của <html> chỉ đúng sau DOMContentLoaded
+      var v = null;
+      try { v = localStorage.getItem('ktp_lang'); } catch (e) {}
+      return (v || document.documentElement.getAttribute('data-lang')) === 'en' ? 'en' : 'vi';
+    };
     var words = WORDS[lang()];
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
