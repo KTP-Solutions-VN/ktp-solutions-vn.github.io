@@ -1131,17 +1131,30 @@ a.portfolio-card__img { display: block; }
 
 @media (max-width: 860px) {
   .dx-loop__steps { grid-template-columns: 1fr; gap: var(--sp-8); }
+  /* mobile: số bước và tiêu đề cùng một dòng, phần còn lại trải hết bề ngang bên dưới (desktop giữ số nằm trên tiêu đề) */
+  .dx-step { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: var(--sp-3); align-items: center; }
+  .dx-step > :not(.dx-step__num):not(h3) { grid-column: 1 / -1; }
+  .dx-step > .dx-step__num { margin-bottom: 0; }
+  .dx-step > h3 { margin-bottom: 0; }
+  .dx-step > h3 + * { margin-top: var(--sp-3); }
   .dx-step:not(:last-child)::after { top: auto; right: auto; bottom: calc(-1 * var(--sp-8)); left: 28px; width: 24px; height: var(--sp-8); transform: rotate(90deg); transform-origin: center; }
-  .dx-loop__return { height: auto; margin: var(--sp-8) 0 0; border: none; display: flex; justify-content: center; }
+  .dx-loop__return, .dx-loop__return.is-active { height: auto; margin: var(--sp-8) 0 0; border: none; display: flex; justify-content: center; } /* .is-active (desktop) vẽ viền nối về bước 1 — mobile không có đường nối */
   .dx-loop__return::before { display: none; }
   .dx-loop__dot { display: none !important; }
   .dx-step.is-flow::after { animation-name: dxArrowFlowDown; }
   .dx-loop__return-label { position: static; transform: none; white-space: normal; flex-wrap: wrap; justify-content: center; text-align: center; border-radius: var(--radius-lg); }
   .dx-loop__return-label span { flex-basis: 100%; }
   .dx-stats { grid-template-columns: 1fr; margin-top: var(--sp-12); }
-}
-@media (max-width: 480px) {
-  .dx-stat { flex-direction: column; gap: var(--sp-3); }
+  .dx-stat { flex-direction: column; gap: var(--sp-3); } /* mobile: con số một dòng, nội dung dòng dưới */
+  /* .m-inline-head: thẻ dạng [icon / số] + tiêu đề + nội dung — mobile đặt icon và tiêu đề cùng một dòng (desktop giữ icon nằm trên) */
+  .m-inline-head { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: var(--sp-3); align-items: center; }
+  .m-inline-head > * { grid-column: 1 / -1; }
+  .m-inline-head > :first-child { grid-column: 1; margin-bottom: 0 !important; }
+  .m-inline-head > :nth-child(2) { grid-column: 2; margin-top: 0 !important; margin-bottom: 0 !important; }
+  .m-inline-head > :nth-child(3) { margin-top: var(--sp-3); }
+  .m-inline-head > h1 { font-size: 28px !important; line-height: 1.2; } /* đầu trang chi tiết dịch vụ: tiêu đề đứng cạnh icon */
+  .why-media { aspect-ratio: 16 / 9; } /* ảnh trang trí "Vì sao chọn KTP": khung ngang thấp, không chiếm cả màn hình */
+  .why-media img { height: 100%; object-fit: cover; object-position: 50% 60%; }
 }
 
 /* Blog card */

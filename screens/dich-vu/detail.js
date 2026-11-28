@@ -27,7 +27,7 @@
   root.innerHTML =
     '<section class="section" style="padding-top:24px;">' +
       '<div class="container grid-2" style="align-items:center; gap:48px;">' +
-        '<div>' +
+        '<div class="m-inline-head">' +
           '<div class="service-card__icon" style="width:64px; height:64px; background:' + ICON_BG[dv.icon] + '; color:' + ICON_COLOR[dv.icon] + '; margin-bottom:20px;">' + ICONS[dv.icon] + '</div>' +
           '<h1 style="font-size:36px; margin-bottom:16px;"' + en(dv.ten_en) + '>' + dv.ten + '</h1>' +
           '<p class="body-lg"' + en(dv.mo_ta_dai_en) + '>' + dv.mo_ta_dai + '</p>' +

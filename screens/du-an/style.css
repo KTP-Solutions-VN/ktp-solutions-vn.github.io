@@ -206,12 +206,15 @@
   .pf-hero { min-height: auto; padding-bottom: var(--sp-12); }
   .pf-hero__stack-wrap { margin-top: var(--sp-6); min-height: 0; }
   .pf-hero__stack { width: 72vw; }
-  .pf-hero__bar { flex-direction: column; align-items: flex-start; margin-top: var(--sp-12); }
+  .pf-hero__bar { flex-direction: column; align-items: center; text-align: center; margin-top: var(--sp-12); } /* mobile: dòng giới thiệu + nút ra giữa */
+  .pf-hero__tagline { max-width: 340px; }
   .pf-tile { width: 260px; height: 170px; }
   .pf-float { opacity: 0.45; width: 72px; }
   .pf-float--bl, .pf-float--br { display: none; }
   .pf-approach { min-height: auto; }
-  .pf-approach__stats { grid-template-columns: 1fr; gap: var(--sp-6); }
+  .pf-approach__stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-3); } /* 3 con số cùng một dòng */
+  .pf-approach__stats strong { font-size: 30px; }
+  .pf-approach__stats span { font-size: 12px; line-height: 1.35; }
   .pf-services { border-radius: 36px 36px 0 0; padding: var(--sp-16) var(--sp-6) calc(var(--sp-16) + 60px); }
   .pf-projects { border-radius: 36px 36px 0 0; }
   .pf-groups { padding: 0 var(--sp-4); gap: var(--sp-12); }
@@ -261,10 +264,12 @@
   /* lề 2 bên thống nhất 16px như .container */
   .pf-hero { padding-left: var(--sp-4); padding-right: var(--sp-4); }
   .pf-services { padding-left: var(--sp-4); padding-right: var(--sp-4); }
-  /* Services: 1 cột, số nhỏ đứng trên tiêu đề */
-  .pf-svc { grid-template-columns: 1fr; gap: var(--sp-3); padding: var(--sp-8) 0; }
+  /* Services: số + tên dịch vụ cùng một dòng, mô tả và số dự án trải hết bề ngang bên dưới */
+  .pf-svc { grid-template-columns: auto minmax(0, 1fr); column-gap: var(--sp-3); row-gap: var(--sp-3); align-items: center; padding: var(--sp-8) 0; }
+  .pf-svc > div:nth-child(2) { display: contents; }
   .pf-svc__num { font-size: 40px; }
-  .pf-svc__side { grid-column: auto; }
+  .pf-svc__desc { grid-column: 1 / -1; margin-top: 0; }
+  .pf-svc__side { grid-column: 1 / -1; }
   .pf-services__list { margin-top: var(--sp-10, 40px); }
   /* khối lĩnh vực gọn hơn */
   .pf-domains { padding-top: var(--sp-4); padding-bottom: var(--sp-10, 40px); }

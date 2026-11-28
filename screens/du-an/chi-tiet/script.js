@@ -105,7 +105,7 @@
       '<div class="reveal" style="margin-bottom:var(--sp-12);"><span class="pf-eyebrow" data-en="Key use cases · try them in the sample playground">Use case chính · bấm thử trong playground bản mẫu</span><h2 class="pf-giant pf-giant--section">Use cases</h2></div>' +
       '<div class="pd-cases">' +
         da.use_cases.map(function (uc, i) {
-          return '<div class="pd-case reveal" style="transition-delay:' + (i % 3 * 0.08) + 's"><span class="pd-case__num">' + pad(i + 1) + '</span>' +
+          return '<div class="pd-case m-inline-head reveal" style="transition-delay:' + (i % 3 * 0.08) + 's"><span class="pd-case__num">' + pad(i + 1) + '</span>' +
             '<h3' + en(uc.ten_en) + '>' + uc.ten + '</h3><p' + en(uc.mo_ta_en) + '>' + uc.mo_ta + '</p></div>';
         }).join('') +
       '</div>' +
