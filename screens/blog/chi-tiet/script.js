@@ -44,7 +44,7 @@
   var related = DATA_BAI_VIET.filter(function (b) { return b.slug !== bv.slug; }).slice(0, 3);
 
   root.innerHTML =
-    '<article class="section" style="padding-top: calc(var(--header-h) + 40px); padding-bottom: 0;">' +
+    '<article class="section" style="padding-top: calc(var(--header-h) + 40px); padding-bottom: var(--sp-16);">' +
       '<div class="container" style="max-width:760px;">' +
         '<div class="breadcrumb">' +
           '<a href="../../../index.html" data-en="Home">Trang chủ</a><span class="sep">/</span>' +

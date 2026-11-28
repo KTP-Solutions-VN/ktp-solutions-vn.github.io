@@ -1,53 +1,55 @@
 /* Về chúng tôi — page-specific tweaks */
 
-/* Đội ngũ — lưới bàn cờ: mỗi người = ô ảnh + ô nội dung, hàng sau đảo trái / phải */
-.team-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr);
-  border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border);
+/* Đội ngũ — 4 thẻ một hàng trên desktop (2 cột tablet, vuốt ngang trên mobile). Chưa có ảnh thật nên không có ô ảnh / avatar.
+   Thẻ hiện lần lượt (stagger) khi section vào màn hình (.reveal.is-visible do global.js gắn); tắt khi reduced-motion. */
+.team-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--sp-6); }
+.team-member {
+  position: relative; display: flex; flex-direction: column; overflow: hidden;
+  border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--bg);
+  transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
 }
-.team-member { display: grid; grid-template-columns: 1fr 1fr; min-height: 320px; }
-.team-member:nth-child(4n+3) .team-member__photo,
-.team-member:nth-child(4n+4) .team-member__photo { order: 2; }
-.team-member__photo {
-  position: relative; display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-  overflow: hidden;
+.team-member::before { /* vạch màu trên đầu thẻ, xen kẽ primary / accent */
+  content: ""; position: absolute; inset: 0 0 auto; height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent)); transform-origin: left; transform: scaleX(1);
 }
-.team-member:nth-child(even) .team-member__photo { background: linear-gradient(135deg, var(--accent) 0%, var(--primary-dark) 100%); }
-.team-member__photo span { font: 700 72px/1 var(--font-sans); color: rgba(255,255,255,0.9); letter-spacing: -0.02em; }
-.team-member__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; } /* ảnh chân dung: căn lệch lên để không cắt đầu (khung 4:3 trên mobile) */
+.team-member:nth-child(even)::before { background: linear-gradient(90deg, var(--accent), var(--primary)); }
 .team-member__body {
-  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-  padding: var(--sp-8) var(--sp-6); background: var(--bg);
+  flex: 1; display: flex; flex-direction: column; align-items: flex-start; text-align: left;
+  padding: var(--sp-8) var(--sp-6) var(--sp-6);
 }
-.team-member__name { font: 700 22px/1.25 var(--font-sans); color: var(--text-strong); letter-spacing: -0.01em; }
+.team-member__name { font: 700 20px/1.25 var(--font-sans); color: var(--text-strong); letter-spacing: -0.01em; }
 .team-member__fullname { font-size: 13.5px; line-height: 1.4; color: var(--text-muted); margin-top: 2px; } /* tên tiếng Việt đầy đủ, nhỏ dưới tên tiếng Anh */
-.team-member__role { font: 600 13.5px/1.4 var(--font-sans); color: var(--accent); margin-top: 6px; }
-.team-member__bio { font-size: 14.5px; line-height: 1.6; color: var(--text-secondary); margin-top: var(--sp-4); max-width: 280px; }
-.team-member__social { display: flex; gap: var(--sp-3); margin-top: var(--sp-4); }
+.team-member__role { font: 600 13.5px/1.4 var(--font-sans); color: var(--accent); margin-top: var(--sp-3); }
+.team-member__bio { font-size: 14.5px; line-height: 1.6; color: var(--text-secondary); margin-top: var(--sp-4); }
+.team-member__social { display: flex; gap: var(--sp-3); margin-top: auto; padding-top: var(--sp-6); }
 .team-member__social a { color: var(--text-muted); transition: color 160ms; display: inline-flex; }
-@media (hover: hover) and (pointer: fine) { .team-member__social a:hover { color: var(--accent); } }
-
-@media (max-width: 960px) {
-  .team-grid { grid-template-columns: 1fr; }
-  .team-member:nth-child(n) .team-member__photo { order: 0; }
-  .team-member:nth-child(even) .team-member__photo { order: 2; }
+@media (hover: hover) and (pointer: fine) {
+  .team-member:hover { transform: translateY(-4px); border-color: var(--border-light); box-shadow: var(--shadow-2); }
+  .team-member__social a:hover { color: var(--accent); }
 }
-/* Mobile: carousel vuốt ngang (scroll-snap), mỗi lần một người, thấy mép thẻ kế tiếp; desktop giữ lưới */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal:not(.is-visible) .team-member { opacity: 0; }
+  .reveal.is-visible .team-member { animation: team-in 720ms cubic-bezier(.2, .7, .2, 1) both; }
+  .reveal.is-visible .team-member::before { animation: team-bar 900ms cubic-bezier(.2, .7, .2, 1) both; }
+  .reveal.is-visible .team-member:nth-child(2), .reveal.is-visible .team-member:nth-child(2)::before { animation-delay: 120ms; }
+  .reveal.is-visible .team-member:nth-child(3), .reveal.is-visible .team-member:nth-child(3)::before { animation-delay: 240ms; }
+  .reveal.is-visible .team-member:nth-child(4), .reveal.is-visible .team-member:nth-child(4)::before { animation-delay: 360ms; }
+}
+@keyframes team-in { from { opacity: 0; transform: translateY(28px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes team-bar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+@media (max-width: 1100px) { .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* Mobile: carousel vuốt ngang (scroll-snap), mỗi lần một người, thấy mép thẻ kế tiếp */
 .team-dots { display: none; }
 @media (max-width: 600px) {
   .team-grid {
     display: flex; gap: var(--sp-3); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
-    border: 0; border-radius: 0; margin: 0 calc(-1 * var(--sp-4)); padding: 0 var(--sp-4); scroll-padding: 0 var(--sp-4);
+    margin: 0 calc(-1 * var(--sp-4)); padding: 0 var(--sp-4); scroll-padding: 0 var(--sp-4);
     -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain;
   }
   .team-grid::-webkit-scrollbar { display: none; }
-  .team-member {
-    flex: 0 0 86%; scroll-snap-align: start; grid-template-columns: 1fr; grid-template-rows: auto 1fr; min-height: 0;
-    border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden;
-  }
-  .team-member:nth-child(n) .team-member__photo { order: 0; aspect-ratio: 4 / 3; }
-  .team-member__body { padding: var(--sp-6) var(--sp-4); }
+  .team-member { flex: 0 0 86%; scroll-snap-align: start; }
+  .team-member__body { padding: var(--sp-6) var(--sp-4) var(--sp-4); }
   .team-dots { display: flex; justify-content: center; gap: var(--sp-2); margin-top: var(--sp-4); }
   .team-dots button {
     width: 8px; height: 8px; padding: 0; border: 0; border-radius: var(--radius-full); background: var(--border-light);

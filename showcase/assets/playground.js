@@ -142,10 +142,63 @@
     $("#openNew").href = url;
     $("#exit").href = PROJ + "?linh-vuc=" + p.dom;
     document.querySelectorAll("#devices button").forEach(b => b.classList.toggle("is-active", +b.dataset.w === state.w));
-    const f = $("#frame");
-    if (reload || f.dataset.src !== url) { f.dataset.src = url; $("#loading").classList.add("is-on"); f.src = url; }
+    const f = cur();
     f.title = `${st(s)} · ${L(p.seo)}`;
+    if (reload || !f.dataset.src) { pending = ""; buf().dataset.src = ""; f.dataset.src = url; $("#loading").classList.add("is-on"); f.src = url; } // lần đầu / tải lại: nạp thẳng khung đang hiện
+    else if (f.dataset.src !== url) { pending = url; const b = buf(); b.dataset.src = url; $("#loading").classList.add("is-on"); b.src = url; } // đổi màn: nạp ngầm ở khung đệm, giữ màn cũ tới khi xong
+    else pending = "";
     fit();
+  }
+
+  /* Hai iframe luân phiên: màn mới tải trong khung đệm (ẩn), load xong mới đổi chỗ → không chớp trắng / nháy UI giữa hai màn.
+     Khung cũ được trả về about:blank để nhẹ bộ nhớ (điện thoại). */
+  let frames = [$("#frame"), $("#frameBuf")], pending = "";
+  const cur = () => frames[0], buf = () => frames[1];
+  function swapFrames() {
+    const [a, b] = frames;
+    b.classList.remove("is-standby"); b.removeAttribute("aria-hidden"); b.removeAttribute("tabindex"); b.title = a.title;
+    a.classList.add("is-standby"); a.setAttribute("aria-hidden", "true"); a.tabIndex = -1; a.title = "";
+    frames = [b, a];
+    a.dataset.src = ""; a.src = "about:blank";
+  }
+
+  /* Prefetch nền: khi trình duyệt rảnh, tải trước HTML các màn còn lại của prototype (màn kế / màn trước trước, rồi lần lượt
+     phần còn lại theo khoảng cách) kèm CSS / JS riêng của từng màn, 2 yêu cầu một lúc, tối đa 40 màn (điện thoại 10) quanh màn đang xem.
+     Mạng yếu / bật tiết kiệm dữ liệu: chỉ màn kế tiếp. */
+  const fetched = new Set(), canLinkPrefetch = (() => { try { return document.createElement("link").relList.supports("prefetch"); } catch (e) { return false; } })();
+  let queue = [], active = 0, queueFor = null;
+  const idle = fn => (window.requestIdleCallback ? requestIdleCallback(fn, {timeout: 2000}) : setTimeout(fn, 300));
+  const slowNet = () => { const c = navigator.connection; return !!c && (c.saveData || /(^|-)2g$/.test(c.effectiveType || "")); };
+  function prefetchUrl(u, asDoc) {
+    const abs = new URL(u, location.href); abs.hash = "";
+    if (abs.origin !== location.origin || fetched.has(abs.href)) return Promise.resolve(null);
+    fetched.add(abs.href);
+    if (canLinkPrefetch && !asDoc) { // CSS / JS: để trình duyệt tự prefetch với độ ưu tiên thấp nhất
+      const l = document.createElement("link"); l.rel = "prefetch"; l.href = abs.href; document.head.appendChild(l);
+      return Promise.resolve(null);
+    }
+    return fetch(abs.href, {credentials: "same-origin", priority: "low"}).then(r => r.ok ? r.text() : null).catch(() => null); // HTML: đọc để tìm CSS / JS của màn đó
+  }
+  function pump() {
+    while (active < 2 && queue.length) {
+      const u = queue.shift(), forP = queueFor; active++;
+      idle(() => prefetchUrl(u, true).then(html => {
+        if (html && forP === queueFor) { // tài nguyên riêng của màn (shell chung đã có trong cache từ màn đầu)
+          const doc = new DOMParser().parseFromString(html, "text/html");
+          doc.querySelectorAll('link[rel="stylesheet"][href], script[src]').forEach(el => prefetchUrl(new URL(el.getAttribute("href") || el.getAttribute("src"), new URL(u, location.href)).href));
+        }
+      }).finally(() => { active--; pump(); }));
+    }
+  }
+  function schedulePrefetch() {
+    const p = state.p, list = flat(p), i = state.i;
+    const order = [i + 1, i - 1, i + 2, i - 2];
+    if (!slowNet()) for (let k = 0; k < list.length; k++) order.push((i + 3 + k) % list.length); // phần còn lại, bắt đầu từ sau màn đang xem
+    const urls = [...new Set(order.filter(k => k >= 0 && k < list.length && k !== i).map(k => urlOf(p, list[k].u).split("#")[0]))];
+    queueFor = p.id + ":" + i;
+    // giới hạn theo vị trí đang xem (PMS có ~380 màn): máy tính 40 màn gần nhất, điện thoại 10; chuyển màn thì nạp tiếp quanh vị trí mới
+    queue = urls.filter(u => !fetched.has(new URL(u, location.href).href)).slice(0, slowNet() ? 1 : PHONE.matches ? 10 : 40);
+    pump();
   }
 
   function fit() { // co khung thiết bị cho vừa vùng xem
@@ -170,18 +223,24 @@
   $("#deskAnyway").addEventListener("click", () => { state.anyway = true; fit(); });
   if (window.ResizeObserver) new ResizeObserver(() => { if (state.p) fit(); }).observe($("#viewport")); // co giãn theo hiệu ứng thu gọn sidebar
 
-  $("#frame").addEventListener("load", () => {
+  function onFrameLoad(f) {
+    if (f === buf()) { // khung đệm: chỉ đổi chỗ khi đúng màn đang chờ (bỏ qua about:blank, màn đã bị thay bởi lần bấm sau)
+      if (!pending || f.dataset.src !== pending) return;
+      pending = ""; swapFrames();
+    }
     $("#loading").classList.remove("is-on");
+    idle(schedulePrefetch);
     try { // người xem bấm link trong prototype: đánh dấu màn tương ứng trong danh sách (cùng origin nên đọc được)
-      const loc = $("#frame").contentWindow.location, base = new URL(BASE + pdir(state.p), location.href).pathname;
+      const loc = cur().contentWindow.location, base = new URL(BASE + pdir(state.p), location.href).pathname;
       if (!loc.pathname.startsWith(base)) return;
       let rel = loc.pathname.slice(base.length);
       if (state.p.id === "crm") rel = "?__p=/" + rel; // CRM: màn trong danh sách ghi dạng ?__p=/<route>
       const all = flat(state.p), withHash = all.findIndex(s => s.u === rel + loc.hash); // màn mở theo #hash (Fleet: driver-app.html#dr04)
       const i = withHash >= 0 ? withHash : all.findIndex(s => s.u === rel);
-      if (i >= 0 && i !== state.i) { state.i = i; $("#frame").dataset.src = urlOf(state.p, flat(state.p)[i].u); setScreenUrl(true); renderSide(); renderStage(); setMeta(meta()); }
+      if (i >= 0 && i !== state.i) { state.i = i; cur().dataset.src = urlOf(state.p, flat(state.p)[i].u); setScreenUrl(true); renderSide(); renderStage(); setMeta(meta()); }
     } catch (e) { /* khác origin: bỏ qua */ }
-  });
+  }
+  frames.forEach(f => f.addEventListener("load", () => onFrameLoad(f)));
 
   /* ---------------- điều hướng ---------------- */
   function go(i) {
