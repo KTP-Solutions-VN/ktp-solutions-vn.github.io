@@ -4,7 +4,7 @@
     python3 scripts/check_rules.py          # chạy tay, in lỗi, exit 1 nếu có lỗi
     python3 scripts/check_rules.py --hook   # dùng làm Stop hook của Claude Code (.claude/settings.json): lỗi → exit 2
 
-Mỗi lỗi in kèm mã quy tắc (R1…R9) và file để sửa.
+Mỗi lỗi in kèm mã quy tắc (R1…R10) và file để sửa.
 """
 import json
 import pathlib
@@ -297,6 +297,12 @@ for page in SITE_PAGES + [ROOT / "404.html"]:
     if re.search(r'name="viewport"[^>]*(user-scalable\s*=\s*no|maximum-scale\s*=\s*1(?![.\d]))', page.read_text(encoding="utf-8")):
         err("R9", f"{rel(page)}: viewport chặn phóng to (user-scalable=no / maximum-scale=1) — đặt ô nhập ≥ 16px thay vì chặn zoom")
 
+# R10 — Ảnh bìa / ảnh chụp prototype có bản nhỏ -w1200 (KTP.srcset trỏ tới nó trên điện thoại; thiếu thì ảnh lỗi trên mobile)
+for d in ["showcase/assets/covers", "assets/img/du-an-trien-khai"]:
+    for img in sorted((ROOT / d).glob("*.jpg")):
+        if not img.stem.endswith("-w1200") and not img.with_name(f"{img.stem}-w1200.jpg").is_file():
+            err("R10", f"{rel(img)}: thiếu bản {img.stem}-w1200.jpg — chạy python3 scripts/make_thumbs.py")
+
 if errors:
     msg = "Vi phạm quy tắc repo (xem 'Quy tắc bắt buộc' trong CLAUDE.md):\n" + "\n".join(f"  - {e}" for e in errors[:60])
     if len(errors) > 60:
@@ -310,4 +316,4 @@ if errors:
         sys.exit(0 if active else 2)
     print(msg)
     sys.exit(1)
-print(f"OK: {len(SITE_PAGES)} trang, {len(DATA['du_an'])} dự án, {len(js)} file JS đạt mọi quy tắc R1–R9.")
+print(f"OK: {len(SITE_PAGES)} trang, {len(DATA['du_an'])} dự án, {len(js)} file JS đạt mọi quy tắc R1–R10.")

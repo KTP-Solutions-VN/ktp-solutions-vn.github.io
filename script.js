@@ -1,6 +1,7 @@
 /* Trang chủ — render các section động từ data layer dùng chung */
 (function () {
   'use strict';
+  var FINE_POINTER = window.matchMedia('(hover: hover) and (pointer: fine)').matches; // có chuột thật → mới gắn hiệu ứng hover bằng JS
 
   var ICONS = {
     compass: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>',
@@ -111,8 +112,10 @@
       });
     });
 
-    nav.addEventListener('mouseenter', stopServiceAutoplay);
-    nav.addEventListener('mouseleave', function () { startServiceAutoplay(nav); });
+    if (FINE_POINTER) { // màn cảm ứng: chạm sinh mouseenter mà không có mouseleave → không gắn (tránh "dính hover")
+      nav.addEventListener('mouseenter', stopServiceAutoplay);
+      nav.addEventListener('mouseleave', function () { startServiceAutoplay(nav); });
+    }
 
     activateServiceTab(0, nav);
     startServiceAutoplay(nav);
@@ -131,7 +134,7 @@
     grid.innerHTML = featured.map(function (da) {
       var metric = da.ket_qua[0], detail = 'screens/du-an/chi-tiet/index.html?slug=' + da.slug;
       return '<article class="card portfolio-card has-acts is-hoverable">' +
-        '<a class="portfolio-card__img" href="' + detail + '"><img src="' + da.anh + '" alt="' + da.anh_alt + '" loading="lazy"></a>' +
+        '<a class="portfolio-card__img" href="' + detail + '"><img src="' + da.anh + '"' + KTP.srcset(da.anh) + ' alt="' + da.anh_alt + '" loading="lazy"></a>' +
         '<div class="portfolio-card__body">' +
         '<div class="case-card__badges">' + KTP.domainBadge(da) + KTPCase.badges(da) + '</div>' +
         '<h3 class="h3 portfolio-card__title" style="margin-bottom:8px;"><a href="' + detail + '"' + KTP.en(da.ten_du_an_en) + '>' + da.ten_du_an + '</a></h3>' +
@@ -181,8 +184,9 @@
     // Each row's items are duplicated once so translateX(-50%) loops back seamlessly.
     var row1Html = row1Items.map(renderTestimonialCard).join('');
     var row2Html = row2Items.map(renderTestimonialCard).join('');
-    track1.innerHTML = row1Html + row1Html;
-    track2.innerHTML = row2Html + row2Html;
+    var dup = function (html) { return html.replace(/<div class="marquee-card">/g, '<div class="marquee-card is-dup" aria-hidden="true">'); };
+    track1.innerHTML = row1Html + dup(row1Html); // bản nhân chỉ để vòng lặp liền mạch; mobile (vuốt ngang) ẩn đi
+    track2.innerHTML = row2Html + dup(row2Html);
   }
 
   function renderBlog() {
@@ -225,8 +229,13 @@
     var wordIndex = 0;
     var charIndex = 0;
     var deleting = false;
+    var visible = true; // gõ chữ đổi DOM ~20 lần/giây → dừng khi hero ngoài màn hình hoặc tab ẩn (tiết kiệm pin)
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (en) { visible = en[0].isIntersecting; }).observe(el);
+    }
 
     function tick() {
+      if (!visible || document.hidden) { setTimeout(tick, 600); return; }
       var current = words[wordIndex];
       if (!deleting) {
         charIndex++;
@@ -265,6 +274,8 @@
     var kq = da.ket_qua && da.ket_qua[0];
 
     var img = document.getElementById('hero-showcase-img');
+    var ss = KTP.srcset(da.anh).match(/srcset="([^"]*)" sizes="([^"]*)"/); // bản -w1200 cho điện thoại
+    if (ss) { img.sizes = ss[2]; img.srcset = ss[1]; } else { img.removeAttribute('srcset'); }
     img.src = da.anh;
     img.alt = pick(da.anh_alt, da.anh_alt_en);
     document.getElementById('hero-showcase-tag').innerHTML =
@@ -305,8 +316,10 @@
     bar.addEventListener('animationend', function (e) {
       if (e.animationName === 'heroBarFill') goToHeroSlide(heroSlideIndex + 1);
     });
-    root.addEventListener('mouseenter', function () { bar.style.animationPlayState = 'paused'; });
-    root.addEventListener('mouseleave', function () { bar.style.animationPlayState = 'running'; });
+    if (FINE_POINTER) {
+      root.addEventListener('mouseenter', function () { bar.style.animationPlayState = 'paused'; });
+      root.addEventListener('mouseleave', function () { bar.style.animationPlayState = 'running'; });
+    }
     // đổi VI/EN: vẽ lại slide đang xem theo ngôn ngữ mới (giữ vị trí, chạy lại thanh tiến độ)
     new MutationObserver(function () { goToHeroSlide(heroSlideIndex); })
       .observe(document.documentElement, { attributes: true, attributeFilter: ['data-lang'] });
@@ -412,8 +425,10 @@
 
     loop.classList.add('dx-loop--running');
 
-    loop.addEventListener('mouseenter', function () { hovering = true; stop(); loop.classList.add('is-paused'); });
-    loop.addEventListener('mouseleave', function () { hovering = false; start(); });
+    if (FINE_POINTER) {
+      loop.addEventListener('mouseenter', function () { hovering = true; stop(); loop.classList.add('is-paused'); });
+      loop.addEventListener('mouseleave', function () { hovering = false; start(); });
+    }
     loop.addEventListener('focusin', function () { hovering = true; stop(); loop.classList.add('is-paused'); });
     loop.addEventListener('focusout', function () { hovering = false; start(); });
 

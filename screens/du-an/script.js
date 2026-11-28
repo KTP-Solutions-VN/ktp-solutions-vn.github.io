@@ -65,7 +65,7 @@
     var cls = ['pf-mock--l', 'pf-mock--c', 'pf-mock--r'];
     stack.innerHTML = trio.map(function (t, i) {
       return '<div class="pf-mock ' + cls[i] + '"><div class="pf-mock__bar"><i></i><i></i><i></i></div>' +
-        '<img src="' + url(t.anh) + '" alt="" loading="eager">' +
+        '<img src="' + url(t.anh) + '"' + KTP.srcset(url(t.anh)) + ' alt="" loading="eager">' +
         (i === 1 ? '<span class="pf-mock__tag">' + (t.d.mang ? t.d.mang.slice(0, 2).join(' · ') : t.d.nganh) + '</span>' : '') +
         '</div>';
     }).join('');
@@ -88,7 +88,7 @@
     var half = Math.ceil(tiles.length / 2);
     var tileHtml = function (t, hidden) {
       return '<a class="pf-tile" href="' + detail(t.d) + '"' + (hidden ? ' tabindex="-1" aria-hidden="true"' : '') + '>' +
-        '<img src="' + url(t.anh) + '" alt="' + (hidden ? '' : esc(t.alt)) + '" loading="lazy">' +
+        '<img src="' + url(t.anh) + '"' + KTP.srcset(url(t.anh)) + ' alt="' + (hidden ? '' : esc(t.alt)) + '" loading="lazy">' +
         '<span class="pf-tile__cap"' + en(t.d.ten_du_an_en) + '>' + t.d.ten_du_an + '</span></a>';
     };
     // bản giữa là bản "thật" cho bàn phím / screen reader; 2 bản nhân thêm ẩn khỏi accessibility tree
@@ -136,7 +136,7 @@
   var count = document.getElementById('pf-projects-count');
   function card(d) {
     return '<article class="pf-tcard reveal">' +
-      '<a class="pf-tcard__media" href="' + detail(d) + '" tabindex="-1" aria-hidden="true"><img src="' + url(d.anh) + '" alt="" loading="lazy"></a>' +
+      '<a class="pf-tcard__media" href="' + detail(d) + '" tabindex="-1" aria-hidden="true"><img src="' + url(d.anh) + '"' + KTP.srcset(url(d.anh)) + ' alt="" loading="lazy"></a>' +
       '<div class="pf-tcard__body">' +
         (K.badges(d) ? '<div class="case-card__badges">' + K.badges(d) + '</div>' : '') +
         '<h4 class="pf-tcard__title"><a href="' + detail(d) + '"' + en(d.ten_du_an_en) + '>' + d.ten_du_an + '</a></h4>' +

@@ -450,6 +450,28 @@
     }
   }
 
+  /* 0. Vòng 4 bước ở hero — trên điện thoại / màn cảm ứng đổi bước bằng class mỗi 2s thay cho keyframes CSS vẽ lại liên tục
+     (tiết kiệm pin); dừng khi hero ngoài màn hình hoặc tab ẩn. Desktop giữ animation CSS. */
+  function initHeroLoop() {
+    var loop = document.querySelector('.tv-hero-loop');
+    var mobile = window.matchMedia('(max-width: 860px), (hover: none)');
+    if (!loop || !mobile.matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var items = Array.prototype.slice.call(loop.querySelectorAll('.tv-hero-loop__list li'));
+    var next = loop.querySelector('.tv-hero-loop__next');
+    if (next) items.push(next);
+    var step = 0, visible = true;
+    loop.classList.add('tv-hero-loop--js');
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; }).observe(loop);
+    function show() { items.forEach(function (el, i) { el.classList.toggle('is-lit', i === step); }); }
+    show();
+    setInterval(function () {
+      if (!visible || document.hidden) return;
+      step = (step + 1) % items.length;
+      show();
+    }, 2000);
+  }
+
+  initHeroLoop();
   initAgents();
   initStepper();
   initTool();

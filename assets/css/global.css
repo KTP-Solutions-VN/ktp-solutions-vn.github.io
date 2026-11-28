@@ -51,6 +51,7 @@
 
   /* Token đổi theo theme (light theme ghi đè ở cuối file) */
   --header-bg: rgba(10, 13, 26, 0.92);
+  --header-bg-solid: #0A0D1A; /* header trên mobile: không blur nên dùng nền đặc */
   --hero-scrim: 10,13,26;       /* RGB lớp phủ ảnh hero */
 
   /* Typography scale */
@@ -111,7 +112,7 @@ h3, .h3 { font: var(--h3); }
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--gray-700); border-radius: 999px; }
-::-webkit-scrollbar-thumb:hover { background: var(--gray-600); }
+@media (hover: hover) and (pointer: fine) { ::-webkit-scrollbar-thumb:hover { background: var(--gray-600); } }
 :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 4px; }
 
 .container { max-width: var(--container-w); margin: 0 auto; padding: 0 var(--sp-6); }
@@ -175,7 +176,7 @@ h3, .h3 { font: var(--h3); }
 .section-bg-light .badge-accent { background: rgba(1,151,112,0.12); color: var(--accent-dark); }
 .section-bg-light .avatar { background: var(--gray-100); border-color: var(--gray-200); color: var(--accent-dark); }
 .section-bg-light .btn-outline { border-color: var(--gray-300); color: var(--gray-900); }
-.section-bg-light .btn-outline:hover { border-color: var(--primary); background: var(--gray-100); color: var(--primary-dark); }
+@media (hover: hover) and (pointer: fine) { .section-bg-light .btn-outline:hover { border-color: var(--primary); background: var(--gray-100); color: var(--primary-dark); } }
 .section-bg-light .service-card__link { color: var(--accent-dark); }
 .section-bg-light .case-card__metric span { color: var(--gray-500); }
 .section-header { max-width: 640px; margin: 0 auto var(--sp-12); text-align: center; }
@@ -232,7 +233,8 @@ h3, .h3 { font: var(--h3); }
   font: var(--caption); text-transform: none; letter-spacing: 0; font-weight: 500; font-size: 14.5px;
   color: var(--text-secondary); transition: color 160ms ease-out; position: relative; padding: var(--sp-2) 0;
 }
-.site-header__nav a:hover, .site-header__nav a.is-active { color: var(--text-strong); }
+.site-header__nav a.is-active { color: var(--text-strong); }
+@media (hover: hover) and (pointer: fine) { .site-header__nav a:hover { color: var(--text-strong); } }
 .site-header__nav a.is-active::after {
   content: ''; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px; background: var(--accent); border-radius: 2px;
 }
@@ -260,13 +262,13 @@ h3, .h3 { font: var(--h3); }
 .btn svg { width: 16px; height: 16px; flex-shrink: 0; }
 .btn-lg { padding: 15px 28px; font-size: 15.5px; }
 .btn-primary { background: var(--primary); color: #fff; box-shadow: var(--shadow-1); }
-.btn-primary:hover { background: #5C6DFF; box-shadow: var(--shadow-2); }
+@media (hover: hover) and (pointer: fine) { .btn-primary:hover { background: #5C6DFF; box-shadow: var(--shadow-2); } }
 .btn-accent { background: var(--accent-btn); color: #fff; box-shadow: var(--shadow-1); }  /* chữ trắng 5.3:1 (AA) */
-.btn-accent:hover { background: var(--accent-btn-hover); box-shadow: var(--shadow-2); }
+@media (hover: hover) and (pointer: fine) { .btn-accent:hover { background: var(--accent-btn-hover); box-shadow: var(--shadow-2); } }
 .btn-outline { background: transparent; border-color: var(--border-light); color: var(--text-primary); }
-.btn-outline:hover { border-color: var(--primary); color: var(--text-strong); background: var(--surface-2); }
+@media (hover: hover) and (pointer: fine) { .btn-outline:hover { border-color: var(--primary); color: var(--text-strong); background: var(--surface-2); } }
 .btn-ghost { background: transparent; color: var(--text-secondary); }
-.btn-ghost:hover { color: var(--text-strong); background: var(--surface-2); }
+@media (hover: hover) and (pointer: fine) { .btn-ghost:hover { color: var(--text-strong); background: var(--surface-2); } }
 .btn-block { width: 100%; }
 .btn[disabled] { opacity: 0.6; cursor: not-allowed; transform: none; }
 
@@ -279,7 +281,7 @@ h3, .h3 { font: var(--h3); }
   transition: transform 200ms ease-out, box-shadow 200ms ease-out, border-color 200ms ease-out;
 }
 @media (prefers-reduced-motion: no-preference) {
-  .card.is-hoverable:hover { transform: translateY(-4px); box-shadow: var(--shadow-3); border-color: var(--border-light); }
+  @media (hover: hover) and (pointer: fine) { .card.is-hoverable:hover { transform: translateY(-4px); box-shadow: var(--shadow-3); border-color: var(--border-light); } }
 }
 
 /* Stat / KPI card with a colored accent strip */
@@ -388,7 +390,7 @@ h3, .h3 { font: var(--h3); }
 /* Breadcrumb (used on blog/portfolio detail pages) */
 .breadcrumb { display: flex; align-items: center; gap: var(--sp-2); font: var(--caption); text-transform: none; margin-bottom: var(--sp-6); }
 .breadcrumb a { color: var(--text-muted); }
-.breadcrumb a:hover { color: var(--accent); }
+@media (hover: hover) and (pointer: fine) { .breadcrumb a:hover { color: var(--accent); } }
 .breadcrumb .sep { color: var(--gray-700); }
 
 /* ==========================================================================
@@ -481,7 +483,7 @@ h3, .h3 { font: var(--h3); }
   padding: 7px 12px; border-radius: var(--radius-full); background: var(--primary); color: #fff;
   font: 600 12.5px var(--font-sans); box-shadow: var(--shadow-2); transition: background 160ms ease-out, transform 160ms ease-out;
 }
-.hero-showcase__try:hover { background: #5B6CFF; transform: translateY(-1px); }
+@media (hover: hover) and (pointer: fine) { .hero-showcase__try:hover { background: #5B6CFF; transform: translateY(-1px); } }
 .hero-showcase__overlay {
   position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; justify-content: flex-end;
   padding: var(--sp-6);
@@ -501,13 +503,13 @@ h3, .h3 { font: var(--h3); }
 .hero-showcase__tag .domain-icon { width: 13px; height: 13px; flex: none; }
 .hero-showcase__project { font: 700 16px var(--font-sans); color: #fff; margin-bottom: 5px; }
 .hero-showcase__project a { color: inherit; }
-.hero-showcase__project a:hover { color: var(--accent); }
+@media (hover: hover) and (pointer: fine) { .hero-showcase__project a:hover { color: var(--accent); } }
 .hero-showcase__desc { font-size: 12.5px; color: var(--text-secondary); line-height: 1.5; margin-bottom: var(--sp-4); max-width: 92%; }
 .hero-showcase__metric { display: flex; align-items: center; gap: 10px; margin-bottom: var(--sp-3); }
 .hero-showcase__metric-value { font: 800 20px/1.2 var(--font-sans); color: var(--accent); letter-spacing: -0.01em; }
 .hero-showcase__metric-label { font-size: 11.5px; color: var(--text-secondary); line-height: 1.4; max-width: 220px; }
 .hero-showcase__bar { height: 5px; border-radius: 999px; background: rgba(255,255,255,0.14); overflow: hidden; }
-.hero-showcase__bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--accent), var(--primary)); width: 0%; }
+.hero-showcase__bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--primary)); transform: scaleX(0); transform-origin: left center; } /* scaleX thay vì width: chạy trên compositor, không layout lại mỗi khung hình */
 @media (prefers-reduced-motion: no-preference) {
   .hero-showcase__bar-fill.is-filling { animation: heroBarFill 6000ms linear forwards; }
   .hero-showcase__project, .hero-showcase__desc, .hero-showcase__metric {
@@ -515,9 +517,9 @@ h3, .h3 { font: var(--h3); }
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-showcase__bar-fill.is-filling { width: 100%; }
+  .hero-showcase__bar-fill.is-filling { transform: none; }
 }
-@keyframes heroBarFill { from { width: 0%; } to { width: 100%; } }
+@keyframes heroBarFill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
 .hero-showcase__dots { display: flex; justify-content: center; gap: 6px; padding: var(--sp-3) 0; background: var(--surface); }
 .hero-showcase__dot { width: 6px; height: 6px; border-radius: 999px; background: var(--border-light); border: none; padding: 0; cursor: pointer; transition: width 220ms ease-out, background 220ms ease-out; }
@@ -583,7 +585,7 @@ h3, .h3 { font: var(--h3); }
 @media (max-width: 860px) { .service-card--featured { flex-direction: column; } }
 .service-card__link { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); font: 600 14px var(--font-sans); margin-top: auto; }
 .service-card__link svg { width: 14px; height: 14px; transition: transform 160ms ease-out; }
-.service-card__link:hover svg { transform: translateX(3px); }
+@media (hover: hover) and (pointer: fine) { .service-card__link:hover svg { transform: translateX(3px); } }
 
 /* Service tabs — click a tab to fade the content panel to that service */
 .service-tabs { display: grid; grid-template-columns: 380px 1fr; gap: var(--sp-8); align-items: stretch; }
@@ -594,7 +596,7 @@ h3, .h3 { font: var(--h3); }
   border-radius: var(--radius-md); border: 1px solid transparent; background: transparent; cursor: pointer;
   transition: background 160ms ease-out, border-color 160ms ease-out;
 }
-.service-tab-btn:hover { background: var(--surface-2); }
+@media (hover: hover) and (pointer: fine) { .service-tab-btn:hover { background: var(--surface-2); } }
 .service-tab-btn.is-active { background: var(--surface-2); border-color: var(--border-light); box-shadow: var(--shadow-1); }
 .service-tab-btn__icon {
   width: 40px; height: 40px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center;
@@ -609,7 +611,7 @@ h3, .h3 { font: var(--h3); }
 .service-tab-btn__progress { position: absolute; left: 0; bottom: 0; height: 2px; width: 0%; background: var(--accent); }
 @media (prefers-reduced-motion: no-preference) {
   .service-tab-btn__progress.is-animating { animation: serviceTabProgress 5500ms linear forwards; }
-  .service-tabs__nav:hover .service-tab-btn__progress.is-animating { animation-play-state: paused; }
+  @media (hover: hover) and (pointer: fine) { .service-tabs__nav:hover .service-tab-btn__progress.is-animating { animation-play-state: paused; } }
 }
 @keyframes serviceTabProgress {
   from { width: 0%; }
@@ -814,7 +816,7 @@ h3, .h3 { font: var(--h3); }
 }
 .marquee-row--reverse .marquee-track { animation-direction: reverse; }
 @media (prefers-reduced-motion: no-preference) {
-  .marquee-row:hover .marquee-track { animation-play-state: paused; }
+  @media (hover: hover) and (pointer: fine) { .marquee-row:hover .marquee-track { animation-play-state: paused; } }
 }
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none; flex-wrap: wrap; }
@@ -858,7 +860,7 @@ h3, .h3 { font: var(--h3); }
 .portfolio-card.has-acts { display: flex; flex-direction: column; }
 .portfolio-card.has-acts .portfolio-card__body { flex: 1; display: flex; flex-direction: column; }
 .portfolio-card.has-acts .portfolio-card__img img { object-position: top left; }
-.portfolio-card__title a:hover { color: var(--primary); }
+@media (hover: hover) and (pointer: fine) { .portfolio-card__title a:hover { color: var(--primary); } }
 .case-card__acts { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: auto; padding-top: var(--sp-6); }
 .portfolio-card.has-acts .case-card__metric { flex-direction: column; align-items: flex-start; gap: 2px; }
 .portfolio-card.has-acts .case-card__metric strong { font-size: 20px; line-height: 1.25; }
@@ -886,8 +888,8 @@ h3, .h3 { font: var(--h3); }
 .case-card__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sp-3); margin-top: var(--sp-4); }
 .case-card__actions .service-card__link { margin-top: 0; }
 .case-card__title-link { color: inherit; }
-.case-card__title-link:hover { color: var(--accent); }
-.section-bg-light .case-card__title-link:hover { color: var(--accent-dark); }
+@media (hover: hover) and (pointer: fine) { .case-card__title-link:hover { color: var(--accent); } }
+@media (hover: hover) and (pointer: fine) { .section-bg-light .case-card__title-link:hover { color: var(--accent-dark); } }
 a.portfolio-card__img { display: block; }
 
 /* CR-02 — Chip business domain của dự án (E-commerce, CRM, Inventory…) */
@@ -1012,7 +1014,7 @@ a.portfolio-card__img { display: block; }
 .dx-stat p { font-size: 14.5px; line-height: 1.55; color: var(--text-secondary); }
 .dx-stat__src { display: block; margin-top: var(--sp-2); font-size: 12px; color: var(--text-muted); }
 .dx-stat__src a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
-.dx-stat__src a:hover { color: var(--text-secondary); }
+@media (hover: hover) and (pointer: fine) { .dx-stat__src a:hover { color: var(--text-secondary); } }
 .dx-loop__ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--sp-4); margin-top: var(--sp-12); }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -1212,7 +1214,7 @@ a.portfolio-card__img { display: block; }
 .footer-contact-item svg { flex-shrink: 0; color: var(--accent); }
 .footer-contact-item span, .footer-contact-item a { color: var(--text-muted); }
 .site-footer a { color: var(--text-muted); font-size: 14px; transition: color 160ms; }
-.site-footer a:hover { color: var(--accent); }
+@media (hover: hover) and (pointer: fine) { .site-footer a:hover { color: var(--accent); } }
 .site-footer__social { display: flex; gap: var(--sp-3); margin-top: var(--sp-6); }
 .site-footer__social a {
   width: 36px; height: 36px; border-radius: var(--radius-full); background: var(--surface); border: 1px solid var(--border);
@@ -1232,7 +1234,7 @@ a.portfolio-card__img { display: block; }
 
 /* Reset-demo link (contact page only) */
 .demo-reset { position: fixed; bottom: var(--sp-4); left: var(--sp-4); font: var(--caption); color: var(--gray-600); z-index: 50; }
-.demo-reset:hover { color: var(--text-secondary); }
+@media (hover: hover) and (pointer: fine) { .demo-reset:hover { color: var(--text-secondary); } }
 
 /* ==========================================================================
    Responsive
@@ -1282,6 +1284,7 @@ a.portfolio-card__img { display: block; }
   --shadow-3: 0 16px 40px rgba(0,8,74,0.14), 0 6px 16px rgba(0,8,74,0.08);
 
   --header-bg: rgba(255, 255, 255, 0.92);
+  --header-bg-solid: #FFFFFF;
   --hero-scrim: 255,255,255;
 }
 :root { color-scheme: dark; }
@@ -1317,7 +1320,7 @@ a.portfolio-card__img { display: block; }
   border: 1px solid var(--border-light); border-radius: var(--radius-full); background: transparent;
   color: var(--text-secondary); transition: color 160ms, border-color 160ms, background 160ms;
 }
-.theme-toggle:hover { color: var(--text-strong); border-color: var(--primary); background: var(--surface-2); }
+@media (hover: hover) and (pointer: fine) { .theme-toggle:hover { color: var(--text-strong); border-color: var(--primary); background: var(--surface-2); } }
 .theme-toggle svg { width: 16px; height: 16px; }
 .theme-toggle .icon-sun { display: none; }
 :root[data-theme="light"] .theme-toggle .icon-sun { display: block; }
@@ -1423,4 +1426,44 @@ html.is-nav-open, html.is-nav-open body { overflow: hidden; }
   #live-projects::-webkit-scrollbar, #blog-grid::-webkit-scrollbar { display: none; }
   #live-projects > *, #blog-grid > * { flex: 0 0 86%; scroll-snap-align: start; }
   .live-card__desc { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+}
+
+/* ==========================================================================
+   Tiết kiệm pin trên điện thoại (lướt trang bị nóng máy — đo bằng Playwright + CDP, xem CLAUDE.md)
+   1. Animation lặp vô hạn dừng khi section ra khỏi màn hình (.is-offscreen do global.js gắn) hoặc tab ẩn.
+   2. Màn cảm ứng / hẹp: bỏ các hiệu ứng trang trí lặp liên tục (vòng sáng quanh nút vẽ lại box-shadow mỗi khung hình,
+      khối nổi bập bềnh) và backdrop-filter của header (phải làm mờ lại nền mỗi khung hình khi cuộn).
+   ========================================================================== */
+.is-offscreen, .is-offscreen::before, .is-offscreen::after,
+.is-offscreen *, .is-offscreen *::before, .is-offscreen *::after,
+.is-page-hidden *, .is-page-hidden *::before, .is-page-hidden *::after { animation-play-state: paused !important; }
+@media (max-width: 860px), (hover: none) {
+  .btn-pulse, .hero__float, .hero__visual-panel--a, .hero__visual-panel--b { animation: none !important; }
+  .site-header.is-scrolled, .site-header.is-solid { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--header-bg-solid, var(--header-bg)); }
+}
+
+/* Xem thêm / Thu gọn (KTP.readMore trong global.js) — chữ bị cắt trên mobile mà không có trang chi tiết */
+[data-readmore].is-expanded { display: block; -webkit-line-clamp: unset; line-clamp: unset; max-height: none; overflow: visible; }
+.readmore-btn {
+  display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; min-height: 36px; padding: 6px 0;
+  background: none; border: 0; cursor: pointer; font: 600 13.5px var(--font-sans); color: var(--accent);
+}
+.readmore-btn[hidden] { display: none; }
+.readmore-btn::after { content: ''; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform 200ms; }
+.readmore-btn[aria-expanded="true"]::after { transform: translateY(2px) rotate(-135deg); }
+.readmore-btn[aria-expanded="true"] .readmore-btn__more, .readmore-btn[aria-expanded="false"] .readmore-btn__less { display: none; }
+.readmore-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.section-bg-light .readmore-btn, :root[data-theme="light"] .readmore-btn { color: var(--accent-dark); }
+
+/* Đánh giá khách hàng trên điện thoại / màn cảm ứng: không chạy marquee (đọc chữ đang trôi rất khó, lại tốn pin) —
+   mỗi hàng thành dải vuốt ngang, bỏ bản nhân đôi dùng cho vòng lặp */
+@media (max-width: 860px), (hover: none) {
+  .marquee-track { animation: none !important; gap: var(--sp-3); }
+  .marquee-row {
+    overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none;
+    -webkit-mask-image: none; mask-image: none; scroll-padding-inline: 2px;
+  }
+  .marquee-row::-webkit-scrollbar { display: none; }
+  .marquee-card { scroll-snap-align: start; }
+  .marquee-card.is-dup { display: none; }
 }

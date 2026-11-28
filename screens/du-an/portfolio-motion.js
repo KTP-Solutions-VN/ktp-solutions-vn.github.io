@@ -4,11 +4,15 @@
    - scrollMarquee()   : 2 hàng ảnh chạy ngược chiều nhau theo vị trí cuộn trang
    - charReveal(el)    : chữ sáng dần từng ký tự theo tiến độ cuộn (opacity 0.2 → 1)
    - parallax(el)      : ảnh trôi chậm hơn trang
-   Tất cả tắt khi prefers-reduced-motion; magnet tắt dưới 768px. */
+   Tất cả tắt khi prefers-reduced-motion; magnet tắt dưới 768px và trên màn cảm ứng.
+   Tiết kiệm pin: không có vòng rAF chạy mãi (marquee chỉ chạy khi hover / khi cuộn), job theo cuộn bỏ qua khi phần tử
+   ngoài màn hình, không đọc layout (scrollWidth) mỗi khung hình. */
 (function () {
   'use strict';
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var desktop = window.matchMedia('(min-width: 768px)');
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)'); // chuột thật — hiệu ứng theo con trỏ chỉ bật khi có
+  var inView = function (el, margin) { var r = el.getBoundingClientRect(), m = margin || 0; return r.bottom > -m && r.top < window.innerHeight + m; };
   var clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); };
 
   /* Một vòng rAF dùng chung cho mọi hiệu ứng theo cuộn */
@@ -28,7 +32,7 @@
   }
 
   function magnet(el, opts) {
-    if (!el || reduce) return;
+    if (!el || reduce || !fine.matches) return;
     opts = opts || {};
     var padding = opts.padding || 150, strength = opts.strength || 3;
     var active = false;
@@ -49,23 +53,28 @@
 
   /* rows: [track1, track2] — mỗi track chứa nội dung đã nhân 3 để chạy liền mạch.
      Vị trí = trôi nhẹ theo cuộn trang + phần "tự chạy" khi hover lên hàng đó (infinite, hàng 1 sang phải, hàng 2 sang trái).
-     Vận tốc tăng/giảm mượt khi vào/rời hover. Thiết bị không có hover (cảm ứng): tự chạy chậm liên tục.
+     Vận tốc tăng/giảm mượt khi vào/rời hover. Thiết bị không có hover (cảm ứng): chỉ trôi theo cuộn trang
+     (trước đây tự chạy liên tục bằng một vòng rAF không bao giờ dừng → nóng máy).
      Reduced-motion: không tự chạy — mỗi hàng cuộn ngang bằng tay được (class pf-marquee--manual). */
   function scrollMarquee(section, rows, opts) {
     if (!section || !rows.length) return;
     opts = opts || {};
     if (reduce) { section.classList.add('pf-marquee--manual'); return; }
     var SPEED = opts.speed || 100;             // px/giây khi hover (~4s mỗi ảnh 432px)
-    var IDLE = opts.idleSpeed || 28;           // px/giây trên thiết bị cảm ứng
-    var touch = window.matchMedia('(hover: none)').matches;
-    var state = rows.map(function () { return { auto: 0, vel: 0, target: touch ? IDLE : 0 }; });
+    var state = rows.map(function () { return { auto: 0, vel: 0, target: 0 }; });
+    var sets = [];                              // bề rộng 1/3 track, đo lại khi resize (không đọc scrollWidth mỗi khung hình)
+    function measure() { sets = rows.map(function (t) { return t.scrollWidth / 3 || 1; }); }
+    measure();
+    window.addEventListener('resize', measure, { passive: true });
+    window.addEventListener('load', measure);
     var loopOn = false, last = 0;
 
     function render() {
+      if (!inView(section, 200)) return;
       var top = section.getBoundingClientRect().top + window.scrollY;
       var base = (window.scrollY - top + window.innerHeight) * 0.3;
       rows.forEach(function (t, i) {
-        var set = t.scrollWidth / 3 || 1;
+        var set = sets[i];
         var v = base + state[i].auto;
         var o = ((v % set) + set) % set;
         var x = i === 0 ? (-set + o) : -o; // luôn nằm trong [-set, 0] → không bao giờ lộ khoảng trống
@@ -92,10 +101,9 @@
       t.style.willChange = 'transform';
       var row = t.parentElement;
       row.addEventListener('mouseenter', function () { state[i].target = SPEED; row.classList.add('is-running'); kick(); });
-      row.addEventListener('mouseleave', function () { state[i].target = touch ? IDLE : 0; row.classList.remove('is-running'); kick(); });
+      row.addEventListener('mouseleave', function () { state[i].target = 0; row.classList.remove('is-running'); kick(); });
     });
     addJob(render);
-    if (touch) kick();
   }
 
   /* Tách chữ thành span theo từ (giữ xuống dòng tự nhiên) → span theo ký tự.
@@ -110,6 +118,7 @@
       }).join('') + '</span>';
     }).join(' ');
     el._chars = el.querySelectorAll('.pf-char');
+    el._crDirty = true;
     if (reduce) return;
     if (el._crJob) { el._crJob(); return; }
     el._crJob = function () {
@@ -117,6 +126,8 @@
       var r = el.getBoundingClientRect(), vh = window.innerHeight;
       // offset ['start 0.8', 'end 0.2']: 0 khi đầu đoạn chạm 80% màn hình, 1 khi cuối đoạn chạm 20%
       var p = clamp((vh * 0.8 - r.top) / (r.height + vh * 0.6), 0, 1);
+      if (p === el._crLast && !el._crDirty) return; // ngoài vùng (0 hoặc 1) hoặc chưa đổi → không ghi lại style hàng trăm ký tự
+      el._crLast = p; el._crDirty = false;
       var lit = p * n;
       for (var i = 0; i < n; i++) chars[i].style.opacity = (0.2 + 0.8 * clamp(lit - i, 0, 1)).toFixed(2);
     };

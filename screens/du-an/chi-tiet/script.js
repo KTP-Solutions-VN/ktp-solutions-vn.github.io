@@ -54,7 +54,7 @@
         '<a class="btn btn-ghost btn-lg pf-pill" href="../../lien-he/index.html" data-en="Book a consultation">Đặt lịch tư vấn</a>' +
         (da.an_ten_khach_hang ? '<p class="case-confidential" data-en="Client name withheld under a confidentiality agreement.">Tên khách hàng được ẩn theo thỏa thuận bảo mật.</p>' : '') +
       '</div>' +
-      '<div class="pd-cover pf-fade" style="--d:.5s; --y:30px"><img id="pd-cover-img" src="' + url(da.anh) + '" alt="' + esc(da.anh_alt) + '"></div>' +
+      '<div class="pd-cover pf-fade" style="--d:.5s; --y:30px"><img id="pd-cover-img" src="' + url(da.anh) + '"' + KTP.srcset(url(da.anh)) + ' alt="' + esc(da.anh_alt) + '"></div>' +
     '</div></section>';
 
   /* ② Bối cảnh */
@@ -69,8 +69,8 @@
   /* ③ Gallery bento — 2 ảnh chụp màn hình + ô giá trị nổi bật */
   var bento = sub.length ? (
     '<section class="section" style="padding-top:0;"><div class="container"><div class="pd-bento reveal">' +
-      '<figure><img src="' + url(sub[0].anh) + '" alt="' + esc(sub[0].anh_alt) + '" loading="lazy"></figure>' +
-      (sub[1] ? '<figure><img src="' + url(sub[1].anh) + '" alt="' + esc(sub[1].anh_alt) + '" loading="lazy"></figure>' : '') +
+      '<figure><img src="' + url(sub[0].anh) + '"' + KTP.srcset(url(sub[0].anh)) + ' alt="' + esc(sub[0].anh_alt) + '" loading="lazy"></figure>' +
+      (sub[1] ? '<figure><img src="' + url(sub[1].anh) + '"' + KTP.srcset(url(sub[1].anh)) + ' alt="' + esc(sub[1].anh_alt) + '" loading="lazy"></figure>' : '') +
       (m0 ? '<div class="pd-bento__stat"><strong' + en(m0.chi_so_en) + '>' + m0.chi_so + '</strong><span' + en(m0.mo_ta_en) + '>' + m0.mo_ta + '</span></div>' : '') +
     '</div></div></section>'
   ) : '';
@@ -136,7 +136,7 @@
       '<span class="pf-eyebrow" style="text-align:left;" data-en="Next project">Dự án tiếp theo</span>' +
       '<a class="pd-next__link" href="index.html?slug=' + nxt.slug + '">' +
         '<span class="pd-next__title"' + en(nxt.ten_du_an_en) + '>' + nxt.ten_du_an + '</span>' +
-        '<span class="pd-next__thumb" aria-hidden="true"><img src="' + url(nxt.anh) + '" alt="" loading="lazy"></span>' +
+        '<span class="pd-next__thumb" aria-hidden="true"><img src="' + url(nxt.anh) + '"' + KTP.srcset(url(nxt.anh)) + ' alt="" loading="lazy"></span>' +
         '<span class="pd-next__arrow" aria-hidden="true">' + ARROW + '</span>' +
       '</a>' +
       '<div class="pd-next__foot">' +

@@ -7,7 +7,12 @@
    KTP.en(text)        → thuộc tính data-en="…" (chữ tiếng Anh cho nút VI/EN), rỗng nếu không có bản dịch
    KTP.domainIcon(slug) → icon SVG theo lĩnh vực dự án (hospitality / industrial / healthcare / logistics)
    KTP.domainBadge(da)  → badge lĩnh vực có icon, chữ song ngữ (da: 1 phần tử DATA_DU_AN)
-   KTP.liveProjects(root) → các thẻ "Dự án đã triển khai" (DATA_TRIEN_KHAI, link ra website thật). root: tiền tố tới gốc site ("", "../../") */
+   KTP.liveProjects(root) → các thẻ "Dự án đã triển khai" (DATA_TRIEN_KHAI, link ra website thật). root: tiền tố tới gốc site ("", "../../")
+   KTP.readMore(scope)  → nút "Xem thêm / Thu gọn" cho mọi [data-readmore] trong scope (mặc định cả trang) — chỉ hiện khi chữ
+                          thật sự bị cắt (line-clamp / max-height trên mobile) và không có trang chi tiết; tự gọi lúc DOMContentLoaded,
+                          gọi lại sau khi vẽ thêm nội dung bằng JS
+   KTP.srcset(src)      → thuộc tính srcset/sizes trỏ bản -w1200 (scripts/make_thumbs.py) cho ảnh bìa / ảnh chụp prototype, để điện thoại
+                          không phải giải mã ảnh 2400px; ảnh khác → rỗng */
 var KTP = (function () {
   var esc = function (s) { return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); };
   var ICONS = {
@@ -26,23 +31,69 @@ var KTP = (function () {
   function domainBadge(da, extraStyle) {
     return '<span class="badge badge-accent badge-domain"' + (extraStyle ? ' style="' + extraStyle + '"' : '') + '>' + domainIcon(da.linh_vuc) + '<span' + en(da.nganh_en) + '>' + da.nganh + '</span></span>';
   }
+  var THUMB = /(showcase\/assets\/covers|assets\/img\/du-an-trien-khai)\/([\w-]+)\.jpg$/;
+  function srcset(src) {
+    if (!THUMB.test(src) || /-w1200\.jpg$/.test(src)) return '';
+    var w = /-\d\.jpg$/.test(src) ? 1800 : 2400; // ảnh chụp màn phụ (<id>-1/-2) rộng 1800, ảnh bìa 2400
+    return ' srcset="' + src.replace(/\.jpg$/, '-w1200.jpg') + ' 1200w, ' + src + ' ' + w + 'w" sizes="(max-width: 860px) 100vw, 50vw"';
+  }
   function liveProjects(root) {
     if (typeof DATA_TRIEN_KHAI === 'undefined') return '';
     var ext = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>';
     return DATA_TRIEN_KHAI.map(function (p) {
       var host = p.url.replace(/^https?:\/\//, '').replace(/\/$/, '');
       return '<article class="card portfolio-card has-acts is-hoverable live-card">' +
-        '<a class="portfolio-card__img" href="' + p.url + '" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="' + root + p.anh + '" alt="" loading="lazy"></a>' +
+        '<a class="portfolio-card__img" href="' + p.url + '" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="' + root + p.anh + '"' + srcset(root + p.anh) + ' alt="" loading="lazy"></a>' +
         '<div class="portfolio-card__body">' +
         '<div class="case-card__badges">' + domainBadge(p) + '</div>' +
         '<h3 class="h3 portfolio-card__title live-card__title"><a href="' + p.url + '" target="_blank" rel="noopener"' + en(p.ten_en) + '>' + p.ten + '</a></h3>' +
-        '<p class="live-card__desc"' + en(p.mo_ta_en) + '>' + p.mo_ta + '</p>' +
+        '<p class="live-card__desc" data-readmore' + en(p.mo_ta_en) + '>' + p.mo_ta + '</p>' +
         '<ul class="live-card__tags">' + p.mang.map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('') + '</ul>' +
         '<div class="case-card__acts"><a class="btn btn-outline" href="' + p.url + '" target="_blank" rel="noopener"><span data-en="Visit ' + host + '">Xem ' + host + '</span>' + ext + '</a></div>' +
         '</div></article>';
     }).join('');
   }
-  return { en: en, domainIcon: domainIcon, domainBadge: domainBadge, liveProjects: liveProjects };
+  /* Xem thêm / Thu gọn: nút đặt ngay sau phần tử; nhãn gồm 2 span có data-en nên nút VI/EN đổi được, CSS hiện span theo aria-expanded.
+     Kiểm lại khi đổi kích thước màn hình và khi đổi ngôn ngữ (độ dài chữ khác nhau). */
+  var rmSeq = 0, rmBound = false;
+  function rmCheck(el) {
+    var btn = el._rmBtn;
+    if (el.classList.contains('is-expanded')) { btn.hidden = false; return; }
+    btn.hidden = !(el.scrollHeight > el.clientHeight + 1);
+  }
+  function readMore(scope) {
+    var list = (scope || document).querySelectorAll('[data-readmore]');
+    Array.prototype.forEach.call(list, function (el) {
+      if (!el._rmBtn) {
+        if (!el.id) el.id = 'rm-' + (++rmSeq);
+        var btn = document.createElement('button');
+        btn.type = 'button'; btn.className = 'readmore-btn'; btn.hidden = true;
+        btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-controls', el.id);
+        btn.innerHTML = '<span class="readmore-btn__more" data-en="Read more">Xem thêm</span><span class="readmore-btn__less" data-en="Show less">Thu gọn</span>';
+        if (document.documentElement.getAttribute('data-lang') === 'en') {
+          btn.querySelectorAll('[data-en]').forEach(function (s) { s.dataset.vi = s.innerHTML; s.innerHTML = s.dataset.en; });
+        }
+        btn.addEventListener('click', function (e) {
+          e.preventDefault(); e.stopPropagation(); // nằm trong thẻ có link → không mở link
+          var open = el.classList.toggle('is-expanded');
+          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+          if (!open) rmCheck(el);
+        });
+        el.insertAdjacentElement('afterend', btn);
+        el._rmBtn = btn;
+      }
+      rmCheck(el);
+    });
+    if (!rmBound) {
+      rmBound = true;
+      var t;
+      var recheck = function () { clearTimeout(t); t = setTimeout(function () { readMore(); }, 150); };
+      window.addEventListener('resize', recheck, { passive: true });
+      new MutationObserver(recheck).observe(document.documentElement, { attributes: true, attributeFilter: ['data-lang'] });
+      window.addEventListener('load', recheck);
+    }
+  }
+  return { en: en, domainIcon: domainIcon, domainBadge: domainBadge, liveProjects: liveProjects, srcset: srcset, readMore: readMore };
 })();
 
 /* ---- Case-study helpers (CR-01 / CR-02) — trang chủ, Dự án, Chi tiết dự án, trang dịch vụ Tư vấn. Song ngữ qua data-en.
@@ -288,7 +339,24 @@ var KTPCase = window.KTPCase = (function () {
     new MutationObserver(label).observe(root, { attributes: true, attributeFilter: ['data-lang'] });
   }
 
+  /* ---- Tiết kiệm pin: dừng animation CSS lặp vô hạn khi section của nó ra khỏi màn hình hoặc tab bị ẩn.
+     Animation vẫn chạy trên GPU/CPU kể cả khi không nhìn thấy → điện thoại nóng khi lướt. Section ngoài khung nhìn
+     có class .is-offscreen, tab ẩn có html.is-page-hidden; CSS đặt animation-play-state: paused cho cả cây con. */
+  function initAnimationPause() {
+    var root = document.documentElement;
+    document.addEventListener('visibilitychange', function () { root.classList.toggle('is-page-hidden', document.hidden); });
+    if (!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { e.target.classList.toggle('is-offscreen', !e.isIntersecting); });
+    }, { rootMargin: '100px 0px' });
+    // section ngoài cùng (không lồng trong section khác) + footer; khối lồng bên trong dừng theo section chứa nó
+    document.querySelectorAll('section, footer').forEach(function (el) {
+      if (!el.parentElement.closest('section')) io.observe(el);
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
+    initAnimationPause();
     initThemeToggle();
     initHeaderScroll();
     initMobileNav();
@@ -297,5 +365,6 @@ var KTPCase = window.KTPCase = (function () {
     initAccordion();
     initTabs();
     initLangToggle();
+    KTP.readMore();
   });
 })();
