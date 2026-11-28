@@ -16,11 +16,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  # Tách 2 job theo mẫu chuẩn của GitHub: upload xong ở job build thì job deploy mới đọc artifact.
+  # (Upload + deploy chung 1 job từng lỗi "Fetching artifact metadata failed / No artifacts named github-pages".)
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -32,6 +31,13 @@ jobs:
         with:
           path: .
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
